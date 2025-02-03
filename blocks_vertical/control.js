@@ -451,7 +451,7 @@ Blockly.Blocks['control_delete_this_clone'] = {
       "args0": [
       ],
       "category": Blockly.Categories.control,
-      "extensions": ["colours_control", "shape_end"]
+      "extensions": ["colours_control", "shape_statement"]
     });
   }
 };
