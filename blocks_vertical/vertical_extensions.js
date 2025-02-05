@@ -105,6 +105,18 @@ Blockly.ScratchBlocks.VerticalExtensions.SHAPE_END = function() {
 };
 
 /**
+ * Extension to make a block be shaped as a round reporter in Scratch-Blocks.
+ * That means the block has inline inputs, a round output shape, without a 'String'
+ * output type.
+ * @this {Blockly.Block}
+ * @readonly
+ */
+Blockly.ScratchBlocks.VerticalExtensions.SHAPE_ROUND = function() {
+  this.setInputsInline(true);
+  this.setOutputShape(Blockly.OUTPUT_SHAPE_ROUND);
+};
+
+/**
  * Extension to make represent a number reporter in Scratch-Blocks.
  * That means the block has inline inputs, a round output shape, and a 'Number'
  * output type.
@@ -258,6 +270,8 @@ Blockly.ScratchBlocks.VerticalExtensions.registerAll = function() {
       Blockly.ScratchBlocks.VerticalExtensions.SHAPE_HAT);
   Blockly.Extensions.register('shape_end',
       Blockly.ScratchBlocks.VerticalExtensions.SHAPE_END);
+  Blockly.Extensions.register('shape_round',
+        Blockly.ScratchBlocks.VerticalExtensions.SHAPE_ROUND);
 
   // Output shapes and types are related.
   Blockly.Extensions.register('output_number',

@@ -48,7 +48,9 @@ Blockly.Blocks['data_variable'] = {
       ],
       "category": Blockly.Categories.data,
       "checkboxInFlyout": true,
-      "extensions": ["contextMenu_getVariableBlock", "colours_data", "output_string"]
+      // UltiBlocks: Variable blocks are now allowed to go into any slot.
+      "output": null,
+      "extensions": ["contextMenu_getVariableBlock", "colours_data", "shape_round"]
     });
   }
 };
