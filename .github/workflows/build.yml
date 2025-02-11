@@ -6,6 +6,8 @@ on:
 
 jobs:
   build:
+    permissions:
+      contents: write
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
@@ -17,4 +19,13 @@ jobs:
         node-version: 20
         cache: npm
     - run: npm ci
-    - run: npm run test:lint
+    - run: npm run build
+    - run: rm .gitignore
+    - run: git add block*.js
+    - run: git commit -m "Updating build"
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        branch: developBuilds
+        directory: .
+        github_token: ${{ secrets.GITHUB_TOKEN }}
