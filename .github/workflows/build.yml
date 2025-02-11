@@ -19,7 +19,6 @@ jobs:
         node-version: 20
         cache: npm
     - run: npm ci
-    - run: npm run build
     - run: rm .gitignore
     - run: git add block*.js
     - run: git commit -m "Updating build"
