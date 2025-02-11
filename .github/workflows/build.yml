@@ -20,7 +20,10 @@ jobs:
         cache: npm
     - run: npm ci
     - run: rm .gitignore
-    - run: git add block*.js
+    - run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add block*.js
     - run: git commit -m "Updating build"
     - name: Push changes
       uses: ad-m/github-push-action@master
