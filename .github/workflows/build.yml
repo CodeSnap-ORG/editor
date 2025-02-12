@@ -21,7 +21,9 @@ jobs:
         node-version: 20
         cache: npm
     - run: npm ci
-    - run: rm .gitignore
+    - run: |
+        rm .gitignore
+        cp builds-gitignore .gitignore
     - run: |
         git branch -D developBuilds || true
         git branch developBuilds
