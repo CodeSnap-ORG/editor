@@ -22,7 +22,8 @@ jobs:
     - run: npm ci
     - run: rm .gitignore
     - run: |
-        git pull
+        git branch -D developBuilds
+        git branch developBuilds
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add block*.js
