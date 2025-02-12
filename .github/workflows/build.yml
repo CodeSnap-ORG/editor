@@ -24,7 +24,12 @@ jobs:
     - run: rm .gitignore
     - run: |
         git branch -D developBuilds || true
-        git push
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        directory: .
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+    - run: |
         git branch developBuilds
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
