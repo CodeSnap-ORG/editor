@@ -23,7 +23,7 @@ jobs:
     - run: npm ci
     - run: rm .gitignore
     - run: |
-        git branch -D developBuilds
+        git branch -D developBuilds || true
         git branch developBuilds
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
