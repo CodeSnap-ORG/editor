@@ -30,6 +30,7 @@ jobs:
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add block*.js
+        git add .gitignore
     - run: git commit -m "Updating build"
     - run: git restore .
     - name: Push changes
