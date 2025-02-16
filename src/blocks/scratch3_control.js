@@ -204,7 +204,7 @@ class Scratch3ControlBlocks {
     }
 
     ternary (args, util) {
-        return Cast.toBoolean(args.CONDITION) ? args.LEFT : args.RIGHT;
+        return Cast.toBoolean(args.CONDITION) ? Cast.toString(args.LEFT) : Cast.toString(args.RIGHT);
     }
 }
 
