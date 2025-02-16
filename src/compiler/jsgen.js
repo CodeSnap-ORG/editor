@@ -432,7 +432,10 @@ class JSGenerator {
         switch (node.kind) {
         case 'addons.call':
             return new TypedInput(`(${this.descendAddonCall(node)})`, TYPE_UNKNOWN);
-
+        case 'control.ternary':
+            console.log(node);
+            console.log(this.descendInput(node.condition).asBoolean());
+            return new TypedInput(`(${this.descendInput(node.condition).asBoolean()} ? ${this.descendInput(node.left).asString()} : ${this.descendInput(node.right).asString()})`,TYPE_UNKNOWN)
         case 'compat':
             // Compatibility layer inputs never use flags.
             return new TypedInput(`(${this.generateCompatibilityLayerCall(node, false)})`, TYPE_UNKNOWN);
