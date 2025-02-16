@@ -3,10 +3,10 @@ description: File a bug report.
 title: "[Bug]: "
 labels: ["bug"]
 body:
-  - type: markdown
-    attributes:
-      value: |
-        Keep in mind that bug reports should follow the [Scratch community guidelines](https://scratch.mit.edu/community_guidelines/).
+- type: markdown
+  attributes:
+    value: |
+      Keep in mind that bug reports should follow the [Scratch community guidelines](https://scratch.mit.edu/community_guidelines/).
 - type: textarea
     attributes:
       label: Expected behaviour
