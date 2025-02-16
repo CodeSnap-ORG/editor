@@ -169,6 +169,37 @@ Blockly.Blocks['control_if_else'] = {
   }
 };
 
+Blockly.Blocks['control_ternary'] = {
+  /**
+   * Block for ternary operators.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "type": "control_ternary",
+      "message0": "if %1 then %2 else %3",
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "CONDITION",
+          "check": "Boolean"
+        },
+        {
+          "type": "input_value",
+          "name": "LEFT"
+        },
+        {
+          "type": "input_value",
+          "name": "RIGHT"
+        }
+      ],
+      "category": Blockly.Categories.control,
+      "output": null,
+      "extensions": ["colours_control", "shape_square"]
+    });
+  }
+};
+
 Blockly.Blocks['control_stop'] = {
   /**
    * Block for stop all scripts.

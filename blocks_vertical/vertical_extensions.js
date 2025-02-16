@@ -117,6 +117,18 @@ Blockly.ScratchBlocks.VerticalExtensions.SHAPE_ROUND = function() {
 };
 
 /**
+ * Extension to make a block be shaped as a square. That means the block has
+ * a square output shape. This is not seen in vanilla Scratch, but is used in
+ * AmpMod for certain reporters, such as variables and lists.
+ * @this {Blockly.Block}
+ * @readonly
+ */
+Blockly.ScratchBlocks.VerticalExtensions.SHAPE_SQUARE = function() {
+  this.setInputsInline(true);
+  this.setOutputShape(Blockly.OUTPUT_SHAPE_SQUARE);
+};
+
+/**
  * Extension to make represent a number reporter in Scratch-Blocks.
  * That means the block has inline inputs, a round output shape, and a 'Number'
  * output type.
@@ -272,6 +284,8 @@ Blockly.ScratchBlocks.VerticalExtensions.registerAll = function() {
       Blockly.ScratchBlocks.VerticalExtensions.SHAPE_END);
   Blockly.Extensions.register('shape_round',
         Blockly.ScratchBlocks.VerticalExtensions.SHAPE_ROUND);
+  Blockly.Extensions.register('shape_square',
+        Blockly.ScratchBlocks.VerticalExtensions.SHAPE_SQUARE);
 
   // Output shapes and types are related.
   Blockly.Extensions.register('output_number',
