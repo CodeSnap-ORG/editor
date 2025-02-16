@@ -309,12 +309,18 @@ class ScriptTreeGenerator {
                 kind: 'motion.y'
             };
 
-        case 'operator_add':
-            return {
-                kind: 'op.add',
-                left: this.descendInputOfBlock(block, 'NUM1'),
-                right: this.descendInputOfBlock(block, 'NUM2')
-            };
+            case 'operator_add':
+                return {
+                    kind: 'op.add',
+                    left: this.descendInputOfBlock(block, 'NUM1'),
+                    right: this.descendInputOfBlock(block, 'NUM2')
+                };
+            case 'control_ternary':
+                return {
+                    kind: 'control.ternary',
+                    left: this.descendInputOfBlock(block, 'LEFT'),
+                    right: this.descendInputOfBlock(block, 'RIGHT')
+                };
         case 'operator_and':
             return {
                 kind: 'op.and',
