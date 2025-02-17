@@ -333,7 +333,13 @@ class ScriptTreeGenerator {
                 left: this.descendInputOfBlock(block, 'NUM1'),
                 right: this.descendInputOfBlock(block, 'NUM2')
             };
-        case 'operator_equals':
+            case 'operator_exponent':
+                return {
+                    kind: 'op.exponent',
+                    left: this.descendInputOfBlock(block, 'NUM1'),
+                    right: this.descendInputOfBlock(block, 'NUM2')
+                };
+            case 'operator_equals':
             return {
                 kind: 'op.equals',
                 left: this.descendInputOfBlock(block, 'OPERAND1'),
