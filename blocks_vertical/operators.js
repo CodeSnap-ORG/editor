@@ -124,6 +124,30 @@ Blockly.Blocks['operator_divide'] = {
   }
 };
 
+Blockly.Blocks['operator_exponent'] = {
+  /**
+   * Block for exponenting two numbers.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": "%1 ^ %2",
+      "args0": [
+        {
+          "type": "input_value",
+          "name": "NUM1"
+        },
+        {
+          "type": "input_value",
+          "name": "NUM2"
+        }
+      ],
+      "category": Blockly.Categories.operators,
+      "extensions": ["colours_operators", "output_number"]
+    });
+  }
+};
+
 Blockly.Blocks['operator_random'] = {
   /**
    * Block for picking a random number.
