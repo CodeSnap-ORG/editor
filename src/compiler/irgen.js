@@ -315,6 +315,13 @@ class ScriptTreeGenerator {
                 left: this.descendInputOfBlock(block, 'NUM1'),
                 right: this.descendInputOfBlock(block, 'NUM2')
             };
+        case 'control_ternary':
+            return {
+                kind: 'control.ternary',
+                condition: this.descendInputOfBlock(block, 'CONDITION'),
+                left: this.descendInputOfBlock(block, 'LEFT'),
+                right: this.descendInputOfBlock(block, 'RIGHT')
+            };
         case 'operator_and':
             return {
                 kind: 'op.and',
