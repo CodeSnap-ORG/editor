@@ -128,6 +128,9 @@ class Scratch3ProcedureBlocks {
             if (lowercaseValue === 'is ultiblocks?') {
                 return true;
             }
+            if (lowercaseValue === 'is ampmod?') {
+                return true;
+            }
             // When the parameter is not found in the most recent procedure
             // call, the default is always 0.
             return 0;
