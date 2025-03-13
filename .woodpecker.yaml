@@ -14,26 +14,21 @@ steps:
       # Avoid permission denied errors
       - chmod -R a+w .
       # Set up git in a working way
-      - git config --global --add safe.directory /woodpecker/src/codeberg.org/AmpMod/scratch-blocks/build
+      - git config --global --add safe.directory /woodpecker/src/codeberg.org/AmpMod/scratch-blocks
       - git config --global user.email "no@thankyou.com"
       - git config --global user.name "CI Builder"
-      # clone and move the target repo
-      - git clone -b pages https://codeberg.org/AmpMod/scratch-blocks.git build
-      - chmod -R a+w build
-      - cd build
+      # checkout the target repo
+      - git checkout developBuilds
+      - chmod -R a+w .
       # Prepare for push
       - git remote set-url origin https://$CBTOKEN@codeberg.org/AmpMod/scratch-blocks.git
       - git rm -r -f ./**/*
       - git commit -m 'Woodpecker CI - Clean up.'
-      - cd ..
       # Run 11ty build stage
       - npm install
       - npm run translate
       - npm run prepublish
-      # Only needed for custom domains
-      # - cp domains build/.domains
       # Push to target
-      - cd build
       - git add --all
       - git commit -m "Woodpecker CI Build at $( env TZ=America/Chicago date +'%Y-%m-%d %X %Z' )"
       - git push -u origin developBuilds
