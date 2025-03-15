@@ -487,6 +487,8 @@ class JSGenerator {
             return new TypedInput('limitPrecision(target.x)', TYPE_NUMBER);
         case 'motion.y':
             return new TypedInput('limitPrecision(target.y)', TYPE_NUMBER);
+        case 'motion.xy':
+            return new TypedInput('[limitPrecision(target.x), limitPrecision(target.y)]', TYPE_UNKNOWN)
 
         case 'mouse.down':
             return new TypedInput('runtime.ioDevices.mouse.getIsDown()', TYPE_BOOLEAN);
@@ -494,6 +496,8 @@ class JSGenerator {
             return new TypedInput('runtime.ioDevices.mouse.getScratchX()', TYPE_NUMBER);
         case 'mouse.y':
             return new TypedInput('runtime.ioDevices.mouse.getScratchY()', TYPE_NUMBER);
+        case 'motion.xy':
+            return new TypedInput('[runtime.ioDevices.mouse.getScratchX(), runtime.ioDevices.mouse.getScratchY()]', TYPE_UNKNOWN)    
 
         case 'noop':
             return new TypedInput('""', TYPE_STRING);
@@ -504,7 +508,7 @@ class JSGenerator {
             // Needs to be marked as NaN because Math.acos(1.0001) === NaN
             return new TypedInput(`((Math.acos(${this.descendInput(node.value).asNumber()}) * 180) / Math.PI)`, TYPE_NUMBER_NAN);
         case 'op.add':
-            // Nee0 **ds to be marked as NaN because Infinity + -Infinity === NaN
+            // Needs to be marked as NaN because Infinity + -Infinity === NaN
             return new TypedInput(`(${this.descendInput(node.left).asNumber()} + ${this.descendInput(node.right).asNumber()})`, TYPE_NUMBER_NAN);
         case 'op.exponent':
             return new TypedInput(`(${this.descendInput(node.left).asNumber()} ** ${this.descendInput(node.right).asNumber()})`, TYPE_NUMBER_NAN);
@@ -608,6 +612,8 @@ class JSGenerator {
             return new TypedInput(`!${this.descendInput(node.operand).asBoolean()}`, TYPE_BOOLEAN);
         case 'op.or':
             return new TypedInput(`(${this.descendInput(node.left).asBoolean()} || ${this.descendInput(node.right).asBoolean()})`, TYPE_BOOLEAN);
+        case 'op.and':
+            return new TypedInput(`(${this.descendInput(node.left).asBoolean()} && ${this.descendInput(node.right).asBoolean()})`, TYPE_BOOLEAN);
         case 'op.random':
             if (node.useInts) {
                 // Both inputs are ints, so we know neither are NaN
@@ -715,7 +721,7 @@ class JSGenerator {
                     case 'costume #':
                         return new TypedInput(`(${objectReference} ? ${objectReference}.currentCostume + 1 : 0)`, TYPE_NUMBER);
                     case 'costume name':
-                        return new TypedInput(`(${objectReference} ? ${objectReference}.getCostumes()[${objectReference}.currentCostume].name : 0)`, TYPE_UNKNOWN);
+                        return new TypedInput(`(${objectReference} ? ${objectReference}.getCostumes()[${objectReference}.currentCostume}.name : 0)`, TYPE_UNKNOWN);
                     case 'size':
                         return new TypedInput(`(${objectReference} ? ${objectReference}.size : 0)`, TYPE_NUMBER);
                     }
@@ -745,9 +751,49 @@ class JSGenerator {
         case 'var.get':
             return this.descendVariable(node.variable);
 
+        case 'array.empty':
+            return new TypedInput('[]', TYPE_UNKNOWN);
+
+        case 'array.get': {
+            const index = this.descendInput(node.index);
+            if (environment.supportsNullishCoalescing) {
+                if (index.isAlwaysNumberOrNaN()) {
+                    return new TypedInput(`(${this.descendInput(node.array).asUnknown()}[(${index.asNumber()} | 0) - 1] ?? "")`, TYPE_UNKNOWN);
+                }
+                if (index instanceof ConstantInput && index.constantValue === 'last') {
+                    return new TypedInput(`(${this.descendInput(node.array).asUnknown()}[${this.descendInput(node.array).asUnknown()}.length - 1] ?? "")`, TYPE_UNKNOWN);
+                }
+            }
+            return new TypedInput(`listGet(${this.descendInput(node.array).asUnknown()}, ${index.asUnknown()})`, TYPE_UNKNOWN);
+        }
+
+        case 'array.indexOf':
+            return new TypedInput(`${this.descendInput(node.array).asUnknown()}.indexOf(${this.descendInput(node.item).asUnknown()})`, TYPE_NUMBER);
+
+        case 'array.contains':
+            return new TypedInput(`listContains(${this.descendInput(node.array).asUnknown()}, ${this.descendInput(node.item).asUnknown()})`, TYPE_BOOLEAN);
+
+        case 'array.length':
+            return new TypedInput(`${this.descendInput(node.array).asUnknown()}.length`, TYPE_NUMBER);
+
+        case 'array.insert':
+            return new TypedInput(`listInsert(${this.descendInput(node.array).asUnknown()}, ${this.descendInput(node.index).asUnknown()}, ${this.descendInput(node.item).asSafe()})`, TYPE_UNKNOWN);
+
+        case 'array.addFront':
+            return new TypedInput(`[...${this.descendInput(node.array).asUnknown()}, ${this.descendInput(node.item).asSafe()}]`, TYPE_UNKNOWN);
+
+        case 'array.addBack':
+            return new TypedInput(`[${this.descendInput(node.item).asSafe()}, ...${this.descendInput(node.array).asUnknown()}]`, TYPE_UNKNOWN);
+
+        case 'array.range':
+            return new TypedInput(`Array.from({length: Math.max(0, ${this.descendInput(node.end).asNumber()} - ${this.descendInput(node.start).asNumber()} + 1)}, (_, i) => i + ${this.descendInput(node.start).asNumber()})`, TYPE_UNKNOWN);
+
+        case 'array.delimited':
+            return new TypedInput(`(${this.descendInput(node.text).asString()}.split(${this.descendInput(node.delimiter).asString()}))`, TYPE_UNKNOWN);
+
         default:
             log.warn(`JS: Unknown input: ${node.kind}`, node);
-            throw new Error(`JS: Unknown input: ${node.kind}`);
+            throw new Error(`JS: Unknown input: ${node.kind}`);    
         }
     }
 

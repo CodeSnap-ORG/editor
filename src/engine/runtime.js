@@ -45,7 +45,8 @@ const defaultBlockPackages = {
     scratch3_sound: require('../blocks/scratch3_sound'),
     scratch3_sensing: require('../blocks/scratch3_sensing'),
     scratch3_data: require('../blocks/scratch3_data'),
-    scratch3_procedures: require('../blocks/scratch3_procedures')
+    scratch3_procedures: require('../blocks/scratch3_procedures'),
+    ampmod_arrays: require('../blocks/ampmod_arrays')
 };
 
 const interpolate = require('./tw-interpolate');

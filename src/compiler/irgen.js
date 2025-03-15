@@ -308,6 +308,10 @@ class ScriptTreeGenerator {
             return {
                 kind: 'motion.y'
             };
+        case 'motion_position':
+            return {
+                kind: 'motion.xy'
+            }
 
         case 'operator_add':
             return {
@@ -661,6 +665,74 @@ class ScriptTreeGenerator {
                 kind: 'tw.lastKeyPressed'
             };
 
+        case 'arrays_empty_array':
+            return {
+                kind: 'array.empty'
+            };
+
+        case 'arrays_item_of':
+            return {
+                kind: 'array.get',
+                array: this.descendInputOfBlock(block, 'VALUE'),
+                index: this.descendInputOfBlock(block, 'INDEX')
+            };
+
+        case 'arrays_item_no_of':
+            return {
+                kind: 'array.indexOf',
+                array: this.descendInputOfBlock(block, 'ARRAY'),
+                item: this.descendInputOfBlock(block, 'VALUE')
+            };
+
+        case 'arrays_contains':
+            return {
+                kind: 'array.contains',
+                array: this.descendInputOfBlock(block, 'VALUE'),
+                item: this.descendInputOfBlock(block, 'ARRAY')
+            };
+
+        case 'arrays_length':
+            return {
+                kind: 'array.length',
+                array: this.descendInputOfBlock(block, 'VALUE')
+            };
+
+        case 'arrays_in_front_of':
+            return {
+                kind: 'array.addFront',
+                array: this.descendInputOfBlock(block, 'ARRAY'),
+                item: this.descendInputOfBlock(block, 'ITEM')
+            };
+
+        case 'arrays_behind':
+            return {
+                kind: 'array.addBack',
+                array: this.descendInputOfBlock(block, 'ARRAY'),
+                item: this.descendInputOfBlock(block, 'ITEM')
+            };
+
+        case 'arrays_at':
+            return {
+                kind: 'array.insert',
+                array: this.descendInputOfBlock(block, 'ARRAY'),
+                index: this.descendInputOfBlock(block, 'INDEX'),
+                item: this.descendInputOfBlock(block, 'ITEM')
+            };
+
+        case 'arrays_range':
+            return {
+                kind: 'array.range',
+                start: this.descendInputOfBlock(block, 'START'),
+                end: this.descendInputOfBlock(block, 'END')
+            };
+
+        case 'arrays_delimited_to_array':
+            return {
+                kind: 'array.delimited',
+                text: this.descendInputOfBlock(block, 'TEXT'),
+                delimiter: this.descendInputOfBlock(block, 'DELIM')
+            };
+        
         default: {
             const opcodeFunction = this.runtime.getOpcodeFunction(block.opcode);
             if (opcodeFunction) {
