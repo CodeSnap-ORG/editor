@@ -61,35 +61,53 @@ Blockly.DataCategory = function(workspace) {
     Blockly.DataCategory.addHideVariable(xmlList, firstVariable);
   }
 
+  // We use our custom arrays system instead of lists now, so hide the lists
+  // category unless the legacy lists category is enabled.
+  var listCount = workspace.getVariablesOfType(Blockly.LIST_VARIABLE_TYPE).length;
+  var showReturn = (
+    Blockly.Procedures.DEFAULT_ENABLE_LISTS ?
+    listCount > 0 :
+    workspace.legacyListsEnabled
+  );
+
   // Now add list variables to the flyout
-  Blockly.DataCategory.addCreateButton(xmlList, workspace, 'LIST');
-  variableModelList = workspace.getVariablesOfType(Blockly.LIST_VARIABLE_TYPE);
-  variableModelList.sort(Blockly.VariableModel.compareByName);
-  for (var i = 0; i < variableModelList.length; i++) {
-    Blockly.DataCategory.addDataList(xmlList, variableModelList[i]);
-  }
+  if (showReturn) {
+    Blockly.DataCategory.addCreateButton(xmlList, workspace, 'LIST');
+    variableModelList = workspace.getVariablesOfType(Blockly.LIST_VARIABLE_TYPE);
+    variableModelList.sort(Blockly.VariableModel.compareByName);
+    for (var i = 0; i < variableModelList.length; i++) {
+      Blockly.DataCategory.addDataList(xmlList, variableModelList[i]);
+    }
 
-  if (variableModelList.length > 0) {
-    xmlList[xmlList.length - 1].setAttribute('gap', 28);
-    var firstVariable = variableModelList[0];
+    if (variableModelList.length > 0) {
+      xmlList[xmlList.length - 1].setAttribute('gap', 28);
+      var firstVariable = variableModelList[0];
 
-    Blockly.DataCategory.addAddToList(xmlList, firstVariable);
-    Blockly.DataCategory.addSep(xmlList);
-    Blockly.DataCategory.addDeleteOfList(xmlList, firstVariable);
-    Blockly.DataCategory.addDeleteAllOfList(xmlList, firstVariable);
-    Blockly.DataCategory.addInsertAtList(xmlList, firstVariable);
-    Blockly.DataCategory.addReplaceItemOfList(xmlList, firstVariable);
-    Blockly.DataCategory.addSep(xmlList);
-    Blockly.DataCategory.addItemOfList(xmlList, firstVariable);
-    Blockly.DataCategory.addItemNumberOfList(xmlList, firstVariable);
-    Blockly.DataCategory.addLengthOfList(xmlList, firstVariable);
-    Blockly.DataCategory.addListContainsItem(xmlList, firstVariable);
-    Blockly.DataCategory.addSep(xmlList);
-    Blockly.DataCategory.addShowList(xmlList, firstVariable);
-    Blockly.DataCategory.addHideList(xmlList, firstVariable);
+      Blockly.DataCategory.addAddToList(xmlList, firstVariable);
+      Blockly.DataCategory.addSep(xmlList);
+      Blockly.DataCategory.addDeleteOfList(xmlList, firstVariable);
+      Blockly.DataCategory.addInsertAtList(xmlList, firstVariable);
+      Blockly.DataCategory.addReplaceItemOfList(xmlList, firstVariable);
+      Blockly.DataCategory.addSep(xmlList);
+      Blockly.DataCategory.addItemOfList(xmlList, firstVariable);
+      Blockly.DataCategory.addItemNumberOfList(xmlList, firstVariable);
+      Blockly.DataCategory.addLengthOfList(xmlList, firstVariable);
+      Blockly.DataCategory.addListContainsItem(xmlList, firstVariable);
+      Blockly.DataCategory.addSep(xmlList);
+      Blockly.DataCategory.addShowList(xmlList, firstVariable);
+      Blockly.DataCategory.addHideList(xmlList, firstVariable);
+    }
   }
 
   return xmlList;
+};
+
+/**
+ * Enable the lists blocks by setting the legacyListsEnabled flag to true.
+ * @param {!Blockly.Workspace} workspace The workspace to enable lists for.
+ */
+Blockly.DataCategory.enableListsBlocks = function(workspace) {
+  workspace.legacyListsEnabled = true;
 };
 
 /**

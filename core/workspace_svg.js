@@ -2376,6 +2376,10 @@ Blockly.WorkspaceSvg.prototype.getGrid = function() {
   return this.grid_;
 };
 
+Blockly.WorkspaceSvg.prototype.enableLegacyLists = function() {
+    this.legacyListsEnabled = true;
+};
+
 // Export symbols that would otherwise be renamed by Closure compiler.
 Blockly.WorkspaceSvg.prototype['setVisible'] =
     Blockly.WorkspaceSvg.prototype.setVisible;

@@ -341,7 +341,7 @@ Blockly.Msg.PROCEDURE_USED = 'To delete a block definition, first remove all use
 
 // Lists
 // @todo Remove these once fully managed by Scratch VM / Scratch GUI
-Blockly.Msg.NEW_LIST = 'Make a List';
+Blockly.Msg.NEW_LIST = 'Make a List (legacy)';
 Blockly.Msg.NEW_LIST_TITLE = 'New list name:';
 Blockly.Msg.LIST_MODAL_TITLE = 'New List';
 Blockly.Msg.LIST_ALREADY_EXISTS = 'A list named "%1" already exists.';

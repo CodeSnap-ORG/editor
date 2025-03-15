@@ -931,14 +931,14 @@ Blockly.BlockSvg.prototype.computeInputWidth_ = function(input) {
   if (input.type == Blockly.INPUT_VALUE &&
       (!input.connection || !input.connection.isConnected())) {
     switch (input.connection.getOutputShape()) {
-      case Blockly.OUTPUT_SHAPE_SQUARE:
-        return Blockly.BlockSvg.INPUT_SHAPE_SQUARE_WIDTH;
-      case Blockly.OUTPUT_SHAPE_ROUND:
-        return Blockly.BlockSvg.INPUT_SHAPE_ROUND_WIDTH;
       case Blockly.OUTPUT_SHAPE_HEXAGONAL:
         return Blockly.BlockSvg.INPUT_SHAPE_HEXAGONAL_WIDTH;
+      case Blockly.OUTPUT_SHAPE_ROUND:
+        return Blockly.BlockSvg.INPUT_SHAPE_ROUND_WIDTH;
+      case Blockly.OUTPUT_SHAPE_SQUARE: // Add this case for Array
+        return Blockly.BlockSvg.INPUT_SHAPE_SQUARE_WIDTH;
       default:
-        return 0;
+        return Blockly.BlockSvg.INPUT_SHAPE_SQUARE_WIDTH;
     }
   } else {
     return 0;
@@ -1665,7 +1665,11 @@ Blockly.BlockSvg.getInputShapeInfo_ = function(shape) {
       inputShapeArgType = 'round';
       break;
     case Blockly.OUTPUT_SHAPE_SQUARE:
-    default:  // If the input connection is not connected, draw a hole shape.
+      inputShapePath = Blockly.BlockSvg.INPUT_SHAPE_SQUARE;
+      inputShapeWidth = Blockly.BlockSvg.INPUT_SHAPE_SQUARE_WIDTH;
+      inputShapeArgType = 'square';
+      break;
+    default:
       inputShapePath = Blockly.BlockSvg.INPUT_SHAPE_SQUARE;
       inputShapeWidth = Blockly.BlockSvg.INPUT_SHAPE_SQUARE_WIDTH;
       inputShapeArgType = 'square';

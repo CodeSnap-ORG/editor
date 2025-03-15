@@ -195,7 +195,7 @@ Blockly.Blocks['control_ternary'] = {
       ],
       "category": Blockly.Categories.control,
       "output": null,
-      "extensions": ["colours_control", "shape_square"]
+      "extensions": ["colours_control", "shape_round"]
     });
   }
 };
