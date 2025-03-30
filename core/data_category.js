@@ -63,11 +63,9 @@ Blockly.DataCategory = function(workspace) {
 
   // We use our custom arrays system instead of lists now, so hide the lists
   // category unless the legacy lists category is enabled.
-  var listCount = workspace.getVariablesOfType(Blockly.LIST_VARIABLE_TYPE).length;
+  variableList = workspace.getVariablesOfType(Blockly.LIST_VARIABLE_TYPE);
   var showReturn = (
-    Blockly.Procedures.DEFAULT_ENABLE_LISTS ?
-    listCount > 0 :
-    workspace.legacyListsEnabled
+    variableList.length > 0 || workspace.legacyListsEnabled
   );
 
   // Now add list variables to the flyout
