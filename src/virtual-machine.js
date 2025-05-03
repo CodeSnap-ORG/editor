@@ -647,7 +647,7 @@ class VirtualMachine extends EventEmitter {
 
         return zip.generateAsync({
             type: typeof optZipType === 'string' ? optZipType : 'blob',
-            mimeType: 'application/x.scratch.sprite3',
+            mimeType: 'application/x.ampmod.asz',
             compression: 'DEFLATE',
             compressionOptions: {
                 level: 6
