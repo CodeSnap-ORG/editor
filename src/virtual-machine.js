@@ -547,7 +547,7 @@ class VirtualMachine extends EventEmitter {
     saveProjectSb3 (type) {
         return this._saveProjectZip().generateAsync({
             type: type || 'blob',
-            mimeType: 'application/x.scratch.sb3',
+            mimeType: 'application/x.scratch.apz',
             compression: 'DEFLATE'
         });
     }
@@ -560,7 +560,7 @@ class VirtualMachine extends EventEmitter {
     saveProjectSb3Stream (type) {
         return this._saveProjectZip().generateInternalStream({
             type: type || 'arraybuffer',
-            mimeType: 'application/x.scratch.sb3',
+            mimeType: 'application/x.ampmod.apz',
             compression: 'DEFLATE'
         });
     }
