@@ -63,7 +63,7 @@ Blockly.DataCategory = function(workspace) {
 
   // We use our custom arrays system instead of lists now, so hide the lists
   // category unless the legacy lists category is enabled.
-  variableList = workspace.getVariablesOfType(Blockly.LIST_VARIABLE_TYPE);
+  const variableList = workspace.getVariablesOfType(Blockly.LIST_VARIABLE_TYPE);
   var showReturn = (
     variableList.length > 0 || workspace.legacyListsEnabled
   );
