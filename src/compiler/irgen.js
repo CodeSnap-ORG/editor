@@ -2,6 +2,7 @@ const Cast = require('../util/cast');
 const StringUtil = require('../util/string-util');
 const BlockType = require('../extension-support/block-type');
 const Variable = require('../engine/variable');
+const Platform = require('../engine/tw-platform');
 const log = require('../util/log');
 const {IntermediateScript, IntermediateRepresentation} = require('./intermediate');
 const compatBlocks = require('./compat-blocks');
@@ -188,6 +189,13 @@ class ScriptTreeGenerator {
                     return {
                         kind: 'tw.lastKeyPressed'
                     };
+                }
+                // Project platform
+                if (name.toLowerCase() === 'project platform') {
+                    return {
+                        kind: 'constant',
+                        value: Platform.name
+                    }
                 }
             }
             if (index === -1) {

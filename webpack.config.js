@@ -9,10 +9,14 @@ const base = {
         host: '0.0.0.0',
         port: process.env.PORT || 8073
     },
-    devtool: 'cheap-module-source-map',
+    devtool: process.env.NODE_ENV === 'production' ? false : 'eval-cheap-module-source-map',
+    cache: {
+        type: 'filesystem'
+    },
     output: {
         library: 'VirtualMachine',
-        filename: '[name].js'
+        filename: '[name].js',
+        pathinfo: false
     },
     module: {
         rules: [{
@@ -20,7 +24,8 @@ const base = {
             loader: 'babel-loader',
             include: path.resolve(__dirname, 'src'),
             query: {
-                presets: [['@babel/preset-env']]
+                presets: [['@babel/preset-env']],
+                cacheDirectory: true
             }
         },
         {
@@ -30,6 +35,13 @@ const base = {
                 outputPath: 'media/music/'
             }
         }]
+    },
+    resolve: {
+        cacheWithContext: false
+    },
+    watchOptions: {
+        ignored: /node_modules/,
+        poll: 1000
     },
     plugins: []
 };

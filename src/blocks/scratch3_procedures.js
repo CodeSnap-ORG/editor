@@ -1,3 +1,5 @@
+const TwPlatform = require('../engine/tw-platform');
+
 class Scratch3ProcedureBlocks {
     constructor (runtime) {
         /**
@@ -106,6 +108,11 @@ class Scratch3ProcedureBlocks {
             // tw: support legacy block
             if (String(args.VALUE).toLowerCase() === 'last key pressed') {
                 return util.ioQuery('keyboard', 'getLastKeyPressed');
+            }
+            // ampmod: support "project platform" block
+            if (String(args.VALUE).toLowerCase() === 'project platform') {
+                console.log(TwPlatform);
+                return TwPlatform.name;
             }
             // When the parameter is not found in the most recent procedure
             // call, the default is always 0.
