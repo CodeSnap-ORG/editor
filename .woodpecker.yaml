@@ -42,7 +42,6 @@ steps:
       - git config --global --add safe.directory /woodpecker/src/codeberg.org/ampmod/scratch-gui/build
       - git config --global user.email "no@thankyou.com"
       - git config --global user.name "CI Builder"
-      - git checkout stable
       # clone and move the target repo
       - git clone -b pages https://codeberg.org/ampmod/pages.git build
       - chmod -R a+w build
