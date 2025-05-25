@@ -62,7 +62,11 @@ const base = {
         symlinks: false,
         alias: {
             'text-encoding$': path.resolve(__dirname, 'src/lib/tw-text-encoder'),
-            'scratch-render-fonts$': path.resolve(__dirname, 'src/lib/tw-scratch-render-fonts')
+            'scratch-render-fonts$': path.resolve(__dirname, 'src/lib/tw-scratch-render-fonts'),
+            // AmpMod: React -> Preact
+            'react': 'preact/compat',
+            'react-dom/test-utils': 'preact/test-utils',
+            'react-dom': 'preact/compat'
         }
     },
     module: {
@@ -273,8 +277,8 @@ module.exports = [
                 publicPath: `${STATIC_PATH}/`
             },
             externals: {
-                'react': 'react',
-                'react-dom': 'react-dom'
+                'react': 'preact/compat',
+                'react-dom': 'preact/compat'
             },
             module: {
                 rules: base.module.rules.concat([
