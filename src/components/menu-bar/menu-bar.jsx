@@ -104,7 +104,7 @@ import oldtimeyLogo from './oldtimey-logo.svg';
 import sharedMessages from '../../lib/shared-messages';
 
 import SeeInsideButton from './tw-see-inside.jsx';
-import {notScratchDesktop} from '../../lib/isScratchDesktop.js';
+import isScratchDesktop, {notScratchDesktop} from '../../lib/isScratchDesktop.js';
 import {APP_NAME} from '../../lib/brand.js';
 
 import ampmodIcon from './ampmod.svg';
@@ -184,7 +184,8 @@ const AboutButton = props => (
     <Button
         className={classNames(styles.menuBarItem, styles.hoverable)}
         iconClassName={styles.aboutIcon}
-        iconSrc={aboutIcon}
+        iconSrc={ampmodIcon}
+        height={32}
         onClick={props.onClick}
     />
 );
@@ -548,17 +549,19 @@ class MenuBar extends React.Component {
                                 </MenuBarMenu>
                             </MenuLabel>
                         </div>}
-                        <a
-                            className={classNames(styles.menuBarItem, styles.hoverable)}
-                            href="/"
-                        >
-                            <img
-                                src={isAprilFools ? lampmodIcon : ampmodIcon}
-                                draggable={false}
-                                height={32}
-                                alt="AmpMod"
-                            />
-                        </a>
+                        {isScratchDesktop && aboutButton || (
+                            <a
+                                className={classNames(styles.menuBarItem, styles.hoverable)}
+                                href="/"
+                            >
+                                <img
+                                    src={isAprilFools ? lampmodIcon : ampmodIcon}
+                                    draggable={false}
+                                    height={32}
+                                    alt="AmpMod"
+                                />
+                            </a>
+                        )}
                         {(this.props.canChangeTheme || this.props.canChangeLanguage) && (<SettingsMenu
                             canChangeLanguage={this.props.canChangeLanguage}
                             canChangeTheme={this.props.canChangeTheme}
@@ -1013,29 +1016,29 @@ class MenuBar extends React.Component {
                         showSaveFilePicker={this.props.showSaveFilePicker}
                     />
                     {/* tw: add a feedback button */}
-                    <div className={styles.menuBarItem}>
-                        <a
-                            className={styles.feedbackLink}
-                            href="https://scratch.mit.edu/discuss/topic/806311"
-                            rel="noopener noreferrer"
-                            target="_blank"
-                        >
-                            {/* todo: icon */}
-                            <Button className={styles.feedbackButton}>
-                                <FormattedMessage
-                                    defaultMessage="AmpMod Forum Topic"
-                                    description="Button to give feedback in the menu bar"
-                                    id="tw.topicButton"
-                                    values={{
-                                        APP_NAME
-                                    }}
-                                />
-                            </Button>
-                        </a>
-                    </div>
+                    {notScratchDesktop() && (
+                        <div className={styles.menuBarItem}>
+                            <a
+                                className={styles.feedbackLink}
+                                href="https://scratch.mit.edu/discuss/topic/806311"
+                                rel="noopener noreferrer"
+                                target="_blank"
+                            >
+                                {/* todo: icon */}
+                                <Button className={styles.feedbackButton}>
+                                    <FormattedMessage
+                                        defaultMessage="AmpMod Forum Topic"
+                                        description="Button to give feedback in the menu bar"
+                                        id="tw.topicButton"
+                                        values={{
+                                            APP_NAME
+                                        }}
+                                    />
+                                </Button>
+                            </a>
+                        </div>
+                    )}
                 </div>
-
-                {aboutButton}
             </Box>
         );
     }
