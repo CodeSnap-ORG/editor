@@ -29,7 +29,7 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 src/lib/default-project/dango.svg is based on [Twemoji](https://twemoji.twitter.com/) and is licensed under CC BY 4.0 https://creativecommons.org/licenses/by/4.0/
 
-The AmpMod logo and Apple Cat are licenced under CC-BY-SA 4.0.
+The Apple Cat is licenced under CC-BY-SA 4.0. Since the AmpMod logo is just a simple word it is technically public domain, but the font used is Pixelify Sans under the OFL 1.1.
 
 <!--
 
