@@ -68,6 +68,9 @@ const funFacts = [
     'Tip: You said to press ANYTHING while doing a keyboard smash! What do you mean 7 is wrong?!',
     'Fun fact: We are cool',
     'How to AmpMod 101: Step 1: AmpMod.'
+    'Fun Fact: AmpMod should be finished on exactly Fruhebtember 60th, 29908.'
+    'april fool. not. :D'
+    'Fun? Fact: AmpMod is not loading. Oops :('
     ];
 
 class LoaderComponent extends React.Component {
