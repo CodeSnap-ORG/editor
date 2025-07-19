@@ -48,19 +48,20 @@ const messages = defineMessages({
 const funFacts = [
     'Fun fact: AmpMod is currently loading.',
     'Did you know? In AmpMod, you can put variables inside of boolean inputs.',
-    'Tip: You can use the "backpack" to store and reuse code snippets.',
-    'Did you know? You can change the stage size in AmpMod.',
-    'Fun Fact: AmpMod supports extensions for additional functionalities.',
-    'Tip: Use the "costumes" tab to change how your sprites look.',
-    'AmpMod was previously known as UltiBlocks.',
+    'Fun fact: AmpMod was previously known as UltiBlocks.',
     'I LOVE LIBREKITTEN!',
+    'I LOVE SNAIL IDE!',
+    'I LOVE UNSANDBOXED!',
+    'I LOVE TURBOWARP!',
+    'I LOVE SCRATCH!',
+    'I LOVE SCRATCH 2.0!',
     'YOU can contribute to AmpMod!',
-    'Skibidi dop dop dop yes yes',
     'Fun fact: Amp stands for A-MARIO-PLAYER',
     'Fun fact: Funding for AmpMod is provided by apple cats like you. Thank you!',
     'Fun fact: There was an error loading AmpMod. Please give 100 more energy units to AmpElectrecuted',
     'Fun fa-Sadly, this fact was eaten by an evil kumquat.',
     'Fun fact: qwertyuiopasdfghjklzxcvbnm',
+    'Fun fact: Some AmpMod projects can be uploaded to Scratch.',
     'Did you know? There is an AmpMod wiki on Miraheze',
     'Did you know? The Witch sprite was originally going to be the AmpMod mascot',
     "'How to make computer in AmpMod' Oh wait, this isn't Google, is it?",
@@ -68,9 +69,12 @@ const funFacts = [
     'Tip: You said to press ANYTHING while doing a keyboard smash! What do you mean 7 is wrong?!',
     'Fun fact: We are cool',
     'How to AmpMod 101: Step 1: AmpMod.',
-    'Fun Fact: AmpMod should be finished on exactly Fruhebtember 60th, 29908.',
+    'Fun fact: AmpMod should be finished on exactly Fruhebtember 60th, 29908.',
     'april fool. not. :D',
-    'Fun? Fact: AmpMod is not loading. Oops :('
+    'Fun? fact: AmpMod is not loading. Oops :(',
+    'Fun fact: There were 2 AmpMod topics on the Scratch forums, but one was dustbinned.',
+    'Fun fact: AmpMod used to be hosted on GitHub, but is now hosted on Codeberg with source code on both.',
+    'Fun fact: AmpMod is free software under the GNU GPL.'
     ];
 
 class LoaderComponent extends React.Component {
