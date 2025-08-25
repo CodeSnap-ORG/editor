@@ -1,0 +1,1 @@
+sed $SED_ARGS 's|codeberg.org/ampmod/[^.]*.git#develop|codeberg.org/ampmod/[^.]*.git#production|g' "package.json"
