@@ -27,12 +27,7 @@
 
 steps:
   - name: build
-  - when:
-      event:
-        - push
-        - manual
-        - cron
-      branch: develop
+  - when: [push, manual, cron]
     # Use the official jekyll build container
     image: node
     environment:
