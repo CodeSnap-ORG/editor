@@ -42,7 +42,6 @@
     "@turbowarp/startaudiocontext": "^1.0.0",
     "arraybuffer-loader": "^1.0.8",
     "autoprefixer": "^9.8.8",
-    "babel": "^5.8.38",
     "balance-text": "3.3.1",
     "base64-loader": "1.0.0",
     "bowser": "1.9.4",
