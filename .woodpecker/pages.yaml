@@ -28,7 +28,6 @@
 steps:
   - name: build
     when:
-      event:
       - event: push
         branch: production
       - event: manual
