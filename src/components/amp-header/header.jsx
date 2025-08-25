@@ -38,7 +38,7 @@ const Header = () => {
                 <a href="/credits.html" className={classNames(styles.headerItem, styles.hoverable)}>
                     Credits
                 </a>
-                <a href="https://scratch.mit.edu/discuss/topic/806311" className={classNames(styles.headerItem, styles.hoverable)}>
+                <a href="https://ampmod.flarum.cloud" className={classNames(styles.headerItem, styles.hoverable)}>
                     Discuss
                 </a>
                 <a href="https://codeberg.org/AmpMod" className={classNames(styles.headerItem, styles.hoverable)}>

@@ -251,11 +251,11 @@ class Interface extends React.Component {
                                         values={{
                                             link: (
                                                 <a
-                                                    href="https://scratch.mit.edu/discuss/topic/806311"
+                                                    href="https://ampmod.flarum.cloud"
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                 >
-                                                    {'https://scratch.mit.edu/discuss/topic/806311'}
+                                                    {'https://ampmod.flarum.cloud'}
                                                 </a>
                                             )
                                         }}

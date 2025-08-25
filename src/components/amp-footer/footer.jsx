@@ -162,9 +162,9 @@ const Footer = () => {
                         </a>
                     </div>
                     <div className={styles.footerSection}>
-                        <a href="https://scratch.mit.edu/discuss/topic/806311">
+                        <a href="https://ampmod.flarum.cloud">
                             <FormattedMessage
-                                defaultMessage="AmpMod Forum Topic"
+                                defaultMessage="AmpMod Forums"
                                 description="Button to give feedback in the menu bar"
                                 id="tw.topicButton"
                                 values={{

@@ -62,8 +62,8 @@ const Home = () => (
             <section>
                 <h2>Need help?</h2>
                 {/* If you are modifying AmpMod, you should replace or remove these links */}
-                <a href="https://scratch.mit.edu/discuss/topic/806311" className={`${homeStyles.button} ${homeStyles.marginRight}`}>
-                    Visit the forum topic
+                <a href="https://ampmod.flarum.cloud" className={`${homeStyles.button} ${homeStyles.marginRight}`}>
+                    Visit the forums
                 </a>
                 <a href="https://ultiblocks.miraheze.org/wiki/Main_Page" className={homeStyles.button}>
                     Visit the wiki
