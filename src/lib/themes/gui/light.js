@@ -92,7 +92,10 @@ const guiColors = {
     'paint-looks-transparent': 'var(--looks-transparent)',
     'paint-input-background': 'var(--input-background)',
     'paint-popover-background': 'var(--popover-background)',
-    'paint-filter-icon-gray': 'none'
+    'paint-filter-icon-gray': 'none',
+
+    'turbowarp-color': '#ff4c4c',
+    'turbowarp-transparent': '#ff4c4c26',
 };
 
 const blockColors = {};
