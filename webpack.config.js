@@ -41,10 +41,10 @@ const base = {
         historyApiFallback: {
             rewrites: [
                 {from: /^\/\d+\/?$/, to: '/index.html'},
-                {from: /^\/\d+\/fullscreen\/?$/, to: '/fullscreen.html'},
-                {from: /^\/\d+\/editor\/?$/, to: '/editor.html'},
-                {from: /^\/\d+\/embed\/?$/, to: '/embed.html'},
-                {from: /^\/addons\/?$/, to: '/addons.html'}
+                {from: /^\/\d+\/fullscreen\/?$/, to: '/amfullscreen.html'},
+                {from: /^\/\d+\/editor\/?$/, to: '/ameditor.html'},
+                {from: /^\/\d+\/embed\/?$/, to: '/amembed.html'},
+                {from: /^\/addons\/?$/, to: '/amaddons.html'}
             ]
         }
     },
@@ -184,7 +184,7 @@ module.exports = [
             new HtmlWebpackPlugin({
                 chunks: ['editor'],
                 template: 'src/playground/index.ejs',
-                filename: 'editor.html',
+                filename: 'ameditor.html',
                 title: APP_NAME,
                 isEditor: true,
                 ...htmlWebpackPluginCommon
@@ -192,14 +192,14 @@ module.exports = [
             new HtmlWebpackPlugin({
                 chunks: ['player'],
                 template: 'src/playground/simple.ejs',
-                filename: 'player.html',
+                filename: 'amplayer.html',
                 title: APP_NAME,
                 ...htmlWebpackPluginCommon
             }),
             new HtmlWebpackPlugin({
                 chunks: ['fullscreen'],
                 template: 'src/playground/index.ejs',
-                filename: 'fullscreen.html',
+                filename: 'amfullscreen.html',
                 title: APP_NAME,
                 ...htmlWebpackPluginCommon
             }),
@@ -227,14 +227,14 @@ module.exports = [
             new HtmlWebpackPlugin({
                 chunks: ['addon-settings'],
                 template: 'src/playground/simple.ejs',
-                filename: 'addons.html',
+                filename: 'amaddons.html',
                 title: `Addon Settings - ${APP_NAME}`,
                 ...htmlWebpackPluginCommon
             }),
             new HtmlWebpackPlugin({
                 chunks: ['credits'],
                 template: 'src/playground/simple.ejs',
-                filename: 'credits.html',
+                filename: 'amcredits.html',
                 title: `Credits`,
                 ...htmlWebpackPluginCommon
             }),
