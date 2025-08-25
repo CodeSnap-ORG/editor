@@ -4,10 +4,9 @@
 /terms  /amterms.html 200
 /fullscreen /amfullscreen.html 200
 /addons /amaddons.html 200
-
-/editor.html /ameditor.html 301
-/player.html /amplayer.html 301
-/credits.html /amcredits.html 301
-/terms.html /amterms.html 301
-/fullscreen.html /amfullscreen.html 301
-/addons.html /amaddons.html 301
+/editor.html /editor 301
+/player.html /player 301
+/credits.html /credits 301
+/terms.html /terms 301
+/fullscreen.html /fullscreen 301
+/addons.html /addons 301
