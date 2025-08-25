@@ -32,8 +32,6 @@ steps:
         branch: develop
       - event: manual
         branch: develop
-      - event: cron
-        branch: develop
     # Use the official jekyll build container
     image: node
     environment:
