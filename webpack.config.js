@@ -63,10 +63,6 @@ const base = {
         alias: {
             'text-encoding$': path.resolve(__dirname, 'src/lib/tw-text-encoder'),
             'scratch-render-fonts$': path.resolve(__dirname, 'src/lib/tw-scratch-render-fonts'),
-            // AmpMod: React -> Preact
-            'react': 'preact/compat',
-            'react-dom/test-utils': 'preact/test-utils',
-            'react-dom': 'preact/compat'
         }
     },
     module: {
@@ -275,10 +271,6 @@ module.exports = [
                 chunkFilename: 'js/[name].js',
                 path: path.resolve('dist'),
                 publicPath: `${STATIC_PATH}/`
-            },
-            externals: {
-                'react': 'preact/compat',
-                'react-dom': 'preact/compat'
             },
             module: {
                 rules: base.module.rules.concat([
