@@ -19,6 +19,7 @@ if (root.length > 0 && !root.endsWith('/')) {
     throw new Error('If ROOT is defined, it must have a trailing slash.');
 }
 
+const IS_CBP_BUILD = Boolean(process.env.IS_CBP_BUILD);
 const htmlWebpackPluginCommon = {
     root: root,
     meta: JSON.parse(process.env.EXTRA_META || '{}'),
@@ -179,12 +180,14 @@ module.exports = [
                 'process.env.ENABLE_SERVICE_WORKER': JSON.stringify(process.env.ENABLE_SERVICE_WORKER || ''),
                 'process.env.ROOT': JSON.stringify(root),
                 'process.env.ROUTING_STYLE': JSON.stringify(process.env.ROUTING_STYLE || 'filehash'),
-                'ampmod_version': JSON.stringify(process.env.npm_package_version) // Added this line
+                'process.env.ampmod_version': JSON.stringify(process.env.npm_package_version),
+                'process.env.ampmod_is_canary': process.env.BUILD_MODE === 'canary',
+                'process.env.ampmod_is_cbp': IS_CBP_BUILD,
             }),
             new HtmlWebpackPlugin({
                 chunks: ['editor'],
                 template: 'src/playground/index.ejs',
-                filename: 'ameditor.html',
+                filename: IS_CBP_BUILD ? 'ameditor.html' : 'editor.html',
                 title: APP_NAME,
                 isEditor: true,
                 ...htmlWebpackPluginCommon
@@ -192,49 +195,49 @@ module.exports = [
             new HtmlWebpackPlugin({
                 chunks: ['player'],
                 template: 'src/playground/simple.ejs',
-                filename: 'amplayer.html',
+                filename: IS_CBP_BUILD ? 'amplayer.html' : 'player.html',
                 title: APP_NAME,
                 ...htmlWebpackPluginCommon
             }),
             new HtmlWebpackPlugin({
                 chunks: ['fullscreen'],
                 template: 'src/playground/index.ejs',
-                filename: 'amfullscreen.html',
+                filename: IS_CBP_BUILD ? 'amfullscreen.html' : 'fullscreen.html',
                 title: APP_NAME,
                 ...htmlWebpackPluginCommon
             }),
             new HtmlWebpackPlugin({
                 chunks: ['embed'],
                 template: 'src/playground/embed.ejs',
-                filename: 'embed.html',
+                filename: IS_CBP_BUILD ? 'amembed.html' : 'embed.html',
                 title: `Embedded Project - ${APP_NAME}`,
                 ...htmlWebpackPluginCommon
             }),
             new HtmlWebpackPlugin({
                 chunks: ['home'],
                 template: 'src/playground/simple.ejs',
-                filename: 'index.html',
+                filename: IS_CBP_BUILD ? 'amindex.html' : 'index.html',
                 title: `Home - ${APP_NAME}`,
                 ...htmlWebpackPluginCommon
             }),
             new HtmlWebpackPlugin({
                 chunks: ['terms'],
                 template: 'src/playground/simple.ejs',
-                filename: 'terms.html',
+                filename: IS_CBP_BUILD ? 'amterms.html' : 'terms.html',
                 title: `Terms of Service - ${APP_NAME}`,
                 ...htmlWebpackPluginCommon
             }),
             new HtmlWebpackPlugin({
                 chunks: ['addon-settings'],
                 template: 'src/playground/simple.ejs',
-                filename: 'amaddons.html',
+                filename: IS_CBP_BUILD ? 'amaddons.html' : 'addons.html',
                 title: `Addon Settings - ${APP_NAME}`,
                 ...htmlWebpackPluginCommon
             }),
             new HtmlWebpackPlugin({
                 chunks: ['credits'],
                 template: 'src/playground/simple.ejs',
-                filename: 'amcredits.html',
+                filename: IS_CBP_BUILD ? 'amcredits.html' : 'credits.html',
                 title: `Credits`,
                 ...htmlWebpackPluginCommon
             }),

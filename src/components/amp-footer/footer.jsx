@@ -47,7 +47,7 @@ const Footer = () => {
         <footer className={styles.footer}>
             <div className={styles.footerContent}>
                 <div className={styles.footerText}>
-                    AmpMod v{ampmod_version}
+                    AmpMod v{process.env.ampmod_version}
                     <span className={styles.separator}></span>
                     <a className={styles.footerResetData} onClick={eraseData}>
                         <FormattedMessage

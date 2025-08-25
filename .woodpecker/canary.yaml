@@ -56,7 +56,8 @@ steps:
       - cd ..
       # Run 11ty build stage
       - npm ci
-      - npm run ci-build
+      # Don't specify CBP build mode since redirects aren't properly implemented in canary
+      - BUILD_MODE=canary npm run ci-build
       # Only needed for custom domains
       # - cp domains build/.domains
       # Push to target

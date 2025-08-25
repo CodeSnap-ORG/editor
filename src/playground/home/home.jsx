@@ -38,6 +38,19 @@ const Home = () => (
                 </p>
             </div>
         </section> */}
+        {process.env.ampmod_is_canary && (
+            <section>
+                <h2>Your projects should never live in a coal mine!</h2>
+                <p>
+                    This is a canary build. Please do not create full projects in this build.
+                    Storage here is separated from the production site.
+                </p>
+                <p>
+                    Report any issues on the Codeberg repository instead of on the Bugs and Glitches
+                    forum tag.
+                </p>
+            </section>
+        )}
         <main className={`${styles.main} ${homeStyles.center}`}>
             <section>
                 <h2>What is {APP_NAME}?</h2>

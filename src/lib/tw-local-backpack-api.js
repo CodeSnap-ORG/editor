@@ -5,7 +5,7 @@ import {arrayBufferToBase64, base64ToArrayBuffer} from './tw-base64-utils';
 import {requestPersistentStorage} from './tw-persistent-storage';
 
 // Special constants -- do not change without care.
-const DATABASE_NAME = 'TW_Backpack';
+const DATABASE_NAME = process.env.ampmod_is_canary ? 'Canary_Backpack' : 'TW_Backpack';
 const DATABASE_VERSION = 1;
 const STORE_NAME = 'backpack';
 

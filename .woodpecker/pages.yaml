@@ -56,7 +56,7 @@ steps:
       - cd ..
       # Run 11ty build stage
       - npm ci
-      - npm run ci-build
+      - IS_CBP_BUILD=true npm run ci-build
       # Only needed for custom domains
       # - cp domains build/.domains
       # Push to target

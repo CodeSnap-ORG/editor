@@ -1,5 +1,6 @@
 import JSZip from '@turbowarp/jszip';
 import {base64ToArrayBuffer} from './tw-base64-utils';
+import { a } from 'bowser';
 
 const TYPE_AUTOMATIC = 0;
 const TYPE_MANUAL = 1;
@@ -20,7 +21,7 @@ const TYPE_MANUAL = 1;
  * @property {Record<string, number>} assets maps md5exts to size in bytes
  */
 
-const DATABASE_NAME = 'TW_RestorePoints';
+const DATABASE_NAME = process.env.ampmod_is_canary ? "Canary_RestorePoints" : "TW_RestorePoints";
 const DATABASE_VERSION = 2;
 const METADATA_STORE = 'meta';
 const PROJECT_STORE = 'projects';
