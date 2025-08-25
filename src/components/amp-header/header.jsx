@@ -8,6 +8,7 @@ import bowser from 'bowser';
 import React from 'react';
 import Logo from './ampmod.svg';
 import FakeLogo from './lampmod.svg';
+import CanaryLogo from './ampmod-canary.svg';
 
 import Button from '../button/button.jsx';
 
@@ -30,7 +31,7 @@ const Header = () => {
         <div className={styles.header}>
             <div className={styles.mainGroup}>
                 <a href="/" className={classNames(styles.headerItem, styles.hoverable)}>
-                    <img height="32px" src={showFakeLogo ? FakeLogo : Logo} alt={showFakeLogo ? "LampMod Logo" : "AmpMod Logo"} />
+                    <img height="32px" src={process.env.ampmod_is_canary ? CanaryLogo : (showFakeLogo ? FakeLogo : Logo)} alt={(showFakeLogo && !process.env.ampmod_is_canary) ? "LampMod Logo" : "AmpMod Logo"} />
                 </a>
                 <a href="/editor.html" className={classNames(styles.headerItem, styles.hoverable)}>
                     Create

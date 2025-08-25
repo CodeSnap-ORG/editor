@@ -108,6 +108,7 @@ import isScratchDesktop, {notScratchDesktop} from '../../lib/isScratchDesktop.js
 import {APP_NAME} from '../../lib/brand.js';
 
 import ampmodIcon from './ampmod.svg';
+import ampmodCanaryIcon from './ampmod-canary.svg';
 import lampmodIcon from './lampmod.svg';
 
 const ariaMessages = defineMessages({
@@ -555,7 +556,7 @@ class MenuBar extends React.Component {
                                 href="/"
                             >
                                 <img
-                                    src={isAprilFools ? lampmodIcon : ampmodIcon}
+                                    src={process.env.ampmod_is_canary ? ampmodCanaryIcon : (isAprilFools ? lampmodIcon : ampmodIcon)}
                                     draggable={false}
                                     height={32}
                                     alt="AmpMod"
