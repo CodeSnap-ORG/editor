@@ -1,6 +1,6 @@
-chrome >= 70
-chromeandroid >= 70
-ios >= 12
-safari >= 12
-edge >= 18
-firefox >= 68
+not dead
+last 2 versions
+> 0.5%
+Firefox ESR
+not op-mini all
+not ie all
