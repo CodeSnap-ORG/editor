@@ -9,12 +9,12 @@ import reloadIcon from './reload.svg';
 const CrashMessage = props => (
     <div className={styles.crashWrapper}>
         <Box className={styles.body}>
-            <img
-                className={styles.reloadIcon}
-                src={reloadIcon}
-                draggable={false}
-            />
             <p className={styles.header}>
+                <img
+                    className={styles.reloadIcon}
+                    src={reloadIcon}
+                    draggable={false}
+                />
                 <FormattedMessage
                     defaultMessage="Oops! Something went wrong."
                     description="Crash Message title"
@@ -23,11 +23,40 @@ const CrashMessage = props => (
             </p>
             <p>
                 <FormattedMessage
-                    defaultMessage={'We are so sorry, but it looks like the page has crashed.' +
+                    defaultMessage={'This page has crashed.' +
                         ' Please refresh your page to try' +
-                        ' again.'}
+                        ' again. If this continues, please report the error to' +
+                        ' the {forumLink} or {issueTracker}.'}
                     description="Message to inform the user that page has crashed."
                     id="tw.gui.crashMessage.description"
+                    values={{
+                        forumLink: (
+                            <a
+                                href="https://ampmod.flarum.cloud"
+                                rel="noreferrer noopener"
+                                target="_blank"
+                            >
+                                <FormattedMessage
+                                    defaultMessage="forums"
+                                    description="Link text to the AmpMod forums"
+                                    id="gui.crashMessage.forumLinkText"
+                                />
+                            </a>
+                        ),
+                        issueTracker: (
+                            <a
+                                href="https://codeberg.org/ampmod/scratch-gui/issues"
+                                rel="noreferrer noopener"
+                                target="_blank"
+                            >
+                                <FormattedMessage
+                                    defaultMessage="issue tracker"
+                                    description="Link text to the AmpMod issue tracker"
+                                    id="gui.crashMessage.issueTrackerLinkText"
+                                />
+                            </a>
+                        )   
+                    }}
                 />
             </p>
             {props.errorMessage && (
@@ -57,6 +86,51 @@ const CrashMessage = props => (
                     id="gui.crashMessage.reload"
                 />
             </button>
+            <p>
+                <FormattedMessage
+                    defaultMessage="Try {clearCache} or {eraseData}, which may fix some issues."
+                    description="Message to inform the user that clearing cache or erasing data may fix some issues."
+                    id="tw.gui.crashMessage.clearCacheOrEraseData"
+                    values={{
+                        clearCache: (
+                            <a
+                                href="#"
+                                onClick={() => {
+                                    var search = location.search.replace(/[?&]nocache=\d+/, '');
+                                    location.replace(location.pathname + search + (search ? '&' : '?') + 'nocache=' + Math.floor(Math.random() * 100000));
+                                }}
+                            >
+                                <FormattedMessage
+                                    defaultMessage="bypassing the cache"
+                                    description="Link text to bypass cache"
+                                    id="gui.crashMessage.bypassCacheLinkText"
+                                />
+                            </a>
+                        ),
+                        eraseData: (
+                            <a
+                                href="#"
+                                onClick={() => {
+                                    if (window.confirm('Your backpack and restore points will be deleted. Continue?')) {
+                                        window.indexedDB.deleteDatabase('TW_RestorePoints');
+                                        window.indexedDB.deleteDatabase('TW_Backpack');
+                                        window.localStorage.removeItem('tw:theme');
+                                        window.localStorage.removeItem('tw:username');
+                                        window.localStorage.removeItem('tw:language');
+                                        window.location.reload();
+                                    }
+                                }}
+                            >
+                                <FormattedMessage
+                                    defaultMessage="erasing AmpMod's data"
+                                    description="Link text to delete AmpMod's site data"
+                                    id="gui.crashMessage.eraseDataLinkText"
+                                />
+                            </a>
+                        )
+                    }}
+                />
+            </p>
         </Box>
     </div>
 );
