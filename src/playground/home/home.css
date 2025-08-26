@@ -7,10 +7,9 @@ section {
 .notification {
     background-color: $data-primary;
     color: white;
-    max-width: 600px;
-    margin: auto;
-    padding: 10px;
-    border-radius: 10px;
+    width: 100%;
+    padding: 0.2em;
+    font-weight: bold;
 }
 
 .primary-button {
