@@ -81,7 +81,7 @@ const Credits = () => (
                 </p>
             </section>
             {/* Please don't remove this. Be nice! */}
-            {APP_NAME !== 'AmpMod' && (
+            {APP_NAME !== 'AmpMod' && APP_NAME !== 'AmpMod (canary build)' && (
                 <section>
                     <h2>AmpMod</h2>
                     <p>
