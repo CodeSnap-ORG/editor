@@ -33,7 +33,9 @@ const base = {
     mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
     devtool: process.env.SOURCEMAP || (process.env.NODE_ENV === 'production' ? false : 'cheap-module-source-map'),
     devServer: {
+        contentBase: path.resolve(__dirname, 'build'),
         host: '0.0.0.0',
+        disableHostCheck: true,
         compress: true,
         port: process.env.PORT || 8601,
         // allows ROUTING_STYLE=wildcard to work properly
@@ -66,7 +68,7 @@ const base = {
     },
     module: {
         rules: [{
-            test: /\jsx?$/,
+            test: /\.jsx?$/,
             loader: 'babel-loader',
             include: [
                 path.resolve(__dirname, 'src'),
@@ -101,19 +103,20 @@ const base = {
             }, {
                 loader: 'postcss-loader',
                 options: {
-                    postcssOptions: {
-                        plugins: [
+                    ident: 'postcss',
+                    plugins: function () {
+                        return [
                             postcssImport,
                             postcssVars,
                             autoprefixer
-                        ]
+                        ];
                     }
                 }
             }]
         },
         {
             test: /\.(svg|png|wav|mp3|gif|jpg|woff2|hex)$/,
-            loader: 'asset/source',
+            loader: 'url-loader',
             options: {
                 limit: 8192, // Convert images < 8kb to base64 strings
                 outputPath: 'static/assets/',
@@ -276,7 +279,7 @@ module.exports = [
                 rules: base.module.rules.concat([
                     {
                         test: /\.(svg|png|wav|mp3|gif|jpg|woff2|hex)$/,
-                        loader: 'asset/source',
+                        loader: 'url-loader',
                         options: {
                             limit: 2048,
                             outputPath: 'static/assets/',
