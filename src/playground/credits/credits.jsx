@@ -158,10 +158,7 @@ const Credits = () => (
             <section>
                 <h2>Fonts</h2>
                 <p>
-                    {APP_NAME} uses the <a href="https://fonts.google.com/specimen/IBM+Plex+Sans">IBM Plex Sans</a> font from Google Fonts. It is licenced under the <a href="https://fonts.google.com/specimen/IBM+Plex+Sans/license">SIL Open Font License</a>.
-                </p>
-                <p>
-                    The AmpMod logo uses the <a href="https://fonts.google.com/specimen/Pixelify+Sans">Pixelify Sans</a> font under the same licence.
+                    The AmpMod logo uses the <a href="https://fonts.google.com/specimen/Pixelify+Sans">Pixelify Sans</a> font. It is licenced under the <a href="https://fonts.google.com/specimen/IBM+Plex+Sans/license">SIL Open Font License</a>.
                 </p>
                 <p>
                     The Apple Cat signature below uses the <a href="https://fonts.google.com/specimen/Caveat+Brush">Caveat Brush</a> font under the same licence.
