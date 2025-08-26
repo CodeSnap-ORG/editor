@@ -1,7 +1,17 @@
 import omit from 'lodash.omit';
 import PropTypes from 'prop-types';
 import React from 'react';
-import Style from 'to-style';
+// Removed to-style. Added custom style converter below.
+// Converts a React style object to a CSS string
+function reactStyleToCssString(styleObj) {
+    return Object.entries(styleObj)
+        .map(([key, value]) => {
+            // Convert camelCase to kebab-case
+            const kebabKey = key.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+            return `${kebabKey}:${value}`;
+        })
+        .join(';');
+}
 import stylePropType from 'react-style-proptype';
 
 /*
@@ -38,7 +48,7 @@ class DOMElementRenderer extends React.Component {
 
         // Convert react style prop to dom element styling.
         if (this.props.style) {
-            this.props.domElement.style.cssText = Style.string(this.props.style);
+            this.props.domElement.style.cssText = reactStyleToCssString(this.props.style);
         }
 
         return <div ref={this.setContainer} />;
