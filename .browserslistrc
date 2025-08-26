@@ -2,5 +2,5 @@ not dead
 last 2 versions
 > 0.5%
 Firefox ESR
-not op-mini all
-not ie all
+not op_mini all
+not ie 11
