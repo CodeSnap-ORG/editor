@@ -100,7 +100,7 @@ class CostumeTab extends React.Component {
             this.state = {selectedCostumeIndex: 0};
         }
     }
-    componentWillReceiveProps (nextProps) {
+    useEffect (nextProps) {
         const {
             editingTarget,
             sprites,
