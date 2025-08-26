@@ -1,5 +1,3 @@
-import getUserMedia from 'get-user-media-promise';
-
 // Single Setup For All Video Streams used by the GUI
 // While VideoProvider uses a private _singleSetup
 // property to ensure that each instance of a VideoProvider
