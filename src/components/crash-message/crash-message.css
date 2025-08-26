@@ -14,7 +14,10 @@
     width: 70%;
     color: white;
 }
-.body a {
+.body a, .body .copy-button {
+    border: none;
+    padding: 0;
+    background: none;
     color: white;
     text-decoration: underline;
 }
@@ -46,4 +49,6 @@
 .error-message {
     white-space: pre-wrap;
     font-family: monospace;
+    max-height: 8rem;
+    overflow: scroll;
 }

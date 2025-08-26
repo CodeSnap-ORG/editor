@@ -66,9 +66,8 @@ class ErrorBoundary extends React.Component {
                 .componentStack
                 .trim()
                 .split('\n')
-                .slice(0, 2)
                 .map(i => i.trim());
-            message += `\nComponent stack: ${firstCoupleLines.join(' ')} ...`;
+            message += `\nComponent stack: ${firstCoupleLines.join(' ')}`;
         }
 
         return message;
