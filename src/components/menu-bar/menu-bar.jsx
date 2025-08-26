@@ -4,7 +4,7 @@ import {compose} from 'redux';
 import {defineMessages, FormattedMessage, injectIntl, intlShape} from 'react-intl';
 import PropTypes from 'prop-types';
 import bindAll from 'lodash.bindall';
-import bowser from 'bowser';
+import * as bowser from 'bowser';
 import React from 'react';
 
 import VM from 'scratch-vm';
@@ -341,7 +341,7 @@ class MenuBar extends React.Component {
         };
     }
     handleKeyPress (event) {
-        const modifier = bowser.mac ? event.metaKey : event.ctrlKey;
+        const modifier = bowser.parse(navigator.userAgent).os.name === 'macOS' ? event.metaKey : event.ctrlKey;
         if (modifier) {
             if (event.key.toLowerCase() === 's') {
                 this.props.handleSaveProject();

@@ -4,7 +4,6 @@ import { compose } from 'redux';
 import { defineMessages, FormattedMessage, injectIntl, intlShape } from 'react-intl';
 import PropTypes from 'prop-types';
 import bindAll from 'lodash.bindall';
-import bowser from 'bowser';
 import React from 'react';
 import Logo from './ampmod.svg';
 import FakeLogo from './lampmod.svg';

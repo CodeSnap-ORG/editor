@@ -1,6 +1,5 @@
 import JSZip from '@turbowarp/jszip';
 import {base64ToArrayBuffer} from './tw-base64-utils';
-import { a } from 'bowser';
 
 const TYPE_AUTOMATIC = 0;
 const TYPE_MANUAL = 1;
