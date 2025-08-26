@@ -224,7 +224,7 @@ export default [
         ),
         tags: ['scratch', 'data'],
         featured: true,
-        disabled: true // TODO: Enable once bugs are fixed
+        enabled: (process.env.ampmod_is_canary || process.env.NODE_ENV === 'development')
     },
     {
         name: (
@@ -478,7 +478,7 @@ export const galleryLoading = {
         />
     ),
     tags: ['tw', 'ampmod'],
-    featured: true
+    featured: true,
 };
 
 export const galleryMore = {
