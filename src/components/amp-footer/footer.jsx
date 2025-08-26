@@ -18,6 +18,7 @@
 import React from 'react';
 import { APP_NAME } from '../../lib/brand.js';
 import { FormattedMessage } from 'react-intl';
+const restorePointsDbName = process.env.ampmod_is_canary ? 'Canary_RestorePoints' : 'TW_RestorePoints';
 
 import styles from './footer.css';
 
@@ -28,8 +29,13 @@ const hardRefresh = () => {
 
 const eraseData = async () => {
     if (confirm('Please be aware that this will reset all your local data, including the Restore Points and backpack. Are you sure you want to continue?')) {
-        ;
-        localStorage.clear();
+        if (process.env.ampmod_is_canary) {
+            localStorage.removeItem('canary:theme');
+            localStorage.removeItem('canary:addons');
+        } else {
+            localStorage.removeItem('tw:theme');
+            localStorage.removeItem('tw:addons');
+        }
         // We have to manually delete the databases due to Firefox not supporting indexedDB.databases(). WHYYYY???
         indexedDB.deleteDatabase('TW_RestorePoints');
         indexedDB.deleteDatabase('TW_Backpack');
@@ -47,7 +53,23 @@ const Footer = () => {
         <footer className={styles.footer}>
             <div className={styles.footerContent}>
                 <div className={styles.footerText}>
-                    AmpMod v{process.env.ampmod_version}
+                    <FormattedMessage  
+                        defaultMessage="Version {APP_VERSION}"
+                        description="The current version of the application"
+                        id="tw.footer.version"
+                        values={{
+                            APP_NAME,
+                            APP_VERSION: process.env.ampmod_version
+                        }}
+                    />
+                    {process.env.ampmod_is_canary && (
+                        <><span className={styles.separator}></span>
+                        <FormattedMessage
+                            defaultMessage="Canary build!!"
+                            description="Text to show that this is a canary build"
+                            id="tw.footer.canaryBuild"
+                        /></>
+                    )}
                     <span className={styles.separator}></span>
                     <a className={styles.footerResetData} onClick={eraseData}>
                         <FormattedMessage
@@ -89,10 +111,11 @@ const Footer = () => {
 
                 <div className={styles.footerText}>
                     <FormattedMessage
-                        defaultMessage="AmpMod is based off TurboWarp. It is available for free at {turboWarpOrg}."
+                        defaultMessage="{APP_NAME} is based off TurboWarp. It is available for free at {turboWarpOrg}."
                         description="Attribution to TurboWarp. {turboWarpOrg} is a link with text 'https://turbowarp.org'"
                         id="tw.footer.basedOnTurboWarp"
                         values={{
+                            APP_NAME,
                             turboWarpOrg: (
                                 <a
                                     href="https://turbowarp.org/"
@@ -115,9 +138,23 @@ const Footer = () => {
                                 id="tw.footer.credits"
                             />
                         </a>
-                        <a href="https://github.com/sponsors/GarboMuffin">
+                        <a href="https://ampmod.netlify.app/faq">
                             <FormattedMessage
-                                defaultMessage="Donate to TurboWarp"
+                                defaultMessage="AmpMod FAQ"
+                                description="FAQ link in footer"
+                                id="tw.footer.faq"
+                            />
+                        </a>
+                        <a href="https://ampmod.flarum.cloud/blog">
+                            <FormattedMessage
+                                defaultMessage="AmpMod Blog"
+                                description="Blog link in footer"
+                                id="tw.footer.blog"
+                            />
+                        </a>
+                        <a href="https://scratchfoundation.org/donate/">
+                            <FormattedMessage
+                                defaultMessage="Donate to Scratch"
                                 description="Donation link in footer"
                                 id="tw.footer.donate"
                             />
@@ -146,18 +183,25 @@ const Footer = () => {
                                 id="tw.footer.parameters"
                             />
                         </a>
-                        <a href="https://ultiblocks.miraheze.org/">
+                        <a href="https://ampmod.codeberg.page/extensions/">
+                            <FormattedMessage
+                                defaultMessage="Extension Gallery"
+                                description="Link in footer to extension gallery"
+                                id="tw.footer.extensions"
+                            />
+                        </a>
+                        <a href="https://ampmod.miraheze.org/">
                             <FormattedMessage
                                 defaultMessage="AmpMod Wiki"
                                 description="Link in footer to wiki"
                                 id="tw.footer.wiki"
                             />
                         </a>
-                        <a href="https://docs.turbowarp.org/">
+                        <a href="https://ampmod.codeberg.page/manual/">
                             <FormattedMessage
-                                defaultMessage="TurboWarp Documentation"
-                                description="Link in footer to additional documentation"
-                                id="tw.footer.documentation"
+                                defaultMessage="Manual"
+                                description="Link in footer to manual"
+                                id="tw.footer.manual"
                             />
                         </a>
                     </div>
@@ -172,6 +216,23 @@ const Footer = () => {
                                 }}
                             />
                         </a>
+                        {!process.env.ampmod_is_canary && (
+                            <a href="https://ampmod.codeberg.page/canary/">
+                                <FormattedMessage
+                                    defaultMessage="Canary Build"
+                                    description="Link to the canary build of AmpMod"
+                                    id="tw.canary"
+                                />
+                            </a>
+                        ) || (
+                            <a href="https://ampmod.codeberg.page/">
+                                <FormattedMessage
+                                    defaultMessage="Production"
+                                    description="Link to the stable build of AmpMod"
+                                    id="tw.production"
+                                />
+                            </a>
+                        )}
                         <a href="https://codeberg.org/AmpMod/">
                             <FormattedMessage
                                 defaultMessage="Source Code"
