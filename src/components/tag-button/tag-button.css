@@ -2,11 +2,9 @@
 @import "../../css/units.css";
 
 .tag-button {
-    padding: .625rem 1rem;
-    background: $looks-secondary;
-    border-radius: 0.375rem;
-    color: white;
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    display: inline-flex;
+    align-items: center;
 }
 
 .tag-button-icon {
@@ -14,6 +12,26 @@
     max-height: 1rem;
 }
 
-.active {
-    background: $data-primary;
+.checkbox {
+    width: 1.4rem;
+    height: 1.4rem;
+    border: 1px solid $motion-primary;
+    border-radius: 6px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 8px;
+    padding: 0;
+    background-position: center;
+}
+
+.tag-button:hover .checkbox {
+    box-shadow: 0 0 0 2px $looks-transparent;
+}
+
+.active .checkbox {
+    background: $motion-primary;
+    background-image: url("./checkbox.svg");
+    background-position: center;
+    background-size: 80%;
+    background-repeat: no-repeat;
 }

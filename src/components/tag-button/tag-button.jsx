@@ -28,6 +28,7 @@ const TagButtonComponent = ({
         )}
         {...props}
     >
+        <div class={styles.checkbox}></div>
         {typeof intlLabel === 'string' ? intlLabel : (
             <FormattedMessage {...intlLabel} />
         )}
