@@ -185,21 +185,9 @@ class LibraryComponent extends React.Component {
             return dataItem;
         });
 
-        // IDs to ignore in extensionLibrary
-        const ignoreIds = ['custom_extension', 'tw', 'gallery'];
-
-        // Filter out ignored IDs if in extensionLibrary
-        let inputData = this.props.data;
-        if (this.props.id === 'extensionLibrary') {
-            inputData = inputData.filter(dataItem => {
-                if (typeof dataItem !== 'object' || !dataItem) return true;
-                return !ignoreIds.includes(dataItem.extensionId);
-            });
-        }
-
         // When no filtering, favorites get their own section
         if (this.state.selectedTags.length === 1 && this.state.selectedTags[0] === 'all' && !this.state.filterQuery) {
-            const allData = assignOtherTag(inputData);
+            const allData = assignOtherTag(this.props.data);
             const favoriteItems = allData
                 .filter(dataItem => (
                     this.state.initialFavorites.includes(dataItem[this.props.persistableKey])
@@ -220,7 +208,7 @@ class LibraryComponent extends React.Component {
         }
 
         // When filtering, favorites are just listed first, not in a separate section.
-        const allData = assignOtherTag(inputData);
+        const allData = assignOtherTag(this.props.data);
         const favoriteItems = [];
         const nonFavoriteItems = [];
         for (const dataItem of allData) {
