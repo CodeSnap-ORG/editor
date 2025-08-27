@@ -169,7 +169,7 @@ class LoaderComponent extends React.Component {
             >
             
             <div className={styles.container}>
-                {/* <div className={styles.blockAnimation}>
+                <div className={styles.blockAnimation}>
                 <img
                     className={styles.topBlock}
                     src={topBlock}
@@ -185,9 +185,7 @@ class LoaderComponent extends React.Component {
                     src={bottomBlock}
                     draggable={false}
                 />
-                </div> */}
-
-                <div className={styles.spinnerCircle}></div>
+                </div>
 
                 <div className={styles.title}>
                 {mainMessages[this.props.messageId]}
