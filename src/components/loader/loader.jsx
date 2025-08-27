@@ -61,7 +61,7 @@ const funFacts = [
     'Fun fa-Sadly, this fact was eaten by an evil kumquat.',
     'Fun fact: qwertyuiopasdfghjklzxcvbnm',
     'Did you know? There is an AmpMod wiki where you can find information about AmpMod.',
-    'Did you know? The AmpMod Manual has information for new AmpMod users.  ',
+    'Did you know? The AmpMod Manual has information for new AmpMod users.',
     'Did you know? The Witch sprite was originally going to be the AmpMod mascot',
     "'How to make computer in AmpMod' Oh wait, this isn't Google, is it?",
     'Fun fact: The person who typed this fact had too much caffeine!',
