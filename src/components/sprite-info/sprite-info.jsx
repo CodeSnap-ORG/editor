@@ -19,8 +19,8 @@ import xIcon from './icon--x.svg';
 import yIcon from './icon--y.svg';
 import showIcon from '!../../lib/tw-recolor/build!./icon--show.svg';
 import hideIcon from '!../../lib/tw-recolor/build!./icon--hide.svg';
-import draggableOnIcon from './icon--draggable-on.svg';
-import draggableOffIcon from './icon--draggable-off.svg';
+import draggableOnIcon from '!../../lib/tw-recolor/build!./icon--draggable-on.svg';
+import draggableOffIcon from '!../../lib/tw-recolor/build!./icon--draggable-off.svg';
 import ToggleButtons from '../toggle-buttons/toggle-buttons.jsx';
 import {ComingSoonTooltip} from '../coming-soon/coming-soon.jsx';
 
