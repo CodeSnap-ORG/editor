@@ -233,7 +233,7 @@ export default [
                 description="Name of the strange 'TurboWarp Blocks' extension"
                 id="tw.twExtension.name"
                 values={{
-                    APP_NAME
+                    APP_NAME: "TurboWarp"
                 }}
             />
         ),
