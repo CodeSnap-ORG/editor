@@ -5,6 +5,7 @@ import * as accentPurple from './accent/purple';
 import * as accentBlue from './accent/blue';
 import * as accentRed from './accent/red';
 import * as accentRainbow from './accent/rainbow';
+import * as accentGrey from './accent/grey';
 
 import * as guiLight from './gui/light';
 import * as guiDark from './gui/dark';
@@ -18,12 +19,14 @@ const ACCENT_BLUE = 'blue';
 const ACCENT_RED = 'red';
 const ACCENT_RAINBOW = 'rainbow';
 const ACCENT_GREEN = 'green';
+const ACCENT_GREY = 'grey';
 
 const ACCENT_MAP = {
     [ACCENT_PURPLE]: accentPurple,
     [ACCENT_BLUE]: accentBlue,
     [ACCENT_RED]: accentRed,
     [ACCENT_GREEN]: accentGreen,
+    [ACCENT_GREY]: accentGrey,
     [ACCENT_RAINBOW]: accentRainbow
 };
 const ACCENT_DEFAULT = process.env.ampmod_is_canary ? ACCENT_RED : ACCENT_GREEN;
@@ -155,6 +158,7 @@ export {
     ACCENT_BLUE,
     ACCENT_RAINBOW,
     ACCENT_GREEN,
+    ACCENT_GREY,
     ACCENT_MAP,
 
     GUI_LIGHT,
