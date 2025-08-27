@@ -23,7 +23,7 @@ const messages = defineMessages({
         defaultMessage: 'Search',
         description: 'Placeholder text for library search field'
     },
-    allTag: {
+    allTag: {   
         id: 'gui.library.allTag',
         defaultMessage: 'All',
         description: 'Label for library tag to revert to all items after filtering by tag.'
@@ -31,7 +31,7 @@ const messages = defineMessages({
 });
 
 const ALL_TAG = {tag: 'all', intlLabel: messages.allTag};
-const tagListPrefix = [ALL_TAG];
+const tagListPrefix = [];
 
 class LibraryComponent extends React.Component {
     constructor (props) {
@@ -52,7 +52,7 @@ class LibraryComponent extends React.Component {
         this.state = {
             playingItem: null,
             filterQuery: '',
-            selectedTag: ALL_TAG.tag,
+            selectedTags: [ALL_TAG.tag],
             canDisplay: false,
             favorites,
             initialFavorites: favorites
@@ -116,19 +116,21 @@ class LibraryComponent extends React.Component {
         this.props.onRequestClose();
     }
     handleTagClick (tag) {
-        if (this.state.playingItem === null) {
-            this.setState({
-                filterQuery: '',
-                selectedTag: tag.toLowerCase()
-            });
-        } else {
-            this.props.onItemMouseLeave(this.getFilteredData()[[this.state.playingItem]]);
-            this.setState({
-                filterQuery: '',
-                playingItem: null,
-                selectedTag: tag.toLowerCase()
-            });
-        }
+        const tagLower = tag.toLowerCase();
+        this.setState(oldState => {
+            let selectedTags = oldState.selectedTags.filter(t => t !== ALL_TAG.tag);
+            if (selectedTags.includes(tagLower)) {
+                selectedTags = selectedTags.filter(t => t !== tagLower);
+            } else {
+                selectedTags = [...selectedTags, tagLower];
+            }
+            // If no tags selected, default to 'all'
+            if (selectedTags.length === 0) selectedTags = [ALL_TAG.tag];
+            return {
+                selectedTags,
+                playingItem: null
+            };
+        });
     }
     handleMouseEnter (id) {
         // don't restart if mouse over already playing item
@@ -157,15 +159,13 @@ class LibraryComponent extends React.Component {
     handleFilterChange (event) {
         if (this.state.playingItem === null) {
             this.setState({
-                filterQuery: event.target.value,
-                selectedTag: ALL_TAG.tag
+                filterQuery: event.target.value
             });
         } else {
             this.props.onItemMouseLeave(this.getFilteredData()[[this.state.playingItem]]);
             this.setState({
                 filterQuery: event.target.value,
-                playingItem: null,
-                selectedTag: ALL_TAG.tag
+                playingItem: null
             });
         }
     }
@@ -174,7 +174,7 @@ class LibraryComponent extends React.Component {
     }
     getFilteredData () {
         // When no filtering, favorites get their own section
-        if (this.state.selectedTag === 'all' && !this.state.filterQuery) {
+        if (this.state.selectedTags.length === 1 && this.state.selectedTags[0] === 'all' && !this.state.filterQuery) {
             const favoriteItems = this.props.data
                 .filter(dataItem => (
                     this.state.initialFavorites.includes(dataItem[this.props.persistableKey])
@@ -209,16 +209,18 @@ class LibraryComponent extends React.Component {
 
         let filteredItems = favoriteItems.concat(nonFavoriteItems);
 
-        if (this.state.selectedTag !== 'all') {
+        // Multi-tag filtering: must match ALL selected tags (except 'all')
+        const activeTags = this.state.selectedTags.filter(t => t !== 'all');
+        if (activeTags.length > 0) {
             filteredItems = filteredItems.filter(dataItem => (
                 dataItem.tags &&
-                dataItem.tags.map(i => i.toLowerCase()).includes(this.state.selectedTag)
+                activeTags.every(tag => dataItem.tags.map(i => i.toLowerCase()).includes(tag))
             ));
         }
 
         if (this.state.filterQuery) {
             filteredItems = filteredItems.filter(dataItem => {
-                const search = [...dataItem.tags];
+                const search = [...(dataItem.tags || [])];
                 if (dataItem.name) {
                     // Use the name if it is a string, else use formatMessage to get the translated name
                     if (typeof dataItem.name === 'string') {
@@ -290,7 +292,7 @@ class LibraryComponent extends React.Component {
                             <div className={styles.tagWrapper}>
                                 {tagListPrefix.concat(this.props.tags).map((tagProps, id) => (
                                     <TagButton
-                                        active={this.state.selectedTag === tagProps.tag.toLowerCase()}
+                                        active={this.state.selectedTags.includes(tagProps.tag.toLowerCase())}
                                         className={classNames(
                                             styles.filterBarItem,
                                             styles.tagButton,
