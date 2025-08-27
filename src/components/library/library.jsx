@@ -173,9 +173,34 @@ class LibraryComponent extends React.Component {
         this.setState({filterQuery: ''});
     }
     getFilteredData () {
+        // Helper: assign 'Other' tag if needed
+        const assignOtherTag = dataArr => dataArr.map(dataItem => {
+            if (typeof dataItem !== 'object' || !dataItem) return dataItem;
+            const tags = (dataItem.tags || []).map(t => t.toLowerCase());
+            const ignored = ['scratch', 'tw', 'ampmod'];
+            // If no tags, or only ignored tags, add 'Other'
+            if (tags.length === 0 || tags.every(t => ignored.includes(t))) {
+                return { ...dataItem, tags: [...tags, 'Other'] };
+            }
+            return dataItem;
+        });
+
+        // IDs to ignore in extensionLibrary
+        const ignoreIds = ['custom_extension', 'tw', 'gallery'];
+
+        // Filter out ignored IDs if in extensionLibrary
+        let inputData = this.props.data;
+        if (this.props.id === 'extensionLibrary') {
+            inputData = inputData.filter(dataItem => {
+                if (typeof dataItem !== 'object' || !dataItem) return true;
+                return !ignoreIds.includes(dataItem.extensionId);
+            });
+        }
+
         // When no filtering, favorites get their own section
         if (this.state.selectedTags.length === 1 && this.state.selectedTags[0] === 'all' && !this.state.filterQuery) {
-            const favoriteItems = this.props.data
+            const allData = assignOtherTag(inputData);
+            const favoriteItems = allData
                 .filter(dataItem => (
                     this.state.initialFavorites.includes(dataItem[this.props.persistableKey])
                 ))
@@ -190,14 +215,15 @@ class LibraryComponent extends React.Component {
 
             return [
                 ...favoriteItems,
-                ...this.props.data
+                ...allData
             ];
         }
 
         // When filtering, favorites are just listed first, not in a separate section.
+        const allData = assignOtherTag(inputData);
         const favoriteItems = [];
         const nonFavoriteItems = [];
-        for (const dataItem of this.props.data) {
+        for (const dataItem of allData) {
             if (dataItem === '---') {
                 // ignore
             } else if (this.state.initialFavorites.includes(dataItem[this.props.persistableKey])) {
@@ -261,6 +287,11 @@ class LibraryComponent extends React.Component {
             }
             return 'extLib'; // Default
         };
+        // Ensure 'Other' tag is present in sidebar
+        let sidebarTags = Array.isArray(this.props.tags) ? [...this.props.tags] : [];
+        if (!sidebarTags.some(t => t.tag && t.tag.toLowerCase() === 'other')) {
+            sidebarTags.push({ tag: 'Other', intlLabel: { id: 'gui.library.otherTag', defaultMessage: 'Other' } });
+        }
         return (
             <Modal
                 fullScreen
@@ -270,7 +301,7 @@ class LibraryComponent extends React.Component {
             >
                 <Clippy messageSet={getClippyMenu()} />
                 <div className={styles.sidebarContainer}>
-                {(this.props.filterable || this.props.tags) && (
+                {(this.props.filterable || sidebarTags.length) && (
                     <div className={styles.filterBar}>
                         {this.props.filterable && (
                             <Filter
@@ -285,12 +316,12 @@ class LibraryComponent extends React.Component {
                                 onClear={this.handleFilterClear}
                             />
                         )}
-                        {this.props.filterable && this.props.tags && (
+                        {this.props.filterable && sidebarTags.length > 0 && (
                             <div className={classNames(styles.filterBarItem, styles.divider)} />
                         )}
-                        {this.props.tags &&
+                        {sidebarTags.length > 0 &&
                             <div className={styles.tagWrapper}>
-                                {tagListPrefix.concat(this.props.tags).map((tagProps, id) => (
+                                {tagListPrefix.concat(sidebarTags).map((tagProps, id) => (
                                     <TagButton
                                         active={this.state.selectedTags.includes(tagProps.tag.toLowerCase())}
                                         className={classNames(
