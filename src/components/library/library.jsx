@@ -267,6 +267,7 @@ class LibraryComponent extends React.Component {
                 onRequestClose={this.handleClose}
             >
                 <Clippy messageSet={getClippyMenu()} />
+                <div className={styles.sidebarContainer}>
                 {(this.props.filterable || this.props.tags) && (
                     <div className={styles.filterBar}>
                         {this.props.filterable && (
@@ -283,7 +284,7 @@ class LibraryComponent extends React.Component {
                             />
                         )}
                         {this.props.filterable && this.props.tags && (
-                            <Divider className={classNames(styles.filterBarItem, styles.divider)} />
+                            <div className={classNames(styles.filterBarItem, styles.divider)} />
                         )}
                         {this.props.tags &&
                             <div className={styles.tagWrapper}>
@@ -366,6 +367,7 @@ class LibraryComponent extends React.Component {
                             />
                         </div>
                     )}
+                </div>
                 </div>
             </Modal>
         );
