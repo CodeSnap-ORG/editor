@@ -60,7 +60,6 @@ const funFacts = [
     'Fun fact: There was an error loading AmpMod. Please give 100 more energy units to AmpElectrecuted',
     'Fun fa-Sadly, this fact was eaten by an evil kumquat.',
     'Fun fact: qwertyuiopasdfghjklzxcvbnm',
-    'Fun fact: Some AmpMod projects can be uploaded to Scratch.',
     'Did you know? There is an AmpMod wiki where you can find information about AmpMod.',
     'Did you know? The AmpMod Manual has information for new AmpMod users.  ',
     'Did you know? The Witch sprite was originally going to be the AmpMod mascot',
