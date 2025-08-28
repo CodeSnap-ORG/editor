@@ -56,6 +56,7 @@ $drop-highlight: var(--drop-highlight);
 $menu-bar-background: var(--menu-bar-background);
 $menu-bar-background-image: var(--menu-bar-background-image);
 $menu-bar-foreground: var(--menu-bar-foreground);
+$menu-bar-hover: var(--menu-bar-hover);
 
 $assets-background: var(--assets-background);
 

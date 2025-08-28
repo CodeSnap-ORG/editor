@@ -17,6 +17,7 @@ const guiColors = {
     'ui-transparent': 'hsla(0, 100%, 100%, 0)', /* 25% transparent version of ui-white */
 
     'ui-black-transparent': 'hsla(0, 0%, 0%, 0.15)', /* 15% transparent version of black */
+    'menu-bar-hover': 'hsla(0, 0%, 0%, 0.15)', /* Same as ui-black-transparent */
 
     'text-primary': 'hsla(225, 15%, 40%, 1)', /* #575E75 */
     'text-primary-transparent': 'hsla(225, 15%, 40%, 0.75)',
