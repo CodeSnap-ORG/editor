@@ -159,8 +159,7 @@ module.exports = [
             'embed': './src/playground/embed.jsx',
             'addon-settings': './src/playground/addon-settings.jsx',
             'credits': './src/playground/credits/credits.jsx',
-            'home': './src/playground/home/home.jsx',
-            'terms': './src/playground/terms/terms.jsx'
+            'home': './src/playground/home/home.jsx'
         },
         output: {
             path: path.resolve(__dirname, 'build')
@@ -218,13 +217,6 @@ module.exports = [
                 template: 'src/playground/simple.ejs',
                 filename: IS_CBP_BUILD ? 'amindex.html' : 'index.html',
                 title: `Home - ${APP_NAME}`,
-                ...htmlWebpackPluginCommon
-            }),
-            new HtmlWebpackPlugin({
-                chunks: ['terms'],
-                template: 'src/playground/simple.ejs',
-                filename: IS_CBP_BUILD ? 'amterms.html' : 'terms.html',
-                title: `Terms of Service - ${APP_NAME}`,
                 ...htmlWebpackPluginCommon
             }),
             new HtmlWebpackPlugin({
