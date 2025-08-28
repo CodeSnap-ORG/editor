@@ -19,6 +19,7 @@ import downloadBlob from '../lib/download-blob.js';
 import Settings from '../addons/settings/settings.jsx';
 import render from './app-target';
 import Clippy from '../containers/amp-clippy.jsx';
+import '@fontsource/inter';
 
 const onExportSettings = settings => {
     const blob = new Blob([JSON.stringify(settings)]);

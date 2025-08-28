@@ -115,7 +115,7 @@ const base = {
             }]
         },
         {
-            test: /\.(svg|png|wav|mp3|gif|jpg|woff2|hex)$/,
+            test: /\.(svg|png|wav|mp3|gif|jpg|woff2?|hex)$/,
             loader: 'url-loader',
             options: {
                 limit: 8192, // Convert images < 8kb to base64 strings

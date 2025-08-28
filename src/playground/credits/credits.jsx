@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import render from '../app-target';
 import styles from '../info.css';
 import myStyles from './credits.css';
+import '@fontsource/inter';
 
 import {APP_NAME} from '../../lib/brand';
 import {applyGuiColors} from '../../lib/themes/guiHelpers';
