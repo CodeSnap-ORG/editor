@@ -20,6 +20,7 @@
     border-radius: 10px; /* Make the loader round */
     overflow: hidden; /* Ensure content stays within the round shape */
     cursor: progress;
+    padding: 4em;
 }
 
 .fullscreen {
