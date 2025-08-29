@@ -35,6 +35,10 @@
     transition: background-color 0.2s;
 }
 
+.menu-item:last-of-type {
+    border-radius: 0 0 7px 7px;
+}
+
 .menu-item.active,
 .menu-item:hover,
 .menu-item.expanded {
