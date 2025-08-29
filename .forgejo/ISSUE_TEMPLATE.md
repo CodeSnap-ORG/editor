@@ -1,3 +1,9 @@
+<!--
+Welcome to the issue tracker.
+Please turn off all browser extensions and bypass the cache before reporting.
+For security issues see ampmod.netlify.app/security and DO NOT REPORT HERE.
+Thanks!
+-->
 ### Expected Behavior
 
 _Please describe what should happen_
@@ -12,4 +18,4 @@ _Explain what someone needs to do in order to see what's described in *Actual be
 
 ### Operating System and Browser
 
-_e.g. Mac OS 10.11.6 Safari 10.0_
+_e.g. macOS 26 Safari 18.5_

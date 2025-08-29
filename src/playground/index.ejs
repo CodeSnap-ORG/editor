@@ -104,8 +104,14 @@
         var theme = '';
         var accent = '#59C059';
 
+        var canary = <%= process.env.ampmod_is_canary %>;
+
         try {
-          var themeSetting = localStorage.getItem('tw:theme');
+          if (canary) {
+            var themeSetting = localStorage.getItem('canary:theme');
+          } else {
+            var themeSetting = localStorage.getItem('tw:theme');
+          }
         } catch (e) {
           // ignore
         }
