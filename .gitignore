@@ -2,65 +2,8 @@
 .DS_Store
 
 # npm
-/node_modules
+node_modules
 npm-*
 
-# Editor
-/.idea
-/.vscode
-
 # Testing
-/.nyc_output
-/coverage
-
-# Build
-/build
-/dist
-/playground
-/benchmark
-/.opt-in
-
-# Generated translation files
-/translations
-/locale
-common.pyc
-.settings
-.project
-*.pyc
-*.komodoproject
-/nbproject/private/
-
-# Other generated source
-/src/generated
-
-# Downloaded during "npm install"
-/static/microbit
-
-# for act
-.secrets
-
-# Unused by scratch-blocks
-dart_compressed.js
-javascript_compressed.js
-lua_compressed.js
-php_compressed.js
-python_compressed.js
-
-/accessible/*
-/dist
-/msg/js/*
-!/msg/js/en.js
-/msg/json/*
-!/msg/json/en.json
-/blockly_compressed_horizontal.js
-/blockly_compressed_vertical.js
-/blockly_uncompressed_horizontal.js
-/blockly_uncompressed_vertical.js
-/blocks_compressed_horizontal.js
-/blocks_compressed_vertical.js
-/blocks_compressed.js
-/*compiler*.jar
-/local_blockly_compressed_vertical.js
-/chromedriver
-# --flagfiles used on Windows
-/*.config
+coverage
