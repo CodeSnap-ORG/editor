@@ -1,6 +1,6 @@
 ### Resolves
 
-_What Github issue does this resolve (please include link)?_
+_What issue does this resolve (please include link)?_
 
 - Resolves #
 
@@ -19,10 +19,17 @@ _Please show how you have added tests to cover your changes_
 ### Browser Coverage
 Check the OS/browser combinations tested (At least 2)
 
-Mac
+Linux
  * [ ] Chrome 
  * [ ] Firefox 
  * [ ] Safari
+ * [ ] Edge
+ 
+ Mac
+ * [ ] Chrome 
+ * [ ] Firefox 
+ * [ ] Safari
+ * [ ] Edge
  
 Windows
  * [ ] Chrome 
@@ -32,8 +39,9 @@ Windows
 Chromebook
  * [ ] Chrome
  
-iPad
+iOS, iPadOS
 * [ ] Safari
 
 Android Tablet
 * [ ] Chrome
+* [ ] Firefox
