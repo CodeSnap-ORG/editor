@@ -18,7 +18,6 @@
 import React from 'react';
 import { APP_NAME } from '../../lib/brand.js';
 import { FormattedMessage } from 'react-intl';
-const restorePointsDbName = process.env.ampmod_is_canary ? 'Canary_RestorePoints' : 'TW_RestorePoints';
 
 import styles from './footer.css';
 
@@ -29,16 +28,20 @@ const hardRefresh = () => {
 
 const eraseData = async () => {
     if (confirm('Please be aware that this will reset all your local data, including the Restore Points and backpack. Are you sure you want to continue?')) {
-        if (process.env.ampmod_is_canary) {
-            localStorage.removeItem('canary:theme');
-            localStorage.removeItem('canary:addons');
-        } else {
-            localStorage.removeItem('tw:theme');
-            localStorage.removeItem('tw:addons');
+        const prefix = process.env.ampmod_is_canary ? 'canary:' : 'tw:';
+        const keysToRemove = Object.keys(localStorage).filter(key => key.startsWith(prefix));
+        keysToRemove.forEach(key => {
+            localStorage.removeItem(key);
+        });
+        if (!process.env.ampmod_is_canary) {
+            const ampKeys = Object.keys(localStorage).filter(key => key.startsWith("amp:"));
+            ampKeys.forEach(key => {
+                localStorage.removeItem(key);
+            });
         }
         // We have to manually delete the databases due to Firefox not supporting indexedDB.databases(). WHYYYY???
-        indexedDB.deleteDatabase('TW_RestorePoints');
-        indexedDB.deleteDatabase('TW_Backpack');
+        indexedDB.deleteDatabase(process.env.ampmod_is_canary ? ' Canary_RestorePoints' : 'TW_RestorePoints');
+        indexedDB.deleteDatabase(process.env.ampmod_is_canary ? ' Canary_RestorePoints' : 'TW_RestorePoints');
         location.reload();
     }
 }
