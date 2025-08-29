@@ -12,6 +12,7 @@ const guiColors = {
     'extensions-light': '#7e7e7e',
     'drop-highlight': '#66bb6a',
     'menu-bar-background': '#333333',
+    'ui-modal-header-background': '#333333',
     'menu-bar-hover': '#ffffff26'
 };
 
