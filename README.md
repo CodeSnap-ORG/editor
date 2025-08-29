@@ -1,10 +1,14 @@
+[![status-badge](https://ci.codeberg.org/api/badges/14290/status.svg)](https://ci.codeberg.org/repos/14290)
+
 scratch-gui modified for use in AmpMod. Contributions are preferred to [Codeberg](https://codeberg.org/AmpMod/scratch-gui) but contributions on [GitHub](https://github.com/AmpM0d/scratch-gui) are accepted.
 
 ## Setup
 
-See https://docs.turbowarp.org/development/getting-started to setup the complete TurboWarp environment.
+See https://docs.turbowarp.org/development/getting-started to setup the complete TurboWarp/AmpMod environment.
 
 If you just want to play with the GUI then it's the same process as upstream scratch-gui.
+
+See also the [dev docs](https://ampmod.codeberg.page/manual).
 
 ## License
 
