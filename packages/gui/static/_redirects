@@ -1,0 +1,10 @@
+/editor  /ameditor.html 200
+/player /amplayer.html 200
+/credits /amcredits.html 200
+/fullscreen /amfullscreen.html 200
+/addons /amaddons.html 200
+/editor.html /editor 301
+/player.html /player 301
+/credits.html /credits 301
+/fullscreen.html /fullscreen 301
+/addons.html /addons 301
