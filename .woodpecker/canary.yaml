@@ -47,9 +47,9 @@ steps:
       - git config --global user.email "no@thankyou.com"
       - git config --global user.name "CI Builder"
       # clone and move the target repo
-      - git clone -b pages https://codeberg.org/ampmod/canary.git build
-      - chmod -R a+w build
-      - cd build
+      - git clone -b pages https://codeberg.org/ampmod/canary.git packages/gui/build
+      - chmod -R a+w packages/gui/build
+      - cd packages/gui/build
       # Prepare for push
       - git remote set-url origin https://$CBTOKEN@codeberg.org/ampmod/canary.git
       - git rm -rf ./*
@@ -59,13 +59,10 @@ steps:
       - npm ci
       # Don't specify CBP build mode since redirects aren't properly implemented in canary
       - BUILD_MODE=canary npm run ci-build
-      - ls -la build # Check if the files were created
-      - cd build
-      - git status # Check Git's state after the build
       # Only needed for custom domains
       # - cp domains build/.domains
       # Push to target
-      - cd build
+      - cd packages/gui/build
       - git add --all
       - git commit -m "Woodpecker CI Build at $( env TZ=America/Chicago date +'%Y-%m-%d %X %Z' )"
       - git push -u origin pages
