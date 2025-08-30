@@ -47,9 +47,9 @@ steps:
       - git config --global user.email "no@thankyou.com"
       - git config --global user.name "CI Builder"
       # clone and move the target repo
-      - git clone -b pages https://codeberg.org/ampmod/canary.git packages/gui/build
-      - chmod -R a+w packages/gui/build
-      - cd packages/gui/build
+      - git clone -b pages https://codeberg.org/ampmod/canary.git amp-build
+      - chmod -R a+w amp-build
+      - cd amp-build
       # Prepare for push
       - git remote set-url origin https://$CBTOKEN@codeberg.org/ampmod/canary.git
       - git rm -rf ./*
@@ -62,6 +62,7 @@ steps:
       # Only needed for custom domains
       # - cp domains build/.domains
       # Push to target
+      - cp -a ./packages/gui/build/. ../amp-build
       - cd packages/gui/build
       - git add --all
       - git commit -m "Woodpecker CI Build at $( env TZ=America/Chicago date +'%Y-%m-%d %X %Z' )"

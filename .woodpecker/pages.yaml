@@ -27,12 +27,12 @@
 
 steps:
   - name: build
-    when:
+    when: 
       - event: push
-        branch: production
+        branch: develop
       - event: manual
-        branch: production
-    image: funnyzak/java-nodejs-python-go-etc
+        branch: develop
+    image: node:20
     environment:
       # secrets must be set in Woodpecker configuration
       CBTOKEN:
@@ -40,14 +40,16 @@ steps:
     commands:
       # Install scratch-blocks dependencies
       - apt-get update && apt-get install pypy3 default-jre-headless --no-install-recommends -y
+      # Avoid permission denied errors
+      - chmod -R a+w .
       # Set up git in a working way
       - git config --global --add safe.directory /woodpecker/src/codeberg.org/ampmod/scratch-gui/build
       - git config --global user.email "no@thankyou.com"
       - git config --global user.name "CI Builder"
       # clone and move the target repo
-      - git clone -b pages https://codeberg.org/ampmod/pages.git build
-      - chmod -R a+w build
-      - cd build
+      - git clone -b pages https://codeberg.org/ampmod/pages.git amp-build
+      - chmod -R a+w amp-build
+      - cd amp-build
       # Prepare for push
       - git remote set-url origin https://$CBTOKEN@codeberg.org/ampmod/pages.git
       - git rm -rf ./*
@@ -59,7 +61,8 @@ steps:
       # Only needed for custom domains
       # - cp domains build/.domains
       # Push to target
-      - cd build
+      - cp -a ./packages/gui/build/. ../amp-build
+      - cd packages/gui/build
       - git add --all
       - git commit -m "Woodpecker CI Build at $( env TZ=America/Chicago date +'%Y-%m-%d %X %Z' )"
       - git push -u origin pages
