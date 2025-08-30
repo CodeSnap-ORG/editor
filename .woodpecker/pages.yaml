@@ -62,7 +62,7 @@ steps:
       # - cp domains build/.domains
       # Push to target
       - cp -a ./packages/gui/build/. ../amp-build
-      - cd packages/gui/build
+      - cd ../amp-build
       - git add --all
       - git commit -m "Woodpecker CI Build at $( env TZ=America/Chicago date +'%Y-%m-%d %X %Z' )"
       - git push -u origin pages
