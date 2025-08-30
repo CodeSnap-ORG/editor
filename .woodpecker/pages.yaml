@@ -29,9 +29,9 @@ steps:
   - name: build
     when: 
       - event: push
-        branch: develop
+        branch: production
       - event: manual
-        branch: develop
+        branch: production
     image: node:20
     environment:
       # secrets must be set in Woodpecker configuration
