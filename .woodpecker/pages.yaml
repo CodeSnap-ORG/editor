@@ -38,8 +38,8 @@ steps:
       CBTOKEN:
         from_secret: cbtoken
     commands:
-      # Avoid permission denied errors
-      - chmod -R a+w .
+      # Install scratch-blocks dependencies
+      - apt-get update && apt-get install pypy3 default-jre-headless --no-install-recommends -y
       # Set up git in a working way
       - git config --global --add safe.directory /woodpecker/src/codeberg.org/ampmod/scratch-gui/build
       - git config --global user.email "no@thankyou.com"

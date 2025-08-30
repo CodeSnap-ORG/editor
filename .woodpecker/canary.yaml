@@ -32,12 +32,14 @@ steps:
         branch: develop
       - event: manual
         branch: develop
-    image: funnyzak/java-nodejs-python-go-etc
+    image: node:20
     environment:
       # secrets must be set in Woodpecker configuration
       CBTOKEN:
         from_secret: cbtoken
     commands:
+      # Install scratch-blocks dependencies
+      - apt-get update && apt-get install pypy3 default-jre-headless --no-install-recommends -y
       # Avoid permission denied errors
       - chmod -R a+w .
       # Set up git in a working way
