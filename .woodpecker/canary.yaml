@@ -32,7 +32,7 @@ steps:
         branch: develop
       - event: manual
         branch: develop
-    image: cimg/python:3.11-browsers
+    image: funnyzak/java-nodejs-python-go-etc
     environment:
       # secrets must be set in Woodpecker configuration
       CBTOKEN:
