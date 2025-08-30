@@ -60,6 +60,8 @@ steps:
       # Don't specify CBP build mode since redirects aren't properly implemented in canary
       - BUILD_MODE=canary npm run ci-build
       # --- DEBUGGING SCRIPT ---
+      - pwd
+      - ls -l
       - echo "Searching for all directories named 'build' (excluding node_modules):"
       - find . -type d -name "build" -not -path "./node_modules/*"
       # ------------------------
