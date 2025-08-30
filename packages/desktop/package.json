@@ -8,6 +8,7 @@
     "name": "Thomas Weber"
   },
   "scripts": {
+    "prepare": "# There is no prepare script for desktop. This is a comment so that npm doesn't get mad",
     "fetch": "node scripts/download-library-files.js && node scripts/download-packager.js && node scripts/prepare-extensions.js",
     "webpack:compile": "webpack",
     "webpack:watch": "webpack --watch",
