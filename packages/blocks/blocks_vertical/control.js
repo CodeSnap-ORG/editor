@@ -561,3 +561,24 @@ Blockly.Blocks['control_all_at_once'] = {
     });
   }
 };
+
+Blockly.Blocks['control_async'] = {
+  /**
+   * amp: Runs the contained script asyncronously.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.CONTROL_ASYNC,
+      "message1": "%1",
+      "args1": [
+        {
+          "type": "input_statement",
+          "name": "SUBSTACK"
+        }
+      ],
+      "category": Blockly.Categories.control,
+      "extensions": ["colours_control", "shape_statement"]
+    });
+  }
+};
