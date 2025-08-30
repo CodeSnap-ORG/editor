@@ -6,6 +6,8 @@
   "scripts": {
     "test": "npm run test --workspaces",
     "prepare": "npm run prepare --workspaces",
+    "build": "npm run build --workspace packages/gui",
+    "ci-build": "npm run ci-build --workspace packages/gui",
     "start": "npm run start --workspace packages/gui"
   },
   "author": "AmpElectrecuted",
