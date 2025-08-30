@@ -57,6 +57,9 @@ steps:
       - npm ci
       # Don't specify CBP build mode since redirects aren't properly implemented in canary
       - BUILD_MODE=canary npm run ci-build
+      - ls -la build # Check if the files were created
+      - cd build
+      - git status # Check Git's state after the build
       # Only needed for custom domains
       # - cp domains build/.domains
       # Push to target
