@@ -54,7 +54,7 @@ CLOSURE_LIBRARY = "closure-library"
 CLOSURE_COMPILER = REMOTE_COMPILER
 
 CLOSURE_DIR_NPM = "node_modules"
-CLOSURE_ROOT_NPM = os.path.join("node_modules")
+CLOSURE_ROOT_NPM = os.path.join("../../node_modules")
 CLOSURE_LIBRARY_NPM = "google-closure-library"
 CLOSURE_COMPILER_NPM = ("google-closure-compiler.cmd" if os.name == "nt" else "google-closure-compiler")
 
