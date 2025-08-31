@@ -171,6 +171,16 @@ const getUnsafePaths = () => {
       app: APP_NAME,
     },
 
+    // AmpMod defaults
+    {
+      path: path.join(appData, 'ampmod'),
+      app: 'AmpMod'
+    },
+    {
+      path: path.join(localPrograms, 'AmpMod'),
+      app: 'AmpMod'
+    },
+
     // TurboWarp Desktop defaults
     {
       path: path.join(appData, 'turbowarp-desktop'),

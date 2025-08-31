@@ -95,12 +95,12 @@
     },
     "appx": {
       "artifactName": "${productName}-MS-Store-${version}-${arch}.${ext}",
-      "applicationId": "TurboWarp",
-      "displayName": "TurboWarp",
+      "applicationId": "AmpMod",
+      "displayName": "AmpMod",
       "identityName": "45747ThomasWeber.TurboWarpDesktop",
       "publisher": "CN=18FA7D4F-01BF-49F2-BF56-782DCEA49C69",
-      "publisherDisplayName": "Thomas Weber",
-      "backgroundColor": "#4c97ff",
+      "publisherDisplayName": "AmpElectrecuted",
+      "backgroundColor": "#59c059",
       "showNameOnTiles": true,
       "languages": [
         "en-US",
@@ -151,13 +151,13 @@
     "linux": {
       "artifactName": "${productName}-${os}-${arch}-${version}.${ext}",
       "icon": "./build/",
-      "synopsis": "Mod of Scratch with a compiler and more features.",
-      "description": "TurboWarp is a Scratch mod with a compiler to run projects faster, dark mode for your eyes, a bunch of addons to improve the editor, and more.",
+      "synopsis": "Block-based programming. Amplified.",
+      "description": "AmpMod is a powerful block-based programming language built on Scratch 3.0 and TurboWarp, with many features to make advanced games, animations, experiments and more.",
       "category": "Development",
       "desktop": {
         "entry": {
-          "StartupWMClass": "turbowarp-desktop",
-          "Keywords": "scratch;"
+          "StartupWMClass": "ampmod",
+          "Keywords": "scratch;turbowarp;"
         }
       },
       "extraFiles": [

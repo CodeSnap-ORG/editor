@@ -71,15 +71,15 @@ module.exports = [
             new CopyWebpackPlugin({
                 patterns: [
                     {
-                        from: 'node_modules/scratch-blocks/media',
+                        from: '../blocks/media',
                         to: 'static/blocks-media/default'
                     },
                     {
-                        from: 'node_modules/scratch-blocks/media',
+                        from: '../blocks/media',
                         to: 'static/blocks-media/high-contrast'
                     },
                     {
-                        from: 'node_modules/scratch-gui/src/lib/themes/blocks/high-contrast-media/blocks-media',
+                        from: '../gui/src/lib/themes/blocks/high-contrast-media/blocks-media',
                         to: 'static/blocks-media/high-contrast',
                         force: true
                     },
@@ -92,8 +92,8 @@ module.exports = [
         ],
         resolve: {
             alias: {
-                'scratch-gui$': path.resolve(__dirname, 'node_modules/scratch-gui/src/index.js'),
-                'scratch-render-fonts$': path.resolve(__dirname, 'node_modules/scratch-gui/src/lib/tw-scratch-render-fonts'),
+                'scratch-gui$': path.resolve(__dirname, '..//gui/src/index.js'),
+                'scratch-render-fonts$': path.resolve(__dirname, '..//gui/src/lib/tw-scratch-render-fonts'),
             }
         }
     },
