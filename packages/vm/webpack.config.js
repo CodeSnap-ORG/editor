@@ -37,6 +37,12 @@ const base = {
         }]
     },
     resolve: {
+        alias: {
+            'hull.js': '@turbowarp/ancient-hull.js'
+        },
+        modules: [
+            'node_modules'
+        ],
         cacheWithContext: false
     },
     watchOptions: {
@@ -135,14 +141,14 @@ module.exports = [
         },
         plugins: base.plugins.concat([
             new CopyWebpackPlugin([{
-                from: '../../node_modules/scratch-blocks/media',
+                from: '../blocks/media',
                 to: 'media'
             }, {
-                from: 'node_modules/scratch-storage/dist/web'
+                from: '../../node_modules/scratch-storage/dist/web'
             }, {
                 from: 'node_modules/scratch-render/dist/web'
             }, {
-                from: 'node_modules/@turbowarp/scratch-svg-renderer/dist/web'
+                from: '../../node_modules/@turbowarp/scratch-svg-renderer/dist/web'
             }, {
                 from: 'src/playground'
             }])

@@ -793,6 +793,11 @@ class ScriptTreeGenerator {
                 whenTrue: this.descendSubstack(block, 'SUBSTACK'),
                 whenFalse: []
             };
+        case 'control_async':
+            return {
+                kind: 'control.async',
+                do: this.descendSubstack(block, 'SUBSTACK')
+            };
         case 'control_clear_counter':
             return {
                 kind: 'counter.clear'

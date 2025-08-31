@@ -39,7 +39,8 @@ class Scratch3ControlBlocks {
             control_incr_counter: this.incrCounter,
             control_clear_counter: this.clearCounter,
             control_all_at_once: this.allAtOnce,
-            controL_ternary: this.ternary
+            control_ternary: this.ternary,
+            control_async: this.async,
         };
     }
 
@@ -200,6 +201,12 @@ class Scratch3ControlBlocks {
         // (In early versions of Scratch 2.0, it would work the same way as
         // "run without screen refresh" custom blocks do now, but this was
         // removed before the release of 2.0.)
+        util.startBranch(1, false);
+    }
+    
+    async async (args, util) {
+        const delay = ms => new Promise(res => setTimeout(res, ms));
+        await delay(0);
         util.startBranch(1, false);
     }
 

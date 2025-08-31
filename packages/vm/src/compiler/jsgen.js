@@ -872,6 +872,11 @@ class JSGenerator {
             }
             this.source += `}\n`;
             break;
+        case 'control.async':
+            this.source += `setTimeout(0,function(){`;
+            this.descendStack(node.do, new Frame(false));
+            this.source += `});`;
+            break;
         case 'control.repeat': {
             const i = this.localVariables.next();
             this.source += `for (var ${i} = ${this.descendInput(node.times).asNumber()}; ${i} >= 0.5; ${i}--) {\n`;

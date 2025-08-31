@@ -437,6 +437,8 @@ const control = function (isInitialSetup, isStage, targetId, colors) {
         <block id="repeat_until" type="control_repeat_until"/>
         <block id="while" type="control_while"/>
         ${blockSeparator}
+        <block id="async" type="control_async"/>
+        ${blockSeparator}
         <block type="control_stop"/>
         ${blockSeparator}
         ${isStage ? `

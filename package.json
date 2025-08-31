@@ -13,6 +13,11 @@
   "author": "AmpElectrecuted",
   "license": "GPL-3.0-only OR MPL-2.0 OR 0BSD",
   "workspaces": [
-  	"packages/*"
-  ]
+    "packages/*"
+  ],
+  "dependencies": {
+    "@turbowarp/ancient-hull.js": "^0.2.13",
+    "audio-context": "^1.0.3",
+    "startaudiocontext": "^1.2.1"
+  }
 }
