@@ -30,9 +30,9 @@ const Home = () => (
         )}
         <header className={styles.headerContainer}>
             <h1 className={styles.headerText}>
-                {APP_NAME} - The definitive Scratch mod
+                {APP_NAME} - Block-based programming, amplified
             </h1>
-            <p>{APP_NAME} combines features from other Scratch modifications and adds convenient features.</p>
+            <p>{APP_NAME} is a powerful block-based programming language built on Scratch 3.0 and TurboWarp.</p>
             <a href="editor.html" className={homeStyles.primaryButton}>
                 Try now!
             </a>
@@ -50,8 +50,9 @@ const Home = () => (
             <section>
                 <h2>What is {APP_NAME}?</h2>
                 <p>
-                    {APP_NAME} is a Scratch modification that combines features from other Scratch modifications.
-                    It also adds convenient features to make complex projects easily.
+                    {APP_NAME} is a powerful block-based programming language, built on Scratch 3.0 and TurboWarp.
+                    It can be used for many things, from simple throwaway spaghetti scripts to large-scale scientific
+                    experiments.
                 </p>
             </section>
             <section>
