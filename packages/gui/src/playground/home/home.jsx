@@ -51,8 +51,7 @@ const Home = () => (
                 <h2>What is {APP_NAME}?</h2>
                 <p>
                     {APP_NAME} is a powerful block-based programming language, built on Scratch 3.0 and TurboWarp.
-                    It can be used for many things, from simple throwaway spaghetti scripts to large-scale scientific
-                    experiments.
+                    It can be used for many things, from simple throwaway spaghetti scripts to large-scale calculations.
                 </p>
             </section>
             <section>
