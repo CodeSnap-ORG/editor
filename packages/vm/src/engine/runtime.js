@@ -2431,25 +2431,9 @@ class Runtime extends EventEmitter {
     }
 
     /**
-     * Start all threads that start with the green flag.
+     * Base for greenFlag and stopAll.
      */
-    greenFlag () {
-        this.stopAll();
-        this.emit(Runtime.PROJECT_START);
-        this.updateCurrentMSecs();
-        this.ioDevices.clock.resetProjectTimer();
-        this.targets.forEach(target => target.clearEdgeActivatedValues());
-        // Inform all targets of the green flag.
-        for (let i = 0; i < this.targets.length; i++) {
-            this.targets[i].onGreenFlag();
-        }
-        this.startHats('event_whenflagclicked');
-    }
-
-    /**
-     * Stop "everything."
-     */
-    stopAll () {
+    stopBase () {
         // Emit stop event to allow blocks to clean up any state.
         this.emit(Runtime.PROJECT_STOP_ALL);
 
@@ -2474,6 +2458,30 @@ class Runtime extends EventEmitter {
         this.threadMap.clear();
 
         this.resetRunId();
+    }
+
+    /**
+     * Start all threads that start with the green flag.
+     */
+    greenFlag () {
+        this.stopBase();
+        this.emit(Runtime.PROJECT_START);
+        this.updateCurrentMSecs();
+        this.ioDevices.clock.resetProjectTimer();
+        this.targets.forEach(target => target.clearEdgeActivatedValues());
+        // Inform all targets of the green flag.
+        for (let i = 0; i < this.targets.length; i++) {
+            this.targets[i].onGreenFlag();
+        }
+        this.startHats('event_whenflagclicked');
+    }
+
+    /**
+     * Stop "everything."
+     */
+    stopAll () {
+        this.stopBase();
+        this.startHats('event_whenstopclicked');
     }
 
     _renderInterpolatedPositions () {
