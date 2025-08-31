@@ -34,13 +34,13 @@ const stacked = [
 ];
 
 const inputs = [
-    'control_ternary',
     'motion_xscroll',
     'motion_yscroll',
     'sensing_loud',
     'sensing_loudness',
     'sensing_userid',
-    'sound_volume'
+    'sound_volume',
+    'control_is_clone'
 ];
 
 module.exports = {

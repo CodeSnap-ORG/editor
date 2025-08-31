@@ -35,6 +35,7 @@ class Scratch3ControlBlocks {
             control_stop: this.stop,
             control_create_clone_of: this.createClone,
             control_delete_this_clone: this.deleteClone,
+            control_is_clone: this.isClone,
             control_get_counter: this.getCounter,
             control_incr_counter: this.incrCounter,
             control_clear_counter: this.clearCounter,
@@ -212,6 +213,10 @@ class Scratch3ControlBlocks {
 
     ternary (args, util) {
         return Cast.toBoolean(args.CONDITION) ? Cast.toString(args.LEFT) : Cast.toString(args.RIGHT);
+    }
+
+    isClone (args, util) {
+        return !util.target.isOriginal;
     }
 }
 

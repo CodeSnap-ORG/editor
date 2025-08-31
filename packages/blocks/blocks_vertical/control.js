@@ -487,6 +487,21 @@ Blockly.Blocks['control_delete_this_clone'] = {
   }
 };
 
+Blockly.Blocks['control_is_clone'] = {
+  /**
+   * Block for "clone?"
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "id": "control_is_clone",
+      "message0": Blockly.Msg.CONTROL_ISCLONE,
+      "category": Blockly.Categories.control,
+      "extensions": ["colours_control", "output_boolean"]
+    });
+  }
+};
+
 Blockly.Blocks['control_get_counter'] = {
   /**
    * Block to get the counter value. This is an obsolete block that is
