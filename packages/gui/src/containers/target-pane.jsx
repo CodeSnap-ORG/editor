@@ -36,6 +36,7 @@ class TargetPane extends React.Component {
             'handleChangeSpriteName',
             'handleChangeSpriteSize',
             'handleChangeSpriteVisibility',
+            'handleChangeSpriteDraggability',
             'handleChangeSpriteX',
             'handleChangeSpriteY',
             'handleDeleteSprite',
@@ -71,6 +72,9 @@ class TargetPane extends React.Component {
     }
     handleChangeSpriteVisibility (visible) {
         this.props.vm.postSpriteInfo({visible});
+    }
+    handleChangeSpriteDraggability (draggable) {
+        this.props.vm.postSpriteInfo({draggable});
     }
     handleChangeSpriteX (x) {
         this.props.vm.postSpriteInfo({x});
@@ -235,6 +239,7 @@ class TargetPane extends React.Component {
                 onChangeSpriteRotationStyle={this.handleChangeSpriteRotationStyle}
                 onChangeSpriteSize={this.handleChangeSpriteSize}
                 onChangeSpriteVisibility={this.handleChangeSpriteVisibility}
+                onChangeSpriteDraggability={this.handleChangeSpriteDraggability}
                 onChangeSpriteX={this.handleChangeSpriteX}
                 onChangeSpriteY={this.handleChangeSpriteY}
                 onDeleteSprite={this.handleDeleteSprite}

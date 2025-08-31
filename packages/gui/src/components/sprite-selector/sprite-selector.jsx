@@ -50,6 +50,7 @@ const SpriteSelectorComponent = function (props) {
         onChangeSpriteRotationStyle,
         onChangeSpriteSize,
         onChangeSpriteVisibility,
+        onChangeSpriteDraggability,
         onChangeSpriteX,
         onChangeSpriteY,
         onDrop,
@@ -96,6 +97,7 @@ const SpriteSelectorComponent = function (props) {
                 onChangeRotationStyle={onChangeSpriteRotationStyle}
                 onChangeSize={onChangeSpriteSize}
                 onChangeVisibility={onChangeSpriteVisibility}
+                onChangeDraggability={onChangeSpriteDraggability}
                 onChangeX={onChangeSpriteX}
                 onChangeY={onChangeSpriteY}
             />
@@ -154,6 +156,7 @@ SpriteSelectorComponent.propTypes = {
     }),
     intl: intlShape.isRequired,
     onChangeSpriteDirection: PropTypes.func,
+    onChangeSpriteDraggability: PropTypes.func,
     onChangeSpriteName: PropTypes.func,
     onChangeSpriteRotationStyle: PropTypes.func,
     onChangeSpriteSize: PropTypes.func,
