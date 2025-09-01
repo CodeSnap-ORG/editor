@@ -1,0 +1,9 @@
+name: Bug report
+description: If you found a bug in AmpMod, use this form to report it.
+title: "Bug: "
+labels: "Kind/Bug"
+body:
+  - type: markdown
+    attributes: 
+        value: |
+            **If you are reporting a vulnerability, please email ampelectrecuted@gmail.com instead of posting here. Thank you.**
