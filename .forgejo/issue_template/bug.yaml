@@ -37,8 +37,7 @@ body:
   - type: dropdown
     id: buildtype
     attributes:
-      label: AmpMod build type
-      decription: "If the bug occured on AmpMod production or canary, please say so here. If unsure, choose Production."
+      label: "AmpMod build type: If the bug occured on AmpMod production or canary, please say so here. If unsure, choose Production."
       options:
         - Production (ampmod.codeberg.page)
         - Canary (ampmod.codeberg.page/canary)
