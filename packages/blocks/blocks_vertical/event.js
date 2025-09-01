@@ -106,9 +106,9 @@ Blockly.Blocks['event_whenstopclicked'] = {
       "args0": [
         {
           "type": "field_image",
-          "src": Blockly.mainWorkspace.options.pathToMedia + "icons/control_stop.svg",
-          "width": 24,
-          "height": 24,
+          "src": Blockly.mainWorkspace.options.pathToMedia + "stopsign.svg",
+          "width": 22,
+          "height": 22,
           "alt": "stop"
         }
       ],
