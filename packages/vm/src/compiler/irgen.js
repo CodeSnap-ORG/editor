@@ -195,7 +195,7 @@ class ScriptTreeGenerator {
                     return {
                         kind: 'constant',
                         value: Platform.name
-                    }
+                    };
                 }
             }
             if (index === -1) {
@@ -214,7 +214,10 @@ class ScriptTreeGenerator {
             const name = block.fields.VALUE.value;
             const index = this.script.arguments.lastIndexOf(name);
             if (index === -1) {
-                if (name.toLowerCase() === 'is compiled?' || name.toLowerCase() === 'is turbowarp?' || name.toLowerCase() === 'is ultiblocks?' || name.toLowerCase() === 'is ampmod?') {
+                if (name.toLowerCase() === 'is compiled?' ||
+                    name.toLowerCase() === 'is turbowarp?' ||
+                    name.toLowerCase() === 'is ultiblocks?' ||
+                    name.toLowerCase() === 'is ampmod?') {
                     return {
                         kind: 'constant',
                         value: true
@@ -319,7 +322,7 @@ class ScriptTreeGenerator {
         case 'motion_position':
             return {
                 kind: 'motion.xy'
-            }
+            };
 
         case 'operator_add':
             return {
@@ -352,13 +355,13 @@ class ScriptTreeGenerator {
                 left: this.descendInputOfBlock(block, 'NUM1'),
                 right: this.descendInputOfBlock(block, 'NUM2')
             };
-            case 'operator_exponent':
-                return {
-                    kind: 'op.exponent',
-                    left: this.descendInputOfBlock(block, 'NUM1'),
-                    right: this.descendInputOfBlock(block, 'NUM2')
-                };
-            case 'operator_equals':
+        case 'operator_exponent':
+            return {
+                kind: 'op.exponent',
+                left: this.descendInputOfBlock(block, 'NUM1'),
+                right: this.descendInputOfBlock(block, 'NUM2')
+            };
+        case 'operator_equals':
             return {
                 kind: 'op.equals',
                 left: this.descendInputOfBlock(block, 'OPERAND1'),

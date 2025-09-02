@@ -41,7 +41,7 @@ class Scratch3ControlBlocks {
             control_clear_counter: this.clearCounter,
             control_all_at_once: this.allAtOnce,
             control_ternary: this.ternary,
-            control_async: this.async,
+            control_async: this.async
         };
     }
 
@@ -211,7 +211,7 @@ class Scratch3ControlBlocks {
         util.startBranch(1, false);
     }
 
-    ternary (args, util) {
+    ternary (args) {
         return Cast.toBoolean(args.CONDITION) ? Cast.toString(args.LEFT) : Cast.toString(args.RIGHT);
     }
 

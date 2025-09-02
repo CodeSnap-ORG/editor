@@ -435,7 +435,7 @@ class JSGenerator {
         case 'control.ternary':
             console.log(node);
             console.log(this.descendInput(node.condition).asBoolean());
-            return new TypedInput(`(${this.descendInput(node.condition).asBoolean()} ? ${this.descendInput(node.left).asString()} : ${this.descendInput(node.right).asString()})`,TYPE_UNKNOWN)
+            return new TypedInput(`(${this.descendInput(node.condition).asBoolean()} ? ${this.descendInput(node.left).asString()} : ${this.descendInput(node.right).asString()})`, TYPE_UNKNOWN);
         case 'compat':
             // Compatibility layer inputs never use flags.
             return new TypedInput(`(${this.generateCompatibilityLayerCall(node, false)})`, TYPE_UNKNOWN);
@@ -488,16 +488,7 @@ class JSGenerator {
         case 'motion.y':
             return new TypedInput('limitPrecision(target.y)', TYPE_NUMBER);
         case 'motion.xy':
-            return new TypedInput('[limitPrecision(target.x), limitPrecision(target.y)]', TYPE_UNKNOWN)
-
-        case 'mouse.down':
-            return new TypedInput('runtime.ioDevices.mouse.getIsDown()', TYPE_BOOLEAN);
-        case 'mouse.x':
-            return new TypedInput('runtime.ioDevices.mouse.getScratchX()', TYPE_NUMBER);
-        case 'mouse.y':
-            return new TypedInput('runtime.ioDevices.mouse.getScratchY()', TYPE_NUMBER);
-        case 'motion.xy':
-            return new TypedInput('[runtime.ioDevices.mouse.getScratchX(), runtime.ioDevices.mouse.getScratchY()]', TYPE_UNKNOWN)    
+            return new TypedInput('[limitPrecision(target.x), limitPrecision(target.y)]', TYPE_UNKNOWN);
 
         case 'noop':
             return new TypedInput('""', TYPE_STRING);
@@ -793,7 +784,7 @@ class JSGenerator {
 
         default:
             log.warn(`JS: Unknown input: ${node.kind}`, node);
-            throw new Error(`JS: Unknown input: ${node.kind}`);    
+            throw new Error(`JS: Unknown input: ${node.kind}`);
         }
     }
 

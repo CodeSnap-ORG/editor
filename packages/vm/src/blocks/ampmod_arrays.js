@@ -1,11 +1,11 @@
 const Cast = require('../util/cast');
 
 class AmpModArraysBlocks {
-    constructor(runtime) {
+    constructor (runtime) {
         this.runtime = runtime;
     }
 
-    getPrimitives() {
+    getPrimitives () {
         return {
             arrays_empty_array: this.emptyArray,
             arrays_item_of: this.itemOf,
@@ -20,46 +20,46 @@ class AmpModArraysBlocks {
         };
     }
 
-    emptyArray() {
+    emptyArray () {
         return [];
     }
 
-    itemOf(args) {
+    itemOf (args) {
         const array = Cast.toList(args.VALUE);
         const index = Cast.toNumber(args.INDEX) - 1;
         return array[index] || '';
     }
 
-    itemNoOf(args) {
+    itemNoOf (args) {
         const array = Cast.toList(args.ARRAY);
         const item = args.VALUE;
         return array.indexOf(item) + 1;
     }
 
-    contains(args) {
+    contains (args) {
         const array = Cast.toList(args.VALUE);
         const item = args.ARRAY;
         return array.includes(item);
     }
 
-    length(args) {
+    length (args) {
         const array = Cast.toList(args.VALUE);
         return array.length;
     }
 
-    addFront(args) {
+    addFront (args) {
         const array = Cast.toList(args.ARRAY);
         const item = args.ITEM;
         return [...array, item];
     }
 
-    addBack(args) {
+    addBack (args) {
         const array = Cast.toList(args.ARRAY);
         const item = args.ITEM;
         return [item, ...array];
     }
 
-    insertAt(args) {
+    insertAt (args) {
         const array = Cast.toList(args.ARRAY);
         const index = Cast.toNumber(args.INDEX) - 1;
         const item = args.ITEM;
@@ -68,7 +68,7 @@ class AmpModArraysBlocks {
         return newArray;
     }
 
-    range(args) {
+    range (args) {
         const start = Cast.toNumber(args.START);
         const end = Cast.toNumber(args.END);
         const rangeArray = [];
@@ -78,7 +78,7 @@ class AmpModArraysBlocks {
         return rangeArray;
     }
 
-    delimitedToArray(args) {
+    delimitedToArray (args) {
         const text = Cast.toString(args.TEXT);
         const delimiter = Cast.toString(args.DELIM);
         return text.split(delimiter);
