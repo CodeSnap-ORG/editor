@@ -29,6 +29,8 @@ class FontFallbackButton extends React.Component {
             return '日本語';
         case VanillaFonts.MOPED_LIKE:
             return 'Mopeds';
+        case VanillaFonts.PIXELIFY:
+            return 'Amplification';
         }
         return this.props.family;
     }

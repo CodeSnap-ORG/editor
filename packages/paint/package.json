@@ -13,7 +13,8 @@
     "start": "webpack-dev-server",
     "test": "npm run unit",
     "unit": "jest --reporters=default",
-    "watch": "webpack --progress --colors --watch"
+    "watch": "webpack --progress --colors --watch",
+    "prepare": "# There is no prepare script for scratch-paint"
   },
   "author": "Massachusetts Institute of Technology",
   "license": "GPL-3.0",
