@@ -12,7 +12,8 @@ const getFonts = function () {
         'Marker': require('base64-loader!./Knewave.woff2'),
         'Curly': require('base64-loader!./Griffy-Regular.woff2'),
         'Pixel': require('base64-loader!./Grand9K-Pixel.woff2'),
-        'Scratch': require('base64-loader!./ScratchSavers_b2.woff2')
+        'Scratch': require('base64-loader!./ScratchSavers_b2.woff2'),
+        'AmpMod': require('base64-loader!./Pixelify-Sans.woff2')
     };
     /* eslint-enable global-require */
 
