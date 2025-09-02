@@ -3,6 +3,7 @@ import render from '../app-target';
 import styles from '../info.css';
 import homeStyles from './home.css';
 import '@fontsource/inter';
+import * as bowser from 'bowser';
 
 import {APP_NAME} from '../../lib/brand';
 import {applyGuiColors} from '../../lib/themes/guiHelpers';
@@ -25,6 +26,13 @@ const Home = () => (
             <section className={homeStyles.notification}>
                 <p>
                     This is a canary build. Bugs may be present. Do NOT use this build for production work.
+                </p>
+            </section>
+        )}
+        {bowser.parse(navigator.userAgent).platform.type == "mobile" && (
+            <section className={homeStyles.notification}>
+                <p>
+                    Phones not officially supported. Desktop/tablet is recommended.
                 </p>
             </section>
         )}
