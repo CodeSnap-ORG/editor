@@ -55,7 +55,7 @@ steps:
       # Prepare for push
       - git remote set-url origin https://$CBTOKEN@codeberg.org/ampmod/pages.git
       - git rm -rf ./*
-  - name: build
+  - name: build-scratch-blocks
     when: 
       - event: push
         branch: production
@@ -65,9 +65,20 @@ steps:
     commands:
       - apt-get update && apt-get install pypy3 default-jre-headless --no-install-recommends -y
       # Run 11ty build stage
+      - cd packages/blocks
       - npm ci
-      # Build
-      - IS_CBP_BUILD=true NODE_ENV=production npm run ci-build
+      - npm run prepare
+  - name: build-monorepo
+    when: 
+      - event: push
+        branch: production
+      - event: manual
+        branch: production
+    image: node:20-trixie-slim
+    commands:
+      # Run 11ty build stage
+      - npm ci
+      - NODE_ENV=production IS_CBP_BUILD=true npm run ci-build
       # Only needed for custom domains
       # - cp domains build/.domains
   - name: push
