@@ -55,7 +55,6 @@ steps:
       # Prepare for push
       - git remote set-url origin https://$CBTOKEN@codeberg.org/ampmod/pages.git
       - git rm -rf ./*
-steps:
   - name: build
     when: 
       - event: push
