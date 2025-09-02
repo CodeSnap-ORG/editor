@@ -80,7 +80,7 @@ const funFacts = [
     'Removing dangos...',
     'Modifying features...',
     'Converting legacy lists...',
-    'Breaking everything...',
+    'Breaking everything... Okay, fine, I`m kidding!',
     'Preparing the AmpMods',
     'There is a canary version of AmpMod if you want to have the latest features in exchange for bugs.',
     'bleh',
