@@ -80,7 +80,14 @@ const funFacts = [
     'Removing dangos...',
     'Modifying features...',
     'Converting legacy lists...',
-    'There is a canary version of AmpMod if you want to have the latest features in exchange for bugs.',
+    'Breaking everything...',
+    'Preparing the AmpMods',
+    'There is a canary version of AmpMod if you want to have the latest features in exchange for bugs.'
+    'bleh',
+    'Error at line 10 of loader.jsx, "invalid syntax". Just kidding! :D',
+    'this.loaderMessage = null',
+    'super ampmod bros real 2019',
+    'abc.xyz',
 ];
 
 class LoaderComponent extends React.Component {
