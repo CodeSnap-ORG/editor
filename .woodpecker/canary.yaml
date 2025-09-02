@@ -62,7 +62,7 @@ steps:
         branch: develop
       - event: manual
         branch: develop
-    image: node:20-slim-trixie
+    image: node:20-trixie-slim
     commands:
       - apt-get update && apt-get install pypy3 default-jre-headless --no-install-recommends -y
       # Run 11ty build stage
