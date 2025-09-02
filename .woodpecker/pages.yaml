@@ -58,9 +58,9 @@ steps:
   - name: install
     when: 
       - event: push
-        branch: develop
+        branch: production
       - event: manual
-        branch: develop
+        branch: production
     image: node:20-trixie-slim
     commands:
       - npm ci
