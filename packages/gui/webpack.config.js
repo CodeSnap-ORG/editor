@@ -27,7 +27,7 @@ const htmlWebpackPluginCommon = {
 };
 
 // When this changes, the path for all JS files will change, bypassing any HTTP caches
-const CACHE_EPOCH = `amp-${process.env.ampmod_version}`;
+const CACHE_EPOCH = `amp-${JSON.stringify(process.env.npm_package_version)}`;
 
 const base = {
     mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
