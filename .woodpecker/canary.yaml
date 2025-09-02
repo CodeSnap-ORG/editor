@@ -32,6 +32,10 @@ steps:
         branch: develop
       - event: manual
         branch: develop
+    environment:
+      # secrets must be set in Woodpecker configuration
+      CBTOKEN:
+        from_secret: cbtoken
     image: alpine/git
     commands:
       # Avoid permission denied errors
