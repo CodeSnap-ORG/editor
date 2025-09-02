@@ -45,6 +45,8 @@ class FontDropdown extends React.Component {
                 return '日本語';
             case Fonts.MOPED_LIKE:
                 return 'Mopeds';
+            case Fonts.PIXELIFY:
+                return 'Amplification';
             default:
                 return font;
             }

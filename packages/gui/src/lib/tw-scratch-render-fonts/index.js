@@ -7,7 +7,7 @@ const Marker = require('./Knewave.woff2');
 const Curly = require('./Griffy-Regular.woff2');
 const Pixel = require('./Grand9K-Pixel.woff2');
 const Scratch = require('./ScratchSavers_b2.woff2');
-const AmpMod = require('./Pixelify-Sans.woff2');
+const AmpMod = require('./PixelifySans.woff2');
 const log = require('../log').default;
 
 const fontSource = {
