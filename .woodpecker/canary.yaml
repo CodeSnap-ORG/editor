@@ -45,7 +45,7 @@ steps:
       - git config --global user.email "no@thankyou.com"
       - git config --global user.name "CI Builder"
       # clone and move the target repo
-      - git clone -b pages https://codeberg.org/ampmod/canary.git amp-build
+      - git clone -b pages https://$CBTOKEN@codeberg.org/ampmod/canary.git amp-build
       - chmod -R a+w amp-build
   - name: clean-up
     when: 
@@ -61,7 +61,6 @@ steps:
       - git config --global user.email "no@thankyou.com"
       - git config --global user.name "CI Builder"
       # Prepare for push
-      - git remote set-url origin https://$CBTOKEN@codeberg.org/ampmod/canary.git
       - git rm -rf ./*
       - git commit -m 'Woodpecker CI - Clean up.'
   - name: install
