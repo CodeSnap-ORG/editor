@@ -57,6 +57,8 @@ Blockly.Msg.CONTROL_INCRCOUNTER = 'increment counter';
 Blockly.Msg.CONTROL_CLEARCOUNTER = 'clear counter';
 Blockly.Msg.CONTROL_ALLATONCE = 'all at once';
 Blockly.Msg.CONTROL_ASYNC = 'in the background, do';
+Blockly.Msg.CONTROL_SWITCH = 'consider %1';
+Blockly.Msg.CONTROL_CASE = 'if %1 is considered, then';
 
 // Data blocks
 Blockly.Msg.DATA_SETVARIABLETO = 'set %1 to %2';
