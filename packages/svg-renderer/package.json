@@ -4,6 +4,7 @@
   "description": "SVG renderer for Scratch",
   "main": "./src/index.js",
   "scripts": {
+    "prepare": "# None",
     "prepublishOnly": "npm run build",
     "build": "npm run clean && webpack --progress --colors --bail",
     "clean": "rimraf ./dist",
@@ -20,7 +21,7 @@
     "url": "https://github.com/TurboWarp/scratch-svg-renderer.git"
   },
   "peerDependencies": {
-    "scratch-render-fonts": "github:TurboWarp/scratch-render-fonts#master"
+    "scratch-render-fonts": "*"
   },
   "dependencies": {
     "@turbowarp/nanolog": "^0.2.0",
@@ -43,7 +44,7 @@
     "lodash.defaultsdeep": "4.6.1",
     "mkdirp": "2.0.0",
     "rimraf": "3.0.2",
-    "scratch-render-fonts": "github:TurboWarp/scratch-render-fonts#master",
+    "scratch-render-fonts": "*",
     "tap": "11.1.5",
     "webpack": "4.47.0",
     "webpack-cli": "3.3.12",
