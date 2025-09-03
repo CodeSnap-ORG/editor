@@ -83,6 +83,16 @@ const ModeToolsComponent = props => (
                 <Button
                     className={classNames(styles.modMenuItem)}
                     onClick={props.onChoose}
+                    onMouseOver={props.onHoverComic}
+                >
+                    <DisplayFont
+                        font={Fonts.COMIC}
+                        getFontName={props.getFontName}
+                    />
+                </Button>
+                <Button
+                    className={classNames(styles.modMenuItem)}
+                    onClick={props.onChoose}
                     onMouseOver={props.onHoverPixel}
                 >
                     <DisplayFont
@@ -196,6 +206,7 @@ ModeToolsComponent.propTypes = {
     onManageFonts: PropTypes.func,
     onHoverChinese: PropTypes.func,
     onHoverCurly: PropTypes.func,
+    onHoverComic: PropTypes.func,
     onHoverHandwriting: PropTypes.func,
     onHoverJapanese: PropTypes.func,
     onHoverKorean: PropTypes.func,

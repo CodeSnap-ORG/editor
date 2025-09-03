@@ -3,6 +3,7 @@ const Fonts = {
     SERIF: 'Serif',
     HANDWRITING: 'Handwriting',
     MARKER: 'Marker',
+    COMIC: 'Comic',
     CURLY: 'Curly',
     PIXEL: 'Pixel',
     MOPED_LIKE: 'Scratch',
