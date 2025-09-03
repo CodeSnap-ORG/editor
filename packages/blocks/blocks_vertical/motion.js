@@ -43,7 +43,8 @@ Blockly.Blocks['motion_movesteps'] = {
         }
       ],
       "category": Blockly.Categories.motion,
-      "extensions": ["colours_motion", "shape_statement"]
+      "extensions": ["colours_motion", "shape_statement"],
+      "helpUrl": "https://ampmod.miraheze.org/wiki/Move_()_steps"
     });
   }
 };
@@ -69,7 +70,8 @@ Blockly.Blocks['motion_turnright'] = {
         }
       ],
       "category": Blockly.Categories.motion,
-      "extensions": ["colours_motion", "shape_statement"]
+      "extensions": ["colours_motion", "shape_statement"],
+      "helpUrl": "https://ampmod.miraheze.org/wiki/Turn_()_degrees"
     });
   }
 };
@@ -95,7 +97,8 @@ Blockly.Blocks['motion_turnleft'] = {
         }
       ],
       "category": Blockly.Categories.motion,
-      "extensions": ["colours_motion", "shape_statement"]
+      "extensions": ["colours_motion", "shape_statement"],
+      "helpUrl": "https://ampmod.miraheze.org/wiki/Turn_()_degrees"
     });
   }
 };
@@ -115,7 +118,8 @@ Blockly.Blocks['motion_pointindirection'] = {
         }
       ],
       "category": Blockly.Categories.motion,
-      "extensions": ["colours_motion", "shape_statement"]
+      "extensions": ["colours_motion", "shape_statement"],
+      "helpUrl": "https://ampmod.miraheze.org/wiki/Point_in_direction_()"
     });
   }
 };
@@ -162,7 +166,8 @@ Blockly.Blocks['motion_pointtowards'] = {
         }
       ],
       "category": Blockly.Categories.motion,
-      "extensions": ["colours_motion", "shape_statement"]
+      "extensions": ["colours_motion", "shape_statement"],
+      "helpUrl": "https://ampmod.miraheze.org/wiki/Point_towards_()"
     });
   }
 };
@@ -213,7 +218,8 @@ Blockly.Blocks['motion_gotoxy'] = {
         }
       ],
       "category": Blockly.Categories.motion,
-      "extensions": ["colours_motion", "shape_statement"]
+      "extensions": ["colours_motion", "shape_statement"],
+      "helpUrl": "https://ampmod.miraheze.org/wiki/Go_to_x:_()_y:_()"
     });
   }
 };
@@ -233,7 +239,8 @@ Blockly.Blocks['motion_goto'] = {
         }
       ],
       "category": Blockly.Categories.motion,
-      "extensions": ["colours_motion", "shape_statement"]
+      "extensions": ["colours_motion", "shape_statement"],
+      "helpUrl": "https://ampmod.miraheze.org/wiki/Go_to_()"
     });
   }
 };
@@ -261,7 +268,8 @@ Blockly.Blocks['motion_glidesecstoxy'] = {
         }
       ],
       "category": Blockly.Categories.motion,
-      "extensions": ["colours_motion", "shape_statement"]
+      "extensions": ["colours_motion", "shape_statement"],
+      "helpUrl": "https://ampmod.miraheze.org/wiki/Glide_()_seconds_to_x:_()_y:_()"
     });
   }
 };
@@ -312,7 +320,8 @@ Blockly.Blocks['motion_glideto'] = {
         }
       ],
       "category": Blockly.Categories.motion,
-      "extensions": ["colours_motion", "shape_statement"]
+      "extensions": ["colours_motion", "shape_statement"],
+      "helpUrl": "https://ampmod.miraheze.org/wiki/Glide_()_seconds_to_()"
     });
   }
 };
@@ -332,7 +341,8 @@ Blockly.Blocks['motion_changexby'] = {
         }
       ],
       "category": Blockly.Categories.motion,
-      "extensions": ["colours_motion", "shape_statement"]
+      "extensions": ["colours_motion", "shape_statement"],
+      "helpUrl": "https://ampmod.miraheze.org/wiki/Change_x_by_()"
     });
   }
 };
@@ -352,7 +362,8 @@ Blockly.Blocks['motion_setx'] = {
         }
       ],
       "category": Blockly.Categories.motion,
-      "extensions": ["colours_motion", "shape_statement"]
+      "extensions": ["colours_motion", "shape_statement"],
+      "helpUrl": "https://ampmod.miraheze.org/wiki/Set_x_to_()"
     });
   }
 };
@@ -372,7 +383,8 @@ Blockly.Blocks['motion_changeyby'] = {
         }
       ],
       "category": Blockly.Categories.motion,
-      "extensions": ["colours_motion", "shape_statement"]
+      "extensions": ["colours_motion", "shape_statement"],
+      "helpUrl": "https://ampmod.miraheze.org/wiki/Change_y_by_()"
     });
   }
 };
@@ -392,7 +404,8 @@ Blockly.Blocks['motion_sety'] = {
         }
       ],
       "category": Blockly.Categories.motion,
-      "extensions": ["colours_motion", "shape_statement"]
+      "extensions": ["colours_motion", "shape_statement"],
+      "helpUrl": "https://ampmod.miraheze.org/wiki/Set_y_to_()"
     });
   }
 };
@@ -406,7 +419,8 @@ Blockly.Blocks['motion_ifonedgebounce'] = {
     this.jsonInit({
       "message0": Blockly.Msg.MOTION_IFONEDGEBOUNCE,
       "category": Blockly.Categories.motion,
-      "extensions": ["colours_motion", "shape_statement"]
+      "extensions": ["colours_motion", "shape_statement"],
+      "helpUrl": "https://ampmod.miraheze.org/wiki/If_on_edge,_bounce"
     });
   }
 };
@@ -431,7 +445,8 @@ Blockly.Blocks['motion_setrotationstyle'] = {
         }
       ],
       "category": Blockly.Categories.motion,
-      "extensions": ["colours_motion", "shape_statement"]
+      "extensions": ["colours_motion", "shape_statement"],
+      "helpUrl": "https://ampmod.miraheze.org/wiki/Set_rotation_style_()"
     });
   }
 };
@@ -446,7 +461,8 @@ Blockly.Blocks['motion_xposition'] = {
       "message0": Blockly.Msg.MOTION_XPOSITION,
       "category": Blockly.Categories.motion,
       "checkboxInFlyout": true,
-      "extensions": ["colours_motion", "output_number"]
+      "extensions": ["colours_motion", "output_number"],
+      "helpUrl": "https://ampmod.miraheze.org/wiki/X_position"
     });
   }
 };
@@ -461,7 +477,8 @@ Blockly.Blocks['motion_yposition'] = {
       "message0": Blockly.Msg.MOTION_YPOSITION,
       "category": Blockly.Categories.motion,
       "checkboxInFlyout": true,
-      "extensions": ["colours_motion", "output_number"]
+      "extensions": ["colours_motion", "output_number"],
+      "helpUrl": "https://ampmod.miraheze.org/wiki/Y_position"
     });
   }
 };
@@ -477,7 +494,8 @@ Blockly.Blocks['motion_position'] = {
       "category": Blockly.Categories.motion,
       "checkboxInFlyout": true,
       "output": "Array",
-      "extensions": ["colours_motion", "shape_square"]
+      "extensions": ["colours_motion", "shape_square"],
+      "helpUrl": "https://ampmod.miraheze.org/wiki/Position"
     });
   }
 };
@@ -492,7 +510,8 @@ Blockly.Blocks['motion_direction'] = {
       "message0": Blockly.Msg.MOTION_DIRECTION,
       "category": Blockly.Categories.motion,
       "checkboxInFlyout": true,
-      "extensions": ["colours_motion", "output_number"]
+      "extensions": ["colours_motion", "output_number"],
+      "helpUrl": "https://ampmod.miraheze.org/wiki/Direction"
     });
   }
 };
