@@ -183,6 +183,28 @@ Blockly.BlockSvg.NOTCH_PATH_RIGHT = (
 );
 
 /**
+ * SVG path for drawing a "case" notch from left to right.
+ * @const
+ */
+Blockly.BlockSvg.NOTCH_PATH_CASE_LEFT = (
+  'l 8,8 ' +
+  'l 8,-8 ' +
+  'l 8,8 ' +
+  'l 8,-8'
+);
+
+/**
+ * SVG path for drawing a "case" notch from right to left.
+ * @const
+ */
+Blockly.BlockSvg.NOTCH_PATH_CASE_RIGHT = (
+  'l -8,8 ' +
+  'l -8,-8 ' +
+  'l -8,8 ' +
+  'l -8,-8'
+);
+
+/**
  * Amount of padding before the notch.
  * @const
  */
@@ -1254,7 +1276,12 @@ Blockly.BlockSvg.prototype.renderDrawTop_ = function(steps, rightEdge) {
     if (this.previousConnection) {
       // Space before the notch
       steps.push('H', Blockly.BlockSvg.NOTCH_START_PADDING);
-      steps.push(Blockly.BlockSvg.NOTCH_PATH_LEFT);
+      // Use case notch if block shape is SHAPE_SWITCH_CASE
+      if (this.getOutputShape && this.getOutputShape() === Blockly.SHAPE_SWITCH_CASE) {
+        steps.push(Blockly.BlockSvg.NOTCH_PATH_CASE_LEFT);
+      } else {
+        steps.push(Blockly.BlockSvg.NOTCH_PATH_LEFT);
+      }
       // Create previous block connection.
       var connectionX = (this.RTL ?
           -Blockly.BlockSvg.NOTCH_WIDTH : Blockly.BlockSvg.NOTCH_WIDTH);
@@ -1435,7 +1462,12 @@ Blockly.BlockSvg.prototype.renderDrawBottom_ = function(steps, cursorY) {
       Blockly.BlockSvg.CORNER_RADIUS
     );
     steps.push('H', notchStart, ' ');
-    steps.push(Blockly.BlockSvg.NOTCH_PATH_RIGHT);
+    // Use case notch if block shape is SHAPE_SWITCH_CASE
+    if (this.getOutputShape && this.getOutputShape() === Blockly.SHAPE_SWITCH_CASE) {
+      steps.push(Blockly.BlockSvg.NOTCH_PATH_CASE_RIGHT);
+    } else {
+      steps.push(Blockly.BlockSvg.NOTCH_PATH_RIGHT);
+    }
     // Create next block connection.
     var connectionX = this.RTL ? -Blockly.BlockSvg.NOTCH_WIDTH :
         Blockly.BlockSvg.NOTCH_WIDTH;
@@ -1537,9 +1569,16 @@ Blockly.BlockSvg.prototype.positionNewBlock = function(newBlock, newConnection,
  */
 Blockly.BlockSvg.drawStatementInputFromTopRight_ = function(steps, cursorX,
     rightEdge, row) {
-  Blockly.BlockSvg.drawStatementInputTop_(steps, cursorX);
+  // Check if this statement input should use case notches
+  var useCaseNotch = false;
+  var input = row[0];
+  if (input && input.connection && input.connection.check_ &&
+      input.connection.check_.indexOf('case') !== -1) {
+    useCaseNotch = true;
+  }
+  Blockly.BlockSvg.drawStatementInputTop_(steps, cursorX, useCaseNotch);
   steps.push('v', row.height - 2 * Blockly.BlockSvg.CORNER_RADIUS);
-  Blockly.BlockSvg.drawStatementInputBottom_(steps, rightEdge, row);
+  Blockly.BlockSvg.drawStatementInputBottom_(steps, rightEdge, row, useCaseNotch);
 };
 
 /**
@@ -1548,13 +1587,18 @@ Blockly.BlockSvg.drawStatementInputFromTopRight_ = function(steps, cursorX,
  * @param {!Array.<string>} steps Path of block outline.
  * @param {number} cursorX The x position of the start of the notch at the top
  *     of the input.
+ * @param {boolean} useCaseNotch Whether to use the case notch.
  * @private
  */
-Blockly.BlockSvg.drawStatementInputTop_ = function(steps, cursorX) {
+Blockly.BlockSvg.drawStatementInputTop_ = function(steps, cursorX, useCaseNotch) {
   steps.push(Blockly.BlockSvg.BOTTOM_RIGHT_CORNER);
   steps.push('H', cursorX + Blockly.BlockSvg.STATEMENT_INPUT_INNER_SPACE +
     2 * Blockly.BlockSvg.CORNER_RADIUS);
-  steps.push(Blockly.BlockSvg.NOTCH_PATH_RIGHT);
+  if (useCaseNotch) {
+    steps.push(Blockly.BlockSvg.NOTCH_PATH_CASE_RIGHT);
+  } else {
+    steps.push(Blockly.BlockSvg.NOTCH_PATH_RIGHT);
+  }
   steps.push('h', '-' + Blockly.BlockSvg.STATEMENT_INPUT_INNER_SPACE);
   steps.push(Blockly.BlockSvg.INNER_TOP_LEFT_CORNER);
 };
@@ -1568,13 +1612,18 @@ Blockly.BlockSvg.drawStatementInputTop_ = function(steps, cursorX) {
  * @param {!Array.<!Object>} row An object containing information about the
  *     current row, including its height and whether it should have a notch at
  *     the bottom.
+ * @param {boolean} useCaseNotch Whether to use the case notch.
  * @private
  */
-Blockly.BlockSvg.drawStatementInputBottom_ = function(steps, rightEdge, row) {
+Blockly.BlockSvg.drawStatementInputBottom_ = function(steps, rightEdge, row, useCaseNotch) {
   steps.push(Blockly.BlockSvg.INNER_BOTTOM_LEFT_CORNER);
   if (row.statementNotchAtBottom) {
     steps.push('h ', Blockly.BlockSvg.STATEMENT_INPUT_INNER_SPACE);
-    steps.push(Blockly.BlockSvg.NOTCH_PATH_LEFT);
+    if (useCaseNotch) {
+      steps.push(Blockly.BlockSvg.NOTCH_PATH_CASE_LEFT);
+    } else {
+      steps.push(Blockly.BlockSvg.NOTCH_PATH_LEFT);
+    }
   }
   steps.push('H', rightEdge - Blockly.BlockSvg.CORNER_RADIUS);
 };
