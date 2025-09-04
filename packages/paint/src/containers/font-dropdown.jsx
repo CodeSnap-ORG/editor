@@ -21,6 +21,7 @@ class FontDropdown extends React.Component {
             'handleChangeFontHandwriting',
             'handleChangeFontMarker',
             'handleChangeFontCurly',
+            'handleChangeFontComic',
             'handleChangeFontPixel',
             'handleChangeFontMopedLike',
             'handleChangeFontPixelify',
@@ -45,6 +46,8 @@ class FontDropdown extends React.Component {
                 return '日本語';
             case Fonts.MOPED_LIKE:
                 return 'Mopeds';
+            case Fonts.PIXELIFY:
+                return 'Amplification';
             default:
                 return font;
             }
@@ -88,6 +91,11 @@ class FontDropdown extends React.Component {
     handleChangeFontCurly () {
         if (this.dropDown.isOpen()) {
             this.props.changeFont(Fonts.CURLY);
+        }
+    }
+    handleChangeFontComic () {
+        if (this.dropDown.isOpen()) {
+            this.props.changeFont(Fonts.COMIC);
         }
     }
     handleChangeFontPixel () {
@@ -168,6 +176,7 @@ class FontDropdown extends React.Component {
                 onHoverJapanese={this.handleChangeFontJapanese}
                 onHoverKorean={this.handleChangeFontKorean}
                 onHoverMarker={this.handleChangeFontMarker}
+                onHoverComic={this.handleChangeFontComic}
                 onHoverPixel={this.handleChangeFontPixel}
                 onHoverMopedLike={this.handleChangeFontMopedLike}
                 onHoverPixelify={this.handleChangeFontPixelify}

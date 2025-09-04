@@ -9,11 +9,12 @@ const getFonts = function () {
         'Sans Serif': require('base64-loader!./NotoSans-Medium.woff2'),
         'Serif': require('base64-loader!./SourceSerifPro-Regular.woff2'),
         'Handwriting': require('base64-loader!./handlee-regular.woff2'),
+        'Comic': require('base64-loader!./ComicNeue-Bold.woff2'),
         'Marker': require('base64-loader!./Knewave.woff2'),
         'Curly': require('base64-loader!./Griffy-Regular.woff2'),
         'Pixel': require('base64-loader!./Grand9K-Pixel.woff2'),
         'Scratch': require('base64-loader!./ScratchSavers_b2.woff2'),
-        'AmpMod': require('base64-loader!./Pixelify-Sans.woff2')
+        'AmpMod': require('base64-loader!./PixelifySans.woff2')
     };
     /* eslint-enable global-require */
 

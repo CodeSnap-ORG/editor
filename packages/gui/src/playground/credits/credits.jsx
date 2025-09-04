@@ -159,7 +159,10 @@ const Credits = () => (
             <section>
                 <h2>Fonts</h2>
                 <p>
-                    The AmpMod logo uses the <a href="https://fonts.google.com/specimen/Pixelify+Sans">Pixelify Sans</a> font. It is licenced under the <a href="https://fonts.google.com/specimen/IBM+Plex+Sans/license">SIL Open Font License</a>.
+                    The AmpMod logo uses the <a href="https://fonts.google.com/specimen/Pixelify+Sans">Pixelify Sans</a> font. It is licenced under the <a href="https://fonts.google.com/specimen/Pixelify+Sans/license">SIL Open Font License</a>.
+                </p>
+                <p>
+                    Pixelify Sans is also available in the editor as the "Amplification" font.
                 </p>
                 <p>
                     The Apple Cat signature below uses the <a href="https://fonts.google.com/specimen/Caveat+Brush">Caveat Brush</a> font under the same licence.

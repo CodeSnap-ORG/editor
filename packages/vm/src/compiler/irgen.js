@@ -825,6 +825,18 @@ class ScriptTreeGenerator {
                 },
                 do: this.descendSubstack(block, 'SUBSTACK')
             };
+        case 'control_switch':
+            return {
+                kind: 'control.switch',
+                value: this.descendInputOfBlock(block, 'VALUE'),
+                contents: this.descendInputOfBlock(block, 'SUBSTACK')
+            };
+        case 'control_case':
+            return {
+                kind: 'control.case',
+                value: this.descendInputOfBlock(block, 'VALUE'),
+                contents: this.descendInputOfBlock(block, 'SUBSTACK')
+            };
         case 'control_for_each':
             this.analyzeLoop();
             return {

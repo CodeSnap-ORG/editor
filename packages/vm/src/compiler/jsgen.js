@@ -852,6 +852,18 @@ class JSGenerator {
             this.source += '}\n';
             break;
         }
+        case 'control.switch': {
+            this.source += `switch ('${this.descendInput(node.value).asString()}') {\n`;
+            this.descendStack(node.contents, new Frame(false));
+            this.source += `}\n`;
+            break;
+        }
+        case 'control.case': {
+            this.source += `case '${this.descendInput(node.value).asString()}': {\n`;
+            this.descendStack(node.contents, new Frame(false));
+            this.source += `}\n`;
+            break;
+        }
         case 'control.if':
             this.source += `if (${this.descendInput(node.condition).asBoolean()}) {\n`;
             this.descendStack(node.whenTrue, new Frame(false));

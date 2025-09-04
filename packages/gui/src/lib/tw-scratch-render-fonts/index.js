@@ -3,17 +3,19 @@
 const SansSerif = require('./NotoSans-Medium.woff2');
 const Serif = require('./SourceSerifPro-Regular.woff2');
 const Handwriting = require('./handlee-regular.woff2');
+const Comic = require('./ComicNeue-Bold.woff2');
 const Marker = require('./Knewave.woff2');
 const Curly = require('./Griffy-Regular.woff2');
 const Pixel = require('./Grand9K-Pixel.woff2');
 const Scratch = require('./ScratchSavers_b2.woff2');
-const AmpMod = require('./Pixelify-Sans.woff2');
+const AmpMod = require('./PixelifySans.woff2');
 const log = require('../log').default;
 
 const fontSource = {
     'Sans Serif': SansSerif,
     'Serif': Serif,
     'Handwriting': Handwriting,
+    'Comic': Comic,
     'Marker': Marker,
     'Curly': Curly,
     'Pixel': Pixel,

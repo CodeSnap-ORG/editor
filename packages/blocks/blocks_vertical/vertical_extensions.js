@@ -76,8 +76,8 @@ Blockly.ScratchBlocks.VerticalExtensions.COLOUR_TEXTFIELD = function() {
  */
 Blockly.ScratchBlocks.VerticalExtensions.SHAPE_STATEMENT = function() {
   this.setInputsInline(true);
-  this.setPreviousStatement(true, null);
-  this.setNextStatement(true, null);
+  this.setPreviousStatement(true, 'normal');
+  this.setNextStatement(true, 'normal');
 };
 
 /**
@@ -101,7 +101,19 @@ Blockly.ScratchBlocks.VerticalExtensions.SHAPE_HAT = function() {
  */
 Blockly.ScratchBlocks.VerticalExtensions.SHAPE_END = function() {
   this.setInputsInline(true);
-  this.setPreviousStatement(true, null);
+  this.setPreviousStatement(true, 'normal');
+};
+
+/**
+ * Extension to make a block be shaped as a statement, but only allow it to fit in
+ * "switch" statements.
+ * @this {Blockly.Block}
+ * @readonly
+ */
+Blockly.ScratchBlocks.VerticalExtensions.SHAPE_SWITCH_CASE = function() {
+  this.setInputsInline(true);
+  this.setPreviousStatement(true, 'case');
+  this.setNextStatement(true, 'case');
 };
 
 /**
@@ -278,6 +290,8 @@ Blockly.ScratchBlocks.VerticalExtensions.registerAll = function() {
   // Register extensions for common block shapes.
   Blockly.Extensions.register('shape_statement',
       Blockly.ScratchBlocks.VerticalExtensions.SHAPE_STATEMENT);
+  Blockly.Extensions.register('shape_switch_case',
+      Blockly.ScratchBlocks.VerticalExtensions.SHAPE_SWITCH_CASE);
   Blockly.Extensions.register('shape_hat',
       Blockly.ScratchBlocks.VerticalExtensions.SHAPE_HAT);
   Blockly.Extensions.register('shape_end',

@@ -397,6 +397,7 @@ const events = function (isInitialSetup, isStage, targetId, colors) {
 };
 
 const control = function (isInitialSetup, isStage, targetId, colors) {
+    const apple = translate('OPERATORS_JOIN_APPLE', 'apple');
     // Note: the category's secondaryColour matches up with the blocks' tertiary color, both used for border color.
     return `
     <category
@@ -437,6 +438,21 @@ const control = function (isInitialSetup, isStage, targetId, colors) {
         <block id="wait_until" type="control_wait_until"/>
         <block id="repeat_until" type="control_repeat_until"/>
         <block id="while" type="control_while"/>
+        ${blockSeparator}
+        <block id="switch" type="control_switch">
+            <value name="VALUE">
+                <shadow type="text">
+                    <field name="TEXT">${apple}</field>
+                </shadow>
+            </value>
+        </block>
+        <block id="case" type="control_case">
+            <value name="VALUE">
+                <shadow type="text">
+                    <field name="TEXT">${apple}</field>
+                </shadow>
+            </value>
+        </block>
         ${blockSeparator}
         <block id="async" type="control_async"/>
         ${blockSeparator}
