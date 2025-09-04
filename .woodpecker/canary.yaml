@@ -53,7 +53,7 @@ steps:
         branch: develop
       - event: manual
         branch: develop
-    image: busybox
+    image: alpine/git
     commands:
       - cd amp-build
       - git rm -rf ./*
