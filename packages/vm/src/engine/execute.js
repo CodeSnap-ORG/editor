@@ -1,9 +1,9 @@
-const BlockUtility = require('./block-utility');
-const BlocksExecuteCache = require('./blocks-execute-cache');
-const log = require('../util/log');
-const Thread = require('./thread');
-const {Map} = require('immutable');
-const cast = require('../util/cast');
+const BlockUtility = require("./block-utility");
+const BlocksExecuteCache = require("./blocks-execute-cache");
+const log = require("../util/log");
+const Thread = require("./thread");
+const { Map } = require("immutable");
+const cast = require("../util/cast");
 
 /**
  * Single BlockUtility instance reused by execute for every pritimive ran.
@@ -15,7 +15,7 @@ const blockUtility = new BlockUtility();
  * Profiler frame name for block functions.
  * @const {string}
  */
-const blockFunctionProfilerFrame = 'blockFunction';
+const blockFunctionProfilerFrame = "blockFunction";
 
 /**
  * Profiler frame ID for 'blockFunction'.
@@ -31,8 +31,8 @@ let blockFunctionProfilerId = -1;
 const isPromise = function (value) {
     return (
         value !== null &&
-        typeof value === 'object' &&
-        typeof value.then === 'function'
+        typeof value === "object" &&
+        typeof value.then === "function"
     );
 };
 
@@ -50,7 +50,13 @@ const isPromise = function (value) {
  */
 // @todo move this to callback attached to the thread when we have performance
 // metrics (dd)
-const handleReport = function (resolvedValue, sequencer, thread, blockCached, lastOperation) {
+const handleReport = function (
+    resolvedValue,
+    sequencer,
+    thread,
+    blockCached,
+    lastOperation,
+) {
     const currentBlockId = blockCached.id;
     const opcode = blockCached.opcode;
     const isHat = blockCached._isHat;
@@ -66,13 +72,16 @@ const handleReport = function (resolvedValue, sequencer, thread, blockCached, la
             // If this is an edge-activated hat, only proceed if the value is
             // true and used to be false, or the stack was activated explicitly
             // via stack click
-            const hasOldEdgeValue = thread.target.hasEdgeActivatedValue(currentBlockId);
+            const hasOldEdgeValue =
+                thread.target.hasEdgeActivatedValue(currentBlockId);
             const oldEdgeValue = thread.target.updateEdgeActivatedValue(
                 currentBlockId,
-                resolvedValue
+                resolvedValue,
             );
 
-            const edgeWasActivated = hasOldEdgeValue ? (!oldEdgeValue && resolvedValue) : resolvedValue;
+            const edgeWasActivated = hasOldEdgeValue
+                ? !oldEdgeValue && resolvedValue
+                : resolvedValue;
             if (edgeWasActivated) {
                 thread.status = Thread.STATUS_RUNNING;
             } else {
@@ -85,26 +94,42 @@ const handleReport = function (resolvedValue, sequencer, thread, blockCached, la
             // Predicate returned false: do not allow script to run
             sequencer.retireThread(thread);
         }
-    } else if ((isConditional || isLoop) && typeof resolvedValue !== 'undefined') {
+    } else if (
+        (isConditional || isLoop) &&
+        typeof resolvedValue !== "undefined"
+    ) {
         sequencer.stepToBranch(thread, cast.toNumber(resolvedValue), isLoop);
     } else {
         // In a non-hat, report the value visually if necessary if
         // at the top of the thread stack.
-        if (lastOperation && typeof resolvedValue !== 'undefined' && thread.atStackTop()) {
+        if (
+            lastOperation &&
+            typeof resolvedValue !== "undefined" &&
+            thread.atStackTop()
+        ) {
             if (thread.stackClick) {
                 sequencer.runtime.visualReport(currentBlockId, resolvedValue);
             }
             if (thread.updateMonitor) {
-                const targetId = sequencer.runtime.monitorBlocks.getBlock(currentBlockId).targetId;
+                const targetId =
+                    sequencer.runtime.monitorBlocks.getBlock(
+                        currentBlockId,
+                    ).targetId;
                 if (targetId && !sequencer.runtime.getTargetById(targetId)) {
                     // Target no longer exists
                     return;
                 }
-                sequencer.runtime.requestUpdateMonitor(Map({
-                    id: currentBlockId,
-                    spriteName: targetId ? sequencer.runtime.getTargetById(targetId).getName() : null,
-                    value: resolvedValue
-                }));
+                sequencer.runtime.requestUpdateMonitor(
+                    Map({
+                        id: currentBlockId,
+                        spriteName: targetId
+                            ? sequencer.runtime
+                                  .getTargetById(targetId)
+                                  .getName()
+                            : null,
+                        value: resolvedValue,
+                    }),
+                );
             }
         }
         // Finished any yields.
@@ -112,7 +137,13 @@ const handleReport = function (resolvedValue, sequencer, thread, blockCached, la
     }
 };
 
-const handlePromiseResolution = (resolvedValue, sequencer, thread, blockCached, lastOperation) => {
+const handlePromiseResolution = (
+    resolvedValue,
+    sequencer,
+    thread,
+    blockCached,
+    lastOperation,
+) => {
     handleReport(resolvedValue, sequencer, thread, blockCached, lastOperation);
     // If it's a command block or a top level reporter in a stackClick.
     // TW: Don't mangle the stack when we just finished executing a hat block.
@@ -141,19 +172,40 @@ const handlePromiseResolution = (resolvedValue, sequencer, thread, blockCached, 
     }
 };
 
-const handlePromise = (primitiveReportedValue, sequencer, thread, blockCached, lastOperation) => {
+const handlePromise = (
+    primitiveReportedValue,
+    sequencer,
+    thread,
+    blockCached,
+    lastOperation,
+) => {
     if (thread.status === Thread.STATUS_RUNNING) {
         // Primitive returned a promise; automatically yield thread.
         thread.status = Thread.STATUS_PROMISE_WAIT;
     }
     // Promise handlers
-    primitiveReportedValue.then(resolvedValue => {
-        handlePromiseResolution(resolvedValue, sequencer, thread, blockCached, lastOperation);
-    }, rejectionReason => {
-        // Promise rejected: the primitive had some error.
-        log.warn('Primitive rejected promise: ', rejectionReason);
-        handlePromiseResolution(`${rejectionReason}`, sequencer, thread, blockCached, lastOperation);
-    });
+    primitiveReportedValue.then(
+        (resolvedValue) => {
+            handlePromiseResolution(
+                resolvedValue,
+                sequencer,
+                thread,
+                blockCached,
+                lastOperation,
+            );
+        },
+        (rejectionReason) => {
+            // Promise rejected: the primitive had some error.
+            log.warn("Primitive rejected promise: ", rejectionReason);
+            handlePromiseResolution(
+                `${rejectionReason}`,
+                sequencer,
+                thread,
+                blockCached,
+                lastOperation,
+            );
+        },
+    );
 };
 
 /**
@@ -172,7 +224,7 @@ const handlePromise = (primitiveReportedValue, sequencer, thread, blockCached, l
  * @param {object} cached default set of cached values
  */
 class BlockCached {
-    constructor (blockContainer, cached) {
+    constructor(blockContainer, cached) {
         /**
          * Block id in its parent set of blocks.
          * @type {string}
@@ -263,7 +315,7 @@ class BlockCached {
          * @type {object}
          */
         this._argValues = {
-            mutation: this.mutation
+            mutation: this.mutation,
         };
 
         /**
@@ -289,14 +341,14 @@ class BlockCached {
          */
         this._ops = [];
 
-        const {runtime} = blockUtility.sequencer;
+        const { runtime } = blockUtility.sequencer;
 
-        const {opcode, fields, inputs} = this;
+        const { opcode, fields, inputs } = this;
 
         // Assign opcode isHat and blockFunction data to avoid dynamic lookups.
         this._isHat = runtime.getIsHat(opcode);
         this._blockFunction = runtime.getOpcodeFunction(opcode);
-        this._definedBlockFunction = typeof this._blockFunction !== 'undefined';
+        this._definedBlockFunction = typeof this._blockFunction !== "undefined";
 
         const flowing = runtime._flowing[opcode];
         this._isConditional = !!(flowing && flowing.conditional);
@@ -304,23 +356,22 @@ class BlockCached {
 
         // Store the current shadow value if there is a shadow value.
         const fieldKeys = Object.keys(fields);
-        this._isShadowBlock = (
+        this._isShadowBlock =
             !this._definedBlockFunction &&
             fieldKeys.length === 1 &&
-            Object.keys(inputs).length === 0
-        );
+            Object.keys(inputs).length === 0;
         this._shadowValue = this._isShadowBlock && fields[fieldKeys[0]].value;
 
         // Store the static fields onto _argValues.
         for (const fieldName in fields) {
             if (
-                fieldName === 'VARIABLE' ||
-                fieldName === 'LIST' ||
-                fieldName === 'BROADCAST_OPTION'
+                fieldName === "VARIABLE" ||
+                fieldName === "LIST" ||
+                fieldName === "BROADCAST_OPTION"
             ) {
                 this._argValues[fieldName] = {
                     id: fields[fieldName].id,
-                    name: fields[fieldName].value
+                    name: fields[fieldName].value,
                 };
             } else {
                 this._argValues[fieldName] = fields[fieldName].value;
@@ -330,12 +381,12 @@ class BlockCached {
         // Remove custom_block. It is not part of block execution.
         delete this._inputs.custom_block;
 
-        if ('BROADCAST_INPUT' in this._inputs) {
+        if ("BROADCAST_INPUT" in this._inputs) {
             // BROADCAST_INPUT is called BROADCAST_OPTION in the args and is an
             // object with an unchanging shape.
             this._argValues.BROADCAST_OPTION = {
                 id: null,
-                name: null
+                name: null,
             };
 
             // We can go ahead and compute BROADCAST_INPUT if it is a shadow
@@ -362,7 +413,11 @@ class BlockCached {
         for (const inputName in this._inputs) {
             const input = this._inputs[inputName];
             if (input.block) {
-                const inputCached = BlocksExecuteCache.getCached(blockContainer, input.block, BlockCached);
+                const inputCached = BlocksExecuteCache.getCached(
+                    blockContainer,
+                    input.block,
+                    BlockCached,
+                );
 
                 if (inputCached._isHat) {
                     continue;
@@ -403,7 +458,10 @@ const _prepareBlockProfiling = function (profiler, blockCached) {
 
     const ops = blockCached._ops;
     for (let i = 0; i < ops.length; i++) {
-        ops[i]._profilerFrame = profiler.frame(blockFunctionProfilerId, ops[i].opcode);
+        ops[i]._profilerFrame = profiler.frame(
+            blockFunctionProfilerId,
+            ops[i].opcode,
+        );
     }
 };
 
@@ -425,10 +483,18 @@ const execute = function (sequencer, thread) {
     const currentStackFrame = thread.peekStackFrame();
 
     let blockContainer = thread.blockContainer;
-    let blockCached = BlocksExecuteCache.getCached(blockContainer, currentBlockId, BlockCached);
+    let blockCached = BlocksExecuteCache.getCached(
+        blockContainer,
+        currentBlockId,
+        BlockCached,
+    );
     if (blockCached === null) {
         blockContainer = runtime.flyoutBlocks;
-        blockCached = BlocksExecuteCache.getCached(blockContainer, currentBlockId, BlockCached);
+        blockCached = BlocksExecuteCache.getCached(
+            blockContainer,
+            currentBlockId,
+            BlockCached,
+        );
         // Stop if block or target no longer exists.
         if (blockCached === null) {
             // No block found: stop the thread; script no longer exists.
@@ -445,15 +511,15 @@ const execute = function (sequencer, thread) {
         const reported = currentStackFrame.reported;
         // Reinstate all the previous values.
         for (; i < reported.length; i++) {
-            const {opCached: oldOpCached, inputValue} = reported[i];
+            const { opCached: oldOpCached, inputValue } = reported[i];
 
-            const opCached = ops.find(op => op.id === oldOpCached);
+            const opCached = ops.find((op) => op.id === oldOpCached);
 
             if (opCached) {
                 const inputName = opCached._parentKey;
                 const argValues = opCached._parentValues;
 
-                if (inputName === 'BROADCAST_INPUT') {
+                if (inputName === "BROADCAST_INPUT") {
                     // Something is plugged into the broadcast input.
                     // Cast it to a string. We don't need an id here.
                     argValues.BROADCAST_OPTION.id = null;
@@ -469,16 +535,25 @@ const execute = function (sequencer, thread) {
         // candidate. If an earlier block that was performed was removed then
         // we'll find the index where the last operation is now.
         if (reported.length > 0) {
-            const lastExisting = reported.reverse().find(report => ops.find(op => op.id === report.opCached));
+            const lastExisting = reported
+                .reverse()
+                .find((report) => ops.find((op) => op.id === report.opCached));
             if (lastExisting) {
-                i = ops.findIndex(opCached => opCached.id === lastExisting.opCached) + 1;
+                i =
+                    ops.findIndex(
+                        (opCached) => opCached.id === lastExisting.opCached,
+                    ) + 1;
             } else {
                 i = 0;
             }
         }
 
         // The reporting block must exist and must be the next one in the sequence of operations.
-        if (thread.justReported !== null && ops[i] && ops[i].id === currentStackFrame.reporting) {
+        if (
+            thread.justReported !== null &&
+            ops[i] &&
+            ops[i].id === currentStackFrame.reporting
+        ) {
             const opCached = ops[i];
             const inputValue = thread.justReported;
 
@@ -487,7 +562,7 @@ const execute = function (sequencer, thread) {
             const inputName = opCached._parentKey;
             const argValues = opCached._parentValues;
 
-            if (inputName === 'BROADCAST_INPUT') {
+            if (inputName === "BROADCAST_INPUT") {
                 // Something is plugged into the broadcast input.
                 // Cast it to a string. We don't need an id here.
                 argValues.BROADCAST_OPTION.id = null;
@@ -533,7 +608,13 @@ const execute = function (sequencer, thread) {
         const primitiveIsPromise = isPromise(primitiveReportedValue);
         if (primitiveIsPromise || currentStackFrame.waitingReporter) {
             if (primitiveIsPromise) {
-                handlePromise(primitiveReportedValue, sequencer, thread, opCached, lastOperation);
+                handlePromise(
+                    primitiveReportedValue,
+                    sequencer,
+                    thread,
+                    opCached,
+                    lastOperation,
+                );
             }
 
             // Store the already reported values. They will be thawed into the
@@ -542,39 +623,50 @@ const execute = function (sequencer, thread) {
             // that time.
             thread.justReported = null;
             currentStackFrame.reporting = ops[i].id;
-            currentStackFrame.reported = ops.slice(0, i).map(reportedCached => {
-                const inputName = reportedCached._parentKey;
-                const reportedValues = reportedCached._parentValues;
+            currentStackFrame.reported = ops
+                .slice(0, i)
+                .map((reportedCached) => {
+                    const inputName = reportedCached._parentKey;
+                    const reportedValues = reportedCached._parentValues;
 
-                if (inputName === 'BROADCAST_INPUT') {
+                    if (inputName === "BROADCAST_INPUT") {
+                        return {
+                            opCached: reportedCached.id,
+                            inputValue:
+                                reportedValues[inputName].BROADCAST_OPTION.name,
+                        };
+                    }
                     return {
                         opCached: reportedCached.id,
-                        inputValue: reportedValues[inputName].BROADCAST_OPTION.name
+                        inputValue: reportedValues[inputName],
                     };
-                }
-                return {
-                    opCached: reportedCached.id,
-                    inputValue: reportedValues[inputName]
-                };
-            });
+                });
 
             // We are waiting to be resumed later. Stop running this set of operations
             // and continue them later after thawing the reported values.
             break;
         } else if (thread.status === Thread.STATUS_RUNNING) {
             if (lastOperation) {
-                handleReport(primitiveReportedValue, sequencer, thread, opCached, lastOperation);
+                handleReport(
+                    primitiveReportedValue,
+                    sequencer,
+                    thread,
+                    opCached,
+                    lastOperation,
+                );
             } else {
                 // By definition a block that is not last in the list has a
                 // parent.
                 const inputName = opCached._parentKey;
                 const parentValues = opCached._parentValues;
 
-                if (inputName === 'BROADCAST_INPUT') {
+                if (inputName === "BROADCAST_INPUT") {
                     // Something is plugged into the broadcast input.
                     // Cast it to a string. We don't need an id here.
                     parentValues.BROADCAST_OPTION.id = null;
-                    parentValues.BROADCAST_OPTION.name = cast.toString(primitiveReportedValue);
+                    parentValues.BROADCAST_OPTION.name = cast.toString(
+                        primitiveReportedValue,
+                    );
                 } else {
                     parentValues[inputName] = primitiveReportedValue;
                 }

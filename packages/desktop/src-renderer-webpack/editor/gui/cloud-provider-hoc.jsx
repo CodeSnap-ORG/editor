@@ -1,54 +1,59 @@
-import React from 'react';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
+import React from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
-const CHANNEL_NAME = 'twd:cloud-provider:v1';
+const CHANNEL_NAME = "twd:cloud-provider:v1";
 
 class CloudProvider {
   /**
    * @param {VM} vm
    */
-  constructor (vm) {
+  constructor(vm) {
     this.vm = vm;
     this._handleMessage = this._handleMessage.bind(this);
     this._channel = new BroadcastChannel(CHANNEL_NAME);
-    this._channel.addEventListener('message', this._handleMessage);
+    this._channel.addEventListener("message", this._handleMessage);
   }
 
-  _handleMessage (e) {
+  _handleMessage(e) {
     const data = e.data;
-    if (typeof data !== 'object' || !data) {
+    if (typeof data !== "object" || !data) {
       return;
     }
 
-    const {name, value} = data;
-    if (typeof name !== 'string' || (typeof value !== 'string' && typeof value !== 'number' && typeof value !== 'boolean')) {
+    const { name, value } = data;
+    if (
+      typeof name !== "string" ||
+      (typeof value !== "string" &&
+        typeof value !== "number" &&
+        typeof value !== "boolean")
+    ) {
       return;
     }
 
-    this.vm.postIOData('cloud', {
+    this.vm.postIOData("cloud", {
       varUpdate: {
         name,
-        value
-      }
+        value,
+      },
     });
   }
 
   /**
    * Part of the cloud provider interface, called by VM
    */
-  createVariable (name, value) {
+  createVariable(name, value) {
     // ignore
   }
 
   /**
    * Part of the cloud provider interface, called by VM
    */
-  updateVariable (name, value) {
+  updateVariable(name, value) {
     if (this._channel) {
       this._channel.postMessage({
         name,
-        value
+        value,
       });
     }
   }
@@ -56,23 +61,23 @@ class CloudProvider {
   /**
    * Part of the cloud provider interface, called by VM
    */
-  renameVariable (name, value) {
+  renameVariable(name, value) {
     // ignore
   }
 
   /**
    * Part of the cloud provider interface, called by VM
    */
-  deleteVariable (name, value) {
+  deleteVariable(name, value) {
     // ignore
   }
 
   /**
    * Part of the cloud provider interface, called by VM
    */
-  requestCloseConnection () {
+  requestCloseConnection() {
     if (this._channel) {
-      this._channel.removeEventListener('message', this._handleMessage);
+      this._channel.removeEventListener("message", this._handleMessage);
       this._channel = null;
     }
   }
@@ -80,31 +85,34 @@ class CloudProvider {
 
 const CloudProviderHOC = function (WrappedComponent) {
   class CloudProviderComponent extends React.Component {
-    componentDidMount () {
+    componentDidMount() {
       if (this.props.enableCloudVariables) {
         this.connect();
       }
     }
 
-    componentDidUpdate (prevProps) {
+    componentDidUpdate(prevProps) {
       if (!prevProps.enableCloudVariables && this.props.enableCloudVariables) {
         this.connect();
-      } else if (prevProps.enableCloudVariables && !this.props.enableCloudVariables) {
+      } else if (
+        prevProps.enableCloudVariables &&
+        !this.props.enableCloudVariables
+      ) {
         this.disconnect();
       }
     }
 
-    componentWillUnmount () {
+    componentWillUnmount() {
       this.disconnect();
     }
 
-    connect () {
+    connect() {
       this.disconnect();
       this.cloudProvider = new CloudProvider(this.props.vm);
       this.props.vm.setCloudProvider(this.cloudProvider);
     }
 
-    disconnect () {
+    disconnect() {
       if (this.cloudProvider) {
         this.props.vm.setCloudProvider(null);
         this.cloudProvider.requestCloseConnection();
@@ -113,16 +121,8 @@ const CloudProviderHOC = function (WrappedComponent) {
     }
 
     render() {
-      const {
-        enableCloudVariables,
-        vm,
-        ...props
-      } = this.props;
-      return (
-        <WrappedComponent
-          {...props}
-        />
-      );
+      const { enableCloudVariables, vm, ...props } = this.props;
+      return <WrappedComponent {...props} />;
     }
   }
 
@@ -133,19 +133,15 @@ const CloudProviderHOC = function (WrappedComponent) {
     }).isRequired,
   };
 
-  const mapStateToProps = state => ({
-    enableCloudVariables: state.scratchGui.tw.hasCloudVariables && state.scratchGui.tw.cloud,
+  const mapStateToProps = (state) => ({
+    enableCloudVariables:
+      state.scratchGui.tw.hasCloudVariables && state.scratchGui.tw.cloud,
     vm: state.scratchGui.vm,
   });
 
-  const mapDispatchToProps = dispatch => ({
+  const mapDispatchToProps = (dispatch) => ({});
 
-  });
-
-  return connect(
-    mapStateToProps,
-    mapDispatchToProps
-  )(CloudProviderComponent);
+  return connect(mapStateToProps, mapDispatchToProps)(CloudProviderComponent);
 };
 
 export default CloudProviderHOC;

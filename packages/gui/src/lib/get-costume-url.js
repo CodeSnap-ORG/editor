@@ -1,5 +1,5 @@
-import storage from './storage';
-import {inlineSvgFonts} from '@turbowarp/scratch-svg-renderer';
+import storage from "./storage";
+import { inlineSvgFonts } from "@turbowarp/scratch-svg-renderer";
 
 // Contains 'font-family', but doesn't only contain 'font-family="none"'
 const HAS_FONT_REGEXP = 'font-family(?!="none")';
@@ -9,7 +9,6 @@ const getCostumeUrl = (function () {
     let cachedUrl;
 
     return function (asset) {
-
         if (cachedAssetId === asset.assetId) {
             return cachedUrl;
         }
@@ -32,9 +31,6 @@ const getCostumeUrl = (function () {
 
         return cachedUrl;
     };
-}());
+})();
 
-export {
-    getCostumeUrl as default,
-    HAS_FONT_REGEXP
-};
+export { getCostumeUrl as default, HAS_FONT_REGEXP };

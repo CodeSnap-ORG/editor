@@ -1,30 +1,36 @@
-import React from 'react';
+import React from "react";
 
-const DelayedMountPropertyHOC = function (WrappedComponent, duration, delayedProps) {
+const DelayedMountPropertyHOC = function (
+    WrappedComponent,
+    duration,
+    delayedProps,
+) {
     class DelayedMountProperty extends React.Component {
-        constructor (props) {
+        constructor(props) {
             super(props);
             this.state = {
-                done: false
+                done: false,
             };
         }
-        componentDidMount () {
+        componentDidMount() {
             this.timeout = setTimeout(() => {
                 this.setState({
-                    done: true
+                    done: true,
                 });
             }, duration);
         }
-        componentWillUnmount () {
+        componentWillUnmount() {
             clearTimeout(this.timeout);
         }
-        render () {
+        render() {
             return (
                 <WrappedComponent
-                    {...this.state.done ? {
-                        ...this.props,
-                        ...delayedProps
-                    } : this.props}
+                    {...(this.state.done
+                        ? {
+                              ...this.props,
+                              ...delayedProps,
+                          }
+                        : this.props)}
                 />
             );
         }

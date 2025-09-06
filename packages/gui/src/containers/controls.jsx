@@ -1,27 +1,24 @@
-import bindAll from 'lodash.bindall';
-import PropTypes from 'prop-types';
-import React from 'react';
-import VM from 'scratch-vm';
-import {connect} from 'react-redux';
+import bindAll from "lodash.bindall";
+import PropTypes from "prop-types";
+import React from "react";
+import VM from "scratch-vm";
+import { connect } from "react-redux";
 
-import ControlsComponent from '../components/controls/controls.jsx';
+import ControlsComponent from "../components/controls/controls.jsx";
 
 class Controls extends React.Component {
-    constructor (props) {
+    constructor(props) {
         super(props);
-        bindAll(this, [
-            'handleGreenFlagClick',
-            'handleStopAllClick'
-        ]);
+        bindAll(this, ["handleGreenFlagClick", "handleStopAllClick"]);
     }
-    handleGreenFlagClick (e) {
+    handleGreenFlagClick(e) {
         e.preventDefault();
         // tw: implement alt+click and right click to toggle FPS
-        if (e.shiftKey || e.altKey || e.type === 'contextmenu') {
+        if (e.shiftKey || e.altKey || e.type === "contextmenu") {
             if (e.shiftKey) {
                 this.props.vm.setTurboMode(!this.props.turbo);
             }
-            if (e.altKey || e.type === 'contextmenu') {
+            if (e.altKey || e.type === "contextmenu") {
                 if (this.props.framerate === 30) {
                     this.props.vm.setFramerate(60);
                 } else {
@@ -35,11 +32,11 @@ class Controls extends React.Component {
             this.props.vm.greenFlag();
         }
     }
-    handleStopAllClick (e) {
+    handleStopAllClick(e) {
         e.preventDefault();
         this.props.vm.stopAll();
     }
-    render () {
+    render() {
         const {
             vm, // eslint-disable-line no-unused-vars
             isStarted, // eslint-disable-line no-unused-vars
@@ -66,15 +63,15 @@ Controls.propTypes = {
     framerate: PropTypes.number.isRequired,
     interpolation: PropTypes.bool.isRequired,
     isSmall: PropTypes.bool,
-    vm: PropTypes.instanceOf(VM)
+    vm: PropTypes.instanceOf(VM),
 };
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
     isStarted: state.scratchGui.vmStatus.started,
     projectRunning: state.scratchGui.vmStatus.running,
     framerate: state.scratchGui.tw.framerate,
     interpolation: state.scratchGui.tw.interpolation,
-    turbo: state.scratchGui.vmStatus.turbo
+    turbo: state.scratchGui.vmStatus.turbo,
 });
 // no-op function to prevent dispatch prop being passed to component
 const mapDispatchToProps = () => ({});

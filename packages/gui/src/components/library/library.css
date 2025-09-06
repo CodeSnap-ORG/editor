@@ -27,14 +27,14 @@
     justify-content: flex-start;
     background-color: $looks-transparent;
     padding: 0 1rem;
-    font-size: .875rem;
+    font-size: 0.875rem;
     height: 100%;
     width: 600px;
     padding: calc($space * 3);
 }
 
 .filter-bar-item {
-    margin-bottom: .75rem;
+    margin-bottom: 0.75rem;
 }
 
 .filter {
@@ -43,7 +43,7 @@
 
 .filter-input {
     width: 100%;
-    transition: .2s;
+    transition: 0.2s;
 }
 
 .divider {

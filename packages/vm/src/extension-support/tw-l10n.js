@@ -1,56 +1,56 @@
-const formatMessage = require('format-message');
+const formatMessage = require("format-message");
 
 /**
  * @param {VM|null} vm
  * @returns {object}
  */
-const createTranslate = vm => {
+const createTranslate = (vm) => {
     const namespace = formatMessage.namespace();
 
     const translate = (message, args) => {
-        if (message && typeof message === 'object') {
+        if (message && typeof message === "object") {
             // already in the expected format
-        } else if (typeof message === 'string') {
+        } else if (typeof message === "string") {
             message = {
-                default: message
+                default: message,
             };
         } else {
-            throw new Error('unsupported data type in translate()');
+            throw new Error("unsupported data type in translate()");
         }
         return namespace(message, args);
     };
 
-    const generateId = defaultMessage => `_${defaultMessage}`;
+    const generateId = (defaultMessage) => `_${defaultMessage}`;
 
     const getLocale = () => {
         if (vm) return vm.getLocale();
-        if (typeof navigator !== 'undefined') return navigator.language;
-        return 'en';
+        if (typeof navigator !== "undefined") return navigator.language;
+        return "en";
     };
 
     let storedTranslations = {};
-    translate.setup = newTranslations => {
+    translate.setup = (newTranslations) => {
         if (newTranslations) {
             storedTranslations = newTranslations;
         }
         namespace.setup({
             locale: getLocale(),
-            missingTranslation: 'ignore',
+            missingTranslation: "ignore",
             generateId,
-            translations: storedTranslations
+            translations: storedTranslations,
         });
     };
 
-    Object.defineProperty(translate, 'language', {
+    Object.defineProperty(translate, "language", {
         configurable: true,
         enumerable: true,
-        get: () => getLocale()
+        get: () => getLocale(),
     });
 
     translate.setup({});
 
     if (vm) {
-        vm.on('LOCALE_CHANGED', () => {
+        vm.on("LOCALE_CHANGED", () => {
             translate.setup(null);
         });
     }

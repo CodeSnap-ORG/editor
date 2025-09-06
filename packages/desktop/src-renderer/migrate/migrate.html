@@ -1,8 +1,11 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <html>
-    <meta charset="utf8">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src file:; frame-src tw-editor: tw-packager:">
+    <meta charset="utf8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; img-src file:; frame-src tw-editor: tw-packager:"
+    />
     <style>
       :root {
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -22,7 +25,8 @@
         top: 0;
         left: 0;
       }
-      h1, p {
+      h1,
+      p {
         margin: 0;
       }
       main {
@@ -79,7 +83,8 @@
         }
       }
 
-      .error-next-steps, .timed-out-next-steps {
+      .error-next-steps,
+      .timed-out-next-steps {
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
@@ -152,21 +157,26 @@
       TW_AutoSave -> abandon (likely to be very large)
       */
 
-      const {oldDataVersion, strings, locale} = MigratePreload.getInfo();
+      const { oldDataVersion, strings, locale } = MigratePreload.getInfo();
       document.documentElement.lang = locale;
 
-      document.querySelector('.title').textContent = strings['migrate.title'];
-      document.querySelector('.description').textContent = strings['migrate.description'];
-      document.querySelector('.error-message').textContent = strings['migrate.error'];
-      document.querySelector('.timed-out-message').textContent = strings['migrate.timed-out'];
+      document.querySelector(".title").textContent = strings["migrate.title"];
+      document.querySelector(".description").textContent =
+        strings["migrate.description"];
+      document.querySelector(".error-message").textContent =
+        strings["migrate.error"];
+      document.querySelector(".timed-out-message").textContent =
+        strings["migrate.timed-out"];
 
-      const stepsElement = document.querySelector('.steps');
-      const errorNextStepsElement = document.querySelector('.error-next-steps');
-      const timedOutNextStepsElement = document.querySelector('.timed-out-next-steps');
+      const stepsElement = document.querySelector(".steps");
+      const errorNextStepsElement = document.querySelector(".error-next-steps");
+      const timedOutNextStepsElement = document.querySelector(
+        ".timed-out-next-steps",
+      );
 
-      for (const button of document.querySelectorAll('.continue-anyways')) {
-        button.textContent = strings['migrate.continue-anyways'];
-        button.addEventListener('click', (e) => {
+      for (const button of document.querySelectorAll(".continue-anyways")) {
+        button.textContent = strings["migrate.continue-anyways"];
+        button.addEventListener("click", (e) => {
           e.target.disabled = true;
           continueAnyways();
         });
@@ -177,97 +187,114 @@
         databases = await indexedDB.databases();
       };
 
-      const openDatabase = (databaseName, databaseVersion) => new Promise((resolve, reject) => {
-        if (!databases.find((i) => i.name === databaseName && i.version === databaseVersion)) {
-          return resolve(null);
-        }
-
-        const request = indexedDB.open(databaseName, databaseVersion);
-        request.onerror = () => {
-          reject(new Error(`Failed to open: ${request.error}`));
-        };
-        request.onsuccess = () => {
-          resolve(request.result);
-        };
-      });
-
-      const getAllKeys = (database, storeName) => new Promise((resolve, reject) => {
-        const transaction = database.transaction(storeName, 'readonly');
-        transaction.onerror = () => {
-          reject(new Error(`Transaction error: ${transaction.error}`));
-        };
-
-        const objectStore = transaction.objectStore(storeName);
-        const request = objectStore.getAllKeys();
-        request.onsuccess = async () => {
-          resolve(request.result);
-        };
-      });
-
-      const readAsArrayBuffer = (blob) => new Promise((resolve, reject) => {
-        const fr = new FileReader();
-        fr.onload = () => resolve(fr.result);
-        fr.onerror = () => reject(new Error(`Failed to read blob: ${fr.error}`));
-        fr.readAsArrayBuffer(blob);
-      });
-
-      const readByKey = (database, storeName, key) => new Promise((resolve, reject) => {
-        const transaction = database.transaction(storeName, 'readonly');
-        transaction.onerror = () => {
-          reject(new Error(`Transaction error: ${transaction.error}`));
-        };
-
-        const objectStore = transaction.objectStore(storeName);
-        const request = objectStore.get(key);
-        request.onsuccess = async () => {
-          try {
-            const result = request.result;
-            if (result === null || typeof result !== 'object') {
-              throw new Error(`IDB ${key} returned non-object: ${result}`);
-            }
-
-            const transfer = [];
-
-            for (const [key, value] of Object.entries(result)) {
-              // Attempt zero-copy transfer for binary data
-              if (value instanceof ArrayBuffer || ArrayBuffer.isView(value)) {
-                transfer.push(value);
-              }
-
-              // We can't send Blobs over postMessage, so read them out as buffers
-              if (value instanceof Blob) {
-                const buffer = await readAsArrayBuffer(value);
-                result[key] = buffer;
-                transfer.push(buffer);
-              }
-            }
-
-            resolve({
-              result,
-              transfer
-            });
-          } catch (e) {
-            reject(e);
+      const openDatabase = (databaseName, databaseVersion) =>
+        new Promise((resolve, reject) => {
+          if (
+            !databases.find(
+              (i) => i.name === databaseName && i.version === databaseVersion,
+            )
+          ) {
+            return resolve(null);
           }
-        };
-      });
+
+          const request = indexedDB.open(databaseName, databaseVersion);
+          request.onerror = () => {
+            reject(new Error(`Failed to open: ${request.error}`));
+          };
+          request.onsuccess = () => {
+            resolve(request.result);
+          };
+        });
+
+      const getAllKeys = (database, storeName) =>
+        new Promise((resolve, reject) => {
+          const transaction = database.transaction(storeName, "readonly");
+          transaction.onerror = () => {
+            reject(new Error(`Transaction error: ${transaction.error}`));
+          };
+
+          const objectStore = transaction.objectStore(storeName);
+          const request = objectStore.getAllKeys();
+          request.onsuccess = async () => {
+            resolve(request.result);
+          };
+        });
+
+      const readAsArrayBuffer = (blob) =>
+        new Promise((resolve, reject) => {
+          const fr = new FileReader();
+          fr.onload = () => resolve(fr.result);
+          fr.onerror = () =>
+            reject(new Error(`Failed to read blob: ${fr.error}`));
+          fr.readAsArrayBuffer(blob);
+        });
+
+      const readByKey = (database, storeName, key) =>
+        new Promise((resolve, reject) => {
+          const transaction = database.transaction(storeName, "readonly");
+          transaction.onerror = () => {
+            reject(new Error(`Transaction error: ${transaction.error}`));
+          };
+
+          const objectStore = transaction.objectStore(storeName);
+          const request = objectStore.get(key);
+          request.onsuccess = async () => {
+            try {
+              const result = request.result;
+              if (result === null || typeof result !== "object") {
+                throw new Error(`IDB ${key} returned non-object: ${result}`);
+              }
+
+              const transfer = [];
+
+              for (const [key, value] of Object.entries(result)) {
+                // Attempt zero-copy transfer for binary data
+                if (value instanceof ArrayBuffer || ArrayBuffer.isView(value)) {
+                  transfer.push(value);
+                }
+
+                // We can't send Blobs over postMessage, so read them out as buffers
+                if (value instanceof Blob) {
+                  const buffer = await readAsArrayBuffer(value);
+                  result[key] = buffer;
+                  transfer.push(buffer);
+                }
+              }
+
+              resolve({
+                result,
+                transfer,
+              });
+            } catch (e) {
+              reject(e);
+            }
+          };
+        });
 
       const migrateEditor = async () => {
         const storage = {};
         for (const key of Object.keys(localStorage)) {
-          if (key === 'tw:theme' || key === 'tw:addons' || key === 'tw:language' || key === 'tw:username' || key.startsWith('extensions.turbowarp.org/local-storage:')) {
+          if (
+            key === "tw:theme" ||
+            key === "tw:addons" ||
+            key === "tw:language" ||
+            key === "tw:username" ||
+            key.startsWith("extensions.turbowarp.org/local-storage:")
+          ) {
             storage[key] = localStorage[key];
           }
         }
 
-        const backpackDB = await openDatabase('TW_Backpack', 1);
-        const backpackKeys = backpackDB ? await getAllKeys(backpackDB, 'backpack') : [];
+        const backpackDB = await openDatabase("TW_Backpack", 1);
+        const backpackKeys = backpackDB
+          ? await getAllKeys(backpackDB, "backpack")
+          : [];
 
         let transferredBackpackItems = 0;
         setStepProgress(0, backpackKeys.length);
 
         return new Promise((resolve, reject) => {
-          const CHILD_ORIGIN = 'tw-editor://.';
+          const CHILD_ORIGIN = "tw-editor://.";
 
           window.onmessage = async (e) => {
             try {
@@ -276,20 +303,34 @@
               }
 
               const type = e.data.type;
-              if (type === 'start') {
-                e.source.postMessage({
-                  storage,
-                  backpackKeys
-                }, CHILD_ORIGIN);
-              } else if (type === 'backpack') {
-                const read = await readByKey(backpackDB, 'backpack', e.data.key);
-                e.source.postMessage({
-                  backpackData: read.result
-                }, CHILD_ORIGIN, read.transfer);
-                setStepProgress(++transferredBackpackItems, backpackKeys.length);
-              } else if (type === 'error') {
+              if (type === "start") {
+                e.source.postMessage(
+                  {
+                    storage,
+                    backpackKeys,
+                  },
+                  CHILD_ORIGIN,
+                );
+              } else if (type === "backpack") {
+                const read = await readByKey(
+                  backpackDB,
+                  "backpack",
+                  e.data.key,
+                );
+                e.source.postMessage(
+                  {
+                    backpackData: read.result,
+                  },
+                  CHILD_ORIGIN,
+                  read.transfer,
+                );
+                setStepProgress(
+                  ++transferredBackpackItems,
+                  backpackKeys.length,
+                );
+              } else if (type === "error") {
                 reject(e.data.error);
-              } else if (type === 'done') {
+              } else if (type === "done") {
                 if (backpackDB) {
                   backpackDB.close();
                 }
@@ -300,8 +341,8 @@
             }
           };
 
-          const iframe = document.createElement('iframe');
-          iframe.src = 'tw-editor://./gui/migrate-helper.html';
+          const iframe = document.createElement("iframe");
+          iframe.src = "tw-editor://./gui/migrate-helper.html";
           document.body.appendChild(iframe);
         });
       };
@@ -309,19 +350,24 @@
       const migratePackager = async () => {
         const storage = {};
         for (const key of Object.keys(localStorage)) {
-          if (key.startsWith('SelectProject') || key.startsWith('PackagerOptions') || key === 'P4.locale' || key === 'P4.theme') {
+          if (
+            key.startsWith("SelectProject") ||
+            key.startsWith("PackagerOptions") ||
+            key === "P4.locale" ||
+            key === "P4.theme"
+          ) {
             storage[key] = localStorage[key];
           }
         }
 
-        const blobDB = await openDatabase('p4-local-settings', 1);
-        const blobKeys = blobDB ? await getAllKeys(blobDB, 'blobs') : [];
+        const blobDB = await openDatabase("p4-local-settings", 1);
+        const blobKeys = blobDB ? await getAllKeys(blobDB, "blobs") : [];
 
         let transferredBlobs = 0;
         setStepProgress(0, blobKeys.length);
 
         return new Promise((resolve, reject) => {
-          const CHILD_ORIGIN = 'tw-packager://.';
+          const CHILD_ORIGIN = "tw-packager://.";
 
           window.onmessage = async (e) => {
             try {
@@ -330,20 +376,27 @@
               }
 
               const type = e.data.type;
-              if (type === 'start') {
-                e.source.postMessage({
-                  storage,
-                  blobKeys
-                }, CHILD_ORIGIN);
-              } else if (type === 'blob') {
-                const read = await readByKey(blobDB, 'blobs', e.data.key);
-                e.source.postMessage({
-                  blobData: read.result
-                }, CHILD_ORIGIN, read.transfer);
+              if (type === "start") {
+                e.source.postMessage(
+                  {
+                    storage,
+                    blobKeys,
+                  },
+                  CHILD_ORIGIN,
+                );
+              } else if (type === "blob") {
+                const read = await readByKey(blobDB, "blobs", e.data.key);
+                e.source.postMessage(
+                  {
+                    blobData: read.result,
+                  },
+                  CHILD_ORIGIN,
+                  read.transfer,
+                );
                 setStepProgress(++transferredBlobs, blobKeys.length);
-              } else if (type === 'error') {
+              } else if (type === "error") {
                 reject(e.data.error);
-              } else if (type === 'done') {
+              } else if (type === "done") {
                 if (blobDB) {
                   blobDB.close();
                 }
@@ -354,21 +407,26 @@
             }
           };
 
-          const iframe = document.createElement('iframe');
-          iframe.src = 'tw-packager://./migrate-helper.html';
+          const iframe = document.createElement("iframe");
+          iframe.src = "tw-packager://./migrate-helper.html";
           document.body.appendChild(iframe);
         });
       };
 
-      const deleteDatabase = (databaseName) => new Promise((resolve, reject) => {
-        const request = indexedDB.deleteDatabase(databaseName);
-        request.onerror = () => {
-          reject(new Error(`Failed to delete IDB database ${databaseName}: ${request.error}`));
-        };
-        request.onsuccess = () => {
-          resolve();
-        };
-      });
+      const deleteDatabase = (databaseName) =>
+        new Promise((resolve, reject) => {
+          const request = indexedDB.deleteDatabase(databaseName);
+          request.onerror = () => {
+            reject(
+              new Error(
+                `Failed to delete IDB database ${databaseName}: ${request.error}`,
+              ),
+            );
+          };
+          request.onsuccess = () => {
+            resolve();
+          };
+        });
 
       const deleteLegacyData = async () => {
         localStorage.clear();
@@ -381,7 +439,7 @@
           setStepProgress(i + 1, databases.length);
 
           // Give the browser some time to clean up; deleting large databases might be intensive
-          await new Promise((resolve) => setTimeout(resolve, 250))
+          await new Promise((resolve) => setTimeout(resolve, 250));
         }
       };
 
@@ -403,37 +461,37 @@
       };
 
       const runStep = async (name, callback) => {
-        const stepElement = document.createElement('div');
-        stepElement.className = 'step';
+        const stepElement = document.createElement("div");
+        stepElement.className = "step";
 
-        const iconElement = document.createElement('div');
-        iconElement.className = 'step-icon';
-        iconElement.dataset.type = 'loading';
+        const iconElement = document.createElement("div");
+        iconElement.className = "step-icon";
+        iconElement.dataset.type = "loading";
         stepElement.appendChild(iconElement);
 
-        const textElement = document.createElement('div');
+        const textElement = document.createElement("div");
         textElement.textContent = name;
         stepElement.appendChild(textElement);
 
-        const progressElement = document.createElement('div');
+        const progressElement = document.createElement("div");
         stepElement.appendChild(progressElement);
         progressTarget = progressElement;
 
         stepsElement.appendChild(stepElement);
 
-        await new Promise(resolve => setTimeout(resolve, 250));
+        await new Promise((resolve) => setTimeout(resolve, 250));
 
         try {
           await callback();
-          iconElement.dataset.type = 'success';
+          iconElement.dataset.type = "success";
         } catch (error) {
           console.error(error);
-          iconElement.dataset.type = 'error';
+          iconElement.dataset.type = "error";
 
           anyError = true;
 
-          const errorElement = document.createElement('div');
-          errorElement.className = 'error';
+          const errorElement = document.createElement("div");
+          errorElement.className = "error";
           errorElement.textContent = error;
           stepsElement.appendChild(errorElement);
         }
@@ -446,22 +504,22 @@
           timedOutNextStepsElement.hidden = false;
         }, 12 * 1000);
 
-        await runStep(strings['migrate.preparing'], gatherMetadata);
+        await runStep(strings["migrate.preparing"], gatherMetadata);
 
         if (!anyError && oldDataVersion < 2) {
           // V2: Migrate data from file:// to tw-*://
           // Preparing must succeed for both of these, but each can fail independently.
-          await runStep(strings['migrate.transfer-editor'], migrateEditor);
-          await runStep(strings['migrate.transfer-packager'], migratePackager);
+          await runStep(strings["migrate.transfer-editor"], migrateEditor);
+          await runStep(strings["migrate.transfer-packager"], migratePackager);
         }
 
         if (!anyError && oldDataVersion < 3) {
           // V3: Removing leftover data on file://
-          await runStep(strings['migrate.delete-legacy'], deleteLegacyData);
+          await runStep(strings["migrate.delete-legacy"], deleteLegacyData);
         }
 
         if (!anyError) {
-          await runStep(strings['migrate.finalizing'], finish);
+          await runStep(strings["migrate.finalizing"], finish);
         }
 
         if (anyError) {

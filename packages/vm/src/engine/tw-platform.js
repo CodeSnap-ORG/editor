@@ -2,6 +2,6 @@
 // This can be accessed externally on `vm.runtime.platform`
 
 module.exports = {
-    name: 'AmpMod',
-    url: 'https://ampmod.codeberg.page/'
+    name: "AmpMod",
+    url: "https://ampmod.codeberg.page/",
 };

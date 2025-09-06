@@ -1,8 +1,8 @@
-import classNames from 'classnames';
-import PropTypes from 'prop-types';
-import React from 'react';
+import classNames from "classnames";
+import PropTypes from "prop-types";
+import React from "react";
 
-import styles from './button.css';
+import styles from "./button.css";
 
 const ButtonComponent = ({
     className,
@@ -15,7 +15,6 @@ const ButtonComponent = ({
     children,
     ...props
 }) => {
-
     if (disabled) {
         onClick = function () {};
     }
@@ -32,10 +31,7 @@ const ButtonComponent = ({
 
     return (
         <span
-            className={classNames(
-                styles.outlinedButton,
-                className
-            )}
+            className={classNames(styles.outlinedButton, className)}
             role="button"
             onClick={onClick}
             {...props}
@@ -54,7 +50,7 @@ ButtonComponent.propTypes = {
     iconSrc: PropTypes.string,
     iconHeight: PropTypes.number,
     iconWidth: PropTypes.number,
-    onClick: PropTypes.func
+    onClick: PropTypes.func,
 };
 
 export default ButtonComponent;

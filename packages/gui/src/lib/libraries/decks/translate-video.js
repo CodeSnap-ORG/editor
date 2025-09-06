@@ -23,6 +23,4 @@ const translateVideo = (videoId, locale) => {
     return videos[videoId].en;
 };
 
-export {
-    translateVideo
-};
+export { translateVideo };

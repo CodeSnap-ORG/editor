@@ -1,6 +1,6 @@
-const englishTranslationsWithContext = require('./en.json');
-const otherTranslations = require('./generated-translations.json');
-const settings = require('../settings');
+const englishTranslationsWithContext = require("./en.json");
+const otherTranslations = require("./generated-translations.json");
+const settings = require("../settings");
 
 const englishTranslations = {};
 for (const [id, message] of Object.entries(englishTranslationsWithContext)) {
@@ -15,8 +15,8 @@ const loadTranslations = (locale) => {
 
   // Try with and without the - for regional variants
   const possible = [locale];
-  if (locale.includes('-')) {
-    possible.push(locale.split('-')[0]);
+  if (locale.includes("-")) {
+    possible.push(locale.split("-")[0]);
   }
   for (const language of possible) {
     const translations = otherTranslations[language];
@@ -49,5 +49,5 @@ module.exports = {
   translate,
   tranlateOrNull,
   getLocale,
-  getStrings
+  getStrings,
 };

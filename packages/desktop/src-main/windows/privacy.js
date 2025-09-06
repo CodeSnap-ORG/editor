@@ -1,43 +1,43 @@
-const AbstractWindow = require('./abstract');
-const DesktopSettingsWindow = require('./desktop-settings');
-const {translate} = require('../l10n');
-const {APP_NAME} = require('../brand');
-const {isUpdateCheckerAllowed} = require('../update-checker');
+const AbstractWindow = require("./abstract");
+const DesktopSettingsWindow = require("./desktop-settings");
+const { translate } = require("../l10n");
+const { APP_NAME } = require("../brand");
+const { isUpdateCheckerAllowed } = require("../update-checker");
 
 class PrivacyWindow extends AbstractWindow {
-  constructor () {
+  constructor() {
     super();
 
-    this.ipc.on('is-update-checker-allowed', (e) => {
+    this.ipc.on("is-update-checker-allowed", (e) => {
       e.returnValue = isUpdateCheckerAllowed();
     });
 
-    this.ipc.handle('open-desktop-settings', () => {
+    this.ipc.handle("open-desktop-settings", () => {
       DesktopSettingsWindow.show();
     });
 
-    this.window.setTitle(`${translate('privacy-policy')} - ${APP_NAME}`);
+    this.window.setTitle(`${translate("privacy-policy")} - ${APP_NAME}`);
     this.window.setMinimizable(false);
     this.window.setMaximizable(false);
-    this.loadURL('tw-privacy://./privacy.html');
+    this.loadURL("tw-privacy://./privacy.html");
   }
 
-  getDimensions () {
+  getDimensions() {
     return {
       width: 800,
-      height: 700
+      height: 700,
     };
   }
 
-  getPreload () {
-    return 'privacy';
+  getPreload() {
+    return "privacy";
   }
 
-  isPopup () {
+  isPopup() {
     return true;
   }
 
-  static show () {
+  static show() {
     const window = AbstractWindow.singleton(PrivacyWindow);
     window.show();
   }

@@ -17,14 +17,14 @@ can set a width for example or what it should do in a flex box (eg. grow).
     background-clip: padding-box;
     -webkit-background-clip: padding-box;
     height: auto;
-    padding: .5rem;
+    padding: 0.5rem;
     font-family: Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .title-field {
     color: $menu-bar-foreground;
     font-weight: bold;
-    font-size: .8rem;
+    font-size: 0.8rem;
     font-family: Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
@@ -32,7 +32,7 @@ can set a width for example or what it should do in a flex box (eg. grow).
     color: $menu-bar-foreground;
     opacity: 0.8;
     font-weight: normal;
-    font-size: .8rem;
+    font-size: 0.8rem;
     font-style: italic;
 }
 
@@ -42,10 +42,10 @@ can set a width for example or what it should do in a flex box (eg. grow).
 }
 
 .title-field:focus {
-    outline:none;
+    outline: none;
     border: 1px solid $ui-transparent;
-    -webkit-box-shadow: 0 0 0 calc($space * .5) $ui-white-transparent-default;
-    box-shadow: 0 0 0 calc($space * .5) $ui-white-transparent-default;
+    -webkit-box-shadow: 0 0 0 calc($space * 0.5) $ui-white-transparent-default;
+    box-shadow: 0 0 0 calc($space * 0.5) $ui-white-transparent-default;
     background-color: $ui-white;
     color: $text-primary;
 }

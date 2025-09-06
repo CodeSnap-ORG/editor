@@ -6,14 +6,14 @@
  * It's just supposed to be enough to make existing ScratchX extensions work, nothing more.
  */
 
-const log = require('../util/log');
+const log = require("../util/log");
 
 const jQuery = () => {
-    throw new Error('Not implemented');
+    throw new Error("Not implemented");
 };
 
 jQuery.getScript = (src, callback) => {
-    const script = document.createElement('script');
+    const script = document.createElement("script");
     script.src = src;
     if (callback) {
         // We don't implement callback arguments.
@@ -26,7 +26,7 @@ jQuery.getScript = (src, callback) => {
  * @param {Record<string, any>|undefined} obj
  * @returns {URLSearchParams}
  */
-const objectToQueryString = obj => {
+const objectToQueryString = (obj) => {
     const params = new URLSearchParams();
     if (obj) {
         for (const key of Object.keys(obj)) {
@@ -57,18 +57,18 @@ jQuery.ajax = async (arg1, arg2) => {
         }
         // Forcibly upgrade all HTTP requests to HTTPS so that they don't error on HTTPS sites
         // All the extensions we care about work fine with this
-        if (url.startsWith('http://')) {
-            url = url.replace('http://', 'https://');
+        if (url.startsWith("http://")) {
+            url = url.replace("http://", "https://");
         }
         return url;
     };
 
-    const successCallback = result => {
+    const successCallback = (result) => {
         if (options.success) {
             options.success(result);
         }
     };
-    const errorCallback = error => {
+    const errorCallback = (error) => {
         log.error(error);
         if (options.error) {
             // The error object we provide here might not match what jQuery provides but it's enough to
@@ -78,27 +78,27 @@ jQuery.ajax = async (arg1, arg2) => {
     };
 
     try {
-        if (options.dataType === 'jsonp') {
+        if (options.dataType === "jsonp") {
             const callbackName = `_jsonp_callback${jsonpCallback++}`;
-            global[callbackName] = data => {
+            global[callbackName] = (data) => {
                 delete global[callbackName];
                 successCallback(data);
             };
 
-            const callbackParameterName = options.jsonp || 'callback';
+            const callbackParameterName = options.jsonp || "callback";
             urlParameters.set(callbackParameterName, callbackName);
 
             jQuery.getScript(getFinalURL());
             return;
         }
 
-        if (options.dataType === 'script') {
+        if (options.dataType === "script") {
             jQuery.getScript(getFinalURL(), successCallback);
             return;
         }
 
         const res = await fetch(getFinalURL(), {
-            headers: options.headers
+            headers: options.headers,
         });
         // dataType defaults to "Intelligent Guess (xml, json, script, or html)"
         // It happens that all the ScratchX extensions we care about either set dataType to "json" or

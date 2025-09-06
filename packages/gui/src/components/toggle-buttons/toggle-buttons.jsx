@@ -1,19 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import classNames from 'classnames';
+import React from "react";
+import PropTypes from "prop-types";
+import classNames from "classnames";
 
-import TWRenderRecoloredImage from '../../lib/tw-recolor/render.jsx';
-import styles from './toggle-buttons.css';
+import TWRenderRecoloredImage from "../../lib/tw-recolor/render.jsx";
+import styles from "./toggle-buttons.css";
 
-const ToggleButtons = ({buttons, className, disabled}) => (
+const ToggleButtons = ({ buttons, className, disabled }) => (
     <div
-        className={classNames(
-            className,
-            styles.row,
-            {
-                [styles.disabled]: disabled
-            }
-        )}
+        className={classNames(className, styles.row, {
+            [styles.disabled]: disabled,
+        })}
     >
         {buttons.map((button, index) => (
             <button
@@ -37,19 +33,21 @@ const ToggleButtons = ({buttons, className, disabled}) => (
 );
 
 ToggleButtons.propTypes = {
-    buttons: PropTypes.arrayOf(PropTypes.shape({
-        title: PropTypes.string.isRequired,
-        handleClick: PropTypes.func.isRequired,
-        icon: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
-        iconClassName: PropTypes.string,
-        isSelected: PropTypes.bool
-    })),
+    buttons: PropTypes.arrayOf(
+        PropTypes.shape({
+            title: PropTypes.string.isRequired,
+            handleClick: PropTypes.func.isRequired,
+            icon: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
+            iconClassName: PropTypes.string,
+            isSelected: PropTypes.bool,
+        }),
+    ),
     className: PropTypes.string,
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
 };
 
 ToggleButtons.defaultProps = {
-    disabled: false
+    disabled: false,
 };
 
 export default ToggleButtons;

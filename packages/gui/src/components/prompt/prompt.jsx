@@ -1,44 +1,48 @@
-import classNames from 'classnames';
-import {defineMessages, FormattedMessage} from 'react-intl';
-import PropTypes from 'prop-types';
-import React from 'react';
+import classNames from "classnames";
+import { defineMessages, FormattedMessage } from "react-intl";
+import PropTypes from "prop-types";
+import React from "react";
 
-import Box from '../box/box.jsx';
-import Modal from '../../containers/modal.jsx';
+import Box from "../box/box.jsx";
+import Modal from "../../containers/modal.jsx";
 
-import styles from './prompt.css';
-import {SCRATCH_MAX_CLOUD_VARIABLES} from '../../lib/tw-cloud-limits.js';
-import isScratchDesktop from '../../lib/isScratchDesktop.js';
-
+import styles from "./prompt.css";
+import { SCRATCH_MAX_CLOUD_VARIABLES } from "../../lib/tw-cloud-limits.js";
+import isScratchDesktop from "../../lib/isScratchDesktop.js";
 
 const messages = defineMessages({
     forAllSpritesMessage: {
-        defaultMessage: 'For all sprites',
-        description: 'Option message when creating a variable for making it available to all sprites',
-        id: 'gui.gui.variableScopeOptionAllSprites'
+        defaultMessage: "For all sprites",
+        description:
+            "Option message when creating a variable for making it available to all sprites",
+        id: "gui.gui.variableScopeOptionAllSprites",
     },
     forThisSpriteMessage: {
-        defaultMessage: 'For this sprite only',
-        description: 'Option message when creating a varaible for making it only available to the current sprite',
-        id: 'gui.gui.variableScopeOptionSpriteOnly'
+        defaultMessage: "For this sprite only",
+        description:
+            "Option message when creating a varaible for making it only available to the current sprite",
+        id: "gui.gui.variableScopeOptionSpriteOnly",
     },
     cloudVarOptionMessage: {
-        defaultMessage: 'Cloud variable (stored on server)',
-        description: 'Option message when creating a variable for making it a cloud variable, a variable that is stored on the server', /* eslint-disable-line max-len */
-        id: 'gui.gui.cloudVariableOption'
+        defaultMessage: "Cloud variable (stored on server)",
+        description:
+            "Option message when creating a variable for making it a cloud variable, a variable that is stored on the server" /* eslint-disable-line max-len */,
+        id: "gui.gui.cloudVariableOption",
     },
     availableToAllSpritesMessage: {
-        defaultMessage: 'This variable will be available to all sprites.',
-        description: 'A message that displays in a variable modal when the stage is selected indicating ' +
-            'that the variable being created will available to all sprites.',
-        id: 'gui.gui.variablePromptAllSpritesMessage'
+        defaultMessage: "This variable will be available to all sprites.",
+        description:
+            "A message that displays in a variable modal when the stage is selected indicating " +
+            "that the variable being created will available to all sprites.",
+        id: "gui.gui.variablePromptAllSpritesMessage",
     },
     listAvailableToAllSpritesMessage: {
-        defaultMessage: 'This list will be available to all sprites.',
-        description: 'A message that displays in a list modal when the stage is selected indicating ' +
-            'that the list being created will available to all sprites.',
-        id: 'gui.gui.listPromptAllSpritesMessage'
-    }
+        defaultMessage: "This list will be available to all sprites.",
+        description:
+            "A message that displays in a list modal when the stage is selected indicating " +
+            "that the list being created will available to all sprites.",
+        id: "gui.gui.listPromptAllSpritesMessage",
+    },
 });
 
 const Packager = () => (
@@ -48,11 +52,11 @@ const Packager = () => (
         rel="noopener noreferrer"
     >
         {/* Should not be translated */}
-        {'TurboWarp Packager'}
+        {"TurboWarp Packager"}
     </a>
 );
 
-const PromptComponent = props => (
+const PromptComponent = (props) => (
     <Modal
         className={styles.modalContent}
         contentLabel={props.title}
@@ -60,9 +64,7 @@ const PromptComponent = props => (
         id="promptModal"
     >
         <Box className={styles.body}>
-            <Box className={styles.label}>
-                {props.label}
-            </Box>
+            <Box className={styles.label}>{props.label}</Box>
             <Box>
                 <input
                     autoFocus
@@ -74,9 +76,9 @@ const PromptComponent = props => (
                     onKeyPress={props.onKeyPress}
                 />
             </Box>
-            {props.showVariableOptions ?
+            {props.showVariableOptions ? (
                 <div>
-                    {props.isStage ?
+                    {props.isStage ? (
                         <div className={styles.infoMessage}>
                             {props.showListMessage ? (
                                 <FormattedMessage
@@ -87,7 +89,8 @@ const PromptComponent = props => (
                                     {...messages.availableToAllSpritesMessage}
                                 />
                             )}
-                        </div> :
+                        </div>
+                    ) : (
                         <Box className={styles.optionsRow}>
                             <label>
                                 <input
@@ -102,7 +105,9 @@ const PromptComponent = props => (
                                 />
                             </label>
                             <label
-                                className={classNames({[styles.disabledLabel]: props.cloudSelected})}
+                                className={classNames({
+                                    [styles.disabledLabel]: props.cloudSelected,
+                                })}
                             >
                                 <input
                                     checked={!props.globalSelected}
@@ -116,14 +121,21 @@ const PromptComponent = props => (
                                     {...messages.forThisSpriteMessage}
                                 />
                             </label>
-                        </Box>}
-                    {props.showCloudOption ?
+                        </Box>
+                    )}
+                    {props.showCloudOption ? (
                         <Box className={classNames(styles.cloudOption)}>
                             <label
-                                className={classNames({[styles.disabledLabel]: !props.canAddCloudVariable})}
+                                className={classNames({
+                                    [styles.disabledLabel]:
+                                        !props.canAddCloudVariable,
+                                })}
                             >
                                 <input
-                                    checked={props.cloudSelected && props.canAddCloudVariable}
+                                    checked={
+                                        props.cloudSelected &&
+                                        props.canAddCloudVariable
+                                    }
                                     disabled={!props.canAddCloudVariable}
                                     type="checkbox"
                                     onChange={props.onCloudVarOptionChange}
@@ -132,8 +144,10 @@ const PromptComponent = props => (
                                     {...messages.cloudVarOptionMessage}
                                 />
                             </label>
-                        </Box> : null}
-                </div> : null}
+                        </Box>
+                    ) : null}
+                </div>
+            ) : null}
 
             {props.cloudSelected && !props.isAddingCloudVariableScratchSafe && (
                 <Box className={styles.infoMessage}>
@@ -144,7 +158,7 @@ const PromptComponent = props => (
                         description="Warning that appears when adding a new cloud variable will make it exceeded Scratch's cloud variable limit. number will be 10."
                         id="tw.scratchUnsafeCloud"
                         values={{
-                            number: SCRATCH_MAX_CLOUD_VARIABLES
+                            number: SCRATCH_MAX_CLOUD_VARIABLES,
                         }}
                     />
                 </Box>
@@ -158,7 +172,7 @@ const PromptComponent = props => (
                             defaultMessage="In the desktop app, cloud variables sync between all desktop app windows on this computer. Upload the project to Scratch or use a tool like the {packager} for them to sync globally."
                             description="Appears when creating a cloud variable in the desktop app"
                             values={{
-                                packager: <Packager />
+                                packager: <Packager />,
                             }}
                             id="tw.desktopCloud"
                         />
@@ -169,7 +183,7 @@ const PromptComponent = props => (
                             // eslint-disable-next-line max-len
                             description="Reminder that cloud variables may not work when the editor is open. {packager} is replaced with a link to open the TurboWarp Packager, always English."
                             values={{
-                                packager: <Packager />
+                                packager: <Packager />,
                             }}
                             id="tw.cantUseCloud"
                         />
@@ -188,10 +202,7 @@ const PromptComponent = props => (
                         id="gui.prompt.cancel"
                     />
                 </button>
-                <button
-                    className={styles.okButton}
-                    onClick={props.onOk}
-                >
+                <button className={styles.okButton} onClick={props.onOk}>
                     <FormattedMessage
                         defaultMessage="OK"
                         description="Button in prompt for confirming the dialog"
@@ -221,7 +232,7 @@ PromptComponent.propTypes = {
     onScopeOptionSelection: PropTypes.func.isRequired,
     showCloudOption: PropTypes.bool.isRequired,
     showVariableOptions: PropTypes.bool.isRequired,
-    title: PropTypes.string.isRequired
+    title: PropTypes.string.isRequired,
 };
 
 export default PromptComponent;

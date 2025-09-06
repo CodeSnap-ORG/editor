@@ -1,17 +1,17 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
 const NUMBER_OF_ADDONS = 50;
-const CHANGELOG_LINK = 'https://desktop.turbowarp.org/?changelog';
-const SCREENSHOT_PROJECT_LINK = 'https://scratch.mit.edu/projects/425020125/';
-const translations = require('./imported.json');
+const CHANGELOG_LINK = "https://desktop.turbowarp.org/?changelog";
+const SCREENSHOT_PROJECT_LINK = "https://scratch.mit.edu/projects/425020125/";
+const translations = require("./imported.json");
 
 const parseCSV = (contents) => {
   // Enforce consistent newline endings
-  contents = contents.replace(/\r\n/g, '\n');
+  contents = contents.replace(/\r\n/g, "\n");
 
   const rows = [];
-  let currentRow = [''];
+  let currentRow = [""];
   let inQuote = false;
 
   let i = 0;
@@ -30,26 +30,26 @@ const parseCSV = (contents) => {
         }
       } else {
         // Literal quoted text
-        currentRow[currentRow.length - 1] += character
+        currentRow[currentRow.length - 1] += character;
         i++;
       }
     } else {
-      if (character === ',') {
+      if (character === ",") {
         // Start a new column
-        currentRow.push('');
+        currentRow.push("");
         i++;
 
         if (contents[i] === '"') {
           inQuote = true;
           i++;
         }
-      } else if (character === '\n') {
+      } else if (character === "\n") {
         // Start a new row
         rows.push(currentRow);
-        currentRow = [''];
+        currentRow = [""];
         i++;
       } else {
-        currentRow[currentRow.length - 1] += character
+        currentRow[currentRow.length - 1] += character;
         i++;
       }
     }
@@ -66,61 +66,61 @@ const parseCSV = (contents) => {
 const generateCSV = (rows) => {
   const result = [];
   for (const row of rows) {
-    const escapedRow = row.map(item => {
-      if (item.includes('\n') || item.includes(',')) {
+    const escapedRow = row.map((item) => {
+      if (item.includes("\n") || item.includes(",")) {
         return `"${item.replace(/"/g, '""')}"`;
       }
       return item;
     });
-    result.push(escapedRow.join(','));
+    result.push(escapedRow.join(","));
   }
-  return result.join('\n');
+  return result.join("\n");
 };
 
 const generateStoreListings = (rows) => {
   // CSV header: Field, ID, Type (Type), default, en-us, de, nl, fr, ...
 
   // Remove everything after English
-  rows = rows.map(i => i.slice(0, 5));
+  rows = rows.map((i) => i.slice(0, 5));
 
   const STRING_ID_MAP = {
-    Description: 'microsoft-store-description',
-    ReleaseNotes: 'microsoft-store-generic-release-notes',
-    DesktopScreenshotCaption1: 'microsoft-store-screenshot-caption',
-    DesktopScreenshotCaption2: 'microsoft-store-screenshot-caption',
-    DesktopScreenshotCaption3: 'microsoft-store-screenshot-addons',
-    DesktopScreenshotCaption4: 'microsoft-store-screenshot-packager',
+    Description: "microsoft-store-description",
+    ReleaseNotes: "microsoft-store-generic-release-notes",
+    DesktopScreenshotCaption1: "microsoft-store-screenshot-caption",
+    DesktopScreenshotCaption2: "microsoft-store-screenshot-caption",
+    DesktopScreenshotCaption3: "microsoft-store-screenshot-addons",
+    DesktopScreenshotCaption4: "microsoft-store-screenshot-packager",
   };
 
   const USE_DEFAULT_ROWS = [
-    'Title',
-    'CopyrightTrademarkInformation',
-    'DesktopScreenshot1',
-    'DesktopScreenshot2',
-    'DesktopScreenshot3',
-    'DesktopScreenshot4',
-    'DesktopScreenshot5',
-    'DesktopScreenshot6',
-    'DesktopScreenshot7',
-    'DesktopScreenshot8',
-    'DesktopScreenshot9',
-    'DesktopScreenshot10',
-    'SearchTerm1',
-    'SearchTerm2',
-    'SearchTerm3',
-    'SearchTerm4',
-    'SearchTerm5',
-    'SearchTerm6',
-    'SearchTerm7',
+    "Title",
+    "CopyrightTrademarkInformation",
+    "DesktopScreenshot1",
+    "DesktopScreenshot2",
+    "DesktopScreenshot3",
+    "DesktopScreenshot4",
+    "DesktopScreenshot5",
+    "DesktopScreenshot6",
+    "DesktopScreenshot7",
+    "DesktopScreenshot8",
+    "DesktopScreenshot9",
+    "DesktopScreenshot10",
+    "SearchTerm1",
+    "SearchTerm2",
+    "SearchTerm3",
+    "SearchTerm4",
+    "SearchTerm5",
+    "SearchTerm6",
+    "SearchTerm7",
   ];
 
   for (const [localeName, localeValues] of Object.entries(translations)) {
     const getString = (key) => {
       if (localeValues[key]) {
         return localeValues[key]
-          .replace('{number_of_addons}', NUMBER_OF_ADDONS)
-          .replace('{changelog_link}', CHANGELOG_LINK)
-          .replace('{screenshot_project_link}', SCREENSHOT_PROJECT_LINK)
+          .replace("{number_of_addons}", NUMBER_OF_ADDONS)
+          .replace("{changelog_link}", CHANGELOG_LINK)
+          .replace("{screenshot_project_link}", SCREENSHOT_PROJECT_LINK);
       }
 
       console.warn(`Missing translation ${key} for ${localeName}`);
@@ -147,6 +147,8 @@ const generateStoreListings = (rows) => {
   return rows;
 };
 
-const csvRows = parseCSV(fs.readFileSync(path.join(__dirname, 'from-microsoft.csv'), 'utf8'));
+const csvRows = parseCSV(
+  fs.readFileSync(path.join(__dirname, "from-microsoft.csv"), "utf8"),
+);
 const parsedStoreListings = generateStoreListings(csvRows);
-fs.writeFileSync('import-to-microsoft.csv', generateCSV(parsedStoreListings));
+fs.writeFileSync("import-to-microsoft.csv", generateCSV(parsedStoreListings));

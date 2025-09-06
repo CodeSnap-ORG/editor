@@ -1,9 +1,9 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styles from './checkbox.css';
-import classNames from 'classnames';
+import React from "react";
+import PropTypes from "prop-types";
+import styles from "./checkbox.css";
+import classNames from "classnames";
 
-const FancyCheckbox = props => (
+const FancyCheckbox = (props) => (
     <input
         {...props}
         type="checkbox"
@@ -12,7 +12,7 @@ const FancyCheckbox = props => (
 );
 
 FancyCheckbox.propTypes = {
-    className: PropTypes.string
+    className: PropTypes.string,
 };
 
 export default FancyCheckbox;

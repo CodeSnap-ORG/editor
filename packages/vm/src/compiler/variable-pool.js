@@ -2,9 +2,9 @@ class VariablePool {
     /**
      * @param {string} prefix The prefix at the start of the variable name.
      */
-    constructor (prefix) {
+    constructor(prefix) {
         if (prefix.trim().length === 0) {
-            throw new Error('prefix cannot be empty');
+            throw new Error("prefix cannot be empty");
         }
         this.prefix = prefix;
         /**
@@ -13,7 +13,7 @@ class VariablePool {
         this.count = 0;
     }
 
-    next () {
+    next() {
         return `${this.prefix}${this.count++}`;
     }
 }

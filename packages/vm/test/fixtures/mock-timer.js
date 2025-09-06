@@ -9,9 +9,9 @@ class MockTimer {
      * @param {*} [nowObj=null] - alert the caller that this parameter, supported by Timer, is not supported here.
      * @memberof MockTimer
      */
-    constructor (nowObj = null) {
+    constructor(nowObj = null) {
         if (nowObj) {
-            throw new Error('nowObj is not implemented in MockTimer');
+            throw new Error("nowObj is not implemented in MockTimer");
         }
 
         /**
@@ -48,9 +48,9 @@ class MockTimer {
      * @param {number} milliseconds - the amount of time to add to the current mock time value, in milliseconds.
      * @memberof MockTimer
      */
-    advanceMockTime (milliseconds) {
+    advanceMockTime(milliseconds) {
         if (milliseconds < 0) {
-            throw new Error('Time may not move backward');
+            throw new Error("Time may not move backward");
         }
         this._mockTime += milliseconds;
         this._runTimeouts();
@@ -63,8 +63,8 @@ class MockTimer {
      * @returns {Promise} - promise which resolves after timeout handlers have had an opportunity to run.
      * @memberof MockTimer
      */
-    advanceMockTimeAsync (milliseconds) {
-        return new Promise(resolve => {
+    advanceMockTimeAsync(milliseconds) {
+        return new Promise((resolve) => {
             this.advanceMockTime(milliseconds);
             global.setTimeout(resolve, 0);
         });
@@ -74,7 +74,7 @@ class MockTimer {
      * @returns {number} - current mock time elapsed since 1 January 1970 00:00:00 UTC.
      * @memberof MockTimer
      */
-    time () {
+    time() {
         return this._mockTime;
     }
 
@@ -82,7 +82,7 @@ class MockTimer {
      * Start a timer for measuring elapsed time.
      * @memberof MockTimer
      */
-    start () {
+    start() {
         this.startTime = this._mockTime;
     }
 
@@ -90,7 +90,7 @@ class MockTimer {
      * @returns {number} - the time elapsed since `start()` was called.
      * @memberof MockTimer
      */
-    timeElapsed () {
+    timeElapsed() {
         return this._mockTime - this.startTime;
     }
 
@@ -102,11 +102,11 @@ class MockTimer {
      * @returns {number} - the ID of the new timeout.
      * @memberof MockTimer
      */
-    setTimeout (handler, timeout) {
+    setTimeout(handler, timeout) {
         const timeoutId = this._nextTimeoutId++;
         this._timeouts.set(timeoutId, {
             time: this._mockTime + timeout,
-            handler
+            handler,
         });
         this._runTimeouts();
         return timeoutId;
@@ -117,7 +117,7 @@ class MockTimer {
      * @param {number} timeoutId - the value returned from `setTimeout()`
      * @memberof MockTimer
      */
-    clearTimeout (timeoutId) {
+    clearTimeout(timeoutId) {
         this._timeouts.delete(timeoutId);
     }
 
@@ -126,7 +126,7 @@ class MockTimer {
      * @returns {boolean} - true if there are any pending timeouts, false otherwise.
      * @memberof MockTimer
      */
-    hasTimeouts () {
+    hasTimeouts() {
         return this._timeouts.size > 0;
     }
 
@@ -134,7 +134,7 @@ class MockTimer {
      * Run any timeout handlers whose timeouts have expired.
      * @memberof MockTimer
      */
-    _runTimeouts () {
+    _runTimeouts() {
         const ready = [];
 
         this._timeouts.forEach((timeoutRecord, timeoutId) => {
@@ -150,7 +150,7 @@ class MockTimer {
 
         // next tick, call everything that's ready
         global.setTimeout(() => {
-            ready.forEach(o => o.handler());
+            ready.forEach((o) => o.handler());
         }, 0);
     }
 }

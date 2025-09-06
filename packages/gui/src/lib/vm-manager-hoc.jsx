@@ -1,28 +1,24 @@
-import bindAll from 'lodash.bindall';
-import PropTypes from 'prop-types';
-import React from 'react';
-import {connect} from 'react-redux';
+import bindAll from "lodash.bindall";
+import PropTypes from "prop-types";
+import React from "react";
+import { connect } from "react-redux";
 
-import VM from 'scratch-vm';
-import AudioEngine from 'scratch-audio';
+import VM from "scratch-vm";
+import AudioEngine from "scratch-audio";
 
-import {setProjectUnchanged} from '../reducers/project-changed';
+import { setProjectUnchanged } from "../reducers/project-changed";
 import {
     LoadingStates,
     getIsLoadingWithId,
     onLoadedProject,
-    projectError
-} from '../reducers/project-state';
-import log from './log';
+    projectError,
+} from "../reducers/project-state";
+import log from "./log";
 
 /**
  * List of fonts that could be used by security prompts.
  */
-const SECURITY_CRITICAL_FONTS = [
-    'Helvetica Neue',
-    'Helvetica',
-    'Arial'
-];
+const SECURITY_CRITICAL_FONTS = ["Helvetica Neue", "Helvetica", "Arial"];
 
 /*
  * Higher Order Component to manage events emitted by the VM
@@ -31,20 +27,18 @@ const SECURITY_CRITICAL_FONTS = [
  */
 const vmManagerHOC = function (WrappedComponent) {
     class VMManager extends React.Component {
-        constructor (props) {
+        constructor(props) {
             super(props);
-            bindAll(this, [
-                'loadProject'
-            ]);
+            bindAll(this, ["loadProject"]);
         }
-        componentDidMount () {
+        componentDidMount() {
             if (!this.props.vm.initialized) {
                 window.vm = this.props.vm;
                 try {
                     this.audioEngine = new AudioEngine();
                     this.props.vm.attachAudioEngine(this.audioEngine);
                 } catch (e) {
-                    log.error('could not create scratch-audio', e);
+                    log.error("could not create scratch-audio", e);
                 }
                 for (const font of SECURITY_CRITICAL_FONTS) {
                     this.props.vm.runtime.fontManager.restrictFont(font);
@@ -56,11 +50,14 @@ const vmManagerHOC = function (WrappedComponent) {
                 this.props.vm.start();
             }
         }
-        componentDidUpdate (prevProps) {
+        componentDidUpdate(prevProps) {
             // if project is in loading state, AND fonts are loaded,
             // and they weren't both that way until now... load project!
-            if (this.props.isLoadingWithId && this.props.fontsLoaded &&
-                (!prevProps.isLoadingWithId || !prevProps.fontsLoaded)) {
+            if (
+                this.props.isLoadingWithId &&
+                this.props.fontsLoaded &&
+                (!prevProps.isLoadingWithId || !prevProps.fontsLoaded)
+            ) {
                 this.loadProject();
             }
             // Start the VM if entering editor mode with an unstarted vm
@@ -68,12 +65,16 @@ const vmManagerHOC = function (WrappedComponent) {
                 this.props.vm.start();
             }
         }
-        loadProject () {
+        loadProject() {
             // tw: stop when loading new project
             this.props.vm.quit();
-            return this.props.vm.loadProject(this.props.projectData)
+            return this.props.vm
+                .loadProject(this.props.projectData)
                 .then(() => {
-                    this.props.onLoadedProject(this.props.loadingState, this.props.canSave);
+                    this.props.onLoadedProject(
+                        this.props.loadingState,
+                        this.props.canSave,
+                    );
                     // Wrap in a setTimeout because skin loading in
                     // the renderer can be async.
                     setTimeout(() => this.props.onSetProjectUnchanged());
@@ -89,11 +90,11 @@ const vmManagerHOC = function (WrappedComponent) {
                         setTimeout(() => this.props.vm.renderer.draw());
                     }
                 })
-                .catch(e => {
+                .catch((e) => {
                     this.props.onError(e);
                 });
         }
-        render () {
+        render() {
             const {
                 /* eslint-disable no-unused-vars */
                 fontsLoaded,
@@ -136,10 +137,10 @@ const vmManagerHOC = function (WrappedComponent) {
         projectData: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
         projectId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
         username: PropTypes.string,
-        vm: PropTypes.instanceOf(VM).isRequired
+        vm: PropTypes.instanceOf(VM).isRequired,
     };
 
-    const mapStateToProps = state => {
+    const mapStateToProps = (state) => {
         const loadingState = state.scratchGui.projectState.loadingState;
         return {
             fontsLoaded: state.scratchGui.fontsLoaded,
@@ -150,27 +151,22 @@ const vmManagerHOC = function (WrappedComponent) {
             projectId: state.scratchGui.projectState.projectId,
             loadingState: loadingState,
             isPlayerOnly: state.scratchGui.mode.isPlayerOnly,
-            isStarted: state.scratchGui.vmStatus.started
+            isStarted: state.scratchGui.vmStatus.started,
         };
     };
 
-    const mapDispatchToProps = dispatch => ({
-        onError: error => dispatch(projectError(error)),
+    const mapDispatchToProps = (dispatch) => ({
+        onError: (error) => dispatch(projectError(error)),
         onLoadedProject: (loadingState, canSave) =>
             dispatch(onLoadedProject(loadingState, canSave, true)),
-        onSetProjectUnchanged: () => dispatch(setProjectUnchanged())
+        onSetProjectUnchanged: () => dispatch(setProjectUnchanged()),
     });
 
     // Allow incoming props to override redux-provided props. Used to mock in tests.
-    const mergeProps = (stateProps, dispatchProps, ownProps) => Object.assign(
-        {}, stateProps, dispatchProps, ownProps
-    );
+    const mergeProps = (stateProps, dispatchProps, ownProps) =>
+        Object.assign({}, stateProps, dispatchProps, ownProps);
 
-    return connect(
-        mapStateToProps,
-        mapDispatchToProps,
-        mergeProps
-    )(VMManager);
+    return connect(mapStateToProps, mapDispatchToProps, mergeProps)(VMManager);
 };
 
 export default vmManagerHOC;

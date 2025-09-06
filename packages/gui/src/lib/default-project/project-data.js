@@ -1,36 +1,36 @@
-import {defineMessages} from 'react-intl';
-import sharedMessages from '../shared-messages';
+import { defineMessages } from "react-intl";
+import sharedMessages from "../shared-messages";
 
 let messages = defineMessages({
     variable: {
-        defaultMessage: 'my variable',
-        description: 'Name for the default variable',
-        id: 'gui.defaultProject.variable'
-    }
+        defaultMessage: "my variable",
+        description: "Name for the default variable",
+        id: "gui.defaultProject.variable",
+    },
 });
 
-messages = {...messages, ...sharedMessages};
+messages = { ...messages, ...sharedMessages };
 
 // use the default message if a translation function is not passed
-const defaultTranslator = msgObj => msgObj.defaultMessage;
+const defaultTranslator = (msgObj) => msgObj.defaultMessage;
 
 /**
  * Generate a localized version of the default project
  * @param {function} translateFunction a function to use for translating the default names
  * @return {object} the project data json for the default project
  */
-const projectData = translateFunction => {
+const projectData = (translateFunction) => {
     const translator = translateFunction || defaultTranslator;
-    return ({
+    return {
         targets: [
             {
                 isStage: true,
-                name: 'Stage',
+                name: "Stage",
                 variables: {
-                    '`jEk@4|i[#Fk?(8x)AV.-my variable': [
+                    "`jEk@4|i[#Fk?(8x)AV.-my variable": [
                         translator(messages.variable),
-                        0
-                    ]
+                        0,
+                    ],
                 },
                 lists: {},
                 broadcasts: {},
@@ -38,20 +38,20 @@ const projectData = translateFunction => {
                 currentCostume: 0,
                 costumes: [
                     {
-                        assetId: 'cd21514d0531fdffb22204e0ec5ed84a',
-                        name: translator(messages.backdrop, {index: 1}),
-                        md5ext: 'cd21514d0531fdffb22204e0ec5ed84a.svg',
-                        dataFormat: 'svg',
+                        assetId: "cd21514d0531fdffb22204e0ec5ed84a",
+                        name: translator(messages.backdrop, { index: 1 }),
+                        md5ext: "cd21514d0531fdffb22204e0ec5ed84a.svg",
+                        dataFormat: "svg",
                         rotationCenterX: 240,
-                        rotationCenterY: 180
-                    }
+                        rotationCenterY: 180,
+                    },
                 ],
                 sounds: [],
-                volume: 100
+                volume: 100,
             },
             {
                 isStage: false,
-                name: translator(messages.sprite, {index: 1}),
+                name: translator(messages.sprite, { index: 1 }),
                 variables: {},
                 lists: {},
                 broadcasts: {},
@@ -60,14 +60,14 @@ const projectData = translateFunction => {
                 currentCostume: 0,
                 costumes: [
                     {
-                        assetId: '927d672925e7b99f7813735c484c6922',
-                        name: translator(messages.costume, {index: 1}),
+                        assetId: "927d672925e7b99f7813735c484c6922",
+                        name: translator(messages.costume, { index: 1 }),
                         bitmapResolution: 1,
-                        md5ext: '927d672925e7b99f7813735c484c6922.svg',
-                        dataFormat: 'svg',
+                        md5ext: "927d672925e7b99f7813735c484c6922.svg",
+                        dataFormat: "svg",
                         rotationCenterX: 30.74937882782359,
-                        rotationCenterY: 58.864768144346826
-                    }
+                        rotationCenterY: 58.864768144346826,
+                    },
                 ],
                 sounds: [],
                 volume: 100,
@@ -77,16 +77,15 @@ const projectData = translateFunction => {
                 size: 100,
                 direction: 90,
                 draggable: false,
-                rotationStyle: 'all around'
-            }
+                rotationStyle: "all around",
+            },
         ],
         meta: {
-            semver: '3.0.0',
-            vm: '0.1.0',
-            agent: ''
-        }
-    });
+            semver: "3.0.0",
+            vm: "0.1.0",
+            agent: "",
+        },
+    };
 };
-
 
 export default projectData;

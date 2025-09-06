@@ -1,76 +1,76 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import bindAll from 'lodash.bindall';
-import VM from 'scratch-vm';
-import PaintEditor from '../lib/tw-scratch-paint';
-import {inlineSvgFonts} from '@turbowarp/scratch-svg-renderer';
-import ErrorBoundaryHOC from '../lib/error-boundary-hoc.jsx';
-import {openFontsModal} from '../reducers/modals';
+import PropTypes from "prop-types";
+import React from "react";
+import bindAll from "lodash.bindall";
+import VM from "scratch-vm";
+import PaintEditor from "../lib/tw-scratch-paint";
+import { inlineSvgFonts } from "@turbowarp/scratch-svg-renderer";
+import ErrorBoundaryHOC from "../lib/error-boundary-hoc.jsx";
+import { openFontsModal } from "../reducers/modals";
 
-import {connect} from 'react-redux';
-import {Theme} from '../lib/themes/index.js';
+import { connect } from "react-redux";
+import { Theme } from "../lib/themes/index.js";
 
 class PaintEditorWrapper extends React.Component {
-    constructor (props) {
+    constructor(props) {
         super(props);
         bindAll(this, [
-            'handleUpdateImage',
-            'handleUpdateName',
-            'handleUpdateFonts',
-            'fontInlineFn'
+            "handleUpdateImage",
+            "handleUpdateName",
+            "handleUpdateFonts",
+            "fontInlineFn",
         ]);
         this.state = {
-            fonts: this.props.vm.runtime.fontManager.getFonts()
+            fonts: this.props.vm.runtime.fontManager.getFonts(),
         };
     }
-    componentDidMount () {
-        this.props.vm.runtime.fontManager.on('change', this.handleUpdateFonts);
+    componentDidMount() {
+        this.props.vm.runtime.fontManager.on("change", this.handleUpdateFonts);
     }
-    shouldComponentUpdate (nextProps, nextState) {
-        return this.props.imageId !== nextProps.imageId ||
+    shouldComponentUpdate(nextProps, nextState) {
+        return (
+            this.props.imageId !== nextProps.imageId ||
             this.props.rtl !== nextProps.rtl ||
             this.props.name !== nextProps.name ||
             this.props.theme !== nextProps.theme ||
             this.props.customStageSize !== nextProps.customStageSize ||
-            this.state.fonts !== nextState.fonts;
+            this.state.fonts !== nextState.fonts
+        );
     }
-    componentWillUnmount () {
-        this.props.vm.runtime.fontManager.off('change', this.handleUpdateFonts);
+    componentWillUnmount() {
+        this.props.vm.runtime.fontManager.off("change", this.handleUpdateFonts);
     }
-    handleUpdateFonts () {
+    handleUpdateFonts() {
         this.setState({
-            fonts: this.props.vm.runtime.fontManager.getFonts()
+            fonts: this.props.vm.runtime.fontManager.getFonts(),
         });
     }
-    handleUpdateName (name) {
+    handleUpdateName(name) {
         this.props.vm.renameCostume(this.props.selectedCostumeIndex, name);
     }
-    handleUpdateImage (isVector, image, rotationCenterX, rotationCenterY) {
+    handleUpdateImage(isVector, image, rotationCenterX, rotationCenterY) {
         if (isVector) {
             this.props.vm.updateSvg(
                 this.props.selectedCostumeIndex,
                 image,
                 rotationCenterX,
-                rotationCenterY);
+                rotationCenterY,
+            );
         } else {
             this.props.vm.updateBitmap(
                 this.props.selectedCostumeIndex,
                 image,
                 rotationCenterX,
                 rotationCenterY,
-                2 /* bitmapResolution */);
+                2 /* bitmapResolution */,
+            );
         }
     }
-    fontInlineFn (svgString) {
+    fontInlineFn(svgString) {
         return inlineSvgFonts(svgString, this.props.vm.renderer.customFonts);
     }
-    render () {
+    render() {
         if (!this.props.imageId) return null;
-        const {
-            selectedCostumeIndex,
-            vm,
-            ...componentProps
-        } = this.props;
+        const { selectedCostumeIndex, vm, ...componentProps } = this.props;
 
         return (
             <PaintEditor
@@ -79,7 +79,7 @@ class PaintEditorWrapper extends React.Component {
                 onUpdateImage={this.handleUpdateImage}
                 onUpdateName={this.handleUpdateName}
                 fontInlineFn={this.fontInlineFn}
-                theme={this.props.theme.isDark() ? 'dark' : 'light'}
+                theme={this.props.theme.isDark() ? "dark" : "light"}
                 customFonts={this.state.fonts}
                 width={this.props.customStageSize.width}
                 height={this.props.customStageSize.height}
@@ -91,7 +91,7 @@ class PaintEditorWrapper extends React.Component {
 PaintEditorWrapper.propTypes = {
     customStageSize: PropTypes.shape({
         width: PropTypes.number,
-        height: PropTypes.number
+        height: PropTypes.number,
     }),
     onManageFonts: PropTypes.func.isRequired,
     imageFormat: PropTypes.string.isRequired,
@@ -102,15 +102,17 @@ PaintEditorWrapper.propTypes = {
     rotationCenterY: PropTypes.number,
     rtl: PropTypes.bool,
     selectedCostumeIndex: PropTypes.number.isRequired,
-    vm: PropTypes.instanceOf(VM)
+    vm: PropTypes.instanceOf(VM),
 };
 
-const mapStateToProps = (state, {selectedCostumeIndex}) => {
+const mapStateToProps = (state, { selectedCostumeIndex }) => {
     const targetId = state.scratchGui.vm.editingTarget.id;
     const sprite = state.scratchGui.vm.editingTarget.sprite;
     // Make sure the costume index doesn't go out of range.
-    const index = selectedCostumeIndex < sprite.costumes.length ?
-        selectedCostumeIndex : sprite.costumes.length - 1;
+    const index =
+        selectedCostumeIndex < sprite.costumes.length
+            ? selectedCostumeIndex
+            : sprite.costumes.length - 1;
     const costume = state.scratchGui.vm.editingTarget.sprite.costumes[index];
     return {
         customStageSize: state.scratchGui.customStageSize,
@@ -123,15 +125,14 @@ const mapStateToProps = (state, {selectedCostumeIndex}) => {
         selectedCostumeIndex: index,
         theme: state.scratchGui.theme.theme,
         vm: state.scratchGui.vm,
-        zoomLevelId: targetId
+        zoomLevelId: targetId,
     };
 };
 
-const mapDispatchToProps = dispatch => ({
-    onManageFonts: () => dispatch(openFontsModal())
+const mapDispatchToProps = (dispatch) => ({
+    onManageFonts: () => dispatch(openFontsModal()),
 });
 
-export default ErrorBoundaryHOC('paint')(connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(PaintEditorWrapper));
+export default ErrorBoundaryHOC("paint")(
+    connect(mapStateToProps, mapDispatchToProps)(PaintEditorWrapper),
+);

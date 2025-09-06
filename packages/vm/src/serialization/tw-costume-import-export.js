@@ -9,9 +9,9 @@
 
 let _TextEncoder;
 let _TextDecoder;
-if (typeof TextEncoder === 'undefined') {
-    _TextEncoder = require('text-encoding').TextEncoder;
-    _TextDecoder = require('text-encoding').TextDecoder;
+if (typeof TextEncoder === "undefined") {
+    _TextEncoder = require("text-encoding").TextEncoder;
+    _TextDecoder = require("text-encoding").TextDecoder;
 } else {
     _TextEncoder = TextEncoder;
     _TextDecoder = TextDecoder;
@@ -20,18 +20,18 @@ if (typeof TextEncoder === 'undefined') {
 // Using literal HTML comments tokens will cause this script to be very hard to inline in
 // a <script> element, so we'll instead do this terrible hack which the minifier probably
 // won't be able to optimize away.
-const HTML_COMMENT_START = `<!${'-'.repeat(2)}`;
-const HTML_COMMENT_END = `${'-'.repeat(2)}>`;
+const HTML_COMMENT_START = `<!${"-".repeat(2)}`;
+const HTML_COMMENT_END = `${"-".repeat(2)}>`;
 
 const regex = new RegExp(
-    `${HTML_COMMENT_START}rotationCenter:(-?[\\d\\.]+):(-?[\\d\\.]+)${HTML_COMMENT_END}$`
+    `${HTML_COMMENT_START}rotationCenter:(-?[\\d\\.]+):(-?[\\d\\.]+)${HTML_COMMENT_END}$`,
 );
 
 /**
  * @param {string} svgString SVG source
  * @returns {[number, number]|null} The detected rotation center of the SVG, if any.
  */
-const parseVectorMetadata = svgString => {
+const parseVectorMetadata = (svgString) => {
     // TODO: see if this is slow on large strings
     const match = svgString.match(regex);
     if (!match) {
@@ -51,18 +51,18 @@ const parseVectorMetadata = svgString => {
  * @param {Costume} costume scratch-vm costume object
  * @returns {Uint8Array} Binary data to export
  */
-const exportCostume = costume => {
+const exportCostume = (costume) => {
     /** @type {Uint8Array} */
     const originalData = costume.asset.data;
 
-    if (costume.dataFormat !== 'svg') {
+    if (costume.dataFormat !== "svg") {
         return originalData;
     }
 
     let decodedData = new _TextDecoder().decode(originalData);
 
     // It's okay that the regex isn't global because it can only match one item anyways.
-    decodedData = decodedData.replace(regex, '');
+    decodedData = decodedData.replace(regex, "");
 
     const centerX = costume.rotationCenterX;
     const centerY = costume.rotationCenterY;
@@ -74,5 +74,5 @@ const exportCostume = costume => {
 
 module.exports = {
     parseVectorMetadata,
-    exportCostume
+    exportCostume,
 };

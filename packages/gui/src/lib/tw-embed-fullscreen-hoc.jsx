@@ -1,28 +1,32 @@
-import bindAll from 'lodash.bindall';
-import React from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import bindAll from "lodash.bindall";
+import React from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
-import {setFullScreen} from '../reducers/mode';
-import {setIsWindowFullScreen} from '../reducers/tw';
-import FullscreenAPI from './tw-fullscreen-api';
+import { setFullScreen } from "../reducers/mode";
+import { setIsWindowFullScreen } from "../reducers/tw";
+import FullscreenAPI from "./tw-fullscreen-api";
 
 const TWFullScreenHOC = function (WrappedComponent) {
     class FullScreenComponent extends React.Component {
-        constructor (props) {
+        constructor(props) {
             super(props);
-            bindAll(this, [
-                'handleFullScreenChange'
-            ]);
+            bindAll(this, ["handleFullScreenChange"]);
         }
-        componentDidMount () {
-            document.addEventListener('fullscreenchange', this.handleFullScreenChange);
-            document.addEventListener('webkitfullscreenchange', this.handleFullScreenChange);
+        componentDidMount() {
+            document.addEventListener(
+                "fullscreenchange",
+                this.handleFullScreenChange,
+            );
+            document.addEventListener(
+                "webkitfullscreenchange",
+                this.handleFullScreenChange,
+            );
         }
-        shouldComponentUpdate (nextProps) {
+        shouldComponentUpdate(nextProps) {
             return this.props.isFullScreen !== nextProps.isFullScreen;
         }
-        componentDidUpdate () {
+        componentDidUpdate() {
             if (FullscreenAPI.available()) {
                 if (this.props.isFullScreen) {
                     FullscreenAPI.request();
@@ -31,16 +35,22 @@ const TWFullScreenHOC = function (WrappedComponent) {
                 }
             }
         }
-        componentWillUnmount () {
-            document.removeEventListener('fullscreenchange', this.handleFullScreenChange);
-            document.removeEventListener('webkitfullscreenchange', this.handleFullScreenChange);
+        componentWillUnmount() {
+            document.removeEventListener(
+                "fullscreenchange",
+                this.handleFullScreenChange,
+            );
+            document.removeEventListener(
+                "webkitfullscreenchange",
+                this.handleFullScreenChange,
+            );
         }
-        handleFullScreenChange () {
+        handleFullScreenChange() {
             const isFullScreen = FullscreenAPI.enabled();
             this.props.onSetWindowIsFullScreen(isFullScreen);
             this.props.onSetIsFullScreen(isFullScreen);
         }
-        render () {
+        render() {
             const {
                 /* eslint-disable no-unused-vars */
                 isFullScreen,
@@ -49,31 +59,24 @@ const TWFullScreenHOC = function (WrappedComponent) {
                 /* eslint-enable no-unused-vars */
                 ...props
             } = this.props;
-            return (
-                <WrappedComponent
-                    {...props}
-                />
-            );
+            return <WrappedComponent {...props} />;
         }
     }
     FullScreenComponent.propTypes = {
         isFullScreen: PropTypes.bool,
         onSetIsFullScreen: PropTypes.func,
-        onSetWindowIsFullScreen: PropTypes.func
+        onSetWindowIsFullScreen: PropTypes.func,
     };
-    const mapStateToProps = state => ({
-        isFullScreen: state.scratchGui.mode.isFullScreen
+    const mapStateToProps = (state) => ({
+        isFullScreen: state.scratchGui.mode.isFullScreen,
     });
-    const mapDispatchToProps = dispatch => ({
-        onSetIsFullScreen: isFullScreen => dispatch(setFullScreen(isFullScreen)),
-        onSetWindowIsFullScreen: isFullScreen => dispatch(setIsWindowFullScreen(isFullScreen))
+    const mapDispatchToProps = (dispatch) => ({
+        onSetIsFullScreen: (isFullScreen) =>
+            dispatch(setFullScreen(isFullScreen)),
+        onSetWindowIsFullScreen: (isFullScreen) =>
+            dispatch(setIsWindowFullScreen(isFullScreen)),
     });
-    return connect(
-        mapStateToProps,
-        mapDispatchToProps
-    )(FullScreenComponent);
+    return connect(mapStateToProps, mapDispatchToProps)(FullScreenComponent);
 };
 
-export {
-    TWFullScreenHOC as default
-};
+export { TWFullScreenHOC as default };

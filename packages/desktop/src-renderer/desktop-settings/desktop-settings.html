@@ -1,7 +1,7 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <style>
       body {
         margin: 0;
@@ -55,14 +55,17 @@
   <body>
     <main>
       <script>
-        const {locale, strings} = DesktopSettingsPreload.getStrings();
+        const { locale, strings } = DesktopSettingsPreload.getStrings();
         document.documentElement.lang = locale;
 
         const settings = DesktopSettingsPreload.getSettings();
       </script>
 
       <h1 class="title"></h1>
-      <script>document.querySelector('.title').textContent = strings['desktop-settings.title'];</script>
+      <script>
+        document.querySelector(".title").textContent =
+          strings["desktop-settings.title"];
+      </script>
 
       <p class="update-checker-disabled"></p>
       <label class="update-checker-outer">
@@ -76,31 +79,46 @@
       </label>
       <div class="warning update-checker-warning"></div>
       <script>
-        const updateCheckerDisabledMessage = document.querySelector('.update-checker-disabled');
-        const updateCheckerOuter = document.querySelector('.update-checker-outer');
-        const updateCheckerWarning = document.querySelector('.update-checker-warning');
+        const updateCheckerDisabledMessage = document.querySelector(
+          ".update-checker-disabled",
+        );
+        const updateCheckerOuter = document.querySelector(
+          ".update-checker-outer",
+        );
+        const updateCheckerWarning = document.querySelector(
+          ".update-checker-warning",
+        );
 
         updateCheckerDisabledMessage.hidden = settings.updateCheckerAllowed;
         updateCheckerOuter.hidden = !settings.updateCheckerAllowed;
         updateCheckerWarning.hidden = !settings.updateCheckerAllowed;
 
         if (settings.updateCheckerAllowed) {
-          const updateCheckerSelect = document.querySelector('.update-checker-select');
+          const updateCheckerSelect = document.querySelector(
+            ".update-checker-select",
+          );
           updateCheckerSelect.onchange = () => {
             DesktopSettingsPreload.setUpdateChecker(updateCheckerSelect.value);
-            updateCheckerWarning.hidden = updateCheckerSelect.value !== 'never';
+            updateCheckerWarning.hidden = updateCheckerSelect.value !== "never";
           };
           updateCheckerSelect.value = settings.updateChecker;
-          updateCheckerWarning.hidden = updateCheckerSelect.value !== 'never';
-  
-          document.querySelector('.update-checker-label').textContent = strings['desktop-settings.update-checker'];
-          updateCheckerSelect.querySelector('[value=unstable]').textContent = strings['desktop-settings.notify-unstable'];
-          updateCheckerSelect.querySelector('[value=stable]').textContent = strings['desktop-settings.notify-stable'];
-          updateCheckerSelect.querySelector('[value=security]').textContent = strings['desktop-settings.notify-security'];
-          updateCheckerSelect.querySelector('[value=never]').textContent = strings['desktop-settings.notify-never'];
-          updateCheckerWarning.textContent = strings['desktop-settings.disabled-updates'];
+          updateCheckerWarning.hidden = updateCheckerSelect.value !== "never";
+
+          document.querySelector(".update-checker-label").textContent =
+            strings["desktop-settings.update-checker"];
+          updateCheckerSelect.querySelector("[value=unstable]").textContent =
+            strings["desktop-settings.notify-unstable"];
+          updateCheckerSelect.querySelector("[value=stable]").textContent =
+            strings["desktop-settings.notify-stable"];
+          updateCheckerSelect.querySelector("[value=security]").textContent =
+            strings["desktop-settings.notify-security"];
+          updateCheckerSelect.querySelector("[value=never]").textContent =
+            strings["desktop-settings.notify-never"];
+          updateCheckerWarning.textContent =
+            strings["desktop-settings.disabled-updates"];
         } else {
-          updateCheckerDisabledMessage.textContent = strings['desktop-settings.update-checker-not-allowed'];
+          updateCheckerDisabledMessage.textContent =
+            strings["desktop-settings.update-checker-not-allowed"];
         }
       </script>
 
@@ -110,14 +128,20 @@
           <option selected disabled></option>
         </select>
         <script>
-          const selectedMicrophoneSelect = document.querySelector('.selected-microphone-select');
+          const selectedMicrophoneSelect = document.querySelector(
+            ".selected-microphone-select",
+          );
           selectedMicrophoneSelect.onchange = () => {
-            DesktopSettingsPreload.setMicrophone(selectedMicrophoneSelect.value);
+            DesktopSettingsPreload.setMicrophone(
+              selectedMicrophoneSelect.value,
+            );
             mediaDeviceWarning.hidden = false;
           };
 
-          document.querySelector('.selected-microphone-label').textContent = strings['desktop-settings.microphone'];
-          selectedMicrophoneSelect.firstChild.textContent = strings['desktop-settings.loading'];
+          document.querySelector(".selected-microphone-label").textContent =
+            strings["desktop-settings.microphone"];
+          selectedMicrophoneSelect.firstChild.textContent =
+            strings["desktop-settings.loading"];
         </script>
       </label>
 
@@ -127,26 +151,33 @@
           <option selected disabled></option>
         </select>
         <script>
-          const selectedCameraSelect = document.querySelector('.selected-camera-select');
+          const selectedCameraSelect = document.querySelector(
+            ".selected-camera-select",
+          );
           selectedCameraSelect.onchange = () => {
             DesktopSettingsPreload.setCamera(selectedCameraSelect.value);
             mediaDeviceWarning.hidden = false;
           };
           selectedCameraSelect.value = settings.microphone;
 
-          document.querySelector('.selected-camera-label').textContent = strings['desktop-settings.camera'];
-          selectedCameraSelect.firstChild.textContent = strings['desktop-settings.loading'];
+          document.querySelector(".selected-camera-label").textContent =
+            strings["desktop-settings.camera"];
+          selectedCameraSelect.firstChild.textContent =
+            strings["desktop-settings.loading"];
         </script>
       </label>
 
       <div class="warning media-device-warning" hidden></div>
 
       <script>
-        const mediaDeviceWarning = document.querySelector('.media-device-warning');
-        mediaDeviceWarning.textContent = strings['desktop-settings.media-devices-changed'];
+        const mediaDeviceWarning = document.querySelector(
+          ".media-device-warning",
+        );
+        mediaDeviceWarning.textContent =
+          strings["desktop-settings.media-devices-changed"];
 
         const createStatusMessageOption = (text) => {
-          const option = document.createElement('option');
+          const option = document.createElement("option");
           option.selected = true;
           option.disabled = true;
           option.textContent = text;
@@ -157,7 +188,9 @@
           while (element.firstChild) {
             element.removeChild(element.firstChild);
           }
-          element.appendChild(createStatusMessageOption(strings['desktop-settings.loading']));
+          element.appendChild(
+            createStatusMessageOption(strings["desktop-settings.loading"]),
+          );
         };
 
         const addOptions = (element, selected, devices) => {
@@ -166,10 +199,12 @@
           }
 
           if (devices.length === 0) {
-            element.appendChild(createStatusMessageOption(strings['desktop-settings.no-devices']));
+            element.appendChild(
+              createStatusMessageOption(strings["desktop-settings.no-devices"]),
+            );
           } else {
             for (const device of devices) {
-              const option = document.createElement('option');
+              const option = document.createElement("option");
               option.value = device.deviceId;
               option.textContent = device.label;
               element.appendChild(option);
@@ -184,11 +219,9 @@
           while (element.firstChild) {
             element.removeChild(element.firstChild);
           }
-          const message = `${error}`.includes('Editor must be open') ? (
-            strings['desktop-settings.editor-must-be-open']
-          ) : (
-            strings['desktop-settings.error'].replace('{error}', error)
-          );
+          const message = `${error}`.includes("Editor must be open")
+            ? strings["desktop-settings.editor-must-be-open"]
+            : strings["desktop-settings.error"].replace("{error}", error);
           element.appendChild(createStatusMessageOption(message));
         };
 
@@ -199,9 +232,18 @@
             // We can't use enumerateDevices() directly because we run on a different origin than the editor,
             // and the browser randomizes the IDs per origin for privacy (which is silly for us, but thankfully
             // easy to work around)
-            const mediaDevices = await DesktopSettingsPreload.enumerateMediaDevices();
-            addOptions(selectedMicrophoneSelect, settings.microphone, mediaDevices.filter((i) => i.kind === 'audioinput'));
-            addOptions(selectedCameraSelect, settings.camera, mediaDevices.filter((i) => i.kind === 'videoinput'));
+            const mediaDevices =
+              await DesktopSettingsPreload.enumerateMediaDevices();
+            addOptions(
+              selectedMicrophoneSelect,
+              settings.microphone,
+              mediaDevices.filter((i) => i.kind === "audioinput"),
+            );
+            addOptions(
+              selectedCameraSelect,
+              settings.camera,
+              mediaDevices.filter((i) => i.kind === "videoinput"),
+            );
           } catch (error) {
             console.error(error);
             addErrorOption(selectedMicrophoneSelect, error);
@@ -213,51 +255,81 @@
       </script>
 
       <label>
-        <input type="checkbox" class="hardware-acceleration-checkbox" autocomplete="off">
+        <input
+          type="checkbox"
+          class="hardware-acceleration-checkbox"
+          autocomplete="off"
+        />
         <span class="hardware-acceleration-label"></span>
       </label>
       <div class="warning hardware-acceleration-warning"></div>
       <script>
-        const hardwareAcceleration = document.querySelector('.hardware-acceleration-checkbox');
-        const hardwareAccelerationWarning = document.querySelector('.hardware-acceleration-warning');
+        const hardwareAcceleration = document.querySelector(
+          ".hardware-acceleration-checkbox",
+        );
+        const hardwareAccelerationWarning = document.querySelector(
+          ".hardware-acceleration-warning",
+        );
         hardwareAcceleration.onchange = () => {
-          DesktopSettingsPreload.setHardwareAcceleration(hardwareAcceleration.checked);
+          DesktopSettingsPreload.setHardwareAcceleration(
+            hardwareAcceleration.checked,
+          );
           hardwareAccelerationWarning.hidden = hardwareAcceleration.checked;
         };
         hardwareAcceleration.checked = settings.hardwareAcceleration;
         hardwareAccelerationWarning.hidden = hardwareAcceleration.checked;
 
-        document.querySelector('.hardware-acceleration-label').textContent = strings['desktop-settings.hardware-acceleration-when-available'];
-        hardwareAccelerationWarning.textContent = strings['desktop-settings.hardware-acceleration-disabled'];
+        document.querySelector(".hardware-acceleration-label").textContent =
+          strings["desktop-settings.hardware-acceleration-when-available"];
+        hardwareAccelerationWarning.textContent =
+          strings["desktop-settings.hardware-acceleration-disabled"];
       </script>
 
       <label>
-        <input type="checkbox" class="background-throttling-checkbox" autocomplete="off">
+        <input
+          type="checkbox"
+          class="background-throttling-checkbox"
+          autocomplete="off"
+        />
         <span class="background-throttling-label"></span>
       </label>
       <div class="warning background-throttling-warning"></div>
       <script>
-        const backgroundThrottling = document.querySelector('.background-throttling-checkbox');
-        const backgroundThrottlingWarning = document.querySelector('.background-throttling-warning');
+        const backgroundThrottling = document.querySelector(
+          ".background-throttling-checkbox",
+        );
+        const backgroundThrottlingWarning = document.querySelector(
+          ".background-throttling-warning",
+        );
         backgroundThrottling.onchange = () => {
-          DesktopSettingsPreload.setBackgroundThrottling(backgroundThrottling.checked);
+          DesktopSettingsPreload.setBackgroundThrottling(
+            backgroundThrottling.checked,
+          );
           backgroundThrottlingWarning.hidden = backgroundThrottling.checked;
         };
         backgroundThrottling.checked = settings.backgroundThrottling;
         backgroundThrottlingWarning.hidden = backgroundThrottling.checked;
 
-        document.querySelector('.background-throttling-label').textContent = strings['desktop-settings.background-throttling'];
-        backgroundThrottlingWarning.textContent = strings['desktop-settings.background-throttling-disabled'];
+        document.querySelector(".background-throttling-label").textContent =
+          strings["desktop-settings.background-throttling"];
+        backgroundThrottlingWarning.textContent =
+          strings["desktop-settings.background-throttling-disabled"];
       </script>
 
       <label>
-        <input type="checkbox" class="bypass-cors-checkbox" autocomplete="off">
+        <input
+          type="checkbox"
+          class="bypass-cors-checkbox"
+          autocomplete="off"
+        />
         <span class="bypass-cors-label"></span>
       </label>
       <div class="warning bypass-cors-warning"></div>
       <script>
-        const bypassCORS = document.querySelector('.bypass-cors-checkbox');
-        const bypassCORSWarning = document.querySelector('.bypass-cors-warning');
+        const bypassCORS = document.querySelector(".bypass-cors-checkbox");
+        const bypassCORSWarning = document.querySelector(
+          ".bypass-cors-warning",
+        );
         bypassCORS.onchange = () => {
           DesktopSettingsPreload.setBypassCORS(bypassCORS.checked);
           bypassCORSWarning.hidden = !bypassCORS.checked;
@@ -265,68 +337,100 @@
         bypassCORS.checked = settings.bypassCORS;
         bypassCORSWarning.hidden = !bypassCORS.checked;
 
-        document.querySelector('.bypass-cors-label').textContent = strings['desktop-settings.bypass-cors'];
-        bypassCORSWarning.textContent = strings['desktop-settings.bypass-cors-enabled'];
+        document.querySelector(".bypass-cors-label").textContent =
+          strings["desktop-settings.bypass-cors"];
+        bypassCORSWarning.textContent =
+          strings["desktop-settings.bypass-cors-enabled"];
       </script>
 
       <label>
-        <input type="checkbox" class="spellchecker-checkbox" autocomplete="off">
+        <input
+          type="checkbox"
+          class="spellchecker-checkbox"
+          autocomplete="off"
+        />
         <span class="spellchecker-label"></span>
       </label>
       <script>
-        const spellchecker = document.querySelector('.spellchecker-checkbox');
+        const spellchecker = document.querySelector(".spellchecker-checkbox");
         spellchecker.onchange = () => {
           DesktopSettingsPreload.setSpellchecker(spellchecker.checked);
         };
         spellchecker.checked = settings.spellchecker;
-        document.querySelector('.spellchecker-label').textContent = strings['desktop-settings.spellchecker'];
+        document.querySelector(".spellchecker-label").textContent =
+          strings["desktop-settings.spellchecker"];
       </script>
 
       <label>
-        <input type="checkbox" class="exit-fullscreen-on-escape-checkbox" autocomplete="off">
+        <input
+          type="checkbox"
+          class="exit-fullscreen-on-escape-checkbox"
+          autocomplete="off"
+        />
         <span class="exit-fullscreen-on-escape-label"></span>
       </label>
       <script>
-        const exitFullscreenOnEscape = document.querySelector('.exit-fullscreen-on-escape-checkbox');
+        const exitFullscreenOnEscape = document.querySelector(
+          ".exit-fullscreen-on-escape-checkbox",
+        );
         exitFullscreenOnEscape.onchange = () => {
-          DesktopSettingsPreload.setExitFullscreenOnEscape(exitFullscreenOnEscape.checked);
+          DesktopSettingsPreload.setExitFullscreenOnEscape(
+            exitFullscreenOnEscape.checked,
+          );
         };
         exitFullscreenOnEscape.checked = settings.exitFullscreenOnEscape;
-        document.querySelector('.exit-fullscreen-on-escape-label').textContent = strings['desktop-settings.exit-fullscreen-on-escape'];
+        document.querySelector(".exit-fullscreen-on-escape-label").textContent =
+          strings["desktop-settings.exit-fullscreen-on-escape"];
       </script>
 
       <label>
-        <input type="checkbox" class="rich-presence-checkbox" autocomplete="off">
+        <input
+          type="checkbox"
+          class="rich-presence-checkbox"
+          autocomplete="off"
+        />
         <span class="rich-presence-label"></span>
-        <a class="rich-presence-more-information" href="https://docs.turbowarp.org/desktop/rich-presence" target="_blank" rel="noreferrer"></a>
+        <a
+          class="rich-presence-more-information"
+          href="https://docs.turbowarp.org/desktop/rich-presence"
+          target="_blank"
+          rel="noreferrer"
+        ></a>
       </label>
       <script>
-        const richPresence = document.querySelector('.rich-presence-checkbox');
-        const richPresenceLabel = document.querySelector('.rich-presence-label');
-        const richPresenceMoreInformation = document.querySelector('.rich-presence-more-information');
+        const richPresence = document.querySelector(".rich-presence-checkbox");
+        const richPresenceLabel = document.querySelector(
+          ".rich-presence-label",
+        );
+        const richPresenceMoreInformation = document.querySelector(
+          ".rich-presence-more-information",
+        );
         if (settings.richPresenceAvailable) {
           richPresence.onchange = () => {
             DesktopSettingsPreload.setRichPresence(richPresence.checked);
           };
           richPresence.checked = settings.richPresence;
-          richPresenceLabel.textContent = strings['desktop-settings.rich-presence'];
+          richPresenceLabel.textContent =
+            strings["desktop-settings.rich-presence"];
         } else {
           richPresence.disabled = true;
           richPresence.checked = false;
-          richPresenceLabel.textContent = strings['desktop-settings.rich-presence-unavailable'];
-          richPresenceMoreInformation.href += '#supported-platforms';
+          richPresenceLabel.textContent =
+            strings["desktop-settings.rich-presence-unavailable"];
+          richPresenceMoreInformation.href += "#supported-platforms";
         }
-        richPresenceMoreInformation.textContent = strings['desktop-settings.more-information'];
+        richPresenceMoreInformation.textContent =
+          strings["desktop-settings.more-information"];
       </script>
 
       <button class="open-user-data"></button>
       <script>
-        const openUserData = document.querySelector('.open-user-data');
-        openUserData.addEventListener('click', () => {
+        const openUserData = document.querySelector(".open-user-data");
+        openUserData.addEventListener("click", () => {
           DesktopSettingsPreload.openUserData();
         });
 
-        openUserData.textContent = strings['desktop-settings.open-user-data'];
+        openUserData.textContent = strings["desktop-settings.open-user-data"];
       </script>
     </main>
   </body>

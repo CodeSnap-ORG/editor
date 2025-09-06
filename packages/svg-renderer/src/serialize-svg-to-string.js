@@ -1,4 +1,4 @@
-const inlineSvgFonts = require('./font-inliner');
+const inlineSvgFonts = require("./font-inliner");
 
 /**
  * Serialize a given SVG DOM to a string.

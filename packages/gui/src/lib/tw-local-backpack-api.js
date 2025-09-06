@@ -1,19 +1,21 @@
-import storage from './storage';
-import md5 from 'js-md5';
-import {soundThumbnail} from './backpack/sound-payload';
-import {arrayBufferToBase64, base64ToArrayBuffer} from './tw-base64-utils';
-import {requestPersistentStorage} from './tw-persistent-storage';
+import storage from "./storage";
+import md5 from "js-md5";
+import { soundThumbnail } from "./backpack/sound-payload";
+import { arrayBufferToBase64, base64ToArrayBuffer } from "./tw-base64-utils";
+import { requestPersistentStorage } from "./tw-persistent-storage";
 
 // Special constants -- do not change without care.
-const DATABASE_NAME = process.env.ampmod_is_canary ? 'Canary_Backpack' : 'TW_Backpack';
+const DATABASE_NAME = process.env.ampmod_is_canary
+    ? "Canary_Backpack"
+    : "TW_Backpack";
 const DATABASE_VERSION = 1;
-const STORE_NAME = 'backpack';
+const STORE_NAME = "backpack";
 
-const idbItemToBackpackItem = item => {
+const idbItemToBackpackItem = (item) => {
     // convert id to string
     item.id = `${item.id}`;
 
-    if (item.type === 'sound') {
+    if (item.type === "sound") {
         // For sounds, use the local thumbnail instead of what was stored in the backpack.
         // The thumbnail was updated and it doesn't make sense for already backpacked sounds to
         // use the old icon instead of the new one.
@@ -24,17 +26,17 @@ const idbItemToBackpackItem = item => {
     }
 
     let assetType;
-    if (item.type === 'script') {
+    if (item.type === "script") {
         item.bodyUrl = `data:application/json;base64,${arrayBufferToBase64(item.bodyData)}`;
-    } else if (item.type === 'sprite') {
+    } else if (item.type === "sprite") {
         item.bodyUrl = `data:application/zip;base64,${arrayBufferToBase64(item.bodyData)}`;
-    } else if (item.type === 'costume') {
-        if (item.mime === 'image/svg+xml') {
+    } else if (item.type === "costume") {
+        if (item.mime === "image/svg+xml") {
             assetType = storage.AssetType.ImageVector;
-        } else if (item.mime === 'image/png' || item.mime === 'image/jpeg') {
+        } else if (item.mime === "image/png" || item.mime === "image/jpeg") {
             assetType = storage.AssetType.ImageBitmap;
         }
-    } else if (item.type === 'sound') {
+    } else if (item.type === "sound") {
         assetType = storage.AssetType.Sound;
     }
 
@@ -47,7 +49,7 @@ const idbItemToBackpackItem = item => {
             assetType,
             extension,
             new Uint8Array(item.bodyData),
-            itemMD5
+            itemMD5,
         );
     }
 
@@ -55,52 +57,50 @@ const idbItemToBackpackItem = item => {
 };
 
 let _db;
-const openDB = () => new Promise((resolve, reject) => {
-    if (_db) {
-        resolve(_db);
-        return;
-    }
+const openDB = () =>
+    new Promise((resolve, reject) => {
+        if (_db) {
+            resolve(_db);
+            return;
+        }
 
-    if (!window.indexedDB) {
-        reject(new Error('indexedDB is not supported'));
-        return;
-    }
+        if (!window.indexedDB) {
+            reject(new Error("indexedDB is not supported"));
+            return;
+        }
 
-    const request = indexedDB.open(DATABASE_NAME, DATABASE_VERSION);
+        const request = indexedDB.open(DATABASE_NAME, DATABASE_VERSION);
 
-    request.onupgradeneeded = event => {
-        const db = event.target.result;
-        db.createObjectStore(STORE_NAME, {
-            keyPath: 'id',
-            autoIncrement: true
-        });
-    };
+        request.onupgradeneeded = (event) => {
+            const db = event.target.result;
+            db.createObjectStore(STORE_NAME, {
+                keyPath: "id",
+                autoIncrement: true,
+            });
+        };
 
-    request.onsuccess = event => {
-        _db = event.target.result;
-        resolve(_db);
-    };
+        request.onsuccess = (event) => {
+            _db = event.target.result;
+            resolve(_db);
+        };
 
-    request.onerror = event => {
-        reject(new Error(`DB error: ${event.target.error}`));
-    };
-});
+        request.onerror = (event) => {
+            reject(new Error(`DB error: ${event.target.error}`));
+        };
+    });
 
-const getBackpackContents = async ({
-    limit,
-    offset
-}) => {
+const getBackpackContents = async ({ limit, offset }) => {
     const db = await openDB();
     return new Promise((resolve, reject) => {
-        const transaction = db.transaction(STORE_NAME, 'readonly');
-        transaction.onerror = event => {
+        const transaction = db.transaction(STORE_NAME, "readonly");
+        transaction.onerror = (event) => {
             reject(new Error(`Getting contents: ${event.target.error}`));
         };
         const store = transaction.objectStore(STORE_NAME);
         const items = [];
-        const request = store.openCursor(null, 'prev');
+        const request = store.openCursor(null, "prev");
         let first = true;
-        request.onsuccess = e => {
+        request.onsuccess = (e) => {
             const cursor = e.target.result;
             if (first) {
                 first = false;
@@ -119,20 +119,14 @@ const getBackpackContents = async ({
     });
 };
 
-const saveBackpackObject = async ({
-    type,
-    mime,
-    name,
-    body,
-    thumbnail
-}) => {
+const saveBackpackObject = async ({ type, mime, name, body, thumbnail }) => {
     // User interaction -- fine to show a permission dialog
     requestPersistentStorage();
 
     const db = await openDB();
     return new Promise((resolve, reject) => {
-        const transaction = db.transaction(STORE_NAME, 'readwrite');
-        transaction.onerror = event => {
+        const transaction = db.transaction(STORE_NAME, "readwrite");
+        transaction.onerror = (event) => {
             reject(new Error(`Sving object: ${event.target.error}`));
         };
         const store = transaction.objectStore(STORE_NAME);
@@ -144,7 +138,7 @@ const saveBackpackObject = async ({
             name,
             bodyData,
             bodyMD5,
-            thumbnailData: base64ToArrayBuffer(thumbnail)
+            thumbnailData: base64ToArrayBuffer(thumbnail),
         };
         const putRequest = store.put(idbItem);
         putRequest.onsuccess = () => {
@@ -154,14 +148,12 @@ const saveBackpackObject = async ({
     });
 };
 
-const deleteBackpackObject = async ({
-    id
-}) => {
+const deleteBackpackObject = async ({ id }) => {
     id = +id;
     const db = await openDB();
     return new Promise((resolve, reject) => {
-        const transaction = db.transaction(STORE_NAME, 'readwrite');
-        transaction.onerror = event => {
+        const transaction = db.transaction(STORE_NAME, "readwrite");
+        transaction.onerror = (event) => {
             reject(new Error(`Deleting object: ${event.target.error}`));
         };
         const store = transaction.objectStore(STORE_NAME);
@@ -173,15 +165,12 @@ const deleteBackpackObject = async ({
     });
 };
 
-const updateBackpackObject = async ({
-    id,
-    name
-}) => {
+const updateBackpackObject = async ({ id, name }) => {
     id = +id;
     const db = await openDB();
     return new Promise((resolve, reject) => {
-        const transaction = db.transaction(STORE_NAME, 'readwrite');
-        transaction.onerror = event => {
+        const transaction = db.transaction(STORE_NAME, "readwrite");
+        transaction.onerror = (event) => {
             reject(new Error(`Updating object: ${event.target.error}`));
         };
         const store = transaction.objectStore(STORE_NAME);
@@ -189,7 +178,7 @@ const updateBackpackObject = async ({
         getRequest.onsuccess = () => {
             const newItem = {
                 ...getRequest.result,
-                name: name
+                name: name,
             };
             const putRequest = store.put(newItem);
             putRequest.onsuccess = () => {
@@ -203,5 +192,5 @@ export default {
     getBackpackContents,
     saveBackpackObject,
     deleteBackpackObject,
-    updateBackpackObject
+    updateBackpackObject,
 };

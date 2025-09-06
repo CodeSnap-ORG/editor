@@ -1,14 +1,14 @@
-const {IRGenerator} = require('./irgen');
-const JSGenerator = require('./jsgen');
+const { IRGenerator } = require("./irgen");
+const JSGenerator = require("./jsgen");
 
-const compile = thread => {
+const compile = (thread) => {
     const irGenerator = new IRGenerator(thread);
     const ir = irGenerator.generate();
 
     const procedures = {};
     const target = thread.target;
 
-    const compileScript = script => {
+    const compileScript = (script) => {
         if (script.cachedCompileResult) {
             return script.cachedCompileResult;
         }
@@ -30,7 +30,7 @@ const compile = thread => {
     return {
         startingFunction: entry,
         procedures,
-        executableHat: ir.entry.executableHat
+        executableHat: ir.entry.executableHat,
     };
 };
 

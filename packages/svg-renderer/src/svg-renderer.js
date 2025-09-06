@@ -1,5 +1,5 @@
-const loadSvgString = require('./load-svg-string');
-const serializeSvgToString = require('./serialize-svg-to-string');
+const loadSvgString = require("./load-svg-string");
+const serializeSvgToString = require("./serialize-svg-to-string");
 
 /**
  * Main quirks-mode SVG rendering code.
@@ -12,14 +12,14 @@ class SvgRenderer {
      * will create a new canvas.
      * @constructor
      */
-    constructor (canvas) {
+    constructor(canvas) {
         /**
          * The canvas that this SVG renderer will render to.
          * @type {HTMLCanvasElement}
          * @private
          */
-        this._canvas = canvas || document.createElement('canvas');
-        this._context = this._canvas.getContext('2d');
+        this._canvas = canvas || document.createElement("canvas");
+        this._context = this._canvas.getContext("2d");
 
         /**
          * A measured SVG "viewbox"
@@ -35,7 +35,7 @@ class SvgRenderer {
          * @type {SvgRenderer#SvgMeasurements}
          * @private
          */
-        this._measurements = {x: 0, y: 0, width: 0, height: 0};
+        this._measurements = { x: 0, y: 0, width: 0, height: 0 };
 
         /**
          * The `<img>` element with the contents of the currently loaded SVG.
@@ -54,21 +54,21 @@ class SvgRenderer {
     /**
      * @returns {!HTMLCanvasElement} this renderer's target canvas.
      */
-    get canvas () {
+    get canvas() {
         return this._canvas;
     }
 
     /**
      * @return {Array<number>} the natural size, in Scratch units, of this SVG.
      */
-    get size () {
+    get size() {
         return [this._measurements.width, this._measurements.height];
     }
 
     /**
      * @return {Array<number>} the offset (upper left corner) of the SVG's view box.
      */
-    get viewOffset () {
+    get viewOffset() {
         return [this._measurements.x, this._measurements.y];
     }
 
@@ -78,7 +78,7 @@ class SvgRenderer {
      * @param {?boolean} fromVersion2 True if we should perform conversion from
      *     version 2 to version 3 svg.
      */
-    loadString (svgString, fromVersion2) {
+    loadString(svgString, fromVersion2) {
         // New svg string invalidates the cached image
         this._cachedImage = null;
         const svgTag = loadSvgString(svgString, fromVersion2);
@@ -88,7 +88,7 @@ class SvgRenderer {
             width: svgTag.viewBox.baseVal.width,
             height: svgTag.viewBox.baseVal.height,
             x: svgTag.viewBox.baseVal.x,
-            y: svgTag.viewBox.baseVal.y
+            y: svgTag.viewBox.baseVal.y,
         };
     }
 
@@ -98,7 +98,7 @@ class SvgRenderer {
      * @param {?boolean} fromVersion2 True if we should perform conversion from version 2 to version 3 svg.
      * @param {Function} [onFinish] - An optional callback to call when the SVG is loaded and can be rendered.
      */
-    loadSVG (svgString, fromVersion2, onFinish) {
+    loadSVG(svgString, fromVersion2, onFinish) {
         this.loadString(svgString, fromVersion2);
         this._createSVGImage(onFinish);
     }
@@ -107,7 +107,7 @@ class SvgRenderer {
      * Creates an <img> element for the currently loaded SVG string, then calls the callback once it's loaded.
      * @param {Function} [onFinish] - An optional callback to call when the <img> has loaded.
      */
-    _createSVGImage (onFinish) {
+    _createSVGImage(onFinish) {
         if (this._cachedImage === null) this._cachedImage = new Image();
         const img = this._cachedImage;
 
@@ -127,7 +127,7 @@ class SvgRenderer {
      * @returns {string} String representing current SVG data.
      * @deprecated Use the standalone `serializeSvgToString` export instead.
      */
-    toString (shouldInjectFonts) {
+    toString(shouldInjectFonts) {
         return serializeSvgToString(this._svgTag, shouldInjectFonts);
     }
 
@@ -135,8 +135,8 @@ class SvgRenderer {
      * Synchronously draw the loaded SVG to this renderer's `canvas`.
      * @param {number} [scale] - Optionally, also scale the image by this factor.
      */
-    draw (scale) {
-        if (!this.loaded) throw new Error('SVG image has not finished loading');
+    draw(scale) {
+        if (!this.loaded) throw new Error("SVG image has not finished loading");
         this._drawFromImage(scale);
     }
 
@@ -144,7 +144,7 @@ class SvgRenderer {
      * Draw to the canvas from a loaded image element.
      * @param {number} [scale] - Optionally, also scale the image by this factor.
      **/
-    _drawFromImage (scale) {
+    _drawFromImage(scale) {
         if (this._cachedImage === null) return;
 
         const ratio = Number.isFinite(scale) ? scale : 1;
@@ -159,7 +159,8 @@ class SvgRenderer {
             this._canvas.height <= 0 ||
             this._cachedImage.naturalWidth <= 0 ||
             this._cachedImage.naturalHeight <= 0
-        ) return;
+        )
+            return;
         this._context.clearRect(0, 0, this._canvas.width, this._canvas.height);
         this._context.setTransform(ratio, 0, 0, ratio, 0, 0);
         this._context.drawImage(this._cachedImage, 0, 0);

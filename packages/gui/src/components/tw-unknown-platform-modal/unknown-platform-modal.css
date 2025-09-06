@@ -22,7 +22,8 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.details::before, .details::after {
+.details::before,
+.details::after {
     content: '"';
 }
 

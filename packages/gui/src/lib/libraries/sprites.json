@@ -1,11 +1,7 @@
 [
     {
         "name": "Abby",
-        "tags": [
-            "people",
-            "person",
-            "drawing"
-        ],
+        "tags": ["people", "person", "drawing"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -61,10 +57,7 @@
     },
     {
         "name": "Amon",
-        "tags": [
-            "people",
-            "dance"
-        ],
+        "tags": ["people", "dance"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -157,10 +150,7 @@
     },
     {
         "name": "Anina Dance",
-        "tags": [
-            "people",
-            "dance"
-        ],
+        "tags": ["people", "dance"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -306,12 +296,7 @@
     },
     {
         "name": "Apple",
-        "tags": [
-            "food",
-            "red",
-            "crunchy",
-            "fruit"
-        ],
+        "tags": ["food", "red", "crunchy", "fruit"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -340,14 +325,7 @@
     },
     {
         "name": "Apple Cat",
-        "tags": [
-            "food",
-            "red",
-            "crunchy",
-            "fruit",
-            "cat",
-            "animals"
-        ],
+        "tags": ["food", "red", "crunchy", "fruit", "cat", "animals"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -366,12 +344,7 @@
     },
     {
         "name": "Arrow1",
-        "tags": [
-            "icons",
-            "symbols",
-            "game",
-            "right"
-        ],
+        "tags": ["icons", "symbols", "game", "right"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -427,9 +400,7 @@
     },
     {
         "name": "Avery",
-        "tags": [
-            "people"
-        ],
+        "tags": ["people"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -467,10 +438,7 @@
     },
     {
         "name": "Avery Walking",
-        "tags": [
-            "people",
-            "walking"
-        ],
+        "tags": ["people", "walking"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -611,10 +579,7 @@
     },
     {
         "name": "Ballerina",
-        "tags": [
-            "people",
-            "dance"
-        ],
+        "tags": ["people", "dance"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -726,13 +691,7 @@
     },
     {
         "name": "Bananas",
-        "tags": [
-            "food",
-            "yellow",
-            "mushy",
-            "potassium",
-            "fruit"
-        ],
+        "tags": ["food", "yellow", "mushy", "potassium", "fruit"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -770,12 +729,7 @@
     },
     {
         "name": "Baseball",
-        "tags": [
-            "baseball",
-            "sports",
-            "ball",
-            "alex eben meyer"
-        ],
+        "tags": ["baseball", "sports", "ball", "alex eben meyer"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -804,11 +758,7 @@
     },
     {
         "name": "Basketball",
-        "tags": [
-            "sports",
-            "basketball",
-            "alex eben meyer"
-        ],
+        "tags": ["sports", "basketball", "alex eben meyer"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -909,12 +859,7 @@
     },
     {
         "name": "Batter",
-        "tags": [
-            "baseball",
-            "sports",
-            "people",
-            "alex eben meyer"
-        ],
+        "tags": ["baseball", "sports", "people", "alex eben meyer"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -970,12 +915,7 @@
     },
     {
         "name": "Beachball",
-        "tags": [
-            "round",
-            "sports",
-            "bounce",
-            "inflatable"
-        ],
+        "tags": ["round", "sports", "bounce", "inflatable"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -1013,11 +953,7 @@
     },
     {
         "name": "Bear",
-        "tags": [
-            "animals",
-            "ipzy",
-            "walking"
-        ],
+        "tags": ["animals", "ipzy", "walking"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -1055,11 +991,7 @@
     },
     {
         "name": "Bear-walking",
-        "tags": [
-            "animals",
-            "ipzy",
-            "walking"
-        ],
+        "tags": ["animals", "ipzy", "walking"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -1151,12 +1083,7 @@
     },
     {
         "name": "Beetle",
-        "tags": [
-            "animals",
-            "insect",
-            "bug",
-            "antennae"
-        ],
+        "tags": ["animals", "insect", "bug", "antennae"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -1185,12 +1112,7 @@
     },
     {
         "name": "Bell",
-        "tags": [
-            "music",
-            "holiday",
-            "ring",
-            "things"
-        ],
+        "tags": ["music", "holiday", "ring", "things"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -1228,13 +1150,7 @@
     },
     {
         "name": "Ben",
-        "tags": [
-            "sports",
-            "soccer",
-            "football",
-            "people",
-            "alex eben meyer"
-        ],
+        "tags": ["sports", "soccer", "football", "people", "alex eben meyer"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -1299,10 +1215,7 @@
     },
     {
         "name": "Bowl",
-        "tags": [
-            "thing",
-            "food"
-        ],
+        "tags": ["thing", "food"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -1331,11 +1244,7 @@
     },
     {
         "name": "Bowtie",
-        "tags": [
-            "fashion",
-            "clothing",
-            "bowtie"
-        ],
+        "tags": ["fashion", "clothing", "bowtie"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -1364,10 +1273,7 @@
     },
     {
         "name": "Bread",
-        "tags": [
-            "food",
-            "ipzy"
-        ],
+        "tags": ["food", "ipzy"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -1396,12 +1302,7 @@
     },
     {
         "name": "Broom",
-        "tags": [
-            "fantasy",
-            "ipzy",
-            "flying",
-            "things"
-        ],
+        "tags": ["fantasy", "ipzy", "flying", "things"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -1430,12 +1331,7 @@
     },
     {
         "name": "Buildings",
-        "tags": [
-            "things",
-            "city",
-            "flying",
-            "architecture"
-        ],
+        "tags": ["things", "city", "flying", "architecture"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -1545,13 +1441,7 @@
     },
     {
         "name": "Butterfly 1",
-        "tags": [
-            "animals",
-            "insect",
-            "bug",
-            "wetland",
-            "owen davey"
-        ],
+        "tags": ["animals", "insect", "bug", "wetland", "owen davey"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -1644,12 +1534,7 @@
     },
     {
         "name": "Button1",
-        "tags": [
-            "icons",
-            "round",
-            "green",
-            "games"
-        ],
+        "tags": ["icons", "round", "green", "games"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -1678,11 +1563,7 @@
     },
     {
         "name": "Button2",
-        "tags": [
-            "icons",
-            "blue",
-            "games"
-        ],
+        "tags": ["icons", "blue", "games"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -1720,12 +1601,7 @@
     },
     {
         "name": "Button3",
-        "tags": [
-            "icons",
-            "gray",
-            "blue",
-            "games"
-        ],
+        "tags": ["icons", "gray", "blue", "games"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -1763,10 +1639,7 @@
     },
     {
         "name": "Button4",
-        "tags": [
-            "icons",
-            "checkmark"
-        ],
+        "tags": ["icons", "checkmark"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -1804,13 +1677,7 @@
     },
     {
         "name": "Button5",
-        "tags": [
-            "icons",
-            "symbols",
-            "x",
-            "red",
-            "black"
-        ],
+        "tags": ["icons", "symbols", "x", "red", "black"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -1895,9 +1762,7 @@
     },
     {
         "name": "Calvrett",
-        "tags": [
-            "people"
-        ],
+        "tags": ["people"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -1935,12 +1800,7 @@
     },
     {
         "name": "Casey",
-        "tags": [
-            "sports",
-            "basketball",
-            "people",
-            "alex eben meyer"
-        ],
+        "tags": ["sports", "basketball", "people", "alex eben meyer"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -1996,10 +1856,7 @@
     },
     {
         "name": "Cassy Dance",
-        "tags": [
-            "people",
-            "dance"
-        ],
+        "tags": ["people", "dance"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -2055,13 +1912,7 @@
     },
     {
         "name": "Cat 2",
-        "tags": [
-            "cat",
-            "kitty",
-            "kitten",
-            "animals",
-            "mammal"
-        ],
+        "tags": ["cat", "kitty", "kitten", "animals", "mammal"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -2090,12 +1941,7 @@
     },
     {
         "name": "Catcher",
-        "tags": [
-            "baseball",
-            "sports",
-            "people",
-            "alex eben meyer"
-        ],
+        "tags": ["baseball", "sports", "people", "alex eben meyer"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -2151,12 +1997,7 @@
     },
     {
         "name": "Centaur",
-        "tags": [
-            "fantasy",
-            "people",
-            "ipzy",
-            "emotions"
-        ],
+        "tags": ["fantasy", "people", "ipzy", "emotions"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -2221,10 +2062,7 @@
     },
     {
         "name": "Champ99",
-        "tags": [
-            "people",
-            "dance"
-        ],
+        "tags": ["people", "dance"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -2572,9 +2410,7 @@
     },
     {
         "name": "Cheesy Puffs",
-        "tags": [
-            "food"
-        ],
+        "tags": ["food"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -2603,12 +2439,7 @@
     },
     {
         "name": "Chick",
-        "tags": [
-            "animals",
-            "chicken",
-            "farm",
-            "owen davey"
-        ],
+        "tags": ["animals", "chicken", "farm", "owen davey"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -2655,12 +2486,7 @@
     },
     {
         "name": "City Bus",
-        "tags": [
-            "city",
-            "bus",
-            "vehicle",
-            "car"
-        ],
+        "tags": ["city", "bus", "vehicle", "car"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -2707,11 +2533,7 @@
     },
     {
         "name": "Cloud",
-        "tags": [
-            "thing",
-            "weather",
-            "whether"
-        ],
+        "tags": ["thing", "weather", "whether"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -2740,12 +2562,7 @@
     },
     {
         "name": "Clouds",
-        "tags": [
-            "flying",
-            "weather",
-            "things",
-            "sky"
-        ],
+        "tags": ["flying", "weather", "things", "sky"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -2801,10 +2618,7 @@
     },
     {
         "name": "Convertible",
-        "tags": [
-            "car",
-            "transportation"
-        ],
+        "tags": ["car", "transportation"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -2833,11 +2647,7 @@
     },
     {
         "name": "Convertible 2",
-        "tags": [
-            "transportation",
-            "car",
-            "things"
-        ],
+        "tags": ["transportation", "car", "things"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -2915,11 +2725,7 @@
     },
     {
         "name": "Crystal",
-        "tags": [
-            "fantasy",
-            "ipzy",
-            "things"
-        ],
+        "tags": ["fantasy", "ipzy", "things"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -2966,10 +2772,7 @@
     },
     {
         "name": "D-Money Dance",
-        "tags": [
-            "people",
-            "dance"
-        ],
+        "tags": ["people", "dance"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -3097,9 +2900,7 @@
     },
     {
         "name": "Dan",
-        "tags": [
-            "people"
-        ],
+        "tags": ["people"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -3137,9 +2938,7 @@
     },
     {
         "name": "Dango",
-        "tags": [
-            "food"
-        ],
+        "tags": ["food"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -3158,10 +2957,7 @@
     },
     {
         "name": "Dango Cat",
-        "tags": [
-            "food",
-            "animals"
-        ],
+        "tags": ["food", "animals"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -3180,9 +2976,7 @@
     },
     {
         "name": "Dani",
-        "tags": [
-            "people"
-        ],
+        "tags": ["people"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -3229,9 +3023,7 @@
     },
     {
         "name": "Dee",
-        "tags": [
-            "people"
-        ],
+        "tags": ["people"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -3296,9 +3088,7 @@
     },
     {
         "name": "Devin",
-        "tags": [
-            "people"
-        ],
+        "tags": ["people"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -3354,11 +3144,7 @@
     },
     {
         "name": "Dinosaur1",
-        "tags": [
-            "animals",
-            "dinosaur",
-            "alex eben meyer"
-        ],
+        "tags": ["animals", "dinosaur", "alex eben meyer"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -3414,12 +3200,7 @@
     },
     {
         "name": "Dinosaur2",
-        "tags": [
-            "animals",
-            "dinosaur",
-            "triceratops",
-            "alex eben meyer"
-        ],
+        "tags": ["animals", "dinosaur", "triceratops", "alex eben meyer"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -3609,11 +3390,7 @@
     },
     {
         "name": "Dinosaur5",
-        "tags": [
-            "animals",
-            "dinosaur",
-            "leigh mcg"
-        ],
+        "tags": ["animals", "dinosaur", "leigh mcg"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -3714,14 +3491,7 @@
     },
     {
         "name": "Diver1",
-        "tags": [
-            "people",
-            "underwater",
-            "ocean",
-            "sea",
-            "summer",
-            "swimming"
-        ],
+        "tags": ["people", "underwater", "ocean", "sea", "summer", "swimming"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -3750,14 +3520,7 @@
     },
     {
         "name": "Diver2",
-        "tags": [
-            "people",
-            "underwater",
-            "ocean",
-            "sea",
-            "summer",
-            "swimming"
-        ],
+        "tags": ["people", "underwater", "ocean", "sea", "summer", "swimming"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -3786,12 +3549,7 @@
     },
     {
         "name": "Dog1",
-        "tags": [
-            "animals",
-            "puppy",
-            "puppies",
-            "mammals"
-        ],
+        "tags": ["animals", "puppy", "puppies", "mammals"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -3829,12 +3587,7 @@
     },
     {
         "name": "Dog2",
-        "tags": [
-            "animals",
-            "puppy",
-            "puppies",
-            "mammals"
-        ],
+        "tags": ["animals", "puppy", "puppies", "mammals"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -3928,12 +3681,7 @@
     },
     {
         "name": "Dorian",
-        "tags": [
-            "sports",
-            "basketball",
-            "people",
-            "alex eben meyer"
-        ],
+        "tags": ["sports", "basketball", "people", "alex eben meyer"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -3989,12 +3737,7 @@
     },
     {
         "name": "Dot",
-        "tags": [
-            "space",
-            "dog",
-            "animals",
-            "wren mcdonald"
-        ],
+        "tags": ["space", "dog", "animals", "wren mcdonald"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -4050,11 +3793,7 @@
     },
     {
         "name": "Dove",
-        "tags": [
-            "animals",
-            "bird",
-            "flying"
-        ],
+        "tags": ["animals", "bird", "flying"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -4092,12 +3831,7 @@
     },
     {
         "name": "Dragon",
-        "tags": [
-            "fantasy",
-            "animals",
-            "ipzy",
-            "flying"
-        ],
+        "tags": ["fantasy", "animals", "ipzy", "flying"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -4144,13 +3878,7 @@
     },
     {
         "name": "Dragonfly",
-        "tags": [
-            "animals",
-            "insect",
-            "dragonfly",
-            "wetland",
-            "owen davey"
-        ],
+        "tags": ["animals", "insect", "dragonfly", "wetland", "owen davey"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -4188,11 +3916,7 @@
     },
     {
         "name": "Dress",
-        "tags": [
-            "fashion",
-            "dress",
-            "clothing"
-        ],
+        "tags": ["fashion", "dress", "clothing"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -4239,10 +3963,7 @@
     },
     {
         "name": "Drum",
-        "tags": [
-            "music",
-            "andrew rae"
-        ],
+        "tags": ["music", "andrew rae"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -4289,10 +4010,7 @@
     },
     {
         "name": "Drum Kit",
-        "tags": [
-            "music",
-            "andrew rae"
-        ],
+        "tags": ["music", "andrew rae"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -4366,10 +4084,7 @@
     },
     {
         "name": "Drum-cymbal",
-        "tags": [
-            "music",
-            "andrew rae"
-        ],
+        "tags": ["music", "andrew rae"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -4434,10 +4149,7 @@
     },
     {
         "name": "Drum-highhat",
-        "tags": [
-            "music",
-            "andrew rae"
-        ],
+        "tags": ["music", "andrew rae"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -4475,10 +4187,7 @@
     },
     {
         "name": "Drum-snare",
-        "tags": [
-            "music",
-            "andrew rae"
-        ],
+        "tags": ["music", "andrew rae"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -4534,13 +4243,7 @@
     },
     {
         "name": "Drums Conga",
-        "tags": [
-            "drums",
-            "drum",
-            "music",
-            "instrument",
-            "percussion"
-        ],
+        "tags": ["drums", "drum", "music", "instrument", "percussion"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -4605,13 +4308,7 @@
     },
     {
         "name": "Drums Tabla",
-        "tags": [
-            "drums",
-            "drum",
-            "music",
-            "instrument",
-            "percussion"
-        ],
+        "tags": ["drums", "drum", "music", "instrument", "percussion"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -4676,13 +4373,7 @@
     },
     {
         "name": "Duck",
-        "tags": [
-            "animals",
-            "chrisg",
-            "quack",
-            "birds",
-            "birb"
-        ],
+        "tags": ["animals", "chrisg", "quack", "birds", "birb"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -4711,12 +4402,7 @@
     },
     {
         "name": "Earth",
-        "tags": [
-            "space",
-            "planet",
-            "earth",
-            "globe"
-        ],
+        "tags": ["space", "planet", "earth", "globe"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -4745,11 +4431,7 @@
     },
     {
         "name": "Easel",
-        "tags": [
-            "bedroom",
-            "art",
-            "easel"
-        ],
+        "tags": ["bedroom", "art", "easel"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -4796,11 +4478,7 @@
     },
     {
         "name": "Egg",
-        "tags": [
-            "food",
-            "breakfast",
-            "alex eben meyer"
-        ],
+        "tags": ["food", "breakfast", "alex eben meyer"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -4874,11 +4552,7 @@
     },
     {
         "name": "Elephant",
-        "tags": [
-            "animals",
-            "mammals",
-            "pachydermata"
-        ],
+        "tags": ["animals", "mammals", "pachydermata"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -4916,12 +4590,7 @@
     },
     {
         "name": "Elf",
-        "tags": [
-            "fantasy",
-            "people",
-            "ipzy",
-            "emotions"
-        ],
+        "tags": ["fantasy", "people", "ipzy", "emotions"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -4986,12 +4655,7 @@
     },
     {
         "name": "Fairy",
-        "tags": [
-            "fantasy",
-            "people",
-            "ipzy",
-            "emotions"
-        ],
+        "tags": ["fantasy", "people", "ipzy", "emotions"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -5056,13 +4720,7 @@
     },
     {
         "name": "Fish",
-        "tags": [
-            "animals",
-            "ocean",
-            "sea",
-            "underwater",
-            "daria skrybchencko"
-        ],
+        "tags": ["animals", "ocean", "sea", "underwater", "daria skrybchencko"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -5127,12 +4785,7 @@
     },
     {
         "name": "Fishbowl",
-        "tags": [
-            "fishbowl",
-            "fish",
-            "animals",
-            "pet"
-        ],
+        "tags": ["fishbowl", "fish", "animals", "pet"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -5170,13 +4823,7 @@
     },
     {
         "name": "Food Truck",
-        "tags": [
-            "city",
-            "truck",
-            "vehicle",
-            "food",
-            "car"
-        ],
+        "tags": ["city", "truck", "vehicle", "food", "car"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -5241,10 +4888,7 @@
     },
     {
         "name": "Football",
-        "tags": [
-            "people",
-            "sports"
-        ],
+        "tags": ["people", "sports"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -5282,9 +4926,7 @@
     },
     {
         "name": "Fortune Cookie",
-        "tags": [
-            "food"
-        ],
+        "tags": ["food"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -5313,11 +4955,7 @@
     },
     {
         "name": "Fox",
-        "tags": [
-            "animals",
-            "mammal",
-            "robert hunter"
-        ],
+        "tags": ["animals", "mammal", "robert hunter"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -5428,14 +5066,7 @@
     },
     {
         "name": "Frog",
-        "tags": [
-            "animals",
-            "amphibian",
-            "nature",
-            "hopping",
-            "green",
-            "wart"
-        ],
+        "tags": ["animals", "amphibian", "nature", "hopping", "green", "wart"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -5464,13 +5095,7 @@
     },
     {
         "name": "Frog 2 ",
-        "tags": [
-            "animals",
-            "insect",
-            "bug",
-            "wetland",
-            "owen davey"
-        ],
+        "tags": ["animals", "insect", "bug", "wetland", "owen davey"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -5517,9 +5142,7 @@
     },
     {
         "name": "Fruit Platter",
-        "tags": [
-            "food"
-        ],
+        "tags": ["food"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -5548,10 +5171,7 @@
     },
     {
         "name": "Fruit Salad",
-        "tags": [
-            "food",
-            "fruit"
-        ],
+        "tags": ["food", "fruit"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -5643,10 +5263,7 @@
     },
     {
         "name": "Gift",
-        "tags": [
-            "thing",
-            "holiday"
-        ],
+        "tags": ["thing", "holiday"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -5684,11 +5301,7 @@
     },
     {
         "name": "Giraffe",
-        "tags": [
-            "animals",
-            "savanna",
-            "robert hunter"
-        ],
+        "tags": ["animals", "savanna", "robert hunter"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -5735,11 +5348,7 @@
     },
     {
         "name": "Glass Water",
-        "tags": [
-            "food",
-            "things",
-            "underwater"
-        ],
+        "tags": ["food", "things", "underwater"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -5777,11 +5386,7 @@
     },
     {
         "name": "Glasses",
-        "tags": [
-            "fashion",
-            "glasses",
-            "clothing"
-        ],
+        "tags": ["fashion", "glasses", "clothing"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -5837,12 +5442,7 @@
     },
     {
         "name": "Goalie",
-        "tags": [
-            "sports",
-            "soccer",
-            "football",
-            "alex eben meyer"
-        ],
+        "tags": ["sports", "soccer", "football", "alex eben meyer"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -5907,11 +5507,7 @@
     },
     {
         "name": "Goblin",
-        "tags": [
-            "fantasy",
-            "ipzy",
-            "emotions"
-        ],
+        "tags": ["fantasy", "ipzy", "emotions"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -5967,13 +5563,7 @@
     },
     {
         "name": "Grasshopper",
-        "tags": [
-            "animals",
-            "insect",
-            "bug",
-            "wetland",
-            "owen davey"
-        ],
+        "tags": ["animals", "insect", "bug", "wetland", "owen davey"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -6047,9 +5637,7 @@
     },
     {
         "name": "Green Flag",
-        "tags": [
-            "thing"
-        ],
+        "tags": ["thing"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -6078,12 +5666,7 @@
     },
     {
         "name": "Griffin",
-        "tags": [
-            "fantasy",
-            "animals",
-            "ipzy",
-            "flying"
-        ],
+        "tags": ["fantasy", "animals", "ipzy", "flying"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -6139,10 +5722,7 @@
     },
     {
         "name": "Guitar",
-        "tags": [
-            "music",
-            "andrew rae"
-        ],
+        "tags": ["music", "andrew rae"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -6243,10 +5823,7 @@
     },
     {
         "name": "Guitar-electric1",
-        "tags": [
-            "music",
-            "andrew rae"
-        ],
+        "tags": ["music", "andrew rae"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -6347,10 +5924,7 @@
     },
     {
         "name": "Guitar-electric2",
-        "tags": [
-            "music",
-            "andrew rae"
-        ],
+        "tags": ["music", "andrew rae"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -6451,10 +6025,7 @@
     },
     {
         "name": "Hannah",
-        "tags": [
-            "people",
-            "sports"
-        ],
+        "tags": ["people", "sports"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -6558,11 +6129,7 @@
     },
     {
         "name": "Harper",
-        "tags": [
-            "people",
-            "fashion",
-            "clothing"
-        ],
+        "tags": ["people", "fashion", "clothing"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -6609,11 +6176,7 @@
     },
     {
         "name": "Hat1 ",
-        "tags": [
-            "fashion",
-            "hat",
-            "clothing"
-        ],
+        "tags": ["fashion", "hat", "clothing"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -6669,12 +6232,7 @@
     },
     {
         "name": "Hatchling",
-        "tags": [
-            "animals",
-            "chicken",
-            "farm",
-            "owen davey"
-        ],
+        "tags": ["animals", "chicken", "farm", "owen davey"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -6721,13 +6279,7 @@
     },
     {
         "name": "Heart",
-        "tags": [
-            "holiday",
-            "red",
-            "shape",
-            "love",
-            "emotions"
-        ],
+        "tags": ["holiday", "red", "shape", "love", "emotions"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -6765,10 +6317,7 @@
     },
     {
         "name": "Heart Candy",
-        "tags": [
-            "food",
-            "sweethearts"
-        ],
+        "tags": ["food", "sweethearts"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -6824,9 +6373,7 @@
     },
     {
         "name": "Heart Face",
-        "tags": [
-            "emotions"
-        ],
+        "tags": ["emotions"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -6855,12 +6402,7 @@
     },
     {
         "name": "Hedgehog",
-        "tags": [
-            "animals",
-            "daria skrybchencko",
-            "mammals",
-            "spikey"
-        ],
+        "tags": ["animals", "daria skrybchencko", "mammals", "spikey"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -6925,12 +6467,7 @@
     },
     {
         "name": "Hen",
-        "tags": [
-            "animals",
-            "chicken",
-            "farm",
-            "owen davey"
-        ],
+        "tags": ["animals", "chicken", "farm", "owen davey"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -7033,10 +6570,7 @@
     },
     {
         "name": "Home Button",
-        "tags": [
-            "ui",
-            "thing"
-        ],
+        "tags": ["ui", "thing"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -7065,14 +6599,7 @@
     },
     {
         "name": "Horse",
-        "tags": [
-            "animals",
-            "hoof",
-            "hooves",
-            "mammal",
-            "racing",
-            "saddle"
-        ],
+        "tags": ["animals", "hoof", "hooves", "mammal", "racing", "saddle"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -7119,9 +6646,7 @@
     },
     {
         "name": "Jaime",
-        "tags": [
-            "people"
-        ],
+        "tags": ["people"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -7204,12 +6729,7 @@
     },
     {
         "name": "Jamal",
-        "tags": [
-            "sports",
-            "basketball",
-            "people",
-            "alex eben meyer"
-        ],
+        "tags": ["sports", "basketball", "people", "alex eben meyer"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -7274,11 +6794,7 @@
     },
     {
         "name": "Jar",
-        "tags": [
-            "food",
-            "ipzy",
-            "things"
-        ],
+        "tags": ["food", "ipzy", "things"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -7388,13 +6904,7 @@
     },
     {
         "name": "Jordyn",
-        "tags": [
-            "sports",
-            "soccer",
-            "football",
-            "people",
-            "alex eben meyer"
-        ],
+        "tags": ["sports", "soccer", "football", "people", "alex eben meyer"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -7459,10 +6969,7 @@
     },
     {
         "name": "Jouvi Dance",
-        "tags": [
-            "people",
-            "dance"
-        ],
+        "tags": ["people", "dance"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -7599,9 +7106,7 @@
     },
     {
         "name": "Kai",
-        "tags": [
-            "people"
-        ],
+        "tags": ["people"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -7639,10 +7144,7 @@
     },
     {
         "name": "Key",
-        "tags": [
-            "thing",
-            "fantasy"
-        ],
+        "tags": ["thing", "fantasy"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -7671,10 +7173,7 @@
     },
     {
         "name": "Keyboard",
-        "tags": [
-            "music",
-            "andrew rae"
-        ],
+        "tags": ["music", "andrew rae"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -7831,11 +7330,7 @@
     },
     {
         "name": "Kiran",
-        "tags": [
-            "space",
-            "people",
-            "wren mcdonald"
-        ],
+        "tags": ["space", "people", "wren mcdonald"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -7909,11 +7404,7 @@
     },
     {
         "name": "Knight",
-        "tags": [
-            "people",
-            "castle",
-            "armor"
-        ],
+        "tags": ["people", "castle", "armor"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -7942,10 +7433,7 @@
     },
     {
         "name": "LB Dance",
-        "tags": [
-            "people",
-            "dance"
-        ],
+        "tags": ["people", "dance"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -8082,12 +7570,7 @@
     },
     {
         "name": "Ladybug1",
-        "tags": [
-            "animals",
-            "insect",
-            "bug",
-            "antennae"
-        ],
+        "tags": ["animals", "insect", "bug", "antennae"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -8116,13 +7599,7 @@
     },
     {
         "name": "Ladybug2",
-        "tags": [
-            "animals",
-            "insect",
-            "arthropod",
-            "antennae",
-            "aphids"
-        ],
+        "tags": ["animals", "insect", "arthropod", "antennae", "aphids"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -8160,10 +7637,7 @@
     },
     {
         "name": "Laptop",
-        "tags": [
-            "things",
-            "computers"
-        ],
+        "tags": ["things", "computers"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -8192,13 +7666,7 @@
     },
     {
         "name": "Lightning",
-        "tags": [
-            "weather",
-            "whether",
-            "fantasy",
-            "storm",
-            "thunder"
-        ],
+        "tags": ["weather", "whether", "fantasy", "storm", "thunder"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -8227,11 +7695,7 @@
     },
     {
         "name": "Line",
-        "tags": [
-            "lava",
-            "shape",
-            "red"
-        ],
+        "tags": ["lava", "shape", "red"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -8260,13 +7724,7 @@
     },
     {
         "name": "Lion",
-        "tags": [
-            "cat",
-            "animals",
-            "africa",
-            "savanna",
-            "robert hunter"
-        ],
+        "tags": ["cat", "animals", "africa", "savanna", "robert hunter"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -8322,11 +7780,7 @@
     },
     {
         "name": "Llama",
-        "tags": [
-            "animals",
-            "mammal",
-            "robert hunter"
-        ],
+        "tags": ["animals", "mammal", "robert hunter"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -8429,11 +7883,7 @@
     },
     {
         "name": "Magic Wand",
-        "tags": [
-            "fantasy",
-            "things",
-            "zap"
-        ],
+        "tags": ["fantasy", "things", "zap"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -8462,9 +7912,7 @@
     },
     {
         "name": "Marian",
-        "tags": [
-            "people"
-        ],
+        "tags": ["people"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -8529,12 +7977,7 @@
     },
     {
         "name": "Max",
-        "tags": [
-            "sports",
-            "basketball",
-            "people",
-            "alex eben meyer"
-        ],
+        "tags": ["sports", "basketball", "people", "alex eben meyer"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -8590,12 +8033,7 @@
     },
     {
         "name": "Mermaid",
-        "tags": [
-            "fantasy",
-            "people",
-            "underwater",
-            "ipzy"
-        ],
+        "tags": ["fantasy", "people", "underwater", "ipzy"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -8651,10 +8089,7 @@
     },
     {
         "name": "Microphone",
-        "tags": [
-            "music",
-            "andrew rae"
-        ],
+        "tags": ["music", "andrew rae"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -8764,11 +8199,7 @@
     },
     {
         "name": "Milk",
-        "tags": [
-            "food",
-            "drink",
-            "alex eben meyer"
-        ],
+        "tags": ["food", "drink", "alex eben meyer"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -8833,11 +8264,7 @@
     },
     {
         "name": "Monet",
-        "tags": [
-            "space",
-            "people",
-            "wren mcdonald"
-        ],
+        "tags": ["space", "people", "wren mcdonald"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -8902,12 +8329,7 @@
     },
     {
         "name": "Monkey",
-        "tags": [
-            "animals",
-            "mammals",
-            "primate",
-            "prehensile tail"
-        ],
+        "tags": ["animals", "mammals", "primate", "prehensile tail"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -8963,12 +8385,7 @@
     },
     {
         "name": "Motorcycle",
-        "tags": [
-            "city",
-            "vehicle",
-            "bike",
-            "motorcycle"
-        ],
+        "tags": ["city", "vehicle", "bike", "motorcycle"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -9033,11 +8450,7 @@
     },
     {
         "name": "Mouse1",
-        "tags": [
-            "animals",
-            "mammals",
-            "rodents"
-        ],
+        "tags": ["animals", "mammals", "rodents"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -9075,9 +8488,7 @@
     },
     {
         "name": "Muffin",
-        "tags": [
-            "food"
-        ],
+        "tags": ["food"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -9115,10 +8526,7 @@
     },
     {
         "name": "Neigh Pony",
-        "tags": [
-            "animals",
-            "fantasy"
-        ],
+        "tags": ["animals", "fantasy"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -9203,13 +8611,7 @@
     },
     {
         "name": "Octopus",
-        "tags": [
-            "animals",
-            "ocean",
-            "sea",
-            "underwater",
-            "daria skrybchencko"
-        ],
+        "tags": ["animals", "ocean", "sea", "underwater", "daria skrybchencko"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -9283,10 +8685,7 @@
     },
     {
         "name": "Orange",
-        "tags": [
-            "food",
-            "fruit"
-        ],
+        "tags": ["food", "fruit"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -9315,11 +8714,7 @@
     },
     {
         "name": "Orange2",
-        "tags": [
-            "food",
-            "fruit",
-            "eaten"
-        ],
+        "tags": ["food", "fruit", "eaten"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -9357,12 +8752,7 @@
     },
     {
         "name": "Outfielder",
-        "tags": [
-            "baseball",
-            "sports",
-            "people",
-            "alex eben meyer"
-        ],
+        "tags": ["baseball", "sports", "people", "alex eben meyer"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -9418,11 +8808,7 @@
     },
     {
         "name": "Owl",
-        "tags": [
-            "animals",
-            "bird",
-            "robert hunter"
-        ],
+        "tags": ["animals", "bird", "robert hunter"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -9469,9 +8855,7 @@
     },
     {
         "name": "Paddle",
-        "tags": [
-            "thing"
-        ],
+        "tags": ["thing"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -9500,12 +8884,7 @@
     },
     {
         "name": "Panther",
-        "tags": [
-            "animals",
-            "tiger",
-            "leopard",
-            "robert hunter"
-        ],
+        "tags": ["animals", "tiger", "leopard", "robert hunter"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -9552,11 +8931,7 @@
     },
     {
         "name": "Pants",
-        "tags": [
-            "fashion",
-            "pants",
-            "clothing"
-        ],
+        "tags": ["fashion", "pants", "clothing"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -9640,10 +9015,7 @@
     },
     {
         "name": "Party Hats",
-        "tags": [
-            "fashion",
-            "holiday"
-        ],
+        "tags": ["fashion", "holiday"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -9690,10 +9062,7 @@
     },
     {
         "name": "Pencil",
-        "tags": [
-            "thing",
-            "yellow"
-        ],
+        "tags": ["thing", "yellow"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -9788,12 +9157,7 @@
     },
     {
         "name": "Penguin 2",
-        "tags": [
-            "animals",
-            "bird",
-            "winter",
-            "antarctica"
-        ],
+        "tags": ["animals", "bird", "winter", "antarctica"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -9849,12 +9213,7 @@
     },
     {
         "name": "Pitcher",
-        "tags": [
-            "baseball",
-            "sports",
-            "people",
-            "alex eben meyer"
-        ],
+        "tags": ["baseball", "sports", "people", "alex eben meyer"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -9910,9 +9269,7 @@
     },
     {
         "name": "Planet2",
-        "tags": [
-            "space"
-        ],
+        "tags": ["space"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -9999,11 +9356,7 @@
     },
     {
         "name": "Potion",
-        "tags": [
-            "fantasy",
-            "ipzy",
-            "things"
-        ],
+        "tags": ["fantasy", "ipzy", "things"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -10050,11 +9403,7 @@
     },
     {
         "name": "Prince",
-        "tags": [
-            "people",
-            "☥",
-            "fantasy"
-        ],
+        "tags": ["people", "☥", "fantasy"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -10083,13 +9432,7 @@
     },
     {
         "name": "Princess",
-        "tags": [
-            "fantasy",
-            "people",
-            "ipzy",
-            "castle",
-            "emotions"
-        ],
+        "tags": ["fantasy", "people", "ipzy", "castle", "emotions"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -10154,13 +9497,7 @@
     },
     {
         "name": "Pufferfish",
-        "tags": [
-            "animals",
-            "ocean",
-            "sea",
-            "underwater",
-            "daria skrybchencko"
-        ],
+        "tags": ["animals", "ocean", "sea", "underwater", "daria skrybchencko"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -10216,11 +9553,7 @@
     },
     {
         "name": "Puppy",
-        "tags": [
-            "animals",
-            "dog",
-            "puppy"
-        ],
+        "tags": ["animals", "dog", "puppy"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -10348,12 +9681,7 @@
     },
     {
         "name": "Radio",
-        "tags": [
-            "radio",
-            "music",
-            "beatbox",
-            "bedrorom"
-        ],
+        "tags": ["radio", "music", "beatbox", "bedrorom"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -10418,12 +9746,7 @@
     },
     {
         "name": "Rainbow",
-        "tags": [
-            "things",
-            "flying",
-            "drawing",
-            "color"
-        ],
+        "tags": ["things", "flying", "drawing", "color"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -10452,12 +9775,7 @@
     },
     {
         "name": "Referee",
-        "tags": [
-            "sports",
-            "soccer",
-            "football",
-            "alex eben meyer"
-        ],
+        "tags": ["sports", "soccer", "football", "alex eben meyer"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -10513,11 +9831,7 @@
     },
     {
         "name": "Reindeer",
-        "tags": [
-            "animals",
-            "mammals",
-            "holiday"
-        ],
+        "tags": ["animals", "mammals", "holiday"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -10546,9 +9860,7 @@
     },
     {
         "name": "Retro Robot",
-        "tags": [
-            "robot"
-        ],
+        "tags": ["robot"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -10604,11 +9916,7 @@
     },
     {
         "name": "Ripley",
-        "tags": [
-            "space",
-            "people",
-            "wren mcdonald"
-        ],
+        "tags": ["space", "people", "wren mcdonald"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -10682,11 +9990,7 @@
     },
     {
         "name": "Robot",
-        "tags": [
-            "space",
-            "robot",
-            "wren mcdonald"
-        ],
+        "tags": ["space", "robot", "wren mcdonald"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -10760,11 +10064,7 @@
     },
     {
         "name": "Rocketship",
-        "tags": [
-            "space",
-            "spaceship",
-            "wren mcdonald"
-        ],
+        "tags": ["space", "spaceship", "wren mcdonald"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -10847,10 +10147,7 @@
     },
     {
         "name": "Rocks",
-        "tags": [
-            "things",
-            "potassium"
-        ],
+        "tags": ["things", "potassium"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -10879,12 +10176,7 @@
     },
     {
         "name": "Rooster",
-        "tags": [
-            "animals",
-            "chicken",
-            "farm",
-            "owen davey"
-        ],
+        "tags": ["animals", "chicken", "farm", "owen davey"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -10940,9 +10232,7 @@
     },
     {
         "name": "Ruby",
-        "tags": [
-            "people"
-        ],
+        "tags": ["people"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -10980,10 +10270,7 @@
     },
     {
         "name": "Sailboat",
-        "tags": [
-            "boat",
-            "transportation"
-        ],
+        "tags": ["boat", "transportation"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -11012,9 +10299,7 @@
     },
     {
         "name": "Sam",
-        "tags": [
-            "people"
-        ],
+        "tags": ["people"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -11099,10 +10384,7 @@
     },
     {
         "name": "Saxophone",
-        "tags": [
-            "music",
-            "andrew rae"
-        ],
+        "tags": ["music", "andrew rae"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -11203,10 +10485,7 @@
     },
     {
         "name": "Scarf",
-        "tags": [
-            "fashion",
-            "red"
-        ],
+        "tags": ["fashion", "red"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -11253,12 +10532,7 @@
     },
     {
         "name": "Shark",
-        "tags": [
-            "animals",
-            "underwater",
-            "ipzy",
-            "fish"
-        ],
+        "tags": ["animals", "underwater", "ipzy", "fish"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -11369,10 +10643,7 @@
     },
     {
         "name": "Shirt",
-        "tags": [
-            "fashion",
-            "shirt"
-        ],
+        "tags": ["fashion", "shirt"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -11401,12 +10672,7 @@
     },
     {
         "name": "Shoes",
-        "tags": [
-            "fashion",
-            "shoes",
-            "sneakers",
-            "clothing"
-        ],
+        "tags": ["fashion", "shoes", "sneakers", "clothing"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -11462,12 +10728,7 @@
     },
     {
         "name": "Shorts",
-        "tags": [
-            "fashion",
-            "pants",
-            "shorts",
-            "clothing"
-        ],
+        "tags": ["fashion", "pants", "shorts", "clothing"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -11514,10 +10775,7 @@
     },
     {
         "name": "Singer1",
-        "tags": [
-            "people",
-            "music"
-        ],
+        "tags": ["people", "music"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -11609,11 +10867,7 @@
     },
     {
         "name": "Snake",
-        "tags": [
-            "animals",
-            "reptile",
-            "robert hunter"
-        ],
+        "tags": ["animals", "reptile", "robert hunter"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -11660,9 +10914,7 @@
     },
     {
         "name": "Snowflake",
-        "tags": [
-            "winter"
-        ],
+        "tags": ["winter"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -11691,11 +10943,7 @@
     },
     {
         "name": "Snowman",
-        "tags": [
-            "fantasy",
-            "drawing",
-            "winter"
-        ],
+        "tags": ["fantasy", "drawing", "winter"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -11724,12 +10972,7 @@
     },
     {
         "name": "Soccer Ball",
-        "tags": [
-            "sports",
-            "soccer",
-            "football",
-            "alex eben meyer"
-        ],
+        "tags": ["sports", "soccer", "football", "alex eben meyer"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -11758,13 +11001,7 @@
     },
     {
         "name": "Speaker",
-        "tags": [
-            "music",
-            "things",
-            "bass",
-            "treble",
-            "concert"
-        ],
+        "tags": ["music", "things", "bass", "treble", "concert"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -11847,9 +11084,7 @@
     },
     {
         "name": "Squirrel",
-        "tags": [
-            "animals"
-        ],
+        "tags": ["animals"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -11878,10 +11113,7 @@
     },
     {
         "name": "Star",
-        "tags": [
-            "shapes",
-            "space"
-        ],
+        "tags": ["shapes", "space"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -11910,13 +11142,7 @@
     },
     {
         "name": "Starfish",
-        "tags": [
-            "animals",
-            "echinodermata",
-            "underwater",
-            "sea",
-            "ocean"
-        ],
+        "tags": ["animals", "echinodermata", "underwater", "sea", "ocean"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -11954,10 +11180,7 @@
     },
     {
         "name": "Stop",
-        "tags": [
-            "shapes",
-            "things"
-        ],
+        "tags": ["shapes", "things"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -11986,11 +11209,7 @@
     },
     {
         "name": "Strawberry",
-        "tags": [
-            "food",
-            "fruit",
-            "alex eben meyer"
-        ],
+        "tags": ["food", "fruit", "alex eben meyer"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -12055,14 +11274,7 @@
     },
     {
         "name": "Sun",
-        "tags": [
-            "space",
-            "star",
-            "hydrogen",
-            "helium",
-            "fusion",
-            "nuclear"
-        ],
+        "tags": ["space", "star", "hydrogen", "helium", "fusion", "nuclear"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -12091,10 +11303,7 @@
     },
     {
         "name": "Sunglasses1",
-        "tags": [
-            "fashion",
-            "cool"
-        ],
+        "tags": ["fashion", "cool"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -12132,10 +11341,7 @@
     },
     {
         "name": "Taco",
-        "tags": [
-            "food",
-            "designerd"
-        ],
+        "tags": ["food", "designerd"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -12173,10 +11379,7 @@
     },
     {
         "name": "Takeout",
-        "tags": [
-            "food",
-            "alex eben meyer"
-        ],
+        "tags": ["food", "alex eben meyer"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -12371,10 +11574,7 @@
     },
     {
         "name": "Ten80 Dance",
-        "tags": [
-            "people",
-            "dance"
-        ],
+        "tags": ["people", "dance"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -12511,10 +11711,7 @@
     },
     {
         "name": "Tennis Ball",
-        "tags": [
-            "ball",
-            "sports"
-        ],
+        "tags": ["ball", "sports"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -12543,11 +11740,7 @@
     },
     {
         "name": "Toucan",
-        "tags": [
-            "animals",
-            "bird",
-            "robert hunter"
-        ],
+        "tags": ["animals", "bird", "robert hunter"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -12594,9 +11787,7 @@
     },
     {
         "name": "Trampoline",
-        "tags": [
-            "sports"
-        ],
+        "tags": ["sports"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -12625,11 +11816,7 @@
     },
     {
         "name": "Tree1",
-        "tags": [
-            "plants",
-            "wood",
-            "forest"
-        ],
+        "tags": ["plants", "wood", "forest"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -12658,11 +11845,7 @@
     },
     {
         "name": "Trees",
-        "tags": [
-            "plants",
-            "wood",
-            "forest"
-        ],
+        "tags": ["plants", "wood", "forest"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -12765,12 +11948,7 @@
     },
     {
         "name": "Truck",
-        "tags": [
-            "truck",
-            "city",
-            "vehicle",
-            "car"
-        ],
+        "tags": ["truck", "city", "vehicle", "car"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -12817,10 +11995,7 @@
     },
     {
         "name": "Trumpet",
-        "tags": [
-            "music",
-            "andrew rae"
-        ],
+        "tags": ["music", "andrew rae"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -12921,9 +12096,7 @@
     },
     {
         "name": "Turbo Robot",
-        "tags": [
-            "robot"
-        ],
+        "tags": ["robot"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -12942,11 +12115,7 @@
     },
     {
         "name": "Unicorn",
-        "tags": [
-            "fantasy",
-            "animals",
-            "ipzy"
-        ],
+        "tags": ["fantasy", "animals", "ipzy"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -12975,13 +12144,7 @@
     },
     {
         "name": "Unicorn 2",
-        "tags": [
-            "fantasy",
-            "animals",
-            "horse",
-            "horn",
-            "rainbow"
-        ],
+        "tags": ["fantasy", "animals", "horse", "horn", "rainbow"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -13010,12 +12173,7 @@
     },
     {
         "name": "Unicorn Running",
-        "tags": [
-            "fantasy",
-            "animals",
-            "ipzy",
-            "walking"
-        ],
+        "tags": ["fantasy", "animals", "ipzy", "walking"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -13089,11 +12247,7 @@
     },
     {
         "name": "Wand",
-        "tags": [
-            "fantasy",
-            "ipzy",
-            "things"
-        ],
+        "tags": ["fantasy", "ipzy", "things"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -13122,9 +12276,7 @@
     },
     {
         "name": "Wanda",
-        "tags": [
-            "people"
-        ],
+        "tags": ["people"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -13153,14 +12305,7 @@
     },
     {
         "name": "Watermelon",
-        "tags": [
-            "food",
-            "fruit",
-            "summer",
-            "seeds",
-            "seedless",
-            "plants"
-        ],
+        "tags": ["food", "fruit", "summer", "seeds", "seedless", "plants"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -13207,12 +12352,7 @@
     },
     {
         "name": "Winter Hat",
-        "tags": [
-            "fashion",
-            " clothing",
-            "winter",
-            "hat"
-        ],
+        "tags": ["fashion", " clothing", "winter", "hat"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -13241,14 +12381,7 @@
     },
     {
         "name": "Witch",
-        "tags": [
-            "fantasy",
-            "people",
-            "ipzy",
-            "castle",
-            "emotions",
-            "magic"
-        ],
+        "tags": ["fantasy", "people", "ipzy", "castle", "emotions", "magic"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -13304,14 +12437,7 @@
     },
     {
         "name": "Wizard",
-        "tags": [
-            "fantasy",
-            "people",
-            "ipzy",
-            "castle",
-            "emotions",
-            "magic"
-        ],
+        "tags": ["fantasy", "people", "ipzy", "castle", "emotions", "magic"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -13358,14 +12484,7 @@
     },
     {
         "name": "Wizard Girl",
-        "tags": [
-            "people",
-            "female",
-            "girl",
-            "wizard",
-            "magic",
-            "fantasy"
-        ],
+        "tags": ["people", "female", "girl", "wizard", "magic", "fantasy"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -13394,11 +12513,7 @@
     },
     {
         "name": "Wizard Hat",
-        "tags": [
-            "fashion",
-            "fantasy",
-            "winter"
-        ],
+        "tags": ["fashion", "fantasy", "winter"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -13482,12 +12597,7 @@
     },
     {
         "name": "Zebra",
-        "tags": [
-            "animals",
-            "zebra",
-            "savanna",
-            "robert hunter"
-        ],
+        "tags": ["animals", "zebra", "savanna", "robert hunter"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -13525,10 +12635,7 @@
     },
     {
         "name": "Block-A",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -13557,10 +12664,7 @@
     },
     {
         "name": "Block-B",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -13589,10 +12693,7 @@
     },
     {
         "name": "Block-C",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -13621,10 +12722,7 @@
     },
     {
         "name": "Block-D",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -13653,10 +12751,7 @@
     },
     {
         "name": "Block-E",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -13685,10 +12780,7 @@
     },
     {
         "name": "Block-F",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -13717,10 +12809,7 @@
     },
     {
         "name": "Block-G",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -13749,10 +12838,7 @@
     },
     {
         "name": "Block-H",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -13781,10 +12867,7 @@
     },
     {
         "name": "Block-I",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -13813,10 +12896,7 @@
     },
     {
         "name": "Block-J",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -13845,10 +12925,7 @@
     },
     {
         "name": "Block-K",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -13877,10 +12954,7 @@
     },
     {
         "name": "Block-L",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -13909,10 +12983,7 @@
     },
     {
         "name": "Block-M",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -13941,10 +13012,7 @@
     },
     {
         "name": "Block-N",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -13973,10 +13041,7 @@
     },
     {
         "name": "Block-O",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -14005,10 +13070,7 @@
     },
     {
         "name": "Block-P",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -14037,10 +13099,7 @@
     },
     {
         "name": "Block-Q",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -14069,10 +13128,7 @@
     },
     {
         "name": "Block-R",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -14101,10 +13157,7 @@
     },
     {
         "name": "Block-S",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -14133,10 +13186,7 @@
     },
     {
         "name": "Block-T",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -14165,10 +13215,7 @@
     },
     {
         "name": "Block-U",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -14197,10 +13244,7 @@
     },
     {
         "name": "Block-V",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -14229,10 +13273,7 @@
     },
     {
         "name": "Block-W",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -14261,10 +13302,7 @@
     },
     {
         "name": "Block-X",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -14293,10 +13331,7 @@
     },
     {
         "name": "Block-Y",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -14325,10 +13360,7 @@
     },
     {
         "name": "Block-Z",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -14357,10 +13389,7 @@
     },
     {
         "name": "Glow-0",
-        "tags": [
-            "numbers",
-            "digits"
-        ],
+        "tags": ["numbers", "digits"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -14389,10 +13418,7 @@
     },
     {
         "name": "Glow-1",
-        "tags": [
-            "numbers",
-            "digits"
-        ],
+        "tags": ["numbers", "digits"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -14421,10 +13447,7 @@
     },
     {
         "name": "Glow-2",
-        "tags": [
-            "numbers",
-            "digits"
-        ],
+        "tags": ["numbers", "digits"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -14453,10 +13476,7 @@
     },
     {
         "name": "Glow-3",
-        "tags": [
-            "numbers",
-            "digits"
-        ],
+        "tags": ["numbers", "digits"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -14485,10 +13505,7 @@
     },
     {
         "name": "Glow-4",
-        "tags": [
-            "numbers",
-            "digits"
-        ],
+        "tags": ["numbers", "digits"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -14517,10 +13534,7 @@
     },
     {
         "name": "Glow-5",
-        "tags": [
-            "numbers",
-            "digits"
-        ],
+        "tags": ["numbers", "digits"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -14549,10 +13563,7 @@
     },
     {
         "name": "Glow-6",
-        "tags": [
-            "numbers",
-            "digits"
-        ],
+        "tags": ["numbers", "digits"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -14581,10 +13592,7 @@
     },
     {
         "name": "Glow-7",
-        "tags": [
-            "numbers",
-            "digits"
-        ],
+        "tags": ["numbers", "digits"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -14613,10 +13621,7 @@
     },
     {
         "name": "Glow-8",
-        "tags": [
-            "numbers",
-            "digits"
-        ],
+        "tags": ["numbers", "digits"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -14645,10 +13650,7 @@
     },
     {
         "name": "Glow-9",
-        "tags": [
-            "numbers",
-            "digits"
-        ],
+        "tags": ["numbers", "digits"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -14677,10 +13679,7 @@
     },
     {
         "name": "Glow-A",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -14709,10 +13708,7 @@
     },
     {
         "name": "Glow-B",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -14741,10 +13737,7 @@
     },
     {
         "name": "Glow-C",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -14773,10 +13766,7 @@
     },
     {
         "name": "Glow-D",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -14805,10 +13795,7 @@
     },
     {
         "name": "Glow-E",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -14837,10 +13824,7 @@
     },
     {
         "name": "Glow-F",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -14869,10 +13853,7 @@
     },
     {
         "name": "Glow-G",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -14901,10 +13882,7 @@
     },
     {
         "name": "Glow-H",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -14933,10 +13911,7 @@
     },
     {
         "name": "Glow-I",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -14965,10 +13940,7 @@
     },
     {
         "name": "Glow-J",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -14997,10 +13969,7 @@
     },
     {
         "name": "Glow-K",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -15029,10 +13998,7 @@
     },
     {
         "name": "Glow-L",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -15061,10 +14027,7 @@
     },
     {
         "name": "Glow-M",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -15093,10 +14056,7 @@
     },
     {
         "name": "Glow-N",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -15125,10 +14085,7 @@
     },
     {
         "name": "Glow-O",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -15157,10 +14114,7 @@
     },
     {
         "name": "Glow-P",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -15189,10 +14143,7 @@
     },
     {
         "name": "Glow-Q",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -15221,10 +14172,7 @@
     },
     {
         "name": "Glow-R",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -15253,10 +14201,7 @@
     },
     {
         "name": "Glow-S",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -15285,10 +14230,7 @@
     },
     {
         "name": "Glow-T",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -15317,10 +14259,7 @@
     },
     {
         "name": "Glow-U",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -15349,10 +14288,7 @@
     },
     {
         "name": "Glow-V",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -15381,10 +14317,7 @@
     },
     {
         "name": "Glow-W",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -15413,10 +14346,7 @@
     },
     {
         "name": "Glow-X",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -15445,10 +14375,7 @@
     },
     {
         "name": "Glow-Y",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -15477,10 +14404,7 @@
     },
     {
         "name": "Glow-Z",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -15509,10 +14433,7 @@
     },
     {
         "name": "Story-A",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -15559,10 +14480,7 @@
     },
     {
         "name": "Story-B",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -15609,10 +14527,7 @@
     },
     {
         "name": "Story-C",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -15659,10 +14574,7 @@
     },
     {
         "name": "Story-D",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -15709,10 +14621,7 @@
     },
     {
         "name": "Story-E",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -15759,10 +14668,7 @@
     },
     {
         "name": "Story-F",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -15809,10 +14715,7 @@
     },
     {
         "name": "Story-G",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -15859,10 +14762,7 @@
     },
     {
         "name": "Story-H",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -15909,10 +14809,7 @@
     },
     {
         "name": "Story-I",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -15959,10 +14856,7 @@
     },
     {
         "name": "Story-J",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -16009,10 +14903,7 @@
     },
     {
         "name": "Story-K",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -16059,10 +14950,7 @@
     },
     {
         "name": "Story-L",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -16109,10 +14997,7 @@
     },
     {
         "name": "Story-M",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -16159,10 +15044,7 @@
     },
     {
         "name": "Story-N",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -16209,10 +15091,7 @@
     },
     {
         "name": "Story-O",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -16259,10 +15138,7 @@
     },
     {
         "name": "Story-P",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -16309,10 +15185,7 @@
     },
     {
         "name": "Story-Q",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -16359,10 +15232,7 @@
     },
     {
         "name": "Story-R",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -16409,10 +15279,7 @@
     },
     {
         "name": "Story-S",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -16459,10 +15326,7 @@
     },
     {
         "name": "Story-T",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -16509,10 +15373,7 @@
     },
     {
         "name": "Story-U",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -16559,10 +15420,7 @@
     },
     {
         "name": "Story-V",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -16609,10 +15467,7 @@
     },
     {
         "name": "Story-W",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -16659,10 +15514,7 @@
     },
     {
         "name": "Story-X",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -16709,10 +15561,7 @@
     },
     {
         "name": "Story-Y",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [
@@ -16759,10 +15608,7 @@
     },
     {
         "name": "Story-Z",
-        "tags": [
-            "alphabet",
-            "letters"
-        ],
+        "tags": ["alphabet", "letters"],
         "isStage": false,
         "variables": {},
         "costumes": [

@@ -7,7 +7,7 @@
  * Scripts do not necessarily have hats.
  */
 class IntermediateScript {
-    constructor () {
+    constructor() {
         /**
          * The ID of the top block of this script.
          * @type {string}
@@ -30,13 +30,13 @@ class IntermediateScript {
          * This procedure's variant, if any.
          * @type {string}
          */
-        this.procedureVariant = '';
+        this.procedureVariant = "";
 
         /**
          * This procedure's code, if any.
          * @type {string}
          */
-        this.procedureCode = '';
+        this.procedureCode = "";
 
         /**
          * List of names of arguments accepted by this function, if it is a procedure.
@@ -88,7 +88,7 @@ class IntermediateScript {
  * An IntermediateRepresentation contains scripts.
  */
 class IntermediateRepresentation {
-    constructor () {
+    constructor() {
         /**
          * The entry point of this IR.
          * @type {IntermediateScript}
@@ -105,5 +105,5 @@ class IntermediateRepresentation {
 
 module.exports = {
     IntermediateScript,
-    IntermediateRepresentation
+    IntermediateRepresentation,
 };

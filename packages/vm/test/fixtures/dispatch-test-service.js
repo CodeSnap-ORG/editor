@@ -1,14 +1,14 @@
 class DispatchTestService {
-    returnFortyTwo () {
+    returnFortyTwo() {
         return 42;
     }
 
-    doubleArgument (x) {
+    doubleArgument(x) {
         return 2 * x;
     }
 
-    throwException () {
-        throw new Error('This is a test exception thrown by DispatchTest');
+    throwException() {
+        throw new Error("This is a test exception thrown by DispatchTest");
     }
 }
 

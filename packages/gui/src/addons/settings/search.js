@@ -14,37 +14,39 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-const normalize = text => text
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .toLowerCase()
-    .replace(/['"()\-+,./[\]]/g, ' ')
-    .trim();
+const normalize = (text) =>
+    text
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .replace(/['"()\-+,./[\]]/g, " ")
+        .trim();
 
-const splitToWords = text => normalize(text)
-    .split(' ')
-    .filter(i => i);
+const splitToWords = (text) =>
+    normalize(text)
+        .split(" ")
+        .filter((i) => i);
 
-const parseTexts = texts => {
+const parseTexts = (texts) => {
     const result = [];
-    for (const {score, text} of texts) {
+    for (const { score, text } of texts) {
         result.push({
             score,
-            words: splitToWords(text)
+            words: splitToWords(text),
         });
     }
     return result;
 };
 
 class Search {
-    constructor (texts) {
+    constructor(texts) {
         this.items = texts.map(parseTexts);
     }
 
-    search (query) {
+    search(query) {
         const terms = splitToWords(query);
         const result = [];
-        const processItem = item => {
+        const processItem = (item) => {
             let totalScore = 0;
             for (const term of terms) {
                 let highestScoreForTerm = 0;
@@ -77,7 +79,7 @@ class Search {
             if (score > 0) {
                 result.push({
                     index: i,
-                    score
+                    score,
                 });
             }
         }

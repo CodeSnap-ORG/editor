@@ -1,29 +1,27 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styles from './fonts-modal.css';
-import bindAll from 'lodash.bindall';
+import React from "react";
+import PropTypes from "prop-types";
+import styles from "./fonts-modal.css";
+import bindAll from "lodash.bindall";
 
 // TODO: is this something to localize?
-const QUICK_BROWN_FOX = 'The quick brown fox jumps over the lazy dog.';
+const QUICK_BROWN_FOX = "The quick brown fox jumps over the lazy dog.";
 
 class FontPlayground extends React.Component {
-    constructor (props) {
+    constructor(props) {
         super(props);
-        bindAll(this, [
-            'handleChange'
-        ]);
+        bindAll(this, ["handleChange"]);
         this.state = {
-            value: QUICK_BROWN_FOX
+            value: QUICK_BROWN_FOX,
         };
     }
 
-    handleChange (e) {
+    handleChange(e) {
         this.setState({
-            value: e.target.value
+            value: e.target.value,
         });
     }
 
-    render () {
+    render() {
         return (
             <textarea
                 className={styles.fontPlayground}
@@ -31,7 +29,7 @@ class FontPlayground extends React.Component {
                 onChange={this.handleChange}
                 placeholder={QUICK_BROWN_FOX}
                 style={{
-                    fontFamily: this.props.family
+                    fontFamily: this.props.family,
                 }}
             />
         );
@@ -39,7 +37,7 @@ class FontPlayground extends React.Component {
 }
 
 FontPlayground.propTypes = {
-    family: PropTypes.string.isRequired
+    family: PropTypes.string.isRequired,
 };
 
 export default FontPlayground;

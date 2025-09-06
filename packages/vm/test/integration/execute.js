@@ -1,11 +1,12 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
-const test = require('tap').test;
+const test = require("tap").test;
 
-const makeTestStorage = require('../fixtures/make-test-storage');
-const readFileToBuffer = require('../fixtures/readProjectFile').readFileToBuffer;
-const VirtualMachine = require('../../src/index');
+const makeTestStorage = require("../fixtures/make-test-storage");
+const readFileToBuffer =
+    require("../fixtures/readProjectFile").readFileToBuffer;
+const VirtualMachine = require("../../src/index");
 
 /**
  * @fileoverview Transform each sb2 in fixtures/execute into a test.
@@ -44,7 +45,7 @@ const whenThreadsComplete = (t, vm, uri, timeLimit = 5000) =>
 
         const timeoutId = setTimeout(() => {
             t.fail(`Timeout waiting for threads to complete: ${uri}`);
-            reject(new Error('time limit reached'));
+            reject(new Error("time limit reached"));
         }, timeLimit);
 
         // Clear the interval to allow the process to exit
@@ -55,14 +56,14 @@ const whenThreadsComplete = (t, vm, uri, timeLimit = 5000) =>
         });
     });
 
-const executeDir = path.resolve(__dirname, '../fixtures/execute');
+const executeDir = path.resolve(__dirname, "../fixtures/execute");
 
 // Find files which end in ".sb", ".sb2", or ".sb3"
 const fileFilter = /\.sb[23]?$/i;
 
 fs.readdirSync(executeDir)
-    .filter(uri => fileFilter.test(uri))
-    .forEach(uri => {
+    .filter((uri) => fileFilter.test(uri))
+    .forEach((uri) => {
         const run = (t, enableCompiler) => {
             const vm = new VirtualMachine();
 
@@ -71,29 +72,31 @@ fs.readdirSync(executeDir)
             let didPlan;
             let didEnd;
             const reporters = {
-                comment (message) {
+                comment(message) {
                     t.comment(message);
                 },
-                pass (reason) {
+                pass(reason) {
                     t.pass(reason);
                 },
-                fail (reason) {
+                fail(reason) {
                     t.fail(reason);
                 },
-                plan (count) {
+                plan(count) {
                     didPlan = true;
                     t.plan(Number(count));
                 },
-                end () {
+                end() {
                     didEnd = true;
                     vm.quit();
                     t.end();
-                }
+                },
             };
-            const reportVmResult = text => {
+            const reportVmResult = (text) => {
                 const command = text.split(/\s+/, 1)[0].toLowerCase();
                 if (reporters[command]) {
-                    return reporters[command](text.substring(command.length).trim());
+                    return reporters[command](
+                        text.substring(command.length).trim(),
+                    );
                 }
 
                 // Default to a comment with the full text if we didn't match
@@ -109,23 +112,26 @@ fs.readdirSync(executeDir)
             vm.clear();
             vm.setCompatibilityMode(false);
             vm.setTurboMode(false);
-            vm.setCompilerOptions({enabled: enableCompiler});
+            vm.setCompilerOptions({ enabled: enableCompiler });
 
             // TW: Script compilation errors should fail.
             if (enableCompiler) {
-                vm.on('COMPILE_ERROR', (target, error) => {
-                    throw new Error(`Could not compile script in ${target.getName()}: ${error}`);
+                vm.on("COMPILE_ERROR", (target, error) => {
+                    throw new Error(
+                        `Could not compile script in ${target.getName()}: ${error}`,
+                    );
                 });
             }
 
             // Report the text of SAY events as testing instructions.
-            vm.runtime.on('SAY', (target, type, text) => reportVmResult(text));
+            vm.runtime.on("SAY", (target, type, text) => reportVmResult(text));
 
             const project = readFileToBuffer(path.resolve(executeDir, uri));
 
             // Load the project and once all threads are complete ensure that
             // the scratch project sent us a "end" message.
-            return vm.loadProject(project)
+            return vm
+                .loadProject(project)
                 .then(() => vm.greenFlag())
                 .then(() => whenThreadsComplete(t, vm, uri))
                 .then(() => {
@@ -145,6 +151,6 @@ fs.readdirSync(executeDir)
                     }
                 });
         };
-        test(`${uri} (interpreted)`, t => run(t, false));
-        test(`${uri} (compiled)`, t => run(t, true));
+        test(`${uri} (interpreted)`, (t) => run(t, false));
+        test(`${uri} (compiled)`, (t) => run(t, true));
     });

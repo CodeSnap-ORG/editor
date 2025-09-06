@@ -1,14 +1,14 @@
 module.exports = {
-    extends: 'scratch-semantic-release-config',
+    extends: "scratch-semantic-release-config",
     branches: [
         {
-            name: 'develop'
+            name: "develop",
             // default channel
         },
         {
-            name: 'hotfix/*',
-            channel: 'hotfix',
-            prerelease: 'hotfix'
-        }
-    ]
+            name: "hotfix/*",
+            channel: "hotfix",
+            prerelease: "hotfix",
+        },
+    ],
 };
