@@ -60,7 +60,7 @@ const CrashMessage = (props) => {
                             ),
                             issueTracker: (
                                 <a
-                                    href="https://codeberg.org/ampmod/scratch-gui/issues"
+                                    href="https://codeberg.org/ampmod/ampmod/issues"
                                     rel="noreferrer noopener"
                                     target="_blank"
                                 >

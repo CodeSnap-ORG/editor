@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="google" value="notranslate">
     <script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
-    <meta name="description" content="<%= htmlWebpackPlugin.options.APP_NAME %> is a Scratch mod with a compiler to run projects faster, dark mode for your eyes, a bunch of addons to improve the editor, and more." />
+    <meta name="description" content="<%= htmlWebpackPlugin.options.APP_NAME %> is the ultimate Scratch mod with new extensions, blocks, dark mode, a compiler, and many more!" />
     <title><%= htmlWebpackPlugin.options.title %></title>
     <link rel="apple-touch-icon" href="<%= htmlWebpackPlugin.options.root %>images/apple-touch-icon.png">
     <% if (htmlWebpackPlugin.options.root === "/" || htmlWebpackPlugin.options.root === "") { %>
@@ -24,14 +24,35 @@
         align-items: center;
         justify-content: center;
         text-align: center;
-        font-family: Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-family: sans-serif;
       }
-      .splash-screen[hidden] {
+      .splash-main {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+      .ampmod-colour-scheme {
+        background-color: #59c059;
+        color: #fff;
+        z-index: 1000;
+      }
+      .splash-error-screen {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        align-items: left;
+        justify-content: left;
+        text-align: left;
+        width: 70%;
+      }
+      .splash-error-screen h1 img {
+        vertical-align: middle;
+      }
+      .splash-screen[hidden], .splash-main[hidden], .splash-error-screen[hidden] {
         display: none;
-      }
-      .splash-screen[data-theme="dark"] {
-        background-color: #333;
-        color: white;
       }
       .splash-screen > * {
         max-width: 80%;
@@ -50,10 +71,7 @@
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
       }
-      .splash-error-title {
-        font-weight: bold;
-      }
-      .splash-error-title a {
+      .splash-screen a {
         color: inherit;
       }
       .splash-errors {
@@ -62,7 +80,7 @@
       .splash-error-list {
         white-space: pre-wrap;
       }
-      .splash-reset {
+      .splash-reset, .splash-delete-data, .splash-copy {
         color: inherit;
         background: none;
         padding: 0;
@@ -71,30 +89,137 @@
         text-decoration: underline;
         cursor: pointer;
       }
-      .splash-reset:disabled {
-        opacity: 0.8;
+      .block-animation {
+        width: 125px;
+        height: 150px;
+      }
+      .block-animation img {
+        display: block;
+        position: relative;
+        height: 30%;
+        margin-top: -4px;
+      }
+      .top-block {
+        animation: top-slide-in 1.5s ease infinite;
+      }
+      .middle-block {
+        animation: middle-slide-in 1.5s ease infinite;
+      }
+      .bottom-block {
+        animation: bottom-slide-in 1.5s ease infinite;
+      }
+      @keyframes top-slide-in {
+        0% {
+          transform: translateY(50px);
+          opacity: 0;
+        }
+        33% {
+          transform: translateY(0px);
+          opacity: 1;
+        }
+      }
+      @keyframes middle-slide-in {
+        0% {
+          transform: translateY(50px);
+          opacity: 0;
+        }
+        33% {
+          transform: translateY(50px);
+          opacity: 0;
+        }
+        66% {
+          transform: translateY(0px);
+          opacity: 1;
+        }
+      }
+      @keyframes bottom-slide-in {
+        0% {
+          transform: translateY(50px);
+          opacity: 0;
+        }
+        66% {
+          transform: translateY(50px);
+          opacity: 0;
+        }
+        100% {
+          transform: translateY(0px);
+          opacity: 1;
+        }
+      }
+      .version {
+        position: absolute;
+        bottom: 0.5em;
+        text-align: center;
+        font-size: 1em;
+        opacity: 0.5;
+        padding: 20px;
+      }
+      .progress-bar-fake {
+        width: 256px;
+        height: 10px;
+        background-color: #ffffff33;
+        border-radius: 999px;
+        overflow: hidden;
+        margin-top: 1rem;
+      }
+      .progress-bar-fake-inner {
+        width: 50%;
+        height: 100%;
+        background-color: white;
+        animation: marquee 1.2s linear infinite;
+      }
+      @keyframes marquee {
+        0% {
+          transform: translateX(-130%);
+        }
+        100% {
+          transform: translateX(200%);
+        }
       }
     </style>
   </head>
   <body>
     <noscript>
-      <div class="splash-screen">
+      <div class="splash-screen ampmod-colour-scheme">
+        <div class="splash-error-screen">
         <div>
-          <h1><%= htmlWebpackPlugin.options.APP_NAME %> requires JavaScript</h1>
-          <p>Consider using <a href="https://desktop.turbowarp.org/">TurboWarp Desktop</a> if you are afraid of remote JavaScript.</p>
+            <h1 class="splash-error-title"><img src="<%= htmlWebpackPlugin.options.root %>images/reload.svg" draggable="false" loading="lazy" /> Oops! JavaScript is disabled.</h1>
+            <p><%= htmlWebpackPlugin.options.APP_NAME %> requires JavaScript. Consider using <a href="https://desktop.turbowarp.org/">TurboWarp Desktop</a> if you are afraid of remote JavaScript.</p>
+          </div>
         </div>
       </div>
     </noscript>
 
-    <div class="splash-screen spash-waiting-for-js" hidden>
-      <div class="splash-spinner"></div>
-      <% if (process.env.ampmod_is_canary) { %>
-        <div class="splash-error-title">This is a canary build. Please expect bugs.</div>
-      <% } %>
-
-      <div class="splash-error-title" hidden>Something went wrong. <a href="https://scratch.mit.edu/users/GarboMuffin/#comments" target="_blank" rel="noreferrer">Please report</a> with the information below.</div>
-      <div class="splash-errors" hidden></div>
-      <button class="splash-reset" hidden>Click here to reset caches (can fix some errors)</button>
+    <div class="splash-screen spash-waiting-for-js">
+      <div class="splash-main">
+        <div class="version"><%= htmlWebpackPlugin.options.APP_NAME %> v<%= process.env.ampmod_version %></div>
+        <div class="block-animation">
+          <img class="top-block" src="<%= htmlWebpackPlugin.options.root %>images/top-block.svg" draggable="false" />
+          <img class="middle-block" src="<%= htmlWebpackPlugin.options.root %>images/middle-block.svg" draggable="false" />
+          <img class="bottom-block" src="<%= htmlWebpackPlugin.options.root %>images/bottom-block.svg" draggable="false" />
+        </div>
+        <div class="progress-bar-fake">
+          <div class="progress-bar-fake-inner"></div>
+        </div>
+        <% if (process.env.ampmod_is_canary) { %>
+          <div class="splash-canary-title">This is a canary build. Please expect bugs.</div>
+        <% } %>
+        <div class="splash-taking-too-long" hidden>
+          <%= htmlWebpackPlugin.options.APP_NAME %> is taking too long to load.
+          Try <a href="javascript:window.location.reload()">reloading</a> or wait longer.
+          <br />Older browsers may not be able to decompress <%= htmlWebpackPlugin.options.APP_NAME %> properly.
+          <% if (process.env.ampmod_is_cbp) { %>
+            <br />Consider checking <a href="https://status.codeberg.eu" target="_blank" rel="noreferrer">Codeberg's status page</a> to see if there are any ongoing issues.
+          <% } %>
+        </div>
+      </div>
+      <div class="splash-error-screen" hidden>
+        <h1 class="splash-error-title"><img src="<%= htmlWebpackPlugin.options.root %>images/reload.svg" draggable="false" loading="lazy" /> Oops! Something went wrong.</h1>
+        <p>This page has crashed. Please refresh your page to try again. If this continues, please report the error to the <a href="https://ampmod.flarum.cloud/t/bugs-and-glitches">forums</a> or <a href="https://codeberg.org/ampmod/ampmod/issues">issue tracker</a>.</p>
+        <div class="splash-errors"></div>
+        <p>Please provide the above backtrace. Click <button class="splash-copy">here</button> to copy it.</p>
+        <p>Try <button class="splash-reset">bypassing the cache</button> or <button class="splash-delete-data">erasing <%= htmlWebpackPlugin.options.APP_NAME %>'s data</button>, which may fix some issues.</p>
+      </div>
     </div>
 
     <script>
@@ -106,6 +231,13 @@
 
         var canary = <%= process.env.ampmod_is_canary %>;
 
+        setTimeout(function () {
+          var splashErrorScreen = document.querySelector('.splash-error-screen');
+          if (!splashErrorScreen.hidden) return; // already errored
+          var takingTooLong = document.querySelector('.splash-taking-too-long');
+          takingTooLong.hidden = false;
+        }, 20000);
+
         try {
           if (canary) {
             var themeSetting = localStorage.getItem('canary:theme');
@@ -115,26 +247,21 @@
         } catch (e) {
           // ignore
         }
-        if (themeSetting === 'light') {
-          theme = 'light';
-        } else if (themeSetting === 'dark') {
-          theme = 'dark';
-        } else if (themeSetting) {
-          try {
-            var parsed = JSON.parse(themeSetting);
-            if (parsed.accent === 'purple') {
-              accent = '#855cd6';
-            } else if (parsed.accent === 'blue') {
-              accent = '#4c97ff';
-            } else if (parsed.accent === 'red' || parsed.accent === 'rainbow') {
-              accent = '#FF4C4C';
-            }
-            if (parsed.gui === 'dark' || parsed.gui === 'light') {
-              theme = parsed.gui;
-            }
-          } catch (e) {
-            // ignore
+        try {
+          var parsed = JSON.parse(themeSetting);
+          if (parsed.accent === 'purple') {
+            accent = '#855cd6';
+          } else if (parsed.accent === 'blue') {
+            accent = '#4c97ff';
+          } else if (parsed.accent === 'green') {
+            accent = '#59c059';
+          } else if (parsed.accent === 'grey') {
+            accent = '#333';
+          } else if (parsed.accent === 'red' || parsed.accent === 'rainbow') {
+            accent = '#FF4C4C';
           }
+        } catch (e) {
+          // ignore
         }
 
         if (!theme) {
@@ -143,24 +270,27 @@
 
         var splash = document.querySelector('.spash-waiting-for-js');
         splash.setAttribute('data-theme', theme);
-        if (theme !== 'dark') {
-          <% if (htmlWebpackPlugin.options.isEditor) { %>
-            splash.style.backgroundColor = accent;
-            splash.style.color = 'white';
-          <% } else { %>
-            splash.style.color = accent;
-          <% } %>
-        }
+        <% if (htmlWebpackPlugin.options.isEditor) { %>
+          splash.style.backgroundColor = accent;
+          splash.style.color = 'white';
+        <% } else { %>
+          splash.style.color = accent;
+        <% } %>
         splash.hidden = false;
 
         var splashErrorTitle = document.querySelector('.splash-error-title');
+        var splashMain = document.querySelector('.splash-main');
+        var splashErrorScreen = document.querySelector('.splash-error-screen');
         var splashError = document.querySelector('.splash-errors');
         var splashReset = document.querySelector('.splash-reset');
+        var splashDeleteData = document.querySelector('.splash-delete-data');
+        var splashCopy = document.querySelector('.splash-copy');
 
         var totalErrors = 0;
         window.onerror = function (event, source, line, col, err) {
           if (++totalErrors > 5) return; // dont bother logging more
-          splashErrorTitle.hidden = splashError.hidden = splashReset.hidden = false;
+          splashMain.hidden = true;
+          splashErrorScreen.hidden = false;
           var el = document.createElement('div');
           el.textContent = 'Error (splash) in ' + source + ' (' + line + ':' + col + '): ' + err;
           splashError.appendChild(el);
@@ -184,6 +314,43 @@
               .catch(hardRefresh);
           } else {
             hardRefresh();
+          }
+        };
+        splashDeleteData.onclick = function () {
+            try {
+            if (!confirm('Your backpack and restore points will be deleted. Continue?')) {
+              return;
+            }
+            <% if (process.env.ampmod_is_canary) { %>
+                  const storagePrefix = 'canary:';
+                  const databasePrefix = 'Canary';
+            <% } else { %>
+                  const storagePrefix = 'tw:';
+                  const databasePrefix = 'TW_';
+            <% } %>
+            window.localStorage.removeItem(storagePrefix + "theme");
+            window.indexedDB.deleteDatabase(databasePrefix + "RestorePoints");
+            window.indexedDB.deleteDatabase(databasePrefix + "Backpack");
+            window.localStorage.removeItem(storagePrefix + "username");
+            window.localStorage.removeItem(storagePrefix + "language");
+            location.reload();
+          } catch (e) {
+            // ignore
+          }
+        };
+
+        splashCopy.onclick = function () {
+          try {
+            navigator.clipboard.writeText(splashError.textContent);
+            splashCopy.textContent = 'Copied!';
+            setTimeout(function () {
+              splashCopy.textContent = 'here';
+            }, 2000);
+          } catch (e) {
+            splashCopy.textContent = 'Failed to copy';
+            setTimeout(function () {
+              splashCopy.textContent = 'here';
+            }, 2000);
           }
         };
 
