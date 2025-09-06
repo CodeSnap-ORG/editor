@@ -7,7 +7,7 @@ build
 *.svg
 
 # Dependencies
-**/node_modules
+node_modules
 
 # Addons should follow the rules that its upstream follows.
 /packages/gui/src/addons/*

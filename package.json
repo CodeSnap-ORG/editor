@@ -5,13 +5,13 @@
   "private": true,
   "scripts": {
     "test": "npm run test --workspaces",
-    "prepare": "npm run prepare --workspaces",
+    "prepare": "husky && npm run prepare --workspaces",
     "build": "npm run build --workspace packages/gui",
     "ci-build": "npm run ci-build --workspace packages/gui",
     "start": "npm run start --workspace packages/gui"
   },
   "author": "AmpElectrecuted",
-  "license": "GPL-3.0-only OR MPL-2.0 OR 0BSD",
+  "license": "GPL-3.0-only OR MPLm-2.0 OR 0BSD",
   "workspaces": [
     "packages/*"
   ],
@@ -19,5 +19,10 @@
     "webpack": "^4.47.0",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.3"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.6",
+    "prettier": "^3.6.2"
   }
 }
