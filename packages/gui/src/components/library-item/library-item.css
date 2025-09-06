@@ -253,3 +253,8 @@
 .library-item:hover .favorite-container {
     display: block;
 }
+
+.deprecated-warning {
+    font-weight: bold;
+    color: $turbowarp-color;
+}

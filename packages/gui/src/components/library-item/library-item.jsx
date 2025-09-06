@@ -115,6 +115,22 @@ class LibraryItemComponent extends React.PureComponent {
                     </span>
                 </div>
 
+                {this.props.deprecated && (
+                    <div
+                        className={[
+                            styles.deprecatedWarning,
+                            styles.featuredText,
+                        ].join(" ")}
+                    >
+                        <FormattedMessage
+                            defaultMessage="Deprecated: {reason}"
+                            description="Warning message for deprecated extensions"
+                            id="amp.deprecatedExtension"
+                            values={{ reason: this.props.deprecated }}
+                        />
+                    </div>
+                )}
+
                 {(this.props.docsURI || this.props.samples) && (
                     <div className={styles.extensionLinks}>
                         {this.props.docsURI && (

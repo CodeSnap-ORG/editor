@@ -53,7 +53,10 @@ const fetchLibrary = async () => {
     return data.extensions.map((extension) => ({
         name: extension.name,
         nameTranslations: extension.nameTranslations || {},
-        description: extension.description,
+        description:
+            extension.deprecated == extension.description
+                ? null
+                : extension.description,
         descriptionTranslations: extension.descriptionTranslations || {},
         extensionId: extension.id,
         extensionURL: `https://ampmod.codeberg.page/extensions/${extension.slug}.js`,
@@ -62,6 +65,7 @@ const fetchLibrary = async () => {
             ...(extension.isAmpMod ? ["ampmod"] : ["tw"]),
             ...(extension.tags || []),
         ],
+        deprecated: extension.deprecated,
         credits: [...(extension.original || []), ...(extension.by || [])].map(
             (credit) => {
                 if (credit.link) {

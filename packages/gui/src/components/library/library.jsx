@@ -435,6 +435,7 @@ class LibraryComponent extends React.Component {
                                         credits={dataItem.credits}
                                         samples={dataItem.samples}
                                         docsURI={dataItem.docsURI}
+                                        deprecated={dataItem.deprecated}
                                         showPlayButton={
                                             this.props.showPlayButton
                                         }

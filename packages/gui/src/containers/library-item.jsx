@@ -49,6 +49,17 @@ class LibraryItem extends React.PureComponent {
             return;
         }
 
+        if (this.props.deprecated) {
+            if (
+                !window.confirm(
+                    `This extension is deprecated for the following reason:\n\n${this.props.deprecated}\n\nAre you sure you want to enable it?`,
+                )
+            ) {
+                e.preventDefault();
+                return;
+            }
+        }
+
         if (!this.props.disabled) {
             if (this.props.href) {
                 window.open(this.props.href);
@@ -165,6 +176,7 @@ class LibraryItem extends React.PureComponent {
                 name={this.props.name}
                 credits={this.props.credits}
                 docsURI={this.props.docsURI}
+                deprecated={this.props.deprecated}
                 samples={this.props.samples}
                 favorite={this.props.favorite}
                 onFavorite={this.handleFavorite}
