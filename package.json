@@ -11,7 +11,7 @@
     "start": "npm run start --workspace packages/gui"
   },
   "author": "AmpElectrecuted",
-  "license": "GPL-3.0-only OR MPLm-2.0 OR 0BSD",
+  "license": "GPL-3.0-only OR MPL-2.0 OR 0BSD",
   "workspaces": [
     "packages/*"
   ],
