@@ -6,7 +6,7 @@
       body {
         margin: 0;
         padding: 0;
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-family: Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
         color: black;
         background-color: white;
       }
@@ -135,7 +135,7 @@
           strings["update.permanently-ignore"];
 
         const permanentCheckbox = document.querySelector(
-          ".permanently-ignore-checkbox",
+          ".permanently-ignore-checkbox"
         );
         downloadButton.addEventListener("click", () => {
           UpdatePreload.download();
@@ -183,7 +183,7 @@
 
         const changelog = document.querySelector(".update-log");
         fetch(
-          `https://desktop.turbowarp.org/changelog.json?version=${info.latestVersion}`,
+          `https://desktop.turbowarp.org/changelog.json?version=${info.latestVersion}`
         )
           .then((res) => {
             if (!res.ok) {
@@ -201,7 +201,7 @@
                   B_IS_NEWER &&
                 // Only show notes that are older than the version we're upgrading to
                 compareVersions(info.latestVersion, release.version) !==
-                  B_IS_NEWER,
+                  B_IS_NEWER
             );
 
             if (filteredReleases.length) {
@@ -235,7 +235,7 @@
             p.className = "error";
             p.textContent = strings["update.changelog-error"].replace(
               "{error}",
-              `${error}`,
+              `${error}`
             );
             changelog.appendChild(p);
           });

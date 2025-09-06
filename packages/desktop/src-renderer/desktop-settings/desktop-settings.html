@@ -6,7 +6,7 @@
       body {
         margin: 0;
         padding: 0;
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-family: Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
         color: black;
         background-color: white;
         accent-color: #ff4c4c;
@@ -80,13 +80,13 @@
       <div class="warning update-checker-warning"></div>
       <script>
         const updateCheckerDisabledMessage = document.querySelector(
-          ".update-checker-disabled",
+          ".update-checker-disabled"
         );
         const updateCheckerOuter = document.querySelector(
-          ".update-checker-outer",
+          ".update-checker-outer"
         );
         const updateCheckerWarning = document.querySelector(
-          ".update-checker-warning",
+          ".update-checker-warning"
         );
 
         updateCheckerDisabledMessage.hidden = settings.updateCheckerAllowed;
@@ -95,7 +95,7 @@
 
         if (settings.updateCheckerAllowed) {
           const updateCheckerSelect = document.querySelector(
-            ".update-checker-select",
+            ".update-checker-select"
           );
           updateCheckerSelect.onchange = () => {
             DesktopSettingsPreload.setUpdateChecker(updateCheckerSelect.value);
@@ -129,11 +129,11 @@
         </select>
         <script>
           const selectedMicrophoneSelect = document.querySelector(
-            ".selected-microphone-select",
+            ".selected-microphone-select"
           );
           selectedMicrophoneSelect.onchange = () => {
             DesktopSettingsPreload.setMicrophone(
-              selectedMicrophoneSelect.value,
+              selectedMicrophoneSelect.value
             );
             mediaDeviceWarning.hidden = false;
           };
@@ -152,7 +152,7 @@
         </select>
         <script>
           const selectedCameraSelect = document.querySelector(
-            ".selected-camera-select",
+            ".selected-camera-select"
           );
           selectedCameraSelect.onchange = () => {
             DesktopSettingsPreload.setCamera(selectedCameraSelect.value);
@@ -171,7 +171,7 @@
 
       <script>
         const mediaDeviceWarning = document.querySelector(
-          ".media-device-warning",
+          ".media-device-warning"
         );
         mediaDeviceWarning.textContent =
           strings["desktop-settings.media-devices-changed"];
@@ -189,7 +189,7 @@
             element.removeChild(element.firstChild);
           }
           element.appendChild(
-            createStatusMessageOption(strings["desktop-settings.loading"]),
+            createStatusMessageOption(strings["desktop-settings.loading"])
           );
         };
 
@@ -200,7 +200,7 @@
 
           if (devices.length === 0) {
             element.appendChild(
-              createStatusMessageOption(strings["desktop-settings.no-devices"]),
+              createStatusMessageOption(strings["desktop-settings.no-devices"])
             );
           } else {
             for (const device of devices) {
@@ -237,12 +237,12 @@
             addOptions(
               selectedMicrophoneSelect,
               settings.microphone,
-              mediaDevices.filter((i) => i.kind === "audioinput"),
+              mediaDevices.filter((i) => i.kind === "audioinput")
             );
             addOptions(
               selectedCameraSelect,
               settings.camera,
-              mediaDevices.filter((i) => i.kind === "videoinput"),
+              mediaDevices.filter((i) => i.kind === "videoinput")
             );
           } catch (error) {
             console.error(error);
@@ -265,14 +265,14 @@
       <div class="warning hardware-acceleration-warning"></div>
       <script>
         const hardwareAcceleration = document.querySelector(
-          ".hardware-acceleration-checkbox",
+          ".hardware-acceleration-checkbox"
         );
         const hardwareAccelerationWarning = document.querySelector(
-          ".hardware-acceleration-warning",
+          ".hardware-acceleration-warning"
         );
         hardwareAcceleration.onchange = () => {
           DesktopSettingsPreload.setHardwareAcceleration(
-            hardwareAcceleration.checked,
+            hardwareAcceleration.checked
           );
           hardwareAccelerationWarning.hidden = hardwareAcceleration.checked;
         };
@@ -296,14 +296,14 @@
       <div class="warning background-throttling-warning"></div>
       <script>
         const backgroundThrottling = document.querySelector(
-          ".background-throttling-checkbox",
+          ".background-throttling-checkbox"
         );
         const backgroundThrottlingWarning = document.querySelector(
-          ".background-throttling-warning",
+          ".background-throttling-warning"
         );
         backgroundThrottling.onchange = () => {
           DesktopSettingsPreload.setBackgroundThrottling(
-            backgroundThrottling.checked,
+            backgroundThrottling.checked
           );
           backgroundThrottlingWarning.hidden = backgroundThrottling.checked;
         };
@@ -328,7 +328,7 @@
       <script>
         const bypassCORS = document.querySelector(".bypass-cors-checkbox");
         const bypassCORSWarning = document.querySelector(
-          ".bypass-cors-warning",
+          ".bypass-cors-warning"
         );
         bypassCORS.onchange = () => {
           DesktopSettingsPreload.setBypassCORS(bypassCORS.checked);
@@ -371,11 +371,11 @@
       </label>
       <script>
         const exitFullscreenOnEscape = document.querySelector(
-          ".exit-fullscreen-on-escape-checkbox",
+          ".exit-fullscreen-on-escape-checkbox"
         );
         exitFullscreenOnEscape.onchange = () => {
           DesktopSettingsPreload.setExitFullscreenOnEscape(
-            exitFullscreenOnEscape.checked,
+            exitFullscreenOnEscape.checked
           );
         };
         exitFullscreenOnEscape.checked = settings.exitFullscreenOnEscape;
@@ -400,10 +400,10 @@
       <script>
         const richPresence = document.querySelector(".rich-presence-checkbox");
         const richPresenceLabel = document.querySelector(
-          ".rich-presence-label",
+          ".rich-presence-label"
         );
         const richPresenceMoreInformation = document.querySelector(
-          ".rich-presence-more-information",
+          ".rich-presence-more-information"
         );
         if (settings.richPresenceAvailable) {
           richPresence.onchange = () => {

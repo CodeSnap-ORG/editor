@@ -8,7 +8,7 @@
     />
     <style>
       :root {
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        font-family: Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
         background-color: #333;
         color: #eee;
       }
@@ -171,7 +171,7 @@
       const stepsElement = document.querySelector(".steps");
       const errorNextStepsElement = document.querySelector(".error-next-steps");
       const timedOutNextStepsElement = document.querySelector(
-        ".timed-out-next-steps",
+        ".timed-out-next-steps"
       );
 
       for (const button of document.querySelectorAll(".continue-anyways")) {
@@ -191,7 +191,7 @@
         new Promise((resolve, reject) => {
           if (
             !databases.find(
-              (i) => i.name === databaseName && i.version === databaseVersion,
+              (i) => i.name === databaseName && i.version === databaseVersion
             )
           ) {
             return resolve(null);
@@ -309,24 +309,24 @@
                     storage,
                     backpackKeys,
                   },
-                  CHILD_ORIGIN,
+                  CHILD_ORIGIN
                 );
               } else if (type === "backpack") {
                 const read = await readByKey(
                   backpackDB,
                   "backpack",
-                  e.data.key,
+                  e.data.key
                 );
                 e.source.postMessage(
                   {
                     backpackData: read.result,
                   },
                   CHILD_ORIGIN,
-                  read.transfer,
+                  read.transfer
                 );
                 setStepProgress(
                   ++transferredBackpackItems,
-                  backpackKeys.length,
+                  backpackKeys.length
                 );
               } else if (type === "error") {
                 reject(e.data.error);
@@ -382,7 +382,7 @@
                     storage,
                     blobKeys,
                   },
-                  CHILD_ORIGIN,
+                  CHILD_ORIGIN
                 );
               } else if (type === "blob") {
                 const read = await readByKey(blobDB, "blobs", e.data.key);
@@ -391,7 +391,7 @@
                     blobData: read.result,
                   },
                   CHILD_ORIGIN,
-                  read.transfer,
+                  read.transfer
                 );
                 setStepProgress(++transferredBlobs, blobKeys.length);
               } else if (type === "error") {
@@ -419,8 +419,8 @@
           request.onerror = () => {
             reject(
               new Error(
-                `Failed to delete IDB database ${databaseName}: ${request.error}`,
-              ),
+                `Failed to delete IDB database ${databaseName}: ${request.error}`
+              )
             );
           };
           request.onsuccess = () => {
