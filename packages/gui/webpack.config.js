@@ -1,10 +1,12 @@
 const defaultsDeep = require("lodash.defaultsdeep");
 const path = require("path");
 const webpack = require("webpack");
+const zlib = require("zlib");
 
 // Plugins
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const CompressionPlugin = require("compression-webpack-plugin");
 
 // PostCss
 const autoprefixer = require("autoprefixer");
@@ -27,7 +29,7 @@ const htmlWebpackPluginCommon = {
 };
 
 // When this changes, the path for all JS files will change, bypassing any HTTP caches
-const CACHE_EPOCH = `amp-${JSON.stringify(process.env.npm_package_version)}`;
+const CACHE_EPOCH = `amp-${process.env.npm_package_version}`;
 
 const base = {
     mode: process.env.NODE_ENV === "production" ? "production" : "development",
@@ -163,6 +165,22 @@ const base = {
                     force: true,
                 },
             ],
+        }),
+        new CompressionPlugin({
+            filename:
+                process.env.NODE_ENV === "production"
+                    ? `js/${CACHE_EPOCH}/[name].js.br`
+                    : "js/[name].js.br",
+            algorithm: "brotliCompress",
+            test: /js\/amp\-.*\.js$/,
+            compressionOptions: {
+                params: {
+                    [zlib.constants.BROTLI_PARAM_QUALITY]: 11,
+                },
+            },
+            threshold: 1000,
+            minRatio: 0.85,
+            deleteOriginalAssets: "keep-source-map",
         }),
     ],
 };
