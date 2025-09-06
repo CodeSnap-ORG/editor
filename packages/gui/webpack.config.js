@@ -169,8 +169,8 @@ const base = {
         new CompressionPlugin({
             filename:
                 process.env.NODE_ENV === "production"
-                    ? `js/${CACHE_EPOCH}/[name].br`
-                    : "js/[name].br",
+                    ? `js/${CACHE_EPOCH}/[name].js.br`
+                    : "js/[name].js.br",
             algorithm: "brotliCompress",
             test: /js\/amp\-.*\.js$/,
             compressionOptions: {
@@ -181,6 +181,19 @@ const base = {
             threshold: 1000,
             minRatio: 0.85,
             deleteOriginalAssets: "keep-source-map",
+        }),
+        new CompressionPlugin({
+            filename: "microbit/[mame].hex.br",
+            algorithm: "brotliCompress",
+            test: /microbit\/.*\.hex$/,
+            compressionOptions: {
+                params: {
+                    [zlib.constants.BROTLI_PARAM_QUALITY]: 11,
+                },
+            },
+            threshold: 1,
+            minRatio: 0,
+            deleteOriginalAssets: true,
         }),
     ],
 };
