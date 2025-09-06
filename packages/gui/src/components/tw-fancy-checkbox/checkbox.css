@@ -5,17 +5,21 @@
     width: 18px;
     height: 18px;
     border-radius: 4px;
-    transition: .2s;
+    transition: 0.2s;
     background-color: $ui-white;
     transition-property: background-color;
     background-size: 100%;
     border: 1px solid $ui-black-transparent;
     outline: none;
 }
-.checkbox:hover, .checkbox:focus, .checkbox:active, .checkbox:checked {
+.checkbox:hover,
+.checkbox:focus,
+.checkbox:active,
+.checkbox:checked {
     border-color: $looks-secondary;
 }
-.checkbox:focus, .checkbox:active {
+.checkbox:focus,
+.checkbox:active {
     box-shadow: 0 0 0 3px $looks-transparent;
 }
 .checkbox:checked {

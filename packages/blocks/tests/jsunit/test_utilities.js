@@ -18,14 +18,13 @@
  * limitations under the License.
  */
 
- /**
+/**
  * @fileoverview Test utilities.
  * @author marisaleung@google.com (Marisa Leung)
  */
-'use strict';
+"use strict";
 
-goog.require('goog.testing');
-
+goog.require("goog.testing");
 
 /**
  * The normal blockly event fire function.  We sometimes override this.  This
@@ -67,15 +66,19 @@ function isEqualArrays(array1, array2) {
  * @param {Array<!Object>} return_values The values to return when called.
  * @return {!goog.testing.MockInterface} The mocked method.
  */
-function setUpMockMethod(mockControl, scope, funcName, parameters,
-	return_values) {
+function setUpMockMethod(
+  mockControl,
+  scope,
+  funcName,
+  parameters,
+  return_values,
+) {
   var mockMethod = mockControl.createMethodMock(scope, funcName);
   if (return_values) {
-    for (var i = 0, return_value; return_value = return_values[i]; i++) {
+    for (var i = 0, return_value; (return_value = return_values[i]); i++) {
       if (parameters && i < parameters.length) {
         mockMethod(parameters[i]).$returns(return_value);
-      }
-      else {
+      } else {
         mockMethod().$returns(return_value);
       }
     }
@@ -115,12 +118,12 @@ function checkVariableValues(container, name, type, id) {
  * @return {!Blockly.Block} The created block.
  */
 function createMockBlock(variable_id) {
-  if (!Blockly.Blocks['get_var_block']) {
+  if (!Blockly.Blocks["get_var_block"]) {
     fail();
   }
   // Turn off events to avoid testing XML at the same time.
   Blockly.Events.disable();
-  var block = new Blockly.Block(workspace, 'get_var_block');
+  var block = new Blockly.Block(workspace, "get_var_block");
   block.inputList[0].fieldRow[0].setValue(variable_id);
   Blockly.Events.enable();
   return block;
@@ -128,32 +131,34 @@ function createMockBlock(variable_id) {
 
 function createTwoVariablesAndBlocks(workspace) {
   // Create two variables of different types.
-  workspace.createVariable('name1', 'type1', 'id1');
-  workspace.createVariable('name2', 'type2', 'id2');
+  workspace.createVariable("name1", "type1", "id1");
+  workspace.createVariable("name2", "type2", "id2");
   // Create blocks to refer to both of them.
-  createMockBlock('id1');
-  createMockBlock('id2');
+  createMockBlock("id1");
+  createMockBlock("id2");
 }
 
 function createVariableAndBlock(workspace) {
-  workspace.createVariable('name1', 'type1', 'id1');
-  createMockBlock('id1');
+  workspace.createVariable("name1", "type1", "id1");
+  createMockBlock("id1");
 }
 
 function defineGetVarBlock() {
-  Blockly.defineBlocksWithJsonArray([{
-    "type": "get_var_block",
-    "message0": "%1",
-    "args0": [
-      {
-        "type": "field_variable",
-        "name": "VAR",
-        "variableTypes": ["", "type1", "type2"]
-      }
-    ]
-  }]);
+  Blockly.defineBlocksWithJsonArray([
+    {
+      type: "get_var_block",
+      message0: "%1",
+      args0: [
+        {
+          type: "field_variable",
+          name: "VAR",
+          variableTypes: ["", "type1", "type2"],
+        },
+      ],
+    },
+  ]);
 }
 
 function undefineGetVarBlock() {
-  delete Blockly.Blocks['get_var_block'];
+  delete Blockly.Blocks["get_var_block"];
 }

@@ -130,7 +130,7 @@ Blockly.Toolbox.prototype.init = function () {
       Blockly.Touch.clearTouchIdentifier(); // Don't block future drags.
     },
     /*opt_noCaptureIdentifier*/ false,
-    /*opt_noPreventDefault*/ true
+    /*opt_noPreventDefault*/ true,
   );
 
   this.createFlyout_();
@@ -175,7 +175,7 @@ Blockly.Toolbox.prototype.createFlyout_ = function () {
 
   goog.dom.insertSiblingAfter(
     this.flyout_.createDom("svg"),
-    this.workspace_.getParentSvg()
+    this.workspace_.getParentSvg(),
   );
   this.flyout_.init(workspace);
 };
@@ -332,21 +332,21 @@ Blockly.Toolbox.prototype.getClientRect = function () {
       -BIG_NUM,
       -BIG_NUM,
       BIG_NUM + x + width,
-      2 * BIG_NUM
+      2 * BIG_NUM,
     );
   } else if (this.toolboxPosition == Blockly.TOOLBOX_AT_RIGHT) {
     return new goog.math.Rect(
       toolboxRect.right - width,
       -BIG_NUM,
       BIG_NUM + width,
-      2 * BIG_NUM
+      2 * BIG_NUM,
     );
   } else if (this.toolboxPosition == Blockly.TOOLBOX_AT_TOP) {
     return new goog.math.Rect(
       -BIG_NUM,
       -BIG_NUM,
       2 * BIG_NUM,
-      BIG_NUM + y + height
+      BIG_NUM + y + height,
     );
   } else {
     // Bottom
@@ -624,7 +624,7 @@ Blockly.Toolbox.CategoryMenu.prototype.createDom = function () {
     "div",
     this.parent_.horizontalLayout_
       ? "scratchCategoryMenuHorizontal"
-      : "scratchCategoryMenu"
+      : "scratchCategoryMenu",
   );
   this.parentHtml_.appendChild(this.table);
 };
@@ -741,7 +741,7 @@ Blockly.Toolbox.Category.prototype.createDom = function () {
   this.label_ = goog.dom.createDom(
     "div",
     { class: "scratchCategoryMenuItemLabel" },
-    Blockly.utils.replaceMessageReferences(this.name_)
+    Blockly.utils.replaceMessageReferences(this.name_),
   );
   if (this.iconURI_) {
     this.bubble_ = goog.dom.createDom("div", {
@@ -762,7 +762,7 @@ Blockly.Toolbox.Category.prototype.createDom = function () {
     this.item_,
     "mouseup",
     toolbox,
-    toolbox.setSelectedItemFactory(this)
+    toolbox.setSelectedItemFactory(this),
   );
 };
 

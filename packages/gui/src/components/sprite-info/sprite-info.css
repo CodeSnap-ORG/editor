@@ -21,7 +21,9 @@
     margin-bottom: 0.5rem;
 }
 
-.label { opacity: 0.8; }
+.label {
+    opacity: 0.8;
+}
 
 .group {
     display: inline-flex;
@@ -36,7 +38,7 @@
 }
 
 .column span {
-    margin-bottom: .25rem;
+    margin-bottom: 0.25rem;
 }
 
 .icon-wrapper {

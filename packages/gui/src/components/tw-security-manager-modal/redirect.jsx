@@ -1,10 +1,10 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {FormattedMessage} from 'react-intl';
-import {APP_NAME} from '../../lib/brand';
-import URL from './url.jsx';
+import React from "react";
+import PropTypes from "prop-types";
+import { FormattedMessage } from "react-intl";
+import { APP_NAME } from "../../lib/brand";
+import URL from "./url.jsx";
 
-const RedirectModal = props => (
+const RedirectModal = (props) => (
     <div>
         <FormattedMessage
             defaultMessage="The project wants to navigate this tab to the URL:"
@@ -19,16 +19,15 @@ const RedirectModal = props => (
                 description="Part of modal when a project attempts to navigate the current tab using an extension"
                 id="tw.redirect.dangerous"
                 values={{
-                    APP_NAME
+                    APP_NAME,
                 }}
             />
         </p>
     </div>
-
 );
 
 RedirectModal.propTypes = {
-    url: PropTypes.string.isRequired
+    url: PropTypes.string.isRequired,
 };
 
 export default RedirectModal;

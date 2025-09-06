@@ -1,24 +1,22 @@
-import React from 'react';
-import {connect} from 'react-redux';
-import PropTypes from 'prop-types';
-import {setCloudHost} from '../reducers/tw';
-import CloudVariableBadge from '../components/tw-cloud-variable-badge/cloud-variable-badge.jsx';
-import bindAll from 'lodash.bindall';
-import {openUsernameModal} from '../reducers/modals';
+import React from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { setCloudHost } from "../reducers/tw";
+import CloudVariableBadge from "../components/tw-cloud-variable-badge/cloud-variable-badge.jsx";
+import bindAll from "lodash.bindall";
+import { openUsernameModal } from "../reducers/modals";
 
 class TWCloudVariableBadge extends React.Component {
-    constructor (props) {
+    constructor(props) {
         super(props);
-        bindAll(this, [
-            'handleChangeCloudHost'
-        ]);
+        bindAll(this, ["handleChangeCloudHost"]);
     }
 
-    handleChangeCloudHost (cloudHost) {
+    handleChangeCloudHost(cloudHost) {
         this.props.onSetCloudHost(cloudHost);
     }
 
-    render () {
+    render() {
         return (
             <CloudVariableBadge
                 cloudHost={this.props.cloudHost}
@@ -32,19 +30,19 @@ class TWCloudVariableBadge extends React.Component {
 TWCloudVariableBadge.propTypes = {
     cloudHost: PropTypes.string,
     onSetCloudHost: PropTypes.func,
-    onOpenChangeUsername: PropTypes.func
+    onOpenChangeUsername: PropTypes.func,
 };
 
-const mapStateToProps = state => ({
-    cloudHost: state.scratchGui.tw.cloudHost
+const mapStateToProps = (state) => ({
+    cloudHost: state.scratchGui.tw.cloudHost,
 });
 
-const mapDispatchToProps = dispatch => ({
-    onSetCloudHost: cloudHost => dispatch(setCloudHost(cloudHost)),
-    onOpenChangeUsername: () => dispatch(openUsernameModal())
+const mapDispatchToProps = (dispatch) => ({
+    onSetCloudHost: (cloudHost) => dispatch(setCloudHost(cloudHost)),
+    onOpenChangeUsername: () => dispatch(openUsernameModal()),
 });
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps
+    mapDispatchToProps,
 )(TWCloudVariableBadge);

@@ -72,7 +72,7 @@ goog.require("goog.math.Rect");
 Blockly.WorkspaceSvg = function (
   options,
   opt_blockDragSurface,
-  opt_wsDragSurface
+  opt_wsDragSurface,
 ) {
   Blockly.WorkspaceSvg.superClass_.constructor.call(this, options);
   this.getMetrics =
@@ -119,11 +119,11 @@ Blockly.WorkspaceSvg = function (
 
   this.registerToolboxCategoryCallback(
     Blockly.VARIABLE_CATEGORY_NAME,
-    Blockly.DataCategory
+    Blockly.DataCategory,
   );
   this.registerToolboxCategoryCallback(
     Blockly.PROCEDURE_CATEGORY_NAME,
-    Blockly.Procedures.flyoutCategory
+    Blockly.Procedures.flyoutCategory,
   );
 
   this.procedureReturnsEnabled = Blockly.Procedures.DEFAULT_ENABLE_RETURNS;
@@ -449,7 +449,7 @@ Blockly.WorkspaceSvg.prototype.createDom = function (opt_backgroundClass) {
   this.svgGroup_ = Blockly.utils.createSvgElement(
     "g",
     { class: "blocklyWorkspace" },
-    null
+    null,
   );
 
   // Note that a <g> alone does not receive mouse events--it must have a
@@ -460,7 +460,7 @@ Blockly.WorkspaceSvg.prototype.createDom = function (opt_backgroundClass) {
     this.svgBackground_ = Blockly.utils.createSvgElement(
       "rect",
       { height: "100%", width: "100%", class: opt_backgroundClass },
-      this.svgGroup_
+      this.svgGroup_,
     );
 
     if (opt_backgroundClass == "blocklyMainBackground" && this.grid_) {
@@ -473,14 +473,14 @@ Blockly.WorkspaceSvg.prototype.createDom = function (opt_backgroundClass) {
     "g",
     { class: "blocklyBlockCanvas" },
     this.svgGroup_,
-    this
+    this,
   );
   /** @type {SVGElement} */
   this.svgBubbleCanvas_ = Blockly.utils.createSvgElement(
     "g",
     { class: "blocklyBubbleCanvas" },
     this.svgGroup_,
-    this
+    this,
   );
   var bottom = Blockly.Scrollbar.scrollbarThickness;
   if (this.options.hasTrashcan) {
@@ -495,7 +495,7 @@ Blockly.WorkspaceSvg.prototype.createDom = function (opt_backgroundClass) {
       this.svgGroup_,
       "mousedown",
       this,
-      this.onMouseDown_
+      this.onMouseDown_,
     );
     if (this.options.zoomOptions && this.options.zoomOptions.wheel) {
       // Mouse-wheel.
@@ -503,7 +503,7 @@ Blockly.WorkspaceSvg.prototype.createDom = function (opt_backgroundClass) {
         this.svgGroup_,
         "wheel",
         this,
-        this.onMouseWheel_
+        this.onMouseWheel_,
       );
     }
   }
@@ -740,7 +740,7 @@ Blockly.WorkspaceSvg.prototype.procedureReturnsWillChange = function () {
     this.checkProcedureReturnAfterGesture_ = true;
   } else {
     this.procedureReturnChangeTimeout_ = setTimeout(
-      this.processProcedureReturnsChanged_.bind(this)
+      this.processProcedureReturnsChanged_.bind(this),
     );
   }
 };
@@ -972,7 +972,7 @@ Blockly.WorkspaceSvg.prototype.setupDragSurface = function () {
     previousElement,
     width,
     height,
-    this.scale
+    this.scale,
   );
   this.workspaceDragSurface_.translateSurface(coord.x, coord.y);
 };
@@ -1136,7 +1136,7 @@ Blockly.WorkspaceSvg.prototype.reportValue = function (id, value) {
   contentDiv.appendChild(valueReportBox);
   Blockly.DropDownDiv.setColour(
     Blockly.Colours.valueReportBackground,
-    Blockly.Colours.valueReportBorder
+    Blockly.Colours.valueReportBorder,
   );
   Blockly.DropDownDiv.showPositionedByBlock(this, block);
 };
@@ -1197,7 +1197,7 @@ Blockly.WorkspaceSvg.prototype.pasteBlock_ = function (xmlBlock) {
           for (var i = 0, connection; (connection = connections[i]); i++) {
             var neighbour = connection.closest(
               Blockly.SNAP_RADIUS,
-              new goog.math.Coordinate(blockX, blockY)
+              new goog.math.Coordinate(blockX, blockY),
             );
             if (neighbour.connection) {
               collide = true;
@@ -1328,7 +1328,7 @@ Blockly.WorkspaceSvg.prototype.createVariable = function (
   opt_type,
   opt_id,
   opt_isLocal,
-  opt_isCloud
+  opt_isCloud,
 ) {
   var variableInMap = this.getVariable(name, opt_type) != null;
   var newVar = Blockly.WorkspaceSvg.superClass_.createVariable.call(
@@ -1337,7 +1337,7 @@ Blockly.WorkspaceSvg.prototype.createVariable = function (
     opt_type,
     opt_id,
     opt_isLocal,
-    opt_isCloud
+    opt_isCloud,
   );
   // For performance reasons, only refresh the the toolbox for new variables.
   // Variables that already exist should already be there.
@@ -1386,7 +1386,7 @@ Blockly.WorkspaceSvg.prototype.recordBlocksArea_ = function () {
       bounds.left,
       bounds.top,
       bounds.width,
-      bounds.height
+      bounds.height,
     );
   } else {
     this.blocksArea_ = null;
@@ -1448,7 +1448,7 @@ Blockly.WorkspaceSvg.prototype.startDrag = function (e, xy) {
   var point = Blockly.utils.mouseToSvg(
     e,
     this.getParentSvg(),
-    this.getInverseScreenCTM()
+    this.getInverseScreenCTM(),
   );
   // Fix scale of mouse event.
   point.x /= this.scale;
@@ -1465,7 +1465,7 @@ Blockly.WorkspaceSvg.prototype.moveDrag = function (e) {
   var point = Blockly.utils.mouseToSvg(
     e,
     this.getParentSvg(),
-    this.getInverseScreenCTM()
+    this.getInverseScreenCTM(),
   );
   // Fix scale of mouse event.
   point.x /= this.scale;
@@ -1512,7 +1512,7 @@ Blockly.WorkspaceSvg.prototype.onMouseWheel_ = function (e) {
     var position = Blockly.utils.mouseToSvg(
       e,
       this.getParentSvg(),
-      this.getInverseScreenCTM()
+      this.getInverseScreenCTM(),
     );
     this.zoom(position.x, position.y, delta);
   } else {
@@ -1624,7 +1624,7 @@ Blockly.WorkspaceSvg.prototype.showContextMenu_ = function (e) {
   // Option to clean up blocks.
   if (this.scrollbar) {
     menuOptions.push(
-      Blockly.ContextMenu.wsCleanupOption(this, topBlocks.length)
+      Blockly.ContextMenu.wsCleanupOption(this, topBlocks.length),
     );
   }
 
@@ -1644,11 +1644,11 @@ Blockly.WorkspaceSvg.prototype.showContextMenu_ = function (e) {
     }
 
     menuOptions.push(
-      Blockly.ContextMenu.wsCollapseOption(hasExpandedBlocks, topBlocks)
+      Blockly.ContextMenu.wsCollapseOption(hasExpandedBlocks, topBlocks),
     );
 
     menuOptions.push(
-      Blockly.ContextMenu.wsExpandOption(hasCollapsedBlocks, topBlocks)
+      Blockly.ContextMenu.wsExpandOption(hasCollapsedBlocks, topBlocks),
     );
   }
 
@@ -1702,7 +1702,7 @@ Blockly.WorkspaceSvg.prototype.showContextMenu_ = function (e) {
             if (ok) {
               deleteNext();
             }
-          }
+          },
         );
       }
     },
@@ -2019,11 +2019,11 @@ Blockly.WorkspaceSvg.prototype.scroll = function (x, y) {
   y = Math.min(y, -metrics.contentTop);
   x = Math.max(
     x,
-    metrics.viewWidth - metrics.contentLeft - metrics.contentWidth
+    metrics.viewWidth - metrics.contentLeft - metrics.contentWidth,
   );
   y = Math.max(
     y,
-    metrics.viewHeight - metrics.contentTop - metrics.contentHeight
+    metrics.viewHeight - metrics.contentTop - metrics.contentHeight,
   );
   // When the workspace starts scrolling, hide the WidgetDiv without animation.
   // This is to prevent a dispoal animation from happening in the wrong location.
@@ -2042,7 +2042,7 @@ Blockly.WorkspaceSvg.prototype.updateStackGlowScale_ = function () {
   if (this.options.stackGlowBlur) {
     this.options.stackGlowBlur.setAttribute(
       "stdDeviation",
-      Blockly.Colours.stackGlowSize / this.scale
+      Blockly.Colours.stackGlowSize / this.scale,
     );
   }
 };
@@ -2208,7 +2208,7 @@ Blockly.WorkspaceSvg.getTopLevelWorkspaceMetrics_ = function () {
   // the toolbox.
   var contentDimensions = Blockly.WorkspaceSvg.getContentDimensions_(
     this,
-    svgSize
+    svgSize,
   );
 
   var absoluteLeft = 0;
@@ -2326,7 +2326,7 @@ Blockly.WorkspaceSvg.prototype.clear = function () {
 Blockly.WorkspaceSvg.prototype.registerButtonCallback = function (key, func) {
   goog.asserts.assert(
     goog.isFunction(func),
-    "Button callbacks must be functions."
+    "Button callbacks must be functions.",
   );
   this.flyoutButtonCallbacks_[key] = func;
 };
@@ -2361,11 +2361,11 @@ Blockly.WorkspaceSvg.prototype.removeButtonCallback = function (key) {
  */
 Blockly.WorkspaceSvg.prototype.registerToolboxCategoryCallback = function (
   key,
-  func
+  func,
 ) {
   goog.asserts.assert(
     goog.isFunction(func),
-    "Toolbox category callbacks must be functions."
+    "Toolbox category callbacks must be functions.",
   );
   this.toolboxCategoryCallbacks_[key] = func;
 };
@@ -2457,7 +2457,7 @@ Blockly.WorkspaceSvg.prototype.cancelCurrentGesture = function () {
  */
 Blockly.WorkspaceSvg.prototype.startDragWithFakeEvent = function (
   fakeEvent,
-  block
+  block,
 ) {
   Blockly.Touch.clearTouchIdentifier();
   Blockly.Touch.checkTouchIdentifier(fakeEvent);

@@ -14,37 +14,58 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+import React from "react";
+import { APP_NAME } from "../../lib/brand.js";
+import { FormattedMessage } from "react-intl";
 
-import React from 'react';
-import { APP_NAME } from '../../lib/brand.js';
-import { FormattedMessage } from 'react-intl';
-
-import styles from './footer.css';
+import styles from "./footer.css";
 
 const hardRefresh = () => {
-    var search = location.search.replace(/[?&]nocache=\d+/, '');
-    location.replace(location.pathname + search + (search ? '&' : '?') + 'nocache=' + Math.floor(Math.random() * 100000));
-}
+    var search = location.search.replace(/[?&]nocache=\d+/, "");
+    location.replace(
+        location.pathname +
+            search +
+            (search ? "&" : "?") +
+            "nocache=" +
+            Math.floor(Math.random() * 100000),
+    );
+};
 
 const eraseData = async () => {
-    if (confirm('Please be aware that this will reset all your local data, including the Restore Points and backpack. Are you sure you want to continue?')) {
-        const prefix = process.env.ampmod_is_canary ? 'canary:' : 'tw:';
-        const keysToRemove = Object.keys(localStorage).filter(key => key.startsWith(prefix));
-        keysToRemove.forEach(key => {
+    if (
+        confirm(
+            "Please be aware that this will reset all your local data, including the Restore Points and backpack. Are you sure you want to continue?",
+        )
+    ) {
+        const prefix = process.env.ampmod_is_canary ? "canary:" : "tw:";
+        const keysToRemove = Object.keys(localStorage).filter((key) =>
+            key.startsWith(prefix),
+        );
+        keysToRemove.forEach((key) => {
             localStorage.removeItem(key);
         });
         if (!process.env.ampmod_is_canary) {
-            const ampKeys = Object.keys(localStorage).filter(key => key.startsWith("amp:"));
-            ampKeys.forEach(key => {
+            const ampKeys = Object.keys(localStorage).filter((key) =>
+                key.startsWith("amp:"),
+            );
+            ampKeys.forEach((key) => {
                 localStorage.removeItem(key);
             });
         }
         // We have to manually delete the databases due to Firefox not supporting indexedDB.databases(). WHYYYY???
-        indexedDB.deleteDatabase(process.env.ampmod_is_canary ? ' Canary_RestorePoints' : 'TW_RestorePoints');
-        indexedDB.deleteDatabase(process.env.ampmod_is_canary ? ' Canary_RestorePoints' : 'TW_RestorePoints');
+        indexedDB.deleteDatabase(
+            process.env.ampmod_is_canary
+                ? " Canary_RestorePoints"
+                : "TW_RestorePoints",
+        );
+        indexedDB.deleteDatabase(
+            process.env.ampmod_is_canary
+                ? " Canary_RestorePoints"
+                : "TW_RestorePoints",
+        );
         location.reload();
     }
-}
+};
 
 const Footer = () => {
     const isAprilFools = () => {
@@ -56,22 +77,24 @@ const Footer = () => {
         <footer className={styles.footer}>
             <div className={styles.footerContent}>
                 <div className={styles.footerText}>
-                    <FormattedMessage  
+                    <FormattedMessage
                         defaultMessage="Version {APP_VERSION}"
                         description="The current version of the application"
                         id="tw.footer.version"
                         values={{
                             APP_NAME,
-                            APP_VERSION: process.env.ampmod_version
+                            APP_VERSION: process.env.ampmod_version,
                         }}
                     />
                     {process.env.ampmod_is_canary && (
-                        <><span className={styles.separator}></span>
-                        <FormattedMessage
-                            defaultMessage="Canary build!!"
-                            description="Text to show that this is a canary build"
-                            id="tw.footer.canaryBuild"
-                        /></>
+                        <>
+                            <span className={styles.separator}></span>
+                            <FormattedMessage
+                                defaultMessage="Canary build!!"
+                                description="Text to show that this is a canary build"
+                                id="tw.footer.canaryBuild"
+                            />
+                        </>
                     )}
                     <span className={styles.separator}></span>
                     <a className={styles.footerResetData} onClick={eraseData}>
@@ -88,7 +111,7 @@ const Footer = () => {
                         description="Disclaimer that TurboWarp is not connected to Scratch"
                         id="tw.footer.disclaimer"
                         values={{
-                            APP_NAME
+                            APP_NAME,
                         }}
                     />
                 </div>
@@ -105,9 +128,9 @@ const Footer = () => {
                                     target="_blank"
                                     rel="noreferrer"
                                 >
-                                    {'https://scratch.org/'}
+                                    {"https://scratch.org/"}
                                 </a>
-                            )
+                            ),
                         }}
                     />
                 </div>
@@ -125,9 +148,9 @@ const Footer = () => {
                                     target="_blank"
                                     rel="noreferrer"
                                 >
-                                    {'https://turbowarp.org/'}
+                                    {"https://turbowarp.org/"}
                                 </a>
-                            )
+                            ),
                         }}
                     />
                 </div>
@@ -166,11 +189,11 @@ const Footer = () => {
                     <div className={styles.footerSection}>
                         <a href="https://desktop.turbowarp.org/">
                             {/* Do not translate */}
-                            {'TurboWarp Desktop'}
+                            {"TurboWarp Desktop"}
                         </a>
                         <a href="https://packager.turbowarp.org/">
                             {/* Do not translate */}
-                            {'TurboWarp Packager'}
+                            {"TurboWarp Packager"}
                         </a>
                         <a href="https://docs.turbowarp.org/embedding">
                             <FormattedMessage
@@ -215,11 +238,11 @@ const Footer = () => {
                                 description="Button to give feedback in the menu bar"
                                 id="tw.topicButton"
                                 values={{
-                                    APP_NAME
+                                    APP_NAME,
                                 }}
                             />
                         </a>
-                        {!process.env.ampmod_is_canary && (
+                        {(!process.env.ampmod_is_canary && (
                             <a href="https://ampmod.codeberg.page/canary/">
                                 <FormattedMessage
                                     defaultMessage="Canary Build"
@@ -227,7 +250,7 @@ const Footer = () => {
                                     id="tw.canary"
                                 />
                             </a>
-                        ) || (
+                        )) || (
                             <a href="https://ampmod.codeberg.page/">
                                 <FormattedMessage
                                     defaultMessage="Production"
@@ -253,7 +276,7 @@ const Footer = () => {
                     </div>
                 </div>
             </div>
-            {isAprilFools() && ';'}
+            {isAprilFools() && ";"}
         </footer>
     );
 };

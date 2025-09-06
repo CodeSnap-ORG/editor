@@ -14,23 +14,21 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import React from 'react';
-import downloadBlob from '../lib/download-blob.js';
-import Settings from '../addons/settings/settings.jsx';
-import render from './app-target';
-import Clippy from '../containers/amp-clippy.jsx';
-import '@fontsource/inter';
+import React from "react";
+import downloadBlob from "../lib/download-blob.js";
+import Settings from "../addons/settings/settings.jsx";
+import render from "./app-target";
+import Clippy from "../containers/amp-clippy.jsx";
+import "@fontsource/inter";
 
-const onExportSettings = settings => {
+const onExportSettings = (settings) => {
     const blob = new Blob([JSON.stringify(settings)]);
-    downloadBlob('turbowarp-addon-settings.json', blob);
+    downloadBlob("turbowarp-addon-settings.json", blob);
 };
 
-render((
+render(
     <React.Fragment>
         <Clippy isFixed />
-        <Settings
-            onExportSettings={onExportSettings}
-        />
-    </React.Fragment>
-));
+        <Settings onExportSettings={onExportSettings} />
+    </React.Fragment>,
+);

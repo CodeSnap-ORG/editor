@@ -1,46 +1,46 @@
-const AbstractWindow = require('./abstract');
-const {translate} = require('../l10n');
-const packageJSON = require('../../package.json');
-const {APP_NAME} = require('../brand');
-const {getDist, getPlatform} = require('../platform');
+const AbstractWindow = require("./abstract");
+const { translate } = require("../l10n");
+const packageJSON = require("../../package.json");
+const { APP_NAME } = require("../brand");
+const { getDist, getPlatform } = require("../platform");
 
 class AboutWindow extends AbstractWindow {
-  constructor () {
+  constructor() {
     super();
 
     this.window.setMinimizable(false);
     this.window.setMaximizable(false);
-    this.window.setTitle(translate('about').replace('{APP_NAME}', APP_NAME));
+    this.window.setTitle(translate("about").replace("{APP_NAME}", APP_NAME));
 
-    this.ipc.on('get-info', (event) => {
+    this.ipc.on("get-info", (event) => {
       event.returnValue = {
         version: packageJSON.version,
         dist: getDist(),
         electron: process.versions.electron,
         platform: getPlatform(),
-        arch: process.arch
+        arch: process.arch,
       };
     });
 
-    this.loadURL('tw-about://./about.html');
+    this.loadURL("tw-about://./about.html");
   }
 
-  getDimensions () {
+  getDimensions() {
     return {
       width: 750,
-      height: 650
+      height: 650,
     };
   }
 
-  getPreload () {
-    return 'about';
+  getPreload() {
+    return "about";
   }
 
-  isPopup () {
+  isPopup() {
     return true;
   }
 
-  static show () {
+  static show() {
     const window = AbstractWindow.singleton(AboutWindow);
     window.show();
   }

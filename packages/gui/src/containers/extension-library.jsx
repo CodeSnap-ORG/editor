@@ -1,34 +1,34 @@
-import bindAll from 'lodash.bindall';
-import PropTypes from 'prop-types';
-import React from 'react';
-import VM from 'scratch-vm';
-import {defineMessages, injectIntl, intlShape} from 'react-intl';
-import log from '../lib/log';
+import bindAll from "lodash.bindall";
+import PropTypes from "prop-types";
+import React from "react";
+import VM from "scratch-vm";
+import { defineMessages, injectIntl, intlShape } from "react-intl";
+import log from "../lib/log";
 
 import extensionLibraryContent, {
     galleryError,
     galleryLoading,
-    galleryMore
-} from '../lib/libraries/extensions/index.jsx';
-import extensionTags from '../lib/libraries/tw-extension-tags';
+    galleryMore,
+} from "../lib/libraries/extensions/index.jsx";
+import extensionTags from "../lib/libraries/tw-extension-tags";
 
-import LibraryComponent from '../components/library/library.jsx';
-import extensionIcon from '../components/action-menu/icon--sprite.svg';
+import LibraryComponent from "../components/library/library.jsx";
+import extensionIcon from "../components/action-menu/icon--sprite.svg";
 
 const messages = defineMessages({
     extensionTitle: {
-        defaultMessage: 'Choose an Extension',
-        description: 'Heading for the extension library',
-        id: 'gui.extensionLibrary.chooseAnExtension'
-    }
+        defaultMessage: "Choose an Extension",
+        description: "Heading for the extension library",
+        id: "gui.extensionLibrary.chooseAnExtension",
+    },
 });
 
-const toLibraryItem = extension => {
-    if (typeof extension === 'object') {
-        return ({
+const toLibraryItem = (extension) => {
+    if (typeof extension === "object") {
+        return {
             rawURL: extension.iconURL || extensionIcon,
-            ...extension
-        });
+            ...extension,
+        };
     }
     return extension;
 };
@@ -36,115 +36,119 @@ const toLibraryItem = extension => {
 const translateGalleryItem = (extension, locale) => ({
     ...extension,
     name: extension.nameTranslations[locale] || extension.name,
-    description: extension.descriptionTranslations[locale] || extension.description
+    description:
+        extension.descriptionTranslations[locale] || extension.description,
 });
 
 let cachedGallery = null;
 
 const fetchLibrary = async () => {
-    const res = await fetch('https://ampmod.codeberg.page/extensions/generated-metadata/extensions-v0.json');
+    const res = await fetch(
+        "https://ampmod.codeberg.page/extensions/generated-metadata/extensions-v0.json",
+    );
     if (!res.ok) {
         throw new Error(`HTTP status ${res.status}`);
     }
     const data = await res.json();
-    return data.extensions.map(extension => ({
+    return data.extensions.map((extension) => ({
         name: extension.name,
         nameTranslations: extension.nameTranslations || {},
         description: extension.description,
         descriptionTranslations: extension.descriptionTranslations || {},
         extensionId: extension.id,
         extensionURL: `https://ampmod.codeberg.page/extensions/${extension.slug}.js`,
-        iconURL: `https://ampmod.codeberg.page/extensions/${extension.image || 'images/unknown.svg'}`,
+        iconURL: `https://ampmod.codeberg.page/extensions/${extension.image || "images/unknown.svg"}`,
         tags: [
-            ...(extension.isAmpMod ? ['ampmod'] : ['tw']),
-            ...(extension.tags || [])
+            ...(extension.isAmpMod ? ["ampmod"] : ["tw"]),
+            ...(extension.tags || []),
         ],
-        credits: [
-            ...(extension.original || []),
-            ...(extension.by || [])
-        ].map(credit => {
-            if (credit.link) {
-                return (
-                    <a
-                        href={credit.link}
-                        target="_blank"
-                        rel="noreferrer"
-                        key={credit.name}
-                    >
-                        {credit.name}
-                    </a>
-                );
-            }
-            return credit.name;
-        }),
-        docsURI: extension.docs ? `https://ampmod.codeberg.page/extensions/${extension.slug}` : null,
-        samples: extension.samples ? extension.samples.map(sample => ({
-            href: `${process.env.ROOT}editor.html?project_url=https://ampmod.codeberg.page/extensions/samples/${encodeURIComponent(sample)}`,
-            text: sample
-        })) : null,
+        credits: [...(extension.original || []), ...(extension.by || [])].map(
+            (credit) => {
+                if (credit.link) {
+                    return (
+                        <a
+                            href={credit.link}
+                            target="_blank"
+                            rel="noreferrer"
+                            key={credit.name}
+                        >
+                            {credit.name}
+                        </a>
+                    );
+                }
+                return credit.name;
+            },
+        ),
+        docsURI: extension.docs
+            ? `https://ampmod.codeberg.page/extensions/${extension.slug}`
+            : null,
+        samples: extension.samples
+            ? extension.samples.map((sample) => ({
+                  href: `${process.env.ROOT}editor.html?project_url=https://ampmod.codeberg.page/extensions/samples/${encodeURIComponent(sample)}`,
+                  text: sample,
+              }))
+            : null,
         incompatibleWithScratch: !extension.scratchCompatible,
-        featured: true
+        featured: true,
     }));
 };
 
 class ExtensionLibrary extends React.PureComponent {
-    constructor (props) {
+    constructor(props) {
         super(props);
-        bindAll(this, [
-            'handleItemSelect'
-        ]);
+        bindAll(this, ["handleItemSelect"]);
         this.state = {
             gallery: cachedGallery,
             galleryError: null,
-            galleryTimedOut: false
+            galleryTimedOut: false,
         };
     }
-    componentDidMount () {
+    componentDidMount() {
         if (!this.state.gallery) {
             const timeout = setTimeout(() => {
                 this.setState({
-                    galleryTimedOut: true
+                    galleryTimedOut: true,
                 });
             }, 750);
 
             fetchLibrary()
-                .then(gallery => {
+                .then((gallery) => {
                     cachedGallery = gallery;
                     this.setState({
-                        gallery
+                        gallery,
                     });
                     clearTimeout(timeout);
                 })
-                .catch(error => {
+                .catch((error) => {
                     log.error(error);
                     this.setState({
-                        galleryError: error
+                        galleryError: error,
                     });
                     clearTimeout(timeout);
                 });
         }
     }
-    handleItemSelect (item) {
+    handleItemSelect(item) {
         if (item.href) {
             return;
         }
 
         const extensionId = item.extensionId;
 
-        if (extensionId === 'custom_extension') {
+        if (extensionId === "custom_extension") {
             this.props.onOpenCustomExtensionModal();
             return;
         }
 
-        if (extensionId === 'procedures_enable_return') {
+        if (extensionId === "procedures_enable_return") {
             this.props.onEnableProcedureReturns();
-            this.props.onCategorySelected('myBlocks');
+            this.props.onCategorySelected("myBlocks");
             return;
         }
 
-        if (extensionId === 'data_enable_lists') {
+        if (extensionId === "data_enable_lists") {
             this.props.onEnableLegacyLists();
-            this.props.onCategorySelected('variables');
+            this.props.onCategorySelected("variables");
             return;
         }
 
@@ -153,11 +157,12 @@ class ExtensionLibrary extends React.PureComponent {
             if (this.props.vm.extensionManager.isExtensionLoaded(extensionId)) {
                 this.props.onCategorySelected(extensionId);
             } else {
-                this.props.vm.extensionManager.loadExtensionURL(url)
+                this.props.vm.extensionManager
+                    .loadExtensionURL(url)
                     .then(() => {
                         this.props.onCategorySelected(extensionId);
                     })
-                    .catch(err => {
+                    .catch((err) => {
                         log.error(err);
                         // eslint-disable-next-line no-alert
                         alert(err);
@@ -165,18 +170,22 @@ class ExtensionLibrary extends React.PureComponent {
             }
         }
     }
-    render () {
+    render() {
         let library = null;
-        if (this.state.gallery || this.state.galleryError || this.state.galleryTimedOut) {
+        if (
+            this.state.gallery ||
+            this.state.galleryError ||
+            this.state.galleryTimedOut
+        ) {
             library = extensionLibraryContent.map(toLibraryItem);
-            library.push('---');
+            library.push("---");
             if (this.state.gallery) {
                 library.push(toLibraryItem(galleryMore));
                 const locale = this.props.intl.locale;
                 library.push(
                     ...this.state.gallery
-                        .map(i => translateGalleryItem(i, locale))
-                        .map(toLibraryItem)
+                        .map((i) => translateGalleryItem(i, locale))
+                        .map(toLibraryItem),
                 );
             } else if (this.state.galleryError) {
                 library.push(toLibraryItem(galleryError));
@@ -209,7 +218,7 @@ ExtensionLibrary.propTypes = {
     onOpenCustomExtensionModal: PropTypes.func,
     onRequestClose: PropTypes.func,
     visible: PropTypes.bool,
-    vm: PropTypes.instanceOf(VM).isRequired // eslint-disable-line react/no-unused-prop-types
+    vm: PropTypes.instanceOf(VM).isRequired, // eslint-disable-line react/no-unused-prop-types
 };
 
 export default injectIntl(ExtensionLibrary);

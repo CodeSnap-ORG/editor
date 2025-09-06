@@ -1,36 +1,36 @@
-'use strict';
+"use strict";
 
-goog.provide('Blockly.IntersectionObserver');
+goog.provide("Blockly.IntersectionObserver");
 
-Blockly.IntersectionObserver = function(workspace) {
+Blockly.IntersectionObserver = function (workspace) {
   this.workspace = workspace;
   this.observing = [];
   this.intersectionCheckQueued = false;
   this.checkForIntersections = this.checkForIntersections.bind(this);
 };
 
-Blockly.IntersectionObserver.prototype.observe = function(block) {
+Blockly.IntersectionObserver.prototype.observe = function (block) {
   var index = this.observing.indexOf(block);
   if (index === -1) {
     this.observing.push(block);
   }
 };
 
-Blockly.IntersectionObserver.prototype.unobserve = function(block) {
+Blockly.IntersectionObserver.prototype.unobserve = function (block) {
   var index = this.observing.indexOf(block);
   if (index !== -1) {
-    this.observing = this.observing.filter(function(i) {
+    this.observing = this.observing.filter(function (i) {
       return i !== block;
     });
   }
 };
 
-Blockly.IntersectionObserver.prototype.dispose = function() {
+Blockly.IntersectionObserver.prototype.dispose = function () {
   this.observing = [];
   this.workspace = null;
 };
 
-Blockly.IntersectionObserver.prototype.queueIntersectionCheck = function() {
+Blockly.IntersectionObserver.prototype.queueIntersectionCheck = function () {
   if (this.intersectionCheckQueued) {
     return;
   }
@@ -45,7 +45,7 @@ Blockly.IntersectionObserver.prototype.queueIntersectionCheck = function() {
   }
 };
 
-Blockly.IntersectionObserver.prototype.checkForIntersections = function() {
+Blockly.IntersectionObserver.prototype.checkForIntersections = function () {
   this.intersectionCheckQueued = false;
 
   if (!this.workspace) {
@@ -58,7 +58,9 @@ Blockly.IntersectionObserver.prototype.checkForIntersections = function() {
   var workspaceHeight = workspace.getParentSvg().height.baseVal.value;
   var workspaceWidth = workspace.getParentSvg().width.baseVal.value;
   if (workspace.isDragSurfaceActive_) {
-    var canvasPos = Blockly.utils.getRelativeXY(workspace.workspaceDragSurface_.SVG_);
+    var canvasPos = Blockly.utils.getRelativeXY(
+      workspace.workspaceDragSurface_.SVG_,
+    );
   } else {
     var canvasPos = Blockly.utils.getRelativeXY(workspace.getCanvas());
   }

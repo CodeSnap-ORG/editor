@@ -2,14 +2,14 @@
 consolidating this component with icon-button.jsx in gui.
 See #13 */
 
-import classNames from 'classnames';
-import React from 'react';
-import PropTypes from 'prop-types';
+import classNames from "classnames";
+import React from "react";
+import PropTypes from "prop-types";
 
-import Button from '../button/button.jsx';
-import TWRenderRecoloredImage from '../../tw-recolor/render.jsx';
+import Button from "../button/button.jsx";
+import TWRenderRecoloredImage from "../../tw-recolor/render.jsx";
 
-import styles from './labeled-icon-button.css';
+import styles from "./labeled-icon-button.css";
 
 const LabeledIconButton = ({
     className,
@@ -28,7 +28,9 @@ const LabeledIconButton = ({
     >
         <TWRenderRecoloredImage
             alt={imgAlt || title}
-            className={classNames(styles.editFieldIcon, {[styles.gray]: gray})}
+            className={classNames(styles.editFieldIcon, {
+                [styles.gray]: gray,
+            })}
             draggable={false}
             src={imgSrc}
             title={title}
@@ -45,7 +47,7 @@ LabeledIconButton.propTypes = {
     imgSrc: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
     onClick: PropTypes.func.isRequired,
     title: PropTypes.string.isRequired,
-    gray: PropTypes.bool
+    gray: PropTypes.bool,
 };
 
 export default LabeledIconButton;

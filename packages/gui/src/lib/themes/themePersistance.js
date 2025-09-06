@@ -1,10 +1,11 @@
-import {BLOCKS_CUSTOM, Theme} from '.';
+import { BLOCKS_CUSTOM, Theme } from ".";
 
-const matchMedia = query => (window.matchMedia ? window.matchMedia(query) : null);
-const PREFERS_HIGH_CONTRAST_QUERY = matchMedia('(prefers-contrast: more)');
-const PREFERS_DARK_QUERY = matchMedia('(prefers-color-scheme: dark)');
+const matchMedia = (query) =>
+    window.matchMedia ? window.matchMedia(query) : null;
+const PREFERS_HIGH_CONTRAST_QUERY = matchMedia("(prefers-contrast: more)");
+const PREFERS_DARK_QUERY = matchMedia("(prefers-color-scheme: dark)");
 
-const STORAGE_KEY = process.env.ampmod_is_canary ? 'canary:theme' : 'tw:theme';
+const STORAGE_KEY = process.env.ampmod_is_canary ? "canary:theme" : "tw:theme";
 
 /**
  * @returns {Theme} detected theme
@@ -23,7 +24,7 @@ const systemPreferencesTheme = () => {
  * @param {function} onChange callback; no guarantees about arguments
  * @returns {function} call to remove event listeners to prevent memory leak
  */
-const onSystemPreferenceChange = onChange => {
+const onSystemPreferenceChange = (onChange) => {
     if (
         !PREFERS_HIGH_CONTRAST_QUERY ||
         !PREFERS_DARK_QUERY ||
@@ -34,12 +35,12 @@ const onSystemPreferenceChange = onChange => {
         return () => {};
     }
 
-    PREFERS_HIGH_CONTRAST_QUERY.addEventListener('change', onChange);
-    PREFERS_DARK_QUERY.addEventListener('change', onChange);
+    PREFERS_HIGH_CONTRAST_QUERY.addEventListener("change", onChange);
+    PREFERS_DARK_QUERY.addEventListener("change", onChange);
 
     return () => {
-        PREFERS_HIGH_CONTRAST_QUERY.removeEventListener('change', onChange);
-        PREFERS_DARK_QUERY.removeEventListener('change', onChange);
+        PREFERS_HIGH_CONTRAST_QUERY.removeEventListener("change", onChange);
+        PREFERS_DARK_QUERY.removeEventListener("change", onChange);
     };
 };
 
@@ -53,10 +54,10 @@ const detectTheme = () => {
         const local = localStorage.getItem(STORAGE_KEY);
 
         // Migrate legacy preferences
-        if (local === 'dark') {
+        if (local === "dark") {
             return Theme.dark;
         }
-        if (local === 'light') {
+        if (local === "light") {
             return Theme.light;
         }
 
@@ -65,7 +66,7 @@ const detectTheme = () => {
         return new Theme(
             parsed.accent || systemPreferences.accent,
             parsed.gui || systemPreferences.gui,
-            parsed.blocks || systemPreferences.blocks
+            parsed.blocks || systemPreferences.blocks,
         );
     } catch (e) {
         // ignore
@@ -77,7 +78,7 @@ const detectTheme = () => {
 /**
  * @param {Theme} theme the theme
  */
-const persistTheme = theme => {
+const persistTheme = (theme) => {
     const systemPreferences = systemPreferencesTheme();
     const nonDefaultSettings = {};
 
@@ -88,7 +89,10 @@ const persistTheme = theme => {
         nonDefaultSettings.gui = theme.gui;
     }
     // custom blocks are managed by addon at runtime, don't save here
-    if (theme.blocks !== systemPreferences.blocks && theme.blocks !== BLOCKS_CUSTOM) {
+    if (
+        theme.blocks !== systemPreferences.blocks &&
+        theme.blocks !== BLOCKS_CUSTOM
+    ) {
         nonDefaultSettings.blocks = theme.blocks;
     }
 
@@ -100,15 +104,14 @@ const persistTheme = theme => {
         }
     } else {
         try {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(nonDefaultSettings));
+            localStorage.setItem(
+                STORAGE_KEY,
+                JSON.stringify(nonDefaultSettings),
+            );
         } catch (e) {
             // ignore
         }
     }
 };
 
-export {
-    onSystemPreferenceChange,
-    detectTheme,
-    persistTheme
-};
+export { onSystemPreferenceChange, detectTheme, persistTheme };

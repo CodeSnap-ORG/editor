@@ -10,9 +10,9 @@ pull.js is a magical script that automatically pulls code from GitHub, parses it
 
 Directory structure:
 
- - addons - the addons (managed by pull.js)
- - addons-l10n - addon translations used at runtime (managed by pull.js)
- - addons-l10n-settings - addon translations used by the settings page (managed by pull.js)
- - libraries - libraries used by addons (managed by pull.js)
- - generated - additional generated files (managed by pull.js)
- - settings - the settings page and its translations
+- addons - the addons (managed by pull.js)
+- addons-l10n - addon translations used at runtime (managed by pull.js)
+- addons-l10n-settings - addon translations used by the settings page (managed by pull.js)
+- libraries - libraries used by addons (managed by pull.js)
+- generated - additional generated files (managed by pull.js)
+- settings - the settings page and its translations

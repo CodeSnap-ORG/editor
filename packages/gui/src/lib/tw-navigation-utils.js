@@ -1,9 +1,9 @@
-import {setProjectId as reduxSetProjectId} from '../reducers/project-state';
+import { setProjectId as reduxSetProjectId } from "../reducers/project-state";
 
 const setProjectId = (dispatch, projectId) => {
-    if (process.env.ROUTING_STYLE === 'wildcard') {
-        if (projectId === '0') {
-            projectId = '';
+    if (process.env.ROUTING_STYLE === "wildcard") {
+        if (projectId === "0") {
+            projectId = "";
         }
         location.href = `${process.env.ROOT}${projectId}`;
         return;
@@ -11,7 +11,7 @@ const setProjectId = (dispatch, projectId) => {
     dispatch(reduxSetProjectId(projectId));
 };
 
-const searchParamsToString = params => {
+const searchParamsToString = (params) => {
     let newSearch = params.toString();
     if (newSearch.length > 0) {
         // Add leading question mark
@@ -19,10 +19,10 @@ const searchParamsToString = params => {
         newSearch = newSearch
             // Remove '=' from empty values
             // eslint-disable-next-line no-div-regex
-            .replace(/=(?=$|&)/g, '')
+            .replace(/=(?=$|&)/g, "")
             // Decode / and : (common in project_url setting)
-            .replace(/%2F/g, '/')
-            .replace(/%3A/g, ':');
+            .replace(/%2F/g, "/")
+            .replace(/%3A/g, ":");
     }
     return newSearch;
 };
@@ -31,15 +31,15 @@ const searchParamsToString = params => {
  * Change URL search params to something else in place
  * @param {URLSearchParams} params New URLSearchParams
  */
-const setSearchParams = params => {
+const setSearchParams = (params) => {
     const newSearch = searchParamsToString(params);
     if (location.search !== newSearch) {
-        history.replaceState(null, null, `${location.pathname}${newSearch}${location.hash}`);
+        history.replaceState(
+            null,
+            null,
+            `${location.pathname}${newSearch}${location.hash}`,
+        );
     }
 };
 
-export {
-    setProjectId,
-    searchParamsToString,
-    setSearchParams
-};
+export { setProjectId, searchParamsToString, setSearchParams };

@@ -27,7 +27,7 @@
 
 steps:
   - name: clone-pages
-    when: 
+    when:
       - event: push
         branch: develop
       - event: manual
@@ -48,7 +48,7 @@ steps:
       - git clone -b pages https://$CBTOKEN@codeberg.org/ampmod/canary.git amp-build
       - chmod -R a+w amp-build
   - name: clean-up
-    when: 
+    when:
       - event: push
         branch: develop
       - event: manual
@@ -58,7 +58,7 @@ steps:
       - cd amp-build
       - git rm -rf ./*
   - name: install
-    when: 
+    when:
       - event: push
         branch: develop
       - event: manual
@@ -68,7 +68,7 @@ steps:
       - apt-get update && apt-get install python3 default-jre-headless --no-install-recommends -y
       - npm ci
   - name: build-monorepo
-    when: 
+    when:
       - event: push
         branch: develop
       - event: manual
@@ -80,7 +80,7 @@ steps:
       # Only needed for custom domains
       # - cp domains build/.domains
   - name: push
-    when: 
+    when:
       - event: push
         branch: develop
       - event: manual

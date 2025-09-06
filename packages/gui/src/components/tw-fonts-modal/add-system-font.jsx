@@ -1,44 +1,47 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import {FormattedMessage} from 'react-intl';
-import bindAll from 'lodash.bindall';
-import FontName from './font-name.jsx';
-import FontPlayground from './font-playground.jsx';
-import FontFallback from './font-fallback.jsx';
-import AddButton from './add-button.jsx';
+import React from "react";
+import PropTypes from "prop-types";
+import { FormattedMessage } from "react-intl";
+import bindAll from "lodash.bindall";
+import FontName from "./font-name.jsx";
+import FontPlayground from "./font-playground.jsx";
+import FontFallback from "./font-fallback.jsx";
+import AddButton from "./add-button.jsx";
 
 class AddSystemFont extends React.Component {
-    constructor (props) {
+    constructor(props) {
         super(props);
         bindAll(this, [
-            'handleChangeName',
-            'handleChangeFallback',
-            'handleFinish'
+            "handleChangeName",
+            "handleChangeFallback",
+            "handleFinish",
         ]);
         this.state = {
-            name: '',
-            fallback: FontFallback.DEFAULT
+            name: "",
+            fallback: FontFallback.DEFAULT,
         };
     }
 
-    handleChangeName (name) {
+    handleChangeName(name) {
         this.setState({
-            name
+            name,
         });
     }
 
-    handleChangeFallback (fallback) {
+    handleChangeFallback(fallback) {
         this.setState({
-            fallback
+            fallback,
         });
     }
 
-    handleFinish () {
-        this.props.fontManager.addSystemFont(this.state.name, this.state.fallback);
+    handleFinish() {
+        this.props.fontManager.addSystemFont(
+            this.state.name,
+            this.state.fallback,
+        );
         this.props.onClose();
     }
 
-    render () {
+    render() {
         return (
             <React.Fragment>
                 <p>
@@ -60,7 +63,9 @@ class AddSystemFont extends React.Component {
 
                 {this.state.name && (
                     <React.Fragment>
-                        <FontPlayground family={`${this.state.name}, ${this.state.fallback}`} />
+                        <FontPlayground
+                            family={`${this.state.name}, ${this.state.fallback}`}
+                        />
 
                         <FontFallback
                             fallback={this.state.fallback}
@@ -81,9 +86,9 @@ class AddSystemFont extends React.Component {
 AddSystemFont.propTypes = {
     fontManager: PropTypes.shape({
         addSystemFont: PropTypes.func.isRequired,
-        hasFont: PropTypes.func.isRequired
+        hasFont: PropTypes.func.isRequired,
     }).isRequired,
-    onClose: PropTypes.func.isRequired
+    onClose: PropTypes.func.isRequired,
 };
 
 export default AddSystemFont;

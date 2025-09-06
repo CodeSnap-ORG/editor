@@ -1,9 +1,9 @@
-const fsPromises = require('fs/promises');
-const pathUtil = require('path');
-const {getPlatform} = require('../platform');
-const AbstractWindow = require('./abstract');
-const {translate, getLocale, getStrings} = require('../l10n');
-const {APP_NAME} = require('../brand');
+const fsPromises = require("fs/promises");
+const pathUtil = require("path");
+const { getPlatform } = require("../platform");
+const AbstractWindow = require("./abstract");
+const { translate, getLocale, getStrings } = require("../l10n");
+const { APP_NAME } = require("../brand");
 
 /**
  * @param {string} path
@@ -18,7 +18,7 @@ const missingFileAccess = async (path) => {
   try {
     await fsPromises.stat(path);
   } catch (e) {
-    if (e.code === 'ENOENT') {
+    if (e.code === "ENOENT") {
       return true;
     }
   }
@@ -29,7 +29,7 @@ const missingFileAccess = async (path) => {
 };
 
 class FileAccessWindow extends AbstractWindow {
-  constructor () {
+  constructor() {
     super();
 
     /** @type {string[]} */
@@ -38,47 +38,49 @@ class FileAccessWindow extends AbstractWindow {
     /** @type {boolean} */
     this.ready = false;
 
-    this.ipc.on('init', (e) => {
+    this.ipc.on("init", (e) => {
       this.ready = true;
 
       e.returnValue = {
         locale: getLocale(),
         strings: getStrings(),
         APP_NAME,
-        FLATPAK_ID: process.env.FLATPAK_ID || '[No App ID]',
+        FLATPAK_ID: process.env.FLATPAK_ID || "[No App ID]",
         initialPaths: this.paths,
       };
     });
 
-    this.window.setTitle(`${translate('file-access.window-title')} - ${APP_NAME}`);
+    this.window.setTitle(
+      `${translate("file-access.window-title")} - ${APP_NAME}`,
+    );
     this.window.setMinimizable(false);
     this.window.setMaximizable(false);
-    this.loadURL('tw-file-access://./file-access.html');
+    this.loadURL("tw-file-access://./file-access.html");
   }
 
-  getDimensions () {
+  getDimensions() {
     return {
       width: 600,
-      height: 300
+      height: 300,
     };
   }
 
-  getPreload () {
-    return 'file-access';
+  getPreload() {
+    return "file-access";
   }
 
-  isPopup () {
+  isPopup() {
     return true;
   }
 
   /**
    * @param {string} path
    */
-  addPath (path) {
+  addPath(path) {
     if (!this.paths.includes(path)) {
       this.paths.push(path);
       if (this.ready) {
-        this.window.webContents.postMessage('new-path', path);
+        this.window.webContents.postMessage("new-path", path);
       }
     }
   }
@@ -86,10 +88,10 @@ class FileAccessWindow extends AbstractWindow {
   /**
    * @param {string} path
    */
-  static async check (path) {
+  static async check(path) {
     // This window only does anything in the Flatpak build for Linux
     // https://github.com/electron/electron/issues/30650
-    if (getPlatform() === 'linux-flatpak' && await missingFileAccess(path)) {
+    if (getPlatform() === "linux-flatpak" && (await missingFileAccess(path))) {
       const window = AbstractWindow.singleton(FileAccessWindow);
       window.addPath(path);
       window.show();

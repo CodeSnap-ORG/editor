@@ -1,17 +1,17 @@
-import PropTypes from 'prop-types';
-import React, {useState} from 'react';
-import Box from '../box/box.jsx';
-import {FormattedMessage} from 'react-intl';
+import PropTypes from "prop-types";
+import React, { useState } from "react";
+import Box from "../box/box.jsx";
+import { FormattedMessage } from "react-intl";
 
-import styles from './crash-message.css';
-import reloadIcon from './reload.svg';
+import styles from "./crash-message.css";
+import reloadIcon from "./reload.svg";
 
-const CrashMessage = props => {
+const CrashMessage = (props) => {
     const [copied, setCopied] = useState(false);
 
     const handleCopy = () => {
-        let text = '';
-        if (props.errorMessage) text += props.errorMessage + '\n';
+        let text = "";
+        if (props.errorMessage) text += props.errorMessage + "\n";
         if (props.eventId) text += `Error ID: ${props.eventId}\n`;
         navigator.clipboard.writeText(text.trim()).then(() => {
             setCopied(true);
@@ -36,10 +36,12 @@ const CrashMessage = props => {
                 </p>
                 <p>
                     <FormattedMessage
-                        defaultMessage={'This page has crashed.' +
-                            ' Please refresh your page to try' +
-                            ' again. If this continues, please report the error to' +
-                            ' the {forumLink} or {issueTracker}.'}
+                        defaultMessage={
+                            "This page has crashed." +
+                            " Please refresh your page to try" +
+                            " again. If this continues, please report the error to" +
+                            " the {forumLink} or {issueTracker}."
+                        }
                         description="Message to inform the user that page has crashed."
                         id="tw.gui.crashMessage.description"
                         values={{
@@ -68,14 +70,12 @@ const CrashMessage = props => {
                                         id="gui.crashMessage.issueTrackerLinkText"
                                     />
                                 </a>
-                            )   
+                            ),
                         }}
                     />
                 </p>
                 {props.errorMessage && (
-                    <p className={styles.errorMessage}>
-                        {props.errorMessage}
-                    </p>
+                    <p className={styles.errorMessage}>{props.errorMessage}</p>
                 )}
                 {props.eventId && (
                     <p>
@@ -84,7 +84,7 @@ const CrashMessage = props => {
                             description="Message to inform the user that page has crashed."
                             id="gui.crashMessage.errorNumber"
                             values={{
-                                errorId: props.eventId
+                                errorId: props.eventId,
                             }}
                         />
                     </p>
@@ -110,7 +110,7 @@ const CrashMessage = props => {
                                     type="button"
                                     className={styles.copyButton}
                                     onClick={handleCopy}
-                                    style={{marginLeft: '8px'}}
+                                    style={{ marginLeft: "8px" }}
                                 >
                                     {copied ? (
                                         <FormattedMessage
@@ -126,7 +126,7 @@ const CrashMessage = props => {
                                         />
                                     )}
                                 </button>
-                            )
+                            ),
                         }}
                     />
                 </p>
@@ -140,8 +140,19 @@ const CrashMessage = props => {
                                 <a
                                     href="#"
                                     onClick={() => {
-                                        var search = location.search.replace(/[?&]nocache=\d+/, '');
-                                        location.replace(location.pathname + search + (search ? '&' : '?') + 'nocache=' + Math.floor(Math.random() * 100000));
+                                        var search = location.search.replace(
+                                            /[?&]nocache=\d+/,
+                                            "",
+                                        );
+                                        location.replace(
+                                            location.pathname +
+                                                search +
+                                                (search ? "&" : "?") +
+                                                "nocache=" +
+                                                Math.floor(
+                                                    Math.random() * 100000,
+                                                ),
+                                        );
                                     }}
                                 >
                                     <FormattedMessage
@@ -155,12 +166,26 @@ const CrashMessage = props => {
                                 <a
                                     href="#"
                                     onClick={() => {
-                                        if (window.confirm('Your backpack and restore points will be deleted. Continue?')) {
-                                            window.indexedDB.deleteDatabase('TW_RestorePoints');
-                                            window.indexedDB.deleteDatabase('TW_Backpack');
-                                            window.localStorage.removeItem('tw:theme');
-                                            window.localStorage.removeItem('tw:username');
-                                            window.localStorage.removeItem('tw:language');
+                                        if (
+                                            window.confirm(
+                                                "Your backpack and restore points will be deleted. Continue?",
+                                            )
+                                        ) {
+                                            window.indexedDB.deleteDatabase(
+                                                "TW_RestorePoints",
+                                            );
+                                            window.indexedDB.deleteDatabase(
+                                                "TW_Backpack",
+                                            );
+                                            window.localStorage.removeItem(
+                                                "tw:theme",
+                                            );
+                                            window.localStorage.removeItem(
+                                                "tw:username",
+                                            );
+                                            window.localStorage.removeItem(
+                                                "tw:language",
+                                            );
                                             window.location.reload();
                                         }
                                     }}
@@ -171,7 +196,7 @@ const CrashMessage = props => {
                                         id="gui.crashMessage.eraseDataLinkText"
                                     />
                                 </a>
-                            )
+                            ),
                         }}
                     />
                 </p>
@@ -183,7 +208,7 @@ const CrashMessage = props => {
 CrashMessage.propTypes = {
     eventId: PropTypes.string,
     errorMessage: PropTypes.string,
-    onReload: PropTypes.func.isRequired
+    onReload: PropTypes.func.isRequired,
 };
 
 export default CrashMessage;

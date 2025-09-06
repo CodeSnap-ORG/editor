@@ -1,24 +1,22 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import bindAll from 'lodash.bindall';
+import PropTypes from "prop-types";
+import React from "react";
+import bindAll from "lodash.bindall";
 
-import Box from '../box/box.jsx';
+import Box from "../box/box.jsx";
 
-import {LOUPE_RADIUS, ZOOM_SCALE} from '../../helper/tools/eye-dropper';
+import { LOUPE_RADIUS, ZOOM_SCALE } from "../../helper/tools/eye-dropper";
 
-import styles from './loupe.css';
+import styles from "./loupe.css";
 
 class LoupeComponent extends React.Component {
-    constructor (props) {
+    constructor(props) {
         super(props);
-        bindAll(this, [
-            'setCanvas'
-        ]);
+        bindAll(this, ["setCanvas"]);
     }
-    componentDidUpdate () {
+    componentDidUpdate() {
         this.draw();
     }
-    draw () {
+    draw() {
         const boxSize = 5;
         const boxLineWidth = 1;
         const colorRingWidth = 15;
@@ -27,10 +25,10 @@ class LoupeComponent extends React.Component {
 
         const color = this.props.colorInfo.color;
 
-        const ctx = this.canvas.getContext('2d');
+        const ctx = this.canvas.getContext("2d");
         this.canvas.width = loupeDiameter;
         this.canvas.height = loupeDiameter;
-        ctx.fillStyle = 'white';
+        ctx.fillStyle = "white";
         ctx.fillRect(0, 0, loupeDiameter, loupeDiameter);
 
         ctx.drawImage(
@@ -42,15 +40,20 @@ class LoupeComponent extends React.Component {
             0,
             0,
             loupeDiameter,
-            loupeDiameter
+            loupeDiameter,
         );
 
         // Draw an outlined square at the cursor position (cursor is hidden)
         ctx.lineWidth = boxLineWidth;
-        ctx.strokeStyle = this.props.theme === 'light' ? 'black' : '#888';
+        ctx.strokeStyle = this.props.theme === "light" ? "black" : "#888";
         ctx.fillStyle = `rgba(${color[0]}, ${color[1]}, ${color[2]}, ${color[3] / 255})`;
         ctx.beginPath();
-        ctx.rect(loupeRadius - (boxSize / 2), loupeRadius - (boxSize / 2), boxSize, boxSize);
+        ctx.rect(
+            loupeRadius - boxSize / 2,
+            loupeRadius - boxSize / 2,
+            boxSize,
+            boxSize,
+        );
         ctx.fill();
         ctx.stroke();
 
@@ -62,7 +65,7 @@ class LoupeComponent extends React.Component {
         ctx.arc(loupeRadius, loupeRadius, loupeRadius, 0, 2 * Math.PI);
         ctx.stroke();
     }
-    setCanvas (element) {
+    setCanvas(element) {
         this.canvas = element;
         // Make sure to draw a frame when this component is first mounted
         // Check for null ref because refs are called with null when unmounted
@@ -70,15 +73,11 @@ class LoupeComponent extends React.Component {
             this.draw();
         }
     }
-    render () {
-        const {
-            colorInfo,
-            pixelRatio,
-            ...boxProps
-        } = this.props;
+    render() {
+        const { colorInfo, pixelRatio, ...boxProps } = this.props;
         const loupeDiameter = ZOOM_SCALE * LOUPE_RADIUS * 2;
-        const x = (colorInfo.x / pixelRatio) - (loupeDiameter / 2);
-        const y = (colorInfo.y / pixelRatio) - (loupeDiameter / 2);
+        const x = colorInfo.x / pixelRatio - loupeDiameter / 2;
+        const y = colorInfo.y / pixelRatio - loupeDiameter / 2;
         return (
             <Box
                 {...boxProps}
@@ -89,7 +88,7 @@ class LoupeComponent extends React.Component {
                 style={{
                     transform: `translate(${x}px, ${y}px)`,
                     width: loupeDiameter,
-                    height: loupeDiameter
+                    height: loupeDiameter,
                 }}
                 width={LOUPE_RADIUS * 2}
             />
@@ -107,11 +106,11 @@ LoupeComponent.propTypes = {
             x: PropTypes.number,
             y: PropTypes.number,
             width: PropTypes.number,
-            height: PropTypes.number
-        })
+            height: PropTypes.number,
+        }),
     }),
     pixelRatio: PropTypes.number.isRequired,
-    theme: PropTypes.string.isRequired
+    theme: PropTypes.string.isRequired,
 };
 
 export default LoupeComponent;

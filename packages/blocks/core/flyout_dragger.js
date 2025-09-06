@@ -22,15 +22,14 @@
  * @fileoverview Methods for dragging a flyout visually.
  * @author fenichel@google.com (Rachel Fenichel)
  */
-'use strict';
+"use strict";
 
-goog.provide('Blockly.FlyoutDragger');
+goog.provide("Blockly.FlyoutDragger");
 
-goog.require('Blockly.WorkspaceDragger');
+goog.require("Blockly.WorkspaceDragger");
 
-goog.require('goog.asserts');
-goog.require('goog.math.Coordinate');
-
+goog.require("goog.asserts");
+goog.require("goog.math.Coordinate");
 
 /**
  * Class for a flyout dragger.  It moves a flyout workspace around when it is
@@ -41,9 +40,11 @@ goog.require('goog.math.Coordinate');
  * @param {!Blockly.Flyout} flyout The flyout to drag.
  * @constructor
  */
-Blockly.FlyoutDragger = function(flyout) {
-  Blockly.FlyoutDragger.superClass_.constructor.call(this,
-      flyout.getWorkspace());
+Blockly.FlyoutDragger = function (flyout) {
+  Blockly.FlyoutDragger.superClass_.constructor.call(
+    this,
+    flyout.getWorkspace(),
+  );
 
   /**
    * The scrollbar to update to move the flyout.
@@ -73,7 +74,7 @@ goog.inherits(Blockly.FlyoutDragger, Blockly.WorkspaceDragger);
  * @param {number} y The new y position to move the scrollbar to.
  * @private
  */
-Blockly.FlyoutDragger.prototype.updateScroll_ = function(x, y) {
+Blockly.FlyoutDragger.prototype.updateScroll_ = function (x, y) {
   // Move the scrollbar and the flyout will scroll automatically.
   if (this.horizontalLayout_) {
     this.scrollbar_.set(x);

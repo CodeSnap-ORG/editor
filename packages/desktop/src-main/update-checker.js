@@ -1,10 +1,10 @@
-const settings = require('./settings');
-const UpdateWindow = require('./windows/update');
-const packageJSON = require('../package.json');
-const privilegedFetch = require('./fetch');
+const settings = require("./settings");
+const UpdateWindow = require("./windows/update");
+const packageJSON = require("../package.json");
+const privilegedFetch = require("./fetch");
 
 const currentVersion = packageJSON.version;
-const URL = 'https://desktop.turbowarp.org/version.json';
+const URL = "https://desktop.turbowarp.org/version.json";
 
 /**
  * Determines whether the update checker is even allowed to be enabled
@@ -21,7 +21,7 @@ const isUpdateCheckerAllowed = () => {
 };
 
 const checkForUpdates = async () => {
-  if (!isUpdateCheckerAllowed() || settings.updateChecker === 'never') {
+  if (!isUpdateCheckerAllowed() || settings.updateChecker === "never") {
     return;
   }
 
@@ -31,7 +31,7 @@ const checkForUpdates = async () => {
   const oldestSafe = json.oldest_safe;
 
   // Imported lazily as it takes about 10ms to import
-  const semverLt = require('semver/functions/lt');
+  const semverLt = require("semver/functions/lt");
 
   // Security updates can not be ignored.
   if (semverLt(currentVersion, oldestSafe)) {
@@ -39,12 +39,13 @@ const checkForUpdates = async () => {
     return;
   }
 
-  if (settings.updateChecker === 'security') {
+  if (settings.updateChecker === "security") {
     // Nothing further to check
     return;
   }
 
-  const latest = settings.updateChecker === 'unstable' ? latestUnstable : latestStable;
+  const latest =
+    settings.updateChecker === "unstable" ? latestUnstable : latestStable;
   const now = Date.now();
   const ignoredUpdate = settings.ignoredUpdate;
   const ignoredUpdateUntil = settings.ignoredUpdateUntil * 1000;
@@ -71,5 +72,5 @@ const ignoreUpdate = async (version, until) => {
 module.exports = {
   isUpdateCheckerAllowed,
   checkForUpdates,
-  ignoreUpdate
+  ignoreUpdate,
 };

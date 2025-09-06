@@ -23,12 +23,11 @@
  *     always serialized to XML.  It may only be edited programmatically.
  * @author fenichel@google.com (Rachel Fenichel)
  */
-'use strict';
+"use strict";
 
-goog.provide('Blockly.FieldLabelSerializable');
+goog.provide("Blockly.FieldLabelSerializable");
 
-goog.require('Blockly.FieldLabel');
-
+goog.require("Blockly.FieldLabel");
 
 /**
  * Class for a variable getter field.
@@ -38,9 +37,12 @@ goog.require('Blockly.FieldLabel');
  * @constructor
  *
  */
-Blockly.FieldLabelSerializable = function(text, opt_class) {
-  Blockly.FieldLabelSerializable.superClass_.constructor.call(this, text,
-      opt_class);
+Blockly.FieldLabelSerializable = function (text, opt_class) {
+  Blockly.FieldLabelSerializable.superClass_.constructor.call(
+    this,
+    text,
+    opt_class,
+  );
   // Used in base field rendering, but we don't need it.
   this.arrowWidth_ = 0;
 };
@@ -54,9 +56,9 @@ goog.inherits(Blockly.FieldLabelSerializable, Blockly.FieldLabel);
  * @package
  * @nocollapse
  */
-Blockly.FieldLabelSerializable.fromJson = function(options) {
-  var text = Blockly.utils.replaceMessageReferences(options['text']);
-  return new Blockly.FieldLabelSerializable(text, options['class']);
+Blockly.FieldLabelSerializable.fromJson = function (options) {
+  var text = Blockly.utils.replaceMessageReferences(options["text"]);
+  return new Blockly.FieldLabelSerializable(text, options["class"]);
 };
 
 /**
@@ -80,7 +82,7 @@ Blockly.FieldLabelSerializable.prototype.SERIALIZABLE = true;
  * the approximated width on IE/Edge when `getComputedTextLength` fails. Once
  * it eventually does succeed, the result will be cached.
  **/
-Blockly.FieldLabelSerializable.prototype.updateWidth = function() {
+Blockly.FieldLabelSerializable.prototype.updateWidth = function () {
   // Set width of the field.
   // Unlike the base Field class, this doesn't add space to editable fields.
   this.size_.width = Blockly.Field.getCachedWidth(this.textElement_);
@@ -91,7 +93,7 @@ Blockly.FieldLabelSerializable.prototype.updateWidth = function() {
  * Saves the computed width in a property.
  * @private
  */
-Blockly.FieldLabelSerializable.prototype.render_ = function() {
+Blockly.FieldLabelSerializable.prototype.render_ = function () {
   if (this.visible_ && this.textElement_) {
     // Replace the text.
     goog.dom.removeChildren(/** @type {!Element} */ (this.textElement_));
@@ -117,9 +119,11 @@ Blockly.FieldLabelSerializable.prototype.render_ = function() {
       centerTextX = Math.max(minOffset, centerTextX);
     }
     // Apply new text element x position.
-    this.textElement_.setAttribute('x', centerTextX);
+    this.textElement_.setAttribute("x", centerTextX);
   }
 };
 
 Blockly.Field.register(
-    'field_label_serializable', Blockly.FieldLabelSerializable);
+  "field_label_serializable",
+  Blockly.FieldLabelSerializable,
+);

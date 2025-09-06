@@ -4,8 +4,8 @@ import _css from "!css-loader!./style.css";
 import _asset from "!url-loader!./pause.svg";
 import _asset2 from "!url-loader!./play.svg";
 export const resources = {
-  "userscript.js": _js,
-  "style.css": _css,
-  "pause.svg": _asset,
-  "play.svg": _asset2,
+    "userscript.js": _js,
+    "style.css": _css,
+    "pause.svg": _asset,
+    "play.svg": _asset2,
 };

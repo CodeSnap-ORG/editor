@@ -2,6 +2,6 @@
 import _js from "./userscript.js";
 import _css from "!css-loader!./search-bar.css";
 export const resources = {
-  "userscript.js": _js,
-  "search-bar.css": _css,
+    "userscript.js": _js,
+    "search-bar.css": _css,
 };

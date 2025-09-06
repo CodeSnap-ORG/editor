@@ -1,6 +1,6 @@
 /**
  * Partial reimplementation of the FileSystem API (https://web.dev/file-system-access/)
- * 
+ *
  * Unlike the default FileSystem API, we can construct a file handle from an ID from
  * the main process without showing the file picker. The IDs are managed by the main
  * process, so malicious extensions can't abuse this to get arbitrary read/write,
@@ -16,7 +16,7 @@ const toUnit8Array = (contents) => {
     return contents;
   }
   if (contents instanceof Blob) {
-    throw new Error('Should never receive a Blob here.');
+    throw new Error("Should never receive a Blob here.");
   }
   return new Uint8Array(contents);
 };
@@ -25,7 +25,7 @@ class WrappedFileWritable {
   /**
    * @param {string} id File ID from main
    */
-  constructor (id) {
+  constructor(id) {
     this._channel = new MessageChannel();
 
     /** @type {Map<string, {resolve: () => void, reject: (error: unknown) => void}>} */
@@ -64,12 +64,16 @@ class WrappedFileWritable {
     // Note that we don't need to wait for the other end before we can start sending data. The messages
     // will just be queued up.
     // We use this weird postMessage because Electron's context bridge doesn't handle the channel objects.
-    window.postMessage({
-      ipcStartWriteStream: id
-    }, window.origin, [this._channel.port2])
+    window.postMessage(
+      {
+        ipcStartWriteStream: id,
+      },
+      window.origin,
+      [this._channel.port2],
+    );
   }
 
-  _sendToMainAndWait (message) {
+  _sendToMainAndWait(message) {
     if (this._error) {
       throw this._error;
     }
@@ -79,27 +83,27 @@ class WrappedFileWritable {
     return new Promise((resolve, reject) => {
       this._callbacks.set(messageId, {
         resolve,
-        reject
+        reject,
       });
       this._channel.port1.postMessage(message);
     });
   }
 
-  async write (contents) {
+  async write(contents) {
     await this._sendToMainAndWait({
-      write: toUnit8Array(contents)
+      write: toUnit8Array(contents),
     });
   }
 
-  async close () {
+  async close() {
     await this._sendToMainAndWait({
-      finish: true
+      finish: true,
     });
   }
 
-  async abort () {
+  async abort() {
     await this._sendToMainAndWait({
-      abort: true
+      abort: true,
     });
   }
 }
@@ -109,32 +113,32 @@ class WrappedFileHandle {
    * @param {string} id File ID from main.
    * @param {string} name Name including file extension.
    */
-  constructor (id, name) {
+  constructor(id, name) {
     this.id = id;
     this.name = name;
   }
 
-  async getFile () {
+  async getFile() {
     const data = await EditorPreload.getFile(this.id);
     return new File([data.data], this.name);
   }
 
-  async createWritable () {
+  async createWritable() {
     return new WrappedFileWritable(this.id);
   }
 }
 
 class AbortError extends Error {
-  constructor (message) {
+  constructor(message) {
     super(message);
-    this.name = 'AbortError';
+    this.name = "AbortError";
   }
 }
 
 const showOpenFilePicker = async () => {
   const result = await EditorPreload.showOpenFilePicker();
   if (result === null) {
-    throw new AbortError('No file selected');
+    throw new AbortError("No file selected");
   }
   return [new WrappedFileHandle(result.id, result.name)];
 };
@@ -142,13 +146,9 @@ const showOpenFilePicker = async () => {
 const showSaveFilePicker = async (options) => {
   const result = await EditorPreload.showSaveFilePicker(options.suggestedName);
   if (result === null) {
-    throw new AbortError('No file selected');
+    throw new AbortError("No file selected");
   }
   return new WrappedFileHandle(result.id, result.name);
 };
 
-export {
-  WrappedFileHandle,
-  showOpenFilePicker,
-  showSaveFilePicker
-};
+export { WrappedFileHandle, showOpenFilePicker, showSaveFilePicker };

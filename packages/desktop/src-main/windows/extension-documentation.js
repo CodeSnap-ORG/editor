@@ -1,17 +1,20 @@
-const AbstractWindow = require('./abstract');
-const {translate} = require('../l10n');
-const {PLATFORM_NAME} = require('../brand');
+const AbstractWindow = require("./abstract");
+const { translate } = require("../l10n");
+const { PLATFORM_NAME } = require("../brand");
 
 class ExtensionDocumentationWindow extends AbstractWindow {
-  constructor (path) {
+  constructor(path) {
     super();
 
     this.path = path;
 
-    const title = translate('extension-documentation.title').replace('{APP_NAME}', PLATFORM_NAME);
+    const title = translate("extension-documentation.title").replace(
+      "{APP_NAME}",
+      PLATFORM_NAME,
+    );
     this.window.setTitle(title);
 
-    this.window.on('page-title-updated', (event, newTitle) => {
+    this.window.on("page-title-updated", (event, newTitle) => {
       event.preventDefault();
 
       // Window title will be like "Simple 3D - TurboWarp Extension Documentation"
@@ -24,18 +27,18 @@ class ExtensionDocumentationWindow extends AbstractWindow {
     this.loadURL(`tw-extensions://./${path}`);
   }
 
-  getDimensions () {
+  getDimensions() {
     return {
       width: 650,
-      height: 700
+      height: 700,
     };
   }
 
-  getPreload () {
-    return 'extension-documentation';
+  getPreload() {
+    return "extension-documentation";
   }
 
-  isPopup () {
+  isPopup() {
     return true;
   }
 
@@ -43,8 +46,10 @@ class ExtensionDocumentationWindow extends AbstractWindow {
    * @param {string} path Path part of an https://extensions.turbowarp.org URL, without leading /
    */
   static open(path) {
-    const windows = AbstractWindow.getWindowsByClass(ExtensionDocumentationWindow);
-    const existingWindow = windows.find(i => i.path === path);
+    const windows = AbstractWindow.getWindowsByClass(
+      ExtensionDocumentationWindow,
+    );
+    const existingWindow = windows.find((i) => i.path === path);
     if (existingWindow) {
       existingWindow.show();
     } else {

@@ -1,18 +1,24 @@
-import {defineMessages, FormattedMessage, intlShape, injectIntl} from 'react-intl';
-import PropTypes from 'prop-types';
-import React from 'react';
-import Modal from '../../containers/modal.jsx';
-import styles from './invalid-project-modal.css';
+import {
+    defineMessages,
+    FormattedMessage,
+    intlShape,
+    injectIntl,
+} from "react-intl";
+import PropTypes from "prop-types";
+import React from "react";
+import Modal from "../../containers/modal.jsx";
+import styles from "./invalid-project-modal.css";
 
 const messages = defineMessages({
     title: {
-        defaultMessage: 'Error',
-        description: 'Title of modal that appears when a project could not be loaded',
-        id: 'tw.invalidProject.title'
-    }
+        defaultMessage: "Error",
+        description:
+            "Title of modal that appears when a project could not be loaded",
+        id: "tw.invalidProject.title",
+    },
 });
 
-const formatError = error => {
+const formatError = (error) => {
     let message;
     if (error && error.stack) {
         message = `${error}\n\nStack:\n${error.stack}`;
@@ -22,7 +28,7 @@ const formatError = error => {
     return `${message}\n\n---\n\nURL: ${location.href}\nUser-Agent: ${navigator.userAgent}`;
 };
 
-const InvalidProjectModal = props => (
+const InvalidProjectModal = (props) => (
     <Modal
         className={styles.modalContent}
         onRequestClose={props.onClose}
@@ -47,7 +53,7 @@ const InvalidProjectModal = props => (
                 value={formatError(props.error)}
             />
 
-            {formatError(props.error).includes('validationError') && (
+            {formatError(props.error).includes("validationError") && (
                 <p>
                     <FormattedMessage
                         // eslint-disable-next-line max-len
@@ -69,7 +75,7 @@ const InvalidProjectModal = props => (
                                         id="tw.invalidProject.reportIt"
                                     />
                                 </a>
-                            )
+                            ),
                         }}
                     />
                 </p>
@@ -103,7 +109,7 @@ InvalidProjectModal.propTypes = {
     intl: intlShape,
     onClose: PropTypes.func,
     onClickRestorePoints: PropTypes.func,
-    error: PropTypes.any
+    error: PropTypes.any,
 };
 
 export default injectIntl(InvalidProjectModal);

@@ -1,35 +1,37 @@
-import PropTypes from 'prop-types';
-import React from 'react';
-import Modal from '../../containers/modal.jsx';
-import Box from '../box/box.jsx';
-import {defineMessages, injectIntl, intlShape, FormattedMessage} from 'react-intl';
+import PropTypes from "prop-types";
+import React from "react";
+import Modal from "../../containers/modal.jsx";
+import Box from "../box/box.jsx";
+import {
+    defineMessages,
+    injectIntl,
+    intlShape,
+    FormattedMessage,
+} from "react-intl";
 
-import booleanInputIcon from './icon--boolean-input.svg';
-import textInputIcon from './icon--text-input.svg';
-import squareTextIcon from './icon--square-text-input.svg';
-import labelIcon from './icon--label.svg';
+import booleanInputIcon from "./icon--boolean-input.svg";
+import textInputIcon from "./icon--text-input.svg";
+import squareTextIcon from "./icon--square-text-input.svg";
+import labelIcon from "./icon--label.svg";
 
-import styles from './custom-procedures.css';
+import styles from "./custom-procedures.css";
 
 const messages = defineMessages({
     myblockModalTitle: {
-        defaultMessage: 'Make a Block',
-        description: 'Title for the modal where you create a custom block.',
-        id: 'gui.customProcedures.myblockModalTitle'
-    }
+        defaultMessage: "Make a Block",
+        description: "Title for the modal where you create a custom block.",
+        id: "gui.customProcedures.myblockModalTitle",
+    },
 });
 
-const CustomProcedures = props => (
+const CustomProcedures = (props) => (
     <Modal
         className={styles.modalContent}
         contentLabel={props.intl.formatMessage(messages.myblockModalTitle)}
         onRequestClose={props.onCancel}
         id="customProceduresModal"
     >
-        <Box
-            className={styles.workspace}
-            componentRef={props.componentRef}
-        />
+        <Box className={styles.workspace} componentRef={props.componentRef} />
         <Box className={styles.body}>
             <h3>Add an input</h3>
             <div className={styles.optionsRow}>
@@ -156,10 +158,7 @@ const CustomProcedures = props => (
                         id="gui.customProcedures.cancel"
                     />
                 </button>
-                <button
-                    className={styles.okButton}
-                    onClick={props.onOk}
-                >
+                <button className={styles.okButton} onClick={props.onOk}>
                     <FormattedMessage
                         defaultMessage="OK"
                         description="Label for button to save new custom procedure"
@@ -181,7 +180,7 @@ CustomProcedures.propTypes = {
     onCancel: PropTypes.func.isRequired,
     onOk: PropTypes.func.isRequired,
     onToggleWarp: PropTypes.func.isRequired,
-    warp: PropTypes.bool.isRequired
+    warp: PropTypes.bool.isRequired,
 };
 
 export default injectIntl(CustomProcedures);

@@ -2,8 +2,8 @@
  * @fileOverview Sanitize the content of an SVG aggressively, to make it as safe
  * as possible
  */
-const fixupSvgString = require('./fixup-svg-string');
-const DOMPurify = require('dompurify');
+const fixupSvgString = require("./fixup-svg-string");
+const DOMPurify = require("dompurify");
 
 const sanitizeSvg = {};
 
@@ -23,10 +23,10 @@ sanitizeSvg.sanitizeByteStream = function (rawData) {
 // Using literal HTML comments tokens will cause this script to be very hard to inline in
 // a <script> element, so we'll instead do this terrible hack which the minifier probably
 // won't be able to optimize away.
-const HTML_COMMENT_START = `<!${'-'.repeat(2)}`;
-const HTML_COMMENT_END = `${'-'.repeat(2)}>`;
+const HTML_COMMENT_START = `<!${"-".repeat(2)}`;
+const HTML_COMMENT_END = `${"-".repeat(2)}>`;
 const extraMetadataRegex = new RegExp(
-    `${HTML_COMMENT_START}rotationCenter:(-?[\\d\\.]+):(-?[\\d\\.]+)${HTML_COMMENT_END}$`
+    `${HTML_COMMENT_START}rotationCenter:(-?[\\d\\.]+):(-?[\\d\\.]+)${HTML_COMMENT_END}$`,
 );
 
 /**
@@ -38,11 +38,11 @@ const extraMetadataRegex = new RegExp(
  */
 sanitizeSvg.sanitizeSvgText = function (rawSvgText) {
     let sanitizedText = DOMPurify.sanitize(rawSvgText, {
-        USE_PROFILES: {svg: true}
+        USE_PROFILES: { svg: true },
     });
 
     // Remove partial XML comment that is sometimes left in the HTML
-    const badTag = sanitizedText.indexOf(']&gt;');
+    const badTag = sanitizedText.indexOf("]&gt;");
     if (badTag >= 0) {
         sanitizedText = sanitizedText.substring(5, sanitizedText.length);
     }

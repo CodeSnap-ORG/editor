@@ -2,6 +2,6 @@
 import _js from "./userscript.js";
 import _css from "!css-loader!./arrows.css";
 export const resources = {
-  "userscript.js": _js,
-  "arrows.css": _css,
+    "userscript.js": _js,
+    "arrows.css": _css,
 };

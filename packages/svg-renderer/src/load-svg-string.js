@@ -1,9 +1,9 @@
-const DOMPurify = require('dompurify');
-const SvgElement = require('./svg-element');
-const convertFonts = require('./font-converter');
-const fixupSvgString = require('./fixup-svg-string');
-const transformStrokeWidths = require('./transform-applier');
-const getSandbox = require('./tw-svg-sandbox');
+const DOMPurify = require("dompurify");
+const SvgElement = require("./svg-element");
+const convertFonts = require("./font-converter");
+const fixupSvgString = require("./fixup-svg-string");
+const transformStrokeWidths = require("./transform-applier");
+const getSandbox = require("./tw-svg-sandbox");
 
 /**
  * @param {SVGElement} svgTag the tag to search within
@@ -12,8 +12,12 @@ const getSandbox = require('./tw-svg-sandbox');
  */
 const collectElements = (svgTag, tagName) => {
     const elts = [];
-    const collectElementsInner = domElement => {
-        if ((domElement.localName === tagName || typeof tagName === 'undefined') && domElement.getAttribute) {
+    const collectElementsInner = (domElement) => {
+        if (
+            (domElement.localName === tagName ||
+                typeof tagName === "undefined") &&
+            domElement.getAttribute
+        ) {
             elts.push(domElement);
         }
         for (let i = 0; i < domElement.childNodes.length; i++) {
@@ -29,13 +33,13 @@ const collectElements = (svgTag, tagName) => {
  * SVG defaults to x2 = 1 when missing.
  * @param {SVGSVGElement} svgTag the SVG tag to apply the transformation to
  */
-const transformGradients = svgTag => {
-    const linearGradientElements = collectElements(svgTag, 'linearGradient');
+const transformGradients = (svgTag) => {
+    const linearGradientElements = collectElements(svgTag, "linearGradient");
 
     // For each gradient element, supply x2 if necessary.
     for (const gradientElement of linearGradientElements) {
-        if (!gradientElement.getAttribute('x2')) {
-            gradientElement.setAttribute('x2', '0');
+        if (!gradientElement.getAttribute("x2")) {
+            gradientElement.setAttribute("x2", "0");
         }
     }
 };
@@ -45,17 +49,20 @@ const transformGradients = svgTag => {
  * within SVGs.
  * @param {SVGSVGElement} svgTag the SVG tag to apply the transformation to
  */
-const transformImages = svgTag => {
-    const imageElements = collectElements(svgTag, 'image');
+const transformImages = (svgTag) => {
+    const imageElements = collectElements(svgTag, "image");
 
     // For each image element, set image rendering to pixelated
-    const pixelatedImages = 'image-rendering: optimizespeed; image-rendering: pixelated;';
+    const pixelatedImages =
+        "image-rendering: optimizespeed; image-rendering: pixelated;";
     for (const elt of imageElements) {
-        if (elt.getAttribute('style')) {
-            elt.setAttribute('style',
-                `${pixelatedImages} ${elt.getAttribute('style')}`);
+        if (elt.getAttribute("style")) {
+            elt.setAttribute(
+                "style",
+                `${pixelatedImages} ${elt.getAttribute("style")}`,
+            );
         } else {
-            elt.setAttribute('style', pixelatedImages);
+            elt.setAttribute("style", pixelatedImages);
         }
     }
 };
@@ -69,11 +76,11 @@ const transformImages = svgTag => {
  * 4. Any required fonts are injected.
  * @param {SVGSVGElement} svgTag the SVG tag to apply the transformation to
  */
-const transformText = svgTag => {
+const transformText = (svgTag) => {
     // Collect all text elements into a list.
     const textElements = [];
-    const collectText = domElement => {
-        if (domElement.localName === 'text') {
+    const collectText = (domElement) => {
+        if (domElement.localName === "text") {
             textElements.push(domElement);
         }
         for (let i = 0; i < domElement.childNodes.length; i++) {
@@ -85,15 +92,15 @@ const transformText = svgTag => {
     // For each text element, apply quirks.
     for (const textElement of textElements) {
         // Remove x and y attributes - they are not used in Scratch.
-        textElement.removeAttribute('x');
-        textElement.removeAttribute('y');
+        textElement.removeAttribute("x");
+        textElement.removeAttribute("y");
         // Set text-before-edge alignment:
         // Scratch renders all text like this.
-        textElement.setAttribute('alignment-baseline', 'text-before-edge');
-        textElement.setAttribute('xml:space', 'preserve');
+        textElement.setAttribute("alignment-baseline", "text-before-edge");
+        textElement.setAttribute("xml:space", "preserve");
         // If there's no font size provided, provide one.
-        if (!textElement.getAttribute('font-size')) {
-            textElement.setAttribute('font-size', '18');
+        if (!textElement.getAttribute("font-size")) {
+            textElement.setAttribute("font-size", "18");
         }
         let text = textElement.textContent;
 
@@ -101,7 +108,7 @@ const transformText = svgTag => {
         // Only fix if text does not have child tspans.
         // @todo this will not work for font sizes with units such as em, percent
         // However, text made in scratch 2 should only ever export size 22 font.
-        const fontSize = parseFloat(textElement.getAttribute('font-size'));
+        const fontSize = parseFloat(textElement.getAttribute("font-size"));
         const tx = 2;
         let ty = 0;
         let spacing = 1.2;
@@ -111,24 +118,24 @@ const transformText = svgTag => {
         // However, most SVG readers don't support this attribute
         // or don't support it alongside use of tspan, so the translations
         // here are to make up for that.
-        if (textElement.getAttribute('font-family') === 'Handwriting') {
+        if (textElement.getAttribute("font-family") === "Handwriting") {
             spacing = 2;
-            ty = -11 * fontSize / 22;
-        } else if (textElement.getAttribute('font-family') === 'Scratch') {
+            ty = (-11 * fontSize) / 22;
+        } else if (textElement.getAttribute("font-family") === "Scratch") {
             spacing = 0.89;
-            ty = -3 * fontSize / 22;
-        } else if (textElement.getAttribute('font-family') === 'Curly') {
+            ty = (-3 * fontSize) / 22;
+        } else if (textElement.getAttribute("font-family") === "Curly") {
             spacing = 1.38;
-            ty = -6 * fontSize / 22;
-        } else if (textElement.getAttribute('font-family') === 'Marker') {
+            ty = (-6 * fontSize) / 22;
+        } else if (textElement.getAttribute("font-family") === "Marker") {
             spacing = 1.45;
-            ty = -6 * fontSize / 22;
-        } else if (textElement.getAttribute('font-family') === 'Sans Serif') {
+            ty = (-6 * fontSize) / 22;
+        } else if (textElement.getAttribute("font-family") === "Sans Serif") {
             spacing = 1.13;
-            ty = -3 * fontSize / 22;
-        } else if (textElement.getAttribute('font-family') === 'Serif') {
+            ty = (-3 * fontSize) / 22;
+        } else if (textElement.getAttribute("font-family") === "Serif") {
             spacing = 1.25;
-            ty = -4 * fontSize / 22;
+            ty = (-4 * fontSize) / 22;
         }
 
         if (textElement.transform.baseVal.numberOfItems === 0) {
@@ -138,19 +145,19 @@ const transformText = svgTag => {
 
         // Right multiply matrix by a translation of (tx, ty)
         const mtx = textElement.transform.baseVal.getItem(0).matrix;
-        mtx.e += (mtx.a * tx) + (mtx.c * ty);
-        mtx.f += (mtx.b * tx) + (mtx.d * ty);
+        mtx.e += mtx.a * tx + mtx.c * ty;
+        mtx.f += mtx.b * tx + mtx.d * ty;
 
         if (text && textElement.childElementCount === 0) {
-            textElement.textContent = '';
-            const lines = text.split('\n');
-            text = '';
+            textElement.textContent = "";
+            const lines = text.split("\n");
+            text = "";
             for (const line of lines) {
-                const tspanNode = SvgElement.create('tspan');
-                tspanNode.setAttribute('x', '0');
-                tspanNode.setAttribute('style', 'white-space: pre');
-                tspanNode.setAttribute('dy', `${spacing}em`);
-                tspanNode.textContent = line ? line : ' ';
+                const tspanNode = SvgElement.create("tspan");
+                tspanNode.setAttribute("x", "0");
+                tspanNode.setAttribute("style", "white-space: pre");
+                tspanNode.setAttribute("dy", `${spacing}em`);
+                tspanNode.textContent = line ? line : " ";
                 textElement.appendChild(tspanNode);
             }
         }
@@ -166,17 +173,17 @@ const transformText = svgTag => {
  * @param {SVGSVGElement} rootNode The root SVG node to traverse.
  * @return {number} The largest stroke width in the SVG.
  */
-const findLargestStrokeWidth = rootNode => {
+const findLargestStrokeWidth = (rootNode) => {
     let largestStrokeWidth = 0;
-    const collectStrokeWidths = domElement => {
+    const collectStrokeWidths = (domElement) => {
         if (domElement.getAttribute) {
-            if (domElement.getAttribute('stroke')) {
+            if (domElement.getAttribute("stroke")) {
                 largestStrokeWidth = Math.max(largestStrokeWidth, 1);
             }
-            if (domElement.getAttribute('stroke-width')) {
+            if (domElement.getAttribute("stroke-width")) {
                 largestStrokeWidth = Math.max(
                     largestStrokeWidth,
-                    Number(domElement.getAttribute('stroke-width')) || 0
+                    Number(domElement.getAttribute("stroke-width")) || 0,
                 );
             }
         }
@@ -203,14 +210,14 @@ const findLargestStrokeWidth = rootNode => {
  * a natural and performant way.
  * @param {SVGSVGElement} svgTag the SVG tag to apply the transformation to
  */
-const transformMeasurements = svgTag => {
+const transformMeasurements = (svgTag) => {
     const sandbox = getSandbox();
 
     // Append the SVG dom to the document.
     // This allows us to use `getBBox` on the page,
     // which returns the full bounding-box of all drawn SVG
     // elements, similar to how Scratch 2.0 did measurement.
-    const svgSpot = document.createElement('span');
+    const svgSpot = document.createElement("span");
     // Since we're adding user-provided SVG to document.body,
     // sanitizing is required. This should not affect bounding box calculation.
     // outerHTML is attribute of Element (and not HTMLElement), so use it instead of
@@ -219,11 +226,11 @@ const transformMeasurements = svgTag => {
     const rawValue = svgTag.outerHTML;
     const sanitizedValue = DOMPurify.sanitize(rawValue, {
         // Use SVG profile (no HTML elements)
-        USE_PROFILES: {svg: true},
+        USE_PROFILES: { svg: true },
         // Remove some tags that Scratch does not use.
-        FORBID_TAGS: ['a', 'audio', 'canvas', 'video'],
+        FORBID_TAGS: ["a", "audio", "canvas", "video"],
         // Allow data URI in image tags (e.g. SVGs converted from bitmap)
-        ADD_DATA_URI_TAGS: ['image']
+        ADD_DATA_URI_TAGS: ["image"],
     });
     let bbox;
     try {
@@ -249,16 +256,15 @@ const transformMeasurements = svgTag => {
     } else {
         halfStrokeWidth = findLargestStrokeWidth(svgTag) / 2;
     }
-    const width = bbox.width + (halfStrokeWidth * 2);
-    const height = bbox.height + (halfStrokeWidth * 2);
+    const width = bbox.width + halfStrokeWidth * 2;
+    const height = bbox.height + halfStrokeWidth * 2;
     const x = bbox.x - halfStrokeWidth;
     const y = bbox.y - halfStrokeWidth;
 
     // Set the correct measurements on the SVG tag
-    svgTag.setAttribute('width', width);
-    svgTag.setAttribute('height', height);
-    svgTag.setAttribute('viewBox',
-        `${x} ${y} ${width} ${height}`);
+    svgTag.setAttribute("width", width);
+    svgTag.setAttribute("height", height);
+    svgTag.setAttribute("viewBox", `${x} ${y} ${width} ${height}`);
 };
 
 /**
@@ -266,15 +272,15 @@ const transformMeasurements = svgTag => {
  * have a round `stroke-linejoin` and `stroke-linecap`... for some reason.
  * @param {SVGSVGElement} svgTag the SVG tag to apply the transformation to
  */
-const setGradientStrokeRoundedness = svgTag => {
+const setGradientStrokeRoundedness = (svgTag) => {
     const elements = collectElements(svgTag);
 
     for (const elt of elements) {
         if (!elt.style) continue;
-        const stroke = elt.style.stroke || elt.getAttribute('stroke');
+        const stroke = elt.style.stroke || elt.getAttribute("stroke");
         if (stroke && stroke.match(/^url\(#.*\)$/)) {
-            elt.style['stroke-linejoin'] = 'round';
-            elt.style['stroke-linecap'] = 'round';
+            elt.style["stroke-linejoin"] = "round";
+            elt.style["stroke-linecap"] = "round";
         }
     }
 };
@@ -301,12 +307,15 @@ const normalizeSvg = (svgTag, fromVersion2) => {
         transformMeasurements(svgTag);
         // Fix stroke roundedness.
         setGradientStrokeRoundedness(svgTag);
-    } else if (!svgTag.getAttribute('viewBox')) {
+    } else if (!svgTag.getAttribute("viewBox")) {
         // Renderer expects a view box.
         transformMeasurements(svgTag);
-    } else if (!svgTag.getAttribute('width') || !svgTag.getAttribute('height')) {
-        svgTag.setAttribute('width', svgTag.viewBox.baseVal.width);
-        svgTag.setAttribute('height', svgTag.viewBox.baseVal.height);
+    } else if (
+        !svgTag.getAttribute("width") ||
+        !svgTag.getAttribute("height")
+    ) {
+        svgTag.setAttribute("width", svgTag.viewBox.baseVal.width);
+        svgTag.setAttribute("height", svgTag.viewBox.baseVal.height);
     }
 };
 
@@ -324,10 +333,12 @@ const loadSvgString = (svgString, fromVersion2) => {
     // Parse string into SVG XML.
     const parser = new DOMParser();
     svgString = fixupSvgString(svgString);
-    const svgDom = parser.parseFromString(svgString, 'text/xml');
-    if (svgDom.childNodes.length < 1 ||
-        svgDom.documentElement.localName !== 'svg') {
-        throw new Error('Document does not appear to be SVG.');
+    const svgDom = parser.parseFromString(svgString, "text/xml");
+    if (
+        svgDom.childNodes.length < 1 ||
+        svgDom.documentElement.localName !== "svg"
+    ) {
+        throw new Error("Document does not appear to be SVG.");
     }
     const svgTag = svgDom.documentElement;
     normalizeSvg(svgTag, fromVersion2);

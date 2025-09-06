@@ -1,7 +1,7 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <style>
       body {
         margin: 0;
@@ -32,10 +32,17 @@
       <p class="more-version"></p>
       <script>
         var info = AboutPreload.getInfo();
-        document.querySelector('.version').textContent = info.version;
-        document.querySelector('.more-version').textContent = `(Debug info: Electron ${info.electron}, Platform ${info.platform} ${info.arch}, Distribution ${info.dist})`;
+        document.querySelector(".version").textContent = info.version;
+        document.querySelector(".more-version").textContent =
+          `(Debug info: Electron ${info.electron}, Platform ${info.platform} ${info.arch}, Distribution ${info.dist})`;
       </script>
-      <p>AmpMod is licensed under the GNU General Public License v3.0. The source code is published <a href="https://codeberg.org/ampmod" target="_blank" rel="noreferrer">on Codeberg</a>. You can read the license below:</p>
+      <p>
+        AmpMod is licensed under the GNU General Public License v3.0. The source
+        code is published
+        <a href="https://codeberg.org/ampmod" target="_blank" rel="noreferrer"
+          >on Codeberg</a
+        >. You can read the license below:
+      </p>
       <pre>
                     GNU GENERAL PUBLIC LICENSE
                         Version 3, 29 June 2007
@@ -710,7 +717,8 @@ into proprietary programs.  If your program is a subroutine library, you
 may consider it more useful to permit linking proprietary applications with
 the library.  If this is what you want to do, use the GNU Lesser General
 Public License instead of this License.  But first, please read
-&lt;https://www.gnu.org/licenses/why-not-lgpl.html&gt;.</pre>
+&lt;https://www.gnu.org/licenses/why-not-lgpl.html&gt;.</pre
+      >
     </main>
   </body>
 </html>

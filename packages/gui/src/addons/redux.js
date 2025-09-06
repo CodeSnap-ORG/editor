@@ -1,8 +1,8 @@
-import EventTargetShim from './event-target';
-import AddonHooks from './hooks';
+import EventTargetShim from "./event-target";
+import AddonHooks from "./hooks";
 
 class AddonRedux extends EventTargetShim {
-    constructor () {
+    constructor() {
         super();
 
         this._isInReducer = false;
@@ -11,23 +11,25 @@ class AddonRedux extends EventTargetShim {
         AddonHooks.appStateReducer = (action, prev, next) => {
             this._isInReducer = true;
             this._nextState = next;
-            this.dispatchEvent(new CustomEvent('statechanged', {
-                detail: {
-                    action,
-                    prev,
-                    next
-                }
-            }));
+            this.dispatchEvent(
+                new CustomEvent("statechanged", {
+                    detail: {
+                        action,
+                        prev,
+                        next,
+                    },
+                }),
+            );
             this._nextState = null;
             this._isInReducer = false;
         };
     }
 
-    initialize () {
+    initialize() {
         // no-op; it is always initialized
     }
 
-    dispatch (m) {
+    dispatch(m) {
         if (this._isInReducer) {
             queueMicrotask(() => AddonHooks.appStateStore.dispatch(m));
         } else {
@@ -35,7 +37,7 @@ class AddonRedux extends EventTargetShim {
         }
     }
 
-    get state () {
+    get state() {
         if (this._nextState) return this._nextState;
         return AddonHooks.appStateStore.getState();
     }

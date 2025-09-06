@@ -17,23 +17,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-'use strict';
+"use strict";
 
-goog.require('goog.testing');
+goog.require("goog.testing");
 
 function widgetdiv_testHelper_makeBBox(left, top, width, height) {
   return {
     left: left,
     right: left + width,
     top: top,
-    bottom: top + height
+    bottom: top + height,
   };
 }
 
 function widgetdiv_testHelper_makeSize(width, height) {
   return {
     width: width,
-    height: height
+    height: height,
   };
 }
 
@@ -48,7 +48,7 @@ function widgetdiv_testHelper_makeAnchor(left, top) {
     left: left,
     right: left + widgetDiv_test_anchorSize,
     top: top,
-    bottom: top + widgetDiv_test_anchorSize
+    bottom: top + widgetDiv_test_anchorSize,
   };
 }
 
@@ -58,8 +58,11 @@ function test_widgetDiv_topConflict() {
   var anchorBBox = widgetdiv_testHelper_makeAnchor(500, anchorTop);
 
   // The widget div should be placed just below the anchor.
-  var calculated = Blockly.WidgetDiv.calculateY_(widgetDiv_test_viewport,
-      anchorBBox, widgetDiv_test_widgetSize);
+  var calculated = Blockly.WidgetDiv.calculateY_(
+    widgetDiv_test_viewport,
+    anchorBBox,
+    widgetDiv_test_widgetSize,
+  );
   assertEquals(anchorTop + widgetDiv_test_anchorSize, calculated);
 }
 
@@ -69,8 +72,11 @@ function test_widgetDiv_bottomConflict() {
   var anchorBBox = widgetdiv_testHelper_makeAnchor(500, anchorTop);
 
   // The widget div should be placed just above the anchor.
-  var calculated = Blockly.WidgetDiv.calculateY_(widgetDiv_test_viewport,
-      anchorBBox, widgetDiv_test_widgetSize);
+  var calculated = Blockly.WidgetDiv.calculateY_(
+    widgetDiv_test_viewport,
+    anchorBBox,
+    widgetDiv_test_widgetSize,
+  );
   assertEquals(anchorTop - widgetDiv_test_widgetSize.height, calculated);
 }
 
@@ -80,11 +86,13 @@ function test_widgetDiv_noYConflict() {
   var anchorBBox = widgetdiv_testHelper_makeAnchor(500, anchorTop);
 
   // The widget div should be placed just below the anchor.
-  var calculated = Blockly.WidgetDiv.calculateY_(widgetDiv_test_viewport,
-      anchorBBox, widgetDiv_test_widgetSize);
+  var calculated = Blockly.WidgetDiv.calculateY_(
+    widgetDiv_test_viewport,
+    anchorBBox,
+    widgetDiv_test_widgetSize,
+  );
   assertEquals(anchorTop + widgetDiv_test_anchorSize, calculated);
 }
-
 
 function test_widgetDiv_leftConflict_LTR() {
   var anchorLeft = 50;
@@ -92,8 +100,12 @@ function test_widgetDiv_leftConflict_LTR() {
   var anchorBBox = widgetdiv_testHelper_makeAnchor(anchorLeft, 500);
 
   // The widget div should be placed at the anchor.
-  var calculated = Blockly.WidgetDiv.calculateX_(widgetDiv_test_viewport,
-      anchorBBox, widgetDiv_test_widgetSize, false /* rtl */);
+  var calculated = Blockly.WidgetDiv.calculateX_(
+    widgetDiv_test_viewport,
+    anchorBBox,
+    widgetDiv_test_widgetSize,
+    false /* rtl */,
+  );
   assertEquals(anchorLeft, calculated);
 }
 
@@ -104,8 +116,12 @@ function test_widgetDiv_rightConflict_LTR() {
 
   // The widget div should be placed as far right as possible--at the edge of
   // the screen.
-  var calculated = Blockly.WidgetDiv.calculateX_(widgetDiv_test_viewport,
-      anchorBBox, widgetDiv_test_widgetSize, false /* rtl */);
+  var calculated = Blockly.WidgetDiv.calculateX_(
+    widgetDiv_test_viewport,
+    anchorBBox,
+    widgetDiv_test_widgetSize,
+    false /* rtl */,
+  );
   assertEquals(1000 - widgetDiv_test_widgetSize.width, calculated);
 }
 
@@ -114,8 +130,12 @@ function test_widgetDiv_noXConflict_LTR() {
   // Anchor in the middle
   var anchorBBox = widgetdiv_testHelper_makeAnchor(anchorLeft, 500);
   // The widget div should be placed just at the left side of the anchor.
-  var calculated = Blockly.WidgetDiv.calculateX_(widgetDiv_test_viewport,
-      anchorBBox, widgetDiv_test_widgetSize, false /* rtl */);
+  var calculated = Blockly.WidgetDiv.calculateX_(
+    widgetDiv_test_viewport,
+    anchorBBox,
+    widgetDiv_test_widgetSize,
+    false /* rtl */,
+  );
   assertEquals(anchorLeft, calculated);
 }
 
@@ -125,8 +145,12 @@ function test_widgetDiv_leftConflict_RTL() {
   var anchorBBox = widgetdiv_testHelper_makeAnchor(anchorLeft, 500);
   // The widget div should be placed as far left as possible--at the edge of
   // the screen.
-  var calculated = Blockly.WidgetDiv.calculateX_(widgetDiv_test_viewport,
-      anchorBBox, widgetDiv_test_widgetSize, true /* rtl */);
+  var calculated = Blockly.WidgetDiv.calculateX_(
+    widgetDiv_test_viewport,
+    anchorBBox,
+    widgetDiv_test_widgetSize,
+    true /* rtl */,
+  );
   assertEquals(0, calculated);
 }
 
@@ -137,8 +161,12 @@ function test_widgetDiv_rightConflict_RTL() {
 
   // The widget div should be placed as far right as possible--at the edge of
   // the screen.
-  var calculated = Blockly.WidgetDiv.calculateX_(widgetDiv_test_viewport,
-      anchorBBox, widgetDiv_test_widgetSize, true /* rtl */);
+  var calculated = Blockly.WidgetDiv.calculateX_(
+    widgetDiv_test_viewport,
+    anchorBBox,
+    widgetDiv_test_widgetSize,
+    true /* rtl */,
+  );
   assertEquals(1000 - widgetDiv_test_widgetSize.width, calculated);
 }
 
@@ -147,8 +175,11 @@ function test_widgetDiv_noXConflict_RTL() {
   // anchor placed in the middle
   var anchorBBox = widgetdiv_testHelper_makeAnchor(anchorLeft, 500);
   // The widget div should be placed at the right side of the anchor.
-  var calculated = Blockly.WidgetDiv.calculateX_(widgetDiv_test_viewport,
-      anchorBBox, widgetDiv_test_widgetSize, true /* rtl */);
+  var calculated = Blockly.WidgetDiv.calculateX_(
+    widgetDiv_test_viewport,
+    anchorBBox,
+    widgetDiv_test_widgetSize,
+    true /* rtl */,
+  );
   assertEquals(anchorBBox.right - widgetDiv_test_widgetSize.width, calculated);
 }
-

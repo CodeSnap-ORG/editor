@@ -1,0 +1,4 @@
+packages/gui/addons/addons/**/*
+*.min.js
+*.svg
+node_modules

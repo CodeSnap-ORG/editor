@@ -3,7 +3,7 @@ import _css from "!css-loader!./sprites.css";
 import _css2 from "!css-loader!./costumes.css";
 import _css3 from "!css-loader!./sounds.css";
 export const resources = {
-  "sprites.css": _css,
-  "costumes.css": _css2,
-  "sounds.css": _css3,
+    "sprites.css": _css,
+    "costumes.css": _css2,
+    "sounds.css": _css3,
 };

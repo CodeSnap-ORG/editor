@@ -1,36 +1,44 @@
-import {defineMessages, FormattedMessage, intlShape, injectIntl} from 'react-intl';
-import PropTypes from 'prop-types';
-import React from 'react';
-import Modal from '../../containers/modal.jsx';
-import RestorePoint from './restore-point.jsx';
-import styles from './restore-point-modal.css';
-import classNames from 'classnames';
-import {APP_NAME} from '../../lib/brand';
-import {formatBytes} from '../../lib/tw-bytes-utils';
+import {
+    defineMessages,
+    FormattedMessage,
+    intlShape,
+    injectIntl,
+} from "react-intl";
+import PropTypes from "prop-types";
+import React from "react";
+import Modal from "../../containers/modal.jsx";
+import RestorePoint from "./restore-point.jsx";
+import styles from "./restore-point-modal.css";
+import classNames from "classnames";
+import { APP_NAME } from "../../lib/brand";
+import { formatBytes } from "../../lib/tw-bytes-utils";
 
 const messages = defineMessages({
     title: {
-        defaultMessage: 'Restore Points',
-        description: 'Title of restore point management modal',
-        id: 'tw.restorePoints.title'
+        defaultMessage: "Restore Points",
+        description: "Title of restore point management modal",
+        id: "tw.restorePoints.title",
     },
     never: {
-        defaultMessage: 'never',
-        id: 'tw.restorePoints.never',
-        description: 'Part of restore point modal. Appears as dropdown in context "Restore points are created [never]"'
+        defaultMessage: "never",
+        id: "tw.restorePoints.never",
+        description:
+            'Part of restore point modal. Appears as dropdown in context "Restore points are created [never]"',
     },
     oneMinute: {
-        defaultMessage: 'every minute',
-        id: 'tw.restorePoints.1minute',
+        defaultMessage: "every minute",
+        id: "tw.restorePoints.1minute",
         // eslint-disable-next-line max-len
-        description: 'Part of restore point modal. Appears as dropdown in context "Restore points are created [every minute]"'
+        description:
+            'Part of restore point modal. Appears as dropdown in context "Restore points are created [every minute]"',
     },
     minutes: {
-        defaultMessage: 'every {n} minutes',
-        id: 'tw.restorePoints.minutes',
+        defaultMessage: "every {n} minutes",
+        id: "tw.restorePoints.minutes",
         // eslint-disable-next-line max-len
-        description: 'Part of restore point modal. Appears as dropdown in context "Restore points are created [every 5 minutes]". {n} will be replaced with a number greater than 1.'
-    }
+        description:
+            'Part of restore point modal. Appears as dropdown in context "Restore points are created [every 5 minutes]". {n} will be replaced with a number greater than 1.',
+    },
 });
 
 const MINUTE = 1000 * 60;
@@ -40,45 +48,35 @@ const INTERVAL_OPTIONS = [
     MINUTE * 10,
     MINUTE * 15,
     MINUTE * 30,
-    -1
+    -1,
 ];
-const IntervalSelector = props => (
-    <select
-        value={props.value}
-        onChange={props.onChange}
-    >
-        {INTERVAL_OPTIONS.map(interval => (
-            <option
-                key={interval}
-                value={interval}
-            >
-                {interval < 0 ? (
-                    props.intl.formatMessage(messages.never)
-                ) : interval === MINUTE ? (
-                    props.intl.formatMessage(messages.oneMinute)
-                ) : (
-                    props.intl.formatMessage(messages.minutes, {
-                        n: Math.round(interval / MINUTE)
-                    })
-                )}
+const IntervalSelector = (props) => (
+    <select value={props.value} onChange={props.onChange}>
+        {INTERVAL_OPTIONS.map((interval) => (
+            <option key={interval} value={interval}>
+                {interval < 0
+                    ? props.intl.formatMessage(messages.never)
+                    : interval === MINUTE
+                      ? props.intl.formatMessage(messages.oneMinute)
+                      : props.intl.formatMessage(messages.minutes, {
+                            n: Math.round(interval / MINUTE),
+                        })}
             </option>
         ))}
         {!INTERVAL_OPTIONS.includes(props.value) && (
             // This should never happen unless someone manually edits their storage, so we
             // don't need to worry about making this work good.
-            <option value={props.value}>
-                {`every ${props.value}ms`}
-            </option>
+            <option value={props.value}>{`every ${props.value}ms`}</option>
         )}
     </select>
 );
 IntervalSelector.propTypes = {
     intl: intlShape,
     value: PropTypes.number.isRequired,
-    onChange: PropTypes.func.isRequired
+    onChange: PropTypes.func.isRequired,
 };
 
-const RestorePointModal = props => (
+const RestorePointModal = (props) => (
     <Modal
         className={styles.modalContent}
         onRequestClose={props.onClose}
@@ -92,7 +90,7 @@ const RestorePointModal = props => (
                     defaultMessage="{APP_NAME} periodically saves restore points on your computer to help recover your project if you forget to save. This is intended as a last resort for recovery. Your computer may silently delete these restore points at any time. DO NOT rely on this feature."
                     id="tw.restorePoints.description"
                     values={{
-                        APP_NAME: APP_NAME
+                        APP_NAME: APP_NAME,
                     }}
                 />
             </p>
@@ -110,7 +108,7 @@ const RestorePointModal = props => (
                                 value={props.interval}
                                 onChange={props.onChangeInterval}
                             />
-                        )
+                        ),
                     }}
                 />
             </p>
@@ -135,13 +133,11 @@ const RestorePointModal = props => (
                             description="Error message in restore point manager when the list of restore points cannot be loaded. Followed by an error message."
                             id="tw.restorePoints.error"
                             values={{
-                                error: props.error
+                                error: props.error,
                             }}
                         />
                     </p>
-                    <p className={styles.errorMessage}>
-                        {props.error}
-                    </p>
+                    <p className={styles.errorMessage}>{props.error}</p>
                 </div>
             ) : props.isLoading ? (
                 <div className={styles.loading}>
@@ -162,7 +158,7 @@ const RestorePointModal = props => (
             ) : (
                 <React.Fragment>
                     <div className={styles.restorePointContainer}>
-                        {props.restorePoints.map(restorePoint => (
+                        {props.restorePoints.map((restorePoint) => (
                             <RestorePoint
                                 key={restorePoint.id}
                                 onClickDelete={props.onClickDelete}
@@ -182,7 +178,7 @@ const RestorePointModal = props => (
                                     description="Part of restore point modal describing amount of disk space used"
                                     id="tw.restorePoints.size"
                                     values={{
-                                        size: formatBytes(props.totalSize)
+                                        size: formatBytes(props.totalSize),
                                     }}
                                 />
                             </div>
@@ -199,7 +195,10 @@ const RestorePointModal = props => (
 
                         <button
                             onClick={props.onClickDeleteAll}
-                            className={classNames(styles.button, styles.deleteAllButton)}
+                            className={classNames(
+                                styles.button,
+                                styles.deleteAllButton,
+                            )}
                             disabled={props.isLoading}
                         >
                             <FormattedMessage
@@ -229,7 +228,7 @@ RestorePointModal.propTypes = {
     isLoading: PropTypes.bool.isRequired,
     totalSize: PropTypes.number.isRequired,
     restorePoints: PropTypes.arrayOf(PropTypes.shape({})),
-    error: PropTypes.string
+    error: PropTypes.string,
 };
 
 export default injectIntl(RestorePointModal);

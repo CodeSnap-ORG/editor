@@ -1,7 +1,7 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-const DocumentationLink = ({slug, children}) => (
+const DocumentationLink = ({ slug, children }) => (
     <a
         href={`https://docs.turbowarp.org/${slug}`}
         target="_blank"
@@ -12,7 +12,7 @@ const DocumentationLink = ({slug, children}) => (
 );
 DocumentationLink.propTypes = {
     slug: PropTypes.string,
-    children: PropTypes.node
+    children: PropTypes.node,
 };
 
 export default DocumentationLink;

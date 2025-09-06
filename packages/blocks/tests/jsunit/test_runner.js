@@ -1,12 +1,12 @@
-require('chromedriver');
-var webdriver = require('selenium-webdriver');
-var chrome = require('selenium-webdriver/chrome');
-var builder = new webdriver.Builder().forBrowser('chrome');
+require("chromedriver");
+var webdriver = require("selenium-webdriver");
+var chrome = require("selenium-webdriver/chrome");
+var builder = new webdriver.Builder().forBrowser("chrome");
 
 if (process.env.CI) {
   const options = new chrome.Options().headless();
-  if (process.platform === 'linux') {
-    options.addArguments('no-sandbox');
+  if (process.platform === "linux") {
+    options.addArguments("no-sandbox");
   }
   builder.setChromeOptions(options);
 }
@@ -39,22 +39,21 @@ var runTests = async function () {
 
     await browser.get("file://" + path + "/tests/jsunit/vertical_tests.html");
     await browser.sleep(5000);
-    element = await browser.findElement({id: "closureTestRunnerLog"});
+    element = await browser.findElement({ id: "closureTestRunnerLog" });
     text = await element.getText();
     testHtml(text);
 
     await browser.get("file://" + path + "/tests/jsunit/horizontal_tests.html");
     await browser.sleep(5000);
-    element = await browser.findElement({id: "closureTestRunnerLog"});
+    element = await browser.findElement({ id: "closureTestRunnerLog" });
     text = await element.getText();
     testHtml(text);
-  }
-  finally {
+  } finally {
     await browser.quit();
   }
 };
 
-runTests().catch(e => {
+runTests().catch((e) => {
   console.error(e);
   process.exit(1);
 });

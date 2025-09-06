@@ -55,7 +55,7 @@
     opacity: 0;
 }
 .scratch-logo {
-    height:  1.6rem;
+    height: 1.6rem;
     vertical-align: middle;
 }
 
@@ -118,8 +118,8 @@
 }
 
 .author-info {
-    margin-left: .25rem;
-    margin-right: .6875rem;
+    margin-left: 0.25rem;
+    margin-right: 0.6875rem;
 }
 
 .header-button {
@@ -127,14 +127,14 @@
 }
 
 .remix-button {
-    background-color: $pen-primary
+    background-color: $pen-primary;
 }
 
 .remix-button-icon {
     height: 1.25rem;
 }
 
-.coming-soon >:not(.coming-soon-tooltip) {
+.coming-soon > :not(.coming-soon-tooltip) {
     opacity: 0.5;
 }
 
@@ -145,32 +145,33 @@
 }
 
 .account-info-group .header-item {
-    margin: 0 .25rem;
+    margin: 0 0.25rem;
     padding: 0 0.75rem;
 }
 
 .mystuff-icon {
-    margin: 0 .25rem;
+    margin: 0 0.25rem;
     height: 1rem;
 }
 
 .help-icon {
-    margin: 0 .25rem 0 0;
+    margin: 0 0.25rem 0 0;
 }
 
 [dir="rtl"] .help-icon {
-    margin: 0 0 0 .25rem;
+    margin: 0 0 0 0.25rem;
 }
 
-.account-nav-menu, .mystuff-button {
-    padding: 0 .25rem;
+.account-nav-menu,
+.mystuff-button {
+    padding: 0 0.25rem;
     display: flex;
     flex-direction: row;
     align-items: center;
 }
 
 .profile-icon {
-    margin: 0 .25rem;
+    margin: 0 0.25rem;
     width: $menu-bar-button-size;
     border-radius: $form-radius;
 }
@@ -181,11 +182,11 @@
 }
 
 [dir="ltr"] .dropdown-caret-icon {
-    margin-left: .5rem;
+    margin-left: 0.5rem;
 }
 
 [dir="rtl"] .dropdown-caret-icon {
-    margin-right: .5rem;
+    margin-right: 0.5rem;
 }
 
 .disabled {
@@ -219,11 +220,12 @@
 }
 
 .collapsible-label {
-    margin: 0 .25rem;
+    margin: 0 0.25rem;
 }
 
 @media only screen and (max-width: 1124px) {
-    .tutorials-label, .collapsible-label {
+    .tutorials-label,
+    .collapsible-label {
         display: none;
     }
 

@@ -2,6 +2,6 @@
 import _css from "!css-loader!./menu-icons.css";
 import _css2 from "!css-loader!./menu-labels.css";
 export const resources = {
-  "menu-icons.css": _css,
-  "menu-labels.css": _css2,
+    "menu-icons.css": _css,
+    "menu-labels.css": _css2,
 };
