@@ -1,4 +1,9 @@
-packages/gui/addons/addons/**/*
 *.min.js
 *.svg
 node_modules
+
+# Addons should follow the rules that its upstream follows.
+packages/gui/addons
+
+# Blocks requires weird and specific syntax so ignore it
+packages/blocks
