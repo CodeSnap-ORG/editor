@@ -169,8 +169,8 @@ const base = {
         new CompressionPlugin({
             filename:
                 process.env.NODE_ENV === "production"
-                    ? `js/${CACHE_EPOCH}/[name].js.br`
-                    : "js/[name].js.br",
+                    ? `brotli/${CACHE_EPOCH}/[name].br`
+                    : "brotli/[name].br",
             algorithm: "brotliCompress",
             test: /js\/amp\-.*\.js$/,
             compressionOptions: {
