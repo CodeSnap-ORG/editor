@@ -16,4 +16,7 @@ const supportedBrowser = () => true;
 
 const recommendedBrowser = () => true;
 
-export { supportedBrowser as default, recommendedBrowser };
+export {
+    supportedBrowser as default,
+    recommendedBrowser
+};

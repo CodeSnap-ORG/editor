@@ -59,13 +59,15 @@
 }
 .open-button-text-main {
     font-weight: bold;
-    font-family: "Inter Tight", sans-serif;
+    font-family: 'Inter Tight', sans-serif;
     font-size: 1.2rem;
 }
 .open-button-text-sub {
+
 }
 
 .font-input-outer {
+
 }
 .font-input {
     width: 100%;
@@ -96,8 +98,8 @@
     padding: 0.5rem 0.75rem;
     height: 1.5rem;
     cursor: pointer;
-    transition: 0.1s ease;
-    font-family: "Inter Tight", sans-serif;
+    transition: .1s ease;
+    font-family: 'Inter Tight', sans-serif;
 }
 .font-dropdown-item:hover {
     background-color: $looks-secondary;
@@ -115,7 +117,7 @@
     font-size: 1.5rem;
     border: 1px solid $ui-black-transparent;
     border-radius: 0.25rem;
-    font-family: "Inter Tight", sans-serif;
+    font-family: 'Inter Tight', sans-serif;
 }
 
 .button {
@@ -141,7 +143,7 @@
 .fallback-list {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    gap: 0.25rem;
+    gap: 0.25rem
 }
 .fallback-button {
     background: none;
@@ -188,7 +190,7 @@
     font-size: 2rem;
     margin-bottom: 0.5rem;
     overflow-wrap: anywhere;
-    font-family: "Inter Tight", sans-serif;
+    font-family: 'Inter Tight', sans-serif;
 }
 
 .manage-font-buttons {

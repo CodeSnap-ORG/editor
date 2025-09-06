@@ -1,9 +1,9 @@
-const { app, Menu, clipboard, BrowserWindow } = require("electron");
-const { translate } = require("./l10n");
-const openExternal = require("./open-external");
+const {app, Menu, clipboard, BrowserWindow} = require('electron');
+const {translate} = require('./l10n');
+const openExternal = require('./open-external');
 
-app.on("web-contents-created", (_event, webContents) => {
-  webContents.on("context-menu", (event, params) => {
+app.on('web-contents-created', (_event, webContents) => {
+  webContents.on('context-menu', (event, params) => {
     const text = params.selectionText;
     const hasText = !!text;
     const menuItems = [];
@@ -14,65 +14,63 @@ app.on("web-contents-created", (_event, webContents) => {
           label: word,
           click: () => {
             webContents.replaceMisspelling(word);
-          },
+          }
         });
       }
       menuItems.push({
-        label: translate("context.add-to-dictionary"),
+        label: translate('context.add-to-dictionary'),
         click: () => {
-          webContents.session.addWordToSpellCheckerDictionary(
-            params.misspelledWord,
-          );
-        },
+          webContents.session.addWordToSpellCheckerDictionary(params.misspelledWord);
+        }
       });
       menuItems.push({
-        type: "separator",
+        type: 'separator'
       });
     }
 
     const url = params.linkURL;
     if (url) {
       menuItems.push({
-        id: "openLink",
-        label: translate("context.open-link"),
-        enabled: !url.startsWith("blob:"),
+        id: 'openLink',
+        label: translate('context.open-link'),
+        enabled: !url.startsWith('blob:'),
         click: () => {
           openExternal(url);
-        },
+        }
       });
       menuItems.push({
-        type: "separator",
+        type: 'separator'
       });
     }
 
     if (params.isEditable) {
       menuItems.push({
-        id: "cut",
-        label: translate("context.cut"),
+        id: 'cut',
+        label: translate('context.cut'),
         enabled: hasText,
         click: () => {
           clipboard.writeText(text);
           webContents.cut();
-        },
+        }
       });
     }
     if (hasText || params.isEditable) {
       menuItems.push({
-        id: "copy",
-        label: translate("context.copy"),
+        id: 'copy',
+        label: translate('context.copy'),
         enabled: hasText,
         click: () => {
           clipboard.writeText(text);
-        },
+        }
       });
     }
     if (params.isEditable) {
       menuItems.push({
-        id: "Paste",
-        label: translate("context.paste"),
+        id: 'Paste',
+        label: translate('context.paste'),
         click: () => {
           webContents.paste();
-        },
+        }
       });
     }
 
@@ -80,7 +78,7 @@ app.on("web-contents-created", (_event, webContents) => {
       const menu = Menu.buildFromTemplate(menuItems);
       menu.popup({
         window: BrowserWindow.getFocusedWindow(),
-        frame: webContents.focusedFrame,
+        frame: webContents.focusedFrame
       });
     }
   });

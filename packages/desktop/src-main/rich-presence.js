@@ -23,18 +23,18 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-const net = require("net");
-const pathUtil = require("path");
-const nodeCrypto = require("crypto");
-const { APP_NAME } = require("./brand");
-const { translate } = require("./l10n");
-const { getPlatform } = require("./platform");
-const settings = require("./settings");
+const net = require('net');
+const pathUtil = require('path');
+const nodeCrypto = require('crypto');
+const {APP_NAME} = require('./brand');
+const {translate} = require('./l10n');
+const {getPlatform} = require('./platform');
+const settings = require('./settings');
 
 // Ask GarboMuffin for changes
 // https://discord.com/developers/applications
-const APPLICATION_ID = "1243008354037665813";
-const LARGE_IMAGE_NAME = "icon";
+const APPLICATION_ID = '1243008354037665813';
+const LARGE_IMAGE_NAME = 'icon';
 
 const OP_HANDSHAKE = 0;
 const OP_FRAME = 1;
@@ -50,20 +50,23 @@ const nonce = () => nodeCrypto.randomUUID();
  * @returns {string[]}
  */
 const getSocketPaths = (i) => {
-  if (process.platform === "win32") {
-    return [`\\\\?\\pipe\\discord-ipc-${i}`];
+  if (process.platform === 'win32') {
+    return [
+      `\\\\?\\pipe\\discord-ipc-${i}`
+    ];
   }
 
   // All other platforms are Unix-like
-  const tempDir =
+  const tempDir = (
     process.env.XDG_RUNTIME_DIR ||
     process.env.TMPDIR ||
     process.env.TMP ||
     process.env.TEMP ||
-    "/tmp";
+    '/tmp'
+  );
 
   // There are a lot of ways to install Discord on Linux
-  if (process.platform === "linux") {
+  if (process.platform === 'linux') {
     return [
       // Native
       pathUtil.join(tempDir, `discord-ipc-${i}`),
@@ -75,7 +78,9 @@ const getSocketPaths = (i) => {
   }
 
   // macOS and, theoretically, other Unixes
-  return [pathUtil.join(tempDir, `discord-ipc-${i}`)];
+  return [
+    pathUtil.join(tempDir, `discord-ipc-${i}`)
+  ];
 };
 
 /**
@@ -95,16 +100,16 @@ const tryOpenSocket = (path) => {
     };
     const onTimeout = () => {
       removeListeners();
-      reject(new Error("Timed out"));
+      reject(new Error('Timed out'));
     };
     const removeListeners = () => {
-      socket.off("connect", onConnect);
-      socket.off("error", onError);
-      socket.off("timeout", onTimeout);
+      socket.off('connect', onConnect);
+      socket.off('error', onError);
+      socket.off('timeout', onTimeout);
     };
-    socket.on("connect", onConnect);
-    socket.on("error", onError);
-    socket.on("timeout", onTimeout);
+    socket.on('connect', onConnect);
+    socket.on('error', onError);
+    socket.on('timeout', onTimeout);
   });
 };
 
@@ -115,19 +120,19 @@ const findIPCSocket = async () => {
   for (let i = 0; i < 10; i++) {
     for (const path of getSocketPaths(i)) {
       try {
-        return await tryOpenSocket(path);
+        return await tryOpenSocket(path)
       } catch (e) {
         // keep trying the next one
-        console.error("Error connecting to rich presence IPC", e);
+        console.error('Error connecting to rich presence IPC', e);
       }
     }
   }
 
-  throw new Error("All paths failed");
+  throw new Error('All paths failed');
 };
 
 class RichPresence {
-  constructor() {
+  constructor () {
     /**
      * @private
      * @type {Buffer}
@@ -156,7 +161,7 @@ class RichPresence {
      * @private
      * @type {string}
      */
-    this.activityTitle = "";
+    this.activityTitle = '';
 
     /**
      * @private
@@ -176,21 +181,21 @@ class RichPresence {
      */
     this.enabled = false;
 
-    this.handleSocketData = this.handleSocketData.bind(this);
-    this.handleSocketClose = this.handleSocketClose.bind(this);
-    this.handleSocketError = this.handleSocketError.bind(this);
+    this.handleSocketData =  this.handleSocketData.bind(this);
+    this.handleSocketClose =  this.handleSocketClose.bind(this);
+    this.handleSocketError =  this.handleSocketError.bind(this);
   }
 
-  isAvailable() {
+  isAvailable () {
     // In the Mac App Store, our tmpdir is ~/Library/Containers/org.turbowarp.desktop/Data/tmp/
     //    while the IPC file is /var/folders/.../.../T/discord-ipc-#
     // In the Linux Snap Store, our tmpdir is /run/user/.../snap.turbowarp-desktop/
     //    while the IPC file is /run/user/.../snap.discord/discord-ipc-#
     // In both cases the platform sandbox should stop us from accessing the IPC file.
-    return !(process.mas || getPlatform() === "linux-snap");
+    return !(process.mas || getPlatform() === 'linux-snap');
   }
 
-  checkAutomaticEnable() {
+  checkAutomaticEnable () {
     if (this.checkedAutomaticEnable) {
       return;
     }
@@ -200,7 +205,7 @@ class RichPresence {
     }
   }
 
-  enable() {
+  enable () {
     if (this.enabled) {
       return;
     }
@@ -209,7 +214,7 @@ class RichPresence {
     this.connect();
   }
 
-  disable() {
+  disable () {
     if (!this.enabled) {
       return;
     }
@@ -221,11 +226,11 @@ class RichPresence {
   /**
    * @private
    */
-  async connect() {
+  async connect () {
     try {
       this.socket = await findIPCSocket();
     } catch (e) {
-      console.error("Could not connect to rich presence RPC", e);
+      console.error('Could not connect to rich presence RPC', e);
       this.stopFurtherWrites();
       this.reconnect();
       return;
@@ -238,20 +243,20 @@ class RichPresence {
 
     this.buffer = Buffer.alloc(0);
 
-    this.socket.on("data", this.handleSocketData);
-    this.socket.on("close", this.handleSocketClose);
-    this.socket.on("error", this.handleSocketError);
+    this.socket.on('data', this.handleSocketData);
+    this.socket.on('close', this.handleSocketClose);
+    this.socket.on('error', this.handleSocketError);
 
     this.write(OP_HANDSHAKE, {
       v: 1,
-      client_id: APPLICATION_ID,
+      client_id: APPLICATION_ID
     });
   }
 
   /**
    * @private
    */
-  disconnect() {
+  disconnect () {
     this.stopFurtherWrites();
 
     if (this.reconnectTimeout) {
@@ -264,7 +269,7 @@ class RichPresence {
   /**
    * @private
    */
-  reconnect() {
+  reconnect () {
     if (this.reconnectTimeout || !this.enabled) {
       return;
     }
@@ -279,8 +284,8 @@ class RichPresence {
    * @private
    * @returns {boolean}
    */
-  canWrite() {
-    return !!this.socket && this.socket.readyState === "open";
+  canWrite () {
+    return !!this.socket && this.socket.readyState === 'open';
   }
 
   /**
@@ -288,7 +293,7 @@ class RichPresence {
    * @param {number} op See constants
    * @param {unknown} data Object to be JSON.stringify()'d
    */
-  write(op, data) {
+  write (op, data) {
     if (!this.canWrite()) {
       return;
     }
@@ -306,7 +311,7 @@ class RichPresence {
    * @private
    * @param {Buffer} data
    */
-  handleSocketData(data) {
+  handleSocketData (data) {
     this.buffer = Buffer.concat([this.buffer, data]);
     this.parseBuffer();
   }
@@ -314,7 +319,7 @@ class RichPresence {
   /**
    * @private
    */
-  handleSocketClose() {
+  handleSocketClose () {
     this.stopFurtherWrites();
     this.reconnect();
   }
@@ -323,16 +328,16 @@ class RichPresence {
    * @private
    * @param {Error} error
    */
-  handleSocketError(error) {
+  handleSocketError (error) {
     // Only catching this to log the error and avoid uncaught main thread error.
     // Close event will be fired afterwards, so we don't need to do anything else.
-    console.error("Rich presence socket error", error);
+    console.error('Rich presence socket error', error);
   }
 
   /**
    * @private
    */
-  parseBuffer() {
+  parseBuffer () {
     if (this.buffer.byteLength < 8) {
       // Wait for header.
       return;
@@ -348,10 +353,10 @@ class RichPresence {
 
     const payload = this.buffer.subarray(8, 8 + length);
     try {
-      const parsedPayload = JSON.parse(payload.toString("utf-8"));
+      const parsedPayload = JSON.parse(payload.toString('utf-8'));
       this.handleMessage(op, parsedPayload);
     } catch (e) {
-      console.error("Error parsing rich presence IPC data", e);
+      console.error('Error parsing rich presence IPC data', e);
     }
 
     // Regardless of success or failure, discard the packet
@@ -364,11 +369,11 @@ class RichPresence {
   /**
    * @private
    */
-  stopFurtherWrites() {
+  stopFurtherWrites () {
     if (this.socket) {
-      this.socket.off("data", this.handleSocketData);
-      this.socket.off("close", this.handleSocketClose);
-      this.socket.off("error", this.handleSocketError);
+      this.socket.off('data', this.handleSocketData);
+      this.socket.off('close', this.handleSocketClose);
+      this.socket.off('error', this.handleSocketError);
       this.socket.end();
       this.socket = null;
     }
@@ -384,7 +389,7 @@ class RichPresence {
    * @param {number} op See constants
    * @param {unknown} data Parsed JSON object
    */
-  handleMessage(op, data) {
+  handleMessage (op, data) {
     switch (op) {
       case OP_PING: {
         this.write(OP_PONG, data);
@@ -398,18 +403,18 @@ class RichPresence {
       }
 
       case OP_FRAME: {
-        if (data.evt === "READY") {
+        if (data.evt === 'READY') {
           this.handleReady();
-        } else if (data.cmd === "SET_ACTIVITY") {
+        } else if (data.cmd === 'SET_ACTIVITY') {
           // They send us an acknowledgement; ignore it
         } else {
-          console.error("Unrecognized rich presence IPC frame", op, data);
+          console.error('Unrecognized rich presence IPC frame', op, data);
         }
         break;
       }
 
       default: {
-        console.error("Unrecognized rich presence IPC data", op, data);
+        console.error('Unrecognized rich presence IPC data', op, data);
         break;
       }
     }
@@ -418,7 +423,7 @@ class RichPresence {
   /**
    * @private
    */
-  handleReady() {
+  handleReady () {
     this.writeActivity();
   }
 
@@ -426,7 +431,7 @@ class RichPresence {
    * @param {string} title
    * @param {number} startTime
    */
-  setActivity(title, startTime) {
+  setActivity (title, startTime) {
     if (title === this.activityTitle && startTime === this.activityStartTime) {
       return;
     }
@@ -448,7 +453,7 @@ class RichPresence {
   /**
    * @private
    */
-  scheduleNextWriteActivity() {
+  scheduleNextWriteActivity () {
     const oldTitle = this.activityTitle;
     const oldStartTime = this.activityStartTime;
 
@@ -456,10 +461,7 @@ class RichPresence {
     // per 20 seconds. We roughly follow that.
     // https://github.com/discord/discord-api-docs/blob/main/docs/game_sdk/Activities.md#updateactivity
     this.activityTimeout = setTimeout(() => {
-      if (
-        this.activityTitle !== oldTitle ||
-        this.activityStartTime !== oldStartTime
-      ) {
+      if (this.activityTitle !== oldTitle || this.activityStartTime !== oldStartTime) {
         this.writeActivity();
         this.scheduleNextWriteActivity();
       } else {
@@ -471,26 +473,26 @@ class RichPresence {
   /**
    * @private
    */
-  writeActivity() {
-    const title = this.activityTitle || translate("rich-presence.untitled");
+  writeActivity () {
+    const title = this.activityTitle || translate('rich-presence.untitled');
     this.write(OP_FRAME, {
-      cmd: "SET_ACTIVITY",
+      cmd: 'SET_ACTIVITY',
       args: {
         pid: process.pid,
         activity: {
           // Needs to be at least 2 characters long and not more than 128, otherwise it is rejected
-          details: title.padEnd(2, " ").substring(0, 128),
+          details: title.padEnd(2, ' ').substring(0, 128),
           timestamps: {
             start: this.activityStartTime,
           },
           assets: {
             large_image: LARGE_IMAGE_NAME,
-            large_text: APP_NAME,
+            large_text: APP_NAME
           },
-          instance: false,
-        },
+          instance: false
+        }
       },
-      nonce: nonce(),
+      nonce: nonce()
     });
   }
 }

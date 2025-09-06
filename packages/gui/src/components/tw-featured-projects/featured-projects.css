@@ -34,11 +34,12 @@
     height: 155px;
 }
 .projects.transition {
-    transition: 0.2s height;
+    transition: .2s height;
 }
 .projects.opened {
     height: 310px;
 }
 
 .footer {
+    
 }

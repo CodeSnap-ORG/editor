@@ -22,23 +22,24 @@
  * @fileoverview Events fired as a result of actions in Blockly's editor.
  * @author fraser@google.com (Neil Fraser)
  */
-"use strict";
+'use strict';
 
 /**
  * Events fired as a result of actions in Blockly's editor.
  * @namespace Blockly.Events
  */
-goog.provide("Blockly.Events");
+goog.provide('Blockly.Events');
 
-goog.require("goog.array");
-goog.require("goog.math.Coordinate");
+goog.require('goog.array');
+goog.require('goog.math.Coordinate');
+
 
 /**
  * Group ID for new events.  Grouped events are indivisible.
  * @type {string}
  * @private
  */
-Blockly.Events.group_ = "";
+Blockly.Events.group_ = '';
 
 /**
  * Sets whether events should be added to the undo stack.
@@ -57,7 +58,7 @@ Blockly.Events.disabled_ = 0;
  * Name of event that creates a block. Will be deprecated for BLOCK_CREATE.
  * @const
  */
-Blockly.Events.CREATE = "create";
+Blockly.Events.CREATE = 'create';
 
 /**
  * Name of event that creates a block.
@@ -69,7 +70,7 @@ Blockly.Events.BLOCK_CREATE = Blockly.Events.CREATE;
  * Name of event that deletes a block. Will be deprecated for BLOCK_DELETE.
  * @const
  */
-Blockly.Events.DELETE = "delete";
+Blockly.Events.DELETE = 'delete';
 
 /**
  * Name of event that deletes a block.
@@ -81,7 +82,7 @@ Blockly.Events.BLOCK_DELETE = Blockly.Events.DELETE;
  * Name of event that changes a block. Will be deprecated for BLOCK_CHANGE.
  * @const
  */
-Blockly.Events.CHANGE = "change";
+Blockly.Events.CHANGE = 'change';
 
 /**
  * Name of event that changes a block.
@@ -93,19 +94,19 @@ Blockly.Events.BLOCK_CHANGE = Blockly.Events.CHANGE;
  * Name of event that moves a block. Will be deprecated for BLOCK_MOVE.
  * @const
  */
-Blockly.Events.MOVE = "move";
+Blockly.Events.MOVE = 'move';
 
 /**
  * Name of event that drags a block outside of or into the blocks workspace
  * @const
  */
-Blockly.Events.DRAG_OUTSIDE = "dragOutside";
+Blockly.Events.DRAG_OUTSIDE = 'dragOutside';
 
 /**
  * Name of event that ends a block drag
  * @const
  */
-Blockly.Events.END_DRAG = "endDrag";
+Blockly.Events.END_DRAG = 'endDrag';
 
 /**
  * Name of event that moves a block.
@@ -117,50 +118,50 @@ Blockly.Events.BLOCK_MOVE = Blockly.Events.MOVE;
  * Name of event that creates a variable.
  * @const
  */
-Blockly.Events.VAR_CREATE = "var_create";
+Blockly.Events.VAR_CREATE = 'var_create';
 
 /**
  * Name of event that deletes a variable.
  * @const
  */
-Blockly.Events.VAR_DELETE = "var_delete";
+Blockly.Events.VAR_DELETE = 'var_delete';
 
 /**
  * Name of event that renames a variable.
  * @const
  */
-Blockly.Events.VAR_RENAME = "var_rename";
+Blockly.Events.VAR_RENAME = 'var_rename';
 
 /**
  * Name of event that creates a comment.
  * @const
  */
-Blockly.Events.COMMENT_CREATE = "comment_create";
+Blockly.Events.COMMENT_CREATE = 'comment_create';
 
 /**
  * Name of event that moves a comment.
  * @const
  */
-Blockly.Events.COMMENT_MOVE = "comment_move";
+Blockly.Events.COMMENT_MOVE = 'comment_move';
 
 /**
  * Name of event that changes a comment's property
  * (text content, size, or minimized state).
  * @const
  */
-Blockly.Events.COMMENT_CHANGE = "comment_change";
+Blockly.Events.COMMENT_CHANGE = 'comment_change';
 
 /**
  * Name of event that deletes a comment.
  * @const
  */
-Blockly.Events.COMMENT_DELETE = "comment_delete";
+Blockly.Events.COMMENT_DELETE = 'comment_delete';
 
 /**
  * Name of event that records a UI change.
  * @const
  */
-Blockly.Events.UI = "ui";
+Blockly.Events.UI = 'ui';
 
 /**
  * List of events queued for firing.
@@ -172,7 +173,7 @@ Blockly.Events.FIRE_QUEUE_ = [];
  * Create a custom event and fire it.
  * @param {!Blockly.Events.Abstract} event Custom data for event.
  */
-Blockly.Events.fire = function (event) {
+Blockly.Events.fire = function(event) {
   if (!Blockly.Events.isEnabled()) {
     return;
   }
@@ -187,10 +188,10 @@ Blockly.Events.fire = function (event) {
  * Fire all queued events.
  * @private
  */
-Blockly.Events.fireNow_ = function () {
+Blockly.Events.fireNow_ = function() {
   var queue = Blockly.Events.filter(Blockly.Events.FIRE_QUEUE_, true);
   Blockly.Events.FIRE_QUEUE_.length = 0;
-  for (var i = 0, event; (event = queue[i]); i++) {
+  for (var i = 0, event; event = queue[i]; i++) {
     var workspace = Blockly.Workspace.getById(event.workspaceId);
     if (workspace) {
       workspace.fireChangeListener(event);
@@ -204,7 +205,7 @@ Blockly.Events.fireNow_ = function () {
  * @param {boolean} forward True if forward (redo), false if backward (undo).
  * @return {!Array.<!Blockly.Events.Abstract>} Array of filtered events.
  */
-Blockly.Events.filter = function (queueIn, forward) {
+Blockly.Events.filter = function(queueIn, forward) {
   var queue = goog.array.clone(queueIn);
   if (!forward) {
     // Undo is merged in reverse order.
@@ -213,9 +214,9 @@ Blockly.Events.filter = function (queueIn, forward) {
   var mergedQueue = [];
   var hash = Object.create(null);
   // Merge duplicates.
-  for (var i = 0, event; (event = queue[i]); i++) {
+  for (var i = 0, event; event = queue[i]; i++) {
     if (!event.isNull()) {
-      var key = [event.type, event.blockId, event.workspaceId].join(" ");
+      var key = [event.type, event.blockId, event.workspaceId].join(' ');
 
       var lastEntry = hash[key];
       var lastEvent = lastEntry ? lastEntry.event : null;
@@ -223,52 +224,45 @@ Blockly.Events.filter = function (queueIn, forward) {
         // Each item in the hash table has the event and the index of that event
         // in the input array.  This lets us make sure we only merge adjacent
         // move events.
-        hash[key] = { event: event, index: i };
+        hash[key] = {event: event, index: i};
         mergedQueue.push(event);
-      } else if (
-        event.type == Blockly.Events.MOVE &&
-        lastEntry.index == i - 1
-      ) {
+      } else if (event.type == Blockly.Events.MOVE &&
+          lastEntry.index == i - 1) {
         // Merge move events.
         lastEvent.newParentId = event.newParentId;
         lastEvent.newInputName = event.newInputName;
         lastEvent.newCoordinate = event.newCoordinate;
         lastEntry.index = i;
-      } else if (
-        event.type == Blockly.Events.CHANGE &&
-        event.element == lastEvent.element &&
-        event.name == lastEvent.name
-      ) {
+      } else if (event.type == Blockly.Events.CHANGE &&
+          event.element == lastEvent.element &&
+          event.name == lastEvent.name) {
         // Merge change events.
         lastEvent.newValue = event.newValue;
-      } else if (
-        event.type == Blockly.Events.UI &&
-        event.element == "click" &&
-        (lastEvent.element == "commentOpen" ||
-          lastEvent.element == "mutatorOpen" ||
-          lastEvent.element == "warningOpen")
-      ) {
+      } else if (event.type == Blockly.Events.UI &&
+          event.element == 'click' &&
+          (lastEvent.element == 'commentOpen' ||
+           lastEvent.element == 'mutatorOpen' ||
+           lastEvent.element == 'warningOpen')) {
         // Merge click events.
         lastEvent.newValue = event.newValue;
       } else {
         // Collision: newer events should merge into this event to maintain order
-        hash[key] = { event: event, index: 1 };
+        hash[key] = {event: event, index: 1};
         mergedQueue.push(event);
       }
     }
   }
   // Filter out any events that have become null due to merging.
-  queue = mergedQueue.filter(function (e) {
-    return !e.isNull();
-  });
+  queue = mergedQueue.filter(function(e) { return !e.isNull(); });
   if (!forward) {
     // Restore undo order.
     queue.reverse();
   }
   // Move mutation events to the top of the queue.
   // Intentionally skip first event.
-  for (var i = 1, event; (event = queue[i]); i++) {
-    if (event.type == Blockly.Events.CHANGE && event.element == "mutation") {
+  for (var i = 1, event; event = queue[i]; i++) {
+    if (event.type == Blockly.Events.CHANGE &&
+        event.element == 'mutation') {
       queue.unshift(queue.splice(i, 1)[0]);
     }
   }
@@ -279,8 +273,8 @@ Blockly.Events.filter = function (queueIn, forward) {
  * Modify pending undo events so that when they are fired they don't land
  * in the undo stack.  Called by Blockly.Workspace.clearUndo.
  */
-Blockly.Events.clearPendingUndo = function () {
-  for (var i = 0, event; (event = Blockly.Events.FIRE_QUEUE_[i]); i++) {
+Blockly.Events.clearPendingUndo = function() {
+  for (var i = 0, event; event = Blockly.Events.FIRE_QUEUE_[i]; i++) {
     event.recordUndo = false;
   }
 };
@@ -288,7 +282,7 @@ Blockly.Events.clearPendingUndo = function () {
 /**
  * Stop sending events.  Every call to this function MUST also call enable.
  */
-Blockly.Events.disable = function () {
+Blockly.Events.disable = function() {
   Blockly.Events.disabled_++;
 };
 
@@ -296,7 +290,7 @@ Blockly.Events.disable = function () {
  * Start sending events.  Unless events were already disabled when the
  * corresponding call to disable was made.
  */
-Blockly.Events.enable = function () {
+Blockly.Events.enable = function() {
   Blockly.Events.disabled_--;
 };
 
@@ -304,7 +298,7 @@ Blockly.Events.enable = function () {
  * Returns whether events may be fired or not.
  * @return {boolean} True if enabled.
  */
-Blockly.Events.isEnabled = function () {
+Blockly.Events.isEnabled = function() {
   return Blockly.Events.disabled_ == 0;
 };
 
@@ -312,7 +306,7 @@ Blockly.Events.isEnabled = function () {
  * Current group.
  * @return {string} ID string.
  */
-Blockly.Events.getGroup = function () {
+Blockly.Events.getGroup = function() {
   return Blockly.Events.group_;
 };
 
@@ -321,9 +315,9 @@ Blockly.Events.getGroup = function () {
  * @param {boolean|string} state True to start new group, false to end group.
  *   String to set group explicitly.
  */
-Blockly.Events.setGroup = function (state) {
-  if (typeof state == "boolean") {
-    Blockly.Events.group_ = state ? Blockly.utils.genUid() : "";
+Blockly.Events.setGroup = function(state) {
+  if (typeof state == 'boolean') {
+    Blockly.Events.group_ = state ? Blockly.utils.genUid() : '';
   } else {
     Blockly.Events.group_ = state;
   }
@@ -335,10 +329,10 @@ Blockly.Events.setGroup = function (state) {
  * @return {!Array.<string>} List of block IDs.
  * @private
  */
-Blockly.Events.getDescendantIds_ = function (block) {
+Blockly.Events.getDescendantIds_ = function(block) {
   var ids = [];
   var descendants = block.getDescendants(false);
-  for (var i = 0, descendant; (descendant = descendants[i]); i++) {
+  for (var i = 0, descendant; descendant = descendants[i]; i++) {
     ids[i] = descendant.id;
   }
   return ids;
@@ -350,7 +344,7 @@ Blockly.Events.getDescendantIds_ = function (block) {
  * @param {!Blockly.Workspace} workspace Target workspace for event.
  * @return {!Blockly.Events.Abstract} The event represented by the JSON.
  */
-Blockly.Events.fromJson = function (json, workspace) {
+Blockly.Events.fromJson = function(json, workspace) {
   var event;
   switch (json.type) {
     case Blockly.Events.CREATE:
@@ -396,7 +390,7 @@ Blockly.Events.fromJson = function (json, workspace) {
       event = new Blockly.Events.EndBlockDrag(null, false);
       break;
     default:
-      throw "Unknown event type.";
+      throw 'Unknown event type.';
   }
   event.fromJson(json);
   event.workspaceId = workspace.id;
@@ -410,24 +404,20 @@ Blockly.Events.fromJson = function (json, workspace) {
  * users don't try to reenable disabled orphan blocks.
  * @param {!Blockly.Events.Abstract} event Custom data for event.
  */
-Blockly.Events.disableOrphans = function (event) {
-  if (
-    event.type == Blockly.Events.MOVE ||
-    event.type == Blockly.Events.CREATE
-  ) {
+Blockly.Events.disableOrphans = function(event) {
+  if (event.type == Blockly.Events.MOVE ||
+      event.type == Blockly.Events.CREATE) {
     Blockly.Events.disable();
     var workspace = Blockly.Workspace.getById(event.workspaceId);
     var block = workspace.getBlockById(event.blockId);
     if (block) {
       if (block.getParent() && !block.getParent().disabled) {
         var children = block.getDescendants(false);
-        for (var i = 0, child; (child = children[i]); i++) {
+        for (var i = 0, child; child = children[i]; i++) {
           child.setDisabled(false);
         }
-      } else if (
-        (block.outputConnection || block.previousConnection) &&
-        !workspace.isDragging()
-      ) {
+      } else if ((block.outputConnection || block.previousConnection) &&
+                 !workspace.isDragging()) {
         do {
           block.setDisabled(true);
           block = block.getNextBlock();

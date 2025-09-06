@@ -2,7 +2,7 @@
 @import "../../css/units.css";
 
 .author-info {
-    font-family: "Inter Tight", sans-serif;
+    font-family: 'Inter Tight', sans-serif;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -10,7 +10,7 @@
 }
 
 .avatar {
-    margin-right: 0.5625rem;
+    margin-right: .5625rem;
 }
 
 .project-title {

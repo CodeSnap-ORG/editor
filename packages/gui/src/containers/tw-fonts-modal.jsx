@@ -1,82 +1,76 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { connect } from "react-redux";
-import bindAll from "lodash.bindall";
-import { closeFontsModal } from "../reducers/modals";
-import FontsModalComponent from "../components/tw-fonts-modal/fonts-modal.jsx";
+import React from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import bindAll from 'lodash.bindall';
+import {closeFontsModal} from '../reducers/modals';
+import FontsModalComponent from '../components/tw-fonts-modal/fonts-modal.jsx';
 
 class TWFontsModal extends React.Component {
-    constructor(props) {
+    constructor (props) {
         super(props);
         bindAll(this, [
-            "handleClose",
-            "handleCustomFontsChanged",
-            "handleCancelAddFont",
-            "handleOpenSystemFonts",
-            "handleOpenLibaryFonts",
-            "handleOpenCustomFonts",
+            'handleClose',
+            'handleCustomFontsChanged',
+            'handleCancelAddFont',
+            'handleOpenSystemFonts',
+            'handleOpenLibaryFonts',
+            'handleOpenCustomFonts'
         ]);
         this.state = {
             fonts: this.props.vm.runtime.fontManager.getFonts(),
-            screen: "",
+            screen: ''
         };
     }
 
-    componentDidMount() {
-        this.props.vm.runtime.fontManager.on(
-            "change",
-            this.handleCustomFontsChanged,
-        );
+    componentDidMount () {
+        this.props.vm.runtime.fontManager.on('change', this.handleCustomFontsChanged);
     }
 
-    componentWillUnmount() {
-        this.props.vm.runtime.fontManager.off(
-            "change",
-            this.handleCustomFontsChanged,
-        );
+    componentWillUnmount () {
+        this.props.vm.runtime.fontManager.off('change', this.handleCustomFontsChanged);
     }
 
-    handleClose() {
+    handleClose () {
         if (this.state.screen) {
             this.setState({
-                screen: "",
+                screen: ''
             });
         } else {
             this.props.onClose();
         }
     }
 
-    handleCustomFontsChanged() {
+    handleCustomFontsChanged () {
         this.setState({
-            fonts: this.props.vm.runtime.fontManager.getFonts(),
+            fonts: this.props.vm.runtime.fontManager.getFonts()
         });
     }
 
-    handleCancelAddFont() {
+    handleCancelAddFont () {
         this.setState({
-            screen: "",
+            screen: ''
         });
     }
 
-    handleOpenSystemFonts() {
+    handleOpenSystemFonts () {
         this.setState({
-            screen: "system",
+            screen: 'system'
         });
     }
 
-    handleOpenLibaryFonts() {
+    handleOpenLibaryFonts () {
         this.setState({
-            screen: "library",
+            screen: 'library'
         });
     }
 
-    handleOpenCustomFonts() {
+    handleOpenCustomFonts () {
         this.setState({
-            screen: "custom",
+            screen: 'custom'
         });
     }
 
-    render() {
+    render () {
         return (
             <FontsModalComponent
                 onClose={this.handleClose}
@@ -100,18 +94,21 @@ TWFontsModal.propTypes = {
                 getFonts: PropTypes.func,
                 addSystemFont: PropTypes.func,
                 on: PropTypes.func,
-                off: PropTypes.func,
-            }),
-        }),
-    }),
+                off: PropTypes.func
+            })
+        })
+    })
 };
 
-const mapStateToProps = (state) => ({
-    vm: state.scratchGui.vm,
+const mapStateToProps = state => ({
+    vm: state.scratchGui.vm
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    onClose: () => dispatch(closeFontsModal()),
+const mapDispatchToProps = dispatch => ({
+    onClose: () => dispatch(closeFontsModal())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TWFontsModal);
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(TWFontsModal);

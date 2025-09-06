@@ -22,13 +22,14 @@
  * @fileoverview Utility methods for Scratch Blocks but not Blockly.
  * @author fenichel@google.com (Rachel Fenichel)
  */
-"use strict";
+'use strict';
 
 /**
  * @name Blockly.scratchBlocksUtils
  * @namespace
  **/
-goog.provide("Blockly.scratchBlocksUtils");
+goog.provide('Blockly.scratchBlocksUtils');
+
 
 /**
  * Measure some text using a canvas in-memory.
@@ -40,15 +41,11 @@ goog.provide("Blockly.scratchBlocksUtils");
  * @return {number} Width of the text in px.
  * @package
  */
-Blockly.scratchBlocksUtils.measureText = function (
-  fontSize,
-  fontFamily,
-  fontWeight,
-  text,
-) {
-  var canvas = document.createElement("canvas");
-  var context = canvas.getContext("2d");
-  context.font = fontWeight + " " + fontSize + " " + fontFamily;
+Blockly.scratchBlocksUtils.measureText = function(fontSize, fontFamily,
+    fontWeight, text) {
+  var canvas = document.createElement('canvas');
+  var context = canvas.getContext('2d');
+  context.font = fontWeight + ' ' + fontSize + ' ' + fontFamily;
   return context.measureText(text).width;
 };
 
@@ -58,7 +55,7 @@ Blockly.scratchBlocksUtils.measureText = function (
  * @param {Blockly.Block} block the root block to be processed.
  * @package
  */
-Blockly.scratchBlocksUtils.changeObscuredShadowIds = function (block) {
+Blockly.scratchBlocksUtils.changeObscuredShadowIds = function(block) {
   var blocks = block.getDescendants(false);
   for (var i = blocks.length - 1; i >= 0; i--) {
     var descendant = blocks[i];
@@ -67,7 +64,7 @@ Blockly.scratchBlocksUtils.changeObscuredShadowIds = function (block) {
       if (connection) {
         var shadowDom = connection.getShadowDom();
         if (shadowDom) {
-          shadowDom.setAttribute("id", Blockly.utils.genUid());
+          shadowDom.setAttribute('id', Blockly.utils.genUid());
           connection.setShadowDom(shadowDom);
         }
       }
@@ -85,12 +82,9 @@ Blockly.scratchBlocksUtils.changeObscuredShadowIds = function (block) {
  * @return {boolean} True if the block should be duplicated on drag.
  * @package
  */
-Blockly.scratchBlocksUtils.isShadowArgumentReporter = function (block) {
-  return (
-    block.isShadow() &&
-    (block.type == "argument_reporter_boolean" ||
-      block.type == "argument_reporter_string_number")
-  );
+Blockly.scratchBlocksUtils.isShadowArgumentReporter = function(block) {
+  return (block.isShadow() && (block.type == 'argument_reporter_boolean' ||
+      block.type == 'argument_reporter_string_number'));
 };
 
 /**
@@ -99,10 +93,10 @@ Blockly.scratchBlocksUtils.isShadowArgumentReporter = function (block) {
  * @param {string} str2 Second input.
  * @return {number} -1, 0, or 1 to signify greater than, equality, or less than.
  */
-Blockly.scratchBlocksUtils.compareStrings = function (str1, str2) {
+Blockly.scratchBlocksUtils.compareStrings = function(str1, str2) {
   return str1.localeCompare(str2, [], {
-    sensitivity: "base",
-    numeric: true,
+    sensitivity: 'base',
+    numeric: true
   });
 };
 
@@ -113,7 +107,7 @@ Blockly.scratchBlocksUtils.compareStrings = function (str1, str2) {
  * @return {boolean} True if the block can be recycled.
  * @package
  */
-Blockly.scratchBlocksUtils.blockIsRecyclable = function (block) {
+Blockly.scratchBlocksUtils.blockIsRecyclable = function(block) {
   // If the block needs to parse mutations, never recycle.
   if (block.mutationToDom && block.domToMutation) {
     return false;
@@ -124,17 +118,13 @@ Blockly.scratchBlocksUtils.blockIsRecyclable = function (block) {
     for (var j = 0; j < input.fieldRow.length; j++) {
       var field = input.fieldRow[j];
       // No variables.
-      if (
-        field instanceof Blockly.FieldVariable ||
-        field instanceof Blockly.FieldVariableGetter
-      ) {
+      if (field instanceof Blockly.FieldVariable ||
+          field instanceof Blockly.FieldVariableGetter) {
         return false;
       }
-      if (
-        field instanceof Blockly.FieldDropdown ||
-        field instanceof Blockly.FieldNumberDropdown ||
-        field instanceof Blockly.FieldTextDropdown
-      ) {
+      if (field instanceof Blockly.FieldDropdown ||
+          field instanceof Blockly.FieldNumberDropdown ||
+          field instanceof Blockly.FieldTextDropdown) {
         if (field.isOptionListDynamic()) {
           return false;
         }
@@ -151,6 +141,7 @@ Blockly.scratchBlocksUtils.blockIsRecyclable = function (block) {
   return true;
 };
 
+
 /**
  * Creates a callback function for a click on the "duplicate" context menu
  * option in Scratch Blocks.  The block is duplicated and attached to the mouse,
@@ -162,19 +153,15 @@ Blockly.scratchBlocksUtils.blockIsRecyclable = function (block) {
  *     drag.
  * @package
  */
-Blockly.scratchBlocksUtils.duplicateAndDragCallback = function (
-  oldBlock,
-  event,
-) {
-  var isMouseEvent =
-    Blockly.Touch.getTouchIdentifierFromEvent(event) === "mouse";
-  return function (e) {
+Blockly.scratchBlocksUtils.duplicateAndDragCallback = function(oldBlock, event) {
+  var isMouseEvent = Blockly.Touch.getTouchIdentifierFromEvent(event) === 'mouse';
+  return function(e) {
     // Give the context menu a chance to close.
-    setTimeout(function () {
+    setTimeout(function() {
       var ws = oldBlock.workspace;
       var svgRootOld = oldBlock.getSvgRoot();
       if (!svgRootOld) {
-        throw new Error("oldBlock is not rendered.");
+        throw new Error('oldBlock is not rendered.');
       }
 
       // Create the new block by cloning the block in the flyout (via XML).
@@ -197,7 +184,7 @@ Blockly.scratchBlocksUtils.duplicateAndDragCallback = function (
 
         var svgRootNew = newBlock.getSvgRoot();
         if (!svgRootNew) {
-          throw new Error("newBlock is not rendered.");
+          throw new Error('newBlock is not rendered.');
         }
 
         // The position of the old block in workspace coordinates.
@@ -226,14 +213,14 @@ Blockly.scratchBlocksUtils.duplicateAndDragCallback = function (
         var fakeEvent = {
           clientX: event.clientX,
           clientY: event.clientY,
-          type: "mousedown",
-          preventDefault: function () {
+          type: 'mousedown',
+          preventDefault: function() {
             e.preventDefault();
           },
-          stopPropagation: function () {
+          stopPropagation: function() {
             e.stopPropagation();
           },
-          target: e.target,
+          target: e.target
         };
         ws.startDragWithFakeEvent(fakeEvent, newBlock);
       }

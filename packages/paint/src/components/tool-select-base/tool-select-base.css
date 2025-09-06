@@ -1,8 +1,8 @@
-@import "../../css/colors.css";
+@import '../../css/colors.css';
 @import "../../css/units.css";
 @import "../../css/filters.css";
 
-$border-radius: 0.25rem;
+$border-radius: .25rem;
 
 .mod-tool-select {
     display: inline-block;

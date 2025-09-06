@@ -3,7 +3,7 @@ import _js from "./userscript.js";
 import _css from "!css-loader!./style.css";
 import _asset from "!url-loader!./copy.svg";
 export const resources = {
-    "userscript.js": _js,
-    "style.css": _css,
-    "copy.svg": _asset,
+  "userscript.js": _js,
+  "style.css": _css,
+  "copy.svg": _asset,
 };

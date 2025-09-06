@@ -10,8 +10,8 @@
 const convertFonts = function (svgTag) {
     // Collect all text elements into a list.
     const textElements = [];
-    const collectText = (domElement) => {
-        if (domElement.localName === "text") {
+    const collectText = domElement => {
+        if (domElement.localName === 'text') {
             textElements.push(domElement);
         }
         for (let i = 0; i < domElement.childNodes.length; i++) {
@@ -22,17 +22,15 @@ const convertFonts = function (svgTag) {
     // If there's an old font-family, switch to the new one.
     for (const textElement of textElements) {
         // If there's no font-family provided, provide one.
-        if (
-            !textElement.getAttribute("font-family") ||
-            textElement.getAttribute("font-family") === "Helvetica"
-        ) {
-            textElement.setAttribute("font-family", "Sans Serif");
-        } else if (textElement.getAttribute("font-family") === "Mystery") {
-            textElement.setAttribute("font-family", "Curly");
-        } else if (textElement.getAttribute("font-family") === "Gloria") {
-            textElement.setAttribute("font-family", "Handwriting");
-        } else if (textElement.getAttribute("font-family") === "Donegal") {
-            textElement.setAttribute("font-family", "Serif");
+        if (!textElement.getAttribute('font-family') ||
+            textElement.getAttribute('font-family') === 'Helvetica') {
+            textElement.setAttribute('font-family', 'Sans Serif');
+        } else if (textElement.getAttribute('font-family') === 'Mystery') {
+            textElement.setAttribute('font-family', 'Curly');
+        } else if (textElement.getAttribute('font-family') === 'Gloria') {
+            textElement.setAttribute('font-family', 'Handwriting');
+        } else if (textElement.getAttribute('font-family') === 'Donegal') {
+            textElement.setAttribute('font-family', 'Serif');
         }
     }
 };

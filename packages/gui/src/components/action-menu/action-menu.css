@@ -46,14 +46,12 @@ button::-moz-focus-inner {
     height: $main-button-size;
     box-shadow: 0 0 0 4px $looks-transparent;
     z-index: $z-index-add-button;
-    transition:
-        transform,
-        box-shadow 0.5s;
+    transition: transform, box-shadow 0.5s;
 }
 
 .main-button:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 0 6px $looks-transparent;
+  transform: scale(1.1);
+  box-shadow: 0 0 0 6px $looks-transparent;
 }
 
 .main-icon {
@@ -108,8 +106,7 @@ button::-moz-focus-inner {
     display: none; /* This property does not animate */
 }
 
-.more-buttons:first-child {
-    /* Round off top button */
+.more-buttons:first-child { /* Round off top button */
     border-top-right-radius: $more-button-size;
     border-top-left-radius: $more-button-size;
 }
@@ -137,10 +134,9 @@ button::-moz-focus-inner {
 .tooltip {
     background-color: $extensions-primary !important;
     opacity: 1 !important;
-    border: 1px solid hsla(0, 0%, 0%, 0.1) !important;
-    box-shadow: 0 0 0.5rem hsla(0, 0%, 0%, 0.25) !important;
-    font-family:
-        Inter, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+    border: 1px solid hsla(0, 0%, 0%, .1) !important;
+    box-shadow: 0 0 .5rem hsla(0, 0%, 0%, .25) !important;
+    font-family: Inter, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
 }
 
 .tooltip:after {
@@ -156,11 +152,10 @@ button::-moz-focus-inner {
 }
 
 .tooltip {
-    border: 1px solid hsla(0, 0%, 0%, 0.1) !important;
+    border: 1px solid hsla(0, 0%, 0%, .1) !important;
     border-radius: $form-radius !important;
-    box-shadow: 0 0 0.5rem hsla(0, 0%, 0%, 0.25) !important;
-    font-family:
-        Inter, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+    box-shadow: 0 0 .5rem hsla(0, 0%, 0%, .25) !important;
+    font-family: Inter, "Helvetica Neue", Helvetica, Arial, sans-serif !important;
     z-index: $z-index-tooltip !important;
 }
 
@@ -170,10 +165,10 @@ $arrow-rounding: 0.125rem;
 
 .tooltip:after {
     content: "";
-    border-top: 1px solid hsla(0, 0%, 0%, 0.1) !important;
+    border-top: 1px solid hsla(0, 0%, 0%, .1) !important;
     border-left: 0 !important;
     border-bottom: 0 !important;
-    border-right: 1px solid hsla(0, 0%, 0%, 0.1) !important;
+    border-right: 1px solid hsla(0, 0%, 0%, .1) !important;
     border-radius: $arrow-rounding;
     height: $arrow-size !important;
     width: $arrow-size !important;

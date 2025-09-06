@@ -1,9 +1,9 @@
-const fs = require("fs");
-const fsPromises = require("fs/promises");
-const nodeCrypto = require("crypto");
-const pathUtil = require("path");
-const { app } = require("electron");
-const stream = require("stream");
+const fs = require('fs');
+const fsPromises = require('fs/promises');
+const nodeCrypto = require('crypto');
+const pathUtil = require('path');
+const {app} = require('electron');
+const stream = require('stream');
 
 // This file was initially based on:
 // https://github.com/npm/write-file-atomic/blob/a37fdc843f4d391cf1cff85c8e69c3d80e05b049/lib/index.js
@@ -16,13 +16,13 @@ const stream = require("stream");
 const getTemporaryPath = (originalPath, mustUseTempDir) => {
   const randomNumbers = Math.floor(Math.random() * 10000)
     .toString()
-    .padStart(4, "0");
+    .padStart(4, '0');
   const randomSuffix = `.tw${randomNumbers}`;
 
   // Ideally the temporary file and destination file should be located on the
   // same drive and partition.
   if (mustUseTempDir) {
-    const tempDir = app.getPath("temp");
+    const tempDir = app.getPath('temp');
     const basename = pathUtil.basename(originalPath);
     return pathUtil.join(tempDir, `${basename}${randomSuffix}`);
   } else {
@@ -78,41 +78,43 @@ const acquireFileLock = async (path) => {
  * @param {string} file path
  * @returns {Promise<string>} hex digest
  */
-const sha512 = (file) =>
-  new Promise((resolve, reject) => {
-    const hash = nodeCrypto.createHash("sha512");
-    const stream = fs.createReadStream(file);
-    stream.on("data", (data) => {
-      hash.update(data);
-    });
-    stream.on("error", (error) => {
-      reject(error);
-    });
-    stream.on("end", () => {
-      resolve(hash.digest("hex"));
-    });
+const sha512 = (file) => new Promise((resolve, reject) => {
+  const hash = nodeCrypto.createHash('sha512');
+  const stream = fs.createReadStream(file);
+  stream.on('data', (data) => {
+    hash.update(data);
   });
+  stream.on('error', (error) => {
+    reject(error);
+  });
+  stream.on('end', () => {
+    resolve(hash.digest('hex'));
+  });
+});
 
 /**
  * @param {string} from
  * @param {string} to
  * @returns {Promise<void>} Does not wait for file to be synced to disk
  */
-const copy = (from, to) =>
-  new Promise((resolve, reject) => {
-    // fs.copyFile's error handling does more than we want.
-    // On error we want to leave the destination file to allow possible
-    // data recovery later.
-    const readStream = fs.createReadStream(from);
-    const writeStream = fs.createWriteStream(to);
-    stream.pipeline(readStream, writeStream, (err) => {
+const copy = (from, to) => new Promise((resolve, reject) => {
+  // fs.copyFile's error handling does more than we want.
+  // On error we want to leave the destination file to allow possible
+  // data recovery later.
+  const readStream = fs.createReadStream(from);
+  const writeStream = fs.createWriteStream(to);
+  stream.pipeline(
+    readStream,
+    writeStream,
+    (err) => {
       if (err) {
         reject(err);
       } else {
         resolve();
       }
-    });
-  });
+    }
+  );
+});
 
 const createAtomicWriteStream = async (path) => {
   const releaseFileLock = await acquireFileLock(path);
@@ -123,7 +125,7 @@ const createAtomicWriteStream = async (path) => {
   // same directory as the destination file.
   const isSeverelySandboxed = !!process.mas;
 
-  const runningHash = nodeCrypto.createHash("sha512");
+  const runningHash = nodeCrypto.createHash('sha512');
   const tempPath = getTemporaryPath(path, isSeverelySandboxed);
 
   /** @type {fs.promises.FileHandle} */
@@ -131,13 +133,13 @@ const createAtomicWriteStream = async (path) => {
   /** @type {fs.WriteStream} */
   let writeStream;
   try {
-    fileHandle = await fsPromises.open(tempPath, "w", originalMode);
+    fileHandle = await fsPromises.open(tempPath, 'w', originalMode);
     writeStream = fileHandle.createWriteStream({
       autoClose: false,
       // Increase high water mark from default value of 16384.
       // Increasing this results in less time spent waiting for disk IO to complete, which would pause
       // the sb3 generation stream in scratch-gui. Increasing this does increase memory usage.
-      highWaterMark: 1024 * 1024 * 5,
+      highWaterMark: 1024 * 1024 * 5
     });
   } catch (err) {
     if (fileHandle) {
@@ -163,15 +165,15 @@ const createAtomicWriteStream = async (path) => {
       // created
     }
 
-    writeStream.emit("atomic-error", error);
+    writeStream.emit('atomic-error', error);
     releaseFileLock();
   };
 
-  writeStream.on("error", (error) => {
+  writeStream.on('error', (error) => {
     handleError(error);
   });
 
-  writeStream.on("finish", async () => {
+  writeStream.on('finish', async () => {
     try {
       await fileHandle.sync();
 
@@ -186,16 +188,16 @@ const createAtomicWriteStream = async (path) => {
         });
       });
 
-      const expectedHash = runningHash.digest("hex");
+      const expectedHash = runningHash.digest('hex');
       try {
         await fsPromises.rename(tempPath, path);
 
         const finalHash = await sha512(path);
         if (expectedHash !== finalHash) {
-          throw new Error("Atomc write stream integrity check failed");
+          throw new Error('Atomc write stream integrity check failed');
         }
       } catch (err) {
-        if (err.syscall === "rename" && err.code === "EXDEV") {
+        if (err.syscall === 'rename' && err.code === 'EXDEV') {
           // The temporary file and the destination file were located on separate
           // drives or partitions, so we need to copy instead. This is not ideal
           // and is not atomic, but:
@@ -208,23 +210,17 @@ const createAtomicWriteStream = async (path) => {
           // Per man fsync(2):
           // On some UNIX systems (but not Linux), fd must be a writable file descriptor.
           // Ideally we would only open the destination once, but this works fine.
-          const destinationHandle = await fsPromises.open(path, "a");
+          const destinationHandle = await fsPromises.open(path, 'a');
           await destinationHandle.sync();
           await destinationHandle.close();
 
           const finalHash = await sha512(path);
           if (expectedHash !== finalHash) {
-            throw new Error(
-              "Atomc write stream integrity check failed in EXDEV fallback",
-            );
+            throw new Error('Atomc write stream integrity check failed in EXDEV fallback');
           }
 
           await fsPromises.unlink(tempPath);
-        } else if (
-          process.platform === "win32" &&
-          err.syscall === "rename" &&
-          err.code === "EPERM"
-        ) {
+        } else if (process.platform === 'win32' && err.syscall === 'rename' && err.code === 'EPERM') {
           // On Windows, the rename can fail with EPERM even though it succeeded according to
           // https://github.com/npm/fs-write-stream-atomic/commit/2f51136f24aaefebd446455a45fa108909b18ca9
 
@@ -254,7 +250,7 @@ const createAtomicWriteStream = async (path) => {
         }
       }
 
-      writeStream.emit("atomic-finish");
+      writeStream.emit('atomic-finish');
       releaseFileLock();
     } catch (error) {
       handleError(error);
@@ -264,7 +260,7 @@ const createAtomicWriteStream = async (path) => {
   const oldWrite = writeStream.write;
   writeStream.write = function (chunk, ...extra) {
     if (extra.length !== 0) {
-      throw new Error("Atomic write() only supports one argument");
+      throw new Error('Atomic write() only supports one argument');
     }
 
     runningHash.update(chunk);
@@ -278,8 +274,8 @@ const writeFileAtomic = async (path, data) => {
   try {
     const stream = await createAtomicWriteStream(path);
     await new Promise((resolve, reject) => {
-      stream.on("atomic-finish", resolve);
-      stream.on("atomic-error", reject);
+      stream.on('atomic-finish', resolve);
+      stream.on('atomic-error', reject);
       stream.write(data);
       stream.end();
     });
@@ -295,5 +291,5 @@ const writeFileAtomic = async (path, data) => {
 
 module.exports = {
   createAtomicWriteStream,
-  writeFileAtomic,
+  writeFileAtomic
 };

@@ -1,27 +1,22 @@
-import {
-    defineMessages,
-    FormattedMessage,
-    intlShape,
-    injectIntl,
-} from "react-intl";
-import PropTypes from "prop-types";
-import React from "react";
-import Box from "../box/box.jsx";
-import Modal from "../../containers/modal.jsx";
-import FileInput from "./file-input.jsx";
-import styles from "./custom-extension-modal.css";
-import FancyCheckbox from "../tw-fancy-checkbox/checkbox.jsx";
-import { APP_NAME } from "../../lib/brand";
+import {defineMessages, FormattedMessage, intlShape, injectIntl} from 'react-intl';
+import PropTypes from 'prop-types';
+import React from 'react';
+import Box from '../box/box.jsx';
+import Modal from '../../containers/modal.jsx';
+import FileInput from './file-input.jsx';
+import styles from './custom-extension-modal.css';
+import FancyCheckbox from '../tw-fancy-checkbox/checkbox.jsx';
+import {APP_NAME} from '../../lib/brand';
 
 const messages = defineMessages({
     title: {
-        defaultMessage: "Load Custom Extension",
-        description: "Title of custom extension menu",
-        id: "tw.customExtensionModal.title",
-    },
+        defaultMessage: 'Load Custom Extension',
+        description: 'Title of custom extension menu',
+        id: 'tw.customExtensionModal.title'
+    }
 });
 
-const CustomExtensionModal = (props) => (
+const CustomExtensionModal = props => (
     <Modal
         className={styles.modalContent}
         onRequestClose={props.onClose}
@@ -37,7 +32,7 @@ const CustomExtensionModal = (props) => (
             <div className={styles.typeSelectorContainer}>
                 <div
                     className={styles.typeSelectorButton}
-                    data-active={props.type === "url"}
+                    data-active={props.type === 'url'}
                     onClick={props.onSwitchToURL}
                     tabIndex={0}
                 >
@@ -50,7 +45,7 @@ const CustomExtensionModal = (props) => (
                 </div>
                 <div
                     className={styles.typeSelectorButton}
-                    data-active={props.type === "file"}
+                    data-active={props.type === 'file'}
                     onClick={props.onSwitchToFile}
                     tabIndex={0}
                 >
@@ -63,7 +58,7 @@ const CustomExtensionModal = (props) => (
                 </div>
                 <div
                     className={styles.typeSelectorButton}
-                    data-active={props.type === "text"}
+                    data-active={props.type === 'text'}
                     onClick={props.onSwitchToText}
                     tabIndex={0}
                 >
@@ -76,7 +71,7 @@ const CustomExtensionModal = (props) => (
                 </div>
             </div>
 
-            {props.type === "url" ? (
+            {props.type === 'url' ? (
                 <React.Fragment key={props.type}>
                     <p>
                         <FormattedMessage
@@ -95,7 +90,7 @@ const CustomExtensionModal = (props) => (
                         autoFocus
                     />
                 </React.Fragment>
-            ) : props.type === "file" ? (
+            ) : props.type === 'file' ? (
                 <React.Fragment key={props.type}>
                     <p>
                         <FormattedMessage
@@ -121,9 +116,7 @@ const CustomExtensionModal = (props) => (
                     </p>
                     <textarea
                         className={styles.textCodeInput}
-                        placeholder={
-                            "class Extension {\n  // ...\n}\nScratch.extensions.register(new Extension());"
-                        }
+                        placeholder={'class Extension {\n  // ...\n}\nScratch.extensions.register(new Extension());'}
                         value={props.text}
                         onChange={props.onChangeText}
                         autoFocus
@@ -160,30 +153,32 @@ const CustomExtensionModal = (props) => (
                                 description="Warning that appears when disabling extension security sandbox"
                                 id="tw.customExtensionModal.unsandboxedWarning2"
                                 values={{
-                                    APP_NAME,
+                                    APP_NAME
                                 }}
                             />
                         </p>
                     )}
                 </React.Fragment>
-            ) : props.unsandboxed ? (
-                <p className={styles.trustedExtension}>
-                    <FormattedMessage
-                        // eslint-disable-next-line max-len
-                        defaultMessage="This extension will be loaded without the sandbox because it is from a trusted source."
-                        description="Message that appears in custom extension prompt"
-                        id="tw.customExtensionModal.trusted"
-                    />
-                </p>
             ) : (
-                <p>
-                    <FormattedMessage
-                        // eslint-disable-next-line max-len
-                        defaultMessage="Extensions from untrusted URLs will always be loaded with the sandbox for security."
-                        description="Message that appears in custom extension prompt"
-                        id="tw.customExtensionModal.untrusted"
-                    />
-                </p>
+                props.unsandboxed ? (
+                    <p className={styles.trustedExtension}>
+                        <FormattedMessage
+                            // eslint-disable-next-line max-len
+                            defaultMessage="This extension will be loaded without the sandbox because it is from a trusted source."
+                            description="Message that appears in custom extension prompt"
+                            id="tw.customExtensionModal.trusted"
+                        />
+                    </p>
+                ) : (
+                    <p>
+                        <FormattedMessage
+                            // eslint-disable-next-line max-len
+                            defaultMessage="Extensions from untrusted URLs will always be loaded with the sandbox for security."
+                            description="Message that appears in custom extension prompt"
+                            id="tw.customExtensionModal.untrusted"
+                        />
+                    </p>
+                )
             )}
 
             <div className={styles.buttonRow}>
@@ -206,7 +201,7 @@ const CustomExtensionModal = (props) => (
 CustomExtensionModal.propTypes = {
     intl: intlShape,
     canLoadExtension: PropTypes.bool.isRequired,
-    type: PropTypes.oneOf(["url", "file", "text"]).isRequired,
+    type: PropTypes.oneOf(['url', 'file', 'text']).isRequired,
     onSwitchToFile: PropTypes.func.isRequired,
     onSwitchToURL: PropTypes.func.isRequired,
     onSwitchToText: PropTypes.func.isRequired,
@@ -223,7 +218,7 @@ CustomExtensionModal.propTypes = {
     unsandboxed: PropTypes.bool.isRequired,
     onChangeUnsandboxed: PropTypes.func,
     onLoadExtension: PropTypes.func.isRequired,
-    onClose: PropTypes.func.isRequired,
+    onClose: PropTypes.func.isRequired
 };
 
 export default injectIntl(CustomExtensionModal);

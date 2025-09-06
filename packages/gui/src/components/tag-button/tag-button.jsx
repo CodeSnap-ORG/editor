@@ -1,11 +1,11 @@
-import classNames from "classnames";
-import PropTypes from "prop-types";
-import React from "react";
-import { FormattedMessage } from "react-intl";
+import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import React from 'react';
+import {FormattedMessage} from 'react-intl';
 
-import Button from "../button/button.jsx";
+import Button from '../button/button.jsx';
 
-import styles from "./tag-button.css";
+import styles from './tag-button.css';
 
 const TagButtonComponent = ({
     active,
@@ -16,16 +16,20 @@ const TagButtonComponent = ({
     ...props
 }) => (
     <Button
-        className={classNames(styles.tagButton, className, {
-            [styles.active]: active,
-        })}
-        iconClassName={classNames(styles.tagButtonIcon, iconClassName)}
+        className={classNames(
+            styles.tagButton,
+            className, {
+                [styles.active]: active
+            }
+        )}
+        iconClassName={classNames(
+            styles.tagButtonIcon,
+            iconClassName
+        )}
         {...props}
     >
         <div class={styles.checkbox}></div>
-        {typeof intlLabel === "string" ? (
-            intlLabel
-        ) : (
+        {typeof intlLabel === 'string' ? intlLabel : (
             <FormattedMessage {...intlLabel} />
         )}
     </Button>
@@ -38,15 +42,15 @@ TagButtonComponent.propTypes = {
         PropTypes.shape({
             defaultMessage: PropTypes.string,
             description: PropTypes.string,
-            id: PropTypes.string,
+            id: PropTypes.string
         }),
-        PropTypes.string,
+        PropTypes.string
     ]).isRequired,
-    tag: PropTypes.string.isRequired,
+    tag: PropTypes.string.isRequired
 };
 
 TagButtonComponent.defaultProps = {
-    active: false,
+    active: false
 };
 
 export default TagButtonComponent;

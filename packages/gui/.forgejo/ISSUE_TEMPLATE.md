@@ -4,7 +4,6 @@ Please turn off all browser extensions and bypass the cache before reporting.
 For security issues see ampmod.netlify.app/security and DO NOT REPORT HERE.
 Thanks!
 -->
-
 ### Expected Behavior
 
 _Please describe what should happen_

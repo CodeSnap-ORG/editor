@@ -1,36 +1,36 @@
-import React from "react";
-import log from "./log";
-import LazyScratchBlocks from "./tw-lazy-scratch-blocks";
-import LoadingSpinner from "../components/tw-loading-spinner/spinner.jsx";
-import CrashMessage from "../components/crash-message/crash-message.jsx";
+import React from 'react';
+import log from './log';
+import LazyScratchBlocks from './tw-lazy-scratch-blocks';
+import LoadingSpinner from '../components/tw-loading-spinner/spinner.jsx';
+import CrashMessage from '../components/crash-message/crash-message.jsx';
 
 const LoadScratchBlocksHOC = function (WrappedComponent) {
     class LoadScratchBlocks extends React.Component {
-        constructor(props) {
+        constructor (props) {
             super(props);
             this.state = {
                 loaded: LazyScratchBlocks.isLoaded(),
-                error: null,
+                error: null
             };
             if (!this.state.loaded) {
                 LazyScratchBlocks.load()
                     .then(() => {
                         this.setState({
-                            loaded: true,
+                            loaded: true
                         });
                     })
-                    .catch((e) => {
+                    .catch(e => {
                         log.error(e);
                         this.setState({
-                            error: e,
+                            error: e
                         });
                     });
             }
         }
-        handleReload() {
+        handleReload () {
             location.reload();
         }
-        render() {
+        render () {
             if (this.state.error !== null) {
                 return (
                     <CrashMessage
@@ -40,9 +40,15 @@ const LoadScratchBlocksHOC = function (WrappedComponent) {
                 );
             }
             if (!this.state.loaded) {
-                return <LoadingSpinner />;
+                return (
+                    <LoadingSpinner />
+                );
             }
-            return <WrappedComponent {...this.props} />;
+            return (
+                <WrappedComponent
+                    {...this.props}
+                />
+            );
         }
     }
     return LoadScratchBlocks;

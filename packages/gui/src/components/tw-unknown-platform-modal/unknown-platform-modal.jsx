@@ -1,27 +1,21 @@
-import {
-    defineMessages,
-    FormattedMessage,
-    intlShape,
-    injectIntl,
-} from "react-intl";
-import PropTypes from "prop-types";
-import React from "react";
-import { APP_NAME } from "../../lib/brand.js";
-import Modal from "../../containers/modal.jsx";
-import styles from "./unknown-platform-modal.css";
+import {defineMessages, FormattedMessage, intlShape, injectIntl} from 'react-intl';
+import PropTypes from 'prop-types';
+import React from 'react';
+import {APP_NAME} from '../../lib/brand.js';
+import Modal from '../../containers/modal.jsx';
+import styles from './unknown-platform-modal.css';
 
 const messages = defineMessages({
     title: {
-        defaultMessage: "Unknown Platform",
-        description:
-            "Title of modal that appears when loading a project made with another mod",
-        id: "tw.unknownPlatform.title",
-    },
+        defaultMessage: 'Unknown Platform',
+        description: 'Title of modal that appears when loading a project made with another mod',
+        id: 'tw.unknownPlatform.title'
+    }
 });
 
-const platformToString = (platform) => {
+const platformToString = platform => {
     if (!platform) {
-        return "(?)";
+        return '(?)';
     }
     if (platform.name && platform.url) {
         return `${platform.name} (${platform.url})`;
@@ -30,10 +24,10 @@ const platformToString = (platform) => {
     } else if (platform.url) {
         return `${platform.url}`;
     }
-    return "(?)";
+    return '(?)';
 };
 
-const UnknownPlatformModal = (props) => (
+const UnknownPlatformModal = props => (
     <Modal
         className={styles.modalContent}
         onRequestClose={props.onClose}
@@ -50,7 +44,9 @@ const UnknownPlatformModal = (props) => (
                 />
             </p>
 
-            <p className={styles.details}>{platformToString(props.platform)}</p>
+            <p className={styles.details}>
+                {platformToString(props.platform)}
+            </p>
 
             <p>
                 <FormattedMessage
@@ -60,7 +56,7 @@ const UnknownPlatformModal = (props) => (
                     description="Text in modal that appears when loading a project made for another mod."
                     id="tw.unknownPlatform.2"
                     values={{
-                        APP_NAME,
+                        APP_NAME
                     }}
                 />
             </p>
@@ -87,8 +83,8 @@ UnknownPlatformModal.propTypes = {
     canClose: PropTypes.bool,
     platform: PropTypes.shape({
         name: PropTypes.string,
-        url: PropTypes.string,
-    }),
+        url: PropTypes.string
+    })
 };
 
 export default injectIntl(UnknownPlatformModal);

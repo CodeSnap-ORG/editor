@@ -14,30 +14,30 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import React from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
+import React from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
 
-import Search from "./search";
-import importedAddons from "../generated/addon-manifests";
-import messagesByLocale from "../generated/l10n-settings-entries";
-import settingsTranslationsEnglish from "./en.json";
-import settingsTranslationsOther from "./translations.json";
-import upstreamMeta from "../generated/upstream-meta.json";
-import { detectLocale } from "../../lib/detect-locale";
-import SettingsStore from "../settings-store-singleton";
-import Channels from "../channels";
-import extensionImage from "./icons/extension.svg";
-import brushImage from "./icons/brush.svg";
-import undoImage from "./icons/undo.svg";
-import expandImageBlack from "./icons/expand.svg";
-import infoImage from "./icons/info.svg";
-import TWFancyCheckbox from "../../components/tw-fancy-checkbox/checkbox.jsx";
-import styles from "./settings.css";
-import { detectTheme } from "../../lib/themes/themePersistance.js";
-import { applyGuiColors } from "../../lib/themes/guiHelpers.js";
-import { APP_NAME } from "../../lib/brand.js";
-import "../../lib/normalize.css";
+import Search from './search';
+import importedAddons from '../generated/addon-manifests';
+import messagesByLocale from '../generated/l10n-settings-entries';
+import settingsTranslationsEnglish from './en.json';
+import settingsTranslationsOther from './translations.json';
+import upstreamMeta from '../generated/upstream-meta.json';
+import {detectLocale} from '../../lib/detect-locale';
+import SettingsStore from '../settings-store-singleton';
+import Channels from '../channels';
+import extensionImage from './icons/extension.svg';
+import brushImage from './icons/brush.svg';
+import undoImage from './icons/undo.svg';
+import expandImageBlack from './icons/expand.svg';
+import infoImage from './icons/info.svg';
+import TWFancyCheckbox from '../../components/tw-fancy-checkbox/checkbox.jsx';
+import styles from './settings.css';
+import {detectTheme} from '../../lib/themes/themePersistance.js';
+import {applyGuiColors} from '../../lib/themes/guiHelpers.js';
+import {APP_NAME} from '../../lib/brand.js';
+import '../../lib/normalize.css';
 
 /* eslint-disable no-alert */
 /* eslint-disable no-console */
@@ -47,15 +47,11 @@ import "../../lib/normalize.css";
 const locale = detectLocale(Object.keys(messagesByLocale));
 document.documentElement.lang = locale;
 
-const addonTranslations = messagesByLocale[locale]
-    ? messagesByLocale[locale]()
-    : {};
+const addonTranslations = messagesByLocale[locale] ? messagesByLocale[locale]() : {};
 
 const settingsTranslations = settingsTranslationsEnglish;
-if (locale !== "en") {
-    const messages =
-        settingsTranslationsOther[locale] ||
-        settingsTranslationsOther[locale.split("-")[0]];
+if (locale !== 'en') {
+    const messages = settingsTranslationsOther[locale] || settingsTranslationsOther[locale.split('-')[0]];
     if (messages) {
         Object.assign(settingsTranslations, messages);
     }
@@ -66,14 +62,14 @@ const theme = detectTheme();
 applyGuiColors(theme);
 
 let _throttleTimeout;
-const postThrottledSettingsChange = (store) => {
+const postThrottledSettingsChange = store => {
     if (_throttleTimeout) {
         clearTimeout(_throttleTimeout);
     }
     _throttleTimeout = setTimeout(() => {
         Channels.changeChannel.postMessage({
             version: upstreamMeta.commit,
-            store,
+            store
         });
     }, 100);
 };
@@ -90,36 +86,35 @@ const filterAddonsBySupport = () => {
     }
     return {
         supported,
-        unsupported,
+        unsupported
     };
 };
-const { supported: supportedAddons, unsupported: unsupportedAddons } =
-    filterAddonsBySupport();
+const {supported: supportedAddons, unsupported: unsupportedAddons} = filterAddonsBySupport();
 
 const groupAddons = () => {
     const groups = {
         new: {
             label: settingsTranslations.groupNew,
             open: true,
-            addons: [],
+            addons: []
         },
         others: {
             label: settingsTranslations.groupOthers,
             open: true,
-            addons: [],
+            addons: []
         },
         danger: {
             label: settingsTranslations.groupDanger,
             open: false,
-            addons: [],
-        },
+            addons: []
+        }
     };
     const manifests = Object.values(supportedAddons);
     for (let index = 0; index < manifests.length; index++) {
         const manifest = manifests[index];
-        if (manifest.tags.includes("new")) {
+        if (manifest.tags.includes('new')) {
             groups.new.addons.push(index);
-        } else if (manifest.tags.includes("danger") || manifest.noCompiler) {
+        } else if (manifest.tags.includes('danger') || manifest.noCompiler) {
             groups.danger.addons.push(index);
         } else {
             groups.others.addons.push(index);
@@ -131,7 +126,7 @@ const groupedAddons = groupAddons();
 
 const getInitialSearch = () => {
     const hash = location.hash.substring(1);
-
+    
     // If the query is an addon ID, it's a better user experience to show the name of the addon
     // in the search bar instead of a ID they won't understand.
     if (Object.prototype.hasOwnProperty.call(importedAddons, hash)) {
@@ -145,46 +140,50 @@ const getInitialSearch = () => {
 const clearHash = () => {
     // Don't want to insert unnecssary history entry
     // location.hash = ''; leaves a # in the URL
-    if (location.hash !== "") {
-        history.replaceState(
-            null,
-            null,
-            `${location.pathname}${location.search}`,
-        );
+    if (location.hash !== '') {
+        history.replaceState(null, null, `${location.pathname}${location.search}`);
     }
 };
 
-const CreditList = ({ credits }) =>
+const CreditList = ({credits}) => (
     credits.map((author, index) => {
         const isLast = index === credits.length - 1;
         return (
-            <span className={styles.credit} key={index}>
+            <span
+                className={styles.credit}
+                key={index}
+            >
                 {author.link ? (
-                    <a href={author.link} target="_blank" rel="noreferrer">
+                    <a
+                        href={author.link}
+                        target="_blank"
+                        rel="noreferrer"
+                    >
                         {author.name}
                     </a>
                 ) : (
-                    <span>{author.name}</span>
+                    <span>
+                        {author.name}
+                    </span>
                 )}
-                {isLast ? null : ", "}
+                {isLast ? null : ', '}
             </span>
         );
-    });
+    })
+);
 CreditList.propTypes = {
-    credits: PropTypes.arrayOf(
-        PropTypes.shape({
-            name: PropTypes.string,
-            link: PropTypes.string,
-        }),
-    ),
+    credits: PropTypes.arrayOf(PropTypes.shape({
+        name: PropTypes.string,
+        link: PropTypes.string
+    }))
 };
 
-const Switch = ({ onChange, value, ...props }) => (
+const Switch = ({onChange, value, ...props}) => (
     <button
         className={styles.switch}
-        state={value ? "on" : "off"}
+        state={value ? 'on' : 'off'}
         role="checkbox"
-        aria-checked={value ? "true" : "false"}
+        aria-checked={value ? 'true' : 'false'}
         tabIndex="0"
         onClick={() => onChange(!value)}
         {...props}
@@ -192,21 +191,23 @@ const Switch = ({ onChange, value, ...props }) => (
 );
 Switch.propTypes = {
     onChange: PropTypes.func,
-    value: PropTypes.bool,
+    value: PropTypes.bool
 };
 
-const Select = ({ onChange, value, values }) => (
+const Select = ({
+    onChange,
+    value,
+    values
+}) => (
     <div className={styles.select}>
-        {values.map((potentialValue) => {
+        {values.map(potentialValue => {
             const id = potentialValue.id;
             const selected = id === value;
             return (
                 <button
                     key={id}
                     onClick={() => onChange(id)}
-                    className={classNames(styles.selectOption, {
-                        [styles.selected]: selected,
-                    })}
+                    className={classNames(styles.selectOption, {[styles.selected]: selected})}
                 >
                     {potentialValue.name}
                 </button>
@@ -217,37 +218,35 @@ const Select = ({ onChange, value, values }) => (
 Select.propTypes = {
     onChange: PropTypes.func,
     value: PropTypes.string,
-    values: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.string,
-            name: PropTypes.string,
-        }),
-    ),
+    values: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.string,
+        name: PropTypes.string
+    }))
 };
 
-const Tags = ({ manifest }) => (
+const Tags = ({manifest}) => (
     <span className={styles.tagContainer}>
-        {manifest.tags.includes("recommended") && (
+        {manifest.tags.includes('recommended') && (
             <span className={classNames(styles.tag, styles.tagRecommended)}>
                 {settingsTranslations.tagRecommended}
             </span>
         )}
-        {manifest.tags.includes("theme") && (
+        {manifest.tags.includes('theme') && (
             <span className={classNames(styles.tag, styles.tagTheme)}>
                 {settingsTranslations.tagTheme}
             </span>
         )}
-        {manifest.tags.includes("beta") && (
+        {manifest.tags.includes('beta') && (
             <span className={classNames(styles.tag, styles.tagBeta)}>
                 {settingsTranslations.tagBeta}
             </span>
         )}
-        {manifest.tags.includes("new") && (
+        {manifest.tags.includes('new') && (
             <span className={classNames(styles.tag, styles.tagNew)}>
                 {settingsTranslations.tagNew}
             </span>
         )}
-        {manifest.tags.includes("danger") && (
+        {manifest.tags.includes('danger') && (
             <span className={classNames(styles.tag, styles.tagDanger)}>
                 {settingsTranslations.tagDanger}
             </span>
@@ -256,12 +255,12 @@ const Tags = ({ manifest }) => (
 );
 Tags.propTypes = {
     manifest: PropTypes.shape({
-        tags: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
-    }).isRequired,
+        tags: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired
+    }).isRequired
 };
 
 class TextInput extends React.Component {
-    constructor(props) {
+    constructor (props) {
         super(props);
         this.handleKeyPress = this.handleKeyPress.bind(this);
         this.handleFocus = this.handleFocus.bind(this);
@@ -269,59 +268,55 @@ class TextInput extends React.Component {
         this.handleChange = this.handleChange.bind(this);
         this.state = {
             value: null,
-            focused: false,
+            focused: false
         };
     }
-    handleKeyPress(e) {
-        if (e.key === "Enter") {
+    handleKeyPress (e) {
+        if (e.key === 'Enter') {
             this.handleFlush(e);
             e.target.blur();
         }
     }
-    handleFocus() {
+    handleFocus () {
         this.setState({
-            focused: true,
+            focused: true
         });
     }
-    handleFlush(e) {
+    handleFlush (e) {
         this.setState({
-            focused: false,
+            focused: false
         });
         if (this.state.value === null) {
             return;
         }
-        if (this.props.type === "number") {
+        if (this.props.type === 'number') {
             let value = +this.state.value;
             const min = e.target.min;
             const max = e.target.max;
             const step = e.target.step;
-            if (min !== "") value = Math.max(min, value);
-            if (max !== "") value = Math.min(max, value);
-            if (step === "1") value = Math.round(value);
+            if (min !== '') value = Math.max(min, value);
+            if (max !== '') value = Math.min(max, value);
+            if (step === '1') value = Math.round(value);
             this.props.onChange(value);
         } else {
             this.props.onChange(this.state.value);
         }
-        this.setState({ value: null });
+        this.setState({value: null});
     }
-    handleChange(e) {
+    handleChange (e) {
         e.persist();
-        this.setState({ value: e.target.value }, () => {
+        this.setState({value: e.target.value}, () => {
             // A change event can be fired when not focused by using the browser's number spinners
             if (!this.state.focused) {
                 this.handleFlush(e);
             }
         });
     }
-    render() {
+    render () {
         return (
             <input
                 {...this.props}
-                value={
-                    this.state.value === null
-                        ? this.props.value
-                        : this.state.value
-                }
+                value={this.state.value === null ? this.props.value : this.state.value}
                 onFocus={this.handleFocus}
                 onBlur={this.handleFlush}
                 onChange={this.handleChange}
@@ -333,10 +328,10 @@ class TextInput extends React.Component {
 TextInput.propTypes = {
     onChange: PropTypes.func.isRequired,
     type: PropTypes.string,
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };
 
-const ColorInput = (props) => (
+const ColorInput = props => (
     <input
         type="color"
         id={props.id}
@@ -347,10 +342,14 @@ const ColorInput = (props) => (
 ColorInput.propTypes = {
     id: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
-    value: PropTypes.string.isRequired,
+    value: PropTypes.string.isRequired
 };
 
-const ResetButton = ({ addonId, settingId, forTextInput }) => (
+const ResetButton = ({
+    addonId,
+    settingId,
+    forTextInput
+}) => (
     <button
         className={classNames(styles.button, styles.resetSettingButton)}
         onClick={() => SettingsStore.setAddonSetting(addonId, settingId, null)}
@@ -367,63 +366,53 @@ const ResetButton = ({ addonId, settingId, forTextInput }) => (
 ResetButton.propTypes = {
     addonId: PropTypes.string,
     settingId: PropTypes.string,
-    forTextInput: PropTypes.bool,
+    forTextInput: PropTypes.bool
 };
 
-const Setting = ({ addonId, setting, value }) => {
+const Setting = ({
+    addonId,
+    setting,
+    value
+}) => {
     if (!SettingsStore.evaluateCondition(addonId, setting.if)) {
         return null;
     }
     const settingId = setting.id;
-    const settingName =
-        addonTranslations[`${addonId}/@settings-name-${settingId}`] ||
-        setting.name;
+    const settingName = addonTranslations[`${addonId}/@settings-name-${settingId}`] || setting.name;
     const uniqueId = `setting/${addonId}/${settingId}`;
     const label = (
-        <label htmlFor={uniqueId} className={styles.settingLabel}>
+        <label
+            htmlFor={uniqueId}
+            className={styles.settingLabel}
+        >
             {settingName}
         </label>
     );
     return (
-        <div className={styles.setting}>
-            {setting.type === "boolean" && (
+        <div
+            className={styles.setting}
+        >
+            {setting.type === 'boolean' && (
                 <React.Fragment>
                     {label}
                     <TWFancyCheckbox
                         id={uniqueId}
                         checked={value}
-                        onChange={(e) =>
-                            SettingsStore.setAddonSetting(
-                                addonId,
-                                settingId,
-                                e.target.checked,
-                            )
-                        }
+                        onChange={e => SettingsStore.setAddonSetting(addonId, settingId, e.target.checked)}
                     />
                 </React.Fragment>
             )}
-            {(setting.type === "integer" ||
-                setting.type === "positive_integer") && (
+            {(setting.type === 'integer' || setting.type === 'positive_integer') && (
                 <React.Fragment>
                     {label}
                     <TextInput
                         id={uniqueId}
                         type="number"
-                        min={
-                            setting.type === "positive_integer"
-                                ? "0"
-                                : setting.min
-                        }
+                        min={setting.type === 'positive_integer' ? '0' : setting.min}
                         max={setting.max}
                         step="1"
                         value={value}
-                        onChange={(newValue) =>
-                            SettingsStore.setAddonSetting(
-                                addonId,
-                                settingId,
-                                newValue,
-                            )
-                        }
+                        onChange={newValue => SettingsStore.setAddonSetting(addonId, settingId, newValue)}
                     />
                     <ResetButton
                         addonId={addonId}
@@ -432,20 +421,14 @@ const Setting = ({ addonId, setting, value }) => {
                     />
                 </React.Fragment>
             )}
-            {(setting.type === "string" || setting.type === "untranslated") && (
+            {(setting.type === 'string' || setting.type === 'untranslated') && (
                 <React.Fragment>
                     {label}
                     <TextInput
                         id={uniqueId}
                         type="text"
                         value={value}
-                        onChange={(newValue) =>
-                            SettingsStore.setAddonSetting(
-                                addonId,
-                                settingId,
-                                newValue,
-                            )
-                        }
+                        onChange={newValue => SettingsStore.setAddonSetting(addonId, settingId, newValue)}
                     />
                     <ResetButton
                         addonId={addonId}
@@ -454,38 +437,30 @@ const Setting = ({ addonId, setting, value }) => {
                     />
                 </React.Fragment>
             )}
-            {setting.type === "color" && (
+            {setting.type === 'color' && (
                 <React.Fragment>
                     {label}
                     <ColorInput
                         id={uniqueId}
                         value={value}
-                        onChange={(e) =>
-                            SettingsStore.setAddonSetting(
-                                addonId,
-                                settingId,
-                                e.target.value,
-                            )
-                        }
+                        onChange={e => SettingsStore.setAddonSetting(addonId, settingId, e.target.value)}
                     />
-                    <ResetButton addonId={addonId} settingId={settingId} />
+                    <ResetButton
+                        addonId={addonId}
+                        settingId={settingId}
+                    />
                 </React.Fragment>
             )}
-            {setting.type === "select" && (
+            {setting.type === 'select' && (
                 <React.Fragment>
                     {label}
                     <Select
                         value={value}
-                        values={setting.potentialValues.map(({ id, name }) => ({
+                        values={setting.potentialValues.map(({id, name}) => ({
                             id,
-                            name:
-                                addonTranslations[
-                                    `${addonId}/@settings-select-${settingId}-${id}`
-                                ] || name,
+                            name: addonTranslations[`${addonId}/@settings-select-${settingId}-${id}`] || name
                         }))}
-                        onChange={(v) =>
-                            SettingsStore.setAddonSetting(addonId, settingId, v)
-                        }
+                        onChange={v => SettingsStore.setAddonSetting(addonId, settingId, v)}
                         setting={setting}
                     />
                 </React.Fragment>
@@ -501,71 +476,62 @@ Setting.propTypes = {
         name: PropTypes.string,
         min: PropTypes.number,
         max: PropTypes.number,
-        default: PropTypes.oneOfType([
-            PropTypes.string,
-            PropTypes.number,
-            PropTypes.bool,
-        ]),
-        potentialValues: PropTypes.arrayOf(
-            PropTypes.shape({
-                id: PropTypes.string,
-                name: PropTypes.string,
-            }),
-        ),
+        default: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
+        potentialValues: PropTypes.arrayOf(PropTypes.shape({
+            id: PropTypes.string,
+            name: PropTypes.string
+        })),
         if: PropTypes.shape({
-            addonEnabled: PropTypes.oneOfType([
-                PropTypes.string,
-                PropTypes.arrayOf(PropTypes.string),
-            ]),
+            addonEnabled: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
             // eslint-disable-next-line react/forbid-prop-types
-            settings: PropTypes.object,
-        }),
+            settings: PropTypes.object
+        })
     }),
-    value: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.bool,
-        PropTypes.number,
-    ]),
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.bool, PropTypes.number])
 };
 
-const Notice = ({ type, text }) => (
-    <div className={styles.notice} type={type}>
+const Notice = ({
+    type,
+    text
+}) => (
+    <div
+        className={styles.notice}
+        type={type}
+    >
         <img
             className={styles.noticeIcon}
             src={infoImage}
             alt=""
             draggable={false}
         />
-        <div>{text}</div>
+        <div>
+            {text}
+        </div>
     </div>
 );
 Notice.propTypes = {
     type: PropTypes.string,
-    text: PropTypes.string,
+    text: PropTypes.string
 };
 
-const Presets = ({ addonId, presets }) => (
+const Presets = ({
+    addonId,
+    presets
+}) => (
     <div className={classNames(styles.setting, styles.presets)}>
         <div className={styles.settingLabel}>
             {settingsTranslations.presets}
         </div>
-        {presets.map((preset) => {
+        {presets.map(preset => {
             const presetId = preset.id;
-            const name =
-                addonTranslations[`${addonId}/@preset-name-${presetId}`] ||
-                preset.name;
-            const description =
-                addonTranslations[
-                    `${addonId}/@preset-description-${presetId}`
-                ] || preset.description;
+            const name = addonTranslations[`${addonId}/@preset-name-${presetId}`] || preset.name;
+            const description = addonTranslations[`${addonId}/@preset-description-${presetId}`] || preset.description;
             return (
                 <button
                     key={presetId}
                     title={description}
                     className={classNames(styles.button, styles.presetButton)}
-                    onClick={() =>
-                        SettingsStore.applyAddonPreset(addonId, presetId)
-                    }
+                    onClick={() => SettingsStore.applyAddonPreset(addonId, presetId)}
                 >
                     {name}
                 </button>
@@ -575,31 +541,30 @@ const Presets = ({ addonId, presets }) => (
 );
 Presets.propTypes = {
     addonId: PropTypes.string,
-    presets: PropTypes.arrayOf(
-        PropTypes.shape({
-            name: PropTypes.string,
-            id: PropTypes.string,
-            description: PropTypes.string,
-            values: PropTypes.shape({}),
-        }),
-    ),
+    presets: PropTypes.arrayOf(PropTypes.shape({
+        name: PropTypes.string,
+        id: PropTypes.string,
+        description: PropTypes.string,
+        values: PropTypes.shape({})
+    }))
 };
 
-const Addon = ({ id, settings, manifest, extended }) => (
-    <div
-        className={classNames(styles.addon, {
-            [styles.addonDirty]: settings.dirty,
-        })}
-    >
+const Addon = ({
+    id,
+    settings,
+    manifest,
+    extended
+}) => (
+    <div className={classNames(styles.addon, {[styles.addonDirty]: settings.dirty})}>
         <div className={styles.addonHeader}>
             <label className={styles.addonTitle}>
                 <div className={styles.addonSwitch}>
                     <Switch
                         value={settings.enabled}
-                        onChange={(value) => {
+                        onChange={value => {
                             if (
                                 !value ||
-                                !manifest.tags.includes("danger") ||
+                                !manifest.tags.includes('danger') ||
                                 confirm(settingsTranslations.enableDangerous)
                             ) {
                                 SettingsStore.setAddonEnabled(id, value);
@@ -607,7 +572,7 @@ const Addon = ({ id, settings, manifest, extended }) => (
                         }}
                     />
                 </div>
-                {manifest.tags.includes("theme") ? (
+                {manifest.tags.includes('theme') ? (
                     <img
                         className={styles.extensionImage}
                         src={brushImage}
@@ -625,13 +590,16 @@ const Addon = ({ id, settings, manifest, extended }) => (
                 <div className={styles.addonTitleText}>
                     {addonTranslations[`${id}/@name`] || manifest.name}
                 </div>
-                {extended && <div className={styles.addonId}>{`(${id})`}</div>}
+                {extended && (
+                    <div className={styles.addonId}>
+                        {`(${id})`}
+                    </div>
+                )}
             </label>
             <Tags manifest={manifest} />
             {!settings.enabled && (
                 <div className={styles.inlineDescription}>
-                    {addonTranslations[`${id}/@description`] ||
-                        manifest.description}
+                    {addonTranslations[`${id}/@description`] || manifest.description}
                 </div>
             )}
             <div className={styles.addonOperations}>
@@ -654,8 +622,7 @@ const Addon = ({ id, settings, manifest, extended }) => (
         {settings.enabled && (
             <div className={styles.addonDetails}>
                 <div className={styles.description}>
-                    {addonTranslations[`${id}/@description`] ||
-                        manifest.description}
+                    {addonTranslations[`${id}/@description`] || manifest.description}
                 </div>
                 {manifest.credits && (
                     <div className={styles.creditContainer}>
@@ -665,17 +632,15 @@ const Addon = ({ id, settings, manifest, extended }) => (
                         <CreditList credits={manifest.credits} />
                     </div>
                 )}
-                {manifest.info &&
-                    manifest.info.map((info) => (
+                {manifest.info && (
+                    manifest.info.map(info => (
                         <Notice
                             key={info.id}
                             type={info.type}
-                            text={
-                                addonTranslations[`${id}/@info-${info.id}`] ||
-                                info.text
-                            }
+                            text={addonTranslations[`${id}/@info-${info.id}`] || info.text}
                         />
-                    ))}
+                    ))
+                )}
                 {manifest.noCompiler && (
                     <Notice
                         type="warning"
@@ -684,7 +649,7 @@ const Addon = ({ id, settings, manifest, extended }) => (
                 )}
                 {manifest.settings && (
                     <div className={styles.settingContainer}>
-                        {manifest.settings.map((setting) => (
+                        {manifest.settings.map(setting => (
                             <Setting
                                 key={setting.id}
                                 addonId={id}
@@ -693,7 +658,10 @@ const Addon = ({ id, settings, manifest, extended }) => (
                             />
                         ))}
                         {manifest.presets && (
-                            <Presets addonId={id} presets={manifest.presets} />
+                            <Presets
+                                addonId={id}
+                                presets={manifest.presets}
+                            />
                         )}
                     </div>
                 )}
@@ -705,30 +673,26 @@ Addon.propTypes = {
     id: PropTypes.string,
     settings: PropTypes.shape({
         enabled: PropTypes.bool,
-        dirty: PropTypes.bool,
+        dirty: PropTypes.bool
     }),
     manifest: PropTypes.shape({
         name: PropTypes.string,
         description: PropTypes.string,
         credits: PropTypes.arrayOf(PropTypes.shape({})),
-        info: PropTypes.arrayOf(
-            PropTypes.shape({
-                id: PropTypes.string,
-            }),
-        ),
-        settings: PropTypes.arrayOf(
-            PropTypes.shape({
-                id: PropTypes.string,
-            }),
-        ),
+        info: PropTypes.arrayOf(PropTypes.shape({
+            id: PropTypes.string
+        })),
+        settings: PropTypes.arrayOf(PropTypes.shape({
+            id: PropTypes.string
+        })),
         presets: PropTypes.arrayOf(PropTypes.shape({})),
         tags: PropTypes.arrayOf(PropTypes.string),
-        noCompiler: PropTypes.bool,
+        noCompiler: PropTypes.bool
     }),
-    extended: PropTypes.bool,
+    extended: PropTypes.bool
 };
 
-const Dirty = (props) => (
+const Dirty = props => (
     <div className={styles.dirtyOuter}>
         <div className={styles.dirtyInner}>
             {settingsTranslations.dirty}
@@ -744,35 +708,38 @@ const Dirty = (props) => (
     </div>
 );
 Dirty.propTypes = {
-    onReloadNow: PropTypes.func,
+    onReloadNow: PropTypes.func
 };
 
-const UnsupportedAddons = ({ addons: addonList }) => (
+const UnsupportedAddons = ({addons: addonList}) => (
     <div className={styles.unsupportedContainer}>
         <span className={styles.unsupportedText}>
             {settingsTranslations.unsupported}
         </span>
-        {addonList.map(({ id, manifest }, index) => (
-            <span key={id} className={styles.unsupportedAddon}>
+        {addonList.map(({id, manifest}, index) => (
+            <span
+                key={id}
+                className={styles.unsupportedAddon}
+            >
                 {addonTranslations[`${id}/@name`] || manifest.name}
-                {index !== addonList.length - 1 && ", "}
+                {index !== addonList.length - 1 && (
+                    ', '
+                )}
             </span>
         ))}
     </div>
 );
 UnsupportedAddons.propTypes = {
-    addons: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.string,
-            manifest: PropTypes.shape({
-                name: PropTypes.string,
-            }),
-        }),
-    ),
+    addons: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.string,
+        manifest: PropTypes.shape({
+            name: PropTypes.string
+        })
+    }))
 };
 
-const InternalAddonList = ({ addons, extended }) =>
-    addons.map(({ id, manifest, state }) => (
+const InternalAddonList = ({addons, extended}) => (
+    addons.map(({id, manifest, state}) => (
         <Addon
             key={id}
             id={id}
@@ -780,16 +747,17 @@ const InternalAddonList = ({ addons, extended }) =>
             manifest={manifest}
             extended={extended}
         />
-    ));
+    ))
+);
 
 class AddonGroup extends React.Component {
-    constructor(props) {
+    constructor (props) {
         super(props);
         this.state = {
-            open: props.open,
+            open: props.open
         };
     }
-    render() {
+    render () {
         if (this.props.addons.length === 0) {
             return null;
         }
@@ -799,11 +767,13 @@ class AddonGroup extends React.Component {
                     className={styles.addonGroupName}
                     onClick={() => {
                         this.setState({
-                            open: !this.state.open,
+                            open: !this.state.open
                         });
                     }}
                 >
-                    <div className={styles.addonGroupExpandContainer}>
+                    <div
+                        className={styles.addonGroupExpandContainer}
+                    >
                         <img
                             className={styles.addonGroupExpandIcon}
                             src={expandImageBlack}
@@ -811,10 +781,7 @@ class AddonGroup extends React.Component {
                             alt=""
                         />
                     </div>
-                    {this.props.label.replace(
-                        "{number}",
-                        this.props.addons.length,
-                    )}
+                    {this.props.label.replace('{number}', this.props.addons.length)}
                 </button>
                 {this.state.open && (
                     <InternalAddonList
@@ -829,23 +796,21 @@ class AddonGroup extends React.Component {
 AddonGroup.propTypes = {
     label: PropTypes.string,
     open: PropTypes.bool,
-    addons: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.string.isRequired,
-            state: PropTypes.shape({}).isRequired,
-            manifest: PropTypes.shape({}).isRequired,
-        }),
-    ).isRequired,
-    extended: PropTypes.bool.isRequired,
+    addons: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        state: PropTypes.shape({}).isRequired,
+        manifest: PropTypes.shape({}).isRequired
+    })).isRequired,
+    extended: PropTypes.bool.isRequired
 };
 
-const addonToSearchItem = ({ id, manifest }) => {
+const addonToSearchItem = ({id, manifest}) => {
     const texts = new Set();
     const addText = (score, text) => {
         if (text) {
             texts.add({
                 score,
-                text,
+                text
             });
         }
     };
@@ -857,10 +822,7 @@ const addonToSearchItem = ({ id, manifest }) => {
     if (manifest.settings) {
         for (const setting of manifest.settings) {
             addText(0.25, setting.name);
-            addText(
-                0.25,
-                addonTranslations[`${id}/@settings-name-${setting.id}`],
-            );
+            addText(0.25, addonTranslations[`${id}/@settings-name-${setting.id}`]);
         }
     }
     if (manifest.presets) {
@@ -868,10 +830,7 @@ const addonToSearchItem = ({ id, manifest }) => {
             addText(0.1, preset.name);
             addText(0.1, addonTranslations[`${id}/@preset-name-${preset.id}`]);
             addText(0.1, preset.description);
-            addText(
-                0.1,
-                addonTranslations[`${id}/@preset-description-${preset.id}`],
-            );
+            addText(0.1, addonTranslations[`${id}/@preset-description-${preset.id}`]);
         }
     }
     for (const tag of manifest.tags) {
@@ -890,17 +849,16 @@ const addonToSearchItem = ({ id, manifest }) => {
 };
 
 class AddonList extends React.Component {
-    constructor(props) {
+    constructor (props) {
         super(props);
         this.search = new Search(this.props.addons.map(addonToSearchItem));
         this.groups = [];
     }
-    render() {
+    render () {
         if (this.props.search) {
-            const addons = this.search
-                .search(this.props.search)
+            const addons = this.search.search(this.props.search)
                 .slice(0, 20)
-                .map(({ index }) => this.props.addons[index]);
+                .map(({index}) => this.props.addons[index]);
             if (addons.length === 0) {
                 return (
                     <div className={styles.noResults}>
@@ -919,40 +877,33 @@ class AddonList extends React.Component {
         }
         return (
             <div>
-                {Object.entries(groupedAddons).map(
-                    ([id, { label, addons, open }]) => (
-                        <AddonGroup
-                            key={id}
-                            label={label}
-                            open={open}
-                            addons={addons.map(
-                                (index) => this.props.addons[index],
-                            )}
-                            extended={this.props.extended}
-                        />
-                    ),
-                )}
+                {Object.entries(groupedAddons).map(([id, {label, addons, open}]) => (
+                    <AddonGroup
+                        key={id}
+                        label={label}
+                        open={open}
+                        addons={addons.map(index => this.props.addons[index])}
+                        extended={this.props.extended}
+                    />
+                ))}
             </div>
         );
     }
 }
 AddonList.propTypes = {
-    addons: PropTypes.arrayOf(
-        PropTypes.shape({
-            id: PropTypes.string.isRequired,
-            state: PropTypes.shape({}).isRequired,
-            manifest: PropTypes.shape({}).isRequired,
-        }),
-    ).isRequired,
+    addons: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        state: PropTypes.shape({}).isRequired,
+        manifest: PropTypes.shape({}).isRequired
+    })).isRequired,
     search: PropTypes.string.isRequired,
-    extended: PropTypes.bool.isRequired,
+    extended: PropTypes.bool.isRequired
 };
 
 class AddonSettingsComponent extends React.Component {
-    constructor(props) {
+    constructor (props) {
         super(props);
-        this.handleSettingStoreChanged =
-            this.handleSettingStoreChanged.bind(this);
+        this.handleSettingStoreChanged = this.handleSettingStoreChanged.bind(this);
         this.handleReloadNow = this.handleReloadNow.bind(this);
         this.handleResetAll = this.handleResetAll.bind(this);
         this.handleExport = this.handleExport.bind(this);
@@ -968,66 +919,56 @@ class AddonSettingsComponent extends React.Component {
             dirty: false,
             search: getInitialSearch(),
             extended: false,
-            ...this.readFullAddonState(),
+            ...this.readFullAddonState()
         };
         if (Channels.changeChannel) {
-            Channels.changeChannel.addEventListener("message", () => {
+            Channels.changeChannel.addEventListener('message', () => {
                 SettingsStore.readLocalStorage();
                 this.setState(this.readFullAddonState());
             });
         }
     }
-    componentDidMount() {
-        SettingsStore.addEventListener(
-            "setting-changed",
-            this.handleSettingStoreChanged,
-        );
-        document.body.addEventListener("keydown", this.handleKeyDown);
+    componentDidMount () {
+        SettingsStore.addEventListener('setting-changed', this.handleSettingStoreChanged);
+        document.body.addEventListener('keydown', this.handleKeyDown);
     }
-    componentDidUpdate(prevProps, prevState) {
+    componentDidUpdate (prevProps, prevState) {
         if (this.state.search !== prevState.search) {
             clearHash();
         }
     }
-    componentWillUnmount() {
-        SettingsStore.removeEventListener(
-            "setting-changed",
-            this.handleSettingStoreChanged,
-        );
-        document.body.removeEventListener("keydown", this.handleKeyDown);
+    componentWillUnmount () {
+        SettingsStore.removeEventListener('setting-changed', this.handleSettingStoreChanged);
+        document.body.removeEventListener('keydown', this.handleKeyDown);
     }
-    readFullAddonState() {
+    readFullAddonState () {
         const result = {};
         for (const [id, manifest] of Object.entries(supportedAddons)) {
             const enabled = SettingsStore.getAddonEnabled(id);
             const addonState = {
                 enabled: enabled,
-                dirty: false,
+                dirty: false
             };
             if (manifest.settings) {
                 for (const setting of manifest.settings) {
-                    addonState[setting.id] = SettingsStore.getAddonSetting(
-                        id,
-                        setting.id,
-                    );
+                    addonState[setting.id] = SettingsStore.getAddonSetting(id, setting.id);
                 }
             }
             result[id] = addonState;
         }
         return result;
     }
-    handleSettingStoreChanged(e) {
-        const { addonId, settingId, value } = e.detail;
+    handleSettingStoreChanged (e) {
+        const {addonId, settingId, value} = e.detail;
         // If channels are unavailable, every change requires reload.
-        const reloadRequired =
-            e.detail.reloadRequired || !Channels.changeChannel;
-        this.setState((state) => {
+        const reloadRequired = e.detail.reloadRequired || !Channels.changeChannel;
+        this.setState(state => {
             const newState = {
                 [addonId]: {
                     ...state[addonId],
                     [settingId]: value,
-                    dirty: true,
-                },
+                    dirty: true
+                }
             };
             if (reloadRequired) {
                 newState.dirty = true;
@@ -1038,45 +979,45 @@ class AddonSettingsComponent extends React.Component {
             postThrottledSettingsChange(SettingsStore.store);
         }
     }
-    handleReloadNow() {
+    handleReloadNow () {
         // Value posted does not matter
         Channels.reloadChannel.postMessage(0);
         this.setState({
-            dirty: false,
+            dirty: false
         });
         for (const addonId of Object.keys(supportedAddons)) {
             if (this.state[addonId].dirty) {
-                this.setState((state) => ({
+                this.setState(state => ({
                     [addonId]: {
                         ...state[addonId],
-                        dirty: false,
-                    },
+                        dirty: false
+                    }
                 }));
             }
         }
     }
-    handleResetAll() {
+    handleResetAll () {
         if (confirm(settingsTranslations.confirmResetAll)) {
             SettingsStore.resetAllAddons();
             this.setState({
-                search: "",
+                search: ''
             });
         }
     }
-    handleExport() {
+    handleExport () {
         const exportedData = SettingsStore.export({
-            theme,
+            theme
         });
         this.props.onExportSettings(exportedData);
     }
-    handleImport() {
-        const fileSelector = document.createElement("input");
-        fileSelector.type = "file";
-        fileSelector.accept = ".json";
+    handleImport () {
+        const fileSelector = document.createElement('input');
+        fileSelector.type = 'file';
+        fileSelector.accept = '.json';
         document.body.appendChild(fileSelector);
         fileSelector.click();
         document.body.removeChild(fileSelector);
-        fileSelector.addEventListener("change", async () => {
+        fileSelector.addEventListener('change', async () => {
             const file = fileSelector.files[0];
             if (!file) {
                 return;
@@ -1086,7 +1027,7 @@ class AddonSettingsComponent extends React.Component {
                 const data = JSON.parse(text);
                 SettingsStore.import(data);
                 this.setState({
-                    search: "",
+                    search: ''
                 });
             } catch (e) {
                 console.error(e);
@@ -1094,66 +1035,53 @@ class AddonSettingsComponent extends React.Component {
             }
         });
     }
-    handleSearch(e) {
+    handleSearch (e) {
         const value = e.target.value;
         this.setState({
-            search: value,
+            search: value
         });
     }
-    handleClickSearchButton() {
+    handleClickSearchButton () {
         this.setState({
-            search: "",
+            search: ''
         });
         this.searchBar.focus();
     }
-    handleClickVersion() {
+    handleClickVersion () {
         this.setState({
-            extended: !this.state.extended,
+            extended: !this.state.extended
         });
     }
-    searchRef(searchBar) {
+    searchRef (searchBar) {
         this.searchBar = searchBar;
 
         // Only focus search bar if we have no initial search
-        if (searchBar && this.state.search === "") {
+        if (searchBar && this.state.search === '') {
             searchBar.focus();
         }
     }
-    handleKeyDown(e) {
+    handleKeyDown (e) {
         const key = e.key;
-        if (
-            key.length === 1 &&
-            key !== " " &&
-            e.target === document.body &&
-            !(e.ctrlKey || e.metaKey || e.altKey)
-        ) {
+        if (key.length === 1 && key !== ' ' && e.target === document.body && !(e.ctrlKey || e.metaKey || e.altKey)) {
             this.searchBar.focus();
         }
         // Only preventDefault() if the search bar isn't already focused so
         // that we don't break the browser's builtin ctrl+f
-        if (
-            key === "f" &&
-            (e.ctrlKey || e.metaKey) &&
-            document.activeElement !== this.searchBar
-        ) {
+        if (key === 'f' && (e.ctrlKey || e.metaKey) && document.activeElement !== this.searchBar) {
             this.searchBar.focus();
             e.preventDefault();
         }
     }
-    render() {
-        const addonState = Object.entries(supportedAddons).map(
-            ([id, manifest]) => ({
-                id,
-                manifest,
-                state: this.state[id],
-            }),
-        );
-        const unsupported = Object.entries(unsupportedAddons).map(
-            ([id, manifest]) => ({
-                id,
-                manifest,
-            }),
-        );
+    render () {
+        const addonState = Object.entries(supportedAddons).map(([id, manifest]) => ({
+            id,
+            manifest,
+            state: this.state[id]
+        }));
+        const unsupported = Object.entries(unsupportedAddons).map(([id, manifest]) => ({
+            id,
+            manifest
+        }));
         return (
             <div className={styles.container}>
                 <div className={styles.header}>
@@ -1186,11 +1114,7 @@ class AddonSettingsComponent extends React.Component {
                     </div>
                     {this.state.dirty && (
                         <Dirty
-                            onReloadNow={
-                                Channels.reloadChannel
-                                    ? this.handleReloadNow
-                                    : null
-                            }
+                            onReloadNow={Channels.reloadChannel ? this.handleReloadNow : null}
                         />
                     )}
                 </div>
@@ -1204,28 +1128,19 @@ class AddonSettingsComponent extends React.Component {
                             />
                             <div className={styles.footerButtons}>
                                 <button
-                                    className={classNames(
-                                        styles.button,
-                                        styles.resetAllButton,
-                                    )}
+                                    className={classNames(styles.button, styles.resetAllButton)}
                                     onClick={this.handleResetAll}
                                 >
                                     {settingsTranslations.resetAll}
                                 </button>
                                 <button
-                                    className={classNames(
-                                        styles.button,
-                                        styles.exportButton,
-                                    )}
+                                    className={classNames(styles.button, styles.exportButton)}
                                     onClick={this.handleExport}
                                 >
                                     {settingsTranslations.export}
                                 </button>
                                 <button
-                                    className={classNames(
-                                        styles.button,
-                                        styles.importButton,
-                                    )}
+                                    className={classNames(styles.button, styles.importButton)}
                                     onClick={this.handleImport}
                                 >
                                     {settingsTranslations.import}
@@ -1233,17 +1148,19 @@ class AddonSettingsComponent extends React.Component {
                             </div>
                             <footer className={styles.footer}>
                                 {unsupported.length ? (
-                                    <UnsupportedAddons addons={unsupported} />
+                                    <UnsupportedAddons
+                                        addons={unsupported}
+                                    />
                                 ) : null}
                                 <span
                                     className={styles.version}
                                     onClick={this.handleClickVersion}
                                 >
-                                    {this.state.extended
-                                        ? // Don't bother translating, pretty much no one will ever see this.
-                                          // eslint-disable-next-line max-len
-                                          `You have enabled debug mode. (Addons version ${upstreamMeta.commit})`
-                                        : `Addons version ${upstreamMeta.commit}`}
+                                    {this.state.extended ?
+                                        // Don't bother translating, pretty much no one will ever see this.
+                                        // eslint-disable-next-line max-len
+                                        `You have enabled debug mode. (Addons version ${upstreamMeta.commit})` :
+                                        `Addons version ${upstreamMeta.commit}`}
                                 </span>
                             </footer>
                         </div>
@@ -1254,7 +1171,7 @@ class AddonSettingsComponent extends React.Component {
     }
 }
 AddonSettingsComponent.propTypes = {
-    onExportSettings: PropTypes.func,
+    onExportSettings: PropTypes.func
 };
 
 export default AddonSettingsComponent;

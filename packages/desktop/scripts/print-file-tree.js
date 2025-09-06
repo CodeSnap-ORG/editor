@@ -1,10 +1,10 @@
-const pathUtil = require("path");
-const fs = require("fs");
-const nodeCrypto = require("crypto");
+const pathUtil = require('path');
+const fs = require('fs');
+const nodeCrypto = require('crypto');
 
 const recursivelyPrint = (directory) => {
   const dirStat = fs.statSync(directory);
-  console.log(pathUtil.join(directory, "/"));
+  console.log(pathUtil.join(directory, '/'));
   console.log(`\tModified: ${dirStat.mtime.toUTCString()}`);
 
   const children = fs.readdirSync(directory);
@@ -14,7 +14,10 @@ const recursivelyPrint = (directory) => {
     if (childStat.isFile()) {
       console.log(path);
       const data = fs.readFileSync(path);
-      const sha256 = nodeCrypto.createHash("sha256").update(data).digest("hex");
+      const sha256 = nodeCrypto
+        .createHash('sha256')
+        .update(data)
+        .digest('hex');
       console.log(`\tSHA-256: ${sha256}`);
       console.log(`\tModified: ${childStat.mtime.toUTCString()}`);
     } else {

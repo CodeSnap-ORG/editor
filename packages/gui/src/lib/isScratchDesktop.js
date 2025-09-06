@@ -28,4 +28,8 @@ const notScratchDesktop = function () {
 };
 
 export default isScratchDesktop;
-export { isScratchDesktop, notScratchDesktop, setIsScratchDesktop };
+export {
+    isScratchDesktop,
+    notScratchDesktop,
+    setIsScratchDesktop
+};

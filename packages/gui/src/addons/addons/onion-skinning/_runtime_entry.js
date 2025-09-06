@@ -6,10 +6,10 @@ import _asset2 from "!url-loader!./increment.svg";
 import _asset3 from "!url-loader!./settings.svg";
 import _asset4 from "!url-loader!./toggle.svg";
 export const resources = {
-    "userscript.js": _js,
-    "style.css": _css,
-    "decrement.svg": _asset,
-    "increment.svg": _asset2,
-    "settings.svg": _asset3,
-    "toggle.svg": _asset4,
+  "userscript.js": _js,
+  "style.css": _css,
+  "decrement.svg": _asset,
+  "increment.svg": _asset2,
+  "settings.svg": _asset3,
+  "toggle.svg": _asset4,
 };

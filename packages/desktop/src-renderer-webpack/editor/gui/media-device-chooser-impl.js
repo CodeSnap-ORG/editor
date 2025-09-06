@@ -13,9 +13,7 @@ const constrain = (originalConstraint, deviceId, allDevices) => {
   return originalConstraint;
 };
 
-const originalGetUserMedia = navigator.mediaDevices.getUserMedia.bind(
-  navigator.mediaDevices,
-);
+const originalGetUserMedia = navigator.mediaDevices.getUserMedia.bind(navigator.mediaDevices);
 
 navigator.mediaDevices.getUserMedia = async (constraints) => {
   const allDevices = await navigator.mediaDevices.enumerateDevices();
@@ -25,7 +23,7 @@ navigator.mediaDevices.getUserMedia = async (constraints) => {
     constraints.audio = constrain(
       constraints.audio,
       preferredDevices.microphone,
-      allDevices.filter((i) => i.kind === "audioinput"),
+      allDevices.filter((i) => i.kind === 'audioinput')
     );
   }
 
@@ -33,7 +31,7 @@ navigator.mediaDevices.getUserMedia = async (constraints) => {
     constraints.video = constrain(
       constraints.video,
       preferredDevices.camera,
-      allDevices.filter((i) => i.kind === "videoinput"),
+      allDevices.filter((i) => i.kind === 'videoinput')
     );
   }
 

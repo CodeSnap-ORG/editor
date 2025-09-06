@@ -1,18 +1,22 @@
-const nodeCrypto = require("crypto");
+const nodeCrypto = require('crypto');
 
 /**
  * @param {ArrayBuffer} buffer
  * @returns {string}
  */
-const computeMD5 = (buffer) =>
-  nodeCrypto.createHash("md5").update(new Uint8Array(buffer)).digest("hex");
+const computeMD5 = (buffer) => nodeCrypto
+  .createHash('md5')
+  .update(new Uint8Array(buffer))
+  .digest('hex');
 
 /**
  * @param {ArrayBuffer} buffer
  * @returns {string}
  */
-const computeSHA256 = (buffer) =>
-  nodeCrypto.createHash("sha256").update(new Uint8Array(buffer)).digest("hex");
+const computeSHA256 = (buffer) => nodeCrypto
+  .createHash('sha256')
+  .update(new Uint8Array(buffer))
+  .digest('hex');
 
 /**
  * @param {string} url
@@ -25,9 +29,7 @@ const persistentFetch = async (url, opts) => {
     try {
       const response = await fetch(url, opts);
       if (response.status !== 200) {
-        throw new Error(
-          `${md5ext}: Unexpected status code: ${response.status}`,
-        );
+        throw new Error(`${md5ext}: Unexpected status code: ${response.status}`);
       }
       return response;
     } catch (e) {
@@ -41,5 +43,5 @@ const persistentFetch = async (url, opts) => {
 module.exports = {
   computeMD5,
   computeSHA256,
-  persistentFetch,
+  persistentFetch
 };

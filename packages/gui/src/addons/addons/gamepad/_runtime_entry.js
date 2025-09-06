@@ -8,12 +8,12 @@ import _asset3 from "!url-loader!./cursor.png";
 import _asset4 from "!url-loader!./dot.svg";
 import _asset5 from "!url-loader!./gamepad.svg";
 export const resources = {
-    "userscript.js": _js,
-    "style.css": _css,
-    "gamepadlib.css": _css2,
-    "active.png": _asset,
-    "close.svg": _asset2,
-    "cursor.png": _asset3,
-    "dot.svg": _asset4,
-    "gamepad.svg": _asset5,
+  "userscript.js": _js,
+  "style.css": _css,
+  "gamepadlib.css": _css2,
+  "active.png": _asset,
+  "close.svg": _asset2,
+  "cursor.png": _asset3,
+  "dot.svg": _asset4,
+  "gamepad.svg": _asset5,
 };

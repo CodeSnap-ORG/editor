@@ -1,36 +1,32 @@
-const { systemPreferences, dialog } = require("electron");
-const { translate } = require("./l10n");
-const { APP_NAME } = require("./brand");
+const {systemPreferences, dialog} = require('electron');
+const {translate} = require('./l10n');
+const {APP_NAME} = require('./brand');
 
 const showPermissionDeniedWarning = (window, mediaType) => {
   const title = translate(`permission.${mediaType}-denied`);
   const description = translate(`permission.${mediaType}-denied-description`);
   // This prompt currently is only visible in macOS
-  const instructions = translate("permission.macos-instructions");
+  const instructions = translate('permission.macos-instructions');
   dialog.showMessageBox(window, {
     title: APP_NAME,
-    type: "warning",
+    type: 'warning',
     message: title,
     detail: `${description}\n\n${instructions}`,
-    noLink: true,
+    noLink: true
   });
 };
 
 const askForMediaAccess = async (window, mediaType) => {
   const mediaTypeToPermissionType = {
-    audio: "microphone",
-    video: "camera",
+    audio: 'microphone',
+    video: 'camera'
   };
-  if (
-    !Object.prototype.hasOwnProperty.call(mediaTypeToPermissionType, mediaType)
-  ) {
+  if (!Object.prototype.hasOwnProperty.call(mediaTypeToPermissionType, mediaType)) {
     return false;
   }
 
   if (systemPreferences.askForMediaAccess) {
-    const allowed = await systemPreferences.askForMediaAccess(
-      mediaTypeToPermissionType[mediaType],
-    );
+    const allowed = await systemPreferences.askForMediaAccess(mediaTypeToPermissionType[mediaType]);
     if (!allowed) {
       showPermissionDeniedWarning(window, mediaType);
     }

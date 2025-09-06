@@ -1,5 +1,5 @@
-import path from "path";
-import SeleniumHelper from "../helpers/selenium-helper";
+import path from 'path';
+import SeleniumHelper from '../helpers/selenium-helper';
 
 const {
     clickText,
@@ -8,14 +8,14 @@ const {
     getDriver,
     getLogs,
     loadUri,
-    scope,
+    scope
 } = new SeleniumHelper();
 
-const uri = path.resolve(__dirname, "../../build/index.html");
+const uri = path.resolve(__dirname, '../../build/index.html');
 
 let driver;
 
-describe("Loading scratch gui", () => {
+describe('Loading scratch gui', () => {
     beforeAll(() => {
         driver = getDriver();
     });
@@ -24,15 +24,15 @@ describe("Loading scratch gui", () => {
         await driver.quit();
     });
 
-    test("Switching small/large stage after highlighting and deleting sprite", async () => {
+    test('Switching small/large stage after highlighting and deleting sprite', async () => {
         await loadUri(uri);
 
         // Highlight the sprite
-        await clickText("Sprite1", scope.spriteTile);
+        await clickText('Sprite1', scope.spriteTile);
 
         // Delete it
-        await rightClickText("Sprite1", scope.spriteTile);
-        await clickText("delete", scope.spriteTile);
+        await rightClickText('Sprite1', scope.spriteTile);
+        await clickText('delete', scope.spriteTile);
 
         // Go to small stage mode
         await clickXpath('//button[@title="Switch to small stage"]');

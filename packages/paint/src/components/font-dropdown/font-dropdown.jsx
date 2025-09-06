@@ -1,19 +1,19 @@
-import classNames from "classnames";
-import PropTypes from "prop-types";
-import React from "react";
-import { FormattedMessage } from "react-intl";
+import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import React from 'react';
+import {FormattedMessage} from 'react-intl';
 
-import Button from "../button/button.jsx";
-import Dropdown from "../dropdown/dropdown.jsx";
-import InputGroup from "../input-group/input-group.jsx";
-import Fonts from "../../lib/fonts";
-import CustomFontButton from "./custom-font-button.jsx";
-import styles from "./font-dropdown.css";
+import Button from '../button/button.jsx';
+import Dropdown from '../dropdown/dropdown.jsx';
+import InputGroup from '../input-group/input-group.jsx';
+import Fonts from '../../lib/fonts';
+import CustomFontButton from './custom-font-button.jsx';
+import styles from './font-dropdown.css';
 
-const DisplayFont = ({ font, getFontName }) => (
+const DisplayFont = ({font, getFontName}) => (
     <span
         style={{
-            fontFamily: font,
+            fontFamily: font
         }}
     >
         {getFontName(font)}
@@ -21,10 +21,10 @@ const DisplayFont = ({ font, getFontName }) => (
 );
 DisplayFont.propTypes = {
     font: PropTypes.string.isRequired,
-    getFontName: PropTypes.func.isRequired,
+    getFontName: PropTypes.func.isRequired
 };
 
-const ModeToolsComponent = (props) => (
+const ModeToolsComponent = props => (
     <Dropdown
         className={classNames(styles.modUnselect, styles.fontDropdown)}
         enterExitTransitionDurationMs={60}
@@ -150,7 +150,7 @@ const ModeToolsComponent = (props) => (
                         getFontName={props.getFontName}
                     />
                 </Button>
-                {props.customFonts.map((font) => (
+                {props.customFonts.map(font => (
                     <CustomFontButton
                         key={font.name}
                         font={font.family}
@@ -179,12 +179,15 @@ const ModeToolsComponent = (props) => (
             </InputGroup>
         }
         ref={props.componentRef}
-        tipSize={0.01}
+        tipSize={.01}
         onOpen={props.onOpenDropdown}
         onOuterAction={props.onClickOutsideDropdown}
     >
         <span className={styles.displayedFontName}>
-            <DisplayFont font={props.font} getFontName={props.getFontName} />
+            <DisplayFont
+                font={props.font}
+                getFontName={props.getFontName}
+            />
         </span>
     </Dropdown>
 );
@@ -195,12 +198,10 @@ ModeToolsComponent.propTypes = {
     getFontName: PropTypes.func.isRequired,
     onChoose: PropTypes.func.isRequired,
     onClickOutsideDropdown: PropTypes.func,
-    customFonts: PropTypes.arrayOf(
-        PropTypes.shape({
-            name: PropTypes.string.isRequired,
-            family: PropTypes.string.isRequired,
-        }),
-    ).isRequired,
+    customFonts: PropTypes.arrayOf(PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        family: PropTypes.string.isRequired
+    })).isRequired,
     onHoverCustom: PropTypes.func.isRequired,
     onManageFonts: PropTypes.func,
     onHoverChinese: PropTypes.func,
@@ -215,6 +216,6 @@ ModeToolsComponent.propTypes = {
     onHoverPixelify: PropTypes.func,
     onHoverSansSerif: PropTypes.func,
     onHoverSerif: PropTypes.func,
-    onOpenDropdown: PropTypes.func,
+    onOpenDropdown: PropTypes.func
 };
 export default ModeToolsComponent;

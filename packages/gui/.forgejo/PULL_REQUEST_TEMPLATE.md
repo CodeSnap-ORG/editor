@@ -17,38 +17,31 @@ _Explain why these changes should be made_
 _Please show how you have added tests to cover your changes_
 
 ### Browser Coverage
-
 Check the OS/browser combinations tested (At least 2)
 
 Linux
-
-- [ ] Chrome
-- [ ] Firefox
-- [ ] Safari
-- [ ] Edge
-
-Mac
-
-- [ ] Chrome
-- [ ] Firefox
-- [ ] Safari
-- [ ] Edge
-
+ * [ ] Chrome 
+ * [ ] Firefox 
+ * [ ] Safari
+ * [ ] Edge
+ 
+ Mac
+ * [ ] Chrome 
+ * [ ] Firefox 
+ * [ ] Safari
+ * [ ] Edge
+ 
 Windows
-
-- [ ] Chrome
-- [ ] Firefox
-- [ ] Edge
-
+ * [ ] Chrome 
+ * [ ] Firefox 
+ * [ ] Edge
+ 
 Chromebook
-
-- [ ] Chrome
-
+ * [ ] Chrome
+ 
 iOS, iPadOS
-
-- [ ] Safari
+* [ ] Safari
 
 Android Tablet
-
-- [ ] Chrome
-- [ ] Firefox
+* [ ] Chrome
+* [ ] Firefox

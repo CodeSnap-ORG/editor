@@ -1,28 +1,28 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { FormattedMessage } from "react-intl";
-import cloudIcon from "./clouddata.svg";
-import CloudServerButton from "./cloud-server-button.jsx";
-import styles from "./cloud-variable-badge.css";
-import { APP_NAME } from "../../lib/brand";
+import React from 'react';
+import PropTypes from 'prop-types';
+import {FormattedMessage} from 'react-intl';
+import cloudIcon from './clouddata.svg';
+import CloudServerButton from './cloud-server-button.jsx';
+import styles from './cloud-variable-badge.css';
+import {APP_NAME} from '../../lib/brand';
 
 const hosts = [
     {
-        name: "US East",
-        cloudHost: "wss://clouddata.turbowarp.org",
+        name: 'US East',
+        cloudHost: 'wss://clouddata.turbowarp.org'
     },
     {
-        name: "EU",
-        cloudHost: "wss://clouddata-eu.turbowarp.org",
+        name: 'EU',
+        cloudHost: 'wss://clouddata-eu.turbowarp.org',
         provider: {
-            name: "9gr",
-            href: "https://scratch.mit.edu/users/9gr/",
-        },
-    },
+            name: '9gr',
+            href: 'https://scratch.mit.edu/users/9gr/'
+        }
+    }
 ];
 
-const CloudVariableBadge = (props) => {
-    const selectedHost = hosts.find((i) => i.cloudHost === props.cloudHost);
+const CloudVariableBadge = props => {
+    const selectedHost = hosts.find(i => i.cloudHost === props.cloudHost);
     return (
         <div className={styles.badge}>
             <div className={styles.title}>
@@ -41,7 +41,7 @@ const CloudVariableBadge = (props) => {
                     id="tw.usesCloudVariables"
                 />
             </div>
-
+    
             <FormattedMessage
                 // eslint-disable-next-line max-len
                 defaultMessage="{APP_NAME}'s cloud variables are not connected to Scratch's. Anyone can {changeTheirUsername} to anything, so beware of impersonation."
@@ -59,10 +59,10 @@ const CloudVariableBadge = (props) => {
                                 id="tw.usesCloudVariables2.change"
                             />
                         </a>
-                    ),
+                    )
                 }}
             />
-
+    
             {selectedHost ? (
                 <div className={styles.servers}>
                     <FormattedMessage
@@ -70,7 +70,7 @@ const CloudVariableBadge = (props) => {
                         description="Appears before a list of cloud variable servers in different countries"
                         id="tw.cloudServers"
                     />
-                    {hosts.map((i) => (
+                    {hosts.map(i => (
                         <CloudServerButton
                             key={i.ws}
                             name={i.name}
@@ -87,7 +87,7 @@ const CloudVariableBadge = (props) => {
                     description="Appears when using a non-TurboWarp provided cloud variable server. {server} is replaced with the server's URL, eg. wss://clouddata.turbowarp.org"
                     id="tw.customCloudServer"
                     values={{
-                        server: props.cloudHost,
+                        server: props.cloudHost
                     }}
                 />
             )}
@@ -106,11 +106,11 @@ const CloudVariableBadge = (props) => {
                             >
                                 {selectedHost.provider.name}
                             </a>
-                        ),
+                        )
                     }}
                 />
             )}
-
+    
             <a
                 target="_blank"
                 rel="noreferrer"
@@ -129,7 +129,7 @@ const CloudVariableBadge = (props) => {
 CloudVariableBadge.propTypes = {
     cloudHost: PropTypes.string,
     onSetCloudHost: PropTypes.func,
-    onOpenChangeUsername: PropTypes.func,
+    onOpenChangeUsername: PropTypes.func
 };
 
 export default CloudVariableBadge;

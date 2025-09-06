@@ -1,9 +1,9 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { FormattedMessage } from "react-intl";
-import URL from "./url.jsx";
+import React from 'react';
+import PropTypes from 'prop-types';
+import {FormattedMessage} from 'react-intl';
+import URL from './url.jsx';
 
-const FetchModal = (props) => (
+const FetchModal = props => (
     <div>
         <FormattedMessage
             defaultMessage="The project wants to connect to the website:"
@@ -30,7 +30,7 @@ const FetchModal = (props) => (
 );
 
 FetchModal.propTypes = {
-    url: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired
 };
 
 export default FetchModal;

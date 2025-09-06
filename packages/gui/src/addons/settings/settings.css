@@ -20,7 +20,7 @@
 body {
     background-color: $page-background;
     color: $page-foreground;
-    font-family: Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: Inter, 'Helvetica Neue', Helvetica, Arial, sans-serif;
     margin: 0;
 }
 
@@ -28,8 +28,7 @@ a[href] {
     color: $link-color;
     text-decoration: underline;
 }
-a:active,
-a:focus {
+a:active, a:focus {
     outline: none;
     box-shadow: 0 0 0 3px $looks-transparent;
 }
@@ -86,8 +85,7 @@ a:focus {
 .button:hover {
     background: $ui-tertiary;
 }
-.button:active,
-.button:focus-within {
+.button:active, .button:focus-within {
     box-shadow: 0 0 0 3px $looks-transparent;
 }
 
@@ -145,8 +143,7 @@ a:focus {
     align-items: center;
     text-decoration: none !important;
 }
-.feedback-button-outer:active,
-.feedback-button-outer:focus-within {
+.feedback-button-outer:active, .feedback-button-outer:focus-within {
     box-shadow: 0 0 0 3px $looks-transparent;
 }
 .feedback-button-inner {
@@ -180,7 +177,7 @@ a:focus {
 }
 .addon-group-name::after {
     margin-left: 16px;
-    content: "";
+    content: '';
     border-top: 1px solid $ui-black-transparent;
     width: 100px;
     flex: 1;
@@ -238,6 +235,7 @@ a:focus {
     margin-right: 8px;
 }
 .addon-title-text {
+
 }
 .addon-id {
     margin-left: 10px;
@@ -268,8 +266,7 @@ a:focus {
 .reset-button:hover {
     background: $ui-black-transparent;
 }
-.reset-button:active,
-.reset-button:focus-within {
+.reset-button:active, .reset-button:focus-within {
     outline: none;
     box-shadow: 0 0 0 3px $looks-transparent;
 }
@@ -313,8 +310,7 @@ a:focus {
     left: auto;
     right: 3px;
 }
-.switch:active,
-.switch:focus-within {
+.switch:active, .switch:focus-within {
     outline: none;
     box-shadow: 0 0 0 3px $looks-transparent;
 }
@@ -372,14 +368,17 @@ a:focus {
 }
 
 .credit-container {
+
 }
 .credit-title {
     padding-right: 5px;
 }
 .credit {
+
 }
 
 .description {
+
 }
 
 .notice {
@@ -429,8 +428,7 @@ a:focus {
     transition: 0.25s ease;
     transition-property: background;
 }
-.setting input:focus,
-.setting input:active {
+.setting input:focus, .setting input:active {
     outline: none;
     border-color: $looks-secondary;
     box-shadow: 0 0 0 3px $looks-transparent;
@@ -504,8 +502,7 @@ a:focus {
     color: white;
     background: $looks-secondary;
 }
-.select-option:active,
-.select-option:focus-within {
+.select-option:active, .select-option:focus-within {
     outline: none;
     box-shadow: 0 0 0 3px $looks-transparent;
     z-index: 10;
@@ -542,10 +539,13 @@ a:focus {
     margin-right: 10px;
 }
 .reset-all-button {
+
 }
 .export-button {
+
 }
 .import-button {
+
 }
 
 .no-results {

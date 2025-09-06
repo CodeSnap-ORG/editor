@@ -1,8 +1,8 @@
-const fs = require("fs");
-const fsPromises = require("fs/promises");
-const pathUtil = require("path");
-const { computeMD5, computeSHA256, persistentFetch } = require("./lib");
-const { brotliCompress, brotliDecompress } = require("zlib");
+const fs = require('fs');
+const fsPromises = require('fs/promises');
+const pathUtil = require('path');
+const {computeMD5, computeSHA256, persistentFetch} = require('./lib');
+const {brotliCompress, brotliDecompress} = require('zlib');
 
 /**
  * @typedef AssetMetadata
@@ -11,7 +11,7 @@ const { brotliCompress, brotliDecompress } = require("zlib");
  * @property {string} sha256
  */
 
-const outDirectory = pathUtil.join(__dirname, "../dist-library-files");
+const outDirectory = pathUtil.join(__dirname, '../dist-library-files');
 
 /**
  * @param {AssetMetadata[]} remainingAssets List of remaining assets. Modified in-place.
@@ -21,10 +21,7 @@ const startDownloading = async (remainingAssets) => {
     const asset = remainingAssets.shift();
 
     const extension = pathUtil.extname(asset.src);
-    const assetPath = pathUtil.join(
-      outDirectory,
-      `${asset.md5}${extension}.br`,
-    );
+    const assetPath = pathUtil.join(outDirectory, `${asset.md5}${extension}.br`);
 
     try {
       const compressedData = await fsPromises.readFile(assetPath);
@@ -44,15 +41,13 @@ const startDownloading = async (remainingAssets) => {
         throw new Error(`MD5 mismatch. Expected ${asset.md5} got ${actualMD5}`);
       }
       if (actualSHA256 !== asset.sha256) {
-        throw new Error(
-          `SHA256 mismatch. Expected ${asset.sha256} got ${actualSHA256}`,
-        );
+        throw new Error(`SHA256 mismatch. Expected ${asset.sha256} got ${actualSHA256}`);
       }
 
       console.log(`Already fetched ${asset.src}`);
       continue;
     } catch (e) {
-      if (e.code != "ENOENT") {
+      if (e.code != 'ENOENT') {
         console.error(e);
       }
     }
@@ -67,9 +62,7 @@ const startDownloading = async (remainingAssets) => {
       throw new Error(`MD5 mismatch. Expected ${asset.md5} got ${actualMD5}`);
     }
     if (actualSHA256 !== asset.sha256) {
-      throw new Error(
-        `SHA256 mismatch. Expected ${asset.sha256} got ${actualSHA256}`,
-      );
+      throw new Error(`SHA256 mismatch. Expected ${asset.sha256} got ${actualSHA256}`);
     }
 
     const compressedData = await new Promise((resolve, reject) => {
@@ -87,24 +80,21 @@ const startDownloading = async (remainingAssets) => {
 };
 
 const run = async () => {
-  const metadataFile = pathUtil.join(__dirname, "library-files.json");
-  const remainingAssets = JSON.parse(fs.readFileSync(metadataFile, "utf-8"));
+  const metadataFile = pathUtil.join(__dirname, 'library-files.json');
+  const remainingAssets = JSON.parse(fs.readFileSync(metadataFile, 'utf-8'));
 
   await fsPromises.mkdir(outDirectory, {
-    recursive: true,
+    recursive: true
   });
 
   const concurrentFetches = 20;
-  await Promise.all(
-    Array(concurrentFetches)
-      .fill()
-      .map((i) => startDownloading(remainingAssets)),
-  );
+  await Promise.all(Array(concurrentFetches).fill().map(i => startDownloading(remainingAssets)));
 
-  console.log("Downloaded all library assets.");
+  console.log('Downloaded all library assets.');
 };
 
-run().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+run()
+  .catch(err => {
+    console.error(err);
+    process.exit(1);
+  });

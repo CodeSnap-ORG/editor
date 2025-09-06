@@ -1,23 +1,17 @@
 /**
  * @fileOverview Import bitmap data into Scratch 3.0, resizing image as necessary.
  */
-const getFonts = require("scratch-render-fonts");
+const getFonts = require('scratch-render-fonts');
 
-const xmlEscape = (str) =>
-    str.replace(/[<>&'"]/g, (c) => {
-        switch (c) {
-            case "<":
-                return "&lt;";
-            case ">":
-                return "&gt;";
-            case "&":
-                return "&amp;";
-            case "'":
-                return "&apos;";
-            case '"':
-                return "&quot;";
-        }
-    });
+const xmlEscape = str => str.replace(/[<>&'"]/g, c => {
+    switch (c) {
+    case '<': return '&lt;';
+    case '>': return '&gt;';
+    case '&': return '&amp;';
+    case '\'': return '&apos;';
+    case '"': return '&quot;';
+    }
+});
 
 /**
  * Given SVG data, inline the fonts. This allows them to be rendered correctly when set
@@ -37,12 +31,12 @@ const xmlEscape = (str) =>
 const inlineSvgFonts = function (svgString, customFontFaces = {}) {
     // Make it clear that this function only operates on strings.
     // If we don't explicitly throw this here, the function silently fails.
-    if (typeof svgString !== "string") {
-        throw new Error("SVG to be inlined is not a string");
+    if (typeof svgString !== 'string') {
+        throw new Error('SVG to be inlined is not a string');
     }
 
     const FONTS = {};
-    if (customFontFaces && typeof customFontFaces === "object") {
+    if (customFontFaces && typeof customFontFaces === 'object') {
         // The fonts in the document will be XML escaped
         for (const [families, style] of Object.entries(customFontFaces)) {
             FONTS[xmlEscape(families)] = style;
@@ -64,13 +58,13 @@ const inlineSvgFonts = function (svgString, customFontFaces = {}) {
         matches = fontRegex.exec(svgString);
     }
     if (fontsNeeded.size > 0) {
-        let str = "<defs><style>";
+        let str = '<defs><style>';
         for (const font of fontsNeeded) {
             if (Object.prototype.hasOwnProperty.call(FONTS, font)) {
                 str += `${FONTS[font]}`;
             }
         }
-        str += "</style></defs>";
+        str += '</style></defs>';
         svgString = svgString.replace(/<svg[^>]*>/, `$&${str}`);
         return svgString;
     }

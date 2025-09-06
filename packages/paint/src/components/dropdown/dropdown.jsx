@@ -1,71 +1,64 @@
-import bindAll from "lodash.bindall";
-import classNames from "classnames";
-import Popover from "react-popover";
-import PropTypes from "prop-types";
-import React from "react";
+import bindAll from 'lodash.bindall';
+import classNames from 'classnames';
+import Popover from 'react-popover';
+import PropTypes from 'prop-types';
+import React from 'react';
 
-import styles from "./dropdown.css";
+import styles from './dropdown.css';
 
-import dropdownIcon from "!../../tw-recolor/build!./dropdown-caret.svg";
-import TWRenderRecoloredImage from "../../tw-recolor/render.jsx";
+import dropdownIcon from '!../../tw-recolor/build!./dropdown-caret.svg';
+import TWRenderRecoloredImage from '../../tw-recolor/render.jsx';
 
 class Dropdown extends React.Component {
-    constructor(props) {
+    constructor (props) {
         super(props);
         bindAll(this, [
-            "handleClosePopover",
-            "handleToggleOpenState",
-            "isOpen",
+            'handleClosePopover',
+            'handleToggleOpenState',
+            'isOpen'
         ]);
         this.state = {
-            isOpen: false,
+            isOpen: false
         };
     }
-    handleClosePopover() {
+    handleClosePopover () {
         this.setState({
-            isOpen: false,
+            isOpen: false
         });
     }
-    handleToggleOpenState() {
+    handleToggleOpenState () {
         const newState = !this.state.isOpen;
         this.setState({
-            isOpen: newState,
+            isOpen: newState
         });
         if (newState && this.props.onOpen) {
             this.props.onOpen();
         }
     }
-    isOpen() {
+    isOpen () {
         return this.state.isOpen;
     }
-    render() {
+    render () {
         return (
             <Popover
                 body={this.props.popoverContent}
                 isOpen={this.state.isOpen}
                 preferPlace="below"
-                onOuterAction={
-                    this.props.onOuterAction
-                        ? this.props.onOuterAction
-                        : this.handleClosePopover
-                }
+                onOuterAction={this.props.onOuterAction ?
+                    this.props.onOuterAction : this.handleClosePopover}
                 {...this.props}
             >
                 <div
-                    className={classNames(
-                        styles.dropdown,
-                        this.props.className,
-                        {
-                            [styles.modOpen]: this.state.isOpen,
-                            [styles.modClosed]: !this.state.isOpen,
-                        },
-                    )}
+                    className={classNames(styles.dropdown, this.props.className, {
+                        [styles.modOpen]: this.state.isOpen,
+                        [styles.modClosed]: !this.state.isOpen
+                    })}
                     onClick={this.handleToggleOpenState}
                 >
                     {this.props.children}
                     <TWRenderRecoloredImage
                         className={classNames(styles.dropdownIcon, {
-                            [styles.modCaretUp]: this.state.isOpen,
+                            [styles.modCaretUp]: this.state.isOpen
                         })}
                         draggable={false}
                         src={dropdownIcon}
@@ -81,7 +74,7 @@ Dropdown.propTypes = {
     className: PropTypes.string,
     onOpen: PropTypes.func,
     onOuterAction: PropTypes.func,
-    popoverContent: PropTypes.node.isRequired,
+    popoverContent: PropTypes.node.isRequired
 };
 
 export default Dropdown;

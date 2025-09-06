@@ -66,11 +66,11 @@
 
 /* selected button styling */
 
-.button[aria-pressed="true"] {
+.button[aria-pressed='true'] {
     background-color: $looks-light-transparent;
 }
 
-.button[aria-pressed="true"] > img {
+.button[aria-pressed='true'] > img {
     filter: none;
 }
 

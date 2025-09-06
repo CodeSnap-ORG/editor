@@ -1,19 +1,19 @@
-import classNames from "classnames";
-import PropTypes from "prop-types";
-import React, { useState } from "react";
-import ReactModal from "react-modal";
-import { FormattedMessage } from "react-intl";
+import classNames from 'classnames';
+import PropTypes from 'prop-types';
+import React, { useState } from 'react';
+import ReactModal from 'react-modal';
+import {FormattedMessage} from 'react-intl';
 
-import Box from "../box/box.jsx";
-import Button from "../button/button.jsx";
-import CloseButton from "../close-button/close-button.jsx";
+import Box from '../box/box.jsx';
+import Button from '../button/button.jsx';
+import CloseButton from '../close-button/close-button.jsx';
 
-import backIcon from "../../lib/assets/icon--back.svg";
-import helpIcon from "../../lib/assets/icon--help.svg";
+import backIcon from '../../lib/assets/icon--back.svg';
+import helpIcon from '../../lib/assets/icon--help.svg';
 
-import styles from "./modal.css";
+import styles from './modal.css';
 
-const ModalComponent = (props) => {
+const ModalComponent = props => {
     const [isClosing, setIsClosing] = useState(false);
 
     const handleRequestClose = () => {
@@ -29,24 +29,26 @@ const ModalComponent = (props) => {
             isOpen
             className={classNames(styles.modalContent, props.className, {
                 [styles.fullScreen]: props.fullScreen,
-                [styles.closing]: isClosing,
+                [styles.closing]: isClosing
             })}
             contentLabel={props.contentLabel}
             overlayClassName={classNames(styles.modalOverlay, {
                 [styles.fullScreen]: props.fullScreen,
-                [styles.closing]: isClosing,
+                [styles.closing]: isClosing
             })}
             onRequestClose={handleRequestClose}
         >
-            <Box dir={props.isRtl ? "rtl" : "ltr"} direction="column" grow={1}>
-                <div
-                    className={classNames(styles.header, props.headerClassName)}
-                >
+            <Box
+                dir={props.isRtl ? 'rtl' : 'ltr'}
+                direction="column"
+                grow={1}
+            >
+                <div className={classNames(styles.header, props.headerClassName)}>
                     {props.onHelp ? (
                         <div
                             className={classNames(
                                 styles.headerItem,
-                                styles.headerItemHelp,
+                                styles.headerItemHelp
                             )}
                         >
                             <Button
@@ -65,7 +67,7 @@ const ModalComponent = (props) => {
                     <div
                         className={classNames(
                             styles.headerItem,
-                            styles.headerItemTitle,
+                            styles.headerItemTitle
                         )}
                     >
                         {props.headerImage ? (
@@ -80,7 +82,7 @@ const ModalComponent = (props) => {
                     <div
                         className={classNames(
                             styles.headerItem,
-                            styles.headerItemClose,
+                            styles.headerItemClose
                         )}
                     >
                         {props.fullScreen ? (
@@ -112,14 +114,16 @@ const ModalComponent = (props) => {
 ModalComponent.propTypes = {
     children: PropTypes.node,
     className: PropTypes.string,
-    contentLabel: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
-        .isRequired,
+    contentLabel: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.object
+    ]).isRequired,
     fullScreen: PropTypes.bool,
     headerClassName: PropTypes.string,
     headerImage: PropTypes.string,
     isRtl: PropTypes.bool,
     onHelp: PropTypes.func,
-    onRequestClose: PropTypes.func,
+    onRequestClose: PropTypes.func
 };
 
 export default ModalComponent;

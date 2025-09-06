@@ -8,13 +8,13 @@
  * @param {string} name the name to use for the costume, caller should localize
  * @return {object} vm costume object
  */
-const emptyCostume = (name) => ({
+const emptyCostume = name => ({
     name: name,
-    md5: "cd21514d0531fdffb22204e0ec5ed84a.svg",
+    md5: 'cd21514d0531fdffb22204e0ec5ed84a.svg',
     rotationCenterX: 0,
     rotationCenterY: 0,
     bitmapResolution: 1,
-    skinId: null,
+    skinId: null
 });
 
 /**
@@ -32,21 +32,24 @@ const emptySprite = (name, soundName, costumeName) => ({
         {
             costumeName: costumeName,
             baseLayerID: -1,
-            baseLayerMD5: "cd21514d0531fdffb22204e0ec5ed84a.svg",
+            baseLayerMD5: 'cd21514d0531fdffb22204e0ec5ed84a.svg',
             bitmapResolution: 1,
             rotationCenterX: 0,
-            rotationCenterY: 0,
-        },
+            rotationCenterY: 0
+        }
     ],
     currentCostumeIndex: 0,
     scratchX: 36,
     scratchY: 28,
     scale: 1,
     direction: 90,
-    rotationStyle: "normal",
+    rotationStyle: 'normal',
     isDraggable: false,
     visible: true,
-    spriteInfo: {},
+    spriteInfo: {}
 });
 
-export { emptyCostume, emptySprite };
+export {
+    emptyCostume,
+    emptySprite
+};

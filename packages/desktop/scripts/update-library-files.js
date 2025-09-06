@@ -1,6 +1,6 @@
-const fs = require("fs");
-const pathUtil = require("path");
-const { computeMD5, computeSHA256, persistentFetch } = require("./lib");
+const fs = require('fs');
+const pathUtil = require('path');
+const {computeMD5, computeSHA256, persistentFetch} = require('./lib');
 
 /**
  * @typedef AssetMetadata
@@ -13,25 +13,22 @@ const { computeMD5, computeSHA256, persistentFetch } = require("./lib");
  * @returns {string[]} Array of md5exts
  */
 const getAllMd5exts = () => {
-  const guiLibraryFolder = pathUtil.join(
-    __dirname,
-    "../node_modules/scratch-gui/src/lib/libraries",
-  );
-  const costumesManifest = pathUtil.join(guiLibraryFolder, "costumes.json");
-  const backdropManifest = pathUtil.join(guiLibraryFolder, "backdrops.json");
-  const spriteManifest = pathUtil.join(guiLibraryFolder, "sprites.json");
-  const soundManifest = pathUtil.join(guiLibraryFolder, "sounds.json");
+  const guiLibraryFolder = pathUtil.join(__dirname, '../node_modules/scratch-gui/src/lib/libraries');
+  const costumesManifest = pathUtil.join(guiLibraryFolder, 'costumes.json');
+  const backdropManifest = pathUtil.join(guiLibraryFolder, 'backdrops.json');
+  const spriteManifest = pathUtil.join(guiLibraryFolder, 'sprites.json');
+  const soundManifest = pathUtil.join(guiLibraryFolder, 'sounds.json');
   if (!fs.existsSync(costumesManifest)) {
-    throw new Error("costumes.json does not exist -- did you forget a step?");
+    throw new Error('costumes.json does not exist -- did you forget a step?');
   }
   if (!fs.existsSync(backdropManifest)) {
-    throw new Error("backdrops.json does not exist -- did you forget a step?");
+    throw new Error('backdrops.json does not exist -- did you forget a step?');
   }
   if (!fs.existsSync(spriteManifest)) {
-    throw new Error("sprites.json does not exist -- did you forget a step?");
+    throw new Error('sprites.json does not exist -- did you forget a step?');
   }
   if (!fs.existsSync(soundManifest)) {
-    throw new Error("sounds.json does not exist -- did you forget a step?");
+    throw new Error('sounds.json does not exist -- did you forget a step?');
   }
 
   const costumes = JSON.parse(fs.readFileSync(costumesManifest));
@@ -66,7 +63,7 @@ const startDownloading = async (remainingAssets) => {
     const response = await persistentFetch(src);
     const data = await response.arrayBuffer();
 
-    const expectedMD5 = md5ext.split(".")[0];
+    const expectedMD5 = md5ext.split('.')[0];
     const actualMD5 = computeMD5(data);
     const actualSHA256 = computeSHA256(data);
     if (actualMD5 !== expectedMD5) {
@@ -76,7 +73,7 @@ const startDownloading = async (remainingAssets) => {
     result.push({
       src: src,
       md5: expectedMD5,
-      sha256: actualSHA256,
+      sha256: actualSHA256
     });
   }
 
@@ -87,22 +84,19 @@ const run = async () => {
   const remainingAssets = getAllMd5exts();
 
   const concurrentFetches = 20;
-  const assets = await Promise.all(
-    Array(concurrentFetches)
-      .fill()
-      .map((i) => startDownloading(remainingAssets)),
-  );
-  const sortedAssets = assets.flat().sort((a, b) => a.md5.localeCompare(b.md5));
+  const assets = (await Promise.all(Array(concurrentFetches).fill().map(i => startDownloading(remainingAssets))));
+  const sortedAssets = assets
+    .flat()
+    .sort((a, b) => a.md5.localeCompare(b.md5));
 
-  const outFile = pathUtil.join(__dirname, "library-files.json");
+  const outFile = pathUtil.join(__dirname, 'library-files.json');
   fs.writeFileSync(outFile, JSON.stringify(sortedAssets, null, 2));
 
-  console.log(
-    "Metadata updated. Run `node scripts/download-library-files.js` to finish updating.",
-  );
+  console.log('Metadata updated. Run `node scripts/download-library-files.js` to finish updating.');
 };
 
-run().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+run()
+  .catch(err => {
+    console.error(err);
+    process.exit(1);
+  });

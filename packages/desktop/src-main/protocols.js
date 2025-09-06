@@ -1,9 +1,9 @@
-const path = require("path");
-const zlib = require("zlib");
-const nodeURL = require("url");
-const { app, protocol, net } = require("electron");
-const { getDist, getPlatform } = require("./platform");
-const packageJSON = require("../package.json");
+const path = require('path');
+const zlib = require('zlib');
+const nodeURL = require('url');
+const {app, protocol, net} = require('electron');
+const {getDist, getPlatform} = require('./platform');
+const packageJSON = require('../package.json');
 
 /**
  * @typedef Metadata
@@ -21,132 +21,123 @@ const packageJSON = require("../package.json");
 
 /** @type {Record<string, Metadata>} */
 const FILE_SCHEMES = {
-  "tw-editor": {
-    root: path.resolve(__dirname, "../dist-renderer-webpack/editor"),
+  'tw-editor': {
+    root: path.resolve(__dirname, '../dist-renderer-webpack/editor'),
     standard: true,
     supportFetch: true,
     secure: true,
     embeddable: true, // migration helper
   },
-  "tw-desktop-settings": {
-    root: path.resolve(__dirname, "../src-renderer/desktop-settings"),
-    csp: "default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'",
+  'tw-desktop-settings': {
+    root: path.resolve(__dirname, '../src-renderer/desktop-settings'),
+    csp: "default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'"
   },
-  "tw-privacy": {
-    root: path.resolve(__dirname, "../src-renderer/privacy"),
-    csp: "default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'",
+  'tw-privacy': {
+    root: path.resolve(__dirname, '../src-renderer/privacy'),
+    csp: "default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'"
   },
-  "tw-about": {
-    root: path.resolve(__dirname, "../src-renderer/about"),
-    csp: "default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'",
+  'tw-about': {
+    root: path.resolve(__dirname, '../src-renderer/about'),
+    csp: "default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'"
   },
-  "tw-packager": {
-    root: path.resolve(__dirname, "../src-renderer/packager"),
+  'tw-packager': {
+    root: path.resolve(__dirname, '../src-renderer/packager'),
     standard: true,
     secure: true,
     embeddable: true, // migration helper
   },
-  "tw-library": {
-    root: path.resolve(__dirname, "../dist-library-files"),
+  'tw-library': {
+    root: path.resolve(__dirname, '../dist-library-files'),
     supportFetch: true,
     brotli: true,
-    csp: "default-src 'none';",
+    csp: "default-src 'none';"
   },
-  "tw-extensions": {
-    root: path.resolve(__dirname, "../dist-extensions"),
+  'tw-extensions': {
+    root: path.resolve(__dirname, '../dist-extensions'),
     supportFetch: true,
     brotli: true,
     embeddable: true,
     stream: true,
-    directoryIndex: "index.html",
-    defaultExtension: ".html",
-    csp: "default-src 'none'; img-src 'self' data:; style-src 'unsafe-inline'; script-src 'self' 'unsafe-inline'",
+    directoryIndex: 'index.html',
+    defaultExtension: '.html',
+    csp: "default-src 'none'; img-src 'self' data:; style-src 'unsafe-inline'; script-src 'self' 'unsafe-inline'"
   },
-  "tw-update": {
-    root: path.resolve(__dirname, "../src-renderer/update"),
-    csp: "default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; connect-src https://desktop.turbowarp.org",
+  'tw-update': {
+    root: path.resolve(__dirname, '../src-renderer/update'),
+    csp: "default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'; connect-src https://desktop.turbowarp.org"
   },
-  "tw-security-prompt": {
-    root: path.resolve(__dirname, "../src-renderer/security-prompt"),
-    csp: "default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline';",
+  'tw-security-prompt': {
+    root: path.resolve(__dirname, '../src-renderer/security-prompt'),
+    csp: "default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline';"
   },
-  "tw-file-access": {
-    root: path.resolve(__dirname, "../src-renderer/file-access"),
-    csp: "default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'",
-  },
+  'tw-file-access': {
+    root: path.resolve(__dirname, '../src-renderer/file-access'),
+    csp: "default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'"
+  }
 };
 
 const MIME_TYPES = new Map();
-MIME_TYPES.set(".html", "text/html");
-MIME_TYPES.set(".js", "text/javascript");
-MIME_TYPES.set(".map", "application/json");
-MIME_TYPES.set(".txt", "text/plain");
-MIME_TYPES.set(".json", "application/json");
-MIME_TYPES.set(".wav", "audio/wav");
-MIME_TYPES.set(".svg", "image/svg+xml");
-MIME_TYPES.set(".png", "image/png");
-MIME_TYPES.set(".jpg", "image/jpeg");
-MIME_TYPES.set(".gif", "image/gif");
-MIME_TYPES.set(".cur", "image/x-icon");
-MIME_TYPES.set(".ico", "image/x-icon");
-MIME_TYPES.set(".mp3", "audio/mpeg");
-MIME_TYPES.set(".mp4", "video/mp4");
-MIME_TYPES.set(".wav", "audio/wav");
-MIME_TYPES.set(".ogg", "audio/ogg");
-MIME_TYPES.set(".ttf", "font/ttf");
-MIME_TYPES.set(".otf", "font/otf");
-MIME_TYPES.set(".woff", "font/woff");
-MIME_TYPES.set(".woff2", "font/woff2");
-MIME_TYPES.set(".hex", "application/octet-stream");
-MIME_TYPES.set(".zip", "application/zip");
-MIME_TYPES.set(".xml", "text/xml");
-MIME_TYPES.set(".md", "text/markdown");
+MIME_TYPES.set('.html', 'text/html');
+MIME_TYPES.set('.js', 'text/javascript');
+MIME_TYPES.set('.map', 'application/json');
+MIME_TYPES.set('.txt', 'text/plain');
+MIME_TYPES.set('.json', 'application/json');
+MIME_TYPES.set('.wav', 'audio/wav');
+MIME_TYPES.set('.svg', 'image/svg+xml');
+MIME_TYPES.set('.png', 'image/png');
+MIME_TYPES.set('.jpg', 'image/jpeg');
+MIME_TYPES.set('.gif', 'image/gif');
+MIME_TYPES.set('.cur', 'image/x-icon');
+MIME_TYPES.set('.ico', 'image/x-icon');
+MIME_TYPES.set('.mp3', 'audio/mpeg');
+MIME_TYPES.set('.mp4', 'video/mp4');
+MIME_TYPES.set('.wav', 'audio/wav');
+MIME_TYPES.set('.ogg', 'audio/ogg');
+MIME_TYPES.set('.ttf', 'font/ttf');
+MIME_TYPES.set('.otf', 'font/otf');
+MIME_TYPES.set('.woff', 'font/woff');
+MIME_TYPES.set('.woff2', 'font/woff2');
+MIME_TYPES.set('.hex', 'application/octet-stream');
+MIME_TYPES.set('.zip', 'application/zip');
+MIME_TYPES.set('.xml', 'text/xml');
+MIME_TYPES.set('.md', 'text/markdown');
 
-protocol.registerSchemesAsPrivileged(
-  Object.entries(FILE_SCHEMES).map(([scheme, metadata]) => ({
-    scheme,
-    privileges: {
-      standard: !!metadata.standard,
-      supportFetchAPI: !!metadata.supportFetch,
-      secure: !!metadata.secure,
-      stream: !!metadata.stream,
-    },
-  })),
-);
+protocol.registerSchemesAsPrivileged(Object.entries(FILE_SCHEMES).map(([scheme, metadata]) => ({
+  scheme,
+  privileges: {
+    standard: !!metadata.standard,
+    supportFetchAPI: !!metadata.supportFetch,
+    secure: !!metadata.secure,
+    stream: !!metadata.stream
+  }
+})));
 
 /**
  * Promisified zlib.brotliDecompress
  */
-const brotliDecompress = (input) =>
-  new Promise((resolve, reject) => {
-    zlib.brotliDecompress(input, (error, result) => {
-      if (error) {
-        reject(error);
-      } else {
-        resolve(result);
-      }
-    });
+const brotliDecompress = (input) => new Promise((resolve, reject) => {
+  zlib.brotliDecompress(input, (error, result) => {
+    if (error) {
+      reject(error);
+    } else {
+      resolve(result);
+    }
   });
+});
 
 /**
  * @param {unknown} xml
  * @returns {string}
  */
-const escapeXML = (xml) =>
-  String(xml).replace(/[<>&'"]/g, (c) => {
-    switch (c) {
-      case "<":
-        return "&lt;";
-      case ">":
-        return "&gt;";
-      case "&":
-        return "&amp;";
-      case "'":
-        return "&apos;";
-      case '"':
-        return "&quot;";
-    }
-  });
+const escapeXML = (xml) => String(xml).replace(/[<>&'"]/g, c => {
+  switch (c) {
+    case '<': return '&lt;';
+    case '>': return '&gt;';
+    case '&': return '&amp;';
+    case '\'': return '&apos;';
+    case '"': return '&quot;';
+  }
+});
 
 /**
  * Note that custom extensions will be able to access this page and all of the information in it.
@@ -170,28 +161,28 @@ const createErrorPageHTML = (request, errorMessage) => `<!DOCTYPE html>
 </html>`;
 
 const errorPageHeaders = {
-  "content-type": "text/html",
-  "content-security-policy": "default-src 'none'",
+  'content-type': 'text/html',
+  'content-security-policy': 'default-src \'none\''
 };
 
 /**
  * @param {Metadata} metadata
  * @returns {Record<string, string>}
  */
-const getBaseProtocolHeaders = (metadata) => {
+const getBaseProtocolHeaders = metadata => {
   const result = {
     // Make sure Chromium always trusts our content-type and doesn't try anything clever
-    "x-content-type-options": "nosniff",
+    'x-content-type-options': 'nosniff'
   };
 
   // Optional Content-Security-Policy
   if (metadata.csp) {
-    result["content-security-policy"] = metadata.csp;
+    result['content-security-policy'] = metadata.csp;
   }
 
   // Don't allow things like extensiosn to embed custom protocols
   if (!metadata.embeddable) {
-    result["x-frame-options"] = "DENY";
+    result['x-frame-options'] = 'DENY';
   }
 
   return result;
@@ -199,7 +190,7 @@ const getBaseProtocolHeaders = (metadata) => {
 
 /** @param {Metadata} metadata */
 const createModernProtocolHandler = (metadata) => {
-  const root = path.join(metadata.root, "/");
+  const root = path.join(metadata.root, '/');
   const baseHeaders = getBaseProtocolHeaders(metadata);
 
   /**
@@ -213,20 +204,20 @@ const createModernProtocolHandler = (metadata) => {
         status: 400,
         headers: {
           ...baseHeaders,
-          ...errorPageHeaders,
-        },
+          ...errorPageHeaders
+        }
       });
     };
 
     try {
       let parsedURL = new URL(request.url);
-      if (parsedURL.pathname.endsWith("/") && metadata.directoryIndex) {
+      if (parsedURL.pathname.endsWith('/') && metadata.directoryIndex) {
         parsedURL = new URL(metadata.directoryIndex, parsedURL);
       }
 
       let resolved = path.join(root, parsedURL.pathname);
       if (!resolved.startsWith(root)) {
-        return createErrorResponse(new Error("Path traversal blocked"));
+        return createErrorResponse(new Error('Path traversal blocked'));
       }
 
       let fileExtension = path.extname(resolved);
@@ -237,32 +228,28 @@ const createModernProtocolHandler = (metadata) => {
 
       const mimeType = MIME_TYPES.get(fileExtension);
       if (!mimeType) {
-        return createErrorResponse(
-          new Error(`Invalid file extension: ${fileExtension}`),
-        );
+        return createErrorResponse(new Error(`Invalid file extension: ${fileExtension}`));
       }
 
       const headers = {
         ...baseHeaders,
-        "content-type": mimeType,
+        'content-type': mimeType
       };
 
       if (metadata.brotli) {
         // Reading it all into memory is not ideal, but we've had so many problems with streaming
         // files from the asar that I can settle with this.
-        const brotliResponse = await net.fetch(
-          nodeURL.pathToFileURL(`${resolved}.br`),
-        );
+        const brotliResponse = await net.fetch(nodeURL.pathToFileURL(`${resolved}.br`));
         const brotliData = await brotliResponse.arrayBuffer();
         const decompressed = await brotliDecompress(brotliData);
         return new Response(decompressed, {
-          headers,
+          headers
         });
       }
 
       const response = await net.fetch(nodeURL.pathToFileURL(resolved));
       return new Response(response.body, {
-        headers,
+        headers
       });
     } catch (error) {
       return createErrorResponse(error);
@@ -272,7 +259,7 @@ const createModernProtocolHandler = (metadata) => {
 
 /** @param {Metadata} metadata */
 const createLegacyBrotliProtocolHandler = (metadata) => {
-  const root = path.join(metadata.root, "/");
+  const root = path.join(metadata.root, '/');
   const baseHeaders = getBaseProtocolHeaders(metadata);
 
   /**
@@ -280,7 +267,7 @@ const createLegacyBrotliProtocolHandler = (metadata) => {
    * @param {(result: {data: Buffer; statusCode?: number; headers?: Record<string, string>;}) => void} callback
    */
   return async (request, callback) => {
-    const fsPromises = require("fs/promises");
+    const fsPromises = require('fs/promises');
 
     const returnErrorPage = (error) => {
       console.error(error);
@@ -289,20 +276,20 @@ const createLegacyBrotliProtocolHandler = (metadata) => {
         statusCode: 400,
         headers: {
           ...baseHeaders,
-          ...errorPageHeaders,
-        },
+          ...errorPageHeaders
+        }
       });
     };
 
     try {
       let parsedURL = new URL(request.url);
-      if (parsedURL.pathname.endsWith("/") && metadata.directoryIndex) {
+      if (parsedURL.pathname.endsWith('/') && metadata.directoryIndex) {
         parsedURL = new URL(metadata.directoryIndex, parsedURL);
       }
 
       let resolved = path.join(root, parsedURL.pathname);
       if (!resolved.startsWith(root)) {
-        returnErrorPage(new Error("Path traversal blocked"));
+        returnErrorPage(new Error('Path traversal blocked'));
         return;
       }
 
@@ -327,8 +314,8 @@ const createLegacyBrotliProtocolHandler = (metadata) => {
         data: decompressed,
         headers: {
           ...baseHeaders,
-          "content-type": mimeType,
-        },
+          'content-type': mimeType
+        }
       });
     } catch (error) {
       returnErrorPage(error);
@@ -338,7 +325,7 @@ const createLegacyBrotliProtocolHandler = (metadata) => {
 
 /** @param {Metadata} metadata */
 const createLegacyFileProtocolHandler = (metadata) => {
-  const root = path.join(metadata.root, "/");
+  const root = path.join(metadata.root, '/');
   const baseHeaders = getBaseProtocolHeaders(metadata);
 
   /**
@@ -352,29 +339,23 @@ const createLegacyFileProtocolHandler = (metadata) => {
         status: 400,
         // All we can return is a file path, so we just have a few different ones baked in
         // for each error that we expect.
-        path: path.join(
-          __dirname,
-          `../src-protocol-error/legacy-file/${errorPage}.html`,
-        ),
+        path: path.join(__dirname, `../src-protocol-error/legacy-file/${errorPage}.html`),
         headers: {
           ...baseHeaders,
-          ...errorPageHeaders,
-        },
+          ...errorPageHeaders
+        }
       });
     };
 
     try {
       let parsedURL = new URL(request.url);
-      if (parsedURL.pathname.endsWith("/") && metadata.directoryIndex) {
+      if (parsedURL.pathname.endsWith('/') && metadata.directoryIndex) {
         parsedURL = new URL(metadata.directoryIndex, parsedURL);
       }
 
       let resolved = path.join(root, parsedURL.pathname);
       if (!resolved.startsWith(root)) {
-        returnErrorResponse(
-          new Error("Path traversal blocked"),
-          "path-traversal",
-        );
+        returnErrorResponse(new Error('Path traversal blocked'), 'path-traversal');
         return;
       }
 
@@ -386,10 +367,7 @@ const createLegacyFileProtocolHandler = (metadata) => {
 
       const mimeType = MIME_TYPES.get(fileExtension);
       if (!mimeType) {
-        returnErrorResponse(
-          new Error(`Invalid file extension: ${fileExtension}`),
-          "invalid-extension",
-        );
+        returnErrorResponse(new Error(`Invalid file extension: ${fileExtension}`), 'invalid-extension');
         return;
       }
 
@@ -397,11 +375,11 @@ const createLegacyFileProtocolHandler = (metadata) => {
         path: resolved,
         headers: {
           ...baseHeaders,
-          "content-type": mimeType,
-        },
+          'content-type': mimeType
+        }
       });
     } catch (error) {
-      returnErrorResponse(error, "unknown");
+      returnErrorResponse(error, 'unknown');
     }
   };
 };
@@ -413,15 +391,9 @@ app.whenReady().then(() => {
       protocol.handle(scheme, createModernProtocolHandler(metadata));
     } else {
       if (metadata.brotli) {
-        protocol.registerBufferProtocol(
-          scheme,
-          createLegacyBrotliProtocolHandler(metadata),
-        );
+        protocol.registerBufferProtocol(scheme, createLegacyBrotliProtocolHandler(metadata));
       } else {
-        protocol.registerFileProtocol(
-          scheme,
-          createLegacyFileProtocolHandler(metadata),
-        );
+        protocol.registerFileProtocol(scheme, createLegacyFileProtocolHandler(metadata));
       }
     }
   }

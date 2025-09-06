@@ -1,9 +1,9 @@
-const fs = require("fs");
-const path = require("path");
-const { app } = require("electron");
-const { writeFileAtomic } = require("./atomic-write-stream");
+const fs = require('fs');
+const path = require('path');
+const {app} = require('electron');
+const {writeFileAtomic} = require('./atomic-write-stream');
 
-const PATH = path.resolve(app.getPath("userData"), "tw_config.json");
+const PATH = path.resolve(app.getPath('userData'), 'tw_config.json');
 
 /**
  * Migrates settings from before v1.9.0.
@@ -12,11 +12,11 @@ const PATH = path.resolve(app.getPath("userData"), "tw_config.json");
  */
 const migrateLegacyData = (legacyData) => {
   const options = {};
-  if (typeof legacyData.locale === "string") {
+  if (typeof legacyData.locale === 'string') {
     options.locale = legacyData.locale;
   }
   if (legacyData.disable_update_checker === true) {
-    options.updateChecker = "never";
+    options.updateChecker = 'never';
   }
   if (legacyData.bypass_cors === true) {
     options.bypassCORS = true;
@@ -27,17 +27,17 @@ const migrateLegacyData = (legacyData) => {
   if (legacyData.background_throttling === false) {
     options.backgroundThrottling = false;
   }
-  if (typeof legacyData.last_accessed_directory === "string") {
+  if (typeof legacyData.last_accessed_directory === 'string') {
     options.lastDirectory = legacyData.last_accessed_directory;
   }
   return options;
 };
 
 class Settings {
-  constructor() {
+  constructor () {
     try {
-      const parsedFile = JSON.parse(fs.readFileSync(PATH, "utf-8"));
-      if (!parsedFile) throw new Error("data is null");
+      const parsedFile = JSON.parse(fs.readFileSync(PATH, 'utf-8'));
+      if (!parsedFile) throw new Error('data is null');
 
       if (parsedFile.v2) {
         this.data = parsedFile.v2;
@@ -50,9 +50,9 @@ class Settings {
     }
   }
 
-  async save() {
+  async save () {
     const serialized = {
-      v2: this.data,
+      v2: this.data
     };
     await writeFileAtomic(PATH, JSON.stringify(serialized, null, 2));
   }
@@ -60,10 +60,10 @@ class Settings {
   /**
    * Tracks which manual data migration was most recently have been performed.
    */
-  get dataVersion() {
+  get dataVersion () {
     return this.data.dataVersion || 0;
   }
-  set dataVersion(dataVersion) {
+  set dataVersion (dataVersion) {
     this.data.dataVersion = dataVersion;
   }
 
@@ -71,9 +71,9 @@ class Settings {
    * Contains the version of the desktop app that was run previously.
    */
   get desktopVersion() {
-    return this.data.desktopVersion || "0.0.0";
+    return this.data.desktopVersion || '0.0.0';
   }
-  set desktopVersion(desktopVersion) {
+  set desktopVersion (desktopVersion) {
     this.data.desktopVersion = desktopVersion;
   }
 
@@ -81,100 +81,100 @@ class Settings {
    * Contains the Electron version used by the version of the desktop app that was run previously.
    */
   get electronVersion() {
-    return this.data.electronVersion || "0.0.0";
+    return this.data.electronVersion || '0.0.0';
   }
   set electronVersion(electronVersion) {
     this.data.electronVersion = electronVersion;
   }
 
-  get locale() {
-    return this.data.locale || "en";
+  get locale () {
+    return this.data.locale || 'en';
   }
-  set locale(locale) {
+  set locale (locale) {
     this.data.locale = locale;
   }
 
-  get updateChecker() {
-    return this.data.updateChecker || "stable";
+  get updateChecker () {
+    return this.data.updateChecker || 'stable';
   }
-  set updateChecker(updateChecker) {
+  set updateChecker (updateChecker) {
     this.data.updateChecker = updateChecker;
   }
 
-  get ignoredUpdate() {
+  get ignoredUpdate () {
     return this.data.ignoredUpdate || null;
   }
-  set ignoredUpdate(ignoredUpdate) {
+  set ignoredUpdate (ignoredUpdate) {
     this.data.ignoredUpdate = ignoredUpdate;
   }
 
-  get ignoredUpdateUntil() {
+  get ignoredUpdateUntil () {
     return this.data.ignoredUpdateUntil || 0;
   }
-  set ignoredUpdateUntil(ignoredUpdateUntil) {
+  set ignoredUpdateUntil (ignoredUpdateUntil) {
     this.data.ignoredUpdateUntil = ignoredUpdateUntil;
   }
 
-  get camera() {
+  get camera () {
     return this.data.camera || null;
   }
-  set camera(camera) {
+  set camera (camera) {
     this.data.camera = camera;
   }
 
-  get microphone() {
+  get microphone () {
     return this.data.microphone || null;
   }
-  set microphone(microphone) {
+  set microphone (microphone) {
     this.data.microphone = microphone;
   }
 
-  get bypassCORS() {
+  get bypassCORS () {
     return this.data.bypassCORS === true;
   }
-  set bypassCORS(bypassCORS) {
+  set bypassCORS (bypassCORS) {
     this.data.bypassCORS = bypassCORS;
   }
 
-  get hardwareAcceleration() {
+  get hardwareAcceleration () {
     return this.data.hardwareAcceleration !== false;
   }
-  set hardwareAcceleration(hardwareAcceleration) {
+  set hardwareAcceleration (hardwareAcceleration) {
     this.data.hardwareAcceleration = hardwareAcceleration;
   }
 
-  get backgroundThrottling() {
+  get backgroundThrottling () {
     return this.data.backgroundThrottling !== false;
   }
-  set backgroundThrottling(backgroundThrottling) {
+  set backgroundThrottling (backgroundThrottling) {
     this.data.backgroundThrottling = backgroundThrottling;
   }
 
-  get lastDirectory() {
-    return this.data.lastDirectory || app.getPath("downloads");
+  get lastDirectory () {
+    return this.data.lastDirectory || app.getPath('downloads');
   }
-  set lastDirectory(lastDirectory) {
+  set lastDirectory (lastDirectory) {
     this.data.lastDirectory = lastDirectory;
   }
 
-  get spellchecker() {
+  get spellchecker () {
     return this.data.spellchecker !== false;
   }
-  set spellchecker(spellchecker) {
+  set spellchecker (spellchecker) {
     this.data.spellchecker = spellchecker;
   }
 
-  get exitFullscreenOnEscape() {
+  get exitFullscreenOnEscape () {
     return this.data.exitFullscreenOnEscape !== false;
   }
   set exitFullscreenOnEscape(exitFullscreenOnEscape) {
     this.data.exitFullscreenOnEscape = exitFullscreenOnEscape;
   }
 
-  get richPresence() {
+  get richPresence () {
     return this.data.richPresence === true;
   }
-  set richPresence(richPresence) {
+  set richPresence (richPresence) {
     this.data.richPresence = richPresence;
   }
 }

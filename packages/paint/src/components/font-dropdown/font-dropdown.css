@@ -30,7 +30,7 @@
 }
 
 .displayed-font-name {
-    font-size: 0.8rem;
+    font-size: .8rem;
     overflow: hidden;
     white-space: nowrap;
 }

@@ -1,3 +1,4 @@
+
 @import "../../css/colors.css";
 @import "../../css/z-index.css";
 @import "../../css/default-colors.css";
@@ -69,103 +70,103 @@
 }
 
 @keyframes top-slide-in {
-    0% {
-        transform: translateY(50px);
-        opacity: 0;
-    }
+  0% {
+    transform: translateY(50px);
+    opacity: 0;
+  }
 
-    33% {
-        transform: translateY(0px);
-        opacity: 1;
-    }
+  33% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
 }
 
 @keyframes middle-slide-in {
-    0% {
-        transform: translateY(50px);
-        opacity: 0;
-    }
+  0% {
+    transform: translateY(50px);
+    opacity: 0;
+  }
 
-    33% {
-        transform: translateY(50px);
-        opacity: 0;
-    }
+  33% {
+    transform: translateY(50px);
+    opacity: 0;
+  }
 
-    66% {
-        transform: translateY(0px);
-        opacity: 1;
-    }
+  66% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
 }
 
 @keyframes bottom-slide-in {
-    0% {
-        transform: translateY(50px);
-        opacity: 0;
-    }
+  0% {
+    transform: translateY(50px);
+    opacity: 0;
+  }
 
-    66% {
-        transform: translateY(50px);
-        opacity: 0;
-    }
+  66% {
+    transform: translateY(50px);
+    opacity: 0;
+  }
 
-    100% {
-        transform: translateY(0px);
-        opacity: 1;
-    }
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
 }
 
 @keyframes top-slide-in-rtl {
-    0% {
-        transform: translateY(50px) scaleX(-1);
-        opacity: 0;
-    }
+  0% {
+    transform: translateY(50px) scaleX(-1);
+    opacity: 0;
+  }
 
-    33% {
-        transform: translateY(0px) scaleX(-1);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(0px) scaleX(-1);
-        opacity: 1;
-    }
+  33% {
+    transform: translateY(0px) scaleX(-1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0px) scaleX(-1);
+    opacity: 1;
+  }
 }
 
 @keyframes middle-slide-in-rtl {
-    0% {
-        transform: translateY(50px) scaleX(-1);
-        opacity: 0;
-    }
+  0% {
+    transform: translateY(50px) scaleX(-1);
+    opacity: 0;
+  }
 
-    33% {
-        transform: translateY(50px) scaleX(-1);
-        opacity: 0;
-    }
+  33% {
+    transform: translateY(50px) scaleX(-1);
+    opacity: 0;
+  }
 
-    66% {
-        transform: translateY(0px) scaleX(-1);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(0px) scaleX(-1);
-        opacity: 1;
-    }
+  66% {
+    transform: translateY(0px) scaleX(-1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0px) scaleX(-1);
+    opacity: 1;
+  }
 }
 
 @keyframes bottom-slide-in-rtl {
-    0% {
-        transform: translateY(50px) scaleX(-1);
-        opacity: 0;
-    }
+  0% {
+    transform: translateY(50px) scaleX(-1);
+    opacity: 0;
+  }
 
-    66% {
-        transform: translateY(50px) scaleX(-1);
-        opacity: 0;
-    }
+  66% {
+    transform: translateY(50px) scaleX(-1);
+    opacity: 0;
+  }
 
-    100% {
-        transform: translateY(0px) scaleX(-1);
-        opacity: 1;
-    }
+  100% {
+    transform: translateY(0px) scaleX(-1);
+    opacity: 1;
+  }
 }
 
 .title {
@@ -198,13 +199,13 @@
 }
 
 .spinnerCircle {
-    width: 64px;
-    height: 64px;
-    border-radius: 50%;
-    border: 6px solid;
-    border-color: $ui-white-default transparent $ui-white-default transparent;
-    animation: spin 1.2s linear infinite;
-    margin: auto;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 6px solid;
+  border-color: $ui-white-default transparent $ui-white-default transparent;
+  animation: spin 1.2s linear infinite;
+  margin: auto;
 }
 
 @keyframes spin {

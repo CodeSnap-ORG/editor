@@ -1,9 +1,9 @@
-import React from "react";
-import { shallow } from "enzyme";
-import SliderPrompt from "../../../src/containers/slider-prompt.jsx";
-import SliderPromptComponent from "../../../src/components/slider-prompt/slider-prompt.jsx";
+import React from 'react';
+import {shallow} from 'enzyme';
+import SliderPrompt from '../../../src/containers/slider-prompt.jsx';
+import SliderPromptComponent from '../../../src/components/slider-prompt/slider-prompt.jsx';
 
-describe("Slider Prompt Container", () => {
+describe('Slider Prompt Container', () => {
     let onCancel;
     let onOk;
 
@@ -12,7 +12,7 @@ describe("Slider Prompt Container", () => {
         onOk = jest.fn();
     });
 
-    test("Min/max are shown with decimal when isDiscrete is false", () => {
+    test('Min/max are shown with decimal when isDiscrete is false', () => {
         const wrapper = shallow(
             <SliderPrompt
                 isDiscrete={false}
@@ -20,14 +20,14 @@ describe("Slider Prompt Container", () => {
                 minValue={0}
                 onCancel={onCancel}
                 onOk={onOk}
-            />,
+            />
         );
         const componentProps = wrapper.find(SliderPromptComponent).props();
-        expect(componentProps.minValue).toBe("0.00");
-        expect(componentProps.maxValue).toBe("100.00");
+        expect(componentProps.minValue).toBe('0.00');
+        expect(componentProps.maxValue).toBe('100.00');
     });
 
-    test("Min/max are NOT shown with decimal when isDiscrete is true", () => {
+    test('Min/max are NOT shown with decimal when isDiscrete is true', () => {
         const wrapper = shallow(
             <SliderPrompt
                 isDiscrete
@@ -35,14 +35,14 @@ describe("Slider Prompt Container", () => {
                 minValue={0}
                 onCancel={onCancel}
                 onOk={onOk}
-            />,
+            />
         );
         const componentProps = wrapper.find(SliderPromptComponent).props();
-        expect(componentProps.minValue).toBe("0");
-        expect(componentProps.maxValue).toBe("100");
+        expect(componentProps.minValue).toBe('0');
+        expect(componentProps.maxValue).toBe('100');
     });
 
-    test("Entering a number with a decimal submits with isDiscrete=false", () => {
+    test('Entering a number with a decimal submits with isDiscrete=false', () => {
         const wrapper = shallow(
             <SliderPrompt
                 isDiscrete
@@ -50,15 +50,15 @@ describe("Slider Prompt Container", () => {
                 minValue={0}
                 onCancel={onCancel}
                 onOk={onOk}
-            />,
+            />
         );
         const componentProps = wrapper.find(SliderPromptComponent).props();
-        componentProps.onChangeMin({ target: { value: "1.0" } });
+        componentProps.onChangeMin({target: {value: '1.0'}});
         componentProps.onOk();
         expect(onOk).toHaveBeenCalledWith(1, 100, false);
     });
 
-    test("Entering integers submits with isDiscrete=true", () => {
+    test('Entering integers submits with isDiscrete=true', () => {
         const wrapper = shallow(
             <SliderPrompt
                 isDiscrete={false}
@@ -66,16 +66,16 @@ describe("Slider Prompt Container", () => {
                 minValue={12.32}
                 onCancel={onCancel}
                 onOk={onOk}
-            />,
+            />
         );
         const componentProps = wrapper.find(SliderPromptComponent).props();
-        componentProps.onChangeMin({ target: { value: "1" } });
-        componentProps.onChangeMax({ target: { value: "2" } });
+        componentProps.onChangeMin({target: {value: '1'}});
+        componentProps.onChangeMax({target: {value: '2'}});
         componentProps.onOk();
         expect(onOk).toHaveBeenCalledWith(1, 2, true);
     });
 
-    test("Enter button submits the form", () => {
+    test('Enter button submits the form', () => {
         const wrapper = shallow(
             <SliderPrompt
                 isDiscrete={false}
@@ -83,16 +83,16 @@ describe("Slider Prompt Container", () => {
                 minValue={12.32}
                 onCancel={onCancel}
                 onOk={onOk}
-            />,
+            />
         );
         const componentProps = wrapper.find(SliderPromptComponent).props();
-        componentProps.onChangeMin({ target: { value: "1" } });
-        componentProps.onChangeMax({ target: { value: "2" } });
-        componentProps.onKeyPress({ key: "Enter" });
+        componentProps.onChangeMin({target: {value: '1'}});
+        componentProps.onChangeMax({target: {value: '2'}});
+        componentProps.onKeyPress({key: 'Enter'});
         expect(onOk).toHaveBeenCalledWith(1, 2, true);
     });
 
-    test("Validates number-ness before submitting", () => {
+    test('Validates number-ness before submitting', () => {
         const wrapper = shallow(
             <SliderPrompt
                 isDiscrete={false}
@@ -100,10 +100,10 @@ describe("Slider Prompt Container", () => {
                 minValue={12.32}
                 onCancel={onCancel}
                 onOk={onOk}
-            />,
+            />
         );
         const componentProps = wrapper.find(SliderPromptComponent).props();
-        componentProps.onChangeMin({ target: { value: "hello" } });
+        componentProps.onChangeMin({target: {value: 'hello'}});
         componentProps.onOk();
         expect(onOk).not.toHaveBeenCalled();
         expect(onCancel).toHaveBeenCalled();

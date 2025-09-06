@@ -1,8 +1,8 @@
 // Stylesheets are added at the end of <body> so that they have higher precedence
 // than those in <head> and above dark mode which is appended at the start of <body>
-const stylesheetContainer = document.createElement("div");
-stylesheetContainer.style.display = "none";
-stylesheetContainer.className = "addons-styles";
+const stylesheetContainer = document.createElement('div');
+stylesheetContainer.style.display = 'none';
+stylesheetContainer.className = 'addons-styles';
 document.body.appendChild(stylesheetContainer);
 
 /**
@@ -39,7 +39,7 @@ class ConditionalStyle {
     /**
      * @param {string} styleText CSS text
      */
-    constructor(styleText) {
+    constructor (styleText) {
         /**
          * Lazily created <style> element.
          * @type {HTMLStyleElement}
@@ -71,7 +71,7 @@ class ConditionalStyle {
         this.previousEnabledDependents = [];
     }
 
-    addDependent(addonId, precedence, condition) {
+    addDependent (addonId, precedence, condition) {
         this.dependents.push([addonId, condition]);
 
         if (precedence > this.precedence) {
@@ -85,7 +85,7 @@ class ConditionalStyle {
         this.update();
     }
 
-    getEnabledDependents() {
+    getEnabledDependents () {
         const enabledDependents = [];
         for (const [addonId, condition] of this.dependents) {
             if (condition()) {
@@ -95,14 +95,14 @@ class ConditionalStyle {
         return enabledDependents;
     }
 
-    dependsOn(addonId) {
-        return this.dependents.some((dependent) => dependent[0] === addonId);
+    dependsOn (addonId) {
+        return this.dependents.some(dependent => dependent[0] === addonId);
     }
 
-    getElement() {
+    getElement () {
         if (!this.el) {
-            const el = document.createElement("style");
-            el.className = "scratch-addons-style";
+            const el = document.createElement('style');
+            el.className = 'scratch-addons-style';
             el.dataset.precedence = this.precedence;
             el.textContent = this.styleText;
             this.styleText = null;
@@ -111,7 +111,7 @@ class ConditionalStyle {
         return this.el;
     }
 
-    update() {
+    update () {
         const enabledDependents = this.getEnabledDependents();
         if (areArraysEqual(enabledDependents, this.previousEnabledDependents)) {
             // Nothing to do.
@@ -121,7 +121,7 @@ class ConditionalStyle {
 
         if (enabledDependents.length > 0) {
             const el = this.getElement();
-            el.dataset.addons = enabledDependents.join(",");
+            el.dataset.addons = enabledDependents.join(',');
 
             for (const child of stylesheetContainer.children) {
                 const otherPrecedence = +child.dataset.precedence || 0;
@@ -148,4 +148,7 @@ const create = (moduleId, styleText) => {
     return allSheets.get(moduleId);
 };
 
-export { create, updateAll };
+export {
+    create,
+    updateAll
+};

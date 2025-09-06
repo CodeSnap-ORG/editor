@@ -1,7 +1,7 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
     <!-- Unfortunately can't really enforce a CSP due to custom extensions -->
     <style>
       .splash-screen {
@@ -36,12 +36,8 @@
         animation: splash-spinner 1.2s linear infinite;
       }
       @keyframes splash-spinner {
-        0% {
-          transform: rotate(0deg);
-        }
-        100% {
-          transform: rotate(360deg);
-        }
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
       }
     </style>
   </head>
@@ -51,28 +47,28 @@
     </div>
 
     <script>
-      (function () {
-        var theme = "";
-        var accent = "#ff4c4c";
+      (function() {
+        var theme = '';
+        var accent = '#ff4c4c';
 
         try {
-          var themeSetting = localStorage.getItem("tw:theme");
+          var themeSetting = localStorage.getItem('tw:theme');
         } catch (e) {
           // ignore
         }
-        if (themeSetting === "light") {
-          theme = "light";
-        } else if (themeSetting === "dark") {
-          theme = "dark";
+        if (themeSetting === 'light') {
+          theme = 'light';
+        } else if (themeSetting === 'dark') {
+          theme = 'dark';
         } else if (themeSetting) {
           try {
             var parsed = JSON.parse(themeSetting);
-            if (parsed.accent === "purple") {
-              accent = "#855cd6";
-            } else if (parsed.accent === "blue") {
-              accent = "#4c97ff";
+            if (parsed.accent === 'purple') {
+              accent = '#855cd6';
+            } else if (parsed.accent === 'blue') {
+              accent = '#4c97ff';
             }
-            if (parsed.gui === "dark" || parsed.gui === "light") {
+            if (parsed.gui === 'dark' || parsed.gui === 'light') {
               theme = parsed.gui;
             }
           } catch (e) {
@@ -81,14 +77,12 @@
         }
 
         if (!theme) {
-          theme = window.matchMedia("(prefers-color-scheme: dark)").matches
-            ? "dark"
-            : "light";
+          theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
         }
 
-        var splash = document.getElementById("spash-waiting-for-js");
-        splash.setAttribute("data-theme", theme);
-        if (theme !== "dark") {
+        var splash = document.getElementById('spash-waiting-for-js');
+        splash.setAttribute('data-theme', theme);
+        if (theme !== 'dark') {
           splash.style.backgroundColor = accent;
         }
         splash.hidden = false;

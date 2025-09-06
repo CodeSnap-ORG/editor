@@ -6,10 +6,10 @@ import _asset from "!url-loader!./loud.svg";
 import _asset2 from "!url-loader!./mute.svg";
 import _asset3 from "!url-loader!./quiet.svg";
 export const resources = {
-    "userscript.js": _js,
-    "userstyle.css": _css,
-    "hover.css": _css2,
-    "loud.svg": _asset,
-    "mute.svg": _asset2,
-    "quiet.svg": _asset3,
+  "userscript.js": _js,
+  "userstyle.css": _css,
+  "hover.css": _css2,
+  "loud.svg": _asset,
+  "mute.svg": _asset2,
+  "quiet.svg": _asset3,
 };

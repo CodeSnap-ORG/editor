@@ -7,13 +7,10 @@
  * @param {SVGSVGElement} svgTag <svg> element, modified in-place.
  * @returns {boolean} True if a change was made.
  */
-const removeWidthAndHeight100Percent = (svgTag) => {
-    if (
-        svgTag.getAttribute("width") === "100%" &&
-        svgTag.getAttribute("height") === "100%"
-    ) {
-        svgTag.removeAttribute("width");
-        svgTag.removeAttribute("height");
+const removeWidthAndHeight100Percent = svgTag => {
+    if (svgTag.getAttribute('width') === '100%' && svgTag.getAttribute('height') === '100%') {
+        svgTag.removeAttribute('width');
+        svgTag.removeAttribute('height');
         return true;
     }
     return false;
@@ -27,23 +24,20 @@ const removeWidthAndHeight100Percent = (svgTag) => {
  * @param {SVGSVGElement} svgTag <svg> element, modified in-place.
  * @returns {boolean} True if a change was made.
  */
-const workaroundPaperRoundedRectangleBug = (svgTag) => {
+const workaroundPaperRoundedRectangleBug = svgTag => {
     let changed = false;
 
     /**
      * @param {SVGElement} element SVG element, modified in-place.
      */
-    const recurse = (element) => {
-        if (element.tagName === "rect") {
-            if (element.hasAttribute("rx") && !element.hasAttribute("ry")) {
+    const recurse = element => {
+        if (element.tagName === 'rect') {
+            if (element.hasAttribute('rx') && !element.hasAttribute('ry')) {
                 changed = true;
-                element.setAttribute("ry", element.getAttribute("rx"));
-            } else if (
-                element.hasAttribute("ry") &&
-                !element.hasAttribute("rx")
-            ) {
+                element.setAttribute('ry', element.getAttribute('rx'));
+            } else if (element.hasAttribute('ry') && !element.hasAttribute('rx')) {
                 changed = true;
-                element.setAttribute("rx", element.getAttribute("ry"));
+                element.setAttribute('rx', element.getAttribute('ry'));
             }
         }
 
@@ -66,9 +60,9 @@ const workaroundPaperRoundedRectangleBug = (svgTag) => {
  * @param {Uint8Array} rawData Raw SVG bytes
  * @returns {Uint8Array} Fixed SVG bytes. Could be the same object as `rawData`
  */
-const fixForVanilla = (rawData) => {
+const fixForVanilla = rawData => {
     const decoded = new TextDecoder().decode(rawData);
-    const svgDom = new DOMParser().parseFromString(decoded, "image/svg+xml");
+    const svgDom = new DOMParser().parseFromString(decoded, 'image/svg+xml');
     const svgTag = svgDom.documentElement;
 
     let changed = false;

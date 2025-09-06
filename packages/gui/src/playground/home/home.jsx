@@ -1,22 +1,22 @@
-import React from "react";
-import render from "../app-target";
-import styles from "../info.css";
-import homeStyles from "./home.css";
-import "@fontsource/inter";
-import * as bowser from "bowser";
+import React from 'react';
+import render from '../app-target';
+import styles from '../info.css';
+import homeStyles from './home.css';
+import '@fontsource/inter';
+import * as bowser from 'bowser';
 
-import { APP_NAME } from "../../lib/brand";
-import { applyGuiColors } from "../../lib/themes/guiHelpers";
-import { detectTheme } from "../../lib/themes/themePersistance";
+import {APP_NAME} from '../../lib/brand';
+import {applyGuiColors} from '../../lib/themes/guiHelpers';
+import {detectTheme} from '../../lib/themes/themePersistance';
 
-import Header from "../../components/amp-header/header.jsx";
-import Footer from "../../components/amp-footer/footer.jsx";
-import Clippy from "../../containers/amp-clippy.jsx";
+import Header from '../../components/amp-header/header.jsx';
+import Footer from '../../components/amp-footer/footer.jsx';
+import Clippy from '../../containers/amp-clippy.jsx';
 
 /* eslint-disable react/jsx-no-literals */
 
 applyGuiColors(detectTheme());
-document.documentElement.lang = "en";
+document.documentElement.lang = 'en';
 
 const Home = () => (
     <>
@@ -25,16 +25,14 @@ const Home = () => (
         {process.env.ampmod_is_canary && (
             <section className={homeStyles.notification}>
                 <p>
-                    This is a canary build. Bugs may be present. Do NOT use this
-                    build for production work.
+                    This is a canary build. Bugs may be present. Do NOT use this build for production work.
                 </p>
             </section>
         )}
         {bowser.parse(navigator.userAgent).platform.type == "mobile" && (
             <section className={homeStyles.notification}>
                 <p>
-                    Phones not officially supported. Desktop/tablet is
-                    recommended.
+                    Phones not officially supported. Desktop/tablet is recommended.
                 </p>
             </section>
         )}
@@ -42,10 +40,7 @@ const Home = () => (
             <h1 className={styles.headerText}>
                 {APP_NAME} - Block-based programming, amplified
             </h1>
-            <p>
-                {APP_NAME} is a powerful block-based programming language built
-                on Scratch 3.0 and TurboWarp.
-            </p>
+            <p>{APP_NAME} is a powerful block-based programming language built on Scratch 3.0 and TurboWarp.</p>
             <a href="editor.html" className={homeStyles.primaryButton}>
                 Try now!
             </a>
@@ -63,18 +58,15 @@ const Home = () => (
             <section>
                 <h2>What is {APP_NAME}?</h2>
                 <p>
-                    {APP_NAME} is a powerful block-based programming language,
-                    built on Scratch 3.0 and TurboWarp. It can be used for many
-                    things, from simple throwaway spaghetti scripts to
-                    large-scale calculations.
+                    {APP_NAME} is a powerful block-based programming language, built on Scratch 3.0 and TurboWarp.
+                    It can be used for many things, from simple throwaway spaghetti scripts to large-scale calculations.
                 </p>
             </section>
             <section>
                 <h2>It's not just Scratch, it's {APP_NAME}!</h2>
                 <p>
-                    {APP_NAME} is designed to be a convenient package of
-                    features to make complex projects easily. From clicker games
-                    to scientific experiments, we have it all.
+                    {APP_NAME} is designed to be a convenient package of features to make complex projects easily.
+                    From clicker games to scientific experiments, we have it all.
                 </p>
             </section>
             <section>
@@ -86,16 +78,10 @@ const Home = () => (
             <section>
                 <h2>Need help?</h2>
                 {/* If you are modifying AmpMod, you should replace or remove these links */}
-                <a
-                    href="https://ampmod.flarum.cloud"
-                    className={`${homeStyles.button} ${homeStyles.marginRight}`}
-                >
+                <a href="https://ampmod.flarum.cloud" className={`${homeStyles.button} ${homeStyles.marginRight}`}>
                     Visit the forums
                 </a>
-                <a
-                    href="https://ultiblocks.miraheze.org/wiki/Main_Page"
-                    className={homeStyles.button}
-                >
+                <a href="https://ultiblocks.miraheze.org/wiki/Main_Page" className={homeStyles.button}>
                     Visit the wiki
                 </a>
             </section>

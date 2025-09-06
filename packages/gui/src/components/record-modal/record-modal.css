@@ -1,3 +1,4 @@
+
 @import "../../css/colors.css";
 @import "../../css/units.css";
 
@@ -16,8 +17,7 @@
     justify-content: space-around;
 }
 
-.meter-container,
-.waveform-container {
+.meter-container, .waveform-container {
     background: $ui-primary;
     border: 1px solid $ui-black-transparent;
     border-radius: 5px;
@@ -46,7 +46,7 @@
     color: rgb(167, 170, 181);
     font-size: 0.95rem;
     font-weight: 500;
-    font-family: "Inter Tight", sans-serif;
+    font-family: 'Inter Tight', sans-serif;
 }
 
 .playing-text {
@@ -74,8 +74,7 @@
     opacity: 0.25;
 }
 
-.main-button-row button:active,
-.main-button-row button:focus {
+.main-button-row button:active, .main-button-row button:focus {
     outline: none;
 }
 

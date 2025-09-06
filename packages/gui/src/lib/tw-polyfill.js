@@ -5,7 +5,7 @@ if (!Blob.prototype.text) {
         return new Promise((resolve, reject) => {
             const fr = new FileReader();
             fr.onload = () => resolve(fr.result);
-            fr.onerror = () => reject(new Error("Cannot read blob as text"));
+            fr.onerror = () => reject(new Error('Cannot read blob as text'));
             fr.readAsText(this);
         });
     };
@@ -37,8 +37,8 @@ if (!Array.prototype.flatMap) {
     };
 }
 
-if (typeof queueMicrotask !== "function") {
-    window.queueMicrotask = (callback) => {
+if (typeof queueMicrotask !== 'function') {
+    window.queueMicrotask = callback => {
         Promise.resolve().then(callback);
     };
 }

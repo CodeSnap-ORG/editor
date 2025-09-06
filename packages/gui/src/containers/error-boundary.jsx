@@ -1,14 +1,14 @@
-import React from "react";
-import PropTypes from "prop-types";
-import CrashMessageComponent from "../components/crash-message/crash-message.jsx";
-import log from "../lib/log.js";
+import React from 'react';
+import PropTypes from 'prop-types';
+import CrashMessageComponent from '../components/crash-message/crash-message.jsx';
+import log from '../lib/log.js';
 
 class ErrorBoundary extends React.Component {
-    constructor(props) {
+    constructor (props) {
         super(props);
         this.state = {
             error: null,
-            errorInfo: null,
+            errorInfo: null
         };
     }
 
@@ -17,14 +17,14 @@ class ErrorBoundary extends React.Component {
      * @param {Error} error - the error that was caught.
      * @param {React.ErrorInfo} errorInfo - the React error info associated with the error.
      */
-    componentDidCatch(error, errorInfo) {
+    componentDidCatch (error, errorInfo) {
         // Error object may be undefined (IE?)
         error = error || {
-            stack: "Unknown stack",
-            message: "Unknown error",
+            stack: 'Unknown stack',
+            message: 'Unknown error'
         };
         errorInfo = errorInfo || {
-            componentStack: "Unknown component stack",
+            componentStack: 'Unknown component stack'
         };
 
         // only remember the first error: later errors might just be side effects of that first one
@@ -32,50 +32,48 @@ class ErrorBoundary extends React.Component {
             // store error & errorInfo for debugging
             this.setState({
                 error,
-                errorInfo,
+                errorInfo
             });
         }
 
         // report every error in the console
-        log.error(
-            [
-                `Unhandled Error with action='${this.props.action}': ${error.stack}`,
-                `Component stack: ${errorInfo.componentStack}`,
-            ].join("\n"),
-        );
+        log.error([
+            `Unhandled Error with action='${this.props.action}': ${error.stack}`,
+            `Component stack: ${errorInfo.componentStack}`
+        ].join('\n'));
     }
 
-    handleBack() {
+    handleBack () {
         window.history.back();
     }
 
-    handleReload() {
-        window.location.replace(
-            window.location.origin + window.location.pathname,
-        );
+    handleReload () {
+        window.location.replace(window.location.origin + window.location.pathname);
     }
 
-    formatErrorMessage() {
-        let message = "";
+    formatErrorMessage () {
+        let message = '';
 
         if (this.state.error) {
             message += `${this.state.error}`;
         } else {
-            message += "Unknown error";
+            message += 'Unknown error';
         }
 
         if (this.state.errorInfo) {
-            const firstCoupleLines = this.state.errorInfo.componentStack
+            const firstCoupleLines = this.state
+                .errorInfo
+                .componentStack
                 .trim()
-                .split("\n")
-                .map((i) => i.trim());
-            message += `\nComponent stack: ${firstCoupleLines.join(" ")}`;
+                .split('\n')
+                .map(i => i.trim());
+            message += `\nComponent stack: ${firstCoupleLines.join(' ')}`;
         }
 
         return message;
     }
 
-    render() {
+    render () {
         if (this.state.error) {
             return (
                 <CrashMessageComponent
@@ -90,7 +88,7 @@ class ErrorBoundary extends React.Component {
 
 ErrorBoundary.propTypes = {
     action: PropTypes.string.isRequired, // Used for defining tracking action
-    children: PropTypes.node,
+    children: PropTypes.node
 };
 
 export default ErrorBoundary;

@@ -1,4 +1,4 @@
-import parseColorLib from "parse-color";
+import parseColorLib from 'parse-color';
 
 /**
  * @typedef ParsedColor
@@ -8,14 +8,14 @@ import parseColorLib from "parse-color";
 
 const TRANSPARENT_BLACK = {
     rgba: [0, 0, 0, 0],
-    hex: "#000000",
+    hex: '#000000'
 };
 
 /**
  * @param {string} color Color in any format.
  * @returns {ParsedColor} Parsed color object.
  */
-const parseColor = (color) => {
+const parseColor = color => {
     if (/^#[a-f0-9]{3,8}$/i.test(color)) {
         // parse-color does not handle opacity well in hex colors, so we will parse them ourselves.
         let hexPart = color.substring(1).toLowerCase();
@@ -23,9 +23,9 @@ const parseColor = (color) => {
         if (hexPart.length === 3 || hexPart.length === 4) {
             // Double each character, eg. 08A -> 0088AA
             hexPart = hexPart
-                .split("")
-                .map((char) => char + char)
-                .join("");
+                .split('')
+                .map(char => char + char)
+                .join('');
         }
 
         const red = parseInt(hexPart.substring(0, 2), 16);
@@ -38,7 +38,7 @@ const parseColor = (color) => {
 
         return {
             rgba: [red, green, blue, alpha],
-            hex: `#${hexPart.substring(0, 6)}`,
+            hex: `#${hexPart.substring(0, 6)}`
         };
     }
 
@@ -53,16 +53,15 @@ const parseColor = (color) => {
  * @param {number} alpha Alpha channel from 0-1
  * @returns {string} String to use for creating an 8-digit hex color code.
  */
-const makeAlphaComponent = (alpha) =>
-    Math.round(alpha * 255)
-        .toString(16)
-        .padStart(2, "0");
+const makeAlphaComponent = alpha => Math.round(alpha * 255)
+    .toString(16)
+    .padStart(2, '0');
 
 /**
  * @param {string} color Color in any format.
  * @returns {string} Color as either a 6-digit hex code or 8-digit hex code if it has an alpha channel.
  */
-const colorToHex = (color) => {
+const colorToHex = color => {
     const parsed = parseColor(color);
     const hex = parsed.hex;
     const alpha = parsed.rgba[3];
@@ -72,4 +71,7 @@ const colorToHex = (color) => {
     return hex;
 };
 
-export { makeAlphaComponent, colorToHex };
+export {
+    makeAlphaComponent,
+    colorToHex
+};

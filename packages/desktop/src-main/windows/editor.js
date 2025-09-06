@@ -1,32 +1,32 @@
-const fsPromises = require("fs/promises");
-const path = require("path");
-const nodeURL = require("url");
-const zlib = require("zlib");
-const nodeCrypto = require("crypto");
-const { app, dialog } = require("electron");
-const ProjectRunningWindow = require("./project-running-window");
-const AddonsWindow = require("./addons");
-const DesktopSettingsWindow = require("./desktop-settings");
-const PrivacyWindow = require("./privacy");
-const AboutWindow = require("./about");
-const PackagerWindow = require("./packager");
-const { createAtomicWriteStream } = require("../atomic-write-stream");
-const { translate, updateLocale, getStrings } = require("../l10n");
-const { APP_NAME } = require("../brand");
-const prompts = require("../prompts");
-const settings = require("../settings");
-const privilegedFetch = require("../fetch");
-const RichPresence = require("../rich-presence.js");
-const FileAccessWindow = require("./file-access-window.js");
-const ExtensionDocumentationWindow = require("./extension-documentation.js");
+const fsPromises = require('fs/promises');
+const path = require('path');
+const nodeURL = require('url');
+const zlib = require('zlib');
+const nodeCrypto = require('crypto');
+const {app, dialog} = require('electron');
+const ProjectRunningWindow = require('./project-running-window');
+const AddonsWindow = require('./addons');
+const DesktopSettingsWindow = require('./desktop-settings');
+const PrivacyWindow = require('./privacy');
+const AboutWindow = require('./about');
+const PackagerWindow = require('./packager');
+const {createAtomicWriteStream} = require('../atomic-write-stream');
+const {translate, updateLocale, getStrings} = require('../l10n');
+const {APP_NAME} = require('../brand');
+const prompts = require('../prompts');
+const settings = require('../settings');
+const privilegedFetch = require('../fetch');
+const RichPresence = require('../rich-presence.js');
+const FileAccessWindow = require('./file-access-window.js');
+const ExtensionDocumentationWindow = require('./extension-documentation.js');
 
-const TYPE_FILE = "file";
-const TYPE_URL = "url";
-const TYPE_SCRATCH = "scratch";
-const TYPE_SAMPLE = "sample";
+const TYPE_FILE = 'file';
+const TYPE_URL = 'url';
+const TYPE_SCRATCH = 'scratch';
+const TYPE_SAMPLE = 'sample';
 
 class OpenedFile {
-  constructor(type, path) {
+  constructor (type, path) {
     /** @type {TYPE_FILE|TYPE_URL|TYPE_SCRATCH|TYPE_SAMPLE} */
     this.type = type;
 
@@ -37,11 +37,11 @@ class OpenedFile {
     this.path = path;
   }
 
-  async read() {
+  async read () {
     if (this.type === TYPE_FILE) {
       return {
         name: path.basename(this.path),
-        data: await fsPromises.readFile(this.path),
+        data: await fsPromises.readFile(this.path)
       };
     }
 
@@ -49,31 +49,24 @@ class OpenedFile {
       const buffer = await privilegedFetch(this.path);
       return {
         name: decodeURIComponent(path.basename(this.path)),
-        data: buffer,
+        data: buffer
       };
     }
 
     if (this.type === TYPE_SCRATCH) {
-      const metadata = await privilegedFetch.json(
-        `https://api.scratch.mit.edu/projects/${this.path}`,
-      );
+      const metadata = await privilegedFetch.json(`https://api.scratch.mit.edu/projects/${this.path}`);
       const token = metadata.project_token;
       const title = metadata.title;
 
-      const projectBuffer = await privilegedFetch(
-        `https://projects.scratch.mit.edu/${this.path}?token=${token}`,
-      );
+      const projectBuffer = await privilegedFetch(`https://projects.scratch.mit.edu/${this.path}?token=${token}`);
       return {
         name: title,
-        data: projectBuffer,
+        data: projectBuffer
       };
     }
 
     if (this.type === TYPE_SAMPLE) {
-      const sampleRoot = path.resolve(
-        __dirname,
-        "../../dist-extensions/samples/",
-      );
+      const sampleRoot = path.resolve(__dirname, '../../dist-extensions/samples/');
       const resolvedPath = path.join(sampleRoot, this.path);
       if (resolvedPath.startsWith(sampleRoot)) {
         const compressedPath = `${resolvedPath}.br`;
@@ -92,10 +85,10 @@ class OpenedFile {
 
         return {
           name: this.path,
-          data: decompressedData,
+          data: decompressedData
         };
       }
-      throw new Error("Unsafe join");
+      throw new Error('Unsafe join');
     }
 
     throw new Error(`Unknown type: ${this.type}`);
@@ -116,20 +109,16 @@ const parseOpenedFile = (file, workingDirectory) => {
   }
 
   if (url) {
-    if (url.protocol === "http:" || url.protocol === "https:") {
+    if (url.protocol === 'http:' || url.protocol === 'https:') {
       // Scratch URLs require special treatment as they are not direct downloads.
-      const scratchMatch = file.match(
-        /^https?:\/\/scratch\.mit\.edu\/projects\/(\d+)\/?/,
-      );
+      const scratchMatch = file.match(/^https?:\/\/scratch\.mit\.edu\/projects\/(\d+)\/?/);
       if (scratchMatch) {
         return new OpenedFile(TYPE_SCRATCH, scratchMatch[1]);
       }
 
       // Need to manually redirect extension samples to the copies we already have offline as the
       // fetching code will not go through web request handlers or custom protocols.
-      const sampleMatch = file.match(
-        /^https?:\/\/extensions\.turbowarp\.org\/samples\/(.+\.sb3)$/,
-      );
+      const sampleMatch = file.match(/^https?:\/\/extensions\.turbowarp\.org\/samples\/(.+\.sb3)$/);
       if (sampleMatch) {
         return new OpenedFile(TYPE_SAMPLE, decodeURIComponent(sampleMatch[1]));
       }
@@ -140,7 +129,7 @@ const parseOpenedFile = (file, workingDirectory) => {
     // Parse file:// URLs.
     // Notably we receive these in the flatpak version of the app when we can only access a file through
     // the XDG document portal instead of having direct access with eg. --filesystem=home
-    if (url.protocol === "file:") {
+    if (url.protocol === 'file:') {
       let filePath;
       try {
         filePath = nodeURL.fileURLToPath(file);
@@ -149,10 +138,7 @@ const parseOpenedFile = (file, workingDirectory) => {
       }
 
       if (filePath) {
-        return new OpenedFile(
-          TYPE_FILE,
-          path.resolve(workingDirectory, filePath),
-        );
+        return new OpenedFile(TYPE_FILE, path.resolve(workingDirectory, filePath));
       }
     }
 
@@ -167,58 +153,53 @@ const parseOpenedFile = (file, workingDirectory) => {
  * @returns {Array<{path: string; app: string;}>}
  */
 const getUnsafePaths = () => {
-  if (process.platform !== "win32") {
+  if (process.platform !== 'win32') {
     // This problem doesn't really exist on other platforms
     return [];
   }
 
-  const localPrograms = path.join(
-    app.getPath("home"),
-    "AppData",
-    "Local",
-    "Programs",
-  );
-  const appData = app.getPath("appData");
+  const localPrograms = path.join(app.getPath('home'), 'AppData', 'Local', 'Programs');
+  const appData = app.getPath('appData');
   return [
     // Current app, regardless of where it is installed or how modded it is
     {
-      path: path.dirname(app.getPath("exe")),
+      path: path.dirname(app.getPath('exe')),
       app: APP_NAME,
     },
     {
-      path: app.getPath("userData"),
+      path: app.getPath('userData'),
       app: APP_NAME,
     },
 
     // AmpMod defaults
     {
-      path: path.join(appData, "ampmod"),
-      app: "AmpMod",
+      path: path.join(appData, 'ampmod'),
+      app: 'AmpMod'
     },
     {
-      path: path.join(localPrograms, "AmpMod"),
-      app: "AmpMod",
+      path: path.join(localPrograms, 'AmpMod'),
+      app: 'AmpMod'
     },
 
     // TurboWarp Desktop defaults
     {
-      path: path.join(appData, "turbowarp-desktop"),
-      app: "TurboWarp Desktop",
+      path: path.join(appData, 'turbowarp-desktop'),
+      app: 'TurboWarp Desktop'
     },
     {
-      path: path.join(localPrograms, "TurboWarp"),
-      app: "TurboWarp Desktop",
+      path: path.join(localPrograms, 'TurboWarp'),
+      app: 'TurboWarp Desktop'
     },
 
     // Scratch Desktop defaults
     {
-      path: path.join(appData, "Scratch"),
-      app: "Scratch Desktop",
+      path: path.join(appData, 'Scratch'),
+      app: 'Scratch Desktop'
     },
     {
-      path: path.join(localPrograms, "Scratch 3"),
-      app: "Scratch Desktop",
-    },
+      path: path.join(localPrograms, 'Scratch 3'),
+      app: 'Scratch Desktop'
+    }
   ];
 };
 
@@ -229,7 +210,7 @@ const getUnsafePaths = () => {
  */
 const isChildPath = (parent, child) => {
   const relative = path.relative(parent, child);
-  return !!relative && !relative.startsWith("..") && !path.isAbsolute(relative);
+  return !!relative && !relative.startsWith('..') && !path.isAbsolute(relative);
 };
 
 /**
@@ -245,7 +226,7 @@ class EditorWindow extends ProjectRunningWindow {
    * @param {OpenedFile|null} initialFile
    * @param {boolean} isInitiallyFullscreen
    */
-  constructor(initialFile, isInitiallyFullscreen) {
+  constructor (initialFile, isInitiallyFullscreen) {
     super();
 
     /**
@@ -272,109 +253,112 @@ class EditorWindow extends ProjectRunningWindow {
      */
     const getFileById = (id) => {
       if (!this.openedFiles.has(id)) {
-        throw new Error("Invalid file ID");
+        throw new Error('Invalid file ID');
       }
       return this.openedFiles.get(id);
     };
 
-    this.window.webContents.on("will-prevent-unload", (event) => {
+    this.window.webContents.on('will-prevent-unload', (event) => {
       const choice = dialog.showMessageBoxSync(this.window, {
         title: APP_NAME,
-        type: "info",
-        buttons: [translate("unload.stay"), translate("unload.leave")],
+        type: 'info',
+        buttons: [
+          translate('unload.stay'),
+          translate('unload.leave')
+        ],
         cancelId: 0,
         defaultId: 0,
-        message: translate("unload.message"),
-        detail: translate("unload.detail"),
-        noLink: true,
+        message: translate('unload.message'),
+        detail: translate('unload.detail'),
+        noLink: true
       });
       if (choice === 1) {
         event.preventDefault();
       }
     });
 
-    this.window.on("page-title-updated", (event, title, explicitSet) => {
+    this.window.on('page-title-updated', (event, title, explicitSet) => {
       event.preventDefault();
       if (explicitSet && title) {
         this.window.setTitle(`${title} - ${APP_NAME}`);
         this.projectTitle = title;
       } else {
         this.window.setTitle(APP_NAME);
-        this.projectTitle = "";
+        this.projectTitle = '';
       }
 
       this.updateRichPresence();
     });
     this.window.setTitle(APP_NAME);
 
-    this.window.on("focus", () => {
+    this.window.on('focus', () => {
       this.updateRichPresence();
     });
 
-    this.ipc.on("is-initially-fullscreen", (e) => {
+    this.ipc.on('is-initially-fullscreen', (e) => {
       e.returnValue = isInitiallyFullscreen;
     });
 
-    this.ipc.handle("get-initial-file", () => {
+    this.ipc.handle('get-initial-file', () => {
       return this.activeFileId;
     });
 
-    this.ipc.handle("get-file", async (event, id) => {
+    this.ipc.handle('get-file', async (event, id) => {
       const file = getFileById(id);
-      const { name, data } = await file.read();
+      const {name, data} = await file.read();
       return {
         name,
         type: file.type,
-        data,
+        data
       };
     });
 
-    this.ipc.on("set-locale", async (event, locale) => {
+    this.ipc.on('set-locale', async (event, locale) => {
       if (settings.locale !== locale) {
         settings.locale = locale;
         updateLocale(locale);
 
         // Imported late due to circular dependency
-        const rebuildMenuBar = require("../menu-bar");
+        const rebuildMenuBar = require('../menu-bar');
         rebuildMenuBar();
 
         // Let the save happen in the background, not important
         Promise.resolve().then(() => settings.save());
       }
       event.returnValue = {
-        strings: getStrings(),
+        strings: getStrings()
       };
     });
 
-    this.ipc.handle("set-changed", (event, changed) => {
+    this.ipc.handle('set-changed', (event, changed) => {
       this.window.setDocumentEdited(changed);
     });
 
-    this.ipc.handle("opened-file", (event, id) => {
+    this.ipc.handle('opened-file', (event, id) => {
       const file = getFileById(id);
       if (file.type !== TYPE_FILE) {
-        throw new Error("Not a file");
+        throw new Error('Not a file');
       }
       this.activeFileId = id;
       this.openedProjectAt = Date.now();
       this.window.setRepresentedFilename(file.path);
     });
 
-    this.ipc.handle("closed-file", () => {
+    this.ipc.handle('closed-file', () => {
       this.activeFileId = null;
-      this.window.setRepresentedFilename("");
+      this.window.setRepresentedFilename('');
     });
 
-    this.ipc.handle("show-open-file-picker", async () => {
+    this.ipc.handle('show-open-file-picker', async () => {
       const result = await dialog.showOpenDialog(this.window, {
-        properties: ["openFile"],
+        properties: ['openFile'],
         defaultPath: settings.lastDirectory,
         filters: [
           {
-            name: "Scratch Project",
-            extensions: ["sb3", "sb2", "sb"],
-          },
-        ],
+            name: 'Scratch Project',
+            extensions: ['sb3', 'sb2', 'sb'],
+          }
+        ]
       });
       if (result.canceled) {
         return null;
@@ -389,19 +373,19 @@ class EditorWindow extends ProjectRunningWindow {
 
       return {
         id,
-        name: path.basename(filePath),
+        name: path.basename(filePath)
       };
     });
 
-    this.ipc.handle("show-save-file-picker", async (event, suggestedName) => {
+    this.ipc.handle('show-save-file-picker', async (event, suggestedName) => {
       const result = await dialog.showSaveDialog(this.window, {
         defaultPath: path.join(settings.lastDirectory, suggestedName),
         filters: [
           {
-            name: "Scratch 3 Project",
-            extensions: ["sb3"],
-          },
-        ],
+            name: 'Scratch 3 Project',
+            extensions: ['sb3'],
+          }
+        ]
       });
       if (result.canceled) {
         return null;
@@ -409,20 +393,18 @@ class EditorWindow extends ProjectRunningWindow {
 
       const filePath = result.filePath;
 
-      const unsafePath = getUnsafePaths().find((i) =>
-        isChildPath(i.path, filePath),
-      );
+      const unsafePath = getUnsafePaths().find(i => isChildPath(i.path, filePath));
       if (unsafePath) {
         // No need to block until the message box is closed
         dialog.showMessageBox(this.window, {
-          type: "error",
+          type: 'error',
           title: APP_NAME,
-          message: translate("unsafe-path.title"),
+          message: translate('unsafe-path.title'),
           detail: translate(`unsafe-path.details`)
-            .replace("{APP_NAME}", unsafePath.app)
-            .replace("{file}", filePath),
-          noLink: true,
-        });
+            .replace('{APP_NAME}', unsafePath.app)
+            .replace('{file}', filePath),
+          noLink: true
+        });  
         return null;
       }
 
@@ -434,21 +416,21 @@ class EditorWindow extends ProjectRunningWindow {
 
       return {
         id,
-        name: path.basename(filePath),
+        name: path.basename(filePath)
       };
     });
 
-    this.ipc.handle("get-preferred-media-devices", () => {
+    this.ipc.handle('get-preferred-media-devices', () => {
       return {
         microphone: settings.microphone,
-        camera: settings.camera,
+        camera: settings.camera
       };
     });
 
-    this.ipc.on("start-write-stream", async (startEvent, id) => {
+    this.ipc.on('start-write-stream', async (startEvent, id) => {
       const file = getFileById(id);
       if (file.type !== TYPE_FILE) {
-        throw new Error("Not a file");
+        throw new Error('Not a file');
       }
 
       const port = startEvent.ports[0];
@@ -457,9 +439,9 @@ class EditorWindow extends ProjectRunningWindow {
       let writeStream = null;
 
       const handleError = (error) => {
-        console.error("Write stream error", error);
+        console.error('Write stream error', error);
         port.postMessage({
-          error,
+          error
         });
 
         // Make sure the port is started in case we encounter an error before we normally
@@ -474,7 +456,7 @@ class EditorWindow extends ProjectRunningWindow {
         return;
       }
 
-      writeStream.on("atomic-error", handleError);
+      writeStream.on('atomic-error', handleError);
 
       const handleMessage = (data) => {
         if (data.write) {
@@ -483,23 +465,23 @@ class EditorWindow extends ProjectRunningWindow {
             return;
           }
           // Wait for the buffer to become empty before asking for more.
-          return new Promise((resolve) => {
-            writeStream.once("drain", resolve);
+          return new Promise(resolve => {
+            writeStream.once('drain', resolve);
           });
         } else if (data.finish) {
           // Wait for the atomic file write to complete.
-          return new Promise((resolve) => {
-            writeStream.once("atomic-finish", resolve);
+          return new Promise(resolve => {
+            writeStream.once('atomic-finish', resolve);
             writeStream.end();
           });
         } else if (data.abort) {
-          writeStream.emit("error", new Error("Aborted by renderer process"));
+          writeStream.emit('error', new Error('Aborted by renderer process'));
           return;
         }
-        throw new Error("Unknown message from renderer");
+        throw new Error('Unknown message from renderer');
       };
 
-      port.on("message", async (messageEvent) => {
+      port.on('message', async (messageEvent) => {
         try {
           const data = messageEvent.data;
           const id = data.id;
@@ -507,8 +489,8 @@ class EditorWindow extends ProjectRunningWindow {
           port.postMessage({
             response: {
               id,
-              result,
-            },
+              result
+            }
           });
         } catch (error) {
           handleError(error);
@@ -518,60 +500,54 @@ class EditorWindow extends ProjectRunningWindow {
       port.start();
     });
 
-    this.ipc.on("alert", (event, message) => {
+    this.ipc.on('alert', (event, message) => {
       event.returnValue = prompts.alert(this.window, message);
     });
 
-    this.ipc.on("confirm", (event, message) => {
+    this.ipc.on('confirm', (event, message) => {
       event.returnValue = prompts.confirm(this.window, message);
     });
 
-    this.ipc.handle("open-packager", () => {
+    this.ipc.handle('open-packager', () => {
       PackagerWindow.forEditor(this);
     });
 
-    this.ipc.handle("open-new-window", () => {
+    this.ipc.handle('open-new-window', () => {
       EditorWindow.newWindow();
     });
 
-    this.ipc.handle("open-addon-settings", (event, search) => {
+    this.ipc.handle('open-addon-settings', (event, search) => {
       AddonsWindow.show(search);
     });
 
-    this.ipc.handle("open-desktop-settings", () => {
+    this.ipc.handle('open-desktop-settings', () => {
       DesktopSettingsWindow.show();
     });
 
-    this.ipc.handle("open-privacy", () => {
+    this.ipc.handle('open-privacy', () => {
       PrivacyWindow.show();
     });
 
-    this.ipc.handle("open-about", () => {
+    this.ipc.handle('open-about', () => {
       AboutWindow.show();
     });
 
-    this.ipc.handle("get-advanced-customizations", async () => {
-      const USERSCRIPT_PATH = path.join(
-        app.getPath("userData"),
-        "userscript.js",
-      );
-      const USERSTYLE_PATH = path.join(
-        app.getPath("userData"),
-        "userstyle.css",
-      );
+    this.ipc.handle('get-advanced-customizations', async () => {
+      const USERSCRIPT_PATH = path.join(app.getPath('userData'), 'userscript.js');
+      const USERSTYLE_PATH = path.join(app.getPath('userData'), 'userstyle.css');
 
       const [userscript, userstyle] = await Promise.all([
-        fsPromises.readFile(USERSCRIPT_PATH, "utf-8").catch(() => ""),
-        fsPromises.readFile(USERSTYLE_PATH, "utf-8").catch(() => ""),
+        fsPromises.readFile(USERSCRIPT_PATH, 'utf-8').catch(() => ''),
+        fsPromises.readFile(USERSTYLE_PATH, 'utf-8').catch(() => '')
       ]);
 
       return {
         userscript,
-        userstyle,
+        userstyle
       };
     });
 
-    this.ipc.handle("check-drag-and-drop-path", (event, filePath) => {
+    this.ipc.handle('check-drag-and-drop-path', (event, filePath) => {
       FileAccessWindow.check(filePath);
     });
 
@@ -581,88 +557,86 @@ class EditorWindow extends ProjectRunningWindow {
      */
     this.isInEditorFullScreen = false;
 
-    this.ipc.handle("set-is-full-screen", (event, isFullScreen) => {
+    this.ipc.handle('set-is-full-screen', (event, isFullScreen) => {
       this.isInEditorFullScreen = !!isFullScreen;
     });
 
-    this.loadURL("tw-editor://./gui/gui.html");
+    this.loadURL('tw-editor://./gui/gui.html');
     this.show();
   }
 
-  getPreload() {
-    return "editor";
+  getPreload () {
+    return 'editor';
   }
 
-  getDimensions() {
+  getDimensions () {
     return {
       width: 1280,
-      height: 800,
+      height: 800
     };
   }
 
-  getBackgroundColor() {
-    return "#333333";
+  getBackgroundColor () {
+    return '#333333';
   }
 
-  applySettings() {
-    this.window.webContents.setBackgroundThrottling(
-      settings.backgroundThrottling,
-    );
+  applySettings () {
+    this.window.webContents.setBackgroundThrottling(settings.backgroundThrottling);
   }
 
-  enumerateMediaDevices() {
+  enumerateMediaDevices () {
     // Used by desktop settings
     return new Promise((resolve, reject) => {
-      this.ipc.once("enumerated-media-devices", (event, result) => {
-        if (typeof result.error !== "undefined") {
+      this.ipc.once('enumerated-media-devices', (event, result) => {
+        if (typeof result.error !== 'undefined') {
           reject(result.error);
         } else {
           resolve(result.devices);
         }
       });
-      this.window.webContents.send("enumerate-media-devices");
+      this.window.webContents.send('enumerate-media-devices');
     });
   }
 
-  handleWindowOpen(details) {
+  handleWindowOpen (details) {
     const url = new URL(details.url);
     const params = new URLSearchParams(url.search);
 
     // Open extension sample projects in-app
     if (
-      url.protocol === "tw-editor:" &&
-      url.host === "." &&
-      params.has("project_url")
+      url.protocol === 'tw-editor:' &&
+      url.host === '.' &&
+      params.has('project_url')
     ) {
-      const projectUrl = params.get("project_url");
+      const projectUrl = params.get('project_url');
       const parsedFile = parseOpenedFile(projectUrl, null);
       if (parsedFile.type === TYPE_SAMPLE) {
         new EditorWindow(parsedFile, null);
         return {
-          action: "deny",
+          action: 'deny'
         };
       }
     }
 
     // Open extension documentation in-app
     const extensionsDocsMatch = details.url.match(
-      /^https:\/\/extensions\.turbowarp\.org\/([\w_\-.\/]+)$/,
+      /^https:\/\/extensions\.turbowarp\.org\/([\w_\-.\/]+)$/
     );
     if (extensionsDocsMatch) {
       ExtensionDocumentationWindow.open(extensionsDocsMatch[1]);
       return {
-        action: "deny",
+        action: 'deny'
       };
     }
 
     return super.handleWindowOpen(details);
   }
 
-  canExitFullscreenByPressingEscape() {
+  canExitFullscreenByPressingEscape () {
     return !this.isInEditorFullScreen;
   }
 
-  updateRichPresence() {
+  updateRichPresence () {
     RichPresence.setActivity(this.projectTitle, this.openedProjectAt);
   }
 
@@ -671,7 +645,7 @@ class EditorWindow extends ProjectRunningWindow {
    * @param {boolean} fullscreen
    * @param {string|null} workingDirectory
    */
-  static openFiles(files, fullscreen, workingDirectory) {
+  static openFiles (files, fullscreen, workingDirectory) {
     if (files.length === 0) {
       EditorWindow.newWindow(fullscreen);
     } else {
@@ -685,7 +659,7 @@ class EditorWindow extends ProjectRunningWindow {
    * Open a new window with the default project.
    * @param {boolean} fullscreen
    */
-  static newWindow(fullscreen) {
+  static newWindow (fullscreen) {
     new EditorWindow(null, fullscreen);
   }
 }

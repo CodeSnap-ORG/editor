@@ -1,7 +1,7 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8">
     <style>
       body {
         margin: 0;
@@ -21,9 +21,7 @@
         gap: 0.5rem;
       }
 
-      h1,
-      h2,
-      p {
+      h1, h2, p {
         margin: 0;
       }
       ul {
@@ -36,9 +34,7 @@
         border: 0;
         overflow: auto;
       }
-      .loading,
-      .error,
-      .empty {
+      .loading, .error, .empty {
         width: 100%;
         height: 100%;
         display: flex;
@@ -59,6 +55,7 @@
         background-color: #24cd11;
       }
       .ignore-button {
+
       }
       label {
         cursor: pointer;
@@ -78,77 +75,67 @@
   <body>
     <main>
       <script>
-        const { appName, locale, strings } = UpdatePreload.getStrings();
+        const {appName, locale, strings} = UpdatePreload.getStrings();
         document.documentElement.lang = locale;
 
         const info = UpdatePreload.getInfo();
         if (info.security) {
-          document.body.classList.add("security");
+          document.body.classList.add('security');
         }
       </script>
 
       <h1 class="normal-title if-normal"></h1>
       <h1 class="security-title if-security"></h1>
       <script>
-        document.querySelector(".normal-title").textContent =
-          strings["update.normal-title"];
-        document.querySelector(".security-title").textContent =
-          strings["update.security-title"];
+        document.querySelector('.normal-title').textContent = strings['update.normal-title'];
+        document.querySelector('.security-title').textContent = strings['update.security-title'];
       </script>
 
       <p class="normal-description if-normal"></p>
       <p class="security-description if-security"></p>
       <script>
         const appNameVersion = `${appName} v${info.latestVersion}`;
-        document.querySelector(".normal-description").textContent = strings[
-          "update.normal-description"
-        ].replace("{appNameVersion}", appNameVersion);
-        document.querySelector(".security-description").textContent = strings[
-          "update.security-description"
-        ].replace("{appNameVersion}", appNameVersion);
+        document.querySelector('.normal-description').textContent = strings['update.normal-description'].replace('{appNameVersion}', appNameVersion);
+        document.querySelector('.security-description').textContent = strings['update.security-description'].replace('{appNameVersion}', appNameVersion);;
       </script>
 
       <div class="update-log">
         <p class="loading"></p>
       </div>
       <script>
-        document.querySelector(".loading").textContent =
-          strings["update.loading"];
+        document.querySelector('.loading').textContent = strings['update.loading'];
       </script>
 
       <button class="download-button"></button>
       <button class="ignore-button"></button>
       <script>
-        const downloadButton = document.querySelector(".download-button");
-        const ignoreButton = document.querySelector(".ignore-button");
-        downloadButton.textContent = strings["update.download-button"];
-        ignoreButton.textContent = strings["update.ignore-button"];
+        const downloadButton = document.querySelector('.download-button');
+        const ignoreButton = document.querySelector('.ignore-button');
+        downloadButton.textContent = strings['update.download-button'];
+        ignoreButton.textContent = strings['update.ignore-button'];
       </script>
 
       <label class="permanently-ignore-outer if-normal">
-        <input type="checkbox" class="permanently-ignore-checkbox" />
+        <input type="checkbox" class="permanently-ignore-checkbox">
         <span class="permanently-ignore-label"></span>
       </label>
 
       <script>
-        document.querySelector(".permanently-ignore-label").textContent =
-          strings["update.permanently-ignore"];
+        document.querySelector('.permanently-ignore-label').textContent = strings['update.permanently-ignore'];
 
-        const permanentCheckbox = document.querySelector(
-          ".permanently-ignore-checkbox",
-        );
-        downloadButton.addEventListener("click", () => {
+        const permanentCheckbox = document.querySelector('.permanently-ignore-checkbox');
+        downloadButton.addEventListener('click', () => {
           UpdatePreload.download();
         });
-        ignoreButton.addEventListener("click", () => {
+        ignoreButton.addEventListener('click', () => {
           UpdatePreload.ignore(permanentCheckbox.checked);
         });
 
         const A_IS_NEWER = 1;
         const B_IS_NEWER = 2;
         const compareVersions = (a, b) => {
-          const partsA = a.split("-")[0].split(".");
-          const partsB = b.split("-")[0].split(".");
+          const partsA = a.split('-')[0].split('.');
+          const partsB = b.split('-')[0].split('.');
           const expectedLength = 3;
           for (var i = 0; i < expectedLength; i++) {
             const itemA = +partsA[i];
@@ -160,8 +147,8 @@
             }
           }
 
-          const prereleaseA = a.split("-")[1];
-          const prereleaseB = b.split("-")[1];
+          const prereleaseA = a.split('-')[1];
+          const prereleaseB = b.split('-')[1];
           if (prereleaseA === prereleaseB) {
             return 0;
           } else if (prereleaseA && !prereleaseB) {
@@ -181,10 +168,8 @@
           }
         };
 
-        const changelog = document.querySelector(".update-log");
-        fetch(
-          `https://desktop.turbowarp.org/changelog.json?version=${info.latestVersion}`,
-        )
+        const changelog = document.querySelector('.update-log');
+        fetch(`https://desktop.turbowarp.org/changelog.json?version=${info.latestVersion}`)
           .then((res) => {
             if (!res.ok) {
               throw new Error(`HTTP error ${res.status}`);
@@ -194,36 +179,33 @@
           .then((allReleases) => {
             removeChildren(changelog);
 
-            const filteredReleases = allReleases.filter(
-              (release) =>
-                // Only show notes that are newer than the current version
-                compareVersions(info.currentVersion, release.version) ===
-                  B_IS_NEWER &&
-                // Only show notes that are older than the version we're upgrading to
-                compareVersions(info.latestVersion, release.version) !==
-                  B_IS_NEWER,
-            );
+            const filteredReleases = allReleases.filter((release) => (
+              // Only show notes that are newer than the current version
+              compareVersions(info.currentVersion, release.version) === B_IS_NEWER &&
+              // Only show notes that are older than the version we're upgrading to
+              compareVersions(info.latestVersion, release.version) !== B_IS_NEWER
+            ));
 
             if (filteredReleases.length) {
-              changelog.lang = "en";
+              changelog.lang = 'en';
 
-              for (const { version, date, notes } of filteredReleases) {
-                const titleElement = document.createElement("h2");
+              for (const {version, date, notes} of filteredReleases) {
+                const titleElement = document.createElement('h2');
                 titleElement.textContent = `v${version} (${date})`;
                 changelog.appendChild(titleElement);
 
-                const ul = document.createElement("ul");
+                const ul = document.createElement('ul');
                 for (const note of notes) {
-                  const li = document.createElement("li");
+                  const li = document.createElement('li');
                   li.textContent = note;
                   ul.appendChild(li);
                 }
                 changelog.appendChild(ul);
               }
             } else {
-              const p = document.createElement("p");
-              p.className = "empty";
-              p.textContent = strings["update.not-available"];
+              const p = document.createElement('p');
+              p.className = 'empty';
+              p.textContent = strings['update.not-available'];
               changelog.appendChild(p);
             }
           })
@@ -231,12 +213,10 @@
             console.error(error);
 
             removeChildren(changelog);
-            const p = document.createElement("p");
-            p.className = "error";
-            p.textContent = strings["update.changelog-error"].replace(
-              "{error}",
-              `${error}`,
-            );
+            const p = document.createElement('p');
+            p.className = 'error';
+            p.textContent = strings['update.changelog-error']
+              .replace('{error}', `${error}`);
             changelog.appendChild(p);
           });
       </script>

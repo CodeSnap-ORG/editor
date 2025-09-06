@@ -6,53 +6,56 @@
  * We may want to replace this with react-wrap-balancer once we use React >= 16.8
  */
 
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import balanceText from "balance-text";
-import bindAll from "lodash.bindall";
+import balanceText from 'balance-text';
+import bindAll from 'lodash.bindall';
 
 class BalancedText extends React.Component {
-    constructor(props) {
+    constructor (props) {
         super(props);
-        bindAll(this, ["balanceText", "handleResize"]);
+        bindAll(this, [
+            'balanceText',
+            'handleResize'
+        ]);
         this.state = {
-            forceHide: true,
+            forceHide: true
         };
     }
 
-    componentDidMount() {
-        self.addEventListener("resize", this.handleResize);
+    componentDidMount () {
+        self.addEventListener('resize', this.handleResize);
         this.stopHiding();
     }
 
-    componentDidUpdate() {
+    componentDidUpdate () {
         this.balanceText();
     }
 
-    componentWillUnmount() {
-        self.removeEventListener("resize", this.handleResize);
+    componentWillUnmount () {
+        self.removeEventListener('resize', this.handleResize);
     }
 
-    handleResize() {
+    handleResize () {
         if (this.props.resize) {
             this.balanceText();
         }
     }
 
-    balanceText() {
-        const { container } = this;
+    balanceText () {
+        const {container} = this;
         if (container) {
             balanceText(container, {});
         }
     }
 
-    stopHiding() {
-        this.setState({ forceHide: false });
+    stopHiding () {
+        this.setState({forceHide: false});
         setTimeout(() => this.balanceText(), 0);
     }
 
-    render() {
+    render () {
         let {
             children,
             resize, // eslint-disable-line no-unused-vars
@@ -61,13 +64,16 @@ class BalancedText extends React.Component {
         } = this.props;
 
         if (this.state.forceHide) {
-            style = Object.assign({}, style, { visibility: "hidden" });
+            style = Object.assign({}, style, {visibility: 'hidden'});
         }
 
         return (
-            <div {...otherProps} style={style}>
+            <div
+                {...otherProps}
+                style={style}
+            >
                 <span
-                    ref={(container) => {
+                    ref={container => {
                         this.container = container;
                     }}
                 >
@@ -81,11 +87,11 @@ class BalancedText extends React.Component {
 BalancedText.propTypes = {
     children: PropTypes.node,
     resize: PropTypes.bool,
-    style: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+    style: PropTypes.object // eslint-disable-line react/forbid-prop-types
 };
 
 BalancedText.defaultProps = {
-    resize: true,
+    resize: true
 };
 
 export default BalancedText;

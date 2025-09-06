@@ -1,11 +1,11 @@
-const path = require("path");
-const { app, dialog } = require("electron");
-const AbstractWindow = require("./abstract");
-const { translate, getStrings, getLocale } = require("../l10n");
-const settings = require("../settings");
-const { APP_NAME } = require("../brand");
+const path = require('path');
+const {app, dialog} = require('electron');
+const AbstractWindow = require('./abstract');
+const {translate, getStrings, getLocale} = require('../l10n');
+const settings = require('../settings');
+const {APP_NAME} = require('../brand');
 
-const EMAIL = "contact@turbowarp.org";
+const EMAIL = 'contact@turbowarp.org';
 
 class MigrateWindow extends AbstractWindow {
   static LATEST_VERSION = 3;
@@ -13,7 +13,7 @@ class MigrateWindow extends AbstractWindow {
   /**
    * @param {() => Promise<void>} saveCallback
    */
-  constructor(saveCallback) {
+  constructor (saveCallback) {
     super();
 
     const oldDataVersion = settings.dataVersion;
@@ -24,44 +24,40 @@ class MigrateWindow extends AbstractWindow {
       this.resolveCallback = resolve;
     });
 
-    this.ipc.on("get-info", (event) => {
+    this.ipc.on('get-info', (event) => {
       event.returnValue = {
         oldDataVersion,
         locale: getLocale(),
-        strings: getStrings(),
+        strings: getStrings()
       };
     });
 
-    this.ipc.handle("done", async () => {
+    this.ipc.handle('done', async () => {
       await this.done(true);
     });
 
-    this.ipc.handle("continue-anyways", async () => {
+    this.ipc.handle('continue-anyways', async () => {
       await this.done(false);
     });
 
-    this.window.on("close", () => {
+    this.window.on('close', () => {
       // If migration is closed mid-process, don't let the app continue
       app.exit(1);
     });
 
-    this.window.setTitle(translate("migrate.title"));
+    this.window.setTitle(translate('migrate.title'));
     this.window.webContents.setBackgroundThrottling(false);
-    this.window.loadFile(
-      path.join(__dirname, "../../src-renderer/migrate/migrate.html"),
-    );
+    this.window.loadFile(path.join(__dirname, '../../src-renderer/migrate/migrate.html'));
     this.show();
   }
 
-  async done(success) {
+  async done (success) {
     if (!success) {
       dialog.showMessageBoxSync(this.window, {
         title: APP_NAME,
-        type: "warning",
-        message: translate("migrate.continue-anyways-afterword").replace(
-          "{email}",
-          EMAIL,
-        ),
+        type: 'warning',
+        message: translate('migrate.continue-anyways-afterword')
+          .replace('{email}', EMAIL)
       });
     }
 
@@ -80,35 +76,35 @@ class MigrateWindow extends AbstractWindow {
     this.window.destroy();
   }
 
-  getDimensions() {
+  getDimensions () {
     return {
       width: 450,
-      height: 400,
+      height: 400
     };
   }
 
-  getPreload() {
-    return "migrate";
+  getPreload () {
+    return 'migrate';
   }
 
-  getBackgroundColor() {
-    return "#333333";
+  getBackgroundColor () {
+    return '#333333';
   }
 
-  handleRendererProcessGone(details) {
+  handleRendererProcessGone (details) {
     const button = dialog.showMessageBoxSync(this.window, {
-      type: "error",
+      type: 'error',
       title: APP_NAME,
-      message: `${translate("migrate.renderer-gone")} ${EMAIL}`
-        .replace("{code}", details.exitCode)
-        .replace("{reason}", details.reason),
+      message: `${translate('migrate.renderer-gone')} ${EMAIL}`
+        .replace('{code}', details.exitCode)
+        .replace('{reason}', details.reason),
       buttons: [
-        translate("migrate.continue-anyways"),
-        translate("migrate.exit"),
+        translate('migrate.continue-anyways'),
+        translate('migrate.exit')
       ],
       cancelId: 1,
       defaultId: 0,
-      noLink: true,
+      noLink: true
     });
 
     if (button === 0) {
@@ -121,7 +117,7 @@ class MigrateWindow extends AbstractWindow {
     return true;
   }
 
-  static run(saveCallback) {
+  static run (saveCallback) {
     const window = new MigrateWindow(saveCallback);
     return window.promise;
   }

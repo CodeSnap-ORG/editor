@@ -1,14 +1,21 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-import Box from "../box/box.jsx";
-import Alert from "../../containers/alert.jsx";
+import Box from '../box/box.jsx';
+import Alert from '../../containers/alert.jsx';
 
-import styles from "./alerts.css";
+import styles from './alerts.css';
 
-const AlertsComponent = ({ alertsList, className, onCloseAlert }) => (
-    <Box bounds="parent" className={className}>
-        <Box className={styles.alertsInnerContainer}>
+const AlertsComponent = ({
+    alertsList,
+    className,
+    onCloseAlert
+}) => (
+    <Box
+        bounds="parent"
+        className={className}
+    >
+        <Box className={styles.alertsInnerContainer} >
             {alertsList.map((a, index) => (
                 <Alert
                     closeButton={a.closeButton}
@@ -34,7 +41,7 @@ const AlertsComponent = ({ alertsList, className, onCloseAlert }) => (
 AlertsComponent.propTypes = {
     alertsList: PropTypes.arrayOf(PropTypes.object),
     className: PropTypes.string,
-    onCloseAlert: PropTypes.func,
+    onCloseAlert: PropTypes.func
 };
 
 export default AlertsComponent;

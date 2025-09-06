@@ -1,36 +1,36 @@
-const AbstractWindow = require("./abstract");
-const { translate, getLocale, getStrings } = require("../l10n");
-const { APP_NAME } = require("../brand");
-const openExternal = require("../open-external");
+const AbstractWindow = require('./abstract');
+const {translate, getLocale, getStrings} = require('../l10n');
+const {APP_NAME} = require('../brand');
+const openExternal = require('../open-external');
 
 class UpdateWindow extends AbstractWindow {
-  constructor(currentVersion, latestVersion, security) {
+  constructor (currentVersion, latestVersion, security) {
     super();
 
-    this.window.setTitle(`${translate("update.window-title")} - ${APP_NAME}`);
+    this.window.setTitle(`${translate('update.window-title')} - ${APP_NAME}`);
 
-    this.ipc.on("get-strings", (event) => {
+    this.ipc.on('get-strings', (event) => {
       event.returnValue = {
         appName: APP_NAME,
         locale: getLocale(),
-        strings: getStrings(),
+        strings: getStrings()
       };
     });
 
-    this.ipc.on("get-info", (event) => {
+    this.ipc.on('get-info', (event) => {
       event.returnValue = {
         currentVersion,
         latestVersion,
-        security,
+        security
       };
     });
 
-    this.ipc.handle("download", () => {
+    this.ipc.handle('download', () => {
       this.window.destroy();
 
       const params = new URLSearchParams();
-      params.set("from", currentVersion);
-      params.set("to", latestVersion);
+      params.set('from', currentVersion);
+      params.set('to', latestVersion);
       openExternal(`https://desktop.turbowarp.org/update_available?${params}`);
     });
 
@@ -48,46 +48,46 @@ class UpdateWindow extends AbstractWindow {
         until = new Date(3000, 0, 0);
       } else {
         until = new Date();
-        until.setTime(until.getTime() + HOUR * 6);
+        until.setTime(until.getTime() + (HOUR * 6));
       }
 
       // Imported late due to circular dependency
-      const { ignoreUpdate } = require("../update-checker");
+      const {ignoreUpdate} = require('../update-checker');
       ignoreUpdate(latestVersion, until);
     };
 
-    this.ipc.handle("ignore", (event, permanently) => {
+    this.ipc.handle('ignore', (event, permanently) => {
       this.window.destroy();
       ignore(permanently);
     });
 
-    this.window.on("close", () => {
+    this.window.on('close', () => {
       ignore(false);
     });
 
-    this.window.webContents.on("did-finish-load", () => {
+    this.window.webContents.on('did-finish-load', () => {
       this.show();
     });
 
-    this.loadURL("tw-update://./update.html");
+    this.loadURL('tw-update://./update.html');
   }
 
-  getDimensions() {
+  getDimensions () {
     return {
       width: 600,
-      height: 500,
+      height: 500
     };
   }
 
-  getPreload() {
-    return "update";
+  getPreload () {
+    return 'update';
   }
 
-  isPopup() {
+  isPopup () {
     return true;
   }
 
-  static updateAvailable(currentVersion, latestVersion, isSecurity) {
+  static updateAvailable (currentVersion, latestVersion, isSecurity) {
     new UpdateWindow(currentVersion, latestVersion, isSecurity);
   }
 }

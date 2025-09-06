@@ -1,27 +1,22 @@
-import {
-    defineMessages,
-    FormattedMessage,
-    intlShape,
-    injectIntl,
-} from "react-intl";
-import PropTypes from "prop-types";
-import React from "react";
-import Box from "../box/box.jsx";
-import Modal from "../../containers/modal.jsx";
-import classNames from "classnames";
+import {defineMessages, FormattedMessage, intlShape, injectIntl} from 'react-intl';
+import PropTypes from 'prop-types';
+import React from 'react';
+import Box from '../box/box.jsx';
+import Modal from '../../containers/modal.jsx';
+import classNames from 'classnames';
 
-import styles from "./username-modal.css";
-import isScratchDesktop from "../../lib/isScratchDesktop.js";
+import styles from './username-modal.css';
+import isScratchDesktop from '../../lib/isScratchDesktop.js';
 
 const messages = defineMessages({
     title: {
-        defaultMessage: "Change Username",
-        description: "Title change username modal",
-        id: "tw.usernameModal.title",
-    },
+        defaultMessage: 'Change Username',
+        description: 'Title change username modal',
+        id: 'tw.usernameModal.title'
+    }
 });
 
-const UsernameModalComponent = (props) => (
+const UsernameModalComponent = props => (
     <Modal
         className={styles.modalContent}
         onRequestClose={props.onCancel}
@@ -29,37 +24,30 @@ const UsernameModalComponent = (props) => (
         id="usernameModal"
     >
         <Box className={styles.body}>
-            {props.mustChangeUsername && (
-                <React.Fragment>
-                    <p
-                        className={classNames(
-                            styles.helpText,
-                            styles.mustChange,
-                        )}
-                    >
-                        <FormattedMessage
-                            // eslint-disable-next-line max-len
-                            defaultMessage="Sorry, the cloud variable server thinks your username may be unsafe. Please change it to something else or {resetIt}."
-                            description="Text in change username modal"
-                            id="tw.usernameModal.mustChange"
-                            values={{
-                                resetIt: (
-                                    <a
-                                        className={styles.resetLink}
-                                        onClick={props.onReset}
-                                    >
-                                        <FormattedMessage
-                                            defaultMessage="reset it (recommended)"
-                                            description="link to reset username"
-                                            id="tw.usernameModal.mustChange.resetIt"
-                                        />
-                                    </a>
-                                ),
-                            }}
-                        />
-                    </p>
-                </React.Fragment>
-            )}
+            {props.mustChangeUsername && <React.Fragment>
+                <p className={classNames(styles.helpText, styles.mustChange)}>
+                    <FormattedMessage
+                        // eslint-disable-next-line max-len
+                        defaultMessage="Sorry, the cloud variable server thinks your username may be unsafe. Please change it to something else or {resetIt}."
+                        description="Text in change username modal"
+                        id="tw.usernameModal.mustChange"
+                        values={{
+                            resetIt: (
+                                <a
+                                    className={styles.resetLink}
+                                    onClick={props.onReset}
+                                >
+                                    <FormattedMessage
+                                        defaultMessage="reset it (recommended)"
+                                        description="link to reset username"
+                                        id="tw.usernameModal.mustChange.resetIt"
+                                    />
+                                </a>
+                            )
+                        }}
+                    />
+                </p>
+            </React.Fragment>}
             {isScratchDesktop() ? (
                 <p className={styles.helpText}>
                     <FormattedMessage
@@ -82,7 +70,9 @@ const UsernameModalComponent = (props) => (
                     spellCheck="false"
                 />
             </Box>
-            {isScratchDesktop() ? null : (
+            {isScratchDesktop() ? (
+                null
+            ) : (
                 <React.Fragment>
                     <p className={styles.helpText}>
                         <FormattedMessage
@@ -103,7 +93,10 @@ const UsernameModalComponent = (props) => (
                 </React.Fragment>
             )}
             <Box className={styles.buttonRow}>
-                <button className={styles.cancelButton} onClick={props.onReset}>
+                <button
+                    className={styles.cancelButton}
+                    onClick={props.onReset}
+                >
                     <FormattedMessage
                         defaultMessage="Reset"
                         description="Button in username modal to reset username to random"
@@ -146,7 +139,7 @@ UsernameModalComponent.propTypes = {
     onFocus: PropTypes.func.isRequired,
     onKeyPress: PropTypes.func.isRequired,
     onOk: PropTypes.func.isRequired,
-    onReset: PropTypes.func.isRequired,
+    onReset: PropTypes.func.isRequired
 };
 
 export default injectIntl(UsernameModalComponent);

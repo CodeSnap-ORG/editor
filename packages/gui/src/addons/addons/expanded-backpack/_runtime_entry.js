@@ -2,6 +2,6 @@
 import _js from "./userscript.js";
 import _css from "!css-loader!./backpack.css";
 export const resources = {
-    "userscript.js": _js,
-    "backpack.css": _css,
+  "userscript.js": _js,
+  "backpack.css": _css,
 };

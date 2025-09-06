@@ -1,57 +1,57 @@
-import React from "react";
-import { FormattedMessage } from "react-intl";
+import React from 'react';
+import {FormattedMessage} from 'react-intl';
 
-import musicIconURL from "./music/music.png";
-import musicInsetIconURL from "./music/music-small.svg";
+import musicIconURL from './music/music.png';
+import musicInsetIconURL from './music/music-small.svg';
 
-import penIconURL from "./pen/pen.png";
-import penInsetIconURL from "./pen/pen-small.svg";
+import penIconURL from './pen/pen.png';
+import penInsetIconURL from './pen/pen-small.svg';
 
-import videoSensingIconURL from "./videoSensing/video-sensing.png";
-import videoSensingInsetIconURL from "./videoSensing/video-sensing-small.svg";
+import videoSensingIconURL from './videoSensing/video-sensing.png';
+import videoSensingInsetIconURL from './videoSensing/video-sensing-small.svg';
 
-import text2speechIconURL from "./text2speech/text2speech.png";
-import text2speechInsetIconURL from "./text2speech/text2speech-small.svg";
+import text2speechIconURL from './text2speech/text2speech.png';
+import text2speechInsetIconURL from './text2speech/text2speech-small.svg';
 
-import translateIconURL from "./translate/translate.png";
-import translateInsetIconURL from "./translate/translate-small.png";
+import translateIconURL from './translate/translate.png';
+import translateInsetIconURL from './translate/translate-small.png';
 
-import makeymakeyIconURL from "./makeymakey/makeymakey.png";
-import makeymakeyInsetIconURL from "./makeymakey/makeymakey-small.svg";
+import makeymakeyIconURL from './makeymakey/makeymakey.png';
+import makeymakeyInsetIconURL from './makeymakey/makeymakey-small.svg';
 
-import microbitIconURL from "./microbit/microbit.png";
-import microbitInsetIconURL from "./microbit/microbit-small.svg";
-import microbitConnectionIconURL from "./microbit/microbit-illustration.svg";
-import microbitConnectionSmallIconURL from "./microbit/microbit-small.svg";
+import microbitIconURL from './microbit/microbit.png';
+import microbitInsetIconURL from './microbit/microbit-small.svg';
+import microbitConnectionIconURL from './microbit/microbit-illustration.svg';
+import microbitConnectionSmallIconURL from './microbit/microbit-small.svg';
 
-import ev3IconURL from "./ev3/ev3.png";
-import ev3InsetIconURL from "./ev3/ev3-small.svg";
-import ev3ConnectionIconURL from "./ev3/ev3-hub-illustration.svg";
-import ev3ConnectionSmallIconURL from "./ev3/ev3-small.svg";
+import ev3IconURL from './ev3/ev3.png';
+import ev3InsetIconURL from './ev3/ev3-small.svg';
+import ev3ConnectionIconURL from './ev3/ev3-hub-illustration.svg';
+import ev3ConnectionSmallIconURL from './ev3/ev3-small.svg';
 
-import wedo2IconURL from "./wedo2/wedo.png"; // TODO: Rename file names to match variable/prop names?
-import wedo2InsetIconURL from "./wedo2/wedo-small.svg";
-import wedo2ConnectionIconURL from "./wedo2/wedo-illustration.svg";
-import wedo2ConnectionSmallIconURL from "./wedo2/wedo-small.svg";
-import wedo2ConnectionTipIconURL from "./wedo2/wedo-button-illustration.svg";
+import wedo2IconURL from './wedo2/wedo.png'; // TODO: Rename file names to match variable/prop names?
+import wedo2InsetIconURL from './wedo2/wedo-small.svg';
+import wedo2ConnectionIconURL from './wedo2/wedo-illustration.svg';
+import wedo2ConnectionSmallIconURL from './wedo2/wedo-small.svg';
+import wedo2ConnectionTipIconURL from './wedo2/wedo-button-illustration.svg';
 
-import boostIconURL from "./boost/boost.png";
-import boostInsetIconURL from "./boost/boost-small.svg";
-import boostConnectionIconURL from "./boost/boost-illustration.svg";
-import boostConnectionSmallIconURL from "./boost/boost-small.svg";
-import boostConnectionTipIconURL from "./boost/boost-button-illustration.svg";
+import boostIconURL from './boost/boost.png';
+import boostInsetIconURL from './boost/boost-small.svg';
+import boostConnectionIconURL from './boost/boost-illustration.svg';
+import boostConnectionSmallIconURL from './boost/boost-small.svg';
+import boostConnectionTipIconURL from './boost/boost-button-illustration.svg';
 
-import gdxforIconURL from "./gdxfor/gdxfor.png";
-import gdxforInsetIconURL from "./gdxfor/gdxfor-small.svg";
-import gdxforConnectionIconURL from "./gdxfor/gdxfor-illustration.svg";
-import gdxforConnectionSmallIconURL from "./gdxfor/gdxfor-small.svg";
+import gdxforIconURL from './gdxfor/gdxfor.png';
+import gdxforInsetIconURL from './gdxfor/gdxfor-small.svg';
+import gdxforConnectionIconURL from './gdxfor/gdxfor-illustration.svg';
+import gdxforConnectionSmallIconURL from './gdxfor/gdxfor-small.svg';
 
-import twIcon from "./tw/tw.svg";
-import futureIcon from "./future/future.svg";
-import customExtensionIcon from "./custom/custom.svg";
-import legacyListsIcon from "./legacyLists/legacylists.svg";
-import galleryIcon from "./gallery/gallery.svg";
-import { APP_NAME } from "../../brand";
+import twIcon from './tw/tw.svg';
+import futureIcon from './future/future.svg';
+import customExtensionIcon from './custom/custom.svg';
+import legacyListsIcon from './legacyLists/legacylists.svg';
+import galleryIcon from './gallery/gallery.svg';
+import {APP_NAME} from '../../brand';
 
 //import listIconURL from './list/list.png';
 //import listInsetIconURL from './list/list-small.svg';
@@ -65,7 +65,7 @@ export default [
                 id="gui.extension.pen.name"
             />
         ),
-        extensionId: "pen",
+        extensionId: 'pen',
         iconURL: penIconURL,
         insetIconURL: penInsetIconURL,
         description: (
@@ -75,8 +75,8 @@ export default [
                 id="gui.extension.pen.description"
             />
         ),
-        tags: ["scratch", "graphics"],
-        featured: true,
+        tags: ['scratch', 'graphics'],
+        featured: true
     },
     {
         name: (
@@ -86,7 +86,7 @@ export default [
                 id="gui.extension.music.name"
             />
         ),
-        extensionId: "music",
+        extensionId: 'music',
         iconURL: musicIconURL,
         insetIconURL: musicInsetIconURL,
         description: (
@@ -96,8 +96,8 @@ export default [
                 id="gui.extension.music.description"
             />
         ),
-        tags: ["scratch", "sound"],
-        featured: true,
+        tags: ['scratch', 'sound'],
+        featured: true
     },
     {
         name: (
@@ -107,7 +107,7 @@ export default [
                 id="gui.extension.videosensing.name"
             />
         ),
-        extensionId: "videoSensing",
+        extensionId: 'videoSensing',
         iconURL: videoSensingIconURL,
         insetIconURL: videoSensingInsetIconURL,
         description: (
@@ -117,8 +117,8 @@ export default [
                 id="gui.extension.videosensing.description"
             />
         ),
-        tags: ["scratch", "graphics"],
-        featured: true,
+        tags: ['scratch', 'graphics'],
+        featured: true
     },
     {
         name: (
@@ -128,8 +128,8 @@ export default [
                 id="gui.extension.text2speech.name"
             />
         ),
-        extensionId: "text2speech",
-        collaborator: "Amazon Web Services",
+        extensionId: 'text2speech',
+        collaborator: 'Amazon Web Services',
         iconURL: text2speechIconURL,
         insetIconURL: text2speechInsetIconURL,
         description: (
@@ -139,9 +139,9 @@ export default [
                 id="gui.extension.text2speech.description"
             />
         ),
-        tags: ["scratch", "sound", "internet"],
+        tags: ['scratch', 'sound', 'internet'],
         featured: true,
-        internetConnectionRequired: true,
+        internetConnectionRequired: true
     },
     {
         name: (
@@ -151,8 +151,8 @@ export default [
                 id="gui.extension.translate.name"
             />
         ),
-        extensionId: "translate",
-        collaborator: "Google",
+        extensionId: 'translate',
+        collaborator: 'Google',
         iconURL: translateIconURL,
         insetIconURL: translateInsetIconURL,
         description: (
@@ -162,14 +162,14 @@ export default [
                 id="gui.extension.translate.description"
             />
         ),
-        tags: ["scratch", "internet"],
+        tags: ['scratch', 'internet'],
         featured: true,
-        internetConnectionRequired: true,
+        internetConnectionRequired: true
     },
     {
-        name: "Makey Makey",
-        extensionId: "makeymakey",
-        collaborator: "JoyLabz",
+        name: 'Makey Makey',
+        extensionId: 'makeymakey',
+        collaborator: 'JoyLabz',
         iconURL: makeymakeyIconURL,
         insetIconURL: makeymakeyInsetIconURL,
         description: (
@@ -179,8 +179,8 @@ export default [
                 id="gui.extension.makeymakey.description"
             />
         ),
-        tags: ["scratch"], // TODO: Whether this should be a hardware extension is up for debate
-        featured: true,
+        tags: ['scratch'], // TODO: Whether this should be a hardware extension is up for debate
+        featured: true
     },
     // Custom Reporters is commented out because it was moved to the base editor
     /* {
@@ -213,7 +213,7 @@ export default [
                 id="gui.extension.legacyLists.name"
             />
         ),
-        extensionId: "data_enable_lists",
+        extensionId: 'data_enable_lists',
         iconURL: legacyListsIcon,
         description: (
             <FormattedMessage
@@ -222,11 +222,9 @@ export default [
                 id="gui.extension.legacyLists.description"
             />
         ),
-        tags: ["scratch", "data"],
+        tags: ['scratch', 'data'],
         featured: true,
-        enabled:
-            process.env.ampmod_is_canary ||
-            process.env.NODE_ENV === "development",
+        enabled: (process.env.ampmod_is_canary || process.env.NODE_ENV === 'development')
     },
     {
         name: (
@@ -235,11 +233,11 @@ export default [
                 description="Name of the strange 'TurboWarp Blocks' extension"
                 id="tw.twExtension.name"
                 values={{
-                    APP_NAME: "TurboWarp",
+                    APP_NAME: "TurboWarp"
                 }}
             />
         ),
-        extensionId: "tw",
+        extensionId: 'tw',
         iconURL: twIcon,
         description: (
             <FormattedMessage
@@ -249,8 +247,8 @@ export default [
             />
         ),
         incompatibleWithScratch: true,
-        tags: ["tw"],
-        featured: true,
+        tags: ['tw'],
+        featured: true
     },
     {
         name: (
@@ -260,7 +258,7 @@ export default [
                 id="ub.futureExtension.name"
             />
         ),
-        extensionId: "future",
+        extensionId: 'future',
         iconURL: futureIcon,
         description: (
             <FormattedMessage
@@ -268,19 +266,19 @@ export default [
                 description="Description of the 'TurboWarp Blocks' extension"
                 id="ub.futureExtension.description"
                 values={{
-                    APP_NAME,
+                    APP_NAME
                 }}
             />
         ),
         incompatibleWithScratch: true,
         docsURI: "https://ampmod.miraheze.org/wiki/Future",
-        tags: ["ampmod", "new", "catexp"],
-        featured: true,
+        tags: ['ampmod', 'new', 'catexp'],
+        featured: true
     },
     {
-        name: "micro:bit",
-        extensionId: "microbit",
-        collaborator: "micro:bit",
+        name: 'micro:bit',
+        extensionId: 'microbit',
+        collaborator: 'micro:bit',
         iconURL: microbitIconURL,
         insetIconURL: microbitInsetIconURL,
         description: (
@@ -290,7 +288,7 @@ export default [
                 id="gui.extension.microbit.description"
             />
         ),
-        tags: ["scratch", "hardware"],
+        tags: ['scratch', 'hardware'],
         featured: true,
         disabled: false,
         bluetoothRequired: true,
@@ -306,12 +304,12 @@ export default [
                 id="gui.extension.microbit.connectingMessage"
             />
         ),
-        helpLink: "https://scratch.mit.edu/microbit",
+        helpLink: 'https://scratch.mit.edu/microbit'
     },
     {
-        name: "LEGO MINDSTORMS EV3",
-        extensionId: "ev3",
-        collaborator: "LEGO",
+        name: 'LEGO MINDSTORMS EV3',
+        extensionId: 'ev3',
+        collaborator: 'LEGO',
         iconURL: ev3IconURL,
         insetIconURL: ev3InsetIconURL,
         description: (
@@ -321,7 +319,7 @@ export default [
                 id="gui.extension.ev3.description"
             />
         ),
-        tags: ["scratch", "hardware"],
+        tags: ['scratch', 'hardware'],
         featured: true,
         disabled: false,
         bluetoothRequired: true,
@@ -337,12 +335,12 @@ export default [
                 id="gui.extension.ev3.connectingMessage"
             />
         ),
-        helpLink: "https://scratch.mit.edu/ev3",
+        helpLink: 'https://scratch.mit.edu/ev3'
     },
     {
-        name: "LEGO BOOST",
-        extensionId: "boost",
-        collaborator: "LEGO",
+        name: 'LEGO BOOST',
+        extensionId: 'boost',
+        collaborator: 'LEGO',
         iconURL: boostIconURL,
         insetIconURL: boostInsetIconURL,
         description: (
@@ -352,7 +350,7 @@ export default [
                 id="gui.extension.boost.description"
             />
         ),
-        tags: ["scratch", "hardware"],
+        tags: ['scratch', 'hardware'],
         featured: true,
         disabled: false,
         bluetoothRequired: true,
@@ -369,12 +367,12 @@ export default [
                 id="gui.extension.boost.connectingMessage"
             />
         ),
-        helpLink: "https://scratch.mit.edu/boost",
+        helpLink: 'https://scratch.mit.edu/boost'
     },
     {
-        name: "LEGO Education WeDo 2.0",
-        extensionId: "wedo2",
-        collaborator: "LEGO",
+        name: 'LEGO Education WeDo 2.0',
+        extensionId: 'wedo2',
+        collaborator: 'LEGO',
         iconURL: wedo2IconURL,
         insetIconURL: wedo2InsetIconURL,
         description: (
@@ -384,7 +382,7 @@ export default [
                 id="gui.extension.wedo2.description"
             />
         ),
-        tags: ["scratch", "hardware"],
+        tags: ['scratch', 'hardware'],
         featured: true,
         disabled: false,
         bluetoothRequired: true,
@@ -401,12 +399,12 @@ export default [
                 id="gui.extension.wedo2.connectingMessage"
             />
         ),
-        helpLink: "https://scratch.mit.edu/wedo",
+        helpLink: 'https://scratch.mit.edu/wedo'
     },
     {
-        name: "Go Direct Force & Acceleration",
-        extensionId: "gdxfor",
-        collaborator: "Vernier",
+        name: 'Go Direct Force & Acceleration',
+        extensionId: 'gdxfor',
+        collaborator: 'Vernier',
         iconURL: gdxforIconURL,
         insetIconURL: gdxforInsetIconURL,
         description: (
@@ -416,7 +414,7 @@ export default [
                 id="gui.extension.gdxfor.description"
             />
         ),
-        tags: ["scratch", "hardware"],
+        tags: ['scratch', 'hardware'],
         featured: true,
         disabled: false,
         bluetoothRequired: true,
@@ -432,7 +430,7 @@ export default [
                 id="gui.extension.gdxfor.connectingMessage"
             />
         ),
-        helpLink: "https://scratch.mit.edu/vernier",
+        helpLink: 'https://scratch.mit.edu/vernier'
     },
     {
         name: (
@@ -442,7 +440,7 @@ export default [
                 id="tw.customExtension.name"
             />
         ),
-        extensionId: "custom_extension",
+        extensionId: 'custom_extension',
         iconURL: customExtensionIcon,
         description: (
             <FormattedMessage
@@ -451,10 +449,10 @@ export default [
                 id="tw.customExtension.description"
             />
         ),
-        tags: ["tw", "ampmod"],
-        featured: true,
+        tags: ['tw', 'ampmod'],
+        featured: true
         // Not marked as incompatible with Scratch so that clicking on it doesn't show a prompt
-    },
+    }
 ];
 
 export const galleryLoading = {
@@ -464,12 +462,12 @@ export const galleryLoading = {
             description="Name of ampmod.codeberg.page/extensions in extension library"
             id="tw.extensionGallery.name"
             values={{
-                APP_NAME,
+                APP_NAME
             }}
         />
     ),
-    href: "https://ampmod.codeberg.page/extensions/",
-    extensionId: "gallery",
+    href: 'https://ampmod.codeberg.page/extensions/',
+    extensionId: 'gallery',
     iconURL: galleryIcon,
     description: (
         <FormattedMessage
@@ -479,7 +477,7 @@ export const galleryLoading = {
             id="tw.extensionGallery.loading"
         />
     ),
-    tags: ["tw", "ampmod"],
+    tags: ['tw', 'ampmod'],
     featured: true,
 };
 
@@ -490,12 +488,12 @@ export const galleryMore = {
             description="Name of ampmod.codeberg.page/extensions in extension library"
             id="tw.extensionGalleryAmp.name"
             values={{
-                APP_NAME,
+                APP_NAME
             }}
         />
     ),
-    href: "https://ampmod.codeberg.page/extensions/",
-    extensionId: "gallery",
+    href: 'https://ampmod.codeberg.page/extensions/',
+    extensionId: 'gallery',
     iconURL: galleryIcon,
     description: (
         <FormattedMessage
@@ -505,8 +503,8 @@ export const galleryMore = {
             id="tw.extensionGalleryAmp.more"
         />
     ),
-    tags: ["tw", "ampmod"],
-    featured: true,
+    tags: ['tw', 'ampmod'],
+    featured: true
 };
 
 export const galleryError = {
@@ -516,12 +514,12 @@ export const galleryError = {
             description="Name of ampmod.codeberg.page/extensions in extension library"
             id="tw.extensionGalleryAmp.name"
             values={{
-                APP_NAME,
+                APP_NAME
             }}
         />
     ),
-    href: "https://ampmod.codeberg.page/extensions/",
-    extensionId: "gallery",
+    href: 'https://ampmod.codeberg.page/extensions/',
+    extensionId: 'gallery',
     iconURL: galleryIcon,
     description: (
         <FormattedMessage
@@ -531,6 +529,6 @@ export const galleryError = {
             id="tw.extensionGallery.error"
         />
     ),
-    tags: ["tw", "ampmod"],
-    featured: true,
+    tags: ['tw', 'ampmod'],
+    featured: true
 };

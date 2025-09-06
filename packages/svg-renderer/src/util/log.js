@@ -1,4 +1,4 @@
-const nanolog = require("@turbowarp/nanolog");
+const nanolog = require('@turbowarp/nanolog');
 nanolog.enable();
 
-module.exports = nanolog("scratch-svg-render");
+module.exports = nanolog('scratch-svg-render');

@@ -1,19 +1,22 @@
-import React from "react";
-import PropTypes from "prop-types";
-import bindAll from "lodash.bindall";
-import { FormattedMessage } from "react-intl";
-import styles from "./file-input.css";
+import React from 'react';
+import PropTypes from 'prop-types';
+import bindAll from 'lodash.bindall';
+import {FormattedMessage} from 'react-intl';
+import styles from './file-input.css';
 
 class FileInput extends React.Component {
-    constructor(props) {
+    constructor (props) {
         super(props);
-        bindAll(this, ["handleChange", "handleClick"]);
+        bindAll(this, [
+            'handleChange',
+            'handleClick'
+        ]);
         this.state = {
-            files: props.files,
+            files: props.files
         };
     }
 
-    handleChange(e) {
+    handleChange (e) {
         if (e.target.files.length) {
             this.props.onChange(e.target.files);
         } else {
@@ -21,20 +24,23 @@ class FileInput extends React.Component {
         }
     }
 
-    handleClick() {
-        const input = document.createElement("input");
-        input.type = "file";
+    handleClick () {
+        const input = document.createElement('input');
+        input.type = 'file';
         input.accept = this.props.accept;
         input.multiple = true;
-        input.addEventListener("change", this.handleChange);
+        input.addEventListener('change', this.handleChange);
         document.body.appendChild(input);
         input.click();
         input.remove();
     }
 
-    render() {
+    render () {
         return (
-            <button className={styles.container} onClick={this.handleClick}>
+            <button
+                className={styles.container}
+                onClick={this.handleClick}
+            >
                 {this.props.files ? (
                     <FormattedMessage
                         defaultMessage="Selected: {names}"
@@ -43,8 +49,8 @@ class FileInput extends React.Component {
                         id="tw.fileInput.selected"
                         values={{
                             names: Array.from(this.props.files)
-                                .map((i) => i.name)
-                                .join(", "),
+                                .map(i => i.name)
+                                .join(', ')
                         }}
                     />
                 ) : (
@@ -62,7 +68,7 @@ class FileInput extends React.Component {
 FileInput.propTypes = {
     files: PropTypes.instanceOf(FileList),
     accept: PropTypes.string,
-    onChange: PropTypes.func,
+    onChange: PropTypes.func
 };
 
 export default FileInput;

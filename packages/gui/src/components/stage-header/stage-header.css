@@ -46,8 +46,7 @@
     display: flex;
 }
 
-.stage-size-row > *,
-.unselect-wrapper {
+.stage-size-row > *, .unselect-wrapper {
     /* Use a white background so semi-transparent selection states look correct */
     background-color: $ui-white;
     border-radius: $form-radius;
@@ -55,12 +54,12 @@
 
 [dir="ltr"] .stage-size-toggle-group,
 [dir="ltr"] .settings-button {
-    margin-right: 0.2rem;
+    margin-right: .2rem;
 }
 
 [dir="rtl"] .stage-size-toggle-group,
 [dir="rtl"] .settings-button {
-    margin-left: 0.2rem;
+    margin-left: .2rem;
 }
 
 .stage-button {

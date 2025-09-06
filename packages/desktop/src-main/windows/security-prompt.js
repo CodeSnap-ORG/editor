@@ -1,9 +1,9 @@
-const AbstractWindow = require("./abstract");
-const { APP_NAME } = require("../brand");
-const { translate, getLocale, getStrings } = require("../l10n");
+const AbstractWindow = require('./abstract');
+const {APP_NAME} = require('../brand');
+const {translate, getLocale, getStrings} = require('../l10n');
 
 class SecurityState {
-  constructor() {
+  constructor () {
     this.allowedReadClipboard = false;
     this.allowedNotifications = false;
 
@@ -11,7 +11,7 @@ class SecurityState {
     this._queuedPromptCallbacks = [];
   }
 
-  acquirePromptLock() {
+  acquirePromptLock () {
     let released = false;
 
     const lock = {
@@ -19,7 +19,7 @@ class SecurityState {
         // This should only be called once per lock, but since this is security sensitive, we'll still try to avoid
         // letting this get into a bad state.
         if (released) {
-          throw new Error("releaseLock() called twice");
+          throw new Error('releaseLock() called twice');
         }
         released = true;
 
@@ -29,7 +29,7 @@ class SecurityState {
           const nextCallback = this._queuedPromptCallbacks.shift();
           nextCallback();
         }
-      },
+      }
     };
 
     return new Promise((resolve) => {
@@ -52,7 +52,7 @@ class SecurityState {
    * @param {Electron.BrowserWindow} window
    * @returns {SecurityState}
    */
-  static forWindow(window) {
+  static forWindow (window) {
     if (!SecurityState._windowMap.has(window)) {
       SecurityState._windowMap.set(window, new SecurityState());
     }
@@ -65,9 +65,9 @@ class SecurityPromptWindow extends AbstractWindow {
    * @param {Electron.BrowserWindow} projectWindow
    * @param {string} type
    */
-  constructor(projectWindow, type) {
+  constructor (projectWindow, type) {
     super({
-      parentWindow: projectWindow,
+      parentWindow: projectWindow
     });
 
     /** @type {Promise<boolean>} */
@@ -75,89 +75,79 @@ class SecurityPromptWindow extends AbstractWindow {
       this.promptResolve = resolve;
     });
 
-    this.ipc.on("init", (event) => {
+    this.ipc.on('init', (event) => {
       event.returnValue = {
         type,
         APP_NAME,
         locale: getLocale(),
-        strings: getStrings(),
+        strings: getStrings()
       };
     });
 
-    this.ipc.handle("ready", (event, options) => {
+    this.ipc.handle('ready', (event, options) => {
       const contentHeight = +options.height;
 
       const [minWidth, minHeight] = this.window.getMinimumSize();
       if (contentHeight < minHeight) {
         this.window.setMinimumSize(minWidth, contentHeight);
       }
-      this.window.setContentSize(
-        this.getDimensions().width,
-        contentHeight,
-        false,
-      );
+      this.window.setContentSize(this.getDimensions().width, contentHeight, false);
 
       this.show();
     });
 
-    this.ipc.handle("done", (event, allowed) => {
+    this.ipc.handle('done', (event, allowed) => {
       this.promptResolve(!!allowed);
 
       // destroy() won't run the close event
       this.window.destroy();
     });
 
-    this.window.on("close", () => {
+    this.window.on('close', () => {
       this.promptResolve(false);
     });
 
-    this.window.setTitle(`${translate("security-prompt.title")} - ${APP_NAME}`);
-    this.loadURL("tw-security-prompt://./security-prompt.html");
+    this.window.setTitle(`${translate('security-prompt.title')} - ${APP_NAME}`);
+    this.loadURL('tw-security-prompt://./security-prompt.html');
   }
 
-  getDimensions() {
+  getDimensions () {
     return {
       width: 440,
-      height: 320,
+      height: 320
     };
   }
 
-  getPreload() {
-    return "security-prompt";
+  getPreload () {
+    return 'security-prompt';
   }
 
-  isPopup() {
+  isPopup () {
     return true;
   }
 
-  done() {
+  done () {
     return this.promptPromise;
   }
 
-  static async requestReadClipboard(window) {
+  static async requestReadClipboard (window) {
     const state = SecurityState.forWindow(window);
     if (!state.allowedReadClipboard) {
-      const { releaseLock } = await state.acquirePromptLock();
-      state.allowedReadClipboard = await new SecurityPromptWindow(
-        window,
-        "read-clipboard",
-      ).done();
+      const {releaseLock} = await state.acquirePromptLock();
+      state.allowedReadClipboard = await new SecurityPromptWindow(window, 'read-clipboard').done();
       releaseLock();
     }
-    return state.allowedReadClipboard;
+    return state.allowedReadClipboard;  
   }
 
-  static async requestNotifications(window) {
+  static async requestNotifications (window) {
     const state = SecurityState.forWindow(window);
     if (!state.allowedNotifications) {
-      const { releaseLock } = await state.acquirePromptLock();
-      state.allowedNotifications = await new SecurityPromptWindow(
-        window,
-        "notifications",
-      ).done();
+      const {releaseLock} = await state.acquirePromptLock();
+      state.allowedNotifications = await new SecurityPromptWindow(window, 'notifications').done();
       releaseLock();
     }
-    return state.allowedNotifications;
+    return state.allowedNotifications;  
   }
 }
 

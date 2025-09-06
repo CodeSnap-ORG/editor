@@ -12,4 +12,4 @@ changelog WIP
 
 ## 0.2.1 (25/05/25)
 
-- Switch from React to Preact (68a9a2a)
+* Switch from React to Preact (68a9a2a)

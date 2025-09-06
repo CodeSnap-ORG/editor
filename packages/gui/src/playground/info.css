@@ -22,8 +22,7 @@ a {
     color: $link-color;
 }
 
-.main section,
-.wrap {
+.main section, .wrap {
     max-width: 900px;
     margin: auto;
     margin-bottom: 30px;
@@ -54,7 +53,7 @@ a {
     font-size: 1.25rem;
     color: inherit !important;
     text-decoration: none;
-    transition: background 0.2s;
+    transition: background .2s;
 }
 .user:link:hover {
     background: $ui-black-transparent;

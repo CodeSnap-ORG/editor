@@ -9,11 +9,11 @@
  * The optional `strokeWidthPx` prop is the width of the ring, in pixels.
  */
 
-import PropTypes from "prop-types";
-import React from "react";
-import classNames from "classnames";
+import PropTypes from 'prop-types';
+import React from 'react';
+import classNames from 'classnames';
 
-import styles from "./progress-ring.css";
+import styles from './progress-ring.css';
 
 const ProgressRingComponent = ({
     className,
@@ -23,25 +23,25 @@ const ProgressRingComponent = ({
     value,
     ...props
 }) => {
-    if (typeof strokeWidthPx === "undefined") {
+    if (typeof strokeWidthPx === 'undefined') {
         strokeWidthPx = sizePx / 6;
     }
 
     const center = sizePx / 2;
-    const diameter = sizePx - strokeWidthPx;
+    const diameter = (sizePx - strokeWidthPx);
     const radius = diameter / 2;
     const circumference = Math.PI * diameter;
-    const offset = circumference * (1 - value / max);
+    const offset = circumference * (1 - (value / max));
     const ringSvgProps = {
         cx: center,
         cy: center,
-        r: radius,
+        r: radius
     };
 
     return (
         <div
             className={classNames(styles.progressRing, className)}
-            style={{ width: sizePx, height: sizePx }}
+            style={{width: sizePx, height: sizePx}}
             {...props}
         >
             <svg
@@ -52,7 +52,7 @@ const ProgressRingComponent = ({
                     className={styles.progressRingRing}
                     {...ringSvgProps}
                     style={{
-                        strokeWidth: `${strokeWidthPx}px`,
+                        strokeWidth: `${strokeWidthPx}px`
                     }}
                 />
                 <circle
@@ -61,7 +61,7 @@ const ProgressRingComponent = ({
                     style={{
                         strokeDasharray: circumference,
                         strokeDashoffset: offset,
-                        strokeWidth: `${strokeWidthPx}px`,
+                        strokeWidth: `${strokeWidthPx}px`
                     }}
                     transform={`rotate(-90 ${center} ${center})`}
                 />
@@ -75,7 +75,7 @@ ProgressRingComponent.propTypes = {
     max: PropTypes.number, // default = 1
     sizePx: PropTypes.number.isRequired,
     strokeWidthPx: PropTypes.number, // default = sizePx/6
-    value: PropTypes.number.isRequired,
+    value: PropTypes.number.isRequired
 };
 
 export default ProgressRingComponent;

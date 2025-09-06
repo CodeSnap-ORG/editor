@@ -1,6 +1,6 @@
-const fs = require("fs");
-const pathUtil = require("path");
-const lte = require("semver/functions/lte");
+const fs = require('fs');
+const pathUtil = require('path');
+const lte = require('semver/functions/lte');
 
 /**
  * @typedef Release
@@ -10,40 +10,33 @@ const lte = require("semver/functions/lte");
  */
 
 const MONTHS = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December'
 ];
 
-const escapeXmlText = (xml) =>
-  xml.replace(/[<>&]/g, (c) => {
-    // We don't need to escape quotes because we only use this for text, not attributes
-    switch (c) {
-      case "<":
-        return "&lt;";
-      case ">":
-        return "&gt;";
-      case "&":
-        return "&amp;";
-    }
-  });
+const escapeXmlText = (xml) => xml.replace(/[<>&]/g, c => {
+  // We don't need to escape quotes because we only use this for text, not attributes
+  switch (c) {
+    case '<': return '&lt;';
+    case '>': return '&gt;';
+    case '&': return '&amp;';
+  }
+});
 
 /** @returns {Release[]} */
 const parse = () => {
   const releaseData = [];
-  const source = fs.readFileSync(
-    pathUtil.join(__dirname, "../changelog.md"),
-    "utf-8",
-  );
+  const source = fs.readFileSync(pathUtil.join(__dirname, '../changelog.md'), 'utf-8');
   const sections = source.split(/^# /gm);
 
   // Remove the information section at the start
@@ -57,7 +50,7 @@ const parse = () => {
     const data = {
       version,
       date,
-      notes: [],
+      notes: []
     };
 
     for (const note of section.matchAll(/^ *[-*] *(.+)/gm)) {
@@ -73,29 +66,27 @@ const parse = () => {
  * @param {Release[]} releases
  */
 const generateHomepage = (releases) => {
-  const path = pathUtil.join(__dirname, "../docs/index.html");
-  let source = fs.readFileSync(path, "utf-8");
-  const releasedVersion = source.match(
-    /const VERSION *= *["']([\d\w\.\-]+)["']/i,
-  )[1];
+  const path = pathUtil.join(__dirname, '../docs/index.html');
+  let source = fs.readFileSync(path, 'utf-8');
+  const releasedVersion = source.match(/const VERSION *= *["']([\d\w\.\-]+)["']/i)[1];
 
-  let html = "";
-  for (const { version, date, notes } of releases) {
+  let html = '';
+  for (const {version, date, notes} of releases) {
     if (lte(version, releasedVersion)) {
       html += `        <div data-version="${version}">\n`;
       html += `          <h3>v${version} (${MONTHS[date.getUTCMonth()]} ${date.getUTCDate()} ${date.getUTCFullYear()})</h3>\n`;
-      html += "          <ul>\n";
+      html += '          <ul>\n';
       for (const note of notes) {
         html += `            <li>${escapeXmlText(note)}</li>\n`;
       }
-      html += "          </ul>\n";
-      html += "        </div>\n";
+      html += '          </ul>\n';
+      html += '        </div>\n';
     }
   }
 
   source = source.replace(
     /<!-- CHANGELOG_START -->[\s\S]*<!-- CHANGELOG_END -->/m,
-    `<!-- CHANGELOG_START -->\n${html}        <!-- CHANGELOG_END -->`,
+    `<!-- CHANGELOG_START -->\n${html}        <!-- CHANGELOG_END -->`
   );
   fs.writeFileSync(path, source);
 };
@@ -104,33 +95,30 @@ const generateHomepage = (releases) => {
  * @param {Release[]} releases
  */
 const generateMetainfo = (releases) => {
-  let xml = "";
-  for (const { version, date, notes } of releases) {
+  let xml = '';
+  for (const {version, date, notes} of releases) {
     xml += `    <release version="${version}" date="${date.getUTCFullYear()}-${date.getUTCMonth() + 1}-${date.getUTCDate()}">\n`;
     xml += `      <url type="details">https://github.com/TurboWarp/desktop/releases/tag/v${version}</url>\n`;
-    xml += "      <description>\n";
-    xml += "        <ul>\n";
+    xml += '      <description>\n';
+    xml += '        <ul>\n';
     for (let note of notes) {
       // This file is only used on Linux
-      if (note.startsWith("Windows:") || note.startsWith("macOS:")) {
+      if (note.startsWith('Windows:') || note.startsWith('macOS:')) {
         continue;
       }
-      note = note.replace(/^Linux: */, "");
+      note = note.replace(/^Linux: */, '');
       xml += `          <li>${escapeXmlText(note)}</li>\n`;
     }
-    xml += "        </ul>\n";
-    xml += "      </description>\n";
-    xml += "    </release>\n";
+    xml += '        </ul>\n';
+    xml += '      </description>\n';
+    xml += '    </release>\n';
   }
 
-  const path = pathUtil.join(
-    __dirname,
-    "../linux-files/org.turbowarp.TurboWarp.metainfo.xml",
-  );
-  let source = fs.readFileSync(path, "utf-8");
+  const path = pathUtil.join(__dirname, '../linux-files/org.turbowarp.TurboWarp.metainfo.xml');
+  let source = fs.readFileSync(path, 'utf-8');
   source = source.replace(
     /<releases>[\s\S]*<\/releases>/m,
-    `<releases>\n${xml}  </releases>`,
+    `<releases>\n${xml}  </releases>`
   );
   fs.writeFileSync(path, source);
 };
@@ -140,15 +128,15 @@ const generateMetainfo = (releases) => {
  */
 const generateJSON = (releases) => {
   const data = [];
-  for (const { version, date, notes } of releases) {
+  for (const {version, date, notes} of releases) {
     data.push({
       version,
       date: `${date.getUTCFullYear()}-${date.getUTCMonth() + 1}-${date.getUTCDate()}`,
-      notes,
+      notes
     });
   }
 
-  const path = pathUtil.join(__dirname, "../docs/changelog.json");
+  const path = pathUtil.join(__dirname, '../docs/changelog.json');
   fs.writeFileSync(path, JSON.stringify(data, null, 2));
 };
 

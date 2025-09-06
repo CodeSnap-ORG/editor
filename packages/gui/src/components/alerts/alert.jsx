@@ -1,18 +1,18 @@
-import React from "react";
-import PropTypes from "prop-types";
-import classNames from "classnames";
-import { FormattedMessage } from "react-intl";
+import React from 'react';
+import PropTypes from 'prop-types';
+import classNames from 'classnames';
+import {FormattedMessage} from 'react-intl';
 
-import Box from "../box/box.jsx";
-import CloseButton from "../close-button/close-button.jsx";
-import Spinner from "../spinner/spinner.jsx";
-import { AlertLevels } from "../../lib/alerts/index.jsx";
+import Box from '../box/box.jsx';
+import CloseButton from '../close-button/close-button.jsx';
+import Spinner from '../spinner/spinner.jsx';
+import {AlertLevels} from '../../lib/alerts/index.jsx';
 
-import styles from "./alert.css";
+import styles from './alert.css';
 
 const closeButtonColors = {
     [AlertLevels.SUCCESS]: CloseButton.COLOR_GREEN,
-    [AlertLevels.WARN]: CloseButton.COLOR_ORANGE,
+    [AlertLevels.WARN]: CloseButton.COLOR_ORANGE
 };
 
 const AlertComponent = ({
@@ -28,14 +28,19 @@ const AlertComponent = ({
     onDownload,
     onSaveNow,
     onReconnect,
-    showReconnect,
+    showReconnect
 }) => (
-    <Box className={classNames(styles.alert, styles[level])}>
+    <Box
+        className={classNames(styles.alert, styles[level])}
+    >
         {/* TODO: implement Rtl handling */}
         {(iconSpinner || iconURL) && (
             <div className={styles.iconSection}>
                 {iconSpinner && (
-                    <Spinner className={styles.alertSpinner} level={level} />
+                    <Spinner
+                        className={styles.alertSpinner}
+                        level={level}
+                    />
                 )}
                 {iconURL && (
                     <img
@@ -53,12 +58,12 @@ const AlertComponent = ({
                     description="Message indicating that an extension peripheral has been disconnected"
                     id="tw.alerts.lostPeripheralConnection"
                     values={{
-                        extensionName: `${extensionName}`,
+                        extensionName: (
+                            `${extensionName}`
+                        )
                     }}
                 />
-            ) : (
-                content
-            )}
+            ) : content}
         </div>
         <div className={styles.alertButtons}>
             {showSaveNow && (
@@ -98,7 +103,9 @@ const AlertComponent = ({
                 </button>
             )}
             {closeButton && (
-                <Box className={styles.alertCloseButtonContainer}>
+                <Box
+                    className={styles.alertCloseButtonContainer}
+                >
                     <CloseButton
                         className={classNames(styles.alertCloseButton)}
                         color={closeButtonColors[level]}
@@ -124,11 +131,11 @@ AlertComponent.propTypes = {
     onSaveNow: PropTypes.func,
     showDownload: PropTypes.bool,
     showReconnect: PropTypes.bool,
-    showSaveNow: PropTypes.bool,
+    showSaveNow: PropTypes.bool
 };
 
 AlertComponent.defaultProps = {
-    level: AlertLevels.WARN,
+    level: AlertLevels.WARN
 };
 
 export default AlertComponent;
