@@ -1,6 +1,7 @@
 import ReactDOM from "react-dom";
 import { setAppElement } from "react-modal";
 import * as bowser from "bowser";
+import { APP_NAME } from "../lib/brand.js";
 
 const appTarget = document.getElementById("app");
 
@@ -12,7 +13,7 @@ while (appTarget.firstChild) {
 if (new URLSearchParams(window.location.search).has("crash-accidentally")) {
     throw new TypeError(
         "Simulated a TypeError to test the pre-React error screen. " +
-            `If someone sent you a link to this, just open <%= htmlWebpackPlugin.options.APP_NAME %> in ` +
+            `If someone sent you a link to this, just open ${APP_NAME} in ` +
             "a new tab and carry on with your day. This is not a bug.",
     );
 }
