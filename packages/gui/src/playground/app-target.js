@@ -9,6 +9,14 @@ while (appTarget.firstChild) {
     appTarget.removeChild(appTarget.firstChild);
 }
 
+if (new URLSearchParams(window.location.search).has("crash-accidentally")) {
+    throw new TypeError(
+        "Simulated a TypeError to test the pre-React error screen. " +
+            `If someone sent you a link to this, just open <%= htmlWebpackPlugin.options.APP_NAME %> in ` +
+            "a new tab and carry on with your day. This is not a bug.",
+    );
+}
+
 if (bowser.parse(navigator.userAgent).platform.type == "mobile") {
     alert(
         "You are using a phone. The UI on small screens can be very clunky " +

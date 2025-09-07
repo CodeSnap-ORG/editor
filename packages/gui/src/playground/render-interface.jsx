@@ -28,6 +28,7 @@ import {
 import { getIsLoading } from "../reducers/project-state.js";
 import AppStateHOC from "../lib/app-state-hoc.jsx";
 import ErrorBoundaryHOC from "../lib/error-boundary-hoc.jsx";
+import TWThemeManagerHOC from "../containers/tw-theme-manager-hoc.jsx";
 import TWProjectMetaFetcherHOC from "../lib/tw-project-meta-fetcher-hoc.jsx";
 import TWStateManagerHOC from "../lib/tw-state-manager-hoc.jsx";
 import SBFileUploaderHOC from "../lib/sb-file-uploader-hoc.jsx";
@@ -108,6 +109,15 @@ class Interface extends React.Component {
         }
     }
     render() {
+        if (
+            new URLSearchParams(window.location.search).has("crash-peacefully")
+        ) {
+            throw new TypeError(
+                "Simulated a TypeError to test the error screen. " +
+                    `If someone sent you a link to this, just open ${APP_NAME} in ` +
+                    "a new tab and carry on with your day. This is not a bug.",
+            );
+        }
         if (isInvalidEmbed) {
             return <InvalidEmbed />;
         }
@@ -169,60 +179,62 @@ class Interface extends React.Component {
                             ) : (
                                 <BrowserModal isRtl={isRtl} />
                             )}
-                            {// eslint-disable-next-line max-len
-                            (description.instructions === "unshared" ||
-                                description.credits === "unshared") && (
-                                <div
-                                    className={classNames(
-                                        styles.infobox,
-                                        styles.unsharedUpdate,
-                                    )}
-                                >
-                                    <p>
-                                        <FormattedMessage
-                                            defaultMessage="Unshared projects are no longer visible."
-                                            description="Appears on unshared projects"
-                                            id="tw.unshared2.1"
-                                        />
-                                    </p>
-                                    <p>
-                                        <FormattedMessage
-                                            defaultMessage="For more information, visit: {link}"
-                                            description="Appears on unshared projects"
-                                            id="tw.unshared.2"
-                                            values={{
-                                                link: (
-                                                    <a
-                                                        href="https://docs.turbowarp.org/unshared-projects"
-                                                        target="_blank"
-                                                        rel="noopener noreferrer"
-                                                    >
-                                                        {
-                                                            "https://docs.turbowarp.org/unshared-projects"
-                                                        }
-                                                    </a>
-                                                ),
-                                            }}
-                                        />
-                                    </p>
-                                    <p>
-                                        <FormattedMessage
-                                            // eslint-disable-next-line max-len
-                                            defaultMessage="If the project was shared recently, this message may appear incorrectly for a few minutes."
-                                            description="Appears on unshared projects"
-                                            id="tw.unshared.cache"
-                                        />
-                                    </p>
-                                    <p>
-                                        <FormattedMessage
-                                            // eslint-disable-next-line max-len
-                                            defaultMessage="If this project is actually shared, please report a bug."
-                                            description="Appears on unshared projects"
-                                            id="tw.unshared.bug"
-                                        />
-                                    </p>
-                                </div>
-                            )}
+                            {
+                                // eslint-disable-next-line max-len
+                                (description.instructions === "unshared" ||
+                                    description.credits === "unshared") && (
+                                    <div
+                                        className={classNames(
+                                            styles.infobox,
+                                            styles.unsharedUpdate,
+                                        )}
+                                    >
+                                        <p>
+                                            <FormattedMessage
+                                                defaultMessage="Unshared projects are no longer visible."
+                                                description="Appears on unshared projects"
+                                                id="tw.unshared2.1"
+                                            />
+                                        </p>
+                                        <p>
+                                            <FormattedMessage
+                                                defaultMessage="For more information, visit: {link}"
+                                                description="Appears on unshared projects"
+                                                id="tw.unshared.2"
+                                                values={{
+                                                    link: (
+                                                        <a
+                                                            href="https://docs.turbowarp.org/unshared-projects"
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                        >
+                                                            {
+                                                                "https://docs.turbowarp.org/unshared-projects"
+                                                            }
+                                                        </a>
+                                                    ),
+                                                }}
+                                            />
+                                        </p>
+                                        <p>
+                                            <FormattedMessage
+                                                // eslint-disable-next-line max-len
+                                                defaultMessage="If the project was shared recently, this message may appear incorrectly for a few minutes."
+                                                description="Appears on unshared projects"
+                                                id="tw.unshared.cache"
+                                            />
+                                        </p>
+                                        <p>
+                                            <FormattedMessage
+                                                // eslint-disable-next-line max-len
+                                                defaultMessage="If this project is actually shared, please report a bug."
+                                                description="Appears on unshared projects"
+                                                id="tw.unshared.bug"
+                                            />
+                                        </p>
+                                    </div>
+                                )
+                            }
                             {hasCloudVariables && projectId !== "0" && (
                                 <div className={styles.section}>
                                     <CloudVariableBadge />
@@ -331,6 +343,8 @@ const ConnectedInterface = injectIntl(
 const WrappedInterface = compose(
     AppStateHOC,
     ErrorBoundaryHOC("TW Interface"),
+    // amp: Trigger TWThemeManagerHOC earlier so early crash message errors are readable
+    TWThemeManagerHOC,
     TWProjectMetaFetcherHOC,
     TWStateManagerHOC,
     TWPackagerIntegrationHOC,
