@@ -29,6 +29,8 @@ const defaultBuiltinExtensions = {
     tw: () => require("../extensions/tw"),
     // ampmod: future extension (similar to Python's __future__ module)
     future: () => require("../extensions/future"),
+    // ampmod: fake "Face Sensing" extension for legal reasons
+    faceSensing: () => require("../extensions/scratch3_facesensing"),
 };
 
 /**
