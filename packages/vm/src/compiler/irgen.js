@@ -424,6 +424,11 @@ class ScriptTreeGenerator {
                     left: this.descendInputOfBlock(block, "OPERAND1"),
                     right: this.descendInputOfBlock(block, "OPERAND2"),
                 };
+            case "operator_newline":
+                return {
+                    kind: "constant",
+                    value: "\n",
+                };
             case "operator_mathop": {
                 const value = this.descendInputOfBlock(block, "NUM");
                 const operator = block.fields.OPERATOR.value.toLowerCase();

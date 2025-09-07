@@ -816,6 +816,8 @@ const operators = function (isInitialSetup, isStage, targetId, colors) {
                 </shadow>
             </value>
         </block>
+        ${blockSeparator}
+        <block type="operator_newline" />
         ${categorySeparator}
     </category>
     `;

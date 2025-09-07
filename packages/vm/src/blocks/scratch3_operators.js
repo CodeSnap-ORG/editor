@@ -35,6 +35,7 @@ class Scratch3OperatorsBlocks {
             operator_mod: this.mod,
             operator_round: this.round,
             operator_mathop: this.mathop,
+            operator_newline: this.newline,
         };
     }
 
@@ -135,6 +136,10 @@ class Scratch3OperatorsBlocks {
 
     round(args) {
         return Math.round(Cast.toNumber(args.NUM));
+    }
+
+    newline() {
+        return "\n";
     }
 
     mathop(args) {

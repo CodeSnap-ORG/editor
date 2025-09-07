@@ -492,3 +492,17 @@ Blockly.Blocks['operator_mathop'] = {
     });
   }
 };
+
+Blockly.Blocks['operator_newline'] = {
+  /**
+   * amp: Block for newline.
+   * @this Blockly.Block
+   */
+  init: function() {
+    this.jsonInit({
+      "message0": Blockly.Msg.OPERATORS_NEWLINE,
+      "category": Blockly.Categories.operators,
+      "extensions": ["colours_operators", "output_string"]
+    });
+  }
+};
