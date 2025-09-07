@@ -9,7 +9,7 @@ const requestStack = [];
 const requestVideoStream = (videoDesc) => {
     let streamPromise;
     if (requestStack.length === 0) {
-        streamPromise = getUserMedia({
+        streamPromise = navigator.mediaDevices.getUserMedia({
             audio: false,
             video: videoDesc,
         });
