@@ -89,7 +89,7 @@ Blockly.ScratchBlocks.VerticalExtensions.SHAPE_STATEMENT = function() {
  */
 Blockly.ScratchBlocks.VerticalExtensions.SHAPE_HAT = function() {
   this.setInputsInline(true);
-  this.setNextStatement(true, null);
+  this.setNextStatement(true, 'normal');
 };
 
 /**
@@ -162,6 +162,19 @@ Blockly.ScratchBlocks.VerticalExtensions.OUTPUT_NUMBER = function() {
  */
 Blockly.ScratchBlocks.VerticalExtensions.OUTPUT_STRING = function() {
   this.setInputsInline(true);
+  this.setOutputShape(Blockly.OUTPUT_SHAPE_ROUND);
+  this.setOutput(true, 'String');
+};
+
+/**
+ * Extension to make represent a ternary reporter in Scratch-Blocks.
+ * That means the block has external inputs, a round output shape, and a 'String'
+ * output type.
+ * @this {Blockly.Block}
+ * @readonly
+ */
+Blockly.ScratchBlocks.VerticalExtensions.OUTPUT_TERNARY = function() {
+  this.setInputsInline(false);
   this.setOutputShape(Blockly.OUTPUT_SHAPE_ROUND);
   this.setOutput(true, 'String');
 };
@@ -308,6 +321,8 @@ Blockly.ScratchBlocks.VerticalExtensions.registerAll = function() {
       Blockly.ScratchBlocks.VerticalExtensions.OUTPUT_STRING);
   Blockly.Extensions.register('output_boolean',
       Blockly.ScratchBlocks.VerticalExtensions.OUTPUT_BOOLEAN);
+  Blockly.Extensions.register('output_ternary',
+      Blockly.ScratchBlocks.VerticalExtensions.OUTPUT_TERNARY);
 
   // Custom procedures have interesting context menus.
   Blockly.Extensions.registerMixin('procedure_def_contextmenu',
