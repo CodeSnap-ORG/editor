@@ -1,6 +1,6 @@
 [![status-badge](https://ci.codeberg.org/api/badges/14290/status.svg)](https://ci.codeberg.org/repos/14290)
 
-scratch-gui modified for use in AmpMod. Contributions are preferred to [Codeberg](https://codeberg.org/AmpMod/scratch-gui) but contributions on [GitHub](https://github.com/AmpM0d/scratch-gui) are accepted.
+scratch-gui modified for use in AmpMod.
 
 ## Setup
 
