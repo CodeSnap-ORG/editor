@@ -7,7 +7,7 @@
 input.sa-search-sprites-box {
   width: 100%;
   box-sizing: border-box;
-  background-color: white;
+  background-color: var(--ui-white);
   border: 0px;
   border-bottom: 1px solid var(--ui-black-transparent);
   outline: none;
