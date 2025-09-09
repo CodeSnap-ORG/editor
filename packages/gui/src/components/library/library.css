@@ -34,7 +34,7 @@
 }
 
 .filter-bar-item {
-    margin-bottom: 0.75rem;
+    margin: 0.6rem 0;
 }
 
 .filter {
@@ -54,6 +54,8 @@
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
+    background-color: $ui-white;
+    border-radius: 0.75rem;
 }
 
 .spinner-wrapper {
