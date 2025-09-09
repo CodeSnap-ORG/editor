@@ -8,13 +8,12 @@
     font-family:
         "Inter Variable", "Helvetica Neue", Helvetica, Arial, sans-serif;
     margin-right: calc($space / 2);
+    margin-bottom: 0.75rem;
     background-color: $ui-secondary;
-    border-top-right-radius: $space;
-    border-top-left-radius: $space;
+    border-radius: 0.75rem;
     border-color: $ui-black-transparent;
     border-width: 1px;
     border-style: solid;
-    border-bottom: 0;
 }
 
 .sprite-wrapper {
