@@ -97,7 +97,6 @@ const VISITABLE_PROTOCOLS = [
     "https:",
     "data:",
     "blob:",
-    "mailto:",
     "steam:",
     "calculator:",
 ];
