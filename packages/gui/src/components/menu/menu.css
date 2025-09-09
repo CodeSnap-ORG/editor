@@ -3,10 +3,10 @@
 .menu {
     position: absolute;
     border: 1px solid $menu-bar-hover;
-    border-radius: 0 0 8px 8px;
+    border-radius: 0.5rem;
     background-color: $menu-bar-background;
     padding: 0;
-    margin: 0;
+    margin-top: 0.25rem;
     min-width: 186px;
     overflow: visible;
     box-shadow: 0 8px 8px 0 $shadow;
@@ -28,16 +28,17 @@
     white-space: nowrap;
     padding: 0 10px;
     font-size: 0.75rem;
-    margin: 0;
+    margin: 0.25rem;
     font-weight: bold;
     position: relative;
     font-family:
         "Inter Variable", "Helvetica Neue", Helvetica, Arial, sans-serif;
     transition: background-color 0.2s;
+    border-radius: 0.5rem;
 }
 
 .menu-item:last-of-type {
-    border-radius: 0 0 7px 7px;
+    border-radius: 0.5rem;
 }
 
 .menu-item.active,
