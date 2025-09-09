@@ -55,7 +55,7 @@
 
 /* [dir] is for specificity to override editor-stage-left */
 [dir] [class*="gui_extension-button-container_"] {
-  border-radius: 0.25rem;
+  border-radius: 0.5rem;
 }
 
 [class*="gui_extension-button-container_"]:hover {
