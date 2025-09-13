@@ -144,8 +144,7 @@ Blockly.Blocks['arrays_delimited_to_array'] = {
             "args0": [
                 {
                     "type": "input_value",
-                    "name": "TEXT",
-                    "check": "String"
+                    "name": "TEXT"
                 },
                 {
                     "type": "input_value",
