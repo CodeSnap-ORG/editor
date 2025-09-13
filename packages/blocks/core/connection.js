@@ -707,8 +707,11 @@ Blockly.Connection.prototype.getOutputShape = function() {
   if (this.check_.indexOf('Number') !== -1) {
     return Blockly.OUTPUT_SHAPE_ROUND;
   }
-  if (this.check_.indexOf('String') !== -1) {
+  if (this.check_.indexOf('Array') !== -1) {
     return Blockly.OUTPUT_SHAPE_SQUARE;
+  }
+  if (this.check_.indexOf('String') !== -1) {
+    return Blockly.OUTPUT_SHAPE_ROUND;
   }
   return Blockly.OUTPUT_SHAPE_ROUND;
 };
