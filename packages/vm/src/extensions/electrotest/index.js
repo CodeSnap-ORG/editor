@@ -57,6 +57,11 @@ class ElectroTestBlocks {
                     opcode: "ampApiObject",
                     text: "AmpMod API object",
                 },
+                {
+                    blockType: BlockType.MULTIREPORTER,
+                    opcode: "multiReporter",
+                    text: "reporter that can be dropped in array/boolean arguments",
+                },
             ],
         };
     }
@@ -72,6 +77,10 @@ class ElectroTestBlocks {
 
     ampApiObject() {
         return AmpMod;
+    }
+
+    multiReporter() {
+        return "I'm not joking";
     }
 }
 
