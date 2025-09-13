@@ -30,7 +30,7 @@ $ui-gray: hsla(0, 0%, 95%, 1);
 
     color: $text-primary;
     overflow: hidden;
-    font-family: "Inter Tight", sans-serif;
+    font-family: Inter, "Helvetica Neue", Helvetica, sans-serif;
 }
 
 .illustration {

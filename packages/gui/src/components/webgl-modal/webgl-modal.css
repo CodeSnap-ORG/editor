@@ -42,7 +42,7 @@
     background: $ui-white;
     padding: 1.5rem 2.25rem;
     text-align: center;
-    font-family: "Inter Tight", sans-serif;
+    font-family: Inter, "Helvetica Neue", Helvetica, sans-serif;
 }
 
 /* Confirmation buttons at the bottom of the modal */

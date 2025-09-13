@@ -28,7 +28,7 @@
      *        but fixes [FFx + Safari] [resize window down + scroll to the right] bug.
      *        width: 100%;
      */
-    font-family: "IBM Plex Sans", sans-serif;
+    font-family: Inter, "Helvetica Neue", Helvetica, sans-serif;
     font-size: $menu-bar-standard-font-size;
     font-weight: bold;
     background-color: $menu-bar-background;

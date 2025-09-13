@@ -46,7 +46,7 @@
     color: rgb(167, 170, 181);
     font-size: 0.95rem;
     font-weight: 500;
-    font-family: "Inter Tight", sans-serif;
+    font-family: Inter, "Helvetica Neue", Helvetica, sans-serif;
 }
 
 .playing-text {
