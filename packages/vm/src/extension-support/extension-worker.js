@@ -1,6 +1,7 @@
 /* eslint-env worker */
 
 const ScratchCommon = require("./tw-extension-api-common");
+const AmpModApi = require("./ampmod-api");
 const createScratchX = require("./tw-scratchx-compatibility-layer");
 const dispatch = require("../dispatch/worker-dispatch");
 const log = require("../util/log");
@@ -113,6 +114,9 @@ Object.assign(global.Scratch, ScratchCommon, {
             new Error("Scratch.download not supported in sandboxed extensions"),
         ),
     translate,
+});
+Object.assign(global.amp, AmpModApi, {
+    version,
 });
 
 /**

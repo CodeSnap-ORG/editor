@@ -1,5 +1,6 @@
 const BlockType = require("../../extension-support/block-type");
 const ArgumentType = require("../../extension-support/argument-type");
+const AmpMod = require("../../extension-support/ampmod-api");
 
 // eslint-disable-next-line max-len
 const iconURI =
@@ -53,6 +54,16 @@ class ElectroTestBlocks {
                         },
                     },
                 },
+                {
+                    blockType: BlockType.REPORTER,
+                    opcode: "ampApiObject",
+                    text: "AmpMod API object",
+                },
+                {
+                    blockType: BlockType.REPORTER,
+                    opcode: "ampVersion",
+                    text: "AmpMod version",
+                },
             ],
         };
     }
@@ -64,6 +75,14 @@ class ElectroTestBlocks {
     addRandomNumber(args) {
         const baseArray = args.ARRAY;
         return [...baseArray, Math.floor(Math.random() * 10) + 1];
+    }
+
+    ampVersion() {
+        return AmpMod.version;
+    }
+
+    ampApiObject() {
+        return AmpMod;
     }
 }
 
