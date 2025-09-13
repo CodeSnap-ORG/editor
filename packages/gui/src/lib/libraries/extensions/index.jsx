@@ -248,30 +248,6 @@ export default [
     {
         name: (
             <FormattedMessage
-                defaultMessage="TurboWarp Blocks"
-                description="Name of the strange 'TurboWarp Blocks' extension"
-                id="tw.twExtension.name"
-                values={{
-                    APP_NAME: "TurboWarp",
-                }}
-            />
-        ),
-        extensionId: "tw",
-        iconURL: twIcon,
-        description: (
-            <FormattedMessage
-                defaultMessage="Weird new blocks."
-                description="Description of the strange 'TurboWarp Blocks' extension"
-                id="tw.twExtension.description"
-            />
-        ),
-        incompatibleWithScratch: true,
-        tags: ["tw"],
-        featured: true,
-    },
-    {
-        name: (
-            <FormattedMessage
                 defaultMessage="Future"
                 description="Name of the 'Future' extension"
                 id="ub.futureExtension.name"
