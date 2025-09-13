@@ -89,7 +89,7 @@ steps:
         from_secret: cbtoken
     commands:
       # Set up git in a working way
-      - git config --global --add safe.directory /woodpecker/src/codeberg.org/ampmod/ampmod/amp-build
+      - git config --global --add safe.directory /woodpecker/src/codeberg.org/kRxZy_kRxZy/ampmod/amp-build
       - git config --global user.email "no@thankyou.com"
       - git config --global user.name "CI Builder"
       # Push to target
