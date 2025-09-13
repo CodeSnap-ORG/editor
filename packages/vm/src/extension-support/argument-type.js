@@ -29,6 +29,11 @@ const ArgumentType = {
     STRING: "string",
 
     /**
+     * Array value with array field
+     */
+    ARRAY: "array",
+
+    /**
      * String value with matrix field
      */
     MATRIX: "matrix",

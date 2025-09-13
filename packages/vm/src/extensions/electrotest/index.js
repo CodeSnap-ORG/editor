@@ -41,12 +41,27 @@ class ElectroTestBlocks {
                     opcode: "listOfGreetings",
                     text: "list of greetings",
                 },
+                {
+                    blockType: BlockType.ARRAY,
+                    opcode: "addRandomNumber",
+                    text: "add a random number to [ARRAY]",
+                    arguments: {
+                        ARRAY: {
+                            type: ArgumentType.ARRAY,
+                        },
+                    },
+                },
             ],
         };
     }
 
     listOfGreetings() {
         return ["hello", "hi", "greetings", "welcome", "hola", "bonjour"];
+    }
+
+    addRandomNumber(args) {
+        const baseArray = args.ARRAY;
+        return [...baseArray, Math.floor(Math.random() * 10) + 1];
     }
 }
 
