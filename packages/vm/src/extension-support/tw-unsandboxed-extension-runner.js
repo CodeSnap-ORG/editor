@@ -1,4 +1,5 @@
 const ScratchCommon = require("./tw-extension-api-common");
+const AmpModApi = require("./ampmod-api");
 const createScratchX = require("./tw-scratchx-compatibility-layer");
 const AsyncLimiter = require("../util/async-limiter");
 const createTranslate = require("./tw-l10n");
@@ -160,8 +161,10 @@ const setupUnsandboxedExtensionAPI = (vm) =>
 
         global.Scratch = Scratch;
         global.ScratchExtensions = createScratchX(Scratch);
+        global.amp = AmpModApi;
 
         vm.emit("CREATE_UNSANDBOXED_EXTENSION_API", Scratch);
+        vm.emit("CREATE_UNSANDBOXED_EXTENSION_API", AmpModApi);
     });
 
 /**

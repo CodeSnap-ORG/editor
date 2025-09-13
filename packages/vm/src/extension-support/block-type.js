@@ -52,6 +52,11 @@ const BlockType = {
     REPORTER: "reporter",
 
     /**
+     * General reporter with numeric or string value, and able to go into any input
+     */
+    MULTIREPORTER: "multireporter",
+
+    /**
      * Array reporter with square shape
      */
     ARRAY: "array",

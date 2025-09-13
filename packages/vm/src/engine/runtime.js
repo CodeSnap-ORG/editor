@@ -96,6 +96,9 @@ const ArgumentTypeMap = (() => {
     map[ArgumentType.BOOLEAN] = {
         check: "Boolean",
     };
+    map[ArgumentType.ARRAY] = {
+        check: "Array",
+    };
     map[ArgumentType.MATRIX] = {
         shadow: {
             type: "matrix",
@@ -1424,6 +1427,8 @@ class Runtime extends EventEmitter {
             colour: blockInfo.color1 ?? categoryInfo.color1,
             colourSecondary: blockInfo.color2 ?? categoryInfo.color2,
             colourTertiary: blockInfo.color3 ?? categoryInfo.color3,
+            helpUrl: blockInfo.helpURI ?? categoryInfo.docsURI,
+            tooltip: blockInfo.tooltip,
         };
         const context = {
             // TODO: store this somewhere so that we can map args appropriately after translation.
@@ -1485,6 +1490,16 @@ class Runtime extends EventEmitter {
                     : "String"; // TODO: distinguish number & string here?
                 blockJSON.outputShape =
                     ScratchBlocksConstants.OUTPUT_SHAPE_ROUND;
+                break;
+            case BlockType.MULTIREPORTER:
+                blockJSON.output = blockInfo.allowDropAnywhere ? null : "";
+                blockJSON.outputShape =
+                    ScratchBlocksConstants.OUTPUT_SHAPE_ROUND;
+                break;
+            case BlockType.ARRAY:
+                blockJSON.output = blockInfo.allowDropAnywhere ? null : "Array";
+                blockJSON.outputShape =
+                    ScratchBlocksConstants.OUTPUT_SHAPE_SQUARE;
                 break;
             case BlockType.BOOLEAN:
                 blockJSON.output = "Boolean";
@@ -1568,7 +1583,8 @@ class Runtime extends EventEmitter {
 
         if (
             blockInfo.blockType === BlockType.REPORTER ||
-            blockInfo.blockType === BlockType.BOOLEAN
+            blockInfo.blockType === BlockType.BOOLEAN ||
+            blockInfo.blockType === BlockType.ARRAY
         ) {
             if (!blockInfo.disableMonitor && context.inputList.length === 0) {
                 blockJSON.checkboxInFlyout = true;

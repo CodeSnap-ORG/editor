@@ -809,6 +809,8 @@ class ScriptTreeGenerator {
                     if (blockInfo) {
                         const type = blockInfo.info.blockType;
                         if (
+                            type === BlockType.ARRAY ||
+                            type === BlockType.MULTIREPORTER ||
                             type === BlockType.REPORTER ||
                             type === BlockType.BOOLEAN
                         ) {
