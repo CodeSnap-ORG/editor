@@ -1486,6 +1486,11 @@ class Runtime extends EventEmitter {
                 blockJSON.outputShape =
                     ScratchBlocksConstants.OUTPUT_SHAPE_ROUND;
                 break;
+            case BlockType.REPORTER:
+                blockJSON.output = blockInfo.allowDropAnywhere ? null : "Array";
+                blockJSON.outputShape =
+                    ScratchBlocksConstants.OUTPUT_SHAPE_SQUARE;
+                break;
             case BlockType.BOOLEAN:
                 blockJSON.output = "Boolean";
                 blockJSON.outputShape =
