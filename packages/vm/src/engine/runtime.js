@@ -1573,7 +1573,8 @@ class Runtime extends EventEmitter {
 
         if (
             blockInfo.blockType === BlockType.REPORTER ||
-            blockInfo.blockType === BlockType.BOOLEAN
+            blockInfo.blockType === BlockType.BOOLEAN ||
+            blockInfo.blockType === BlockType.ARRAY
         ) {
             if (!blockInfo.disableMonitor && context.inputList.length === 0) {
                 blockJSON.checkboxInFlyout = true;
