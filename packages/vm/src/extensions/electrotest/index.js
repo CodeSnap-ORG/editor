@@ -62,6 +62,14 @@ class ElectroTestBlocks {
                     opcode: "multiReporter",
                     text: "reporter that can be dropped in array/boolean arguments",
                 },
+                {
+                    blockType: BlockType.COMMAND,
+                    opcode: "helpUrlExists",
+                    text: "I have a helpURI",
+                    helpURI:
+                        "https://ampmod.miraheze.org/wiki/AmpMod_Wiki:UltiFools/If_()_then_()_else_()",
+                    tooltip: "And a tooltip too",
+                },
             ],
         };
     }
@@ -81,6 +89,10 @@ class ElectroTestBlocks {
 
     multiReporter() {
         return "I'm not joking";
+    }
+
+    helpUrlExists() {
+        console.log("Yes");
     }
 }
 

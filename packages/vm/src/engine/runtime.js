@@ -1427,6 +1427,8 @@ class Runtime extends EventEmitter {
             colour: blockInfo.color1 ?? categoryInfo.color1,
             colourSecondary: blockInfo.color2 ?? categoryInfo.color2,
             colourTertiary: blockInfo.color3 ?? categoryInfo.color3,
+            helpUrl: blockInfo.helpURI ?? categoryInfo.docsURI,
+            tooltip: blockInfo.tooltip,
         };
         const context = {
             // TODO: store this somewhere so that we can map args appropriately after translation.
