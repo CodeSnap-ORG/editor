@@ -1,9 +1,13 @@
 const VERSION = "0.3.0";
 
-class AmpMod {
+export class AmpMod {
     constructor() {
-        this.version = "VERSION";
+        this.version = VERSION;
+    }
+
+    ampmodWebLoggedIn() {
+        return false;
     }
 }
 
-module.exports = AmpMod;
+export default new AmpMod();
