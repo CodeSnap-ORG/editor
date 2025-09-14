@@ -5,4 +5,6 @@ module.exports = {
         process.env.ampmod_is_canary || process.env.BUILD_MODE == "canary"
             ? "AmpMod (canary build)"
             : "AmpMod",
+    
+    API_URL: "https://ampmod-api.onrender.com"
 };
