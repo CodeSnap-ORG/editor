@@ -39,12 +39,12 @@ export default function (projectId, vmState, params) {
     if (creatingProject) {
         Object.assign(opts, {
             method: "post",
-            url: `${storage.projectHost}/${qs}`,
+            url: `https://ampmod-api.onrender.com/${qs}`,
         });
     } else {
         Object.assign(opts, {
             method: "put",
-            url: `${storage.projectHost}/${projectId}${qs}`,
+            url: `https://ampmod-api.onrender.com/${projectId}${qs}`,
         });
     }
     return new Promise((resolve, reject) => {
