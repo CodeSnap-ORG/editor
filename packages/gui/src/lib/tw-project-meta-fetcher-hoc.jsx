@@ -2,14 +2,15 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import log from "./log";
+import { API_URL } from "./brand"
 
 import { setProjectTitle } from "../reducers/project-title";
 import { setAuthor, setDescription } from "../reducers/tw";
 
 export const fetchProjectMeta = async (projectId) => {
     const urls = [
-        `https://ampmod-api.onrender.com/projects/${projectId}`,
-        `https://ampmod-api.onrender.com/projects/${projectId}`,
+        `${API_URL.endsWith("/") ? API_URL.slice(0, -1) : API_URL}/projects/${projectId}`,
+        `${API_URL.endsWith("/") ? API_URL.slice(0, -1) : API_URL}/projects/${projectId}`,
     ];
     let firstError;
     for (const url of urls) {
