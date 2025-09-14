@@ -650,5 +650,19 @@ Blockly.Blocks['control_case'] = {
       "category": Blockly.Categories.control,
       "extensions": ["colours_control", "shape_switch_case"]
     });
+  },
+  
+  onchange: function(event) {
+    if (!this.workspace || this.isInFlyout) return;
+
+    // Check if the previous block is a 'switch'
+    const prevBlock = this.getPreviousBlock();
+    const isConnectedToSwitch = prevBlock && prevBlock.type === 'control_switch';
+
+    if (!isConnectedToSwitch) {
+      this.setWarningText(Blockly.Msg.CONTROL_SWITCH_BAD_SYNTAX, this.id);
+    } else {
+      this.setWarningText(null, this.id);
+    }
   }
 };
