@@ -30,7 +30,8 @@
     color-scheme: light;
     color: $text-primary-default;
 
-    font-family: Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family:
+        "Inter Variable", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .stage.full-screen {

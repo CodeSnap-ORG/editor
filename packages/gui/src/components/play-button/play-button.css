@@ -12,7 +12,8 @@
     background-color: $sound-primary;
     color: $ui-white;
     border-radius: 50%;
-    font-family: Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family:
+        "Inter Variable", "Helvetica Neue", Helvetica, Arial, sans-serif;
     user-select: none;
     cursor: pointer;
     transition: all 0.15s ease-out;

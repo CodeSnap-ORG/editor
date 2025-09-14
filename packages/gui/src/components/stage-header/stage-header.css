@@ -6,7 +6,8 @@
 .stage-header-wrapper {
     position: absolute;
     top: 0;
-    font-family: Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family:
+        "Inter Variable", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 [dir="ltr"] .stage-header-wrapper {
     right: 0;

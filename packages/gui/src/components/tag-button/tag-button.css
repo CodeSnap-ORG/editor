@@ -2,7 +2,8 @@
 @import "../../css/units.css";
 
 .tag-button {
-    font-family: Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family:
+        "Inter Variable", "Helvetica Neue", Helvetica, Arial, sans-serif;
     display: inline-flex;
     align-items: center;
 }
