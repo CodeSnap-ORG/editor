@@ -1,8 +1,8 @@
+import "../import-first";
 import React from "react";
 import render from "../app-target";
 import styles from "../info.css";
 import homeStyles from "./home.css";
-import "@fontsource/inter";
 import * as bowser from "bowser";
 
 import { APP_NAME } from "../../lib/brand";
