@@ -144,8 +144,7 @@ Blockly.Blocks['arrays_delimited_to_array'] = {
             "args0": [
                 {
                     "type": "input_value",
-                    "name": "TEXT",
-                    "check": "String"
+                    "name": "TEXT"
                 },
                 {
                     "type": "input_value",
@@ -158,6 +157,8 @@ Blockly.Blocks['arrays_delimited_to_array'] = {
     }
 };
 
+// The 2 blocks below are swapped due to a mistake during development.
+
 Blockly.Blocks['arrays_in_front_of'] = {
     /**
      * Block for reporting a list with an item added to the top.
@@ -165,7 +166,7 @@ Blockly.Blocks['arrays_in_front_of'] = {
      */
     init: function () {
         this.jsonInit({
-            "message0": "%1 in front of %2",
+            "message0": "%1 behind %2",
             "args0": [
                 {
                     "type": "input_value",
@@ -190,7 +191,7 @@ Blockly.Blocks['arrays_behind'] = {
      */
     init: function () {
         this.jsonInit({
-            "message0": "%1 behind %2",
+            "message0": "%1 in front of %2",
             "args0": [
                 {
                     "type": "input_value",

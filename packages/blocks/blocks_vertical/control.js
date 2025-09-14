@@ -650,5 +650,27 @@ Blockly.Blocks['control_case'] = {
       "category": Blockly.Categories.control,
       "extensions": ["colours_control", "shape_switch_case"]
     });
+  },
+  
+  onchange: function(event) {
+    if (!this.workspace || this.isInFlyout) return;
+
+    let isChildOfSwitch = false;
+    let parentBlock = this.getSurroundParent();
+
+    // Traverse up the block stack to find a 'switch' parent
+    while (parentBlock) {
+      if (parentBlock.type === 'control_switch') {
+        isChildOfSwitch = true;
+        break;
+      }
+      parentBlock = parentBlock.getSurroundParent();
+    }
+
+    if (!isChildOfSwitch) {
+      this.setWarningText(Blockly.Msg.CONTROL_SWITCH_BAD_SYNTAX, this.id);
+    } else {
+      this.setWarningText(null, this.id);
+    }
   }
 };

@@ -58,6 +58,7 @@ Blockly.Msg.CONTROL_CLEARCOUNTER = 'clear counter';
 Blockly.Msg.CONTROL_ALLATONCE = 'all at once';
 Blockly.Msg.CONTROL_ASYNC = 'in the background, do';
 Blockly.Msg.CONTROL_SWITCH = 'test if %1 is matched';
+Blockly.Msg.CONTROL_SWITCH_BAD_SYNTAX = '"if () was matched" blocks must be in a "test if () is matched" C-block.';
 Blockly.Msg.CONTROL_CASE = 'if %1 was matched, then';
 
 // Data blocks

@@ -2,6 +2,7 @@ const defaultsDeep = require("lodash.defaultsdeep");
 const path = require("path");
 const webpack = require("webpack");
 const zlib = require("zlib");
+const monorepoPackageJson = require("../../package.json");
 
 // Plugins
 const CopyWebpackPlugin = require("copy-webpack-plugin");
@@ -29,7 +30,7 @@ const htmlWebpackPluginCommon = {
 };
 
 // When this changes, the path for all JS files will change, bypassing any HTTP caches
-const CACHE_EPOCH = `amp-${process.env.npm_package_version}`;
+const CACHE_EPOCH = `amp-${monorepoPackageJson.version}`;
 
 const base = {
     mode: process.env.NODE_ENV === "production" ? "production" : "development",
@@ -237,7 +238,7 @@ module.exports = [
                     process.env.ROUTING_STYLE || "filehash",
                 ),
                 "process.env.ampmod_version": JSON.stringify(
-                    process.env.npm_package_version,
+                    monorepoPackageJson.version,
                 ),
                 "process.env.ampmod_is_canary":
                     process.env.BUILD_MODE === "canary",
@@ -247,7 +248,7 @@ module.exports = [
                 chunks: ["editor"],
                 template: "src/playground/index.ejs",
                 filename: IS_CBP_BUILD ? "editor/index.html" : "editor.html",
-                title: APP_NAME,
+                title: `${APP_NAME} - Block based programming, amplified`,
                 isEditor: true,
                 ...htmlWebpackPluginCommon,
             }),
@@ -255,7 +256,7 @@ module.exports = [
                 chunks: ["player"],
                 template: "src/playground/simple.ejs",
                 filename: IS_CBP_BUILD ? "player/index.html" : "player.html",
-                title: APP_NAME,
+                title: `${APP_NAME} - Block based programming, amplified`,
                 ...htmlWebpackPluginCommon,
             }),
             new HtmlWebpackPlugin({
@@ -264,7 +265,7 @@ module.exports = [
                 filename: IS_CBP_BUILD
                     ? "fullscreen/index.html"
                     : "fullscreen.html",
-                title: APP_NAME,
+                title: `${APP_NAME} - Block based programming, amplified`,
                 ...htmlWebpackPluginCommon,
             }),
             new HtmlWebpackPlugin({
@@ -278,7 +279,7 @@ module.exports = [
                 chunks: ["home"],
                 template: "src/playground/simple.ejs",
                 filename: "index.html",
-                title: `Home - ${APP_NAME}`,
+                title: `${APP_NAME} - Block based programming, amplified`,
                 ...htmlWebpackPluginCommon,
             }),
             new HtmlWebpackPlugin({
@@ -292,7 +293,7 @@ module.exports = [
                 chunks: ["credits"],
                 template: "src/playground/simple.ejs",
                 filename: IS_CBP_BUILD ? "credits/index.html" : "credits.html",
-                title: `Credits`,
+                title: `Credits - ${APP_NAME}`,
                 ...htmlWebpackPluginCommon,
             }),
             new CopyWebpackPlugin({
