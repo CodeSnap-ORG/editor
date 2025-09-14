@@ -2,6 +2,7 @@ const defaultsDeep = require("lodash.defaultsdeep");
 const path = require("path");
 const webpack = require("webpack");
 const zlib = require("zlib");
+const monorepoPackageJson = require("../../package.json");
 
 // Plugins
 const CopyWebpackPlugin = require("copy-webpack-plugin");
@@ -29,7 +30,7 @@ const htmlWebpackPluginCommon = {
 };
 
 // When this changes, the path for all JS files will change, bypassing any HTTP caches
-const CACHE_EPOCH = `amp-${process.env.npm_package_version}`;
+const CACHE_EPOCH = `amp-${monorepoPackageJson.version}`;
 
 const base = {
     mode: process.env.NODE_ENV === "production" ? "production" : "development",
@@ -237,7 +238,7 @@ module.exports = [
                     process.env.ROUTING_STYLE || "filehash",
                 ),
                 "process.env.ampmod_version": JSON.stringify(
-                    process.env.npm_package_version,
+                    monorepoPackageJson.version,
                 ),
                 "process.env.ampmod_is_canary":
                     process.env.BUILD_MODE === "canary",
