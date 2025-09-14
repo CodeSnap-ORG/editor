@@ -1,6 +1,7 @@
 import queryString from "query-string";
 import xhr from "xhr";
 import storage from "../lib/storage";
+import { API_URL } from "../lib/brand";
 
 /**
  * Save a project JSON to the project server.
@@ -39,12 +40,12 @@ export default function (projectId, vmState, params) {
     if (creatingProject) {
         Object.assign(opts, {
             method: "post",
-            url: `https://ampmod-api.onrender.com/${qs}`,
+            url: `${API_URL.endsWith("/") ? API_URL.slice(0, -1) : API_URL}/${qs}`,
         });
     } else {
         Object.assign(opts, {
             method: "put",
-            url: `https://ampmod-api.onrender.com/${projectId}${qs}`,
+            url: `${API_URL.endsWith("/") ? API_URL.slice(0, -1) : API_URL}/${projectId}${qs}`,
         });
     }
     return new Promise((resolve, reject) => {
