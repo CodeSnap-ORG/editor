@@ -655,11 +655,19 @@ Blockly.Blocks['control_case'] = {
   onchange: function(event) {
     if (!this.workspace || this.isInFlyout) return;
 
-    // Check if the previous block is a 'switch'
-    const prevBlock = this.getPreviousBlock();
-    const isConnectedToSwitch = prevBlock && prevBlock.type === 'control_switch';
+    let isChildOfSwitch = false;
+    let parentBlock = this.getSurroundParent();
 
-    if (!isConnectedToSwitch) {
+    // Traverse up the block stack to find a 'switch' parent
+    while (parentBlock) {
+      if (parentBlock.type === 'control_switch') {
+        isChildOfSwitch = true;
+        break;
+      }
+      parentBlock = parentBlock.getSurroundParent();
+    }
+
+    if (!isChildOfSwitch) {
       this.setWarningText(Blockly.Msg.CONTROL_SWITCH_BAD_SYNTAX, this.id);
     } else {
       this.setWarningText(null, this.id);
