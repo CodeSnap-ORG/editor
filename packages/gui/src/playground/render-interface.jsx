@@ -262,12 +262,7 @@ class Interface extends React.Component {
                                     />
                                 </p>
                             </div>
-                            <div
-                                className={classNames(
-                                    styles.infobox,
-                                    styles.unsharedUpdate,
-                                )}
-                            >
+                            <div className={classNames(styles.infobox)}>
                                 <h3>
                                     <FormattedMessage
                                         defaultMessage="Heads up!"
@@ -277,19 +272,18 @@ class Interface extends React.Component {
                                 </h3>
                                 <p>
                                     <FormattedMessage
-                                        defaultMessage="AmpMod is in its alpha stages. Please expect to notice radical changes. Compatibility with Scratch may be dropped in the near future. We may add a compatibility mode but do not get your hopes up. For updates, visit {link}."
+                                        defaultMessage="{APP_NAME} is in development. It is no longer considered alpha due to a heavy load of hard work put into new features, and it is expected to be stable by release time. However, breaking changes may occur. For updates, visit the {link}."
                                         description="Notice about active development"
                                         id="tw.development.notice"
                                         values={{
+                                            APP_NAME,
                                             link: (
                                                 <a
-                                                    href="https://ampmod.flarum.cloud"
+                                                    href="https://ampmod.flarum.cloud/blog"
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                 >
-                                                    {
-                                                        "https://ampmod.flarum.cloud"
-                                                    }
+                                                    {"AmpMod Blog"}
                                                 </a>
                                             ),
                                         }}
