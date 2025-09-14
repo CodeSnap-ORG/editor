@@ -199,7 +199,8 @@ AboutButton.propTypes = {
     onClick: PropTypes.func.isRequired,
 };
 
-fetch("https://ampmod-api.onrender.com/session",{credentials:"include"}).then(r=>r.json()).then(j=>console.log(j.username));
+fetch("https://ampmod-api.onrender.com/session",{credentials:"include"}).then(r=>r.json()).then(j=>state.session.externalUsername=j.username);
+
 
 // Unlike <MenuItem href="">, this uses an actual <a>
 const MenuItemLink = (props) => (
