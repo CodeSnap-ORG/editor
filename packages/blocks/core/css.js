@@ -468,8 +468,8 @@ Blockly.Css.CONTENT = [
   '.blocklyEditableText>text {',
     'fill: $colour_textFieldText;',
   '}',
-  '[data-argument-type="dropdown"], [data-argument-type="variable"] {',
-    'cursor: pointer;',
+  '[data-argument-type="dropdown"] *, [data-argument-type="variable"] *, .blocklyDropdownText {',
+    'cursor: pointer !important;',
   '}',
 
   '.blocklyEditableText>.blocklyEditableLabel {',
@@ -1095,6 +1095,7 @@ Blockly.Css.CONTENT = [
      /* 28px on the left for icon or checkbox; 7em on the right for shortcut. */
     'padding: 4px 7em 4px 28px;',
     'white-space: nowrap;',
+    'cursor: pointer;',
   '}',
 
   /* BiDi override for the resting state. */
