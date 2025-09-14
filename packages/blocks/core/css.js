@@ -403,30 +403,18 @@ Blockly.Css.CONTENT = [
   '}',
 
    '.blocklyDragging {',
-    /* backup for browsers (e.g. IE11) that don't support grabbing */
-    'cursor: url("<<<PATH>>>/handclosed.cur"), auto;',
     'cursor: grabbing;',
-    'cursor: -webkit-grabbing;',
-    'cursor: -moz-grabbing;',
   '}',
   /* Changes cursor on mouse down. Not effective in Firefox because of
     https://bugzilla.mozilla.org/show_bug.cgi?id=771241 */
   '.blocklyDraggable:active {',
-    /* backup for browsers (e.g. IE11) that don't support grabbing */
-    'cursor: url("<<<PATH>>>/handclosed.cur"), auto;',
     'cursor: grabbing;',
-    'cursor: -webkit-grabbing;',
-    'cursor: -moz-grabbing;',
   '}',
   /* Change the cursor on the whole drag surface in case the mouse gets
      ahead of block during a drag. This way the cursor is still a closed hand.
    */
   '.blocklyBlockDragSurface .blocklyDraggable {',
-    /* backup for browsers (e.g. IE11) that don't support grabbing */
-    'cursor: url("<<<PATH>>>/handclosed.cur"), auto;',
     'cursor: grabbing;',
-    'cursor: -webkit-grabbing;',
-    'cursor: -moz-grabbing;',
   '}',
 
   '.blocklyDragging.blocklyDraggingDelete {',
@@ -451,9 +439,6 @@ Blockly.Css.CONTENT = [
   '.blocklyDragging>.blocklyPathLight {',
     'fill-opacity: 1.0;',
     'stroke-opacity: 1.0;',
-  '}',
-
-  '.blocklyDragging>.blocklyPath {',
   '}',
 
   '.blocklyDisabled>.blocklyPath {',
@@ -482,6 +467,9 @@ Blockly.Css.CONTENT = [
   '.blocklyNonEditableText>text,',
   '.blocklyEditableText>text {',
     'fill: $colour_textFieldText;',
+  '}',
+  '[data-argument-type="dropdown"], [data-argument-type="variable"] {',
+    'cursor: pointer;',
   '}',
 
   '.blocklyEditableText>.blocklyEditableLabel {',
@@ -836,6 +824,7 @@ Blockly.Css.CONTENT = [
 
   '.blocklyDropdownMenu {',
     'padding: 0 !important;',
+    'cursor: pointer;',
   '}',
 
   '.blocklyDropDownNumPad {',
@@ -1161,6 +1150,7 @@ Blockly.Css.CONTENT = [
     'background-color: $colour_contextMenuActiveBackground;',
      /* Use an explicit top and bottom border so that the selection is visible',
       * in high contrast mode. */
+    'cursor: pointer;',
     'border-color: $colour_contextMenuActiveBackground;',
     'border-style: dotted;',
     'border-width: 1px 0;',
