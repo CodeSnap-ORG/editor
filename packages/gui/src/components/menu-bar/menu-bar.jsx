@@ -1266,7 +1266,7 @@ MenuBar.defaultProps = {
 const mapStateToProps = (state, ownProps) => {
     const loadingState = state.scratchGui.projectState.loadingState;
     const user =
-        state.session && state.session.session && state.session.session.user;
+        state.session.externalUsername || state.session.session && state.session.session.user;
     return {
         authorUsername: state.scratchGui.tw.author.username,
         authorThumbnailUrl: state.scratchGui.tw.author.thumbnail,
@@ -1289,7 +1289,7 @@ const mapStateToProps = (state, ownProps) => {
         sessionExists:
             state.session && typeof state.session.session !== "undefined",
         settingsMenuOpen: settingsMenuOpen(state),
-        username: user ? user.username : null,
+        username: user ? user : null,
         userOwnsProject:
             ownProps.authorUsername &&
             user &&
