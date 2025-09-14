@@ -248,7 +248,7 @@ module.exports = [
                 chunks: ["editor"],
                 template: "src/playground/index.ejs",
                 filename: IS_CBP_BUILD ? "editor/index.html" : "editor.html",
-                title: APP_NAME,
+                title: `${APP_NAME} - Block based programming, amplified`,
                 isEditor: true,
                 ...htmlWebpackPluginCommon,
             }),
@@ -256,7 +256,7 @@ module.exports = [
                 chunks: ["player"],
                 template: "src/playground/simple.ejs",
                 filename: IS_CBP_BUILD ? "player/index.html" : "player.html",
-                title: APP_NAME,
+                title: `${APP_NAME} - Block based programming, amplified`,
                 ...htmlWebpackPluginCommon,
             }),
             new HtmlWebpackPlugin({
@@ -265,7 +265,7 @@ module.exports = [
                 filename: IS_CBP_BUILD
                     ? "fullscreen/index.html"
                     : "fullscreen.html",
-                title: APP_NAME,
+                title: `${APP_NAME} - Block based programming, amplified`,
                 ...htmlWebpackPluginCommon,
             }),
             new HtmlWebpackPlugin({
@@ -279,7 +279,7 @@ module.exports = [
                 chunks: ["home"],
                 template: "src/playground/simple.ejs",
                 filename: "index.html",
-                title: `Home - ${APP_NAME}`,
+                title: `${APP_NAME} - Block based programming, amplified`,
                 ...htmlWebpackPluginCommon,
             }),
             new HtmlWebpackPlugin({
@@ -293,7 +293,7 @@ module.exports = [
                 chunks: ["credits"],
                 template: "src/playground/simple.ejs",
                 filename: IS_CBP_BUILD ? "credits/index.html" : "credits.html",
-                title: `Credits`,
+                title: `Credits - ${APP_NAME}`,
                 ...htmlWebpackPluginCommon,
             }),
             new CopyWebpackPlugin({
