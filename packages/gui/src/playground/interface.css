@@ -100,8 +100,8 @@ a {
     padding: 0.5rem;
     margin: 5px 0 8px 0;
     border-radius: 0.5rem;
-    border: 1px solid var(--ui-tertiary);
-    background-color: var(--ui-secondary);
+    border: 1px solid var(--badge-border);
+    background-color: var(--badge-background);
 }
 .infobox p {
     margin: 4px 0;
