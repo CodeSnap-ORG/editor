@@ -5,7 +5,6 @@ gracefulFs.gracefulify(realFs);
 
 var CopyWebpackPlugin = require("copy-webpack-plugin");
 var path = require("path");
-var UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 module.exports = [
   {
@@ -18,6 +17,19 @@ module.exports = [
       libraryTarget: "commonjs2",
       path: path.resolve(__dirname, "dist"),
       filename: "[name].js",
+    },
+    module: {
+      rules: [
+        {
+          include: path.resolve("src"),
+          test: /\.js$/,
+          loader: "esbuild-loader",
+          options: {
+            loader: "js",
+            target: "es2020", // Using an older version because blocks is ancient and uses ancient build tools.
+          },
+        },
+      ],
     },
     optimization: {
       minimize: false,
@@ -38,14 +50,23 @@ module.exports = [
       path: path.resolve(__dirname, "dist", "web"),
       filename: "[name].js",
     },
-    optimization: {
-      minimizer: [
-        new UglifyJsPlugin({
-          uglifyOptions: {
-            mangle: false,
+    module: {
+      rules: [
+        {
+          include: path.resolve("src"),
+          test: /\.js$/,
+          loader: "esbuild-loader",
+          options: {
+            loader: "js",
+            target: "es2015",
+            minify: true, // esbuild-loader has built-in minification
           },
-        }),
+        },
       ],
+    },
+    optimization: {
+      // UglifyJsPlugin is replaced by esbuild-loader's built-in minification.
+      minimize: true,
     },
     plugins: [],
   },
@@ -55,6 +76,22 @@ module.exports = [
     output: {
       filename: "[name].js",
       path: path.resolve(__dirname, "gh-pages"),
+    },
+    module: {
+      rules: [
+        {
+          include: [
+            path.resolve("src"),
+            path.resolve("node_modules", "scratch-render-fonts"),
+          ],
+          test: /\.js$/,
+          loader: "esbuild-loader",
+          options: {
+            loader: "js",
+            target: "es2015",
+          },
+        },
+      ],
     },
     optimization: {
       minimize: false,

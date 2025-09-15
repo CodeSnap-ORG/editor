@@ -12,9 +12,10 @@ const base = {
             {
                 include: path.resolve("src"),
                 test: /\.js$/,
-                loader: "babel-loader",
+                loader: "esbuild-loader",
                 options: {
-                    presets: [["env", { targets: {} }]],
+                    loader: "js",
+                    target: "es2020",
                 },
             },
         ],

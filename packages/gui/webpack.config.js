@@ -69,7 +69,7 @@ const base = {
         publicPath: root,
     },
     resolve: {
-        symlinks: false,
+        symlinks: true,
         alias: {
             "text-encoding$": path.resolve(
                 __dirname,
@@ -85,27 +85,17 @@ const base = {
         rules: [
             {
                 test: /\.jsx?$/,
-                loader: "babel-loader",
+                loader: "esbuild-loader",
                 include: [
                     path.resolve(__dirname, "src"),
+                    path.resolve(__dirname, "../vm"),
                     /node_modules[\\/]scratch-[^\\/]+[\\/]src/,
-                    /node_modules[\\/]pify/,
-                    /node_modules[\\/]@vernier[\\/]godirect/,
+                    /(\.\.\/\.\.\/)?node_modules[\\/]pify/,
+                    /(\.\.\/\.\.\/)?node_modules[\\/]@vernier[\\/]godirect/,
                 ],
                 options: {
-                    cacheDirectory: true,
-                    // Explicitly disable babelrc so we don't catch various config
-                    // in much lower dependencies.
-                    babelrc: false,
-                    plugins: [
-                        [
-                            "react-intl",
-                            {
-                                messagesDir: "./translations/messages/",
-                            },
-                        ],
-                    ],
-                    presets: ["@babel/preset-env", "@babel/preset-react"],
+                    target: "es2020",
+                    loader: "jsx",
                 },
             },
             {

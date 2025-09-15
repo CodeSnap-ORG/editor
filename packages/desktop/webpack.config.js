@@ -10,9 +10,10 @@ const base = {
     rules: [
       {
         test: /\.jsx?$/,
-        loader: "babel-loader",
+        loader: "esbuild-loader",
         options: {
-          presets: ["@babel/preset-env", "@babel/preset-react"],
+          target: "esnext",
+          loader: "jsx",
         },
       },
       {

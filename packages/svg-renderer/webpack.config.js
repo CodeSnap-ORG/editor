@@ -21,9 +21,10 @@ const base = {
                     path.resolve("node_modules", "scratch-render-fonts"),
                 ],
                 test: /\.js$/,
-                loader: "babel-loader",
+                loader: "esbuild-loader",
                 options: {
-                    presets: [["env", { targets: {} }]],
+                    loader: "js",
+                    target: "es2020",
                 },
             },
         ],

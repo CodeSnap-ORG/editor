@@ -17,23 +17,11 @@ const base = {
         rules: [
             {
                 test: /\.jsx?$/,
-                loader: "babel-loader",
+                loader: "esbuild-loader",
                 include: path.resolve(__dirname, "src"),
                 options: {
-                    plugins: ["transform-object-rest-spread"],
-                    presets: [
-                        [
-                            "@babel/preset-env",
-                            {
-                                targets: [
-                                    "last 3 versions",
-                                    "Safari >= 8",
-                                    "iOS >= 8",
-                                ],
-                            },
-                        ],
-                        "@babel/preset-react",
-                    ],
+                    target: "es2020",
+                    loader: "jsx",
                 },
             },
             {

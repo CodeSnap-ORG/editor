@@ -25,11 +25,13 @@ const base = {
         rules: [
             {
                 test: /\.js$/,
-                loader: "babel-loader",
-                include: path.resolve(__dirname, "src"),
-                query: {
-                    presets: [["@babel/preset-env"]],
-                    cacheDirectory: true,
+                loader: "esbuild-loader",
+                include: [
+                    path.resolve(__dirname, "src"),
+                    path.resolve(__dirname, "node_modules/scratch-vm"),
+                ],
+                options: {
+                    target: "es2020",
                 },
             },
             {
