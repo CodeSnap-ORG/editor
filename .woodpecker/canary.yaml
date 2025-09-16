@@ -47,16 +47,6 @@ steps:
       # clone and move the target repo
       - git clone -b pages https://$CBTOKEN@codeberg.org/ampmod/canary.git amp-build
       - chmod -R a+w amp-build
-  - name: clean-up
-    when:
-      - event: push
-        branch: develop
-      - event: manual
-        branch: develop
-    image: alpine/git
-    commands:
-      - cd amp-build
-      - git rm -rf ./*
   - name: install
     when:
       - event: push
@@ -95,9 +85,11 @@ steps:
       - git config --global --add safe.directory /woodpecker/src/codeberg.org/ampmod/ampmod/amp-build
       - git config --global user.email "no@thankyou.com"
       - git config --global user.name "CI Builder"
-      # Push to target
-      - cp -a ./packages/gui/build/. ./amp-build
+      # Navigate to the canary build directory
       - cd ./amp-build
+      # Remove all previous files, then copy in the new build
+      - git rm -rf ./*
+      - cp -a ../packages/gui/build/. .
       - git add --all
       - git commit -m "Woodpecker CI Build at $( env TZ=America/Chicago date +'%Y-%m-%d %X %Z' )"
-      - git push -u origin pages
+      - git push -f -u origin pages
