@@ -254,9 +254,10 @@ module.exports = [
             }),
             new HtmlWebpackPlugin({
                 chunks: ["player"],
-                template: "src/playground/simple.ejs",
+                template: "src/playground/index.ejs",
                 filename: IS_CBP_BUILD ? "player/index.html" : "player.html",
                 title: `${APP_NAME} - Block based programming, amplified`,
+                isEditor: true,
                 ...htmlWebpackPluginCommon,
             }),
             new HtmlWebpackPlugin({
