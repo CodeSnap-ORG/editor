@@ -200,13 +200,13 @@ class CustomExtensionModal extends React.Component {
 
     isUnsandboxed() {
         if (this.state.type === "url") {
-            return isTrustedExtension(this.state.url);
+            return isTrustedExtension(this.state.url) || this.state.unsandboxed;
         }
         return this.state.unsandboxed;
     }
 
     canChangeUnsandboxed() {
-        return this.state.type !== "url";
+        return true;
     }
 
     handleChangeUnsandboxed(e) {

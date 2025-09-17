@@ -11,6 +11,8 @@ import Modal from "../../containers/modal.jsx";
 import FileInput from "./file-input.jsx";
 import styles from "./custom-extension-modal.css";
 import FancyCheckbox from "../tw-fancy-checkbox/checkbox.jsx";
+import { isTrustedExtension } from "../../containers/tw-security-manager.jsx";
+
 import { APP_NAME } from "../../lib/brand";
 
 const messages = defineMessages({
@@ -132,41 +134,7 @@ const CustomExtensionModal = (props) => (
                 </React.Fragment>
             )}
 
-            {props.onChangeUnsandboxed ? (
-                <React.Fragment>
-                    <label className={styles.unsandboxedContainer}>
-                        <FancyCheckbox
-                            className={styles.unsandboxedCheckbox}
-                            checked={props.unsandboxed}
-                            onChange={props.onChangeUnsandboxed}
-                        />
-                        <FormattedMessage
-                            defaultMessage="Run without sandbox"
-                            description="Message that appears in custom extension prompt"
-                            id="tw.customExtensionModal.unsandboxed"
-                        />
-                    </label>
-                    {props.unsandboxed && (
-                        <p className={styles.unsandboxedWarning}>
-                            <FormattedMessage
-                                // eslint-disable-next-line max-len
-                                defaultMessage="Loading extensions without the sandbox is dangerous and should not be enabled if you don't know what you're doing."
-                                description="Warning that appears when disabling extension security sandbox"
-                                id="tw.customExtensionModal.unsandboxedWarning1"
-                            />
-                            <FormattedMessage
-                                // eslint-disable-next-line max-len
-                                defaultMessage="Unsandboxed extensions can corrupt your project, delete your settings, phish for passwords, and other bad things. The {APP_NAME} developers are not responsible for any resulting issues."
-                                description="Warning that appears when disabling extension security sandbox"
-                                id="tw.customExtensionModal.unsandboxedWarning2"
-                                values={{
-                                    APP_NAME,
-                                }}
-                            />
-                        </p>
-                    )}
-                </React.Fragment>
-            ) : props.unsandboxed ? (
+            {props.type == "url" && isTrustedExtension(props.url) ? (
                 <p className={styles.trustedExtension}>
                     <FormattedMessage
                         // eslint-disable-next-line max-len
@@ -176,14 +144,54 @@ const CustomExtensionModal = (props) => (
                     />
                 </p>
             ) : (
-                <p>
-                    <FormattedMessage
-                        // eslint-disable-next-line max-len
-                        defaultMessage="Extensions from untrusted URLs will always be loaded with the sandbox for security."
-                        description="Message that appears in custom extension prompt"
-                        id="tw.customExtensionModal.untrusted"
-                    />
-                </p>
+                <React.Fragment>
+                    {props.onChangeUnsandboxed ? (
+                        <React.Fragment>
+                            <label className={styles.unsandboxedContainer}>
+                                <FancyCheckbox
+                                    className={styles.unsandboxedCheckbox}
+                                    checked={props.unsandboxed}
+                                    onChange={props.onChangeUnsandboxed}
+                                />
+                                <FormattedMessage
+                                    defaultMessage="Run without sandbox"
+                                    description="Message that appears in custom extension prompt"
+                                    id="tw.customExtensionModal.unsandboxed"
+                                />
+                            </label>
+                            {props.unsandboxed &&
+                                props.type == "url" &&
+                                !isTrustedExtension(props.url) && (
+                                    <p className={styles.unsandboxedWarning}>
+                                        <FormattedMessage
+                                            // eslint-disable-next-line max-len
+                                            defaultMessage="Loading extensions without the sandbox is dangerous and should not be enabled if you don't know what you're doing."
+                                            description="Warning that appears when disabling extension security sandbox"
+                                            id="tw.customExtensionModal.unsandboxedWarning1"
+                                        />
+                                        <FormattedMessage
+                                            // eslint-disable-next-line max-len
+                                            defaultMessage="Unsandboxed extensions can corrupt your project, delete your settings, phish for passwords, and other bad things. The {APP_NAME} developers are not responsible for any resulting issues."
+                                            description="Warning that appears when disabling extension security sandbox"
+                                            id="tw.customExtensionModal.unsandboxedWarning2"
+                                            values={{
+                                                APP_NAME,
+                                            }}
+                                        />
+                                    </p>
+                                )}
+                        </React.Fragment>
+                    ) : (
+                        <p>
+                            <FormattedMessage
+                                // eslint-disable-next-line max-len
+                                defaultMessage="Extensions from untrusted URLs will always be loaded with the sandbox for security."
+                                description="Message that appears in custom extension prompt"
+                                id="tw.customExtensionModal.untrusted"
+                            />
+                        </p>
+                    )}
+                </React.Fragment>
             )}
 
             <div className={styles.buttonRow}>
