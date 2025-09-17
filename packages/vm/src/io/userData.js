@@ -1,24 +1,5 @@
-class UserData {
-    constructor() {
-        this._username = "";
-    }
-
-    /**
-     * Handler for updating the username
-     * @param {object} data Data posted to this ioDevice.
-     * @property {!string} username The new username.
-     */
-    postData(data) {
-        this._username = data.username;
-    }
-
-    /**
-     * Getter for username. Initially empty string, until set via postData.
-     * @returns {!string} The current username
-     */
-    getUsername() {
-        return this._username;
-    }
-}
-
+class UserData { 
+  constructor() { this._username = ''; } 
+  async fetchUsername() { this._username = (await (await fetch('https://ampmod-api.onrender.com/session', { credentials: 'include' })).json()).username; } 
+} 
 module.exports = UserData;
