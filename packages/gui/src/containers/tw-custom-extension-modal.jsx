@@ -15,6 +15,40 @@ import {
 } from "../lib/tw-persisted-unsandboxed.js";
 
 /**
+ * amp: Saves a custom extension to localStorage in the correct format.
+ *
+ * @param {string} name - Name of the extension.
+ * @param {string} description - Description of the extension.
+ * @param {string} jsText - The raw JavaScript code (not base64 yet).
+ */
+const saveExtensionToLocalStorage = (name, description, jsText) => {
+    const key = `${process.env.ampmod_is_canary ? "canary" : "amp"}:saved-custom-extensions`;
+
+    // Load existing data or create a new object
+    let data = { extensions: [] };
+    try {
+        if (localStorage[key]) {
+            data = JSON.parse(localStorage[key]);
+        }
+    } catch (e) {
+        console.warn("Failed to parse saved custom extensions:", e);
+    }
+
+    // Encode the JS code to base64
+    const base64 = btoa(unescape(encodeURIComponent(jsText)));
+
+    // Add new extension
+    data.extensions.push({
+        name,
+        description,
+        base64,
+    });
+
+    // Save back to localStorage
+    localStorage[key] = JSON.stringify(data);
+};
+
+/**
  * @param {Blob} blob Blob
  * @returns {Promise<string>} data: uri
  */
@@ -130,7 +164,7 @@ class CustomExtensionModal extends React.Component {
         }
     }
 
-    async handleLoadExtension() {
+    async handleLoadExtension(extraOptions = {}) {
         this.handleClose();
         try {
             const urls = await this.getExtensionURLs();
@@ -147,9 +181,31 @@ class CustomExtensionModal extends React.Component {
             for (const url of urls) {
                 await this.props.vm.extensionManager.loadExtensionURL(url);
             }
+
+            const { saveToLocalStorage, saveName, saveDescription } =
+                extraOptions;
+
+            if (saveToLocalStorage && saveName && saveDescription) {
+                if (this.state.type === "text") {
+                    saveExtensionToLocalStorage(saveName, saveDescription, {
+                        jsText: this.state.text,
+                    });
+                } else if (this.state.type === "url") {
+                    saveExtensionToLocalStorage(saveName, saveDescription, {
+                        uri: this.state.url,
+                    });
+                } else if (this.state.type === "file") {
+                    const files = Array.from(this.state.files);
+                    for (const file of files) {
+                        const text = await file.text();
+                        saveExtensionToLocalStorage(saveName, saveDescription, {
+                            jsText: text,
+                        });
+                    }
+                }
+            }
         } catch (err) {
             log.error(err);
-            // eslint-disable-next-line no-alert
             alert(err);
         }
     }
