@@ -50,7 +50,6 @@ import InvalidEmbed from "../components/tw-invalid-embed/invalid-embed.jsx";
 import { APP_NAME } from "../lib/brand.js";
 import Clippy from "../containers/amp-clippy.jsx";
 import Footer from "../components/amp-footer/footer.jsx";
-import "@fontsource/inter";
 import styles from "./interface.css";
 
 const isInvalidEmbed = window.parent !== window;

@@ -8,7 +8,8 @@
     justify-content: flex-start;
     position: relative;
 
-    font-family: Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family:
+        "Inter Variable", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 0.8rem;
     color: $text-primary;
     border-width: 2px;
@@ -70,7 +71,8 @@
     font-size: 0.625rem;
     color: $text-primary;
     user-select: none;
-    font-family: Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family:
+        "Inter Variable", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .sprite-name,

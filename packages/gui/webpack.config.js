@@ -248,15 +248,16 @@ module.exports = [
                 chunks: ["editor"],
                 template: "src/playground/index.ejs",
                 filename: IS_CBP_BUILD ? "editor/index.html" : "editor.html",
-                title: `${APP_NAME} - Block based programming, amplified`,
+                title: `${APP_NAME} - Block-based programming, amplified`,
                 isEditor: true,
                 ...htmlWebpackPluginCommon,
             }),
             new HtmlWebpackPlugin({
                 chunks: ["player"],
-                template: "src/playground/simple.ejs",
+                template: "src/playground/index.ejs",
                 filename: IS_CBP_BUILD ? "player/index.html" : "player.html",
-                title: `${APP_NAME} - Block based programming, amplified`,
+                title: `${APP_NAME} - Block-based programming, amplified`,
+                isEditor: true,
                 ...htmlWebpackPluginCommon,
             }),
             new HtmlWebpackPlugin({
@@ -265,7 +266,7 @@ module.exports = [
                 filename: IS_CBP_BUILD
                     ? "fullscreen/index.html"
                     : "fullscreen.html",
-                title: `${APP_NAME} - Block based programming, amplified`,
+                title: `${APP_NAME} - Block-based programming, amplified`,
                 ...htmlWebpackPluginCommon,
             }),
             new HtmlWebpackPlugin({
@@ -279,7 +280,7 @@ module.exports = [
                 chunks: ["home"],
                 template: "src/playground/simple.ejs",
                 filename: "index.html",
-                title: `${APP_NAME} - Block based programming, amplified`,
+                title: `${APP_NAME} - Block-based programming, amplified`,
                 ...htmlWebpackPluginCommon,
             }),
             new HtmlWebpackPlugin({

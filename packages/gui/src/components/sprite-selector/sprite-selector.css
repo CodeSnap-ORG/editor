@@ -5,7 +5,8 @@
 .sprite-selector {
     flex-grow: 1;
     position: relative;
-    font-family: Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family:
+        "Inter Variable", "Helvetica Neue", Helvetica, Arial, sans-serif;
     margin-right: calc($space / 2);
     background-color: $ui-secondary;
     border-top-right-radius: $space;
