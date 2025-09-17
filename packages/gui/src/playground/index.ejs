@@ -355,7 +355,7 @@
         };
 
         window.SplashEnd = () => {
-          splash.hidden = true;
+          splash.parentNode.removeChild(splash);
           window.onerror = null;
         };
       })();
