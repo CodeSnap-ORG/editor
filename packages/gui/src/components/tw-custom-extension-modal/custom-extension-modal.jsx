@@ -161,8 +161,8 @@ const CustomExtensionModal = (props) => {
                                     />
                                 </label>
                                 {props.unsandboxed &&
-                                    props.type === "url" &&
-                                    !isTrustedExtension(props.url) && (
+                                    (!props.type === "url" ||
+                                        !isTrustedExtension(props.url)) && (
                                         <p
                                             className={
                                                 styles.unsandboxedWarning
