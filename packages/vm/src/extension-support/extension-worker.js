@@ -115,7 +115,6 @@ Object.assign(global.Scratch, ScratchCommon, {
         ),
     translate,
 });
-Object.assign(global.amp, AmpModApi);
 
 /**
  * Expose only specific parts of the worker to extensions.

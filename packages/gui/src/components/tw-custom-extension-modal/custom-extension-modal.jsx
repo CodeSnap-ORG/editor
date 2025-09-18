@@ -201,24 +201,41 @@ const CustomExtensionModal = (props) => {
                     </label>
 
                     {shouldSave && (
-                        <div className={styles.saveInputs}>
-                            <input
-                                type="text"
-                                placeholder="Extension name"
-                                className={styles.urlInput}
-                                value={saveName}
-                                onChange={(e) => setSaveName(e.target.value)}
-                            />
-                            <input
-                                type="text"
-                                placeholder="Extension description"
-                                className={styles.urlInput}
-                                value={saveDescription}
-                                onChange={(e) =>
-                                    setSaveDescription(e.target.value)
-                                }
-                            />
-                        </div>
+                        <>
+                            <p>
+                                This extension will only be saved to your
+                                computer and will not be available for other
+                                users. If you would like to allow others to use
+                                this extension, please see{" "}
+                                <a
+                                    href="https://codeberg.org/ampmod/extensions/"
+                                    target="_blank"
+                                >
+                                    the extension gallery repository
+                                </a>
+                                .
+                            </p>
+                            <div className={styles.saveInputs}>
+                                <input
+                                    type="text"
+                                    placeholder="Extension name"
+                                    className={styles.urlInput}
+                                    value={saveName}
+                                    onChange={(e) =>
+                                        setSaveName(e.target.value)
+                                    }
+                                />
+                                <input
+                                    type="text"
+                                    placeholder="Extension description"
+                                    className={styles.urlInput}
+                                    value={saveDescription}
+                                    onChange={(e) =>
+                                        setSaveDescription(e.target.value)
+                                    }
+                                />
+                            </div>
+                        </>
                     )}
                 </div>
 

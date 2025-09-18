@@ -123,22 +123,22 @@ const parseExtLocalStorage = async () => {
         .map((extension) => {
             if (extension.uri) {
                 return {
-                    extensionId: "saved_to_local",
+                    extensionId: `local_${extension.id}`,
                     iconURL: localExtensionIcon,
                     name: extension.name,
                     description: extension.description,
                     extensionURL: extension.uri,
-                    tags: ["ampmod", "localStorage"],
+                    tags: ["localStorage"],
                     featured: true,
                 };
             } else if (extension.base64) {
                 return {
-                    extensionId: "saved_to_local",
+                    extensionId: `saved_to_local_${extension.id}`,
                     iconURL: localExtensionIcon,
                     name: extension.name,
                     description: extension.description,
                     extensionURL: `data:application/javascript;base64,${extension.base64}`,
-                    tags: ["ampmod", "localStorage"],
+                    tags: ["localStorage"],
                     featured: true,
                 };
             }
