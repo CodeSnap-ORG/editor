@@ -19,13 +19,12 @@ import {
  *
  * @param {string} name - Name of the extension.
  * @param {string} description - Description of the extension.
- * @param {string} jsText - The raw JavaScript code (not base64 yet).
+ * @param {object} options - Options object that can contain either jsText or uri.
  */
-const saveExtensionToLocalStorage = (name, description, jsText) => {
+const saveExtensionToLocalStorage = async (name, description, options) => {
     const key = `${process.env.ampmod_is_canary ? "canary" : "amp"}:saved-custom-extensions`;
-
-    // Load existing data or create a new object
     let data = { extensions: [] };
+
     try {
         if (localStorage[key]) {
             data = JSON.parse(localStorage[key]);
@@ -34,17 +33,28 @@ const saveExtensionToLocalStorage = (name, description, jsText) => {
         console.warn("Failed to parse saved custom extensions:", e);
     }
 
-    // Encode the JS code to base64
-    const base64 = btoa(unescape(encodeURIComponent(jsText)));
+    // Generate a unique SHA hash using the Web Crypto API
+    const hashInput = `${Math.random().toString(36).substring(2, 15)}${Date.now()}`;
+    const encoder = new TextEncoder();
+    const dataToHash = encoder.encode(hashInput);
+    const hashBuffer = await crypto.subtle.digest("SHA-1", dataToHash);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const id = hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
 
-    // Add new extension
-    data.extensions.push({
+    const newExtension = {
+        id,
         name,
         description,
-        base64,
-    });
+    };
 
-    // Save back to localStorage
+    if (options.jsText) {
+        const base64 = btoa(unescape(encodeURIComponent(options.jsText)));
+        newExtension.base64 = base64;
+    } else if (options.uri) {
+        newExtension.uri = options.uri;
+    }
+
+    data.extensions.push(newExtension);
     localStorage[key] = JSON.stringify(data);
 };
 
