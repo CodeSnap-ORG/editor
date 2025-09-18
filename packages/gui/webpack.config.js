@@ -53,6 +53,7 @@ const base = {
                 { from: /^\/\d+\/editor\/?$/, to: "/ameditor.html" },
                 { from: /^\/\d+\/embed\/?$/, to: "/amembed.html" },
                 { from: /^\/addons\/?$/, to: "/amaddons.html" },
+                { from: /./, to: "/404.html" },
             ],
         },
     },
@@ -214,6 +215,7 @@ module.exports = [
             "addon-settings": "./src/playground/addon-settings.jsx",
             credits: "./src/playground/credits/credits.jsx",
             home: "./src/playground/home/home.jsx",
+            notfound: "./src/playground/not-found/not-found.jsx",
         },
         output: {
             path: path.resolve(__dirname, "build"),
@@ -295,6 +297,13 @@ module.exports = [
                 template: "src/playground/simple.ejs",
                 filename: IS_CBP_BUILD ? "credits/index.html" : "credits.html",
                 title: `Credits - ${APP_NAME}`,
+                ...htmlWebpackPluginCommon,
+            }),
+            new HtmlWebpackPlugin({
+                chunks: ["notfound"],
+                template: "src/playground/simple.ejs",
+                filename: "404.html",
+                title: `Not Found - ${APP_NAME}`,
                 ...htmlWebpackPluginCommon,
             }),
             new CopyWebpackPlugin({
