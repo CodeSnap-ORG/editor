@@ -119,7 +119,7 @@ class CustomExtensionModal extends React.Component {
 
         if (this.state.type === "text") {
             return Promise.resolve([
-                `data:application/javascript,${encodeURIComponent(this.state.text)}`,
+                `data:application/javascript;base64,${btoa(unescape(this.state.text))}`,
             ]);
         }
 
