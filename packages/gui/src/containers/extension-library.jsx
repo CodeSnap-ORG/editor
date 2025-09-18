@@ -128,7 +128,7 @@ const parseExtLocalStorage = async () => {
                     name: extension.name,
                     description: extension.description,
                     extensionURL: extension.uri,
-                    tags: ["ampmod"],
+                    tags: ["ampmod", "localStorage"],
                     featured: true,
                 };
             } else if (extension.base64) {
@@ -138,7 +138,7 @@ const parseExtLocalStorage = async () => {
                     name: extension.name,
                     description: extension.description,
                     extensionURL: `data:application/javascript;base64,${extension.base64}`,
-                    tags: ["ampmod"],
+                    tags: ["ampmod", "localStorage"],
                     featured: true,
                 };
             }

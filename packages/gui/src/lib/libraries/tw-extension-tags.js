@@ -5,6 +5,7 @@ export default [
     { tag: "scratch", intlLabel: "Scratch" },
     { tag: "tw", intlLabel: "TurboWarp" },
     { tag: "ampmod", intlLabel: APP_NAME },
+    { tag: "localStorage", intlLabel: "Locally Saved" },
     // Categorize extensions by type.
     // For now leave untranslated
     { tag: "internet", intlLabel: "Internet" },
