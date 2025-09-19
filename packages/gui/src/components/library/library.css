@@ -32,6 +32,7 @@
     height: 100%;
     width: 600px;
     padding: calc($space * 3);
+    overflow-y: scroll;
 }
 
 .filter-bar-item {
