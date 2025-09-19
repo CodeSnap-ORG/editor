@@ -22,6 +22,12 @@ if (root.length > 0 && !root.endsWith("/")) {
     throw new Error("If ROOT is defined, it must have a trailing slash.");
 }
 
+if (process.env.ENABLE_SERVICE_WORKER) {
+    console.warn(
+        "amp: ENABLE_SERVICE_WORKER is deprecated as the service worker is now enabled by default. To disable the service worker, use DISABLE_SERVICE_WORKER instead.",
+    );
+}
+
 const IS_CBP_BUILD = Boolean(process.env.IS_CBP_BUILD);
 const htmlWebpackPluginCommon = {
     root: root,
@@ -232,8 +238,8 @@ module.exports = [
             new webpack.DefinePlugin({
                 "process.env.NODE_ENV": `"${process.env.NODE_ENV}"`,
                 "process.env.DEBUG": Boolean(process.env.DEBUG),
-                "process.env.ENABLE_SERVICE_WORKER": JSON.stringify(
-                    process.env.ENABLE_SERVICE_WORKER || "",
+                "process.env.DISABLE_SERVICE_WORKER": JSON.stringify(
+                    process.env.DISABLE_SERVICE_WORKER || "",
                 ),
                 "process.env.ROOT": JSON.stringify(root),
                 "process.env.ROUTING_STYLE": JSON.stringify(
