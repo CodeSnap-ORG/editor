@@ -41,10 +41,27 @@
 
 .expand-caret {
     transform: rotate(-90deg);
+    margin-left: auto;
 }
 
 [dir="rtl"] .expand-caret {
     transform: rotate(90deg);
+    margin-left: 0;
+    margin-right: auto;
+}
+
+.menu-item-title-and-subtitle {
+    display: flex;
+    flex-direction: column;
+    line-height: normal; /* overrides inherited line-height */
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+
+.menu-item-subtitle {
+    font-size: 0.55rem;
+    opacity: 0.65;
+    color: inherit;
 }
 
 /* Extra padding to deal with scrollbar overlapping options in Firefox */

@@ -11,6 +11,7 @@ import {
     GUI_LIGHT,
     GUI_DARK,
     GUI_AMOLED,
+    GUI_HIGH_CONTRAST,
     Theme,
 } from "../../lib/themes/index.js";
 import { closeSettingsMenu } from "../../reducers/menus.js";
@@ -36,12 +37,18 @@ const options = defineMessages({
         description: "AMOLED theme option with true black",
         id: "amp.gui.amoled",
     },
+    [GUI_HIGH_CONTRAST]: {
+        defaultMessage: "High Contrast (Alpha)",
+        description: "High contrast theme option",
+        id: "amp.gui.highContrast",
+    },
 });
 
 const icons = {
     [GUI_LIGHT]: lightModeIcon,
     [GUI_DARK]: darkModeIcon,
     [GUI_AMOLED]: darkModeIcon,
+    [GUI_HIGH_CONTRAST]: darkModeIcon,
 };
 
 const GuiIcon = ({ id }) => <img src={icons[id]} draggable={false} alt="" />;
@@ -78,13 +85,18 @@ const GuiThemeMenu = ({ isOpen, isRtl, onChangeTheme, onOpen, theme }) => (
     <MenuItem expanded={isOpen}>
         <div className={styles.option}>
             <GuiIcon id={theme.gui} />
-            <span className={styles.submenuLabel}>
-                <FormattedMessage
-                    defaultMessage="Theme"
-                    description="Label for menu to choose GUI theme (light, dark, AMOLED)"
-                    id="tw.menuBar.guiTheme"
-                />
-            </span>
+            <div className={styles.menuItemTitleAndSubtitle}>
+                <span className={styles.submenuLabel}>
+                    <FormattedMessage
+                        defaultMessage="Theme"
+                        description="Label for menu to choose GUI theme (light, dark, AMOLED)"
+                        id="amp.menuBar.guiTheme"
+                    />
+                </span>
+                <span className={styles.menuItemSubtitle}>
+                    <FormattedMessage {...options[theme.gui]} />
+                </span>
+            </div>
             <img
                 className={styles.expandCaret}
                 src={dropdownCaret}
@@ -92,7 +104,7 @@ const GuiThemeMenu = ({ isOpen, isRtl, onChangeTheme, onOpen, theme }) => (
             />
         </div>
         <Submenu place={isRtl ? "left" : "right"}>
-            {[GUI_LIGHT, GUI_DARK, GUI_AMOLED].map(id => (
+            {[GUI_LIGHT, GUI_DARK, GUI_AMOLED, GUI_HIGH_CONTRAST].map(id => (
                 <GuiThemeItem
                     key={id}
                     id={id}
