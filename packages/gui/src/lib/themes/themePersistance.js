@@ -5,7 +5,7 @@ const matchMedia = query =>
 const PREFERS_HIGH_CONTRAST_QUERY = matchMedia("(prefers-contrast: more)");
 const PREFERS_DARK_QUERY = matchMedia("(prefers-color-scheme: dark)");
 
-const STORAGE_KEY = process.env.ampmod_is_canary ? "canary:theme" : "tw:theme";
+const STORAGE_KEY = process.env.ampmod_is_canary ? "canary:theme" : "amp:theme";
 
 /**
  * @returns {Theme} detected theme

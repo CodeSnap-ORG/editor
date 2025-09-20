@@ -212,6 +212,7 @@
             <br />Consider checking <a href="https://status.codeberg.eu" target="_blank" rel="noreferrer">Codeberg's status page</a> to see if there are any ongoing issues.
           <% } %>
         </div>
+        <div class="splash-custom-info"></div>
       </div>
       <div class="splash-error-screen" hidden>
         <h1 class="splash-error-title"><img src="<%= htmlWebpackPlugin.options.root %>images/reload.svg" draggable="false" loading="lazy" /> Oops! Something went wrong.</h1>
@@ -242,7 +243,7 @@
           if (canary) {
             var themeSetting = localStorage.getItem('canary:theme');
           } else {
-            var themeSetting = localStorage.getItem('tw:theme');
+            var themeSetting = localStorage.getItem('amp:theme');
           }
         } catch (e) {
           // ignore
@@ -279,6 +280,7 @@
         splash.hidden = false;
 
         var splashErrorTitle = document.querySelector('.splash-error-title');
+        var splashCustomInfo = document.querySelector('.splash-custom-info');
         var splashMain = document.querySelector('.splash-main');
         var splashErrorScreen = document.querySelector('.splash-error-screen');
         var splashError = document.querySelector('.splash-errors');
@@ -358,6 +360,10 @@
           splash.parentNode.removeChild(splash);
           window.onerror = null;
         };
+
+        window.SetCustomSplashInfo = (text) => {
+          splashCustomInfo.innerHTML = text;
+        }
       })();
     </script>
 

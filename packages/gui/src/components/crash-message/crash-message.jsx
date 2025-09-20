@@ -172,19 +172,19 @@ const CrashMessage = props => {
                                             )
                                         ) {
                                             window.indexedDB.deleteDatabase(
-                                                "TW_RestorePoints"
+                                                "Amp_RestorePoints"
                                             );
                                             window.indexedDB.deleteDatabase(
-                                                "TW_Backpack"
+                                                "Amp_Backpack"
                                             );
                                             window.localStorage.removeItem(
-                                                "tw:theme"
+                                                "amp:theme"
                                             );
                                             window.localStorage.removeItem(
-                                                "tw:username"
+                                                "amp:username"
                                             );
                                             window.localStorage.removeItem(
-                                                "tw:language"
+                                                "amp:language"
                                             );
                                             window.location.reload();
                                         }

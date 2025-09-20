@@ -109,7 +109,7 @@ class LibraryComponent extends React.Component {
         return data;
     }
     getFavoriteStorageKey() {
-        return `tw:library-favorites:${this.props.id}`;
+        return `amp:library-favorites:${this.props.id}`;
     }
     handleFavorite(id) {
         const data = this.getFilteredData()[id];

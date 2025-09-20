@@ -22,7 +22,7 @@ const TYPE_MANUAL = 1;
 
 const DATABASE_NAME = process.env.ampmod_is_canary
     ? "Canary_RestorePoints"
-    : "TW_RestorePoints";
+    : "Amp_RestorePoints";
 const DATABASE_VERSION = 2;
 const METADATA_STORE = "meta";
 const PROJECT_STORE = "projects";
@@ -847,7 +847,7 @@ const readInterval = () => {
         }
 
         // TODO: this is temporary, remove it after enough has passed for people that care to have migrated
-        const addonSettings = localStorage.getItem("tw:addons");
+        const addonSettings = localStorage.getItem("amp:addons");
         if (addonSettings) {
             const parsedAddonSettings = JSON.parse(addonSettings);
             const addonObject =

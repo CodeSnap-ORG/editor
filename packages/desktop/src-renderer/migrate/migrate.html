@@ -145,10 +145,10 @@
       Local Storage:
       twd:audio_id -> abandon (IDs differ across origins)
       twd:video_id -> abandon (IDs differ across origins)
-      tw:theme -> tw-editor
-      tw:addons -> tw-editor
+      amp:theme -> tw-editor
+      amp:addons -> tw-editor
       tw:language -> tw-editor
-      tw:username -> tw-editor
+      amp:addons -> tw-editor
       extensions.turbowarp.org/local-storage: -> tw-editor
       SelectProject.type -> tw-packager
       SelectProject.id -> tw-packager
@@ -159,7 +159,7 @@
       IndexedDB:
       p4-local-settings -> tw-packager
       p4-large-assets -> abandon
-      TW_Backpack -> tw-editor
+      Amp_Backpack -> tw-editor
       TW_AutoSave -> abandon (likely to be very large)
       */
 
@@ -307,10 +307,10 @@
                 const storage = {};
                 for (const key of Object.keys(localStorage)) {
                     if (
-                        key === "tw:theme" ||
-                        key === "tw:addons" ||
+                        key === "amp:theme" ||
+                        key === "amp:addons" ||
                         key === "tw:language" ||
-                        key === "tw:username" ||
+                        key === "amp:addons" ||
                         key.startsWith(
                             "extensions.turbowarp.org/local-storage:"
                         )
@@ -319,7 +319,7 @@
                     }
                 }
 
-                const backpackDB = await openDatabase("TW_Backpack", 1);
+                const backpackDB = await openDatabase("Amp_Backpack", 1);
                 const backpackKeys = backpackDB
                     ? await getAllKeys(backpackDB, "backpack")
                     : [];

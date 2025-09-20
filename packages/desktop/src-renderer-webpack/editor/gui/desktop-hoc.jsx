@@ -73,7 +73,7 @@ const securityManager = {
     canGeolocate: () => false,
 };
 
-const USERNAME_KEY = "tw:username";
+const USERNAME_KEY = "amp:username";
 const DEFAULT_USERNAME = "player";
 
 const DesktopHOC = function (WrappedComponent) {
