@@ -10,6 +10,7 @@ import * as accentGrey from "./accent/grey";
 import * as guiLight from "./gui/light";
 import * as guiDark from "./gui/dark";
 import * as guiAmoled from "./gui/amp-amoled";
+import * as guiHighContrast from "./gui/amp-high-contrast";
 
 import * as blocksThree from "./blocks/three";
 import * as blocksHighContrast from "./blocks/high-contrast";
@@ -35,10 +36,12 @@ const ACCENT_DEFAULT = process.env.ampmod_is_canary ? ACCENT_RED : ACCENT_GREEN;
 const GUI_LIGHT = "light";
 const GUI_DARK = "dark";
 const GUI_AMOLED = "amoled";
+const GUI_HIGH_CONTRAST = "high-contrast";
 const GUI_MAP = {
     [GUI_LIGHT]: guiLight,
     [GUI_DARK]: guiDark,
     [GUI_AMOLED]: guiAmoled,
+    [GUI_HIGH_CONTRAST]: guiHighContrast,
 };
 const GUI_DEFAULT = GUI_LIGHT;
 
@@ -109,7 +112,7 @@ class Theme {
     static dark = new Theme(ACCENT_DEFAULT, GUI_DARK, BLOCKS_DEFAULT);
     static highContrast = new Theme(
         ACCENT_DEFAULT,
-        GUI_DEFAULT,
+        GUI_HIGH_CONTRAST,
         BLOCKS_HIGH_CONTRAST
     );
 
@@ -182,6 +185,7 @@ export {
     GUI_LIGHT,
     GUI_DARK,
     GUI_AMOLED,
+    GUI_HIGH_CONTRAST,
     GUI_MAP,
     BLOCKS_THREE,
     BLOCKS_DARK,
