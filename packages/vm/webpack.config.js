@@ -1,6 +1,7 @@
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const defaultsDeep = require("lodash.defaultsdeep");
 const path = require("path");
+const monorepoPackageJson = require("../../package.json");
 
 const base = {
     mode: process.env.NODE_ENV === "production" ? "production" : "development",
@@ -52,7 +53,13 @@ const base = {
         ignored: /node_modules/,
         poll: 1000,
     },
-    plugins: [],
+    plugins: [
+        new webpack.DefinePlugin({
+            "process.env.ampmod_version": JSON.stringify(
+                monorepoPackageJson.version,
+            ),
+        }),
+    ],
 };
 
 module.exports = [
@@ -164,6 +171,11 @@ module.exports = [
                     from: "src/playground",
                 },
             ]),
+            new webpack.DefinePlugin({
+                "process.env.ampmod_version": JSON.stringify(
+                    monorepoPackageJson.version,
+                ),
+            }),
         ]),
     }),
 ];

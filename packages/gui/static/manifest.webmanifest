@@ -1,7 +1,7 @@
 {
     "short_name": "AmpMod",
     "name": "AmpMod",
-    "description": "The definitive Scratch mod.",
+    "description": "The ultimate Scratch mod with new extensions, blocks, dark mode, a compiler, and many more.",
     "icons": [
         {
             "src": "images/192.png",
@@ -15,7 +15,5 @@
         }
     ],
     "start_url": "editor",
-    "background_color": "#333333",
-    "display": "standalone",
-    "theme_color": "#333333"
+    "display": "minimal-ui"
 }

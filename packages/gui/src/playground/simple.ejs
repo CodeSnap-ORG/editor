@@ -1,59 +1,72 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title><%= htmlWebpackPlugin.options.title %></title>
-    <script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
-    <style>
-      body[data-splash-theme="dark"] {
-        background: #111;
-      }
-    </style>
-  </head>
-  <body>
-    <noscript>
-      <h1>This page requires JavaScript</h1>
-    </noscript>
-
-    <script>
-      (function() {
-        var theme = '';
-
-        var canary = <%= process.env.ampmod_is_canary %>;
-
-        try {
-          if (canary) {
-            var themeSetting = localStorage.getItem('canary:theme');
-          } else {
-            var themeSetting = localStorage.getItem('tw:theme');
-          }
-        } catch (e) {
-          // ignore
-        }
-        if (themeSetting === 'light') {
-          theme = 'light';
-        } else if (themeSetting === 'dark') {
-          theme = 'dark';
-        } else if (themeSetting) {
-          try {
-            var parsed = JSON.parse(themeSetting);
-            if (parsed.gui === 'dark' || parsed.gui === 'light') {
-              theme = parsed.gui;
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title><%= htmlWebpackPlugin.options.title %></title>
+        <script
+            async
+            src="https://scripts.simpleanalyticscdn.com/latest.js"
+        ></script>
+        <style>
+            body[data-splash-theme="dark"] {
+                background: #111;
             }
-          } catch (e) {
-            // ignore
-          }
-        }
+        </style>
+    </head>
+    <body>
+        <noscript>
+            <h1>This page requires JavaScript</h1>
+        </noscript>
 
-        if (!theme) {
-          theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-        }
+        <div id="app"></div>
 
-        document.body.setAttribute('data-splash-theme', theme);
-      })();
-    </script>
+        <script>
+            (function() {
+              var theme = '';
 
-    <div id="app"></div>
-  </body>
+              var canary = <%= process.env.ampmod_is_canary %>;
+
+              try {
+                if (canary) {
+                  var themeSetting = localStorage.getItem('canary:theme');
+                } else {
+                  var themeSetting = localStorage.getItem('tw:theme');
+                }
+              } catch (e) {
+                // ignore
+              }
+              if (themeSetting === 'light') {
+                theme = 'light';
+              } else if (themeSetting === 'dark') {
+                theme = 'dark';
+              } else if (themeSetting) {
+                try {
+                  var parsed = JSON.parse(themeSetting);
+                  if (parsed.gui === 'dark' || parsed.gui === 'light') {
+                    theme = parsed.gui;
+                  }
+                } catch (e) {
+                  // ignore
+                }
+              }
+
+              if (!theme) {
+                theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+              }
+
+              document.body.setAttribute('data-splash-theme', theme);
+            })();
+        </script>
+
+        <script>
+            // Check every 0.3 seconds if the app is in minimal-ui mode (PWA).
+            setInterval(function () {
+                if (window.matchMedia("(display-mode: minimal-ui)").matches) {
+                    // If in minimal-ui mode, redirect to /editor.html.
+                    window.location.href = "/editor.html";
+                }
+            }, 300);
+        </script>
+    </body>
 </html>
