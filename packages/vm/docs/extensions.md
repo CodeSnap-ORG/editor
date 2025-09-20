@@ -41,7 +41,7 @@ proposal phase and may change before implementation.
 
 ## Backwards Compatibility
 
-Scratch is designed to be fully backwards compatible. Because of this, block definitions and opcodes should *never*
+Scratch is designed to be fully backwards compatible. Because of this, block definitions and opcodes should _never_
 change in a way that could cause previously saved projects to fail to load or to act in unexpected / inconsistent
 ways.
 
@@ -53,7 +53,7 @@ across a well defined worker boundary (i.e. the sandbox).
 
 ```js
 class SomeBlocks {
-    constructor (runtime) {
+    constructor(runtime) {
         /**
          * Store this for later communication with the Scratch VM runtime.
          * If this extension is running in a sandbox then `runtime` is an async proxy object.
@@ -71,32 +71,32 @@ render both the blocks and the extension itself.
 
 ```js
 // Core, Team, and Official extensions can `require` VM code:
-const ArgumentType = require('../../extension-support/argument-type');
-const BlockType = require('../../extension-support/block-type');
+const ArgumentType = require("../../extension-support/argument-type");
+const BlockType = require("../../extension-support/block-type");
 
 class SomeBlocks {
     // ...
-    getInfo () {
+    getInfo() {
         return {
-            id: 'someBlocks',
-            name: 'Some Blocks',
+            id: "someBlocks",
+            name: "Some Blocks",
             blocks: [
                 {
-                    opcode: 'myReporter',
+                    opcode: "myReporter",
                     blockType: BlockType.REPORTER,
-                    text: 'letter [LETTER_NUM] of [TEXT]',
+                    text: "letter [LETTER_NUM] of [TEXT]",
                     arguments: {
                         LETTER_NUM: {
                             type: ArgumentType.STRING,
-                            defaultValue: '1'
+                            defaultValue: "1",
                         },
                         TEXT: {
                             type: ArgumentType.STRING,
-                            defaultValue: 'text'
-                        }
-                    }
-                }
-            ]
+                            defaultValue: "text",
+                        },
+                    },
+                },
+            ],
         };
     }
     // ...
@@ -108,13 +108,15 @@ Finally the extension must define a function for any "opcode" defined in the blo
 ```js
 class SomeBlocks {
     // ...
-    myReporter (args) {
+    myReporter(args) {
         return args.TEXT.charAt(args.LETTER_NUM);
-    };
+    }
     // ...
 }
 ```
+
 ### Block Arguments
+
 In addition to displaying text, blocks can have arguments in the form of slots to take other blocks getting plugged in, or dropdown menus to select an argument value from a list of possible values.
 
 The possible types of block arguments are as follows:
@@ -122,15 +124,16 @@ The possible types of block arguments are as follows:
 - String - a string input, this is a type-able field which also accepts other reporter blocks to be plugged in
 - Number - an input similar to the string input, but the type-able values are constrained to numbers.
 - Angle - an input similar to the number input, but it has an additional UI to be able to pick an angle from a
-circular dial
+  circular dial
 - Boolean - an input for a boolean (hexagonal shaped) reporter block. This field is not type-able.
 - Color - an input which displays a color swatch. This field has additional UI to pick a color by choosing values for the color's hue, saturation and brightness. Optionally, the defaultValue for the color picker can also be chosen if the extension developer wishes to display the same color every time the extension is added. If the defaultValue is left out, the default behavior of picking a random color when the extension is loaded will be used.
 - Matrix - an input which displays a 5 x 5 matrix of cells, where each cell can be filled in or clear.
 - Note - a numeric input which can select a musical note. This field has additional UI to select a note from a
-visual keyboard.
+  visual keyboard.
 - Image - an inline image displayed on a block. This is a special argument type in that it does not represent a value and does not accept other blocks to be plugged-in in place of this block field. See the section below about "Adding an Inline Image".
 
 #### Adding an Inline Image
+
 In addition to specifying block arguments (an example of string arguments shown in the code snippet above),
 you can also specify an inline image for the block. You must include a dataURI for the image. If left unspecified, blank space will be allocated for the image and a warning will be logged in the console.
 You can optionally also specify `flipRTL`, a property indicating whether the image should be flipped horizontally when the editor has a right to left language selected as its locale. By default, the image is not flipped.
@@ -144,18 +147,15 @@ return {
             arguments: {
                 MY_IMAGE: {
                     type: ArgumentType.IMAGE,
-                    dataURI: 'myImageData',
-                    alt: 'This is an image',
-                    flipRTL: true
-                }
-            }
-        }
-    ]
-}
+                    dataURI: "myImageData",
+                    alt: "This is an image",
+                    flipRTL: true,
+                },
+            },
+        },
+    ],
+};
 ```
-
-
-
 
 #### Defining a Menu
 
@@ -171,17 +171,17 @@ return {
             arguments: {
                 FOO: {
                     type: ArgumentType.NUMBER,
-                    menu: 'fooMenu'
-                }
-            }
-        }
+                    menu: "fooMenu",
+                },
+            },
+        },
     ],
     menus: {
         fooMenu: {
-            items: ['a', 'b', 'c']
-        }
-    }
-}
+            items: ["a", "b", "c"],
+        },
+    },
+};
 ```
 
 The items in a menu may be specified with an array or with the name of a function which returns an array. The two
@@ -232,9 +232,9 @@ menus: {
     staticMenu: [
         {
             text: formatMessage(/* ... */),
-            value: 42
-        }
-    ]
+            value: 42,
+        },
+    ];
 }
 ```
 
@@ -246,19 +246,19 @@ consideration to avoid confusion and frustration on the part of those using the 
 
 A few of these considerations include:
 
-* The valid values for the menu should not change when the user changes the Scratch language setting.
-  * In particular, changing languages should never break a working project.
-* The average Scratch user should be able to figure out the valid values for this input without referring to extension
+- The valid values for the menu should not change when the user changes the Scratch language setting.
+    - In particular, changing languages should never break a working project.
+- The average Scratch user should be able to figure out the valid values for this input without referring to extension
   documentation.
-  * One way to ensure this is to make an item's text match or include the item's value. For example, the official Music
-    extension contains menu items with names like "(1) Piano" with value 1, "(8) Cello" with value 8, and so on.
-* The block should accept any value as input, even "invalid" values.
-  * Scratch has no concept of a runtime error!
-  * For a command block, sometimes the best option is to do nothing.
-  * For a reporter, returning zero or the empty string might make sense.
-* The block should be forgiving in its interpretation of inputs.
-  * For example, if the block expects a string and receives a number it may make sense to interpret the number as a
-    string instead of treating it as invalid input.
+    - One way to ensure this is to make an item's text match or include the item's value. For example, the official Music
+      extension contains menu items with names like "(1) Piano" with value 1, "(8) Cello" with value 8, and so on.
+- The block should accept any value as input, even "invalid" values.
+    - Scratch has no concept of a runtime error!
+    - For a command block, sometimes the best option is to do nothing.
+    - For a reporter, returning zero or the empty string might make sense.
+- The block should be forgiving in its interpretation of inputs.
+    - For example, if the block expects a string and receives a number it may make sense to interpret the number as a
+      string instead of treating it as invalid input.
 
 The `acceptReporters` flag indicates that the user can drop a reporter onto the menu input:
 
@@ -279,17 +279,17 @@ menus: {
 
 ```js
 // Core, Team, and Official extensions can `require` VM code:
-const ArgumentType = require('../../extension-support/argument-type');
-const BlockType = require('../../extension-support/block-type');
-const TargetType = require('../../extension-support/target-type');
+const ArgumentType = require("../../extension-support/argument-type");
+const BlockType = require("../../extension-support/block-type");
+const TargetType = require("../../extension-support/target-type");
 
 // ...or VM dependencies:
-const formatMessage = require('format-message');
+const formatMessage = require("format-message");
 
 // Core, Team, and Official extension classes should be registered statically with the Extension Manager.
 // See: scratch-vm/src/extension-support/extension-manager.js
 class SomeBlocks {
-    constructor (runtime) {
+    constructor(runtime) {
         /**
          * Store this for later communication with the Scratch VM runtime.
          * If this extension is running in a sandbox then `runtime` is an async proxy object.
@@ -301,16 +301,16 @@ class SomeBlocks {
     /**
      * @return {object} This extension's metadata.
      */
-    getInfo () {
+    getInfo() {
         return {
             // Required: the machine-readable name of this extension.
             // Will be used as the extension's namespace.
             // Allowed characters are those matching the regular expression [\w-]: A-Z, a-z, 0-9, and hyphen ("-").
-            id: 'someBlocks',
+            id: "someBlocks",
 
             // Core extensions only: override the default extension block colors.
-            color1: '#FF8C1A',
-            color2: '#DB6E00',
+            color1: "#FF8C1A",
+            color2: "#DB6E00",
 
             // Optional: the human-readable name of this extension as string.
             // This and any other string to be displayed in the Scratch UI may either be
@@ -323,26 +323,28 @@ class SomeBlocks {
             // messages with the same ID without colliding.
             // See also: https://github.com/yahoo/react-intl/wiki/API#formatmessage
             name: formatMessage({
-                id: 'extensionName',
-                defaultMessage: 'Some Blocks',
-                description: 'The name of the "Some Blocks" extension'
+                id: "extensionName",
+                defaultMessage: "Some Blocks",
+                description: 'The name of the "Some Blocks" extension',
             }),
 
             // Optional: URI for a block icon, to display at the edge of each block for this
             // extension. Data URI OK.
             // TODO: what file types are OK? All web images? Just PNG?
-            blockIconURI: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAFCAAAAACyOJm3AAAAFklEQVQYV2P4DwMMEMgAI/+DEUIMBgAEWB7i7uidhAAAAABJRU5ErkJggg==',
+            blockIconURI:
+                "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAFCAAAAACyOJm3AAAAFklEQVQYV2P4DwMMEMgAI/+DEUIMBgAEWB7i7uidhAAAAABJRU5ErkJggg==",
 
             // Optional: URI for an icon to be displayed in the blocks category menu.
             // If not present, the menu will display the block icon, if one is present.
             // Otherwise, the category menu shows its default filled circle.
             // Data URI OK.
             // TODO: what file types are OK? All web images? Just PNG?
-            menuIconURI: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAFCAAAAACyOJm3AAAAFklEQVQYV2P4DwMMEMgAI/+DEUIMBgAEWB7i7uidhAAAAABJRU5ErkJggg==',
+            menuIconURI:
+                "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAkAAAAFCAAAAACyOJm3AAAAFklEQVQYV2P4DwMMEMgAI/+DEUIMBgAEWB7i7uidhAAAAABJRU5ErkJggg==",
 
             // Optional: Link to documentation content for this extension.
             // If not present, offer no link.
-            docsURI: 'https://....',
+            docsURI: "https://....",
 
             // Required: the list of blocks implemented by this extension,
             // in the order intended for display.
@@ -350,7 +352,7 @@ class SomeBlocks {
                 {
                     // Required: the machine-readable name of this operation.
                     // This will appear in project JSON.
-                    opcode: 'myReporter', // becomes 'someBlocks.myReporter'
+                    opcode: "myReporter", // becomes 'someBlocks.myReporter'
 
                     // Required: the kind of block we're defining, from a predefined list.
                     // Fully supported block types:
@@ -391,9 +393,9 @@ class SomeBlocks {
                     // placeholders. Argument placeholders should be in [MACRO_CASE] and
                     // must be [ENCLOSED_WITHIN_SQUARE_BRACKETS].
                     text: formatMessage({
-                        id: 'myReporter',
-                        defaultMessage: 'letter [LETTER_NUM] of [TEXT]',
-                        description: 'Label on the "myReporter" block'
+                        id: "myReporter",
+                        defaultMessage: "letter [LETTER_NUM] of [TEXT]",
+                        description: 'Label on the "myReporter" block',
                     }),
 
                     // Required: describe each argument.
@@ -410,7 +412,7 @@ class SomeBlocks {
                             type: ArgumentType.NUMBER,
 
                             // Optional: the default value of the argument
-                            default: 1
+                            default: 1,
                         },
 
                         // Required: the ID of the argument, which will be the name in the
@@ -419,27 +421,28 @@ class SomeBlocks {
                             // Required: type of the argument / shape of the block input
                             type: ArgumentType.STRING,
 
-                                // Optional: the default value of the argument
+                            // Optional: the default value of the argument
                             default: formatMessage({
-                                id: 'myReporter.TEXT_default',
-                                defaultMessage: 'text',
-                                description: 'Default for "TEXT" argument of "someBlocks.myReporter"'
-                            })
-                        }
+                                id: "myReporter.TEXT_default",
+                                defaultMessage: "text",
+                                description:
+                                    'Default for "TEXT" argument of "someBlocks.myReporter"',
+                            }),
+                        },
                     },
 
                     // Optional: the function implementing this block.
                     // If absent, assume `func` is the same as `opcode`.
-                    func: 'myReporter',
+                    func: "myReporter",
 
                     // Optional: list of target types for which this block should appear.
                     // If absent, assume it applies to all builtin targets -- that is:
                     // [TargetType.SPRITE, TargetType.STAGE]
-                    filter: [TargetType.SPRITE]
+                    filter: [TargetType.SPRITE],
                 },
                 {
                     // Another block...
-                }
+                },
             ],
 
             // Optional: define extension-specific menus here.
@@ -449,25 +452,26 @@ class SomeBlocks {
                     // Static menu: list items which should appear in the menu.
                     {
                         // Required: the value of the menu item when it is chosen.
-                        value: 'itemId1',
+                        value: "itemId1",
 
                         // Optional: the human-readable label for this item.
                         // Use `value` as the text if this is absent.
                         text: formatMessage({
-                            id: 'menuA_item1',
-                            defaultMessage: 'Item One',
-                            description: 'Label for item 1 of menu A in "Some Blocks" extension'
-                        })
+                            id: "menuA_item1",
+                            defaultMessage: "Item One",
+                            description:
+                                'Label for item 1 of menu A in "Some Blocks" extension',
+                        }),
                     },
 
                     // The simplest form of a list item is a string which will be used as
                     // both value and text.
-                    'itemId2'
+                    "itemId2",
                 ],
 
                 // Dynamic menu: returns an array as above.
                 // Called each time the menu is opened.
-                menuB: 'getItemsForMenuB',
+                menuB: "getItemsForMenuB",
 
                 // The examples above are shorthand for setting only the `items` property in this full form:
                 menuC: {
@@ -475,30 +479,34 @@ class SomeBlocks {
                     acceptReporters: true,
 
                     // The `item` property may be an array or function name as in previous menu examples.
-                    items: [/*...*/] || 'getItemsForMenuC'
-                }
+                    items:
+                        [
+                            /*...*/
+                        ] || "getItemsForMenuC",
+                },
             },
 
             // Optional: translations (UNSTABLE - NOT YET SUPPORTED)
             translation_map: {
                 de: {
-                    'extensionName': 'Einige Blöcke',
-                    'myReporter': 'Buchstabe [LETTER_NUM] von [TEXT]',
-                    'myReporter.TEXT_default': 'Text',
-                    'menuA_item1': 'Artikel eins',
+                    extensionName: "Einige Blöcke",
+                    myReporter: "Buchstabe [LETTER_NUM] von [TEXT]",
+                    "myReporter.TEXT_default": "Text",
+                    menuA_item1: "Artikel eins",
 
                     // Dynamic menus can be translated too
-                    'menuB_example': 'Beispiel',
+                    menuB_example: "Beispiel",
 
                     // This message contains ICU placeholders (see `myReporter()` below)
-                    'myReporter.result': 'Buchstabe {LETTER_NUM} von {TEXT} ist {LETTER}.'
+                    "myReporter.result":
+                        "Buchstabe {LETTER_NUM} von {TEXT} ist {LETTER}.",
                 },
                 it: {
                     // ...
-                }
-            }
+                },
+            },
         };
-    };
+    }
 
     /**
      * Implement myReporter.
@@ -506,12 +514,12 @@ class SomeBlocks {
      * @property {string} MY_ARG - the string value of the argument.
      * @returns {string} a string which includes the block argument value.
      */
-    myReporter (args) {
+    myReporter(args) {
         // This message contains ICU placeholders, not Scratch placeholders
         const message = formatMessage({
-            id: 'myReporter.result',
-            defaultMessage: 'Letter {LETTER_NUM} of {TEXT} is {LETTER}.',
-            description: 'The text template for the "myReporter" block result'
+            id: "myReporter.result",
+            defaultMessage: "Letter {LETTER_NUM} of {TEXT} is {LETTER}.",
+            description: 'The text template for the "myReporter" block result',
         });
 
         // Note: this implementation is not Unicode-clean; it's just here as an example.
@@ -520,8 +528,8 @@ class SomeBlocks {
         return message.format({
             LETTER_NUM: args.LETTER_NUM,
             TEXT: args.TEXT,
-            LETTER: result
+            LETTER: result,
         });
-    };
+    }
 }
 ```

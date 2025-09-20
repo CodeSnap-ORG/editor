@@ -1,5 +1,5 @@
-const StringUtil = require('../util/string-util');
-const log = require('../util/log');
+const StringUtil = require("../util/string-util");
+const log = require("../util/log");
 
 /**
  * Initialize a sound from an asset asynchronously.
@@ -14,32 +14,33 @@ const log = require('../util/log');
 const loadSoundFromAsset = function (sound, soundAsset, runtime, soundBank) {
     sound.assetId = soundAsset.assetId;
     if (!runtime.audioEngine) {
-        log.warn('No audio engine present; cannot load sound asset: ', sound.md5);
+        log.warn(
+            "No audio engine present; cannot load sound asset: ",
+            sound.md5
+        );
         return Promise.resolve(sound);
     }
-    return runtime.audioEngine.decodeSoundPlayer(Object.assign(
-        {},
-        sound,
-        {data: soundAsset.data}
-    )).then(soundPlayer => {
-        sound.soundId = soundPlayer.id;
-        // Set the sound sample rate and sample count based on the
-        // the audio buffer from the audio engine since the sound
-        // gets resampled by the audio engine
-        const soundBuffer = soundPlayer.buffer;
-        sound.rate = soundBuffer.sampleRate;
-        sound.sampleCount = soundBuffer.length;
+    return runtime.audioEngine
+        .decodeSoundPlayer(Object.assign({}, sound, { data: soundAsset.data }))
+        .then(soundPlayer => {
+            sound.soundId = soundPlayer.id;
+            // Set the sound sample rate and sample count based on the
+            // the audio buffer from the audio engine since the sound
+            // gets resampled by the audio engine
+            const soundBuffer = soundPlayer.buffer;
+            sound.rate = soundBuffer.sampleRate;
+            sound.sampleCount = soundBuffer.length;
 
-        if (soundBank !== null) {
-            soundBank.addSoundPlayer(soundPlayer);
-        }
+            if (soundBank !== null) {
+                soundBank.addSoundPlayer(soundPlayer);
+            }
 
-        if (runtime.isPackaged) {
-            sound.asset = null;
-        }
+            if (runtime.isPackaged) {
+                sound.asset = null;
+            }
 
-        return sound;
-    });
+            return sound;
+        });
 };
 
 // Handle sound loading errors by replacing the runtime sound with the
@@ -53,27 +54,29 @@ const handleSoundLoadError = function (sound, runtime, soundBank) {
     const oldRate = sound.rate;
     const oldFormat = sound.format;
     const oldDataFormat = sound.dataFormat;
-                
+
     // Use default asset if original fails to load
     sound.assetId = runtime.storage.defaultAssetId.Sound;
     sound.asset = runtime.storage.get(sound.assetId);
     sound.md5 = `${sound.assetId}.${sound.asset.dataFormat}`;
 
-    return loadSoundFromAsset(sound, sound.asset, runtime, soundBank).then(loadedSound => {
-        loadedSound.broken = {};
-        loadedSound.broken.assetId = oldAssetId;
-        loadedSound.broken.md5 = `${oldAssetId}.${oldDataFormat}`;
+    return loadSoundFromAsset(sound, sound.asset, runtime, soundBank).then(
+        loadedSound => {
+            loadedSound.broken = {};
+            loadedSound.broken.assetId = oldAssetId;
+            loadedSound.broken.md5 = `${oldAssetId}.${oldDataFormat}`;
 
-        // Should be null if we got here because the sound was missing
-        loadedSound.broken.asset = oldAsset;
-        
-        loadedSound.broken.sampleCount = oldSample;
-        loadedSound.broken.rate = oldRate;
-        loadedSound.broken.format = oldFormat;
-        loadedSound.broken.dataFormat = oldDataFormat;
-        
-        return loadedSound;
-    });
+            // Should be null if we got here because the sound was missing
+            loadedSound.broken.asset = oldAsset;
+
+            loadedSound.broken.sampleCount = oldSample;
+            loadedSound.broken.rate = oldRate;
+            loadedSound.broken.format = oldFormat;
+            loadedSound.broken.dataFormat = oldDataFormat;
+
+            return loadedSound;
+        }
+    );
 };
 
 /**
@@ -87,10 +90,13 @@ const handleSoundLoadError = function (sound, runtime, soundBank) {
  */
 const loadSound = function (sound, runtime, soundBank) {
     if (!runtime.storage) {
-        log.warn('No storage module present; cannot load sound asset: ', sound.md5);
+        log.warn(
+            "No storage module present; cannot load sound asset: ",
+            sound.md5
+        );
         return Promise.resolve(sound);
     }
-    const idParts = StringUtil.splitFirst(sound.md5, '.');
+    const idParts = StringUtil.splitFirst(sound.md5, ".");
     const md5 = idParts[0];
     const ext = idParts[1].toLowerCase();
     sound.dataFormat = ext;
@@ -102,7 +108,7 @@ const loadSound = function (sound, runtime, soundBank) {
             sound.asset = soundAsset;
 
             if (!soundAsset) {
-                log.warn('Failed to find sound data: ', sound.md5);
+                log.warn("Failed to find sound data: ", sound.md5);
                 return handleSoundLoadError(sound, runtime, soundBank);
             }
 
@@ -116,5 +122,5 @@ const loadSound = function (sound, runtime, soundBank) {
 
 module.exports = {
     loadSound,
-    loadSoundFromAsset
+    loadSoundFromAsset,
 };

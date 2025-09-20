@@ -40,7 +40,8 @@ p {
 .render #scratch-stage {
     display: none;
 }
-.loading label, .profile-count label{
+.loading label,
+.profile-count label {
     width: 15em;
     display: inline-block;
 }
@@ -57,7 +58,8 @@ p {
 .profile-tables th:first-child {
     width: 215px;
 }
-.profile-tables th, .profile-tables td {
+.profile-tables th,
+.profile-tables td {
     min-width: 85px;
     border-bottom: 1px solid #ccc;
     border-spacing: 0;
@@ -67,7 +69,7 @@ p {
 .profile-tables td:not(:first-child) {
     text-align: center;
 }
-.profile-tables img{
+.profile-tables img {
     margin: 0 auto;
     display: block;
     clear: both;

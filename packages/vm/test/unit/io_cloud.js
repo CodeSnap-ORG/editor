@@ -1,27 +1,27 @@
-const test = require('tap').test;
-const Cloud = require('../../src/io/cloud');
-const Target = require('../../src/engine/target');
-const Variable = require('../../src/engine/variable');
-const Runtime = require('../../src/engine/runtime');
+const test = require("tap").test;
+const Cloud = require("../../src/io/cloud");
+const Target = require("../../src/engine/target");
+const Variable = require("../../src/engine/variable");
+const Runtime = require("../../src/engine/runtime");
 
-test('spec', t => {
+test("spec", t => {
     const runtime = new Runtime();
     const cloud = new Cloud(runtime);
 
-    t.type(cloud, 'object');
-    t.type(cloud.postData, 'function');
-    t.type(cloud.requestCreateVariable, 'function');
-    t.type(cloud.requestUpdateVariable, 'function');
-    t.type(cloud.requestRenameVariable, 'function');
-    t.type(cloud.requestDeleteVariable, 'function');
-    t.type(cloud.updateCloudVariable, 'function');
-    t.type(cloud.setProvider, 'function');
-    t.type(cloud.setStage, 'function');
-    t.type(cloud.clear, 'function');
+    t.type(cloud, "object");
+    t.type(cloud.postData, "function");
+    t.type(cloud.requestCreateVariable, "function");
+    t.type(cloud.requestUpdateVariable, "function");
+    t.type(cloud.requestRenameVariable, "function");
+    t.type(cloud.requestDeleteVariable, "function");
+    t.type(cloud.updateCloudVariable, "function");
+    t.type(cloud.setProvider, "function");
+    t.type(cloud.setStage, "function");
+    t.type(cloud.clear, "function");
     t.end();
 });
 
-test('stage and provider are null initially', t => {
+test("stage and provider are null initially", t => {
     const runtime = new Runtime();
     const cloud = new Cloud(runtime);
 
@@ -30,12 +30,12 @@ test('stage and provider are null initially', t => {
     t.end();
 });
 
-test('setProvider sets the provider', t => {
+test("setProvider sets the provider", t => {
     const runtime = new Runtime();
     const cloud = new Cloud(runtime);
 
     const provider = {
-        foo: 'a fake provider'
+        foo: "a fake provider",
     };
 
     cloud.setProvider(provider);
@@ -44,12 +44,12 @@ test('setProvider sets the provider', t => {
     t.end();
 });
 
-test('postData update message updates the variable', t => {
+test("postData update message updates the variable", t => {
     const runtime = new Runtime();
     const stage = new Target(runtime);
     const fooVar = new Variable(
-        'a fake var id',
-        'foo',
+        "a fake var id",
+        "foo",
         Variable.SCALAR_TYPE,
         true /* isCloud */
     );
@@ -59,18 +59,20 @@ test('postData update message updates the variable', t => {
 
     const cloud = new Cloud(runtime);
     cloud.setStage(stage);
-    cloud.postData({varUpdate: {
-        name: 'foo',
-        value: 3
-    }});
+    cloud.postData({
+        varUpdate: {
+            name: "foo",
+            value: 3,
+        },
+    });
     t.strictEquals(fooVar.value, 3);
     t.end();
 });
 
-test('requestUpdateVariable calls provider\'s updateVariable function', t => {
+test("requestUpdateVariable calls provider's updateVariable function", t => {
     let updateVariableCalled = false;
-    let mockVarName = '';
-    let mockVarValue = '';
+    let mockVarName = "";
+    let mockVarValue = "";
     const mockUpdateVariable = (name, value) => {
         updateVariableCalled = true;
         mockVarName = name;
@@ -79,22 +81,27 @@ test('requestUpdateVariable calls provider\'s updateVariable function', t => {
     };
 
     const provider = {
-        updateVariable: mockUpdateVariable
+        updateVariable: mockUpdateVariable,
     };
 
     const runtime = new Runtime();
     const cloud = new Cloud(runtime);
     cloud.setProvider(provider);
-    cloud.requestUpdateVariable('foo', 3);
+    cloud.requestUpdateVariable("foo", 3);
     t.equals(updateVariableCalled, true);
-    t.strictEquals(mockVarName, 'foo');
+    t.strictEquals(mockVarName, "foo");
     t.strictEquals(mockVarValue, 3);
     t.end();
 });
 
-test('requestCreateVariable calls provider\'s createVariable function', t => {
+test("requestCreateVariable calls provider's createVariable function", t => {
     let createVariableCalled = false;
-    const mockVariable = new Variable('a var id', 'my var', Variable.SCALAR_TYPE, false);
+    const mockVariable = new Variable(
+        "a var id",
+        "my var",
+        Variable.SCALAR_TYPE,
+        false
+    );
     let mockVarName;
     let mockVarValue;
     const mockCreateVariable = (name, value) => {
@@ -105,7 +112,7 @@ test('requestCreateVariable calls provider\'s createVariable function', t => {
     };
 
     const provider = {
-        createVariable: mockCreateVariable
+        createVariable: mockCreateVariable,
     };
 
     const runtime = new Runtime();
@@ -113,14 +120,14 @@ test('requestCreateVariable calls provider\'s createVariable function', t => {
     cloud.setProvider(provider);
     cloud.requestCreateVariable(mockVariable);
     t.equals(createVariableCalled, true);
-    t.strictEquals(mockVarName, 'my var');
+    t.strictEquals(mockVarName, "my var");
     t.strictEquals(mockVarValue, 0);
     // Calling requestCreateVariable does not set isCloud flag on variable
     t.strictEquals(mockVariable.isCloud, false);
     t.end();
 });
 
-test('requestRenameVariable calls provider\'s renameVariable function', t => {
+test("requestRenameVariable calls provider's renameVariable function", t => {
     let renameVariableCalled = false;
     let mockVarOldName;
     let mockVarNewName;
@@ -132,20 +139,20 @@ test('requestRenameVariable calls provider\'s renameVariable function', t => {
     };
 
     const provider = {
-        renameVariable: mockRenameVariable
+        renameVariable: mockRenameVariable,
     };
 
     const runtime = new Runtime();
     const cloud = new Cloud(runtime);
     cloud.setProvider(provider);
-    cloud.requestRenameVariable('my var', 'new var name');
+    cloud.requestRenameVariable("my var", "new var name");
     t.equals(renameVariableCalled, true);
-    t.strictEquals(mockVarOldName, 'my var');
-    t.strictEquals(mockVarNewName, 'new var name');
+    t.strictEquals(mockVarOldName, "my var");
+    t.strictEquals(mockVarNewName, "new var name");
     t.end();
 });
 
-test('requestDeleteVariable calls provider\'s deleteVariable function', t => {
+test("requestDeleteVariable calls provider's deleteVariable function", t => {
     let deleteVariableCalled = false;
     let mockVarName;
     const mockDeleteVariable = name => {
@@ -155,14 +162,14 @@ test('requestDeleteVariable calls provider\'s deleteVariable function', t => {
     };
 
     const provider = {
-        deleteVariable: mockDeleteVariable
+        deleteVariable: mockDeleteVariable,
     };
 
     const runtime = new Runtime();
     const cloud = new Cloud(runtime);
     cloud.setProvider(provider);
-    cloud.requestDeleteVariable('my var');
+    cloud.requestDeleteVariable("my var");
     t.equals(deleteVariableCalled, true);
-    t.strictEquals(mockVarName, 'my var');
+    t.strictEquals(mockVarName, "my var");
     t.end();
 });
