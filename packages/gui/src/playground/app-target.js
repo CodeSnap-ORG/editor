@@ -210,11 +210,6 @@ async function runAllMigrations() {
     }
 }
 
-// Remove everything from the target to fix macOS Safari "Save Page As"
-while (appTarget.firstChild) {
-    appTarget.removeChild(appTarget.firstChild);
-}
-
 if (new URLSearchParams(window.location.search).has("crash-accidentally")) {
     throw new TypeError(
         "Simulated a TypeError to test the pre-React error screen. " +
