@@ -33,7 +33,7 @@ const HashParserHOC = function (WrappedComponent) {
                 history.pushState(
                     "new-project",
                     "new-project",
-                    window.location.pathname + window.location.search,
+                    window.location.pathname + window.location.search
                 );
             }
         }
@@ -66,15 +66,15 @@ const HashParserHOC = function (WrappedComponent) {
         ]),
         setProjectId: PropTypes.func,
     };
-    const mapStateToProps = (state) => {
+    const mapStateToProps = state => {
         const loadingState = state.scratchGui.projectState.loadingState;
         return {
             isFetchingWithoutId: getIsFetchingWithoutId(loadingState),
             reduxProjectId: state.scratchGui.projectState.projectId,
         };
     };
-    const mapDispatchToProps = (dispatch) => ({
-        setProjectId: (projectId) => {
+    const mapDispatchToProps = dispatch => ({
+        setProjectId: projectId => {
             dispatch(setProjectId(projectId));
         },
     });
@@ -84,7 +84,7 @@ const HashParserHOC = function (WrappedComponent) {
     return connect(
         mapStateToProps,
         mapDispatchToProps,
-        mergeProps,
+        mergeProps
     )(HashParserComponent);
 };
 

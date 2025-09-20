@@ -31,7 +31,7 @@ class AudioTrimmer extends React.Component {
         const dx = (currentOffset.x - initialOffset.x) / this.containerSize;
         const newTrim = Math.max(
             0,
-            Math.min(this.props.trimEnd - MIN_LENGTH, this.initialTrim + dx),
+            Math.min(this.props.trimEnd - MIN_LENGTH, this.initialTrim + dx)
         );
         this.props.onSetTrimStart(newTrim);
     }
@@ -39,7 +39,7 @@ class AudioTrimmer extends React.Component {
         const dx = (currentOffset.x - initialOffset.x) / this.containerSize;
         const newTrim = Math.min(
             1,
-            Math.max(this.props.trimStart + MIN_LENGTH, this.initialTrim + dx),
+            Math.max(this.props.trimStart + MIN_LENGTH, this.initialTrim + dx)
         );
         this.props.onSetTrimEnd(newTrim);
     }

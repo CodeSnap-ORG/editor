@@ -48,7 +48,7 @@ class LoupeComponent extends React.Component {
             width / 2 - boxSize / 2,
             height / 2 - boxSize / 2,
             boxSize,
-            boxSize,
+            boxSize
         );
         ctx.fill();
         ctx.stroke();

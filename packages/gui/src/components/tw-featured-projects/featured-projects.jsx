@@ -88,12 +88,12 @@ FeaturedProjects.propTypes = {
     studio: PropTypes.string,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     projectId: state.scratchGui.projectState.projectId,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    setProjectId: (projectId) => setProjectId(dispatch, projectId),
+const mapDispatchToProps = dispatch => ({
+    setProjectId: projectId => setProjectId(dispatch, projectId),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FeaturedProjects);

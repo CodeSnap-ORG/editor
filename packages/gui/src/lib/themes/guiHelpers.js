@@ -22,11 +22,11 @@ const BLOCK_COLOR_NAMES = [
  * @param {string} css CSS color or var(--...)
  * @returns {string} evaluated CSS
  */
-const evaluateCSS = (css) => {
+const evaluateCSS = css => {
     const variableMatch = css.match(/^var\(([\w-]+)\)$/);
     if (variableMatch) {
         return document.documentElement.style.getPropertyValue(
-            variableMatch[1],
+            variableMatch[1]
         );
     }
     return css;
@@ -35,7 +35,7 @@ const evaluateCSS = (css) => {
 /**
  * @param {Theme} theme the theme
  */
-const applyGuiColors = (theme) => {
+const applyGuiColors = theme => {
     const doc = document.documentElement;
 
     const defaultGuiColors = Theme.light.getGuiColors();
@@ -53,24 +53,24 @@ const applyGuiColors = (theme) => {
     doc.style.setProperty("--editorTheme3-inputColor", blockColors.textField);
     doc.style.setProperty(
         "--editorTheme3-inputColor-text",
-        blockColors.textFieldText,
+        blockColors.textFieldText
     );
     for (const color of BLOCK_COLOR_NAMES) {
         doc.style.setProperty(
             `--editorTheme3-${color}-primary`,
-            blockColors[color].primary,
+            blockColors[color].primary
         );
         doc.style.setProperty(
             `--editorTheme3-${color}-secondary`,
-            blockColors[color].secondary,
+            blockColors[color].secondary
         );
         doc.style.setProperty(
             `--editorTheme3-${color}-tertiary`,
-            blockColors[color].tertiary,
+            blockColors[color].tertiary
         );
         doc.style.setProperty(
             `--editorTheme3-${color}-field-background`,
-            blockColors[color].quaternary,
+            blockColors[color].quaternary
         );
     }
 
@@ -84,14 +84,14 @@ const applyGuiColors = (theme) => {
     }
     metaThemeColor.setAttribute(
         "content",
-        evaluateCSS(guiColors["menu-bar-background"]),
+        evaluateCSS(guiColors["menu-bar-background"])
     );
 
     // a horrible hack for icons...
     window.Recolor = {
         primary: guiColors["looks-secondary"],
     };
-    AddonHooks.recolorCallbacks.forEach((i) => i());
+    AddonHooks.recolorCallbacks.forEach(i => i());
 };
 
 export { applyGuiColors };

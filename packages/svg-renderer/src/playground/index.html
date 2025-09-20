@@ -121,11 +121,11 @@
             }
 
             function loadSVGString() {
-                readFileAsText(fileChooser.files[0]).then((str) => {
+                readFileAsText(fileChooser.files[0]).then(str => {
                     loadedSVGString = str;
                     renderer.loadSVG(
                         ScratchSVGRenderer.sanitizeSvg.sanitizeSvgText(str),
-                        false,
+                        false
                     );
                 });
             }
@@ -146,7 +146,7 @@
             scaleSlider.addEventListener("change", scaleSliderChanged);
             scaleSlider.addEventListener("input", scaleSliderChanged);
 
-            renderButton.addEventListener("click", (event) => {
+            renderButton.addEventListener("click", event => {
                 renderLoadedString();
             });
         </script>

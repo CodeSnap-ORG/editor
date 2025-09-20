@@ -21,7 +21,7 @@ class Modal extends React.Component {
         // avoids polluting the history with many entries. We only need one.
         this.pushHistory(
             this.id,
-            history.state === null || history.state !== this.id,
+            history.state === null || history.state !== this.id
         );
     }
     componentWillUnmount() {
@@ -56,7 +56,7 @@ Modal.propTypes = {
     onRequestOpen: PropTypes.func,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     isRtl: state.locales.isRtl,
 });
 

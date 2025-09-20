@@ -5,10 +5,10 @@ const VM = require("../../src/virtual-machine");
 const Scratch = require("../../src/extension-support/tw-extension-api-common");
 
 const commandFixture = fs.readFileSync(
-    path.join(__dirname, "../fixtures/tw-rejected-promise-command.sb3"),
+    path.join(__dirname, "../fixtures/tw-rejected-promise-command.sb3")
 );
 const reporterFixture = fs.readFileSync(
-    path.join(__dirname, "../fixtures/tw-rejected-promise-reporter.sb3"),
+    path.join(__dirname, "../fixtures/tw-rejected-promise-reporter.sb3")
 );
 
 class TestExtension {
@@ -39,7 +39,7 @@ class TestExtension {
 }
 
 for (const enableCompiler of [true, false]) {
-    test(`COMMAND returns rejected promise - ${enableCompiler ? "compiler" : "interpreter"}`, (t) => {
+    test(`COMMAND returns rejected promise - ${enableCompiler ? "compiler" : "interpreter"}`, t => {
         const vm = new VM();
         vm.extensionManager.addBuiltinExtension("test123", TestExtension);
 
@@ -65,7 +65,7 @@ for (const enableCompiler of [true, false]) {
         });
     });
 
-    test(`REPORTER returns rejected promise - ${enableCompiler ? "compiler" : "interpreter"}`, (t) => {
+    test(`REPORTER returns rejected promise - ${enableCompiler ? "compiler" : "interpreter"}`, t => {
         const vm = new VM();
         vm.extensionManager.addBuiltinExtension("test123", TestExtension);
 

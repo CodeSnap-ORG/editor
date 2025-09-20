@@ -19,7 +19,7 @@ describe("SBFileUploaderHOC", () => {
         return SBFileUploaderHOC(Component);
     };
 
-    const shallowMountWithContext = (component) =>
+    const shallowMountWithContext = component =>
         shallowWithIntl(component, { context: { store } });
 
     const unwrappedInstance = () => {
@@ -37,7 +37,7 @@ describe("SBFileUploaderHOC", () => {
                 onLoadingFinished={jest.fn()}
                 onLoadingStarted={jest.fn()}
                 onUpdateProjectTitle={jest.fn()}
-            />,
+            />
         );
         return wrapper
             .dive() // unwrap intl
@@ -62,28 +62,28 @@ describe("SBFileUploaderHOC", () => {
 
     test("correctly sets title with .sb3 filename", () => {
         const projectName = unwrappedInstance().getProjectTitleFromFilename(
-            "my project is great.sb3",
+            "my project is great.sb3"
         );
         expect(projectName).toBe("my project is great");
     });
 
     test("correctly sets title with .sb2 filename", () => {
         const projectName = unwrappedInstance().getProjectTitleFromFilename(
-            "my project is great.sb2",
+            "my project is great.sb2"
         );
         expect(projectName).toBe("my project is great");
     });
 
     test("correctly sets title with .sb filename", () => {
         const projectName = unwrappedInstance().getProjectTitleFromFilename(
-            "my project is great.sb",
+            "my project is great.sb"
         );
         expect(projectName).toBe("my project is great");
     });
 
     test("sets blank title with filename with no extension", () => {
         const projectName = unwrappedInstance().getProjectTitleFromFilename(
-            "my project is great",
+            "my project is great"
         );
         expect(projectName).toBe("");
     });

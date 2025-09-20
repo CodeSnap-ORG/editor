@@ -115,7 +115,7 @@ const drawHitPoint = function (point) {
     if (point) {
         const hitPoint = paper.Path.Circle(
             point,
-            4 / paper.view.zoom /* radius */,
+            4 / paper.view.zoom /* radius */
         );
         hitPoint.strokeWidth = 1 / paper.view.zoom;
         hitPoint.strokeColor = GUIDE_BLUE;

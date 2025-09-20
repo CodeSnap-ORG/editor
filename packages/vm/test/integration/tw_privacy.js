@@ -13,14 +13,14 @@ const mockRenderer = () => ({
     },
 });
 
-test("baseline: no external communication methods", (t) => {
+test("baseline: no external communication methods", t => {
     const rt = new Runtime();
     rt.attachRenderer(mockRenderer());
     t.equal(rt.renderer.privateSkinAccess, true);
     t.end();
 });
 
-test("throws errors for unknown method", (t) => {
+test("throws errors for unknown method", t => {
     t.plan(1);
     const rt = new Runtime();
     try {
@@ -31,7 +31,7 @@ test("throws errors for unknown method", (t) => {
     t.end();
 });
 
-test("communication method enabled after attaching renderer", (t) => {
+test("communication method enabled after attaching renderer", t => {
     const rt = new Runtime();
     rt.attachRenderer(mockRenderer());
     rt.setExternalCommunicationMethod("cloudVariables", true);
@@ -39,7 +39,7 @@ test("communication method enabled after attaching renderer", (t) => {
     t.end();
 });
 
-test("communication method enabled before attaching renderer", (t) => {
+test("communication method enabled before attaching renderer", t => {
     const rt = new Runtime();
     rt.setExternalCommunicationMethod("cloudVariables", true);
     rt.attachRenderer(mockRenderer());
@@ -47,7 +47,7 @@ test("communication method enabled before attaching renderer", (t) => {
     t.end();
 });
 
-test("disable enforcement", (t) => {
+test("disable enforcement", t => {
     const rt = new Runtime();
     rt.attachRenderer(mockRenderer());
     rt.setEnforcePrivacy(false);
@@ -56,7 +56,7 @@ test("disable enforcement", (t) => {
     t.end();
 });
 
-test("multiple features toggled", (t) => {
+test("multiple features toggled", t => {
     const rt = new Runtime();
     rt.attachRenderer(mockRenderer());
     rt.setExternalCommunicationMethod("cloudVariables", true);
@@ -70,7 +70,7 @@ test("multiple features toggled", (t) => {
     t.end();
 });
 
-test("cloud variables", (t) => {
+test("cloud variables", t => {
     const rt = new Runtime();
     rt.attachRenderer(mockRenderer());
 
@@ -89,7 +89,7 @@ test("cloud variables", (t) => {
     t.end();
 });
 
-test("custom extensions", async (t) => {
+test("custom extensions", async t => {
     const vm = new VM();
     vm.attachRenderer(mockRenderer());
 

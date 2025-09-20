@@ -27,11 +27,7 @@ describe("VMListenerHOC", () => {
         const WrappedComponent = vmListenerHOC(Component);
         const onGreenFlag = jest.fn();
         mount(
-            <WrappedComponent
-                store={store}
-                vm={vm}
-                onGreenFlag={onGreenFlag}
-            />,
+            <WrappedComponent store={store} vm={vm} onGreenFlag={onGreenFlag} />
         );
         expect(onGreenFlag).not.toHaveBeenCalled();
         vm.emit("PROJECT_START");
@@ -42,7 +38,7 @@ describe("VMListenerHOC", () => {
         const Component = () => <div />;
         const WrappedComponent = vmListenerHOC(Component);
         const wrapper = mount(
-            <WrappedComponent store={store} vm={vm} onGreenFlag={jest.fn()} />,
+            <WrappedComponent store={store} vm={vm} onGreenFlag={jest.fn()} />
         );
         const child = wrapper.find(Component);
         expect(child.props().onGreenFlag).toBeUndefined();
@@ -57,7 +53,7 @@ describe("VMListenerHOC", () => {
         vm.emit("targetsUpdate", { targetList, editingTarget });
         const actions = store.getActions();
         expect(actions[0].type).toEqual(
-            "scratch-gui/targets/UPDATE_TARGET_LIST",
+            "scratch-gui/targets/UPDATE_TARGET_LIST"
         );
         expect(actions[0].targets).toEqual(targetList);
         expect(actions[0].editingTarget).toEqual(editingTarget);

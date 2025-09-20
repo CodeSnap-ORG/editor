@@ -5,7 +5,7 @@ const VM = require("../../src/virtual-machine");
 
 for (const compilerEnabled of [false, true]) {
     const prefix = compilerEnabled ? "compiler" : "interpreter";
-    test(`${prefix} - quirks when block field has literal null for variable ID`, (t) => {
+    test(`${prefix} - quirks when block field has literal null for variable ID`, t => {
         const vm = new VM();
         vm.setCompilerOptions({
             enabled: compilerEnabled,
@@ -13,7 +13,7 @@ for (const compilerEnabled of [false, true]) {
         t.equal(
             vm.runtime.compilerOptions.enabled,
             compilerEnabled,
-            "compiler options sanity check",
+            "compiler options sanity check"
         );
 
         // The execute tests ensure that this fixture compiles and runs fine and the snapshot test ensures
@@ -21,7 +21,7 @@ for (const compilerEnabled of [false, true]) {
         // being created with the expected properties.
         const fixturePath = path.join(
             __dirname,
-            "../fixtures/execute/tw-automatic-variable-creation-literal-null-id.sb3",
+            "../fixtures/execute/tw-automatic-variable-creation-literal-null-id.sb3"
         );
 
         vm.loadProject(fs.readFileSync(fixturePath)).then(() => {

@@ -9,7 +9,7 @@ const reducer = function (state, action) {
         case CHANGE_HOVERED:
             if (typeof action.hoveredItemId === "undefined") {
                 log.warn(
-                    `Hovered item should not be set to undefined. Use null.`,
+                    `Hovered item should not be set to undefined. Use null.`
                 );
                 return state;
             } else if (
@@ -17,7 +17,7 @@ const reducer = function (state, action) {
                 isNaN(action.hoveredItemId)
             ) {
                 log.warn(
-                    `Hovered item should be an item ID number. Got: ${action.hoveredItemId}`,
+                    `Hovered item should be an item ID number. Got: ${action.hoveredItemId}`
                 );
                 return state;
             }

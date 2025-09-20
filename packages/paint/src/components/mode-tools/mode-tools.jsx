@@ -42,7 +42,7 @@ import bitRectOutlinedIcon from "../bit-rect-mode/rectangle-outlined.svg";
 import { MAX_STROKE_WIDTH } from "../../reducers/stroke-width";
 
 const LiveInput = LiveInputHOC(Input);
-const ModeToolsComponent = (props) => {
+const ModeToolsComponent = props => {
     const messages = defineMessages({
         brushSize: {
             defaultMessage: "Size",
@@ -194,7 +194,7 @@ const ModeToolsComponent = (props) => {
                     <InputGroup
                         className={classNames(
                             styles.modDashedBorder,
-                            styles.modLabeledIconHeight,
+                            styles.modLabeledIconHeight
                         )}
                     >
                         <LabeledIconButton
@@ -232,7 +232,7 @@ const ModeToolsComponent = (props) => {
                     <InputGroup
                         className={classNames(
                             styles.modDashedBorder,
-                            styles.modLabeledIconHeight,
+                            styles.modLabeledIconHeight
                         )}
                     >
                         <LabeledIconButton
@@ -252,7 +252,7 @@ const ModeToolsComponent = (props) => {
                     <InputGroup
                         className={classNames(
                             styles.modDashedBorder,
-                            styles.modLabeledIconHeight,
+                            styles.modLabeledIconHeight
                         )}
                     >
                         <LabeledIconButton
@@ -269,7 +269,7 @@ const ModeToolsComponent = (props) => {
                             hideLabel={props.intl.locale !== "en"}
                             imgSrc={flipHorizontalIcon}
                             title={props.intl.formatMessage(
-                                messages.flipHorizontal,
+                                messages.flipHorizontal
                             )}
                             onClick={props.onFlipHorizontal}
                         />
@@ -277,7 +277,7 @@ const ModeToolsComponent = (props) => {
                             hideLabel={props.intl.locale !== "en"}
                             imgSrc={flipVerticalIcon}
                             title={props.intl.formatMessage(
-                                messages.flipVertical,
+                                messages.flipVertical
                             )}
                             onClick={props.onFlipVertical}
                         />
@@ -330,7 +330,7 @@ const ModeToolsComponent = (props) => {
                         <InputGroup>
                             <Label
                                 text={props.intl.formatMessage(
-                                    messages.thickness,
+                                    messages.thickness
                                 )}
                             >
                                 <LiveInput
@@ -388,7 +388,7 @@ ModeToolsComponent.propTypes = {
     onUpdateImage: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     mode: state.scratchPaint.mode,
     format: state.scratchPaint.format,
     fillBitmapShapes: state.scratchPaint.fillBitmapShapes,
@@ -398,17 +398,17 @@ const mapStateToProps = (state) => ({
     clipboardItems: state.scratchPaint.clipboard.items,
     eraserValue: state.scratchPaint.eraserMode.brushSize,
 });
-const mapDispatchToProps = (dispatch) => ({
-    onBrushSliderChange: (brushSize) => {
+const mapDispatchToProps = dispatch => ({
+    onBrushSliderChange: brushSize => {
         dispatch(changeBrushSize(brushSize));
     },
-    onBitBrushSliderChange: (bitBrushSize) => {
+    onBitBrushSliderChange: bitBrushSize => {
         dispatch(changeBitBrushSize(bitBrushSize));
     },
-    onBitEraserSliderChange: (eraserSize) => {
+    onBitEraserSliderChange: eraserSize => {
         dispatch(changeBitEraserSize(eraserSize));
     },
-    onEraserSliderChange: (eraserSize) => {
+    onEraserSliderChange: eraserSize => {
         dispatch(changeEraserSize(eraserSize));
     },
     onFillShapes: () => {
@@ -421,5 +421,5 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps,
+    mapDispatchToProps
 )(injectIntl(ModeToolsComponent));

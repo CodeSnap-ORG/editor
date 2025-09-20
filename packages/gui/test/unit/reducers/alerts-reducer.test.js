@@ -15,10 +15,10 @@ test("initialState", () => {
     /* alertsReducer(state, action) */
     expect(alertsReducer(defaultState, { type: "anything" })).toBeDefined();
     expect(alertsReducer(defaultState, { type: "anything" }).visible).toBe(
-        true,
+        true
     );
     expect(
-        alertsReducer(defaultState, { type: "anything" }).alertsList,
+        alertsReducer(defaultState, { type: "anything" }).alertsList
     ).toEqual([]);
 });
 
@@ -101,20 +101,20 @@ test("can close a single alert by id", () => {
     };
     const closeAction = closeAlertWithId("saving");
     let resultState = alertsReducer(initialState, closeAction);
-    expect(resultState.alertsList.map((a) => a.alertId)).toEqual([
+    expect(resultState.alertsList.map(a => a.alertId)).toEqual([
         "creating",
         "saving",
         "saving",
     ]);
     resultState = alertsReducer(resultState, closeAction);
-    expect(resultState.alertsList.map((a) => a.alertId)).toEqual([
+    expect(resultState.alertsList.map(a => a.alertId)).toEqual([
         "creating",
         "saving",
     ]);
     resultState = alertsReducer(resultState, closeAction);
-    expect(resultState.alertsList.map((a) => a.alertId)).toEqual(["creating"]);
+    expect(resultState.alertsList.map(a => a.alertId)).toEqual(["creating"]);
     resultState = alertsReducer(resultState, closeAction);
-    expect(resultState.alertsList.map((a) => a.alertId)).toEqual(["creating"]);
+    expect(resultState.alertsList.map(a => a.alertId)).toEqual(["creating"]);
 });
 
 test("related alerts can clear each other", () => {

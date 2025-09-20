@@ -93,13 +93,13 @@ const DEFINITELY_EXECUTABLE = [
  * @param {string} name Name of file
  * @returns {boolean} True indicates definitely dangerous. False does not mean safe.
  */
-const isDefinitelyExecutable = (name) => {
+const isDefinitelyExecutable = name => {
     const parts = name.split(".");
     const extension = parts.length > 1 ? parts.pop().toLowerCase() : null;
     return extension !== null && DEFINITELY_EXECUTABLE.includes(extension);
 };
 
-const FileName = (props) => {
+const FileName = props => {
     const MAX_NAME_LENGTH = 80;
     const MAX_EXTENSION_LENGTH = 30;
 
@@ -131,7 +131,7 @@ FileName.propTypes = {
     name: PropTypes.string.isRequired,
 };
 
-const DownloadModal = (props) => (
+const DownloadModal = props => (
     <div>
         <p>
             <FormattedMessage

@@ -26,9 +26,7 @@ class ChangeUsername extends React.Component {
         if (this.props.running && !isScratchDesktop()) {
             // eslint-disable-next-line no-alert
             alert(
-                this.props.intl.formatMessage(
-                    messages.cannotChangeWhileRunning,
-                ),
+                this.props.intl.formatMessage(messages.cannotChangeWhileRunning)
             );
             return;
         }
@@ -46,11 +44,11 @@ ChangeUsername.propTypes = {
     intl: intlShape,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     running: state.scratchGui.vmStatus.running,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     onOpenUsernameModal: () => {
         dispatch(openUsernameModal());
         dispatch(closeEditMenu());
@@ -58,5 +56,5 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default injectIntl(
-    connect(mapStateToProps, mapDispatchToProps)(ChangeUsername),
+    connect(mapStateToProps, mapDispatchToProps)(ChangeUsername)
 );

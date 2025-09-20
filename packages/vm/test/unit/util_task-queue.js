@@ -22,7 +22,7 @@ const makeTestQueue = () => {
     return bukkit;
 };
 
-test("spec", (t) => {
+test("spec", t => {
     t.type(TaskQueue, "function");
     const bukkit = makeTestQueue();
 
@@ -36,7 +36,7 @@ test("spec", (t) => {
     t.end();
 });
 
-test("constructor", (t) => {
+test("constructor", t => {
     t.ok(new TaskQueue(1, 1));
     t.ok(new TaskQueue(1, 1, {}));
     t.ok(new TaskQueue(1, 1, { startingTokens: 0 }));
@@ -45,7 +45,7 @@ test("constructor", (t) => {
     t.end();
 });
 
-test("run tasks", async (t) => {
+test("run tasks", async t => {
     const bukkit = makeTestQueue();
 
     const taskResults = [];
@@ -58,7 +58,7 @@ test("run tasks", async (t) => {
                 bukkit._timer.timeElapsed(),
                 ">=",
                 50,
-                "Costly task must wait",
+                "Costly task must wait"
             );
         }, 50),
         bukkit.do(() => {
@@ -68,7 +68,7 @@ test("run tasks", async (t) => {
                 bukkit._timer.timeElapsed(),
                 ">=",
                 60,
-                "Tasks must run in serial",
+                "Tasks must run in serial"
             );
         }, 10),
         bukkit.do(() => {
@@ -78,7 +78,7 @@ test("run tasks", async (t) => {
                 bukkit._timer.timeElapsed(),
                 "<=",
                 70,
-                "Cheap task should run soon",
+                "Cheap task should run soon"
             );
         }, 1),
     ];
@@ -92,13 +92,13 @@ test("run tasks", async (t) => {
         t.deepEqual(
             taskResults,
             ["a", "b", "c"],
-            "All tasks must run in correct order",
+            "All tasks must run in correct order"
         );
         t.end();
     });
 });
 
-test("cancel", async (t) => {
+test("cancel", async t => {
     const bukkit = makeTestQueue();
 
     const taskResults = [];
@@ -113,7 +113,7 @@ test("cancel", async (t) => {
         },
         () => {
             taskResults.push(goodCancelMessage);
-        },
+        }
     );
     const keepTaskPromise = bukkit.do(() => {
         taskResults.push(afterCancelMessage);
@@ -122,7 +122,7 @@ test("cancel", async (t) => {
             bukkit._timer.timeElapsed(),
             "<",
             10,
-            "Canceled task must not delay other tasks",
+            "Canceled task must not delay other tasks"
         );
     }, 5);
 
@@ -144,7 +144,7 @@ test("cancel", async (t) => {
     });
 });
 
-test("cancelAll", async (t) => {
+test("cancelAll", async t => {
     const bukkit = makeTestQueue();
 
     const taskResults = [];
@@ -160,7 +160,7 @@ test("cancelAll", async (t) => {
                 },
                 () => {
                     taskResults.push(goodCancelMessage1);
-                },
+                }
             ),
         bukkit
             .do(() => taskResults.push("nah"), 999)
@@ -170,7 +170,7 @@ test("cancelAll", async (t) => {
                 },
                 () => {
                     taskResults.push(goodCancelMessage2);
-                },
+                }
             ),
     ];
 
@@ -186,13 +186,13 @@ test("cancelAll", async (t) => {
         t.deepEqual(
             taskResults,
             [goodCancelMessage1, goodCancelMessage2],
-            "Tasks should cancel in order",
+            "Tasks should cancel in order"
         );
         t.end();
     });
 });
 
-test("max total cost", async (t) => {
+test("max total cost", async t => {
     const bukkit = makeTestQueue();
 
     let numTasks = 0;
@@ -211,7 +211,7 @@ test("max total cost", async (t) => {
         },
         () => {
             t.pass();
-        },
+        }
     );
 
     while (bukkit.length > 0) {

@@ -45,7 +45,7 @@ const testCostume = (costumes, arg, currentCostume = 1, isStage = false) => {
     const sprite = new Sprite(null, rt);
     const target = new RenderedTarget(sprite, rt);
 
-    sprite.costumes = costumes.map((name) => ({ name: name }));
+    sprite.costumes = costumes.map(name => ({ name: name }));
     target.currentCostume = currentCostume - 1; // Convert to 0-indexed.
 
     if (isStage) {
@@ -72,7 +72,7 @@ const testCostume = (costumes, arg, currentCostume = 1, isStage = false) => {
 const testBackdrop = (backdrops, arg, currentCostume = 1) =>
     testCostume(backdrops, arg, currentCostume, true);
 
-test("switch costume block runs correctly", (t) => {
+test("switch costume block runs correctly", t => {
     // Non-existant costumes do nothing
     t.strictEqual(testCostume(["a", "b", "c", "d"], "e", 3), 3);
 
@@ -90,11 +90,11 @@ test("switch costume block runs correctly", (t) => {
     // 'previous costume' and 'next costume' can be overriden
     t.strictEqual(
         testCostume(["a", "previous costume", "c", "d"], "previous costume"),
-        2,
+        2
     );
     t.strictEqual(
         testCostume(["next costume", "b", "c", "d"], "next costume"),
-        1,
+        1
     );
 
     // NaN, Infinity, and true are the first costume
@@ -125,7 +125,7 @@ test("switch costume block runs correctly", (t) => {
     t.end();
 });
 
-test("switch backdrop block runs correctly", (t) => {
+test("switch backdrop block runs correctly", t => {
     // Non-existant backdrops do nothing
     t.strictEqual(testBackdrop(["a", "b", "c", "d"], "e", 3), 3);
 
@@ -136,7 +136,7 @@ test("switch backdrop block runs correctly", (t) => {
     // 'previous backdrop' and 'next backdrop' increment/decrement
     t.strictEqual(
         testBackdrop(["a", "b", "c", "d"], "previous backdrop", 3),
-        2,
+        2
     );
     t.strictEqual(testBackdrop(["a", "b", "c", "d"], "next backdrop", 2), 3);
 
@@ -146,17 +146,17 @@ test("switch backdrop block runs correctly", (t) => {
         testBackdrop(
             ["a", "previous backdrop", "c", "d"],
             "previous backdrop",
-            4,
+            4
         ),
-        2,
+        2
     );
     t.strictEqual(
         testBackdrop(["next backdrop", "b", "c", "d"], "next backdrop", 3),
-        1,
+        1
     );
     t.strictEqual(
         testBackdrop(["random backdrop", "b", "c", "d"], "random backdrop"),
-        1,
+        1
     );
 
     // NaN, Infinity, and true are the first costume
@@ -187,7 +187,7 @@ test("switch backdrop block runs correctly", (t) => {
     t.end();
 });
 
-test("getCostumeNumberName returns 1-indexed costume number", (t) => {
+test("getCostumeNumberName returns 1-indexed costume number", t => {
     util.target.currentCostume = 0; // This is 0-indexed.
     const args = { NUMBER_NAME: "number" };
     const number = blocks.getCostumeNumberName(args, util);
@@ -195,7 +195,7 @@ test("getCostumeNumberName returns 1-indexed costume number", (t) => {
     t.end();
 });
 
-test("getCostumeNumberName can return costume name", (t) => {
+test("getCostumeNumberName can return costume name", t => {
     util.target.currentCostume = 0; // This is 0-indexed.
     const args = { NUMBER_NAME: "name" };
     const name = blocks.getCostumeNumberName(args, util);
@@ -203,7 +203,7 @@ test("getCostumeNumberName can return costume name", (t) => {
     t.end();
 });
 
-test("getBackdropNumberName returns 1-indexed costume number", (t) => {
+test("getBackdropNumberName returns 1-indexed costume number", t => {
     util.target.currentCostume = 2; // This is 0-indexed.
     const args = { NUMBER_NAME: "number" };
     const number = blocks.getBackdropNumberName(args, util);
@@ -211,7 +211,7 @@ test("getBackdropNumberName returns 1-indexed costume number", (t) => {
     t.end();
 });
 
-test("getBackdropNumberName can return costume name", (t) => {
+test("getBackdropNumberName can return costume name", t => {
     util.target.currentCostume = 2; // This is 0-indexed.
     const args = { NUMBER_NAME: "name" };
     const number = blocks.getBackdropNumberName(args, util);
@@ -219,7 +219,7 @@ test("getBackdropNumberName can return costume name", (t) => {
     t.end();
 });
 
-test("numbers should be rounded properly in say/think", (t) => {
+test("numbers should be rounded properly in say/think", t => {
     const rt = new Runtime();
     const looks = new Looks(rt);
 
@@ -234,66 +234,66 @@ test("numbers should be rounded properly in say/think", (t) => {
     looks.say(
         { MESSAGE: 3.14159 },
         util,
-        "say bubble should round to 2 decimal places",
+        "say bubble should round to 2 decimal places"
     );
     looks.think(
         { MESSAGE: 3.14159 },
         util,
-        "think bubble should round to 2 decimal places",
+        "think bubble should round to 2 decimal places"
     );
 
     expectedSayString = "3";
     looks.say(
         { MESSAGE: 3 },
         util,
-        "say bubble should not add decimal places to integers",
+        "say bubble should not add decimal places to integers"
     );
     looks.think(
         { MESSAGE: 3 },
         util,
-        "think bubble should not add decimal places to integers",
+        "think bubble should not add decimal places to integers"
     );
 
     expectedSayString = "3.10";
     looks.say(
         { MESSAGE: 3.1 },
         util,
-        "say bubble should round to 2 decimal places, even if only 1 is needed",
+        "say bubble should round to 2 decimal places, even if only 1 is needed"
     );
     looks.think(
         { MESSAGE: 3.1 },
         util,
-        "think bubble should round to 2 decimal places, even if only 1 is needed",
+        "think bubble should round to 2 decimal places, even if only 1 is needed"
     );
 
     expectedSayString = "0.00125";
     looks.say(
         { MESSAGE: 0.00125 },
         util,
-        "say bubble should not round if it would display small numbers as 0",
+        "say bubble should not round if it would display small numbers as 0"
     );
     looks.think(
         { MESSAGE: 0.00125 },
         util,
-        "think bubble should not round if it would display small numbers as 0",
+        "think bubble should not round if it would display small numbers as 0"
     );
 
     expectedSayString = "1.99999";
     looks.say(
         { MESSAGE: "1.99999" },
         util,
-        "say bubble should not round strings",
+        "say bubble should not round strings"
     );
     looks.think(
         { MESSAGE: "1.99999" },
         util,
-        "think bubble should not round strings",
+        "think bubble should not round strings"
     );
 
     t.end();
 });
 
-test("clamp graphic effects", (t) => {
+test("clamp graphic effects", t => {
     const rt = new Runtime();
     const looks = new Looks(rt);
     const expectedValues = {

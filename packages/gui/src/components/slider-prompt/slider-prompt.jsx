@@ -30,7 +30,7 @@ const messages = defineMessages({
     },
 });
 
-const SliderPromptComponent = (props) => (
+const SliderPromptComponent = props => (
     <Modal
         className={styles.modalContent}
         contentLabel={props.intl.formatMessage(messages.title)}

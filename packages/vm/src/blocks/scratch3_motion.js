@@ -48,15 +48,15 @@ class Scratch3MotionBlocks {
         return {
             motion_xposition: {
                 isSpriteSpecific: true,
-                getId: (targetId) => `${targetId}_xposition`,
+                getId: targetId => `${targetId}_xposition`,
             },
             motion_yposition: {
                 isSpriteSpecific: true,
-                getId: (targetId) => `${targetId}_yposition`,
+                getId: targetId => `${targetId}_yposition`,
             },
             motion_direction: {
                 isSpriteSpecific: true,
-                getId: (targetId) => `${targetId}_direction`,
+                getId: targetId => `${targetId}_direction`,
             },
         };
     }
@@ -134,7 +134,7 @@ class Scratch3MotionBlocks {
         } else {
             args.TOWARDS = Cast.toString(args.TOWARDS);
             const pointTarget = this.runtime.getSpriteTargetByName(
-                args.TOWARDS,
+                args.TOWARDS
             );
             if (!pointTarget) return;
             targetX = pointTarget.x;
@@ -159,7 +159,7 @@ class Scratch3MotionBlocks {
                     frac * (util.stackFrame.endY - util.stackFrame.startY);
                 util.target.setXY(
                     util.stackFrame.startX + dx,
-                    util.stackFrame.startY + dy,
+                    util.stackFrame.startY + dy
                 );
                 util.yield();
             } else {
@@ -189,7 +189,7 @@ class Scratch3MotionBlocks {
         if (targetXY) {
             this.glide(
                 { SECS: args.SECS, X: targetXY[0], Y: targetXY[1] },
-                util,
+                util
             );
         }
     }

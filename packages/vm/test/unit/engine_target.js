@@ -5,7 +5,7 @@ const adapter = require("../../src/engine/adapter");
 const Runtime = require("../../src/engine/runtime");
 const events = require("../fixtures/events.json");
 
-test("spec", (t) => {
+test("spec", t => {
     const target = new Target(new Runtime());
 
     t.type(Target, "function");
@@ -25,7 +25,7 @@ test("spec", (t) => {
 });
 
 // Create Variable tests.
-test("createVariable", (t) => {
+test("createVariable", t => {
     const target = new Target(new Runtime());
     target.createVariable("foo", "bar", Variable.SCALAR_TYPE);
 
@@ -42,7 +42,7 @@ test("createVariable", (t) => {
 });
 
 // Create Same Variable twice.
-test("createVariable2", (t) => {
+test("createVariable2", t => {
     const target = new Target(new Runtime());
     target.createVariable("foo", "bar", Variable.SCALAR_TYPE);
     target.createVariable("foo", "bar", Variable.SCALAR_TYPE);
@@ -54,7 +54,7 @@ test("createVariable2", (t) => {
 });
 
 // Create a list
-test("createListVariable creates a list", (t) => {
+test("createListVariable creates a list", t => {
     const target = new Target(new Runtime());
     target.createVariable("foo", "bar", Variable.LIST_TYPE);
 
@@ -71,7 +71,7 @@ test("createListVariable creates a list", (t) => {
     t.end();
 });
 
-test("createVariable calls cloud io device's requestCreateVariable", (t) => {
+test("createVariable calls cloud io device's requestCreateVariable", t => {
     const runtime = new Runtime();
     // Mock the requestCreateVariable function
     let requestCreateCloudWasCalled = false;
@@ -85,7 +85,7 @@ test("createVariable calls cloud io device's requestCreateVariable", (t) => {
         "foo",
         "bar",
         Variable.SCALAR_TYPE,
-        true /* isCloud */,
+        true /* isCloud */
     );
 
     const variables = target.variables;
@@ -101,7 +101,7 @@ test("createVariable calls cloud io device's requestCreateVariable", (t) => {
     t.end();
 });
 
-test("createVariable does not call cloud io device's requestCreateVariable if target is not stage", (t) => {
+test("createVariable does not call cloud io device's requestCreateVariable if target is not stage", t => {
     const runtime = new Runtime();
     // Mock the requestCreateVariable function
     let requestCreateCloudWasCalled = false;
@@ -115,7 +115,7 @@ test("createVariable does not call cloud io device's requestCreateVariable if ta
         "foo",
         "bar",
         Variable.SCALAR_TYPE,
-        true /* isCloud */,
+        true /* isCloud */
     );
 
     const variables = target.variables;
@@ -132,18 +132,18 @@ test("createVariable does not call cloud io device's requestCreateVariable if ta
     t.end();
 });
 
-test("createVariable throws when given invalid type", (t) => {
+test("createVariable throws when given invalid type", t => {
     const target = new Target(new Runtime());
     t.throws(
         () => target.createVariable("foo", "bar", "baz"),
-        new Error("Invalid variable type: baz"),
+        new Error("Invalid variable type: baz")
     );
 
     t.end();
 });
 
 // Rename Variable tests.
-test("renameVariable", (t) => {
+test("renameVariable", t => {
     const target = new Target(new Runtime());
     target.createVariable("foo", "bar", Variable.SCALAR_TYPE);
     target.renameVariable("foo", "bar2");
@@ -160,7 +160,7 @@ test("renameVariable", (t) => {
 });
 
 // Rename Variable that doesn't exist.
-test("renameVariable2", (t) => {
+test("renameVariable2", t => {
     const target = new Target(new Runtime());
     target.renameVariable("foo", "bar2");
 
@@ -172,7 +172,7 @@ test("renameVariable2", (t) => {
 
 // Rename Variable that with id that exists as another variable's name.
 // Expect no change.
-test("renameVariable3", (t) => {
+test("renameVariable3", t => {
     const target = new Target(new Runtime());
     target.createVariable("foo1", "foo", Variable.SCALAR_TYPE);
     target.renameVariable("foo", "bar2");
@@ -186,7 +186,7 @@ test("renameVariable3", (t) => {
     t.end();
 });
 
-test("renameVariable calls cloud io device's requestRenameVariable function", (t) => {
+test("renameVariable calls cloud io device's requestRenameVariable function", t => {
     const runtime = new Runtime();
 
     let requestRenameVariableWasCalled = false;
@@ -214,7 +214,7 @@ test("renameVariable calls cloud io device's requestRenameVariable function", (t
     t.end();
 });
 
-test("renameVariable does not call cloud io device's requestRenameVariable function if target is not stage", (t) => {
+test("renameVariable does not call cloud io device's requestRenameVariable function if target is not stage", t => {
     const runtime = new Runtime();
 
     let requestRenameVariableWasCalled = false;
@@ -242,7 +242,7 @@ test("renameVariable does not call cloud io device's requestRenameVariable funct
 });
 
 // Delete Variable tests.
-test("deleteVariable", (t) => {
+test("deleteVariable", t => {
     const target = new Target(new Runtime());
     target.createVariable("foo", "bar", Variable.SCALAR_TYPE);
     target.deleteVariable("foo");
@@ -254,7 +254,7 @@ test("deleteVariable", (t) => {
 });
 
 // Delete Variable that doesn't exist.
-test("deleteVariable2", (t) => {
+test("deleteVariable2", t => {
     const target = new Target(new Runtime());
     target.deleteVariable("foo");
 
@@ -264,7 +264,7 @@ test("deleteVariable2", (t) => {
     t.end();
 });
 
-test("deleteVariable calls cloud io device's requestRenameVariable function", (t) => {
+test("deleteVariable calls cloud io device's requestRenameVariable function", t => {
     const runtime = new Runtime();
 
     let requestDeleteVariableWasCalled = false;
@@ -287,7 +287,7 @@ test("deleteVariable calls cloud io device's requestRenameVariable function", (t
     t.end();
 });
 
-test("deleteVariable calls cloud io device's requestRenameVariable function", (t) => {
+test("deleteVariable calls cloud io device's requestRenameVariable function", t => {
     const runtime = new Runtime();
 
     let requestDeleteVariableWasCalled = false;
@@ -309,7 +309,7 @@ test("deleteVariable calls cloud io device's requestRenameVariable function", (t
     t.end();
 });
 
-test("duplicateVariable creates a new variable with a new ID by default", (t) => {
+test("duplicateVariable creates a new variable with a new ID by default", t => {
     const target = new Target(new Runtime());
     target.createVariable("a var ID", "foo", Variable.SCALAR_TYPE);
     t.equal(Object.keys(target.variables).length, 1);
@@ -333,7 +333,7 @@ test("duplicateVariable creates a new variable with a new ID by default", (t) =>
     t.end();
 });
 
-test("duplicateVariable creates new array reference for list variable.value", (t) => {
+test("duplicateVariable creates new array reference for list variable.value", t => {
     const target = new Target(new Runtime());
     const arr = [1, 2, 3];
     target.createVariable("a var ID", "arr", Variable.LIST_TYPE);
@@ -346,7 +346,7 @@ test("duplicateVariable creates new array reference for list variable.value", (t
     t.end();
 });
 
-test("duplicateVariable creates a new variable with a original ID if specified", (t) => {
+test("duplicateVariable creates a new variable with a original ID if specified", t => {
     const target = new Target(new Runtime());
     target.createVariable("a var ID", "foo", Variable.SCALAR_TYPE);
     t.equal(Object.keys(target.variables).length, 1);
@@ -371,7 +371,7 @@ test("duplicateVariable creates a new variable with a original ID if specified",
     t.end();
 });
 
-test("duplicateVariable returns null if variable with specified ID does not exist", (t) => {
+test("duplicateVariable returns null if variable with specified ID does not exist", t => {
     const target = new Target(new Runtime());
 
     const variable = target.duplicateVariable("a var ID");
@@ -391,7 +391,7 @@ test("duplicateVariable returns null if variable with specified ID does not exis
     t.end();
 });
 
-test("duplicateVariables duplicates all variables", (t) => {
+test("duplicateVariables duplicates all variables", t => {
     const target = new Target(new Runtime());
     target.createVariable("var ID 1", "var1", Variable.SCALAR_TYPE);
     target.createVariable("var ID 2", "var2", Variable.SCALAR_TYPE);
@@ -414,30 +414,30 @@ test("duplicateVariables duplicates all variables", (t) => {
     // the duplicate variables since a blocks container was not specified.
     t.equal(
         Object.prototype.hasOwnProperty.call(target.variables, "var ID 1"),
-        true,
+        true
     );
     t.equal(
         Object.prototype.hasOwnProperty.call(target.variables, "var ID 2"),
-        true,
+        true
     );
     t.equal(
         Object.prototype.hasOwnProperty.call(duplicateVariables, "var ID 1"),
-        true,
+        true
     );
     t.equal(
         Object.prototype.hasOwnProperty.call(duplicateVariables, "var ID 1"),
-        true,
+        true
     );
 
     // Values of the duplicate varaiables should match the value of the original values at the time of duplication
     t.equal(
         target.variables["var ID 1"].value,
-        duplicateVariables["var ID 1"].value,
+        duplicateVariables["var ID 1"].value
     );
     t.equal(duplicateVariables["var ID 1"].value, 3);
     t.equal(
         target.variables["var ID 2"].value,
-        duplicateVariables["var ID 2"].value,
+        duplicateVariables["var ID 2"].value
     );
     t.equal(duplicateVariables["var ID 2"].value, "foo");
 
@@ -461,13 +461,13 @@ test("duplicateVariables duplicates all variables", (t) => {
     t.end();
 });
 
-test("duplicateVariables re-IDs variables when a block container is provided", (t) => {
+test("duplicateVariables re-IDs variables when a block container is provided", t => {
     const target = new Target(new Runtime());
 
     target.createVariable(
         "mock var id",
         "a mock variable",
-        Variable.SCALAR_TYPE,
+        Variable.SCALAR_TYPE
     );
     target.createVariable("another var id", "var2", Variable.SCALAR_TYPE);
 
@@ -478,11 +478,11 @@ test("duplicateVariables re-IDs variables when a block container is provided", (
     t.type(target.blocks.getBlock("a block").fields.VARIABLE, "object");
     t.equal(
         target.blocks.getBlock("a block").fields.VARIABLE.id,
-        "mock var id",
+        "mock var id"
     );
     t.equal(
         target.blocks.getBlock("a block").fields.VARIABLE.value,
-        "a mock variable",
+        "a mock variable"
     );
 
     // Deep clone this target's blocks to pass in to 'duplicateVariables'
@@ -495,7 +495,7 @@ test("duplicateVariables re-IDs variables when a block container is provided", (
     t.equal(copiedBlocks.getBlock("a block").fields.VARIABLE.id, "mock var id");
     t.equal(
         copiedBlocks.getBlock("a block").fields.VARIABLE.value,
-        "a mock variable",
+        "a mock variable"
     );
 
     const duplicateVariables = target.duplicateVariables(copiedBlocks);
@@ -507,7 +507,7 @@ test("duplicateVariables re-IDs variables when a block container is provided", (
 
     // Duplicate variables still have the same names..
     const dupes = Object.values(duplicateVariables);
-    const dupeVarNames = dupes.map((v) => v.name);
+    const dupeVarNames = dupes.map(v => v.name);
 
     t.notEqual(dupeVarNames.indexOf("a mock variable"), -1);
     t.notEqual(dupeVarNames.indexOf("var2"), -1);
@@ -516,11 +516,11 @@ test("duplicateVariables re-IDs variables when a block container is provided", (
     t.type(target.blocks.getBlock("a block"), "object");
     t.equal(
         target.blocks.getBlock("a block").fields.VARIABLE.id,
-        "mock var id",
+        "mock var id"
     );
     t.equal(
         target.blocks.getBlock("a block").fields.VARIABLE.value,
-        "a mock variable",
+        "a mock variable"
     );
 
     // The copied blocks passed into duplicateVariables should now reference the new
@@ -532,13 +532,13 @@ test("duplicateVariables re-IDs variables when a block container is provided", (
     t.equal(copiedBlocks.getBlock("a block").fields.VARIABLE.id, mockVarDupeID);
     t.equal(
         copiedBlocks.getBlock("a block").fields.VARIABLE.value,
-        "a mock variable",
+        "a mock variable"
     );
 
     t.end();
 });
 
-test("lookupOrCreateList creates a list if var with given id or var with given name does not exist", (t) => {
+test("lookupOrCreateList creates a list if var with given id or var with given name does not exist", t => {
     const target = new Target(new Runtime());
     const variables = target.variables;
 
@@ -551,7 +551,7 @@ test("lookupOrCreateList creates a list if var with given id or var with given n
     t.end();
 });
 
-test("lookupOrCreateList returns list if one with given id exists", (t) => {
+test("lookupOrCreateList returns list if one with given id exists", t => {
     const target = new Target(new Runtime());
     const variables = target.variables;
 
@@ -567,7 +567,7 @@ test("lookupOrCreateList returns list if one with given id exists", (t) => {
     t.end();
 });
 
-test("lookupOrCreateList succeeds in finding list if id is incorrect but name matches", (t) => {
+test("lookupOrCreateList succeeds in finding list if id is incorrect but name matches", t => {
     const target = new Target(new Runtime());
     const variables = target.variables;
 
@@ -583,7 +583,7 @@ test("lookupOrCreateList succeeds in finding list if id is incorrect but name ma
     t.end();
 });
 
-test("lookupBroadcastMsg returns the var with given id if exists", (t) => {
+test("lookupBroadcastMsg returns the var with given id if exists", t => {
     const target = new Target(new Runtime());
     const variables = target.variables;
 
@@ -599,7 +599,7 @@ test("lookupBroadcastMsg returns the var with given id if exists", (t) => {
     t.end();
 });
 
-test("createComment adds a comment to the target", (t) => {
+test("createComment adds a comment to the target", t => {
     const target = new Target(new Runtime());
     const comments = target.comments;
 
@@ -612,7 +612,7 @@ test("createComment adds a comment to the target", (t) => {
         20,
         200,
         300,
-        true,
+        true
     );
     t.equal(Object.keys(comments).length, 1);
 
@@ -629,7 +629,7 @@ test("createComment adds a comment to the target", (t) => {
     t.end();
 });
 
-test("creating comment with id that already exists does not change existing comment", (t) => {
+test("creating comment with id that already exists does not change existing comment", t => {
     const target = new Target(new Runtime());
     const comments = target.comments;
 
@@ -642,7 +642,7 @@ test("creating comment with id that already exists does not change existing comm
         20,
         200,
         300,
-        true,
+        true
     );
     t.equal(Object.keys(comments).length, 1);
 
@@ -654,7 +654,7 @@ test("creating comment with id that already exists does not change existing comm
         50,
         300,
         400,
-        false,
+        false
     );
 
     const comment = comments["a comment"];
@@ -672,7 +672,7 @@ test("creating comment with id that already exists does not change existing comm
     t.end();
 });
 
-test("creating a comment with a blockId also updates the comment property on the block", (t) => {
+test("creating a comment with a blockId also updates the comment property on the block", t => {
     const target = new Target(new Runtime());
     const comments = target.comments;
     // Create a mock block on the target
@@ -683,7 +683,7 @@ test("creating a comment with a blockId also updates the comment property on the
     };
 
     // Mock the getBlock function that's used in commentCreate
-    target.blocks.getBlock = (id) => target.blocks[id];
+    target.blocks.getBlock = id => target.blocks[id];
 
     t.equal(Object.keys(comments).length, 0);
     target.createComment(
@@ -694,7 +694,7 @@ test("creating a comment with a blockId also updates the comment property on the
         20,
         200,
         300,
-        true,
+        true
     );
     t.equal(Object.keys(comments).length, 1);
 
@@ -705,7 +705,7 @@ test("creating a comment with a blockId also updates the comment property on the
     t.end();
 });
 
-test("fixUpVariableReferences fixes sprite global var conflicting with project global var", (t) => {
+test("fixUpVariableReferences fixes sprite global var conflicting with project global var", t => {
     const runtime = new Runtime();
 
     const stage = new Target(runtime);
@@ -720,7 +720,7 @@ test("fixUpVariableReferences fixes sprite global var conflicting with project g
     stage.createVariable(
         "pre-existing global var id",
         "a mock variable",
-        Variable.SCALAR_TYPE,
+        Variable.SCALAR_TYPE
     );
 
     target.blocks.createBlock(adapter(events.mockVariableBlock)[0]);
@@ -732,7 +732,7 @@ test("fixUpVariableReferences fixes sprite global var conflicting with project g
     t.type(target.blocks.getBlock("a block").fields.VARIABLE, "object");
     t.equal(
         target.blocks.getBlock("a block").fields.VARIABLE.id,
-        "mock var id",
+        "mock var id"
     );
 
     target.fixUpVariableReferences();
@@ -744,13 +744,13 @@ test("fixUpVariableReferences fixes sprite global var conflicting with project g
     t.type(target.blocks.getBlock("a block").fields.VARIABLE, "object");
     t.equal(
         target.blocks.getBlock("a block").fields.VARIABLE.id,
-        "pre-existing global var id",
+        "pre-existing global var id"
     );
 
     t.end();
 });
 
-test("fixUpVariableReferences fixes sprite local var conflicting with project global var", (t) => {
+test("fixUpVariableReferences fixes sprite local var conflicting with project global var", t => {
     const runtime = new Runtime();
 
     const stage = new Target(runtime);
@@ -766,12 +766,12 @@ test("fixUpVariableReferences fixes sprite local var conflicting with project gl
     stage.createVariable(
         "pre-existing global var id",
         "a mock variable",
-        Variable.SCALAR_TYPE,
+        Variable.SCALAR_TYPE
     );
     target.createVariable(
         "mock var id",
         "a mock variable",
-        Variable.SCALAR_TYPE,
+        Variable.SCALAR_TYPE
     );
 
     target.blocks.createBlock(adapter(events.mockVariableBlock)[0]);
@@ -783,7 +783,7 @@ test("fixUpVariableReferences fixes sprite local var conflicting with project gl
     t.type(target.blocks.getBlock("a block").fields.VARIABLE, "object");
     t.equal(
         target.blocks.getBlock("a block").fields.VARIABLE.id,
-        "mock var id",
+        "mock var id"
     );
     t.equal(target.variables["mock var id"].name, "a mock variable");
 
@@ -796,14 +796,14 @@ test("fixUpVariableReferences fixes sprite local var conflicting with project gl
     t.type(target.blocks.getBlock("a block").fields.VARIABLE, "object");
     t.equal(
         target.blocks.getBlock("a block").fields.VARIABLE.id,
-        "mock var id",
+        "mock var id"
     );
     t.equal(target.variables["mock var id"].name, "Target: a mock variable");
 
     t.end();
 });
 
-test("fixUpVariableReferences fixes conflicting sprite local var without blocks referencing var", (t) => {
+test("fixUpVariableReferences fixes conflicting sprite local var without blocks referencing var", t => {
     const runtime = new Runtime();
 
     const stage = new Target(runtime);
@@ -819,12 +819,12 @@ test("fixUpVariableReferences fixes conflicting sprite local var without blocks 
     stage.createVariable(
         "pre-existing global var id",
         "a mock variable",
-        Variable.SCALAR_TYPE,
+        Variable.SCALAR_TYPE
     );
     target.createVariable(
         "mock var id",
         "a mock variable",
-        Variable.SCALAR_TYPE,
+        Variable.SCALAR_TYPE
     );
 
     t.equal(Object.keys(target.variables).length, 1);
@@ -840,7 +840,7 @@ test("fixUpVariableReferences fixes conflicting sprite local var without blocks 
     t.end();
 });
 
-test("fixUpVariableReferences fixes sprite global var conflicting with other sprite's local var", (t) => {
+test("fixUpVariableReferences fixes sprite global var conflicting with other sprite's local var", t => {
     const runtime = new Runtime();
 
     const stage = new Target(runtime);
@@ -858,7 +858,7 @@ test("fixUpVariableReferences fixes sprite global var conflicting with other spr
     existingTarget.createVariable(
         "pre-existing local var id",
         "a mock variable",
-        Variable.SCALAR_TYPE,
+        Variable.SCALAR_TYPE
     );
 
     target.blocks.createBlock(adapter(events.mockVariableBlock)[0]);
@@ -873,7 +873,7 @@ test("fixUpVariableReferences fixes sprite global var conflicting with other spr
     t.type(target.blocks.getBlock("a block").fields.VARIABLE, "object");
     t.equal(
         target.blocks.getBlock("a block").fields.VARIABLE.id,
-        "mock var id",
+        "mock var id"
     );
 
     target.fixUpVariableReferences();
@@ -887,7 +887,7 @@ test("fixUpVariableReferences fixes sprite global var conflicting with other spr
     t.type(target.blocks.getBlock("a block").fields.VARIABLE, "object");
     t.equal(
         target.blocks.getBlock("a block").fields.VARIABLE.id,
-        "mock var id",
+        "mock var id"
     );
     const newGlobal = stage.variables[Object.keys(stage.variables)[0]];
     t.equal(newGlobal.name, "a mock variable2");
@@ -895,7 +895,7 @@ test("fixUpVariableReferences fixes sprite global var conflicting with other spr
     t.end();
 });
 
-test("fixUpVariableReferences does not change variable name if there is no variable conflict", (t) => {
+test("fixUpVariableReferences does not change variable name if there is no variable conflict", t => {
     const runtime = new Runtime();
 
     const stage = new Target(runtime);
@@ -911,17 +911,17 @@ test("fixUpVariableReferences does not change variable name if there is no varia
     stage.createVariable(
         "pre-existing global var id",
         "a variable",
-        Variable.SCALAR_TYPE,
+        Variable.SCALAR_TYPE
     );
     stage.createVariable(
         "pre-existing global list id",
         "a mock variable",
-        Variable.LIST_TYPE,
+        Variable.LIST_TYPE
     );
     target.createVariable(
         "mock var id",
         "a mock variable",
-        Variable.SCALAR_TYPE,
+        Variable.SCALAR_TYPE
     );
 
     target.blocks.createBlock(adapter(events.mockVariableBlock)[0]);
@@ -933,7 +933,7 @@ test("fixUpVariableReferences does not change variable name if there is no varia
     t.type(target.blocks.getBlock("a block").fields.VARIABLE, "object");
     t.equal(
         target.blocks.getBlock("a block").fields.VARIABLE.id,
-        "mock var id",
+        "mock var id"
     );
     t.equal(target.variables["mock var id"].name, "a mock variable");
 
@@ -946,7 +946,7 @@ test("fixUpVariableReferences does not change variable name if there is no varia
     t.type(target.blocks.getBlock("a block").fields.VARIABLE, "object");
     t.equal(
         target.blocks.getBlock("a block").fields.VARIABLE.id,
-        "mock var id",
+        "mock var id"
     );
     t.equal(target.variables["mock var id"].name, "a mock variable");
 

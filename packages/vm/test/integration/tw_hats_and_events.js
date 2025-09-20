@@ -6,12 +6,12 @@ const BlockType = require("../../src/extension-support/block-type");
 const ArgumentType = require("../../src/extension-support/argument-type");
 
 const compilerAndInterpreter = (name, callback) => {
-    test(`${name} - interpreted`, (t) => {
+    test(`${name} - interpreted`, t => {
         callback(t, {
             enabled: false,
         });
     });
-    test(`${name} - compiled`, (t) => {
+    test(`${name} - compiled`, t => {
         callback(t, {
             enabled: true,
         });
@@ -19,7 +19,7 @@ const compilerAndInterpreter = (name, callback) => {
 };
 
 const fixture = fs.readFileSync(
-    path.join(__dirname, "..", "fixtures", "tw-hats-and-events.sb3"),
+    path.join(__dirname, "..", "fixtures", "tw-hats-and-events.sb3")
 );
 
 compilerAndInterpreter("hats and events", (t, co) => {
@@ -121,7 +121,7 @@ compilerAndInterpreter("hats and events", (t, co) => {
         t.same(
             log,
             [],
-            "event function does not get called, even if it exists",
+            "event function does not get called, even if it exists"
         );
         vm.runtime._step();
         t.same(log, ["event"], "ran event script");
@@ -152,7 +152,7 @@ compilerAndInterpreter("hats and events", (t, co) => {
         t.same(
             log,
             ["hat [object Promise]"],
-            "hat script does not run before promise finishes",
+            "hat script does not run before promise finishes"
         );
         await Promise.resolve(); // Allow promise to be processed
         vm.runtime._step();
@@ -168,14 +168,14 @@ compilerAndInterpreter("hats and events", (t, co) => {
         t.same(
             log,
             ["hat [object Promise]"],
-            "hat script does not run before promise finishes",
+            "hat script does not run before promise finishes"
         );
         await Promise.resolve();
         vm.runtime._step();
         t.same(
             log,
             ["hat [object Promise]", "hat"],
-            "hat script runs after promise finishes",
+            "hat script runs after promise finishes"
         );
 
         log.length = 0;
@@ -187,13 +187,13 @@ compilerAndInterpreter("hats and events", (t, co) => {
         t.same(
             log,
             ["complex hat ", "complex hat 1"],
-            "ran complex hat functions",
+            "ran complex hat functions"
         );
         vm.runtime._step();
         t.same(
             log,
             ["complex hat ", "complex hat 1", "complex hat a 2"],
-            "ran complex hat script",
+            "ran complex hat script"
         );
 
         log.length = 0;
@@ -205,13 +205,13 @@ compilerAndInterpreter("hats and events", (t, co) => {
         t.same(
             log,
             [],
-            "control flow in complex inputs is not run immediately",
+            "control flow in complex inputs is not run immediately"
         );
         vm.runtime._step();
         t.same(
             log,
             ["evaluated block ", "evaluated block 1"],
-            "evaluated complex inputs but not hat function",
+            "evaluated complex inputs but not hat function"
         );
         vm.runtime._step();
         t.same(
@@ -223,7 +223,7 @@ compilerAndInterpreter("hats and events", (t, co) => {
                 "complex hat 1",
                 "complex hat b 2",
             ],
-            "evaluated complex hat functions and scripts",
+            "evaluated complex hat functions and scripts"
         );
 
         log.length = 0;
@@ -232,7 +232,7 @@ compilerAndInterpreter("hats and events", (t, co) => {
         const sprite = vm.runtime.targets[1];
         const allBlocks = Object.values(sprite.sprite.blocks._blocks);
         const clickBlockId = allBlocks.find(
-            (i) => i.opcode === "testpredicate_clickme",
+            i => i.opcode === "testpredicate_clickme"
         ).id;
         vm.runtime._pushThread(clickBlockId, sprite, {
             stackClick: true,
@@ -244,14 +244,14 @@ compilerAndInterpreter("hats and events", (t, co) => {
         t.same(
             log,
             ["evaluated block something", "clickme"],
-            "stackClick hat input evaluated",
+            "stackClick hat input evaluated"
         );
         await Promise.resolve(); // Allow promise to be processed
         vm.runtime._step();
         t.same(
             log,
             ["evaluated block something", "clickme", "stack click"],
-            "stackClick hat script ran",
+            "stackClick hat script ran"
         );
 
         t.end();

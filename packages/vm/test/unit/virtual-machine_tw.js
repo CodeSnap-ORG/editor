@@ -4,7 +4,7 @@ const RenderedTarget = require("../../src/sprites/rendered-target");
 const Sprite = require("../../src/sprites/sprite");
 const Variable = require("../../src/engine/variable");
 
-test("emitTargetsUpdate targetList is lazy", (t) => {
+test("emitTargetsUpdate targetList is lazy", t => {
     const vm = new VirtualMachine();
     let calledToJSON = false;
     vm.runtime.targets = [
@@ -16,7 +16,7 @@ test("emitTargetsUpdate targetList is lazy", (t) => {
         },
     ];
     let targetsUpdateEvent;
-    vm.on("targetsUpdate", (e) => {
+    vm.on("targetsUpdate", e => {
         targetsUpdateEvent = e;
     });
     vm.emitTargetsUpdate();
@@ -26,7 +26,7 @@ test("emitTargetsUpdate targetList is lazy", (t) => {
     t.end();
 });
 
-test("non-primitive values in lists and variables converted to strings", (t) => {
+test("non-primitive values in lists and variables converted to strings", t => {
     const vm = new VirtualMachine();
     const sprite = new Sprite();
     const target = new RenderedTarget(sprite, vm.runtime);
@@ -35,7 +35,7 @@ test("non-primitive values in lists and variables converted to strings", (t) => 
         "var",
         "test var",
         Variable.SCALAR_TYPE,
-        false,
+        false
     );
     target.variables.var1.value = null;
 
@@ -43,7 +43,7 @@ test("non-primitive values in lists and variables converted to strings", (t) => 
         "var2",
         "test var",
         Variable.SCALAR_TYPE,
-        false,
+        false
     );
     target.variables.var2.value = undefined;
 
@@ -51,7 +51,7 @@ test("non-primitive values in lists and variables converted to strings", (t) => 
         "var3",
         "test var",
         Variable.SCALAR_TYPE,
-        false,
+        false
     );
     target.variables.var3.value = {};
 
@@ -59,7 +59,7 @@ test("non-primitive values in lists and variables converted to strings", (t) => 
         "var4",
         "test var",
         Variable.SCALAR_TYPE,
-        false,
+        false
     );
     target.variables.var4.value = 1;
 
@@ -67,7 +67,7 @@ test("non-primitive values in lists and variables converted to strings", (t) => 
         "var5",
         "test var",
         Variable.SCALAR_TYPE,
-        false,
+        false
     );
     target.variables.var5.value = "abc";
 
@@ -75,7 +75,7 @@ test("non-primitive values in lists and variables converted to strings", (t) => 
         "var6",
         "test var",
         Variable.SCALAR_TYPE,
-        false,
+        false
     );
     target.variables.var6.value = false;
 
@@ -83,7 +83,7 @@ test("non-primitive values in lists and variables converted to strings", (t) => 
         "list",
         "test list",
         Variable.LIST_TYPE,
-        false,
+        false
     );
     target.variables.list.value = ["abc", false, 1, null, undefined, {}];
 
@@ -110,7 +110,7 @@ test("non-primitive values in lists and variables converted to strings", (t) => 
     t.end();
 });
 
-test("addSound error handling when sprite does not exist", async (t) => {
+test("addSound error handling when sprite does not exist", async t => {
     t.plan(1);
     const vm = new VirtualMachine();
     const id = "Inva1id5pri731D$!";
@@ -119,7 +119,7 @@ test("addSound error handling when sprite does not exist", async (t) => {
             {
                 thisObjectDoesNotMatter: true,
             },
-            id,
+            id
         );
     } catch (e) {
         if (e && e.message === `No target with ID: ${id}`) {
@@ -129,7 +129,7 @@ test("addSound error handling when sprite does not exist", async (t) => {
     t.end();
 });
 
-test("convertToPackagedRuntime forwards to runtime", (t) => {
+test("convertToPackagedRuntime forwards to runtime", t => {
     t.plan(1);
     const vm = new VirtualMachine();
     vm.runtime.convertToPackagedRuntime = () => {

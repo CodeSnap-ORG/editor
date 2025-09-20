@@ -15,7 +15,7 @@ import { FormattedMessage } from "react-intl";
 // react-contextmenu requires unique id to match trigger and context menu
 let contextMenuId = 0;
 
-const SpriteSelectorItem = (props) => (
+const SpriteSelectorItem = props => (
     <ContextMenuTrigger
         attributes={{
             className: classNames(props.className, styles.spriteSelectorItem, {

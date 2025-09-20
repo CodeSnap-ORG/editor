@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { FormattedMessage } from "react-intl";
 import URL from "./url.jsx";
 
-const FetchModal = (props) => (
+const FetchModal = props => (
     <div>
         <FormattedMessage
             defaultMessage="The project wants to connect to the website:"

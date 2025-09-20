@@ -13,7 +13,7 @@ const Base64Util = require("./base64-util");
  * @param {string} url
  * @returns {Response|null}
  */
-const staticFetch = (url) => {
+const staticFetch = url => {
     try {
         const simpleDataUrlMatch = url.match(/^data:([/-\w\d]*);base64,/i);
         if (simpleDataUrlMatch) {

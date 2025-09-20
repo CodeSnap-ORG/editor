@@ -3,7 +3,7 @@ const { test } = require("tap");
 const VirtualMachine = require("../../src/virtual-machine");
 const BlockType = require("../../src/extension-support/block-type");
 
-test("Label blocks", (t) => {
+test("Label blocks", t => {
     const vm = new VirtualMachine();
     vm.extensionManager._registerInternalExtension({
         getInfo: () => ({

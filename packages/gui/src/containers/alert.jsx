@@ -62,8 +62,8 @@ class Alert extends React.Component {
 
 const mapStateToProps = () => ({});
 
-const mapDispatchToProps = (dispatch) => ({
-    onOpenConnectionModal: (id) => {
+const mapDispatchToProps = dispatch => ({
+    onOpenConnectionModal: id => {
         dispatch(setConnectionModalExtensionId(id));
         dispatch(openConnectionModal());
     },

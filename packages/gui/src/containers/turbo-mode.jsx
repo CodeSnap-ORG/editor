@@ -47,12 +47,12 @@ TurboMode.propTypes = {
     }),
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     vm: state.scratchGui.vm,
     turboMode: state.scratchGui.vmStatus.turbo,
 });
 
 export default connect(
     mapStateToProps,
-    () => ({}), // omit dispatch prop
+    () => ({}) // omit dispatch prop
 )(TurboMode);

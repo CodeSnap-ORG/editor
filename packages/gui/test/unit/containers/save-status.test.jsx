@@ -31,7 +31,7 @@ describe("SaveStatus container", () => {
         const wrapper = mountWithIntl(
             <Provider store={store}>
                 <SaveStatus />
-            </Provider>,
+            </Provider>
         );
         expect(wrapper.find(InlineMessages).exists()).toBe(true);
         expect(wrapper.contains("Save Now")).not.toBe(true);
@@ -49,7 +49,7 @@ describe("SaveStatus container", () => {
         const wrapper = mountWithIntl(
             <Provider store={store}>
                 <SaveStatus />
-            </Provider>,
+            </Provider>
         );
         expect(wrapper.find(InlineMessages).exists()).not.toBe(true);
         expect(wrapper.contains("Save Now")).toBe(true);
@@ -71,7 +71,7 @@ describe("SaveStatus container", () => {
         const wrapper = mountWithIntl(
             <Provider store={store}>
                 <SaveStatus />
-            </Provider>,
+            </Provider>
         );
         expect(wrapper.find(InlineMessages).exists()).not.toBe(true);
         expect(wrapper.contains("Save Now")).not.toBe(true);

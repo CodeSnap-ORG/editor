@@ -57,16 +57,16 @@ const SCRATCHX_OPCODE_SEPARATOR = /\u001f|\./;
  * @param {string} opcode
  * @returns {boolean}
  */
-const isPossiblyScratchXBlock = (opcode) =>
+const isPossiblyScratchXBlock = opcode =>
     SCRATCHX_OPCODE_SEPARATOR.test(opcode);
 
 /**
  * @param {string} opcode
  * @returns {string}
  */
-const mapScratchXOpcode = (opcode) => {
+const mapScratchXOpcode = opcode => {
     const [extensionName, extensionMethod] = opcode.split(
-        SCRATCHX_OPCODE_SEPARATOR,
+        SCRATCHX_OPCODE_SEPARATOR
     );
     const newOpcodeBase = ScratchXUtilities.generateExtensionId(extensionName);
     return `${newOpcodeBase}_${extensionMethod}`;
@@ -76,7 +76,7 @@ const mapScratchXOpcode = (opcode) => {
  * @param {object} block
  * @returns {object}
  */
-const mapScratchXBlock = (block) => {
+const mapScratchXBlock = block => {
     const opcode = block[0];
     const argumentCount = block.length - 1;
     const args = [];
@@ -137,8 +137,8 @@ const parseProcedureArgMap = function (procCode) {
  */
 const parseProcedureArgIds = function (procCode) {
     return parseProcedureArgMap(procCode)
-        .map((arg) => arg.inputName)
-        .filter((name) => name); // Filter out unnamed inputs which are labels
+        .map(arg => arg.inputName)
+        .filter(name => name); // Filter out unnamed inputs which are labels
 };
 
 /**
@@ -185,7 +185,7 @@ const parseBlockList = function (
     extensions,
     parseState,
     comments,
-    commentIndex,
+    commentIndex
 ) {
     const resultingList = [];
     let previousBlock = null; // For setting next.
@@ -199,7 +199,7 @@ const parseBlockList = function (
             extensions,
             parseState,
             comments,
-            commentIndex,
+            commentIndex
         );
         const parsedBlock = parsedBlockAndComments[0];
         // Update commentIndex
@@ -232,7 +232,7 @@ const parseScripts = function (
     addBroadcastMsg,
     getVariableId,
     extensions,
-    comments,
+    comments
 ) {
     // Keep track of the index of the current script being
     // parsed in order to attach block comments correctly
@@ -251,7 +251,7 @@ const parseScripts = function (
             extensions,
             parseState,
             comments,
-            scriptIndexForComment,
+            scriptIndexForComment
         );
         scriptIndexForComment = newCommentIndex;
         if (parsedBlockList[0]) {
@@ -287,7 +287,7 @@ const generateVariableIdGetter = (function () {
                 globalVariableNameMap[`${name}-${type}`] = namer(
                     targetId,
                     name,
-                    type,
+                    type
                 );
                 return globalVariableNameMap[`${name}-${type}`];
             }
@@ -381,13 +381,13 @@ const parseMonitorObject = (object, runtime, targets, extensions) => {
         for (let i = 0; i < targets.length; i++) {
             const currTarget = targets[i];
             const listVariables = Object.keys(currTarget.variables).filter(
-                (key) => {
+                key => {
                     const variable = currTarget.variables[key];
                     return (
                         variable.type === Variable.LIST_TYPE &&
                         variable.name === object.listName
                     );
-                },
+                }
             );
             if (listVariables.length > 0) {
                 target = currTarget; // Keep this target for later use
@@ -397,10 +397,10 @@ const parseMonitorObject = (object, runtime, targets, extensions) => {
     }
 
     // Get the target for this monitor, if not gotten above.
-    target = target || targets.filter((t) => t.getName() === object.target)[0];
+    target = target || targets.filter(t => t.getName() === object.target)[0];
     if (!target)
         throw new Error(
-            "Cannot create monitor for target that cannot be found by name",
+            "Cannot create monitor for target that cannot be found by name"
         );
 
     // Create var id getter to make block naming/parsing easier, variables already created.
@@ -413,7 +413,7 @@ const parseMonitorObject = (object, runtime, targets, extensions) => {
         extensions,
         {},
         null, // `comments`, not needed for monitor blocks
-        null, // `commentIndex`, not needed for monitor blocks
+        null // `commentIndex`, not needed for monitor blocks
     );
 
     // Monitor blocks have special IDs to match the toolbox obtained from the getId
@@ -426,12 +426,12 @@ const parseMonitorObject = (object, runtime, targets, extensions) => {
     } else if (
         Object.prototype.hasOwnProperty.call(
             runtime.monitorBlockInfo,
-            block.opcode,
+            block.opcode
         )
     ) {
         block.id = runtime.monitorBlockInfo[block.opcode].getId(
             target.id,
-            block.fields,
+            block.fields
         );
     } else {
         // If the opcode can't be found in the runtime monitorBlockInfo,
@@ -493,7 +493,7 @@ const parseMonitorObject = (object, runtime, targets, extensions) => {
             width: object.width,
             height: object.height,
             visible: object.visible,
-        }),
+        })
     );
 };
 
@@ -563,7 +563,7 @@ const parseScratchAssets = function (object, runtime, topLevel, zip) {
             if (costumeSource.textLayerMD5) {
                 costume.textLayerMD5 = StringUtil.splitFirst(
                     costumeSource.textLayerMD5,
-                    ".",
+                    "."
                 )[0];
             }
             // If there is no internet connection, or if the asset is not in storage
@@ -580,16 +580,16 @@ const parseScratchAssets = function (object, runtime, topLevel, zip) {
                         runtime,
                         zip,
                         assetFileName,
-                        textLayerFileName,
+                        textLayerFileName
                     ).then(() =>
                         loadCostume(
                             costume.md5,
                             costume,
                             runtime,
-                            2 /* optVersion */,
-                        ),
-                    ),
-                ),
+                            2 /* optVersion */
+                        )
+                    )
+                )
             );
         }
     }
@@ -626,9 +626,9 @@ const parseScratchAssets = function (object, runtime, topLevel, zip) {
             soundPromises.push(
                 runtime.wrapAssetRequest(() =>
                     deserializeSound(sound, runtime, zip, assetFileName).then(
-                        () => loadSound(sound, runtime, soundBank),
-                    ),
-                ),
+                        () => loadSound(sound, runtime, soundBank)
+                    )
+                )
             );
         }
     }
@@ -638,7 +638,7 @@ const parseScratchAssets = function (object, runtime, topLevel, zip) {
     if (object.children) {
         for (let m = 0; m < object.children.length; m++) {
             childrenAssets.push(
-                parseScratchAssets(object.children[m], runtime, false, zip),
+                parseScratchAssets(object.children[m], runtime, false, zip)
             );
         }
     }
@@ -664,7 +664,7 @@ const parseScratchObject = function (
     extensions,
     topLevel,
     zip,
-    assets,
+    assets
 ) {
     if (!Object.prototype.hasOwnProperty.call(object, "objName")) {
         if (Object.prototype.hasOwnProperty.call(object, "listName")) {
@@ -705,7 +705,7 @@ const parseScratchObject = function (
 
     // Create the first clone, and load its run-state from JSON.
     const target = sprite.createClone(
-        topLevel ? StageLayering.BACKGROUND_LAYER : StageLayering.SPRITE_LAYER,
+        topLevel ? StageLayering.BACKGROUND_LAYER : StageLayering.SPRITE_LAYER
     );
 
     const getVariableId = generateVariableIdGetter(target.id, topLevel);
@@ -729,7 +729,7 @@ const parseScratchObject = function (
                 getVariableId(variable.name, Variable.SCALAR_TYPE),
                 variable.name,
                 Variable.SCALAR_TYPE,
-                isCloud,
+                isCloud
             );
             if (isCloud) runtime.addCloudVariable();
             newVariable.value = variable.value;
@@ -741,7 +741,7 @@ const parseScratchObject = function (
     // workspace comments as well as comments attached to specific blocks)
     const blockComments = {};
     if (Object.prototype.hasOwnProperty.call(object, "scriptComments")) {
-        const comments = object.scriptComments.map((commentDesc) => {
+        const comments = object.scriptComments.map(commentDesc => {
             const [
                 commentX,
                 commentY,
@@ -761,7 +761,7 @@ const parseScratchObject = function (
                 isBlockComment ? null : commentY * WORKSPACE_Y_SCALE,
                 commentWidth * WORKSPACE_X_SCALE,
                 commentHeight * WORKSPACE_Y_SCALE,
-                !commentFullSize,
+                !commentFullSize
             );
             if (isBlockComment) {
                 // commentDesc[5] refers to the index of the block that this
@@ -778,7 +778,7 @@ const parseScratchObject = function (
                 if (
                     Object.prototype.hasOwnProperty.call(
                         blockComments,
-                        flattenedBlockIndex,
+                        flattenedBlockIndex
                     )
                 ) {
                     blockComments[flattenedBlockIndex].push(newComment);
@@ -791,7 +791,7 @@ const parseScratchObject = function (
 
         // Add all the comments that were just created to the target.comments,
         // referenced by id
-        comments.forEach((comment) => {
+        comments.forEach(comment => {
             target.comments[comment.id] = comment;
         });
     }
@@ -804,7 +804,7 @@ const parseScratchObject = function (
             addBroadcastMsg,
             getVariableId,
             extensions,
-            blockComments,
+            blockComments
         );
     }
 
@@ -817,7 +817,7 @@ const parseScratchObject = function (
     // null (See #1452).
     for (const commentIndex in blockComments) {
         const currBlockComments = blockComments[commentIndex];
-        currBlockComments.forEach((c) => {
+        currBlockComments.forEach(c => {
             if (typeof c.blockId === "number") {
                 c.blockId = null;
             }
@@ -834,7 +834,7 @@ const parseScratchObject = function (
                 getVariableId(list.listName, Variable.LIST_TYPE),
                 list.listName,
                 Variable.LIST_TYPE,
-                false,
+                false
             );
             newVariable.value = list.contents;
             target.variables[newVariable.id] = newVariable;
@@ -868,7 +868,7 @@ const parseScratchObject = function (
         target.currentCostume = MathUtil.clamp(
             Math.floor(object.currentCostumeIndex),
             0,
-            object.costumes.length - 1,
+            object.costumes.length - 1
         );
     }
     if (Object.prototype.hasOwnProperty.call(object, "rotationStyle")) {
@@ -906,11 +906,11 @@ const parseScratchObject = function (
 
     target.isStage = topLevel;
 
-    Promise.all(costumePromises).then((costumes) => {
+    Promise.all(costumePromises).then(costumes => {
         sprite.costumes = costumes;
     });
 
-    Promise.all(soundPromises).then((sounds) => {
+    Promise.all(soundPromises).then(sounds => {
         sprite.sounds = sounds;
         // Make sure if soundBank is undefined, sprite.soundBank is then null.
         sprite.soundBank = soundBank || null;
@@ -927,8 +927,8 @@ const parseScratchObject = function (
                     extensions,
                     false,
                     zip,
-                    assets.children[m],
-                ),
+                    assets.children[m]
+                )
             );
         }
     }
@@ -939,7 +939,7 @@ const parseScratchObject = function (
         if (Array.isArray(savedExtensions)) {
             for (const extension of savedExtensions) {
                 const id = ScratchXUtilities.generateExtensionId(
-                    extension.extensionName,
+                    extension.extensionName
                 );
                 const url = extension.javascriptURL;
                 extensions.extensionURLs.set(id, url);
@@ -948,7 +948,7 @@ const parseScratchObject = function (
     }
 
     return Promise.all(costumePromises.concat(soundPromises)).then(() =>
-        Promise.all(childrenPromises).then((children) => {
+        Promise.all(childrenPromises).then(children => {
             // Need create broadcast msgs as variables after
             // all other targets have finished processing.
             if (target.isStage) {
@@ -987,7 +987,7 @@ const parseScratchObject = function (
                         msgId,
                         msgName,
                         Variable.BROADCAST_MESSAGE_TYPE,
-                        false,
+                        false
                     );
                     target.variables[newMsg.id] = newMsg;
                 }
@@ -1014,11 +1014,11 @@ const parseScratchObject = function (
                     deferredMonitors[n],
                     runtime,
                     targets,
-                    extensions,
+                    extensions
                 );
             }
             return targets;
-        }),
+        })
     );
 };
 
@@ -1034,7 +1034,7 @@ const reorderParsedTargets = function (targets) {
         .sort((a, b) => a.targetPaneOrder - b.targetPaneOrder);
 
     // Delete the temporary target pane ordering since we shouldn't need it anymore.
-    reordered.forEach((t) => {
+    reordered.forEach(t => {
         delete t.targetPaneOrder;
     });
 
@@ -1059,19 +1059,19 @@ const sb2import = function (json, runtime, optForceSprite, zip) {
         Promise.resolve(parseScratchAssets(json, runtime, !optForceSprite, zip))
             // Force this promise to wait for the next loop in the js tick. Let
             // storage have some time to send off asset requests.
-            .then((assets) => Promise.resolve(assets))
-            .then((assets) =>
+            .then(assets => Promise.resolve(assets))
+            .then(assets =>
                 parseScratchObject(
                     json,
                     runtime,
                     extensions,
                     !optForceSprite,
                     zip,
-                    assets,
-                ),
+                    assets
+                )
             )
             .then(reorderParsedTargets)
-            .then((targets) => ({
+            .then(targets => ({
                 targets,
                 extensions,
             }))
@@ -1121,7 +1121,7 @@ const parseBlock = function (
     extensions,
     parseState,
     comments,
-    commentIndex,
+    commentIndex
 ) {
     const commentsForParsedBlock =
         comments && typeof commentIndex === "number" && !isNaN(commentIndex)
@@ -1133,7 +1133,7 @@ const parseBlock = function (
         // make all block comments into workspace comments and send them to zero/zero
         // to prevent serialization issues.
         if (commentsForParsedBlock) {
-            commentsForParsedBlock.forEach((comment) => {
+            commentsForParsedBlock.forEach(comment => {
                 comment.blockId = null;
                 comment.x = comment.y = 0;
             });
@@ -1165,7 +1165,7 @@ const parseBlock = function (
         // Attach only the last comment to the block, make all others workspace comments
         activeBlock.comment =
             commentsForParsedBlock[commentsForParsedBlock.length - 1].id;
-        commentsForParsedBlock.forEach((comment) => {
+        commentsForParsedBlock.forEach(comment => {
             if (comment.id === activeBlock.comment) {
                 comment.blockId = activeBlock.id;
             } else {
@@ -1214,7 +1214,7 @@ const parseBlock = function (
                         extensions,
                         parseState,
                         comments,
-                        commentIndex,
+                        commentIndex
                     );
                 } else {
                     // Single block occupies the input.
@@ -1225,7 +1225,7 @@ const parseBlock = function (
                         extensions,
                         parseState,
                         comments,
-                        commentIndex,
+                        commentIndex
                     );
                     innerBlocks = parsedBlockDesc[0]
                         ? [parsedBlockDesc[0]]
@@ -1261,7 +1261,7 @@ const parseBlock = function (
             if (!expectedArg.inputOp) {
                 // Undefined inputOp. inputOp should always be defined for inputs.
                 log.warn(
-                    `Unknown input operation for input ${expectedArg.inputName} of opcode ${activeBlock.opcode}.`,
+                    `Unknown input operation for input ${expectedArg.inputName} of opcode ${activeBlock.opcode}.`
                 );
                 continue;
             }
@@ -1360,7 +1360,7 @@ const parseBlock = function (
                 // and come up with a fresh messageN.
                 const broadcastId = addBroadcastMsg(
                     fieldValue,
-                    fields[fieldName],
+                    fields[fieldName]
                 );
                 fields[fieldName].id = broadcastId;
                 fields[fieldName].variableType = expectedArg.variableType;
@@ -1402,13 +1402,13 @@ const parseBlock = function (
                 // Add `id` property to variable fields
                 activeBlock.fields[expectedArg.fieldName].id = getVariableId(
                     providedArg,
-                    Variable.SCALAR_TYPE,
+                    Variable.SCALAR_TYPE
                 );
             } else if (expectedArg.fieldName === "LIST") {
                 // Add `id` property to variable fields
                 activeBlock.fields[expectedArg.fieldName].id = getVariableId(
                     providedArg,
-                    Variable.LIST_TYPE,
+                    Variable.LIST_TYPE
                 );
             } else if (expectedArg.fieldName === "BROADCAST_OPTION") {
                 // Add the name in this field to the broadcast msg name map.
@@ -1420,7 +1420,7 @@ const parseBlock = function (
                 // and come up with a fresh messageN.
                 const broadcastId = addBroadcastMsg(
                     providedArg,
-                    activeBlock.fields[expectedArg.fieldName],
+                    activeBlock.fields[expectedArg.fieldName]
                 );
                 activeBlock.fields[expectedArg.fieldName].id = broadcastId;
             }
@@ -1512,7 +1512,7 @@ const parseBlock = function (
                     proccode: procData[0], // e.g., "abc %n %b %s"
                     argumentnames: JSON.stringify(procData[1]), // e.g. ['arg1', 'arg2']
                     argumentids: JSON.stringify(
-                        parseProcedureArgIds(procData[0]),
+                        parseProcedureArgIds(procData[0])
                     ),
                     argumentdefaults: JSON.stringify(procData[2]), // e.g., [1, 'abc']
                     warp: procData[3], // Warp mode, e.g., true/false.

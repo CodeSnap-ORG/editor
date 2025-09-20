@@ -6,7 +6,7 @@ import NudgeTool from "../selection-tools/nudge-tool";
 import { hoverBounds } from "../guides";
 import { getRaster } from "../layer";
 
-const getTextColor = (text) => {
+const getTextColor = text => {
     let color = text.fillColor;
     if (!color) return null;
     color = color.clone();
@@ -59,7 +59,7 @@ class TextTool extends paper.Tool {
         onUpdateImage,
         setTextEditTarget,
         changeFont,
-        isBitmap,
+        isBitmap
     ) {
         super();
         this.element = textAreaElement;
@@ -74,12 +74,12 @@ class TextTool extends paper.Tool {
             setSelectedItems,
             clearSelectedItems,
             setCursor,
-            onUpdateImage,
+            onUpdateImage
         );
         this.nudgeTool = new NudgeTool(
             paintMode,
             this.boundingBoxTool,
-            onUpdateImage,
+            onUpdateImage
         );
         this.isBitmap = isBitmap;
 
@@ -110,7 +110,7 @@ class TextTool extends paper.Tool {
             curves: true,
             fill: true,
             guide: false,
-            match: (hitResult) =>
+            match: hitResult =>
                 (hitResult.item.data &&
                     (hitResult.item.data.isScaleHandle ||
                         hitResult.item.data.isRotHandle)) ||
@@ -126,7 +126,7 @@ class TextTool extends paper.Tool {
             curves: true,
             fill: true,
             guide: false,
-            match: (hitResult) =>
+            match: hitResult =>
                 hitResult.item &&
                 !(hitResult.item.data && hitResult.item.data.isHelperItem) &&
                 !hitResult.item.selected, // Unselected only
@@ -214,7 +214,7 @@ class TextTool extends paper.Tool {
     handleMouseMove(event) {
         const hitResults = paper.project.hitTestAll(
             event.point,
-            this.getTextEditHitOptions(),
+            this.getTextEditHitOptions()
         );
         if (hitResults.length) {
             document.body.style.cursor = "text";
@@ -223,7 +223,7 @@ class TextTool extends paper.Tool {
         }
         this.boundingBoxTool.onMouseMove(
             event,
-            this.getBoundingBoxHitOptions(),
+            this.getBoundingBoxHitOptions()
         );
     }
     handleMouseDown(event) {
@@ -255,7 +255,7 @@ class TextTool extends paper.Tool {
                 false /* clone */,
                 false /* multiselect */,
                 false /* doubleClicked */,
-                this.getBoundingBoxHitOptions(),
+                this.getBoundingBoxHitOptions()
             )
         ) {
             return;
@@ -274,7 +274,7 @@ class TextTool extends paper.Tool {
 
         const hitResults = paper.project.hitTestAll(
             event.point,
-            this.getTextEditHitOptions(),
+            this.getTextEditHitOptions()
         );
         if (hitResults.length) {
             // Clicking a different text item to begin text edit mode on that item
@@ -461,7 +461,7 @@ class TextTool extends paper.Tool {
         const textRaster = this.textBox.rasterize(
             72,
             false /* insert */,
-            this.textBox.drawnBounds,
+            this.textBox.drawnBounds
         );
         this.textBox.remove();
         this.textBox = null;
@@ -469,8 +469,8 @@ class TextTool extends paper.Tool {
             textRaster.canvas,
             new paper.Point(
                 Math.floor(textRaster.bounds.x),
-                Math.floor(textRaster.bounds.y),
-            ),
+                Math.floor(textRaster.bounds.y)
+            )
         );
         this.onUpdateImage();
     }

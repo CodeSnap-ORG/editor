@@ -3,7 +3,7 @@ const test = require("tap").test;
 const Runtime = require("../../src/engine/runtime");
 const Scratch3PenBlocks = require("../../src/extensions/scratch3_pen/index");
 
-test("_clampPenSize", (t) => {
+test("_clampPenSize", t => {
     const rt = new Runtime();
     const pen = new Scratch3PenBlocks(rt);
 

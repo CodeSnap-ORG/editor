@@ -18,7 +18,7 @@ describe("DragRecognizer", () => {
     test("start -> small drag", () => {
         dragRecognizer.start({ clientX: 100, clientY: 100 });
         window.dispatchEvent(
-            new MouseEvent("mousemove", { clientX: 101, clientY: 101 }),
+            new MouseEvent("mousemove", { clientX: 101, clientY: 101 })
         );
         expect(onDrag).not.toHaveBeenCalled();
     });
@@ -26,7 +26,7 @@ describe("DragRecognizer", () => {
     test("start -> large vertical touch move -> scroll, not drag", () => {
         dragRecognizer.start({ clientX: 100, clientY: 100 });
         window.dispatchEvent(
-            new MouseEvent("touchmove", { clientX: 106, clientY: 150 }),
+            new MouseEvent("touchmove", { clientX: 106, clientY: 150 })
         );
         expect(onDrag).not.toHaveBeenCalled();
     });
@@ -34,7 +34,7 @@ describe("DragRecognizer", () => {
     test("start -> large vertical mouse move -> mouse moves always drag)", () => {
         dragRecognizer.start({ clientX: 100, clientY: 100 });
         window.dispatchEvent(
-            new MouseEvent("mousemove", { clientX: 100, clientY: 150 }),
+            new MouseEvent("mousemove", { clientX: 100, clientY: 150 })
         );
         expect(onDrag).toHaveBeenCalled();
     });
@@ -42,7 +42,7 @@ describe("DragRecognizer", () => {
     test("start -> large horizontal touch move -> drag", () => {
         dragRecognizer.start({ clientX: 100, clientY: 100 });
         window.dispatchEvent(
-            new MouseEvent("touchmove", { clientX: 150, clientY: 106 }),
+            new MouseEvent("touchmove", { clientX: 150, clientY: 106 })
         );
         expect(onDrag).toHaveBeenCalled();
     });
@@ -50,13 +50,13 @@ describe("DragRecognizer", () => {
     test("after starting a scroll, it cannot become a drag", () => {
         dragRecognizer.start({ clientX: 100, clientY: 100 });
         window.dispatchEvent(
-            new MouseEvent("touchmove", { clientX: 100, clientY: 110 }),
+            new MouseEvent("touchmove", { clientX: 100, clientY: 110 })
         );
         window.dispatchEvent(
-            new MouseEvent("touchmove", { clientX: 100, clientY: 100 }),
+            new MouseEvent("touchmove", { clientX: 100, clientY: 100 })
         );
         window.dispatchEvent(
-            new MouseEvent("touchmove", { clientX: 110, clientY: 100 }),
+            new MouseEvent("touchmove", { clientX: 110, clientY: 100 })
         );
         expect(onDrag).not.toHaveBeenCalled();
     });
@@ -64,19 +64,19 @@ describe("DragRecognizer", () => {
     test("start -> end unbinds", () => {
         dragRecognizer.start({ clientX: 100, clientY: 100 });
         window.dispatchEvent(
-            new MouseEvent("touchmove", { clientX: 150, clientY: 106 }),
+            new MouseEvent("touchmove", { clientX: 150, clientY: 106 })
         );
         expect(onDrag).toHaveBeenCalledTimes(1);
         window.dispatchEvent(
-            new MouseEvent("touchend", { clientX: 150, clientY: 106 }),
+            new MouseEvent("touchend", { clientX: 150, clientY: 106 })
         );
         window.dispatchEvent(
-            new MouseEvent("touchmove", { clientX: 150, clientY: 106 }),
+            new MouseEvent("touchmove", { clientX: 150, clientY: 106 })
         );
         expect(onDrag).toHaveBeenCalledTimes(1); // Still 1
     });
 
-    test("start -> end calls dragEnd callback after resetting internal state", (done) => {
+    test("start -> end calls dragEnd callback after resetting internal state", done => {
         onDragEnd = () => {
             expect(dragRecognizer.gestureInProgress()).toBe(false);
             done();
@@ -84,22 +84,22 @@ describe("DragRecognizer", () => {
         dragRecognizer = new DragRecognizer({ onDrag, onDragEnd });
         dragRecognizer.start({ clientX: 100, clientY: 100 });
         window.dispatchEvent(
-            new MouseEvent("touchmove", { clientX: 150, clientY: 106 }),
+            new MouseEvent("touchmove", { clientX: 150, clientY: 106 })
         );
         window.dispatchEvent(
-            new MouseEvent("touchend", { clientX: 150, clientY: 106 }),
+            new MouseEvent("touchend", { clientX: 150, clientY: 106 })
         );
     });
 
     test("start -> reset unbinds", () => {
         dragRecognizer.start({ clientX: 100, clientY: 100 });
         window.dispatchEvent(
-            new MouseEvent("touchmove", { clientX: 150, clientY: 106 }),
+            new MouseEvent("touchmove", { clientX: 150, clientY: 106 })
         );
         expect(onDrag).toHaveBeenCalledTimes(1);
         dragRecognizer.reset();
         window.dispatchEvent(
-            new MouseEvent("touchmove", { clientX: 150, clientY: 106 }),
+            new MouseEvent("touchmove", { clientX: 150, clientY: 106 })
         );
         expect(onDrag).toHaveBeenCalledTimes(1); // Still 1
     });
@@ -130,7 +130,7 @@ describe("DragRecognizer", () => {
         // +45 from horizontal => drag
         dragRecognizer.start({ clientX: 0, clientY: 0 });
         window.dispatchEvent(
-            new MouseEvent("touchmove", { clientX: 10, clientY: 10 }),
+            new MouseEvent("touchmove", { clientX: 10, clientY: 10 })
         );
         expect(onDrag).toHaveBeenCalledTimes(1);
         dragRecognizer.reset();
@@ -138,7 +138,7 @@ describe("DragRecognizer", () => {
         // -45 from horizontal => drag
         dragRecognizer.start({ clientX: 0, clientY: 0 });
         window.dispatchEvent(
-            new MouseEvent("touchmove", { clientX: 10, clientY: -10 }),
+            new MouseEvent("touchmove", { clientX: 10, clientY: -10 })
         );
         expect(onDrag).toHaveBeenCalledTimes(2);
         dragRecognizer.reset();
@@ -146,7 +146,7 @@ describe("DragRecognizer", () => {
         // +135 from horizontal => drag
         dragRecognizer.start({ clientX: 0, clientY: 0 });
         window.dispatchEvent(
-            new MouseEvent("touchmove", { clientX: -10, clientY: 10 }),
+            new MouseEvent("touchmove", { clientX: -10, clientY: 10 })
         );
         expect(onDrag).toHaveBeenCalledTimes(3);
         dragRecognizer.reset();
@@ -154,7 +154,7 @@ describe("DragRecognizer", () => {
         // -135 from horizontal => drag
         dragRecognizer.start({ clientX: 0, clientY: 0 });
         window.dispatchEvent(
-            new MouseEvent("touchmove", { clientX: -10, clientY: -10 }),
+            new MouseEvent("touchmove", { clientX: -10, clientY: -10 })
         );
         expect(onDrag).toHaveBeenCalledTimes(4);
         dragRecognizer.reset();

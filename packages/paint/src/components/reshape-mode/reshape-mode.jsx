@@ -5,7 +5,7 @@ import ToolSelectComponent from "../tool-select-base/tool-select-base.jsx";
 
 import reshapeIcon from "./reshape.svg";
 
-const ReshapeModeComponent = (props) => (
+const ReshapeModeComponent = props => (
     <ToolSelectComponent
         imgDescriptor={messages.reshape}
         imgSrc={reshapeIcon}

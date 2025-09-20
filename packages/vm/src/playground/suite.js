@@ -51,7 +51,7 @@ class Emitter {
             for (let i = 0; i < this._listeners[name].length; i += 2) {
                 this._listeners[name][i].call(
                     this._listeners[name][i + 1] || this,
-                    ...args,
+                    ...args
                 );
             }
         }
@@ -63,7 +63,7 @@ class BenchFrameStream extends Emitter {
         super();
 
         this.frame = frame;
-        window.addEventListener("message", (message) => {
+        window.addEventListener("message", message => {
             this.emit("message", message.data);
         });
     }
@@ -73,7 +73,7 @@ class BenchFrameStream extends Emitter {
     }
 }
 
-const benchmarkUrlArgs = (args) =>
+const benchmarkUrlArgs = args =>
     [args.projectId, args.warmUpTime, args.recordingTime].join(",");
 
 const BENCH_MESSAGE_TYPE = {
@@ -101,7 +101,7 @@ class BenchUtil {
     }
 
     pauseBench() {
-        new Promise((resolve) => setTimeout(resolve, 1000)).then(() => {
+        new Promise(resolve => setTimeout(resolve, 1000)).then(() => {
             this.benchStream.emit("message", {
                 type: BENCH_MESSAGE_TYPE.INACTIVE,
             });
@@ -114,7 +114,7 @@ class BenchUtil {
 
     renderResults(results) {
         this.setFrameLocation(
-            `index.html#view/${btoa(JSON.stringify(results))}`,
+            `index.html#view/${btoa(JSON.stringify(results))}`
         );
     }
 }
@@ -157,10 +157,10 @@ class BenchFixture extends Emitter {
     }
 
     run(util) {
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
             util.benchStream.on(
                 "message",
-                (message) => {
+                message => {
                     const result = {
                         fixture: this,
                         status: BENCH_STATUS.STARTING,
@@ -184,7 +184,7 @@ class BenchFixture extends Emitter {
                     }
                     this.emit("result", new BenchResult(result));
                 },
-                this,
+                this
             );
             util.startBench(this);
         });
@@ -199,7 +199,7 @@ class BenchSuiteResult extends Emitter {
         this.results = results;
 
         if (suite) {
-            suite.on("result", (result) => {
+            suite.on("result", result => {
                 if (result.status === BENCH_STATUS.COMPLETE) {
                     this.results.push(results);
                     this.emit("add", this);
@@ -221,10 +221,10 @@ class BenchSuite extends Emitter {
     }
 
     run(util) {
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
             const fixtures = this.fixtures.slice();
             const results = [];
-            const push = (result) => {
+            const push = result => {
                 result.fixture.off("result", null, this);
                 results.push(result);
             };
@@ -312,12 +312,12 @@ class BenchResultView {
     render(newResult = this.result, compareResult = this.compare) {
         const newResultFrames = (
             newResult.frames ? newResult.frames : []
-        ).filter((i) => i);
+        ).filter(i => i);
         const blockFunctionFrame = newResultFrames.find(
-            (frame) => frame.name === "blockFunction",
+            frame => frame.name === "blockFunction"
         );
         const stepThreadsInnerFrame = newResultFrames.find(
-            (frame) => frame.name === "Sequencer.stepThreads#inner",
+            frame => frame.name === "Sequencer.stepThreads#inner"
         );
 
         const blocksPerSecond = blockFunctionFrame
@@ -334,10 +334,10 @@ class BenchResultView {
         const compareResultFrames =
             compareResult && compareResult.frames ? compareResult.frames : [];
         const blockFunctionCompareFrame = compareResultFrames.find(
-            (frame) => frame.name === "blockFunction",
+            frame => frame.name === "blockFunction"
         );
         const stepThreadsInnerCompareFrame = compareResultFrames.find(
-            (frame) => frame.name === "Sequencer.stepThreads#inner",
+            frame => frame.name === "Sequencer.stepThreads#inner"
         );
 
         const compareBlocksPerSecond = blockFunctionCompareFrame
@@ -417,7 +417,7 @@ class BenchSuiteResultView {
             });
         }
 
-        suite.on("result", (result) => {
+        suite.on("result", result => {
             this.views[result.fixture.id].update(result);
         });
     }
@@ -467,15 +467,15 @@ window.upload = function (_this) {
     const reader = new FileReader();
     reader.onload = function () {
         const report = JSON.parse(reader.result);
-        Object.values(suiteView.views).forEach((view) => {
+        Object.values(suiteView.views).forEach(view => {
             const sameFixture = report.results.find(
-                (result) =>
+                result =>
                     result.fixture.projectId ===
                         view.result.fixture.projectId &&
                     result.fixture.warmUpTime ===
                         view.result.fixture.warmUpTime &&
                     result.fixture.recordingTime ===
-                        view.result.fixture.recordingTime,
+                        view.result.fixture.recordingTime
             );
 
             if (sameFixture) {
@@ -503,11 +503,11 @@ window.download = function (_this) {
                     version: 1,
                 },
                 results: Object.values(suiteView.views)
-                    .map((view) => view.result)
-                    .filter((view) => view.status === BENCH_STATUS.COMPLETE),
+                    .map(view => view.result)
+                    .filter(view => view.status === BENCH_STATUS.COMPLETE),
             }),
         ],
-        { type: "application/json" },
+        { type: "application/json" }
     );
 
     _this.download = "scratch-vm-benchmark.json";
@@ -523,11 +523,11 @@ window.onload = function () {
                 projectId,
                 warmUpTime: warmUp,
                 recordingTime: recording,
-            }),
+            })
         );
     };
 
-    const standard = (projectId) => {
+    const standard = projectId => {
         add(projectId, 0, 5000);
         add(projectId, 5000, 5000);
     };

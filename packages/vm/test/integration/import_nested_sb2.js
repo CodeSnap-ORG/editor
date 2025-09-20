@@ -8,12 +8,12 @@ const renderedTarget = require("../../src/sprites/rendered-target");
 const runtime = require("../../src/engine/runtime");
 const sb2 = require("../../src/serialization/sb2");
 
-test("spec", (t) => {
+test("spec", t => {
     t.type(sb2.deserialize, "function");
     t.end();
 });
 
-test("nested default/*", (t) => {
+test("nested default/*", t => {
     // Get SB2 JSON (string)
     const uri = path.resolve(__dirname, "../fixtures/default_nested.sb2");
     const json = extractProjectJson(uri, "default");

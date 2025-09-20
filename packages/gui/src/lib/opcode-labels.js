@@ -159,7 +159,7 @@ class OpcodeLabels {
          * @param {object} message A message object compatible with react-intl formatMessage
          * @return {string} Return the default string initially
          */
-        this._translator = (message) => message.defaultMessage;
+        this._translator = message => message.defaultMessage;
 
         /**
          * Initial opcode map, with categories defined
@@ -227,13 +227,13 @@ class OpcodeLabels {
         // Looks
         this._opcodeMap.looks_size.labelFn = () =>
             this._translator(messages.looks_size);
-        this._opcodeMap.looks_costumenumbername.labelFn = (params) => {
+        this._opcodeMap.looks_costumenumbername.labelFn = params => {
             if (params.NUMBER_NAME === "number") {
                 return this._translator(messages.looks_costumenumber);
             }
             return this._translator(messages.looks_costumename);
         };
-        this._opcodeMap.looks_backdropnumbername.labelFn = (params) => {
+        this._opcodeMap.looks_backdropnumbername.labelFn = params => {
             if (params.NUMBER_NAME === "number") {
                 return this._translator(messages.looks_backdropnumber);
             }
@@ -243,8 +243,8 @@ class OpcodeLabels {
             this._translator(messages.looks_backdropname);
 
         // Data
-        this._opcodeMap.data_variable.labelFn = (params) => params.VARIABLE;
-        this._opcodeMap.data_listcontents.labelFn = (params) => params.LIST;
+        this._opcodeMap.data_variable.labelFn = params => params.VARIABLE;
+        this._opcodeMap.data_listcontents.labelFn = params => params.LIST;
 
         // Sound
         this._opcodeMap.sound_volume.labelFn = () =>
@@ -265,7 +265,7 @@ class OpcodeLabels {
             this._translator(messages.sensing_loudness);
         this._opcodeMap.sensing_username.labelFn = () =>
             this._translator(messages.sensing_username);
-        this._opcodeMap.sensing_current.labelFn = (params) => {
+        this._opcodeMap.sensing_current.labelFn = params => {
             switch (params.CURRENTMENU.toLowerCase()) {
                 case "year":
                     return this._translator(messages.sensing_current_year);

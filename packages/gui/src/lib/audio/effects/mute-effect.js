@@ -11,13 +11,13 @@ class MuteEffect {
         this.rampLength = 0.001;
         this.gain.gain.setValueAtTime(
             1.0,
-            Math.max(0, startSeconds - this.rampLength),
+            Math.max(0, startSeconds - this.rampLength)
         );
         this.gain.gain.linearRampToValueAtTime(0, startSeconds);
         this.gain.gain.setValueAtTime(0, endSeconds);
         this.gain.gain.linearRampToValueAtTime(
             1.0,
-            endSeconds + this.rampLength,
+            endSeconds + this.rampLength
         );
 
         this.input.connect(this.gain);

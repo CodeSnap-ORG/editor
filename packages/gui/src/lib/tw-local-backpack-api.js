@@ -11,7 +11,7 @@ const DATABASE_NAME = process.env.ampmod_is_canary
 const DATABASE_VERSION = 1;
 const STORE_NAME = "backpack";
 
-const idbItemToBackpackItem = (item) => {
+const idbItemToBackpackItem = item => {
     // convert id to string
     item.id = `${item.id}`;
 
@@ -49,7 +49,7 @@ const idbItemToBackpackItem = (item) => {
             assetType,
             extension,
             new Uint8Array(item.bodyData),
-            itemMD5,
+            itemMD5
         );
     }
 
@@ -71,7 +71,7 @@ const openDB = () =>
 
         const request = indexedDB.open(DATABASE_NAME, DATABASE_VERSION);
 
-        request.onupgradeneeded = (event) => {
+        request.onupgradeneeded = event => {
             const db = event.target.result;
             db.createObjectStore(STORE_NAME, {
                 keyPath: "id",
@@ -79,12 +79,12 @@ const openDB = () =>
             });
         };
 
-        request.onsuccess = (event) => {
+        request.onsuccess = event => {
             _db = event.target.result;
             resolve(_db);
         };
 
-        request.onerror = (event) => {
+        request.onerror = event => {
             reject(new Error(`DB error: ${event.target.error}`));
         };
     });
@@ -93,14 +93,14 @@ const getBackpackContents = async ({ limit, offset }) => {
     const db = await openDB();
     return new Promise((resolve, reject) => {
         const transaction = db.transaction(STORE_NAME, "readonly");
-        transaction.onerror = (event) => {
+        transaction.onerror = event => {
             reject(new Error(`Getting contents: ${event.target.error}`));
         };
         const store = transaction.objectStore(STORE_NAME);
         const items = [];
         const request = store.openCursor(null, "prev");
         let first = true;
-        request.onsuccess = (e) => {
+        request.onsuccess = e => {
             const cursor = e.target.result;
             if (first) {
                 first = false;
@@ -126,7 +126,7 @@ const saveBackpackObject = async ({ type, mime, name, body, thumbnail }) => {
     const db = await openDB();
     return new Promise((resolve, reject) => {
         const transaction = db.transaction(STORE_NAME, "readwrite");
-        transaction.onerror = (event) => {
+        transaction.onerror = event => {
             reject(new Error(`Sving object: ${event.target.error}`));
         };
         const store = transaction.objectStore(STORE_NAME);
@@ -153,7 +153,7 @@ const deleteBackpackObject = async ({ id }) => {
     const db = await openDB();
     return new Promise((resolve, reject) => {
         const transaction = db.transaction(STORE_NAME, "readwrite");
-        transaction.onerror = (event) => {
+        transaction.onerror = event => {
             reject(new Error(`Deleting object: ${event.target.error}`));
         };
         const store = transaction.objectStore(STORE_NAME);
@@ -170,7 +170,7 @@ const updateBackpackObject = async ({ id, name }) => {
     const db = await openDB();
     return new Promise((resolve, reject) => {
         const transaction = db.transaction(STORE_NAME, "readwrite");
-        transaction.onerror = (event) => {
+        transaction.onerror = event => {
             reject(new Error(`Updating object: ${event.target.error}`));
         };
         const store = transaction.objectStore(STORE_NAME);

@@ -27,7 +27,7 @@ const reducer = function (state, action) {
             }
             const colorState = getColorsFromSelection(
                 action.selectedItems,
-                action.bitmapMode,
+                action.bitmapMode
             );
             if (colorState.thickness) return colorState.thickness;
             return state;

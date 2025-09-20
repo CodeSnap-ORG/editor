@@ -47,7 +47,7 @@ FakeRenderer.prototype.updateDrawablePosition = function (d, position) {
 FakeRenderer.prototype.updateDrawableDirectionScale = function (
     d,
     direction,
-    scale,
+    scale
 ) {}; // eslint-disable-line no-unused-vars
 
 FakeRenderer.prototype.updateDrawableVisible = function (d, visible) {

@@ -121,8 +121,8 @@ Due to the variety of package managers needed to publish to this many places, th
 - flatpak
 - flatpak-builder
 - [flatpak-node-generator](https://github.com/flatpak/flatpak-builder-tools/tree/master/node) which also needs:
-  - python-pipx
-  - python-aiohttp
+    - python-pipx
+    - python-aiohttp
 - [snapd](https://aur.archlinux.org/packages/snapd)
 
 Then for snap uploads, you also need to install and log in to snapcraft:

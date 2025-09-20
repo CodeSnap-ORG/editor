@@ -61,7 +61,7 @@ class FillTool extends paper.Tool {
                 event.point.y,
                 color,
                 sourceContext,
-                destContext,
+                destContext
             );
         } else {
             changed = floodFill(
@@ -69,7 +69,7 @@ class FillTool extends paper.Tool {
                 event.point.y,
                 color,
                 sourceContext,
-                destContext,
+                destContext
             );
         }
         if (changed && this.gradientType !== GradientTypes.SOLID) {
@@ -99,18 +99,18 @@ class FillTool extends paper.Tool {
                     this.color2,
                     this.gradientType,
                     gradient.bounds,
-                    event.point,
+                    event.point
                 );
                 const rasterGradient = gradient.rasterize(
                     getRaster().resolution.width,
-                    false /* insert */,
+                    false /* insert */
                 );
 
                 // Mask gradient
                 raster.getContext().globalCompositeOperation = "source-in";
                 raster.drawImage(
                     rasterGradient.canvas,
-                    rasterGradient.bounds.topLeft,
+                    rasterGradient.bounds.topLeft
                 );
 
                 // Draw masked gradient into raster layer

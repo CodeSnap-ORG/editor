@@ -2,7 +2,7 @@ const { test } = require("tap");
 const VirtualMachine = require("../../src/virtual-machine");
 const BlockType = require("../../src/extension-support/block-type");
 
-test("with explicit category colors", (t) => {
+test("with explicit category colors", t => {
     const vm = new VirtualMachine();
     vm.extensionManager._registerInternalExtension({
         getInfo: () => ({
@@ -67,7 +67,7 @@ test("with explicit category colors", (t) => {
     t.end();
 });
 
-test("with the default colors", (t) => {
+test("with the default colors", t => {
     const vm = new VirtualMachine();
     vm.extensionManager._registerInternalExtension({
         getInfo: () => ({

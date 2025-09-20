@@ -4,7 +4,7 @@ import React from "react";
 import Box from "../box/box.jsx";
 import styles from "./blocks.css";
 
-const BlocksComponent = (props) => {
+const BlocksComponent = props => {
     const { containerRef, dragOver, ...componentProps } = props;
     return (
         <Box

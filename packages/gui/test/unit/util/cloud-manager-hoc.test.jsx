@@ -11,7 +11,7 @@ const mockCloudProviderInstance = {
     requestCloseConnection: jest.fn(),
 };
 jest.mock("../../../src/lib/cloud-provider", () =>
-    jest.fn().mockImplementation(() => mockCloudProviderInstance),
+    jest.fn().mockImplementation(() => mockCloudProviderInstance)
 );
 
 import cloudManagerHOC from "../../../src/lib/cloud-manager-hoc.jsx";
@@ -70,12 +70,12 @@ describe.skip("CloudManagerHOC", () => {
                 username="user"
                 vm={vm}
                 onShowCloudInfo={onShowCloudInfo}
-            />,
+            />
         );
         expect(vm.setCloudProvider.mock.calls.length).toBe(1);
         expect(CloudProvider).toHaveBeenCalledTimes(1);
         expect(vm.setCloudProvider).toHaveBeenCalledWith(
-            mockCloudProviderInstance,
+            mockCloudProviderInstance
         );
         expect(onShowCloudInfo).not.toHaveBeenCalled();
     });
@@ -89,7 +89,7 @@ describe.skip("CloudManagerHOC", () => {
                 store={store}
                 username="user"
                 vm={vm}
-            />,
+            />
         );
         expect(vm.setCloudProvider.mock.calls.length).toBe(0);
         expect(CloudProvider).not.toHaveBeenCalled();
@@ -104,7 +104,7 @@ describe.skip("CloudManagerHOC", () => {
                 cloudHost="nonEmpty"
                 store={store}
                 vm={vm}
-            />,
+            />
         );
         expect(vm.setCloudProvider.mock.calls.length).toBe(0);
         expect(CloudProvider).not.toHaveBeenCalled();
@@ -120,7 +120,7 @@ describe.skip("CloudManagerHOC", () => {
                 store={stillLoadingStore}
                 username="user"
                 vm={vm}
-            />,
+            />
         );
         expect(vm.setCloudProvider.mock.calls.length).toBe(0);
         expect(CloudProvider).not.toHaveBeenCalled();
@@ -136,7 +136,7 @@ describe.skip("CloudManagerHOC", () => {
                 store={store}
                 username="user"
                 vm={vm}
-            />,
+            />
         );
 
         expect(vm.setCloudProvider.mock.calls.length).toBe(0);
@@ -147,7 +147,7 @@ describe.skip("CloudManagerHOC", () => {
         const Component = () => <div />;
         const WrappedComponent = cloudManagerHOC(Component);
         vm.extensionManager.isExtensionLoaded = jest.fn(
-            (extension) => extension === "videoSensing",
+            extension => extension === "videoSensing"
         );
 
         mount(
@@ -157,7 +157,7 @@ describe.skip("CloudManagerHOC", () => {
                 store={store}
                 username="user"
                 vm={vm}
-            />,
+            />
         );
 
         expect(vm.setCloudProvider.mock.calls.length).toBe(0);
@@ -178,7 +178,7 @@ describe.skip("CloudManagerHOC", () => {
                 username="user"
                 vm={vm}
                 onShowCloudInfo={onShowCloudInfo}
-            />,
+            />
         );
         expect(onShowCloudInfo).not.toHaveBeenCalled();
 
@@ -192,7 +192,7 @@ describe.skip("CloudManagerHOC", () => {
         expect(vm.setCloudProvider.mock.calls.length).toBe(1);
         expect(CloudProvider).toHaveBeenCalledTimes(1);
         expect(vm.setCloudProvider).toHaveBeenCalledWith(
-            mockCloudProviderInstance,
+            mockCloudProviderInstance
         );
         expect(onShowCloudInfo).not.toHaveBeenCalled();
     });
@@ -207,7 +207,7 @@ describe.skip("CloudManagerHOC", () => {
                 store={stillLoadingStore}
                 username="user"
                 vm={vm}
-            />,
+            />
         );
         mounted.setProps({
             projectId: "a different id",
@@ -221,7 +221,7 @@ describe.skip("CloudManagerHOC", () => {
         expect(vm.setCloudProvider.mock.calls.length).toBe(1);
         expect(CloudProvider).toHaveBeenCalledTimes(1);
         expect(vm.setCloudProvider).toHaveBeenCalledWith(
-            mockCloudProviderInstance,
+            mockCloudProviderInstance
         );
     });
 
@@ -235,7 +235,7 @@ describe.skip("CloudManagerHOC", () => {
                 store={store}
                 username="user"
                 vm={vm}
-            />,
+            />
         );
 
         expect(CloudProvider).toHaveBeenCalled();
@@ -261,7 +261,7 @@ describe.skip("CloudManagerHOC", () => {
                 store={store}
                 username="user"
                 vm={vm}
-            />,
+            />
         );
 
         expect(CloudProvider).toHaveBeenCalled();
@@ -287,7 +287,7 @@ describe.skip("CloudManagerHOC", () => {
                 store={store}
                 username="user"
                 vm={vm}
-            />,
+            />
         );
 
         expect(CloudProvider).toHaveBeenCalled();
@@ -317,7 +317,7 @@ describe.skip("CloudManagerHOC", () => {
                 store={store}
                 username="user"
                 vm={vm}
-            />,
+            />
         );
         expect(vm.setCloudProvider.mock.calls.length).toBe(0);
         expect(CloudProvider).not.toHaveBeenCalled();
@@ -339,7 +339,7 @@ describe.skip("CloudManagerHOC", () => {
                 username="user"
                 vm={vm}
                 onShowCloudInfo={onShowCloudInfo}
-            />,
+            />
         );
         expect(vm.setCloudProvider.mock.calls.length).toBe(0);
         expect(CloudProvider).not.toHaveBeenCalled();
@@ -352,7 +352,7 @@ describe.skip("CloudManagerHOC", () => {
         expect(vm.setCloudProvider.mock.calls.length).toBe(1);
         expect(CloudProvider).toHaveBeenCalledTimes(1);
         expect(vm.setCloudProvider).toHaveBeenCalledWith(
-            mockCloudProviderInstance,
+            mockCloudProviderInstance
         );
         expect(onShowCloudInfo).toHaveBeenCalled();
     });
@@ -367,7 +367,7 @@ describe.skip("CloudManagerHOC", () => {
                 store={store}
                 username="user"
                 vm={vm}
-            />,
+            />
         );
 
         expect(CloudProvider).toHaveBeenCalled();
@@ -393,7 +393,7 @@ describe.skip("CloudManagerHOC", () => {
                 store={store}
                 username="user"
                 vm={vm}
-            />,
+            />
         );
 
         expect(CloudProvider).toHaveBeenCalled();

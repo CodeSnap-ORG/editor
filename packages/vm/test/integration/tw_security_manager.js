@@ -7,7 +7,7 @@ const {
 } = require("../../src/extension-support/tw-unsandboxed-extension-runner");
 
 const testProject = fs.readFileSync(
-    path.join(__dirname, "..", "fixtures", "tw-project-with-extensions.sb3"),
+    path.join(__dirname, "..", "fixtures", "tw-project-with-extensions.sb3")
 );
 
 // The test project contains two extensions: a fetch one and a bitwise one.
@@ -17,7 +17,7 @@ const BITWISE_EXTENSION = "https://extensions.turbowarp.org/bitwise.js";
 /* eslint-disable no-script-url */
 /* eslint-disable require-await */
 
-test("Deny both extensions", async (t) => {
+test("Deny both extensions", async t => {
     const vm = new VirtualMachine();
     vm.extensionManager.loadExtensionURL = () => {
         t.fail();
@@ -33,12 +33,12 @@ test("Deny both extensions", async (t) => {
     t.end();
 });
 
-test("Deny 1 of 2 extensions", async (t) => {
+test("Deny 1 of 2 extensions", async t => {
     const vm = new VirtualMachine();
     vm.extensionManager.loadExtensionURL = () => {
         t.fail();
     };
-    vm.securityManager.canLoadExtensionFromProject = (url) =>
+    vm.securityManager.canLoadExtensionFromProject = url =>
         Promise.resolve(url === FETCH_EXTENSION);
     try {
         await vm.loadProject(testProject);
@@ -50,14 +50,14 @@ test("Deny 1 of 2 extensions", async (t) => {
     t.end();
 });
 
-test("Allow both extensions", async (t) => {
+test("Allow both extensions", async t => {
     const vm = new VirtualMachine();
     const loadedExtensions = [];
-    vm.extensionManager.loadExtensionURL = (url) => {
+    vm.extensionManager.loadExtensionURL = url => {
         loadedExtensions.push(url);
         return Promise.resolve();
     };
-    vm.securityManager.canLoadExtensionFromProject = (url) => {
+    vm.securityManager.canLoadExtensionFromProject = url => {
         if (url === FETCH_EXTENSION) {
             return true;
         }
@@ -69,12 +69,12 @@ test("Allow both extensions", async (t) => {
     await vm.loadProject(testProject);
     t.same(
         new Set(loadedExtensions),
-        new Set([FETCH_EXTENSION, BITWISE_EXTENSION]),
+        new Set([FETCH_EXTENSION, BITWISE_EXTENSION])
     );
     t.end();
 });
 
-test("canFetch", async (t) => {
+test("canFetch", async t => {
     const vm = new VirtualMachine();
     setupUnsandboxedExtensionAPI(vm);
     global.location = {
@@ -87,9 +87,9 @@ test("canFetch", async (t) => {
     t.equal(await global.Scratch.canFetch("data:text/html,test"), true);
     t.equal(
         await global.Scratch.canFetch(
-            "blob:https://example.com/8c071bf8-c0b6-4a48-81d7-6413c2adf3dd",
+            "blob:https://example.com/8c071bf8-c0b6-4a48-81d7-6413c2adf3dd"
         ),
-        true,
+        true
     );
 
     vm.securityManager.canFetch = () => false;
@@ -116,7 +116,7 @@ test("canFetch", async (t) => {
     t.equal(await global.Scratch.canFetch(null), true);
 
     const calledWithURLs = [];
-    vm.securityManager.canFetch = async (url) => {
+    vm.securityManager.canFetch = async url => {
         calledWithURLs.push(url);
         return url === "https://example.com/null";
     };
@@ -136,7 +136,7 @@ test("canFetch", async (t) => {
     t.end();
 });
 
-test("canOpenWindow", async (t) => {
+test("canOpenWindow", async t => {
     const vm = new VirtualMachine();
     setupUnsandboxedExtensionAPI(vm);
     global.location = {
@@ -152,9 +152,9 @@ test("canOpenWindow", async (t) => {
     t.equal(await global.Scratch.canOpenWindow("data:text/html,test"), false);
     t.equal(
         await global.Scratch.canOpenWindow(
-            "blob:https://example.com/8c071bf8-c0b6-4a48-81d7-6413c2adf3dd",
+            "blob:https://example.com/8c071bf8-c0b6-4a48-81d7-6413c2adf3dd"
         ),
-        false,
+        false
     );
     t.equal(await global.Scratch.canOpenWindow("file:///etc/hosts"), false);
     t.equal(await global.Scratch.canOpenWindow("https://example.com/"), false);
@@ -165,9 +165,9 @@ test("canOpenWindow", async (t) => {
     t.equal(await global.Scratch.canOpenWindow("data:text/html,test"), false);
     t.equal(
         await global.Scratch.canOpenWindow(
-            "blob:https://example.com/8c071bf8-c0b6-4a48-81d7-6413c2adf3dd",
+            "blob:https://example.com/8c071bf8-c0b6-4a48-81d7-6413c2adf3dd"
         ),
-        false,
+        false
     );
     t.equal(await global.Scratch.canOpenWindow("file:///etc/hosts"), false);
     t.equal(await global.Scratch.canOpenWindow("https://example.com/"), false);
@@ -178,9 +178,9 @@ test("canOpenWindow", async (t) => {
     t.equal(await global.Scratch.canOpenWindow("data:text/html,test"), true);
     t.equal(
         await global.Scratch.canOpenWindow(
-            "blob:https://example.com/8c071bf8-c0b6-4a48-81d7-6413c2adf3dd",
+            "blob:https://example.com/8c071bf8-c0b6-4a48-81d7-6413c2adf3dd"
         ),
-        true,
+        true
     );
     t.equal(await global.Scratch.canOpenWindow("file:///etc/hosts"), true);
     t.equal(await global.Scratch.canOpenWindow("https://example.com/"), true);
@@ -188,16 +188,16 @@ test("canOpenWindow", async (t) => {
     t.equal(await global.Scratch.canOpenWindow(null), true);
 
     const calledWithURLs = [];
-    vm.securityManager.canOpenWindow = async (url) => {
+    vm.securityManager.canOpenWindow = async url => {
         calledWithURLs.push(url);
         return url === "file:///etc/hosts";
     };
     t.equal(await global.Scratch.canOpenWindow("data:text/html,test"), false);
     t.equal(
         await global.Scratch.canOpenWindow(
-            "blob:https://example.com/8c071bf8-c0b6-4a48-81d7-6413c2adf3dd",
+            "blob:https://example.com/8c071bf8-c0b6-4a48-81d7-6413c2adf3dd"
         ),
-        false,
+        false
     );
     t.equal(await global.Scratch.canOpenWindow("file:///etc/hosts"), true);
     t.equal(await global.Scratch.canOpenWindow("https://example.com/"), false);
@@ -215,7 +215,7 @@ test("canOpenWindow", async (t) => {
     t.end();
 });
 
-test("canRedirect", async (t) => {
+test("canRedirect", async t => {
     const vm = new VirtualMachine();
     setupUnsandboxedExtensionAPI(vm);
     global.location = {
@@ -231,9 +231,9 @@ test("canRedirect", async (t) => {
     t.equal(await global.Scratch.canRedirect("data:text/html,test"), false);
     t.equal(
         await global.Scratch.canRedirect(
-            "blob:https://example.com/8c071bf8-c0b6-4a48-81d7-6413c2adf3dd",
+            "blob:https://example.com/8c071bf8-c0b6-4a48-81d7-6413c2adf3dd"
         ),
-        false,
+        false
     );
     t.equal(await global.Scratch.canRedirect("file:///etc/hosts"), false);
     t.equal(await global.Scratch.canRedirect("https://example.com/"), false);
@@ -244,9 +244,9 @@ test("canRedirect", async (t) => {
     t.equal(await global.Scratch.canRedirect("data:text/html,test"), false);
     t.equal(
         await global.Scratch.canRedirect(
-            "blob:https://example.com/8c071bf8-c0b6-4a48-81d7-6413c2adf3dd",
+            "blob:https://example.com/8c071bf8-c0b6-4a48-81d7-6413c2adf3dd"
         ),
-        false,
+        false
     );
     t.equal(await global.Scratch.canRedirect("file:///etc/hosts"), false);
     t.equal(await global.Scratch.canRedirect("https://example.com/"), false);
@@ -257,9 +257,9 @@ test("canRedirect", async (t) => {
     t.equal(await global.Scratch.canRedirect("data:text/html,test"), true);
     t.equal(
         await global.Scratch.canRedirect(
-            "blob:https://example.com/8c071bf8-c0b6-4a48-81d7-6413c2adf3dd",
+            "blob:https://example.com/8c071bf8-c0b6-4a48-81d7-6413c2adf3dd"
         ),
-        true,
+        true
     );
     t.equal(await global.Scratch.canRedirect("file:///etc/hosts"), true);
     t.equal(await global.Scratch.canRedirect("https://example.com/"), true);
@@ -267,16 +267,16 @@ test("canRedirect", async (t) => {
     t.equal(await global.Scratch.canRedirect(null), true);
 
     const calledWithURLs = [];
-    vm.securityManager.canRedirect = async (url) => {
+    vm.securityManager.canRedirect = async url => {
         calledWithURLs.push(url);
         return url === "file:///etc/hosts";
     };
     t.equal(await global.Scratch.canRedirect("data:text/html,test"), false);
     t.equal(
         await global.Scratch.canRedirect(
-            "blob:https://example.com/8c071bf8-c0b6-4a48-81d7-6413c2adf3dd",
+            "blob:https://example.com/8c071bf8-c0b6-4a48-81d7-6413c2adf3dd"
         ),
-        false,
+        false
     );
     t.equal(await global.Scratch.canRedirect("file:///etc/hosts"), true);
     t.equal(await global.Scratch.canRedirect("https://example.com/"), false);
@@ -294,7 +294,7 @@ test("canRedirect", async (t) => {
     t.end();
 });
 
-test("canEmbed", async (t) => {
+test("canEmbed", async t => {
     const vm = new VirtualMachine();
     setupUnsandboxedExtensionAPI(vm);
     global.location = {
@@ -302,7 +302,7 @@ test("canEmbed", async (t) => {
     };
 
     const calledWithURLs = [];
-    vm.securityManager.canEmbed = async (url) => {
+    vm.securityManager.canEmbed = async url => {
         calledWithURLs.push(url);
         return url === "https://example.com/ok";
     };
@@ -312,7 +312,7 @@ test("canEmbed", async (t) => {
     t.equal(await global.Scratch.canEmbed("file:///etc/hosts"), false);
     t.equal(
         await global.Scratch.canEmbed("data:text/html;,<h1>test</h1>"),
-        false,
+        false
     );
     t.equal(await global.Scratch.canEmbed("ok"), true);
     t.same(calledWithURLs, [
@@ -326,7 +326,7 @@ test("canEmbed", async (t) => {
     t.end();
 });
 
-test("canDownload", async (t) => {
+test("canDownload", async t => {
     const vm = new VirtualMachine();
     setupUnsandboxedExtensionAPI(vm);
 
@@ -338,20 +338,20 @@ test("canDownload", async (t) => {
 
     t.equal(
         await global.Scratch.canDownload("http://example.com/", "safe.html"),
-        true,
+        true
     );
     t.equal(
         await global.Scratch.canDownload(
             "http://example.com/",
-            "dangerous.html",
+            "dangerous.html"
         ),
-        false,
+        false
     );
 
     // should not even call security manager
     t.equal(
         await global.Scratch.canDownload("javascript:alert(1)", "safe.html"),
-        false,
+        false
     );
 
     t.same(calledWithArguments, [

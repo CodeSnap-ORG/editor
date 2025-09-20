@@ -8,7 +8,7 @@ const getRealScratchPaint = () => {
     return realScratchPaint;
 };
 
-const PaintEditor = (props) =>
+const PaintEditor = props =>
     React.createElement(getRealScratchPaint().default, props);
 
 let hasSetupReducer = false;

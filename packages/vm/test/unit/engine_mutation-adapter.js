@@ -2,12 +2,12 @@ const test = require("tap").test;
 
 const mutationAdapter = require("../../src/engine/mutation-adapter");
 
-test("spec", (t) => {
+test("spec", t => {
     t.type(mutationAdapter, "function");
     t.end();
 });
 
-test("convert DOM to Scratch object", (t) => {
+test("convert DOM to Scratch object", t => {
     const testStringRaw = "\"arbitrary\" & 'complicated' test string";
     const testStringEscaped =
         "\\&quot;arbitrary\\&quot; &amp; &apos;complicated&apos; test string";

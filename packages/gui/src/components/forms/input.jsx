@@ -4,7 +4,7 @@ import classNames from "classnames";
 
 import styles from "./input.css";
 
-const Input = (props) => {
+const Input = props => {
     const { small, ...componentProps } = props;
     return (
         <input

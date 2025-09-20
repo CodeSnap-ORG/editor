@@ -135,7 +135,7 @@ const BlocksThemeMenu = ({
                 BLOCKS_HIGH_CONTRAST,
                 BLOCKS_DARK,
                 ...(onOpenCustomSettings ? [BLOCKS_CUSTOM] : []),
-            ].map((i) => (
+            ].map(i => (
                 <ThemeMenuItem
                     key={i}
                     id={i}
@@ -164,14 +164,14 @@ BlocksThemeMenu.propTypes = {
     theme: PropTypes.instanceOf(Theme),
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     isOpen: blocksThemeMenuOpen(state),
     isRtl: state.locales.isRtl,
     theme: state.scratchGui.theme.theme,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    onChangeTheme: (theme) => {
+const mapDispatchToProps = dispatch => ({
+    onChangeTheme: theme => {
         dispatch(setTheme(theme));
         dispatch(closeSettingsMenu());
         persistTheme(theme);

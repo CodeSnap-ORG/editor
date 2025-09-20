@@ -6,7 +6,7 @@
 // does not affect the video on the stage, and a program running and disabling
 // video on the stage will not affect the camera modal's video.
 const requestStack = [];
-const requestVideoStream = (videoDesc) => {
+const requestVideoStream = videoDesc => {
     let streamPromise;
     if (requestStack.length === 0) {
         streamPromise = navigator.mediaDevices.getUserMedia({

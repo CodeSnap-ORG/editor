@@ -21,7 +21,7 @@ const checkMonitorThreadPresent = (t, threads) => {
 /**
  * Creates a monitor and then checks if it gets run every frame.
  */
-test("monitor thread runs every frame", (t) => {
+test("monitor thread runs every frame", t => {
     const vm = new VirtualMachine();
     vm.attachStorage(makeTestStorage());
 
@@ -59,7 +59,7 @@ test("monitor thread runs every frame", (t) => {
  * If the monitor doesn't finish evaluating within one frame, it shouldn't be added again
  * on the next frame. (We skip execution by setting the step time to 0)
  */
-test("monitor thread not added twice", (t) => {
+test("monitor thread not added twice", t => {
     const vm = new VirtualMachine();
     vm.attachStorage(makeTestStorage());
 

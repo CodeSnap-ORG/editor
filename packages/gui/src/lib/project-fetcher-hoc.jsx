@@ -24,7 +24,7 @@ import VM from "scratch-vm";
 import { fetchProjectMeta } from "./tw-project-meta-fetcher-hoc.jsx";
 
 // TW: Temporary hack for project tokens
-const fetchProjectToken = async (projectId) => {
+const fetchProjectToken = async projectId => {
     if (projectId === "0") {
         return null;
     }
@@ -44,7 +44,7 @@ const fetchProjectToken = async (projectId) => {
     } catch (e) {
         log.error(e);
         throw new Error(
-            "Cannot access project token. Project is probably unshared. See https://docs.turbowarp.org/unshared-projects",
+            "Cannot access project token. Project is probably unshared. See https://docs.turbowarp.org/unshared-projects"
         );
     }
 };
@@ -88,7 +88,7 @@ const ProjectFetcherHOC = function (WrappedComponent) {
             if (this.props.isFetchingWithId && !prevProps.isFetchingWithId) {
                 this.fetchProject(
                     this.props.reduxProjectId,
-                    this.props.loadingState,
+                    this.props.loadingState
                 );
             }
             if (this.props.isShowingProject && !prevProps.isShowingProject) {
@@ -123,33 +123,33 @@ const ProjectFetcherHOC = function (WrappedComponent) {
                     projectUrl = `https://${projectUrl}`;
                 }
                 assetPromise = fetch(projectUrl)
-                    .then((r) => {
+                    .then(r => {
                         if (!r.ok) {
                             throw new Error(
-                                `Request returned status ${r.status}`,
+                                `Request returned status ${r.status}`
                             );
                         }
                         return r.arrayBuffer();
                     })
-                    .then((buffer) => ({ data: buffer }));
+                    .then(buffer => ({ data: buffer }));
             } else {
                 // TW: Temporary hack for project tokens
-                assetPromise = fetchProjectToken(projectId).then((token) => {
+                assetPromise = fetchProjectToken(projectId).then(token => {
                     storage.setProjectToken(token);
                     return storage.load(
                         storage.AssetType.Project,
                         projectId,
-                        storage.DataFormat.JSON,
+                        storage.DataFormat.JSON
                     );
                 });
             }
 
             return assetPromise
-                .then((projectAsset) => {
+                .then(projectAsset => {
                     if (projectAsset) {
                         this.props.onFetchedProjectData(
                             projectAsset.data,
-                            loadingState,
+                            loadingState
                         );
                     } else {
                         // Treat failure to load as an error
@@ -157,7 +157,7 @@ const ProjectFetcherHOC = function (WrappedComponent) {
                         throw new Error("Could not find project");
                     }
                 })
-                .catch((err) => {
+                .catch(err => {
                     this.props.onError(err);
                     log.error(err);
                 });
@@ -217,29 +217,29 @@ const ProjectFetcherHOC = function (WrappedComponent) {
         projectHost: "https://projects.scratch.mit.edu",
     };
 
-    const mapStateToProps = (state) => ({
+    const mapStateToProps = state => ({
         isCreatingNew: getIsCreatingNew(
-            state.scratchGui.projectState.loadingState,
+            state.scratchGui.projectState.loadingState
         ),
         isFetchingWithId: getIsFetchingWithId(
-            state.scratchGui.projectState.loadingState,
+            state.scratchGui.projectState.loadingState
         ),
         isLoadingProject: getIsLoading(
-            state.scratchGui.projectState.loadingState,
+            state.scratchGui.projectState.loadingState
         ),
         isShowingProject: getIsShowingProject(
-            state.scratchGui.projectState.loadingState,
+            state.scratchGui.projectState.loadingState
         ),
         loadingState: state.scratchGui.projectState.loadingState,
         reduxProjectId: state.scratchGui.projectState.projectId,
         vm: state.scratchGui.vm,
     });
-    const mapDispatchToProps = (dispatch) => ({
-        onActivateTab: (tab) => dispatch(activateTab(tab)),
-        onError: (error) => dispatch(projectError(error)),
+    const mapDispatchToProps = dispatch => ({
+        onActivateTab: tab => dispatch(activateTab(tab)),
+        onError: error => dispatch(projectError(error)),
         onFetchedProjectData: (projectData, loadingState) =>
             dispatch(onFetchedProjectData(projectData, loadingState)),
-        setProjectId: (projectId) => dispatch(setProjectId(projectId)),
+        setProjectId: projectId => dispatch(setProjectId(projectId)),
         onProjectUnchanged: () => dispatch(setProjectUnchanged()),
     });
     // Allow incoming props to override redux-provided props. Used to mock in tests.
@@ -249,8 +249,8 @@ const ProjectFetcherHOC = function (WrappedComponent) {
         connect(
             mapStateToProps,
             mapDispatchToProps,
-            mergeProps,
-        )(ProjectFetcherComponent),
+            mergeProps
+        )(ProjectFetcherComponent)
     );
 };
 

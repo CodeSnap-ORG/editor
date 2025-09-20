@@ -34,7 +34,7 @@ const costumePayload = (costume, vm) => {
     // Do not generate the thumbnail from the raw asset. Instead use the getCostumeUrl
     // utility which inlines the fonts to make the thumbnail show the right fonts.
     const inlinedFontDataUrl = getCostumeUrl(costume.asset);
-    return createThumbnail(inlinedFontDataUrl).then((thumbnail) => {
+    return createThumbnail(inlinedFontDataUrl).then(thumbnail => {
         payload.thumbnail = thumbnail;
         return payload;
     });

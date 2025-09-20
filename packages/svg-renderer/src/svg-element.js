@@ -43,7 +43,7 @@ class SvgElement {
         return SvgElement.set(
             document.createElementNS(SvgElement.svg, tag),
             attributes,
-            formatter,
+            formatter
         );
     }
 

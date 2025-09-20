@@ -1,6 +1,6 @@
 const MathUtil = require("../util/math-util");
 
-const roundToThreeDecimals = (number) => Math.round(number * 1000) / 1000;
+const roundToThreeDecimals = number => Math.round(number * 1000) / 1000;
 
 class Mouse {
     constructor(runtime) {
@@ -49,7 +49,7 @@ class Mouse {
                 if (
                     Object.prototype.hasOwnProperty.call(
                         target,
-                        "drawableID",
+                        "drawableID"
                     ) &&
                     target.drawableID === drawableID
                 ) {
@@ -71,7 +71,7 @@ class Mouse {
             this._scratchX = MathUtil.clamp(
                 this.runtime.stageWidth * (data.x / data.canvasWidth - 0.5),
                 -(this.runtime.stageWidth / 2),
-                this.runtime.stageWidth / 2,
+                this.runtime.stageWidth / 2
             );
         }
         if (typeof data.y === "number") {
@@ -79,7 +79,7 @@ class Mouse {
             this._scratchY = MathUtil.clamp(
                 -this.runtime.stageHeight * (data.y / data.canvasHeight - 0.5),
                 -(this.runtime.stageHeight / 2),
-                this.runtime.stageHeight / 2,
+                this.runtime.stageHeight / 2
             );
         }
         if (typeof data.isDown !== "undefined") {

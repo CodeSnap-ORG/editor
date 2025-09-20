@@ -11,12 +11,12 @@ module.exports.pitch = function (request) {
     const callback = this.async();
     const compiler = this._compilation.createChildCompiler(
         "extension worker",
-        {},
+        {}
     );
     new SingleEntryPlugin(
         this.context,
         `!!${request}`,
-        "extension worker",
+        "extension worker"
     ).apply(compiler);
     compiler.runAsChild((err, entries, compilation) => {
         if (err) return callback(err);

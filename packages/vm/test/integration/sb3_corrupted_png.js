@@ -76,7 +76,7 @@ tap.beforeEach(() => {
 
 const test = tap.test;
 
-test("load sb3 project with corrupted bitmap costume file", (t) => {
+test("load sb3 project with corrupted bitmap costume file", t => {
     t.equal(vm.runtime.targets.length, 2);
 
     const stage = vm.runtime.targets[0];
@@ -99,7 +99,7 @@ test("load sb3 project with corrupted bitmap costume file", (t) => {
     t.end();
 });
 
-test("load and then save project with corrupted bitmap costume file", (t) => {
+test("load and then save project with corrupted bitmap costume file", t => {
     const resavedProject = JSON.parse(vm.toJSON());
 
     t.equal(resavedProject.targets.length, 2);
@@ -122,10 +122,10 @@ test("load and then save project with corrupted bitmap costume file", (t) => {
     t.end();
 });
 
-test("serializeCostume saves orignal broken costume", (t) => {
+test("serializeCostume saves orignal broken costume", t => {
     const costumeDescs = serializeCostumes(
         vm.runtime,
-        vm.runtime.targets[1].id,
+        vm.runtime.targets[1].id
     );
     t.equal(costumeDescs.length, 1);
     const costume = costumeDescs[0];

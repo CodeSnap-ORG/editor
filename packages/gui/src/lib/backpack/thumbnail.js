@@ -1,4 +1,4 @@
-const jpegThumbnail = (dataUrl) =>
+const jpegThumbnail = dataUrl =>
     new Promise((resolve, reject) => {
         const image = new Image();
         image.onload = () => {
@@ -31,7 +31,7 @@ const jpegThumbnail = (dataUrl) =>
                 .replace("data:image/png;base64,", "");
             resolve(dataURL);
         };
-        image.onerror = (err) => {
+        image.onerror = err => {
             reject(err);
         };
         image.src = dataUrl;

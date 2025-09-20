@@ -3,7 +3,7 @@ const Runtime = require("../../src/engine/runtime");
 const BlockType = require("../../src/extension-support/block-type");
 const ArgumentType = require("../../src/extension-support/argument-type");
 
-test("Boolean blocks can be monitors", (t) => {
+test("Boolean blocks can be monitors", t => {
     const rt = new Runtime();
     rt._registerExtensionPrimitives({
         id: "testextension",

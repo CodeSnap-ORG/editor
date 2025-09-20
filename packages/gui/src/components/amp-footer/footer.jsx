@@ -27,28 +27,28 @@ const hardRefresh = () => {
             search +
             (search ? "&" : "?") +
             "nocache=" +
-            Math.floor(Math.random() * 100000),
+            Math.floor(Math.random() * 100000)
     );
 };
 
 const eraseData = async () => {
     if (
         confirm(
-            "Please be aware that this will reset all your local data, including the Restore Points and backpack. Are you sure you want to continue?",
+            "Please be aware that this will reset all your local data, including the Restore Points and backpack. Are you sure you want to continue?"
         )
     ) {
         const prefix = process.env.ampmod_is_canary ? "canary:" : "tw:";
-        const keysToRemove = Object.keys(localStorage).filter((key) =>
-            key.startsWith(prefix),
+        const keysToRemove = Object.keys(localStorage).filter(key =>
+            key.startsWith(prefix)
         );
-        keysToRemove.forEach((key) => {
+        keysToRemove.forEach(key => {
             localStorage.removeItem(key);
         });
         if (!process.env.ampmod_is_canary) {
-            const ampKeys = Object.keys(localStorage).filter((key) =>
-                key.startsWith("amp:"),
+            const ampKeys = Object.keys(localStorage).filter(key =>
+                key.startsWith("amp:")
             );
-            ampKeys.forEach((key) => {
+            ampKeys.forEach(key => {
                 localStorage.removeItem(key);
             });
         }
@@ -56,12 +56,12 @@ const eraseData = async () => {
         indexedDB.deleteDatabase(
             process.env.ampmod_is_canary
                 ? " Canary_RestorePoints"
-                : "TW_RestorePoints",
+                : "TW_RestorePoints"
         );
         indexedDB.deleteDatabase(
             process.env.ampmod_is_canary
                 ? " Canary_RestorePoints"
-                : "TW_RestorePoints",
+                : "TW_RestorePoints"
         );
         location.reload();
     }

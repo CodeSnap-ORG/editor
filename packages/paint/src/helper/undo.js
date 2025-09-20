@@ -27,7 +27,7 @@ const _restore = function (
     entry,
     setSelectedItems,
     onUpdateImage,
-    isBitmapMode,
+    isBitmapMode
 ) {
     for (let i = paper.project.layers.length - 1; i >= 0; i--) {
         const layer = paper.project.layers[i];
@@ -81,7 +81,7 @@ const performUndo = function (
     undoState,
     dispatchPerformUndo,
     setSelectedItems,
-    onUpdateImage,
+    onUpdateImage
 ) {
     if (undoState.pointer > 0) {
         const state = undoState.stack[undoState.pointer - 1];
@@ -89,7 +89,7 @@ const performUndo = function (
             state,
             setSelectedItems,
             onUpdateImage,
-            isBitmap(state.paintEditorFormat),
+            isBitmap(state.paintEditorFormat)
         );
         const format = isVector(state.paintEditorFormat)
             ? Formats.VECTOR_SKIP_CONVERT
@@ -104,7 +104,7 @@ const performRedo = function (
     undoState,
     dispatchPerformRedo,
     setSelectedItems,
-    onUpdateImage,
+    onUpdateImage
 ) {
     if (
         undoState.pointer >= 0 &&
@@ -115,7 +115,7 @@ const performRedo = function (
             state,
             setSelectedItems,
             onUpdateImage,
-            isBitmap(state.paintEditorFormat),
+            isBitmap(state.paintEditorFormat)
         );
         const format = isVector(state.paintEditorFormat)
             ? Formats.VECTOR_SKIP_CONVERT

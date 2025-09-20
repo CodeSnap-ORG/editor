@@ -2,7 +2,7 @@ const { test } = require("tap");
 const VirtualMachine = require("../../src/virtual-machine");
 const BlockType = require("../../src/extension-support/block-type");
 
-test("does not duplicate", (t) => {
+test("does not duplicate", t => {
     const vm = new VirtualMachine();
     vm.extensionManager._registerInternalExtension({
         getInfo: () => ({
@@ -34,7 +34,7 @@ test("does not duplicate", (t) => {
     t.end();
 });
 
-test("block icon", (t) => {
+test("block icon", t => {
     const vm = new VirtualMachine();
     vm.extensionManager._registerInternalExtension({
         getInfo: () => ({
@@ -100,7 +100,7 @@ test("block icon", (t) => {
     t.end();
 });
 
-test("category icon", (t) => {
+test("category icon", t => {
     const vm = new VirtualMachine();
     vm.extensionManager._registerInternalExtension({
         getInfo: () => ({
@@ -125,7 +125,7 @@ test("category icon", (t) => {
     t.end();
 });
 
-test("category color", (t) => {
+test("category color", t => {
     const vm = new VirtualMachine();
     vm.extensionManager._registerInternalExtension({
         getInfo: () => ({
@@ -147,7 +147,7 @@ test("category color", (t) => {
     t.end();
 });
 
-test("category color", (t) => {
+test("category color", t => {
     const vm = new VirtualMachine();
     vm.extensionManager._registerInternalExtension({
         getInfo: () => ({

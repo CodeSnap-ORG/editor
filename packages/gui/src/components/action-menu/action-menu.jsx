@@ -77,7 +77,7 @@ class ActionMenu extends React.Component {
         // @todo we may be able to use react-transition for this in the future
         // for now all this work is to ensure the menu closes BEFORE the
         // (possibly slow) action is started.
-        return (event) => {
+        return event => {
             ReactTooltip.hide();
             if (fn) fn(event);
             // Blur the button so it does not keep focus after being clicked
@@ -154,7 +154,7 @@ class ActionMenu extends React.Component {
                                     fileInput,
                                     fileMultiple,
                                 },
-                                keyId,
+                                keyId
                             ) => {
                                 const isComingSoon = !handleClick;
                                 const hasFileInput = fileInput;
@@ -169,7 +169,7 @@ class ActionMenu extends React.Component {
                                                 {
                                                     [styles.comingSoon]:
                                                         isComingSoon,
-                                                },
+                                                }
                                             )}
                                             data-for={tooltipId}
                                             data-tip={title}
@@ -177,7 +177,7 @@ class ActionMenu extends React.Component {
                                                 hasFileInput
                                                     ? handleClick
                                                     : this.clickDelayer(
-                                                          handleClick,
+                                                          handleClick
                                                       )
                                             }
                                         >
@@ -203,7 +203,7 @@ class ActionMenu extends React.Component {
                                                 {
                                                     [styles.comingSoonTooltip]:
                                                         isComingSoon,
-                                                },
+                                                }
                                             )}
                                             effect="solid"
                                             id={tooltipId}
@@ -211,7 +211,7 @@ class ActionMenu extends React.Component {
                                         />
                                     </div>
                                 );
-                            },
+                            }
                         )}
                     </div>
                 </div>
@@ -232,7 +232,7 @@ ActionMenu.propTypes = {
             fileChange: PropTypes.func, // Optional, only for file upload
             fileInput: PropTypes.func, // Optional, only for file upload
             fileMultiple: PropTypes.bool, // Optional, only for file upload
-        }),
+        })
     ),
     onClick: PropTypes.func.isRequired,
     title: PropTypes.node.isRequired,

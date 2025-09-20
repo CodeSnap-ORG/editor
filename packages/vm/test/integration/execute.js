@@ -62,8 +62,8 @@ const executeDir = path.resolve(__dirname, "../fixtures/execute");
 const fileFilter = /\.sb[23]?$/i;
 
 fs.readdirSync(executeDir)
-    .filter((uri) => fileFilter.test(uri))
-    .forEach((uri) => {
+    .filter(uri => fileFilter.test(uri))
+    .forEach(uri => {
         const run = (t, enableCompiler) => {
             const vm = new VirtualMachine();
 
@@ -91,11 +91,11 @@ fs.readdirSync(executeDir)
                     t.end();
                 },
             };
-            const reportVmResult = (text) => {
+            const reportVmResult = text => {
                 const command = text.split(/\s+/, 1)[0].toLowerCase();
                 if (reporters[command]) {
                     return reporters[command](
-                        text.substring(command.length).trim(),
+                        text.substring(command.length).trim()
                     );
                 }
 
@@ -118,7 +118,7 @@ fs.readdirSync(executeDir)
             if (enableCompiler) {
                 vm.on("COMPILE_ERROR", (target, error) => {
                     throw new Error(
-                        `Could not compile script in ${target.getName()}: ${error}`,
+                        `Could not compile script in ${target.getName()}: ${error}`
                     );
                 });
             }
@@ -151,6 +151,6 @@ fs.readdirSync(executeDir)
                     }
                 });
         };
-        test(`${uri} (interpreted)`, (t) => run(t, false));
-        test(`${uri} (compiled)`, (t) => run(t, true));
+        test(`${uri} (interpreted)`, t => run(t, false));
+        test(`${uri} (compiled)`, t => run(t, true));
     });

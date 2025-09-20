@@ -31,7 +31,7 @@ tap.beforeEach(() => {
 
 const test = tap.test;
 
-test("loading sb3 project with missing sound file", (t) => {
+test("loading sb3 project with missing sound file", t => {
     t.equal(vm.runtime.targets.length, 2);
 
     const stage = vm.runtime.targets[0];
@@ -54,7 +54,7 @@ test("loading sb3 project with missing sound file", (t) => {
     t.end();
 });
 
-test("load and then save sb3 project with missing sound file", (t) => {
+test("load and then save sb3 project with missing sound file", t => {
     const resavedProject = JSON.parse(vm.toJSON());
 
     t.equal(resavedProject.targets.length, 2);
@@ -77,7 +77,7 @@ test("load and then save sb3 project with missing sound file", (t) => {
     t.end();
 });
 
-test("serializeCostume does not save data for missing costume", (t) => {
+test("serializeCostume does not save data for missing costume", t => {
     const soundDescs = serializeSounds(vm.runtime);
 
     t.equal(soundDescs.length, 1); // Should only have one sound, the pop sound for the stage

@@ -3,7 +3,7 @@ import React from "react";
 const DelayedMountPropertyHOC = function (
     WrappedComponent,
     duration,
-    delayedProps,
+    delayedProps
 ) {
     class DelayedMountProperty extends React.Component {
         constructor(props) {

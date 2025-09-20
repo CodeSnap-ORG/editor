@@ -76,7 +76,7 @@ class MathUtil {
      */
     static reducedSortOrdering(elts) {
         const sorted = elts.slice(0).sort((a, b) => a - b);
-        return elts.map((e) => sorted.indexOf(e));
+        return elts.map(e => sorted.indexOf(e));
     }
 
     /**

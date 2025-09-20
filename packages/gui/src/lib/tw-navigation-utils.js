@@ -11,7 +11,7 @@ const setProjectId = (dispatch, projectId) => {
     dispatch(reduxSetProjectId(projectId));
 };
 
-const searchParamsToString = (params) => {
+const searchParamsToString = params => {
     let newSearch = params.toString();
     if (newSearch.length > 0) {
         // Add leading question mark
@@ -31,13 +31,13 @@ const searchParamsToString = (params) => {
  * Change URL search params to something else in place
  * @param {URLSearchParams} params New URLSearchParams
  */
-const setSearchParams = (params) => {
+const setSearchParams = params => {
     const newSearch = searchParamsToString(params);
     if (location.search !== newSearch) {
         history.replaceState(
             null,
             null,
-            `${location.pathname}${newSearch}${location.hash}`,
+            `${location.pathname}${newSearch}${location.hash}`
         );
     }
 };

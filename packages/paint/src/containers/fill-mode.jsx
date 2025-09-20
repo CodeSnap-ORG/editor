@@ -90,7 +90,7 @@ class FillMode extends React.Component {
         this.tool = new FillTool(
             this.props.setHoveredItem,
             this.props.clearHoveredItem,
-            this.props.onUpdateImage,
+            this.props.onUpdateImage
         );
         this.tool.setFillColor(fillColor);
         this.tool.setFillColor2(fillColor2);
@@ -130,7 +130,7 @@ FillMode.propTypes = {
     setHoveredItem: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     fillModeGradientType: state.scratchPaint.fillMode.gradientType, // Last user-selected gradient type
     fillColor: state.scratchPaint.color.fillColor.primary,
     fillColor2: state.scratchPaint.color.fillColor.secondary,
@@ -138,8 +138,8 @@ const mapStateToProps = (state) => ({
     hoveredItemId: state.scratchPaint.hoveredItemId,
     isFillModeActive: state.scratchPaint.mode === Modes.FILL,
 });
-const mapDispatchToProps = (dispatch) => ({
-    setHoveredItem: (hoveredItemId) => {
+const mapDispatchToProps = dispatch => ({
+    setHoveredItem: hoveredItemId => {
         dispatch(setHoveredItem(hoveredItemId));
     },
     clearHoveredItem: () => {
@@ -148,7 +148,7 @@ const mapDispatchToProps = (dispatch) => ({
     clearSelectedItems: () => {
         dispatch(clearSelectedItems());
     },
-    changeGradientType: (gradientType) => {
+    changeGradientType: gradientType => {
         dispatch(changeGradientType(gradientType));
     },
     handleMouseDown: () => {

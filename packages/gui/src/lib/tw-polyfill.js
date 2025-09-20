@@ -38,7 +38,7 @@ if (!Array.prototype.flatMap) {
 }
 
 if (typeof queueMicrotask !== "function") {
-    window.queueMicrotask = (callback) => {
+    window.queueMicrotask = callback => {
         Promise.resolve().then(callback);
     };
 }

@@ -5,14 +5,14 @@ const Sprite = require("../../src/sprites/sprite");
 const RenderedTarget = require("../../src/sprites/rendered-target");
 const BlockUtility = require("../../src/engine/block-utility");
 
-test("getPrimitives", (t) => {
+test("getPrimitives", t => {
     const rt = new Runtime();
     const s = new Sensing(rt);
     t.type(s.getPrimitives(), "object");
     t.end();
 });
 
-test("ask and answer with a hidden target", (t) => {
+test("ask and answer with a hidden target", t => {
     const rt = new Runtime();
     const s = new Sensing(rt);
     const util = { target: { visible: false } };
@@ -21,7 +21,7 @@ test("ask and answer with a hidden target", (t) => {
     const expectedAnswer = "the answer";
 
     // Test is written out of order because of promises, follow the (#) comments.
-    rt.addListener("QUESTION", (question) => {
+    rt.addListener("QUESTION", question => {
         // (2) Assert the question is correct, then emit the answer
         t.strictEqual(question, expectedQuestion);
         rt.emit("ANSWER", expectedAnswer);
@@ -37,7 +37,7 @@ test("ask and answer with a hidden target", (t) => {
     });
 });
 
-test("ask and stop all dismisses question", (t) => {
+test("ask and stop all dismisses question", t => {
     const rt = new Runtime();
     const s = new Sensing(rt);
     const util = { target: { visible: false } };
@@ -46,7 +46,7 @@ test("ask and stop all dismisses question", (t) => {
 
     let call = 0;
 
-    rt.addListener("QUESTION", (question) => {
+    rt.addListener("QUESTION", question => {
         if (call === 0) {
             // (2) Assert the question was passed.
             t.strictEqual(question, expectedQuestion);
@@ -64,7 +64,7 @@ test("ask and stop all dismisses question", (t) => {
     rt.stopAll();
 });
 
-test("ask and stop other scripts dismisses if it is the last question", (t) => {
+test("ask and stop other scripts dismisses if it is the last question", t => {
     const rt = new Runtime();
     const s = new Sensing(rt);
     const util = {
@@ -76,7 +76,7 @@ test("ask and stop other scripts dismisses if it is the last question", (t) => {
 
     let call = 0;
 
-    rt.addListener("QUESTION", (question) => {
+    rt.addListener("QUESTION", question => {
         if (call === 0) {
             // (2) Assert the question was passed.
             t.strictEqual(question, expectedQuestion);
@@ -94,7 +94,7 @@ test("ask and stop other scripts dismisses if it is the last question", (t) => {
     rt.stopForTarget(util.target, util.thread);
 });
 
-test("ask and stop other scripts asks next question", (t) => {
+test("ask and stop other scripts asks next question", t => {
     const rt = new Runtime();
     const s = new Sensing(rt);
     const util = {
@@ -111,7 +111,7 @@ test("ask and stop other scripts asks next question", (t) => {
 
     let call = 0;
 
-    rt.addListener("QUESTION", (question) => {
+    rt.addListener("QUESTION", question => {
         if (call === 0) {
             // (2) Assert the question was passed.
             t.strictEqual(question, expectedQuestion);
@@ -130,7 +130,7 @@ test("ask and stop other scripts asks next question", (t) => {
     rt.stopForTarget(util.target, util.thread);
 });
 
-test("ask and answer with a visible target", (t) => {
+test("ask and answer with a visible target", t => {
     const rt = new Runtime();
     const s = new Sensing(rt);
     const util = { target: { visible: true } };
@@ -145,7 +145,7 @@ test("ask and answer with a visible target", (t) => {
         t.strictEqual(question, expectedQuestion);
     });
 
-    rt.addListener("QUESTION", (question) => {
+    rt.addListener("QUESTION", question => {
         // Question should be blank for a visible target
         t.strictEqual(question, "");
 
@@ -162,7 +162,7 @@ test("ask and answer with a visible target", (t) => {
     s.askAndWait({ QUESTION: expectedQuestion }, util);
 });
 
-test("answer gets reset when runtime is disposed", (t) => {
+test("answer gets reset when runtime is disposed", t => {
     const rt = new Runtime();
     const s = new Sensing(rt);
     const util = { target: { visible: false } };
@@ -180,7 +180,7 @@ test("answer gets reset when runtime is disposed", (t) => {
         });
 });
 
-test("set drag mode", (t) => {
+test("set drag mode", t => {
     const runtime = new Runtime();
     runtime.requestTargetsUpdate = () => {}; // noop for testing
     const sensing = new Sensing(runtime);
@@ -196,7 +196,7 @@ test("set drag mode", (t) => {
     t.end();
 });
 
-test("get loudness with caching", (t) => {
+test("get loudness with caching", t => {
     const rt = new Runtime();
     const sensing = new Sensing(rt);
 
@@ -237,7 +237,7 @@ test("get loudness with caching", (t) => {
     t.end();
 });
 
-test("loud? boolean", (t) => {
+test("loud? boolean", t => {
     const rt = new Runtime();
     const sensing = new Sensing(rt);
 
@@ -257,7 +257,7 @@ test("loud? boolean", (t) => {
     t.end();
 });
 
-test("get attribute of sprite variable", (t) => {
+test("get attribute of sprite variable", t => {
     const rt = new Runtime();
     const sensing = new Sensing(rt);
     const s = new Sprite(null, rt);
@@ -274,7 +274,7 @@ test("get attribute of sprite variable", (t) => {
 
     t.end();
 });
-test("get attribute of variable that does not exist", (t) => {
+test("get attribute of variable that does not exist", t => {
     const rt = new Runtime();
     const sensing = new Sensing(rt);
     const s = new Sprite(null, rt);
@@ -282,13 +282,13 @@ test("get attribute of variable that does not exist", (t) => {
     rt.getTargetForStage = () => target;
     t.equal(
         sensing.getAttributeOf({ PROPERTY: "variableThatDoesNotExist" }),
-        0,
+        0
     );
 
     t.end();
 });
 
-test("username block", (t) => {
+test("username block", t => {
     const rt = new Runtime();
     const sensing = new Sensing(rt);
     const util = new BlockUtility(rt.sequencer);

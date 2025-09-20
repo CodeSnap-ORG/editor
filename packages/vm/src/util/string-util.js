@@ -21,8 +21,8 @@ class StringUtil {
      * @returns {string}
      */
     static caseInsensitiveUnusedName(name, existingNames) {
-        const exists = (needle) =>
-            existingNames.some((i) => i.toLowerCase() === needle.toLowerCase());
+        const exists = needle =>
+            existingNames.some(i => i.toLowerCase() === needle.toLowerCase());
         if (!exists(name)) return name;
         name = StringUtil.withoutTrailingDigits(name);
         let i = 2;
@@ -95,7 +95,7 @@ class StringUtil {
                 return unsafe;
             }
         }
-        return unsafe.replace(/[<>&'"]/g, (c) => {
+        return unsafe.replace(/[<>&'"]/g, c => {
             switch (c) {
                 case "<":
                     return "lt";

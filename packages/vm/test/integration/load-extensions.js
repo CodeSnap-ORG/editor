@@ -11,7 +11,7 @@ const VirtualMachine = require("../../src/index");
  * Call _stopLoop() on the Video Sensing extension.
  * @param {VirtualMachine} vm - a VM instance which has loaded the 'videoSensing' extension.
  */
-const stopVideoLoop = (vm) => {
+const stopVideoLoop = vm => {
     // TODO: provide a general way to tell extensions to shut down
     // Ideally we'd just dispose of the extension's Worker...
     const serviceName =
@@ -19,10 +19,10 @@ const stopVideoLoop = (vm) => {
     dispatch.call(serviceName, "_stopLoop");
 };
 
-test("Load external extensions", async (t) => {
+test("Load external extensions", async t => {
     const vm = new VirtualMachine();
     const testFiles = fs.readdirSync(
-        "./test/fixtures/load-extensions/confirm-load/",
+        "./test/fixtures/load-extensions/confirm-load/"
     );
 
     // Test each example extension file
@@ -30,18 +30,18 @@ test("Load external extensions", async (t) => {
         const ext = file.split("-")[0];
         const uri = path.resolve(
             __dirname,
-            `../fixtures/load-extensions/confirm-load/${file}`,
+            `../fixtures/load-extensions/confirm-load/${file}`
         );
         const project = readFileToBuffer(uri);
 
         await t.test(
             "Confirm expected extension is installed in example sb2 and sb3 projects",
-            (extTest) => {
+            extTest => {
                 vm.loadProject(project).then(() => {
                     extTest.ok(vm.extensionManager.isExtensionLoaded(ext));
                     extTest.end();
                 });
-            },
+            }
         );
     }
 
@@ -50,7 +50,7 @@ test("Load external extensions", async (t) => {
     t.end();
 });
 
-test("Load video sensing extension and video properties", async (t) => {
+test("Load video sensing extension and video properties", async t => {
     const vm = new VirtualMachine();
     // An array of test projects and their expected video state values
     const testProjects = [
@@ -71,7 +71,7 @@ test("Load video sensing extension and video properties", async (t) => {
     for (const project of testProjects) {
         const uri = path.resolve(
             __dirname,
-            `../fixtures/load-extensions/video-state/${project.file}`,
+            `../fixtures/load-extensions/video-state/${project.file}`
         );
         const projectData = readFileToBuffer(uri);
 

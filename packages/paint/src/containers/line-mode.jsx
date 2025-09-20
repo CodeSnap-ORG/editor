@@ -169,10 +169,10 @@ class LineMode extends React.Component {
         let endPoint = event.point;
         if (event.modifiers.shift) {
             const line = event.point.subtract(
-                this.path.lastSegment.previous.point,
+                this.path.lastSegment.previous.point
             );
             endPoint = this.path.lastSegment.previous.point.add(
-                snapDeltaToAngle(line, Math.PI / 4),
+                snapDeltaToAngle(line, Math.PI / 4)
             );
         }
 
@@ -184,7 +184,7 @@ class LineMode extends React.Component {
             touching(
                 this.path.firstSegment.point,
                 endPoint,
-                LineMode.SNAP_TOLERANCE,
+                LineMode.SNAP_TOLERANCE
             )
         ) {
             this.hitResult = {
@@ -196,7 +196,7 @@ class LineMode extends React.Component {
             this.hitResult = endPointHit(
                 endPoint,
                 LineMode.SNAP_TOLERANCE,
-                this.path,
+                this.path
             );
         }
 
@@ -204,10 +204,10 @@ class LineMode extends React.Component {
         // In that case, clear the hit result.
         if (this.hitResult && event.modifiers.shift) {
             const lineToSnap = this.hitResult.segment.point.subtract(
-                this.path.lastSegment.previous.point,
+                this.path.lastSegment.previous.point
             );
             const lineToEndPoint = endPoint.subtract(
-                this.path.lastSegment.previous.point,
+                this.path.lastSegment.previous.point
             );
             if (
                 lineToSnap.normalize().getDistance(lineToEndPoint.normalize()) >
@@ -242,7 +242,7 @@ class LineMode extends React.Component {
                 touching(
                     this.path.firstSegment.point,
                     event.point,
-                    LineMode.SNAP_TOLERANCE,
+                    LineMode.SNAP_TOLERANCE
                 ) &&
                 !this.hitResult)
         ) {
@@ -255,7 +255,7 @@ class LineMode extends React.Component {
             touching(
                 this.path.lastSegment.point,
                 this.path.segments[this.path.segments.length - 2].point,
-                LineMode.SNAP_TOLERANCE,
+                LineMode.SNAP_TOLERANCE
             )
         ) {
             // Single click or short drag on an existing path end point
@@ -268,7 +268,7 @@ class LineMode extends React.Component {
             this.path.removeSegment(this.path.segments.length - 1);
             if (
                 this.path.firstSegment.point.equals(
-                    this.hitResult.segment.point,
+                    this.hitResult.segment.point
                 )
             ) {
                 this.path.firstSegment.handleIn = null; // Make sure added line isn't made curvy
@@ -334,11 +334,11 @@ LineMode.propTypes = {
     onUpdateImage: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     colorState: state.scratchPaint.color,
     isLineModeActive: state.scratchPaint.mode === Modes.LINE,
 });
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     clearSelectedItems: () => {
         dispatch(clearSelectedItems());
     },
@@ -348,10 +348,10 @@ const mapDispatchToProps = (dispatch) => ({
     handleMouseDown: () => {
         dispatch(changeMode(Modes.LINE));
     },
-    onChangeStrokeColor: (strokeColor) => {
+    onChangeStrokeColor: strokeColor => {
         dispatch(changeStrokeColor(strokeColor));
     },
-    onChangeStrokeWidth: (strokeWidth) => {
+    onChangeStrokeWidth: strokeWidth => {
         dispatch(changeStrokeWidth(strokeWidth));
     },
 });

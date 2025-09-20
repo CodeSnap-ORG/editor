@@ -58,7 +58,7 @@ class Dropdown extends React.Component {
                         {
                             [styles.modOpen]: this.state.isOpen,
                             [styles.modClosed]: !this.state.isOpen,
-                        },
+                        }
                     )}
                     onClick={this.handleToggleOpenState}
                 >

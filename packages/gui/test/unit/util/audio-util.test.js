@@ -13,7 +13,7 @@ describe("computeRMS", () => {
         const unity = 0.5;
         const samples = [3, 2, 1];
         expect(computeRMS(samples, unity)).toEqual(
-            Math.sqrt(Math.sqrt((3 * 3 + 2 * 2 + 1 * 1) / 3) / 0.5),
+            Math.sqrt(Math.sqrt((3 * 3 + 2 * 2 + 1 * 1) / 3) / 0.5)
         );
     });
     test("uses a default unity value of 0.55", () => {
@@ -71,7 +71,7 @@ describe("downsampleIfNeeded", () => {
         const resampler = jest.fn(() => "TEST");
         const res = await downsampleIfNeeded(
             { samples, sampleRate },
-            resampler,
+            resampler
         );
         expect(resampler).toHaveBeenCalledWith({ samples, sampleRate }, 22050);
         expect(res).toEqual("TEST");
@@ -83,7 +83,7 @@ describe("downsampleIfNeeded", () => {
             await downsampleIfNeeded({ samples, sampleRate }, null);
         } catch (e) {
             expect(e.message).toEqual(
-                "Sound too large to save, refusing to edit",
+                "Sound too large to save, refusing to edit"
             );
         }
     });

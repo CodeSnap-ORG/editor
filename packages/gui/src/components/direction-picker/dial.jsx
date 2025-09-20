@@ -32,11 +32,11 @@ class Dial extends React.Component {
         this.unbindMouseEvents();
         this.handleElement.removeEventListener(
             "mousedown",
-            this.handleMouseDown,
+            this.handleMouseDown
         );
         this.handleElement.removeEventListener(
             "touchstart",
-            this.handleMouseDown,
+            this.handleMouseDown
         );
     }
 
@@ -67,10 +67,10 @@ class Dial extends React.Component {
         path.push(`M ${radius} 0`);
         path.push(`L ${radius} ${radius}`);
         path.push(
-            `L ${radius + radius * Math.sin(rads)} ${radius - radius * Math.cos(rads)}`,
+            `L ${radius + radius * Math.sin(rads)} ${radius - radius * Math.cos(rads)}`
         );
         path.push(
-            `A ${radius} ${radius} 0 0 ${direction < 0 ? 1 : 0} ${radius} 0`,
+            `A ${radius} ${radius} 0 0 ${direction < 0 ? 1 : 0} ${radius} 0`
         );
         path.push(`Z`);
         return path.join(" ");
@@ -78,7 +78,7 @@ class Dial extends React.Component {
 
     handleMouseMove(e) {
         this.props.onChange(
-            this.directionToMouseEvent(e) + this.directionOffset,
+            this.directionToMouseEvent(e) + this.directionOffset
         );
         e.preventDefault();
     }

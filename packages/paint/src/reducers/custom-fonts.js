@@ -11,7 +11,7 @@ const reducer = function (state, action) {
     }
 };
 
-const setCustomFonts = (fonts) => ({
+const setCustomFonts = fonts => ({
     type: SET_CUSTOM_FONTS,
     fonts,
 });

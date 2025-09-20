@@ -117,18 +117,18 @@ BitFillMode.propTypes = {
     onUpdateImage: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     fillModeGradientType: state.scratchPaint.fillMode.gradientType, // Last user-selected gradient type
     color: state.scratchPaint.color.fillColor.primary,
     color2: state.scratchPaint.color.fillColor.secondary,
     styleGradientType: state.scratchPaint.color.fillColor.gradientType,
     isFillModeActive: state.scratchPaint.mode === Modes.BIT_FILL,
 });
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     clearSelectedItems: () => {
         dispatch(clearSelectedItems());
     },
-    changeGradientType: (gradientType) => {
+    changeGradientType: gradientType => {
         dispatch(changeGradientType(gradientType));
     },
     handleMouseDown: () => {

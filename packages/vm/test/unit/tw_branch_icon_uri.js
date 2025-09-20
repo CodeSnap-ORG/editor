@@ -2,7 +2,7 @@ const { test } = require("tap");
 const VirtualMachine = require("../../src/virtual-machine");
 const BlockType = require("../../src/extension-support/block-type");
 
-test("branchIconURI", (t) => {
+test("branchIconURI", t => {
     const vm = new VirtualMachine();
     vm.extensionManager._registerInternalExtension({
         getInfo: () => ({
@@ -40,13 +40,13 @@ test("branchIconURI", (t) => {
     t.equal(
         blocks[0].args2[0].src,
         "media://repeat.svg",
-        "default custom icon",
+        "default custom icon"
     );
     t.equal(blocks[1].args2[0].src, "data:whatever1", "LOOP with custom icon");
     t.equal(
         blocks[2].args2[0].src,
         "data:whatever2",
-        "CONDITIONAL with custom icon",
+        "CONDITIONAL with custom icon"
     );
     t.same(blocks[3].args2, null, "LOOP with no icon");
 

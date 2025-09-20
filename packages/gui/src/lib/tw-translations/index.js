@@ -1,6 +1,6 @@
 import twTranslations from "./generated-translations.json";
 
-const addAdditionalTranslations = (editorMessages) => {
+const addAdditionalTranslations = editorMessages => {
     for (const locale of Object.keys(editorMessages)) {
         const toMixIn = twTranslations[locale.toLowerCase()];
         if (toMixIn) {

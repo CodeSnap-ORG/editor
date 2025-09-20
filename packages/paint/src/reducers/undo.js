@@ -46,7 +46,7 @@ const reducer = function (state, action) {
                     stack: state.stack
                         .slice(
                             state.pointer - MAX_STACK_SIZE + 2,
-                            state.pointer + 1,
+                            state.pointer + 1
                         )
                         .concat(action.snapshot),
                     pointer: MAX_STACK_SIZE - 1,

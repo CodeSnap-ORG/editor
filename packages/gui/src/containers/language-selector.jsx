@@ -43,13 +43,13 @@ LanguageSelector.propTypes = {
     onChangeLanguage: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     currentLocale: state.locales.locale,
     messagesByLocale: state.locales.messagesByLocale,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    onChangeLanguage: (locale) => {
+const mapDispatchToProps = dispatch => ({
+    onChangeLanguage: locale => {
         dispatch(selectLocale(locale));
         dispatch(closeLanguageMenu());
     },

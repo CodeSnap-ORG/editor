@@ -2,7 +2,7 @@ const test = require("tap").test;
 const Keyboard = require("../../src/io/keyboard");
 const Runtime = require("../../src/engine/runtime");
 
-test("spec", (t) => {
+test("spec", t => {
     const rt = new Runtime();
     const k = new Keyboard(rt);
 
@@ -12,7 +12,7 @@ test("spec", (t) => {
     t.end();
 });
 
-test("space key", (t) => {
+test("space key", t => {
     const rt = new Runtime();
     const k = new Keyboard(rt);
 
@@ -26,7 +26,7 @@ test("space key", (t) => {
     t.end();
 });
 
-test("letter key", (t) => {
+test("letter key", t => {
     const rt = new Runtime();
     const k = new Keyboard(rt);
 
@@ -42,7 +42,7 @@ test("letter key", (t) => {
     t.end();
 });
 
-test("number key", (t) => {
+test("number key", t => {
     const rt = new Runtime();
     const k = new Keyboard(rt);
 
@@ -57,7 +57,7 @@ test("number key", (t) => {
     t.end();
 });
 
-test("non-english key", (t) => {
+test("non-english key", t => {
     const rt = new Runtime();
     const k = new Keyboard(rt);
 
@@ -86,7 +86,7 @@ test('ignore modifier key', t => {
 });
 */
 
-test("keyup", (t) => {
+test("keyup", t => {
     const rt = new Runtime();
     const k = new Keyboard(rt);
 

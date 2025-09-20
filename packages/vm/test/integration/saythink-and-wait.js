@@ -13,7 +13,7 @@ const project = readFileToBuffer(uri);
 // By default Central Dispatch works with the Worker class built into the browser. Tell it to use TinyWorker instead.
 dispatch.workerClass = Worker;
 
-test("say/think and wait", (t) => {
+test("say/think and wait", t => {
     const vm = new VirtualMachine();
     vm.attachStorage(makeTestStorage());
 

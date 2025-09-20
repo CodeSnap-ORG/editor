@@ -23,8 +23,8 @@ import { connect } from "react-redux";
 import { Map } from "immutable";
 import VM from "scratch-vm";
 
-const availableModes = (opcode) =>
-    monitorModes.filter((t) => {
+const availableModes = opcode =>
+    monitorModes.filter(t => {
         if (opcode === "data_variable") {
             return t !== "list";
         } else if (opcode === "data_listcontents") {
@@ -65,7 +65,7 @@ class Monitor extends React.Component {
     componentDidMount() {
         let rect;
 
-        const isNum = (num) => typeof num === "number" && !isNaN(num);
+        const isNum = num => typeof num === "number" && !isNaN(num);
 
         // Load the VM provided position if not loaded already
         // If a monitor has numbers for the x and y positions, load the saved position.
@@ -85,7 +85,7 @@ class Monitor extends React.Component {
             this.props.addMonitorRect(
                 this.props.id,
                 rect,
-                true /* savePosition */,
+                true /* savePosition */
             );
         } else {
             // Newly created user monitor
@@ -93,7 +93,7 @@ class Monitor extends React.Component {
                 this.props.monitorLayout,
                 this.props.id,
                 this.element.offsetWidth,
-                this.element.offsetHeight,
+                this.element.offsetHeight
             );
             this.props.addMonitorRect(this.props.id, rect);
             this.props.vm.runtime.requestUpdateMonitor(
@@ -101,7 +101,7 @@ class Monitor extends React.Component {
                     id: this.props.id,
                     x: rect.upperStart.x,
                     y: rect.upperStart.y,
-                }),
+                })
             );
         }
         this.element.style.top = `${rect.upperStart.y}px`;
@@ -128,7 +128,7 @@ class Monitor extends React.Component {
         this.props.resizeMonitorRect(
             this.props.id,
             this.element.offsetWidth,
-            this.element.offsetHeight,
+            this.element.offsetHeight
         );
     }
     componentWillUnmount() {
@@ -143,7 +143,7 @@ class Monitor extends React.Component {
                 id: this.props.id,
                 x: newX,
                 y: newY,
-            }),
+            })
         );
     }
     handleHide() {
@@ -151,7 +151,7 @@ class Monitor extends React.Component {
             Map({
                 id: this.props.id,
                 visible: false,
-            }),
+            })
         );
     }
     handleNextMode() {
@@ -162,7 +162,7 @@ class Monitor extends React.Component {
             Map({
                 id: this.props.id,
                 mode: newMode,
-            }),
+            })
         );
     }
     handleSetModeToDefault() {
@@ -170,7 +170,7 @@ class Monitor extends React.Component {
             Map({
                 id: this.props.id,
                 mode: "default",
-            }),
+            })
         );
     }
     handleSetModeToLarge() {
@@ -178,7 +178,7 @@ class Monitor extends React.Component {
             Map({
                 id: this.props.id,
                 mode: "large",
-            }),
+            })
         );
     }
     handleSetModeToSlider() {
@@ -186,7 +186,7 @@ class Monitor extends React.Component {
             Map({
                 id: this.props.id,
                 mode: "slider",
-            }),
+            })
         );
     }
     handleSliderPromptClose() {
@@ -204,7 +204,7 @@ class Monitor extends React.Component {
                 sliderMin: realMin,
                 sliderMax: realMax,
                 isDiscrete: isDiscrete,
-            }),
+            })
         );
         this.handleSliderPromptClose();
     }
@@ -218,7 +218,7 @@ class Monitor extends React.Component {
             if (numberOfColumns > 1) {
                 const msg = this.props.intl.formatMessage(
                     messages.columnPrompt,
-                    { numberOfColumns },
+                    { numberOfColumns }
                 );
                 // prompt() returns Promise in desktop app
                 columnNumber = parseInt(await prompt(msg), 10); // eslint-disable-line no-alert
@@ -228,8 +228,8 @@ class Monitor extends React.Component {
                 newListValue = text.replace(/\r/g, "").split("\n");
             } else {
                 newListValue = rows
-                    .map((row) => row[columnNumber - 1])
-                    .filter((item) => typeof item === "string"); // CSV importer can leave undefineds
+                    .map(row => row[columnNumber - 1])
+                    .filter(item => typeof item === "string"); // CSV importer can leave undefineds
             }
             const { vm, targetId, id: variableId } = this.props;
             setVariableValue(vm, targetId, variableId, newListValue);
@@ -317,7 +317,7 @@ Monitor.propTypes = {
         PropTypes.string,
         PropTypes.number,
         PropTypes.arrayOf(
-            PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+            PropTypes.oneOfType([PropTypes.string, PropTypes.number])
         ),
     ]), // eslint-disable-line react/no-unused-prop-types
     vm: PropTypes.instanceOf(VM),
@@ -328,23 +328,23 @@ Monitor.propTypes = {
 Monitor.defaultProps = {
     theme: Theme.light,
 };
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     monitorLayout: state.scratchGui.monitorLayout,
     theme: state.scratchGui.theme.theme,
     // render on toolbox updates since changes to the blocks could affect monitor labels, i.e. updated locale
     toolboxXML: state.scratchGui.toolbox.toolboxXML,
     vm: state.scratchGui.vm,
 });
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     addMonitorRect: (id, rect, savePosition) =>
         dispatch(
-            addMonitorRect(id, rect.upperStart, rect.lowerEnd, savePosition),
+            addMonitorRect(id, rect.upperStart, rect.lowerEnd, savePosition)
         ),
     resizeMonitorRect: (id, newWidth, newHeight) =>
         dispatch(resizeMonitorRect(id, newWidth, newHeight)),
-    removeMonitorRect: (id) => dispatch(removeMonitorRect(id)),
+    removeMonitorRect: id => dispatch(removeMonitorRect(id)),
 });
 
 export default injectIntl(
-    connect(mapStateToProps, mapDispatchToProps)(Monitor),
+    connect(mapStateToProps, mapDispatchToProps)(Monitor)
 );

@@ -54,7 +54,7 @@ const messages = defineMessages({
     },
 });
 
-const DirectionPicker = (props) => (
+const DirectionPicker = props => (
     <Label secondary above={props.labelAbove} text={directionLabel}>
         <Popover
             body={
@@ -73,7 +73,7 @@ const DirectionPicker = (props) => (
                                     props.rotationStyle ===
                                     RotationStyles.ALL_AROUND,
                                 title: props.intl.formatMessage(
-                                    messages.allAround,
+                                    messages.allAround
                                 ),
                             },
                             {
@@ -83,7 +83,7 @@ const DirectionPicker = (props) => (
                                     props.rotationStyle ===
                                     RotationStyles.LEFT_RIGHT,
                                 title: props.intl.formatMessage(
-                                    messages.leftRight,
+                                    messages.leftRight
                                 ),
                             },
                             {
@@ -93,7 +93,7 @@ const DirectionPicker = (props) => (
                                     props.rotationStyle ===
                                     RotationStyles.DONT_ROTATE,
                                 title: props.intl.formatMessage(
-                                    messages.dontRotate,
+                                    messages.dontRotate
                                 ),
                             },
                         ]}

@@ -5,13 +5,13 @@
 const _requestAnimationFrame =
     typeof requestAnimationFrame === "function"
         ? requestAnimationFrame
-        : (f) => setTimeout(f, 1000 / 60);
+        : f => setTimeout(f, 1000 / 60);
 const _cancelAnimationFrame =
     typeof requestAnimationFrame === "function"
         ? cancelAnimationFrame
         : clearTimeout;
 
-const animationFrameWrapper = (callback) => {
+const animationFrameWrapper = callback => {
     let id;
     const handle = () => {
         id = _requestAnimationFrame(handle);
@@ -73,12 +73,12 @@ class FrameLoop {
             // Interpolation should never be enabled when framerate === 0 as that's just redundant
             if (this.interpolation) {
                 this._interpolationAnimation = animationFrameWrapper(
-                    this.interpolationCallback,
+                    this.interpolationCallback
                 );
             }
             this._stepInterval = setInterval(
                 this.stepCallback,
-                1000 / this.framerate,
+                1000 / this.framerate
             );
             this.runtime.currentStepTime = 1000 / this.framerate;
         }

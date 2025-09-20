@@ -588,7 +588,7 @@ runtimeFunctions.yieldThenCallGenerator = `const yieldThenCallGenerator = functi
  * Step a compiled thread.
  * @param {Thread} thread The thread to step.
  */
-const execute = (thread) => {
+const execute = thread => {
     globalState.thread = thread;
     thread.generator.next();
 };
@@ -601,7 +601,7 @@ const restoreGlobalState = () => {
     globalState.thread = threadStack.pop();
 };
 
-const insertRuntime = (source) => {
+const insertRuntime = source => {
     let result = baseRuntime;
     for (const functionName of Object.keys(runtimeFunctions)) {
         if (source.includes(functionName)) {
@@ -617,7 +617,7 @@ const insertRuntime = (source) => {
  * @param {string} source The string to evaluate.
  * @returns {*} The result of evaluating the string.
  */
-const scopedEval = (source) => {
+const scopedEval = source => {
     const withRuntime = insertRuntime(source);
     try {
         return new Function("globalState", withRuntime)(globalState);

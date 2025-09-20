@@ -111,14 +111,14 @@ class Blobbiness {
                 blob.broadBrushHelper.onBroadMouseDown(
                     event,
                     blob.tool,
-                    blob.options,
+                    blob.options
                 );
             } else {
                 blob.brush = Blobbiness.SEGMENT;
                 blob.segmentBrushHelper.onSegmentMouseDown(
                     event,
                     blob.tool,
-                    blob.options,
+                    blob.options
                 );
             }
             blob.cursorPreview.bringToFront();
@@ -131,13 +131,13 @@ class Blobbiness {
                 blob.broadBrushHelper.onBroadMouseDrag(
                     event,
                     blob.tool,
-                    blob.options,
+                    blob.options
                 );
             } else if (blob.brush === Blobbiness.SEGMENT) {
                 blob.segmentBrushHelper.onSegmentMouseDrag(
                     event,
                     blob.tool,
-                    blob.options,
+                    blob.options
                 );
             } else {
                 log.warn(`Brush type does not exist: ${blob.brush}`);
@@ -155,13 +155,13 @@ class Blobbiness {
                 lastPath = blob.broadBrushHelper.onBroadMouseUp(
                     event,
                     blob.tool,
-                    blob.options,
+                    blob.options
                 );
             } else if (blob.brush === Blobbiness.SEGMENT) {
                 lastPath = blob.segmentBrushHelper.onSegmentMouseUp(
                     event,
                     blob.tool,
-                    blob.options,
+                    blob.options
                 );
             } else {
                 log.warn(`Brush type does not exist: ${blob.brush}`);
@@ -337,7 +337,7 @@ class Blobbiness {
                 // Remove the ones that are within the eraser stroke boundary
                 for (let k = subpaths.length - 1; k >= 0; k--) {
                     const segMidpoint = subpaths[k].getLocationAt(
-                        subpaths[k].length / 2,
+                        subpaths[k].length / 2
                     ).point;
                     if (lastPath.contains(segMidpoint)) {
                         subpaths[k].remove();
@@ -370,7 +370,7 @@ class Blobbiness {
             // This way subpaths only remain if they didn't get turned into a shape by subtract.
             for (let k = subpaths.length - 1; k >= 0; k--) {
                 const segMidpoint = subpaths[k].getLocationAt(
-                    subpaths[k].length / 2,
+                    subpaths[k].length / 2
                 ).point;
                 if (
                     lastPath.contains(segMidpoint) ||

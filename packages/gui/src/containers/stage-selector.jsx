@@ -32,7 +32,7 @@ const dragTypes = [
 ];
 
 const DroppableThrottledStage = DropAreaHOC(dragTypes)(
-    ThrottledPropertyHOC("url", 500)(StageSelectorComponent),
+    ThrottledPropertyHOC("url", 500)(StageSelectorComponent)
 );
 
 class StageSelector extends React.Component {
@@ -84,9 +84,9 @@ class StageSelector extends React.Component {
     handleNewBackdrop(backdrops_, shouldActivateTab = true) {
         const backdrops = Array.isArray(backdrops_) ? backdrops_ : [backdrops_];
         return Promise.all(
-            backdrops.map((backdrop) =>
-                this.props.vm.addBackdrop(backdrop.md5, backdrop),
-            ),
+            backdrops.map(backdrop =>
+                this.props.vm.addBackdrop(backdrop.md5, backdrop)
+            )
         ).then(() => {
             if (shouldActivateTab) {
                 return this.props.onActivateTab(COSTUMES_TAB_INDEX);
@@ -110,8 +110,8 @@ class StageSelector extends React.Component {
             emptyCostume(
                 this.props.intl.formatMessage(sharedMessages.backdrop, {
                     index: 1,
-                }),
-            ),
+                })
+            )
         );
     }
     handleBackdropUpload(e) {
@@ -124,7 +124,7 @@ class StageSelector extends React.Component {
                     buffer,
                     fileType,
                     vm,
-                    (vmCostumes) => {
+                    vmCostumes => {
                         this.props.vm.setEditingTarget(this.props.id);
                         vmCostumes.forEach((costume, i) => {
                             costume.name = `${fileName}${i ? i + 1 : ""}`;
@@ -135,10 +135,10 @@ class StageSelector extends React.Component {
                             }
                         });
                     },
-                    this.props.onCloseImporting,
+                    this.props.onCloseImporting
                 );
             },
-            this.props.onCloseImporting,
+            this.props.onCloseImporting
         );
     }
     handleFileUploadClick(e) {
@@ -162,7 +162,7 @@ class StageSelector extends React.Component {
                 {
                     name: dragInfo.payload.name,
                 },
-                this.props.id,
+                this.props.id
             );
         } else if (dragInfo.dragType === DragConstants.BACKPACK_SOUND) {
             this.props.vm.addSound(
@@ -170,14 +170,14 @@ class StageSelector extends React.Component {
                     md5: dragInfo.payload.body,
                     name: dragInfo.payload.name,
                 },
-                this.props.id,
+                this.props.id
             );
         } else if (dragInfo.dragType === DragConstants.BACKPACK_CODE) {
-            fetchCode(dragInfo.payload.bodyUrl).then((payload) => {
+            fetchCode(dragInfo.payload.bodyUrl).then(payload => {
                 const centered = placeInViewport(
                     payload,
                     this.props.workspaceMetrics.targets[this.props.id],
-                    this.props.isRtl,
+                    this.props.isRtl
                 );
                 this.props.vm.shareBlocksToTarget(centered, this.props.id);
                 this.props.vm.refreshWorkspace();
@@ -244,15 +244,15 @@ const mapStateToProps = (state, { asset, id }) => ({
     workspaceMetrics: state.scratchGui.workspaceMetrics,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    onNewBackdropClick: (e) => {
+const mapDispatchToProps = dispatch => ({
+    onNewBackdropClick: e => {
         e.stopPropagation();
         dispatch(openBackdropLibrary());
     },
-    onActivateTab: (tabIndex) => {
+    onActivateTab: tabIndex => {
         dispatch(activateTab(tabIndex));
     },
-    dispatchSetHoveredSprite: (spriteId) => {
+    dispatchSetHoveredSprite: spriteId => {
         dispatch(setHoveredSprite(spriteId));
     },
     onCloseImporting: () => dispatch(closeAlertWithId("importingAsset")),
@@ -260,5 +260,5 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default injectIntl(
-    connect(mapStateToProps, mapDispatchToProps)(StageSelector),
+    connect(mapStateToProps, mapDispatchToProps)(StageSelector)
 );

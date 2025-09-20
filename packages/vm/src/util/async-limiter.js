@@ -21,12 +21,12 @@ class AsyncLimiter {
         const [resolve, reject, args] = this._queue.shift();
         this.callback
             .apply(null, args)
-            .then((result) => {
+            .then(result => {
                 resolve(result);
                 this._current--;
                 this._startNext();
             })
-            .catch((error) => {
+            .catch(error => {
                 reject(error);
                 this._current--;
                 this._startNext();

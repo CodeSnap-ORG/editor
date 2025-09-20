@@ -36,7 +36,7 @@ const ListMonitor = ({
             <div
                 className={classNames(
                     draggable ? styles.addButton : null,
-                    "no-drag",
+                    "no-drag"
                 )}
                 onClick={draggable ? onAdd : null}
             >
@@ -55,7 +55,7 @@ const ListMonitor = ({
             <div
                 className={classNames(
                     draggable ? styles.resizeHandle : null,
-                    "no-drag",
+                    "no-drag"
                 )}
                 onPointerDown={draggable ? onResizeMouseDown : null}
             >
@@ -81,7 +81,7 @@ ListMonitor.propTypes = {
         PropTypes.string,
         PropTypes.number,
         PropTypes.arrayOf(
-            PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+            PropTypes.oneOfType([PropTypes.string, PropTypes.number])
         ),
     ]),
     width: PropTypes.number,

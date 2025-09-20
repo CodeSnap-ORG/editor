@@ -56,30 +56,30 @@ class ColorPickerComponent extends React.Component {
                         hsvToHex(
                             n,
                             this.props.saturation,
-                            this.props.brightness,
-                        ),
+                            this.props.brightness
+                        )
                     );
                     break;
                 case "saturation":
                     stops.push(
-                        hsvToHex(this.props.hue, n, this.props.brightness),
+                        hsvToHex(this.props.hue, n, this.props.brightness)
                     );
                     break;
                 case "brightness":
                     stops.push(
-                        hsvToHex(this.props.hue, this.props.saturation, n),
+                        hsvToHex(this.props.hue, this.props.saturation, n)
                     );
                     break;
                 case "alpha": {
                     const alpha = makeAlphaComponent(n / 100);
                     stops.push(
-                        `${hsvToHex(this.props.hue, this.props.saturation, this.props.brightness)}${alpha}`,
+                        `${hsvToHex(this.props.hue, this.props.saturation, this.props.brightness)}${alpha}`
                     );
                     break;
                 }
                 default:
                     throw new Error(
-                        `Unknown channel for color sliders: ${channel}`,
+                        `Unknown channel for color sliders: ${channel}`
                     );
             }
         }
@@ -180,7 +180,7 @@ class ColorPickerComponent extends React.Component {
                                 <div
                                     className={classNames(
                                         styles.gradientPickerRow,
-                                        styles.gradientSwatchesRow,
+                                        styles.gradientSwatchesRow
                                     )}
                                 >
                                     <div
@@ -222,7 +222,7 @@ class ColorPickerComponent extends React.Component {
                                         className={styles.swapButton}
                                         imgSrc={swapIcon}
                                         title={this.props.intl.formatMessage(
-                                            messages.swap,
+                                            messages.swap
                                         )}
                                         onClick={this.props.onSwap}
                                     />
@@ -413,7 +413,7 @@ class ColorPickerComponent extends React.Component {
                             <img
                                 className={classNames(
                                     styles.swatchIcon,
-                                    styles.pickerIcon,
+                                    styles.pickerIcon
                                 )}
                                 draggable={false}
                                 src={eyeDropperIcon}

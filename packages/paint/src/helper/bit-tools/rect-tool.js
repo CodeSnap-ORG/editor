@@ -25,7 +25,7 @@ class RectTool extends paper.Tool {
         setSelectedItems,
         clearSelectedItems,
         setCursor,
-        onUpdateImage,
+        onUpdateImage
     ) {
         super();
         this.setSelectedItems = setSelectedItems;
@@ -36,12 +36,12 @@ class RectTool extends paper.Tool {
             setSelectedItems,
             clearSelectedItems,
             setCursor,
-            onUpdateImage,
+            onUpdateImage
         );
         const nudgeTool = new NudgeTool(
             Modes.BIT_RECT,
             this.boundingBoxTool,
-            onUpdateImage,
+            onUpdateImage
         );
 
         // We have to set these functions instead of just declaring them because
@@ -64,7 +64,7 @@ class RectTool extends paper.Tool {
             curves: false,
             fill: true,
             guide: false,
-            match: (hitResult) =>
+            match: hitResult =>
                 (hitResult.item.data &&
                     (hitResult.item.data.isScaleHandle ||
                         hitResult.item.data.isRotHandle)) ||
@@ -139,7 +139,7 @@ class RectTool extends paper.Tool {
                 false /* clone */,
                 false /* multiselect */,
                 false /* doubleClicked */,
-                this.getHitOptions(),
+                this.getHitOptions()
             )
         ) {
             this.isBoundingBoxMode = true;
@@ -161,7 +161,7 @@ class RectTool extends paper.Tool {
         const baseRect = new paper.Rectangle(event.downPoint, event.point);
         const squareDimensions = getSquareDimensions(
             event.downPoint,
-            event.point,
+            event.point
         );
         if (event.modifiers.shift) {
             baseRect.size = squareDimensions.size.abs();
@@ -206,7 +206,7 @@ class RectTool extends paper.Tool {
                 // Hit testing does not work correctly unless the width and height are positive
                 this.rect.size = new paper.Point(
                     Math.abs(this.rect.size.width),
-                    Math.abs(this.rect.size.height),
+                    Math.abs(this.rect.size.height)
                 );
                 this.rect.selected = true;
                 this.styleRect();

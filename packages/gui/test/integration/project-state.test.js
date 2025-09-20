@@ -25,7 +25,7 @@ describe("Project state", () => {
         const defaultProjectTitle = "Scratch Project";
         await loadUri(uri);
         const inputEl = await findByXpath(
-            `//input[@value="${defaultProjectTitle}"]`,
+            `//input[@value="${defaultProjectTitle}"]`
         );
         for (let i = 0; i < defaultProjectTitle.length; i++) {
             inputEl.sendKeys(Key.BACK_SPACE);

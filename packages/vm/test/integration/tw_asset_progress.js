@@ -6,7 +6,7 @@ const VirtualMachine = require("../../src/virtual-machine");
 const makeTestStorage = require("../fixtures/make-test-storage");
 const AssetUtil = require("../../src/util/tw-asset-util");
 
-test("emitAssetProgress", (t) => {
+test("emitAssetProgress", t => {
     const vm = new VirtualMachine();
 
     let runtimeOK = false;
@@ -31,7 +31,7 @@ test("emitAssetProgress", (t) => {
     t.end();
 });
 
-test("resetProgress", (t) => {
+test("resetProgress", t => {
     t.plan(4);
 
     const runtime = new Runtime();
@@ -50,7 +50,7 @@ test("resetProgress", (t) => {
     t.end();
 });
 
-test("dispose", (t) => {
+test("dispose", t => {
     t.plan(1);
     const runtime = new Runtime();
     runtime.resetProgress = () => {
@@ -60,7 +60,7 @@ test("dispose", (t) => {
     t.end();
 });
 
-test("wrapAssetRequest", (t) => {
+test("wrapAssetRequest", t => {
     const runtime = new Runtime();
 
     const log = [];
@@ -71,13 +71,13 @@ test("wrapAssetRequest", (t) => {
     Promise.all([
         runtime.wrapAssetRequest(() => Promise.resolve(1)),
         runtime.wrapAssetRequest(() => Promise.resolve(2)),
-    ]).then((results) => {
+    ]).then(results => {
         t.same(results, [1, 2]);
 
         // eslint-disable-next-line prefer-promise-reject-errors
         runtime
             .wrapAssetRequest(() => Promise.reject(3))
-            .catch((error) => {
+            .catch(error => {
                 t.equal(error, 3);
                 t.same(log, [
                     [0, 1],
@@ -92,7 +92,7 @@ test("wrapAssetRequest", (t) => {
     });
 });
 
-test("asset util emits progress", (t) => {
+test("asset util emits progress", t => {
     const runtime = new Runtime();
 
     const storage = makeTestStorage();
@@ -111,7 +111,7 @@ test("asset util emits progress", (t) => {
         runtime,
         null,
         runtime.storage.AssetType.SVG,
-        "abcdef.svg",
+        "abcdef.svg"
     ).then(() => {
         t.same(log, [
             [0, 1],
@@ -124,9 +124,9 @@ test("asset util emits progress", (t) => {
 //  For the next tests, we have some fixtures that contain 2 assets: 1 sound + 1 costume
 // We'll just load them and make sure that each deserializer emits reasonable progress events
 for (const format of ["sb", "sb2", "sb3"]) {
-    test(format, (t) => {
+    test(format, t => {
         const fixture = fs.readFileSync(
-            path.join(__dirname, `../fixtures/tw-asset-progress.${format}`),
+            path.join(__dirname, `../fixtures/tw-asset-progress.${format}`)
         );
         const vm = new VirtualMachine();
 

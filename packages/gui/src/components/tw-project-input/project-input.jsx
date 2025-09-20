@@ -119,14 +119,14 @@ ProjectInput.propTypes = {
     setProjectId: PropTypes.func,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     projectId: state.scratchGui.projectState.projectId,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    setProjectId: (projectId) => setProjectId(dispatch, projectId),
+const mapDispatchToProps = dispatch => ({
+    setProjectId: projectId => setProjectId(dispatch, projectId),
 });
 
 export default injectIntl(
-    connect(mapStateToProps, mapDispatchToProps)(ProjectInput),
+    connect(mapStateToProps, mapDispatchToProps)(ProjectInput)
 );

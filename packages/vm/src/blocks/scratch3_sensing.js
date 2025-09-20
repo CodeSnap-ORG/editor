@@ -45,7 +45,7 @@ class Scratch3SensingBlocks {
         this.runtime.on("PROJECT_STOP_ALL", this._clearAllQuestions.bind(this));
         this.runtime.on(
             "STOP_FOR_TARGET",
-            this._clearTargetQuestions.bind(this),
+            this._clearTargetQuestions.bind(this)
         );
         this.runtime.on("RUNTIME_DISPOSED", this._resetAnswer.bind(this));
     }
@@ -166,7 +166,7 @@ class Scratch3SensingBlocks {
             this._questionList.length > 0 &&
             this._questionList[0][2] === stopTarget;
         this._questionList = this._questionList.filter(
-            (question) => question[2] !== stopTarget,
+            question => question[2] !== stopTarget
         );
 
         if (currentlyAsking) {
@@ -181,14 +181,14 @@ class Scratch3SensingBlocks {
 
     askAndWait(args, util) {
         const _target = util.target;
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
             const isQuestionAsked = this._questionList.length > 0;
             this._enqueueAsk(
                 String(args.QUESTION),
                 resolve,
                 _target,
                 _target.visible,
-                _target.isStage,
+                _target.isStage
             );
             if (!isQuestionAsked) {
                 this._askNextQuestion();
@@ -226,7 +226,7 @@ class Scratch3SensingBlocks {
         } else {
             args.DISTANCETOMENU = Cast.toString(args.DISTANCETOMENU);
             const distTarget = this.runtime.getSpriteTargetByName(
-                args.DISTANCETOMENU,
+                args.DISTANCETOMENU
             );
             if (!distTarget) return 10000;
             targetX = distTarget.x;
@@ -373,7 +373,7 @@ class Scratch3SensingBlocks {
         const variable = attrTarget.lookupVariableByNameAndType(
             varName,
             "",
-            true,
+            true
         );
         if (variable) {
             return variable.value;

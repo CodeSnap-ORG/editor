@@ -16,7 +16,7 @@ let myFetch = global.fetch;
  * If there is no global `fetch`, then `fetchWithTimeout` will fail unless provided with an alternative.
  * @param {FetchFunction} newFetch The new `fetch` function to use within fetchWithTimeout.
  */
-const setFetch = (newFetch) => {
+const setFetch = newFetch => {
     myFetch = newFetch;
 };
 
@@ -37,14 +37,14 @@ const fetchWithTimeout = (resource, init, timeout) => {
     // The fetch call races a timer.
     return Promise.race([
         myFetch(resource, Object.assign({ signal }, init)).then(
-            (response) => {
+            response => {
                 clearTimeout(timeoutID);
                 return response;
             },
-            (error) => {
+            error => {
                 clearTimeout(timeoutID);
                 throw error;
-            },
+            }
         ),
         new Promise((resolve, reject) => {
             timeoutID = setTimeout(() => {

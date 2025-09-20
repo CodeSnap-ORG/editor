@@ -14,7 +14,7 @@ const formatWithKeyBinding = (description, keybinding) => {
     return `${description} (${keybinding})`;
 };
 
-const ToolSelectComponent = (props) => (
+const ToolSelectComponent = props => (
     <Button
         className={classNames(props.className, styles.modToolSelect, {
             [styles.isSelected]: props.isSelected,
@@ -22,7 +22,7 @@ const ToolSelectComponent = (props) => (
         disabled={props.disabled}
         title={formatWithKeyBinding(
             props.intl.formatMessage(props.imgDescriptor),
-            props.keybinding,
+            props.keybinding
         )}
         onClick={props.onMouseDown}
     >

@@ -15,7 +15,7 @@ import warningIcon from "./icons/warning.svg";
 
 import styles from "./connection-modal.css";
 
-const ScanningStep = (props) => {
+const ScanningStep = props => {
     const showUpdate = !!(props.onUpdatePeripheral && !props.scanning);
     return (
         <Box className={styles.body}>
@@ -27,7 +27,7 @@ const ScanningStep = (props) => {
                                 <img
                                     className={classNames(
                                         styles.radarSmall,
-                                        styles.radarSpin,
+                                        styles.radarSpin
                                     )}
                                     src={radarIcon}
                                     draggable={false}
@@ -41,7 +41,7 @@ const ScanningStep = (props) => {
                         </div>
                     ) : (
                         <div className={styles.peripheralTilePane}>
-                            {props.peripheralList.map((peripheral) => (
+                            {props.peripheralList.map(peripheral => (
                                 <PeripheralTile
                                     connectionSmallIconURL={
                                         props.connectionSmallIconURL
@@ -75,7 +75,7 @@ const ScanningStep = (props) => {
                 <Box
                     className={classNames(
                         styles.bottomAreaItem,
-                        styles.instructions,
+                        styles.instructions
                     )}
                 >
                     {(props.scanning || props.peripheralList.length > 0) && (
@@ -101,7 +101,7 @@ const ScanningStep = (props) => {
                 <Box
                     className={classNames(
                         styles.bottomAreaItem,
-                        styles.buttonRow,
+                        styles.buttonRow
                     )}
                 >
                     <button
@@ -152,7 +152,7 @@ ScanningStep.propTypes = {
             name: PropTypes.string,
             rssi: PropTypes.number,
             peripheralId: PropTypes.string,
-        }),
+        })
     ),
     scanning: PropTypes.bool.isRequired,
 };

@@ -12,7 +12,7 @@ import scratchLinkIcon from "./icons/scratchlink.svg";
 
 import styles from "./connection-modal.css";
 
-const UnavailableStep = (props) => (
+const UnavailableStep = props => (
     <Box className={styles.body}>
         <Box className={styles.activityArea}>
             <div className={styles.scratchLinkHelp}>
@@ -64,7 +64,7 @@ const UnavailableStep = (props) => (
                     <img
                         className={classNames(
                             styles.buttonIconLeft,
-                            styles.buttonIconBack,
+                            styles.buttonIconBack
                         )}
                         src={backIcon}
                         draggable={false}

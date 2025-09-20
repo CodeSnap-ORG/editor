@@ -28,21 +28,21 @@ class AssetUtil {
                 return runtime.wrapAssetRequest(() =>
                     file
                         .async("uint8array")
-                        .then((data) =>
+                        .then(data =>
                             runtime.storage.createAsset(
                                 assetType,
                                 ext,
                                 data,
                                 md5,
-                                false,
-                            ),
-                        ),
+                                false
+                            )
+                        )
                 );
             }
         }
 
         return runtime.wrapAssetRequest(() =>
-            runtime.storage.load(assetType, md5, ext),
+            runtime.storage.load(assetType, md5, ext)
         );
     }
 }

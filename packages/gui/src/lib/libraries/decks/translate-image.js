@@ -9,9 +9,9 @@ let savedLocale = "";
 
 const translations = {};
 
-const loadImageData = (locale) => {
+const loadImageData = locale => {
     if (Object.prototype.hasOwnProperty.call(translations, locale)) {
-        translations[locale]().then((newImages) => {
+        translations[locale]().then(newImages => {
             savedImages = newImages;
             savedLocale = locale;
         });

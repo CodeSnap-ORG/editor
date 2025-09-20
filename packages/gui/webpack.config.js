@@ -24,7 +24,7 @@ if (root.length > 0 && !root.endsWith("/")) {
 
 if (process.env.ENABLE_SERVICE_WORKER) {
     console.warn(
-        "amp: ENABLE_SERVICE_WORKER is deprecated as the service worker is now enabled by default. To disable the service worker, use DISABLE_SERVICE_WORKER instead.",
+        "amp: ENABLE_SERVICE_WORKER is deprecated as the service worker is now enabled by default. To disable the service worker, use DISABLE_SERVICE_WORKER instead."
     );
 }
 
@@ -80,11 +80,11 @@ const base = {
         alias: {
             "text-encoding$": path.resolve(
                 __dirname,
-                "src/lib/tw-text-encoder",
+                "src/lib/tw-text-encoder"
             ),
             "scratch-render-fonts$": path.resolve(
                 __dirname,
-                "src/lib/tw-scratch-render-fonts",
+                "src/lib/tw-scratch-render-fonts"
             ),
         },
     },
@@ -239,14 +239,14 @@ module.exports = [
                 "process.env.NODE_ENV": `"${process.env.NODE_ENV}"`,
                 "process.env.DEBUG": Boolean(process.env.DEBUG),
                 "process.env.DISABLE_SERVICE_WORKER": JSON.stringify(
-                    process.env.DISABLE_SERVICE_WORKER || "",
+                    process.env.DISABLE_SERVICE_WORKER || ""
                 ),
                 "process.env.ROOT": JSON.stringify(root),
                 "process.env.ROUTING_STYLE": JSON.stringify(
-                    process.env.ROUTING_STYLE || "filehash",
+                    process.env.ROUTING_STYLE || "filehash"
                 ),
                 "process.env.ampmod_version": JSON.stringify(
-                    monorepoPackageJson.version,
+                    monorepoPackageJson.version
                 ),
                 "process.env.ampmod_is_canary":
                     process.env.BUILD_MODE === "canary",
@@ -382,5 +382,5 @@ module.exports = [
                   }),
               ]),
           })
-        : [],
+        : []
 );

@@ -9,7 +9,7 @@ import Label from "./forms/label.jsx";
 
 import GradientTypes from "../lib/gradient-types";
 
-const ColorIndicatorComponent = (props) => (
+const ColorIndicatorComponent = props => (
     <InputGroup className={props.className} disabled={props.disabled}>
         <Popover
             body={

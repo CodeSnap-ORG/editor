@@ -55,7 +55,7 @@ class BitSelectMode extends React.Component {
             this.props.setSelectedItems,
             this.props.clearSelectedItems,
             this.props.setCursor,
-            this.props.onUpdateImage,
+            this.props.onUpdateImage
         );
         this.tool.activate();
     }
@@ -85,18 +85,18 @@ BitSelectMode.propTypes = {
     setSelectedItems: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     isSelectModeActive: state.scratchPaint.mode === Modes.BIT_SELECT,
     selectedItems: state.scratchPaint.selectedItems,
 });
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     clearGradient: () => {
         dispatch(clearFillGradient());
     },
     clearSelectedItems: () => {
         dispatch(clearSelectedItems());
     },
-    setCursor: (cursorType) => {
+    setCursor: cursorType => {
         dispatch(setCursor(cursorType));
     },
     setSelectedItems: () => {

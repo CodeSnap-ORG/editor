@@ -15,7 +15,7 @@ class EraserMode extends React.Component {
         bindAll(this, ["activateTool", "deactivateTool"]);
         this.blob = new Blobbiness(
             this.props.onUpdateImage,
-            this.props.clearSelectedItems,
+            this.props.clearSelectedItems
         );
     }
     componentDidMount() {
@@ -78,15 +78,15 @@ EraserMode.propTypes = {
     onUpdateImage: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     eraserModeState: state.scratchPaint.eraserMode,
     isEraserModeActive: state.scratchPaint.mode === Modes.ERASER,
 });
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     clearSelectedItems: () => {
         dispatch(clearSelectedItems());
     },
-    changeBrushSize: (brushSize) => {
+    changeBrushSize: brushSize => {
         dispatch(changeBrushSize(brushSize));
     },
     handleMouseDown: () => {

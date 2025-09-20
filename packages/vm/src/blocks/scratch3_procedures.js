@@ -77,7 +77,7 @@ class Scratch3ProcedureBlocks {
         if (addonBlock) {
             const result = addonBlock.callback(
                 util.thread.getAllparams(),
-                util,
+                util
             );
             if (util.thread.status === 1 /* STATUS_PROMISE_WAIT */) {
                 // If the addon block is using STATUS_PROMISE_WAIT to force us to sleep,

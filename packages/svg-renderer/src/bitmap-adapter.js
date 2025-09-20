@@ -45,7 +45,7 @@ class BitmapAdapter {
             0,
             0,
             stretchWidthCanvas.width,
-            stretchWidthCanvas.height,
+            stretchWidthCanvas.height
         );
         const stretchHeightCanvas = this._makeCanvas();
         stretchHeightCanvas.width = newWidth;
@@ -57,7 +57,7 @@ class BitmapAdapter {
             0,
             0,
             stretchHeightCanvas.width,
-            stretchHeightCanvas.height,
+            stretchHeightCanvas.height
         );
         return stretchHeightCanvas;
     }
@@ -78,8 +78,8 @@ class BitmapAdapter {
                 this.resize(
                     image,
                     image.width * 2,
-                    image.height * 2,
-                ).toDataURL(),
+                    image.height * 2
+                ).toDataURL()
             );
         };
         image.onerror = () => {
@@ -151,12 +151,12 @@ class BitmapAdapter {
             image.onload = () => {
                 const newSize = this.getResizedWidthHeight(
                     image.width,
-                    image.height,
+                    image.height
                 );
                 const resizedDataURI = this.resize(
                     image,
                     newSize.width,
-                    newSize.height,
+                    newSize.height
                 ).toDataURL();
                 resolve(this.convertDataURIToBinary(resizedDataURI));
             };

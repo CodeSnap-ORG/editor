@@ -7,11 +7,11 @@ const VirtualMachine = require("../../src/index");
 
 const projectUri = path.resolve(
     __dirname,
-    "../fixtures/list-monitor-rename.sb3",
+    "../fixtures/list-monitor-rename.sb3"
 );
 const project = readFileToBuffer(projectUri);
 
-test("importing sb3 project with incorrect list monitor name", (t) => {
+test("importing sb3 project with incorrect list monitor name", t => {
     const vm = new VirtualMachine();
     vm.attachStorage(makeTestStorage());
 
@@ -25,7 +25,7 @@ test("importing sb3 project with incorrect list monitor name", (t) => {
             { target: cat, renamedListName: "renamed local" },
         ]) {
             const listId = Object.keys(target.variables).find(
-                (k) => target.variables[k].name === renamedListName,
+                k => target.variables[k].name === renamedListName
             );
 
             const monitorRecord = vm.runtime._monitorState.get(listId);

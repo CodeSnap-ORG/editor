@@ -5,7 +5,7 @@ import ToolSelectComponent from "../tool-select-base/tool-select-base.jsx";
 import messages from "../../lib/messages.js";
 import rectIcon from "./rectangle.svg";
 
-const BitRectComponent = (props) => (
+const BitRectComponent = props => (
     <ToolSelectComponent
         imgDescriptor={messages.rect}
         imgSrc={rectIcon}

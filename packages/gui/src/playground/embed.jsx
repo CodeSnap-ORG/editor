@@ -32,7 +32,7 @@ const urlParams = new URLSearchParams(location.search);
 
 let vm;
 
-const onVmInit = (_vm) => {
+const onVmInit = _vm => {
     vm = _vm;
 };
 
@@ -46,7 +46,7 @@ const onProjectLoaded = () => {
 const WrappedGUI = compose(
     AppStateHOC,
     TWStateManagerHOC,
-    TWEmbedFullScreenHOC,
+    TWEmbedFullScreenHOC
 )(GUI);
 
 render(
@@ -57,7 +57,7 @@ render(
         onProjectLoaded={onProjectLoaded}
         routingStyle="none"
         theme={Theme.light}
-    />,
+    />
 );
 
 if (urlParams.has("addons")) {

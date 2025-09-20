@@ -21,22 +21,22 @@ class ScanningStep extends React.Component {
         this.props.vm.scanForPeripheral(this.props.extensionId);
         this.props.vm.on(
             "PERIPHERAL_LIST_UPDATE",
-            this.handlePeripheralListUpdate,
+            this.handlePeripheralListUpdate
         );
         this.props.vm.on(
             "PERIPHERAL_SCAN_TIMEOUT",
-            this.handlePeripheralScanTimeout,
+            this.handlePeripheralScanTimeout
         );
     }
     componentWillUnmount() {
         // @todo: stop the peripheral scan here
         this.props.vm.removeListener(
             "PERIPHERAL_LIST_UPDATE",
-            this.handlePeripheralListUpdate,
+            this.handlePeripheralListUpdate
         );
         this.props.vm.removeListener(
             "PERIPHERAL_SCAN_TIMEOUT",
-            this.handlePeripheralScanTimeout,
+            this.handlePeripheralScanTimeout
         );
     }
     handlePeripheralScanTimeout() {
@@ -47,7 +47,7 @@ class ScanningStep extends React.Component {
     }
     handlePeripheralListUpdate(newList) {
         // TODO: sort peripherals by signal strength? so they don't jump around
-        const peripheralArray = Object.keys(newList).map((id) => newList[id]);
+        const peripheralArray = Object.keys(newList).map(id => newList[id]);
         this.setState({ peripheralList: peripheralArray });
     }
     handleRefresh() {

@@ -65,7 +65,7 @@ class ReshapeTool extends paper.Tool {
         setSelectedItems,
         clearSelectedItems,
         onUpdateImage,
-        switchToTextTool,
+        switchToTextTool
     ) {
         super();
         this.setHoveredItem = setHoveredItem;
@@ -81,22 +81,22 @@ class ReshapeTool extends paper.Tool {
             setSelectedItems,
             clearSelectedItems,
             onUpdateImage,
-            switchToTextTool,
+            switchToTextTool
         );
         this._modeMap[ReshapeModes.POINT] = new PointTool(
             setSelectedItems,
             clearSelectedItems,
-            onUpdateImage,
+            onUpdateImage
         );
         this._modeMap[ReshapeModes.HANDLE] = new HandleTool(
             setSelectedItems,
             clearSelectedItems,
-            onUpdateImage,
+            onUpdateImage
         );
         this._modeMap[ReshapeModes.SELECTION_BOX] = new SelectionBoxTool(
             Modes.RESHAPE,
             setSelectedItems,
-            clearSelectedItems,
+            clearSelectedItems
         );
 
         // We have to set these functions instead of just declaring them because
@@ -123,7 +123,7 @@ class ReshapeTool extends paper.Tool {
         const hitOptions = {
             segments: true,
             tolerance: ReshapeTool.TOLERANCE / paper.view.zoom,
-            match: (hitResult) => {
+            match: hitResult => {
                 if (hitResult.type !== "segment") return false;
                 if (hitResult.item.data && hitResult.item.data.noHover)
                     return false;
@@ -143,7 +143,7 @@ class ReshapeTool extends paper.Tool {
         const hitOptions = {
             handles: true,
             tolerance: ReshapeTool.TOLERANCE / paper.view.zoom,
-            match: (hitResult) => {
+            match: hitResult => {
                 if (hitResult.item.data && hitResult.item.data.noHover)
                     return false;
                 // Only hit test against handles that are visible, that is,
@@ -171,7 +171,7 @@ class ReshapeTool extends paper.Tool {
             fill: false,
             guide: false,
             tolerance: ReshapeTool.TOLERANCE / paper.view.zoom,
-            match: (hitResult) => {
+            match: hitResult => {
                 if (hitResult.type !== "curve") return false;
                 if (!hitResult.item.selected) return false;
                 if (hitResult.item.data && hitResult.item.data.noHover)
@@ -193,7 +193,7 @@ class ReshapeTool extends paper.Tool {
             stroke: true,
             curves: true,
             tolerance: ReshapeTool.TOLERANCE / paper.view.zoom,
-            match: (hitResult) => {
+            match: hitResult => {
                 if (hitResult.item.data && hitResult.item.data.noHover)
                     return false;
                 return true;
@@ -220,24 +220,24 @@ class ReshapeTool extends paper.Tool {
         // Prefer hits on segments to other types of hits, since segments always overlap curves.
         let hitResults = paper.project.hitTestAll(
             point,
-            this.getSelectedSegmentHitOptions(),
+            this.getSelectedSegmentHitOptions()
         );
         if (!hitResults.length) {
             hitResults = paper.project.hitTestAll(
                 point,
-                this.getHandleHitOptions(),
+                this.getHandleHitOptions()
             );
         }
         if (!hitResults.length) {
             hitResults = paper.project.hitTestAll(
                 point,
-                this.getSelectedStrokeHitOptions(),
+                this.getSelectedStrokeHitOptions()
             );
         }
         if (!hitResults.length) {
             hitResults = paper.project.hitTestAll(
                 point,
-                this.getUnselectedAndFillHitOptions(),
+                this.getUnselectedAndFillHitOptions()
             );
         }
         if (!hitResults.length) {
@@ -278,7 +278,7 @@ class ReshapeTool extends paper.Tool {
         const hitResult = this.getHitResult(event.point);
         if (!hitResult) {
             this._modeMap[ReshapeModes.SELECTION_BOX].onMouseDown(
-                event.modifiers.shift,
+                event.modifiers.shift
             );
             return;
         }

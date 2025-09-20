@@ -16,7 +16,7 @@ const util = {
     yield: () => null,
 };
 
-test("playDrum uses 1-indexing and wrap clamps", (t) => {
+test("playDrum uses 1-indexing and wrap clamps", t => {
     // Stub playDrumNum
     let playedDrum;
     blocks._playDrumNum = (_util, drum) => (playedDrum = drum);
@@ -32,7 +32,7 @@ test("playDrum uses 1-indexing and wrap clamps", (t) => {
     t.end();
 });
 
-test("setInstrument uses 1-indexing and wrap clamps", (t) => {
+test("setInstrument uses 1-indexing and wrap clamps", t => {
     // Stub getMusicState
     const state = { currentInstrument: 0 };
     blocks._getMusicState = () => state;

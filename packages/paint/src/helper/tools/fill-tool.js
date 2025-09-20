@@ -106,7 +106,7 @@ class FillTool extends paper.Tool {
         const hoveredItem = getHoveredItem(
             event,
             this.getHitOptions(),
-            true /* subselect */,
+            true /* subselect */
         );
         if (
             (!hoveredItem && this.prevHoveredItemId) || // There is no longer a hovered item
@@ -133,7 +133,7 @@ class FillTool extends paper.Tool {
                     this.fillColor,
                     this.fillColor2,
                     this.gradientType,
-                    event.point,
+                    event.point
                 );
             }
             return;
@@ -183,7 +183,7 @@ class FillTool extends paper.Tool {
                 this.fillColor,
                 this.fillColor2,
                 this.gradientType,
-                event.point,
+                event.point
             );
         }
     }
@@ -264,7 +264,7 @@ class FillTool extends paper.Tool {
                 gradientType,
                 item.bounds,
                 pointerLocation,
-                item.strokeWidth,
+                item.strokeWidth
             );
         } else {
             item[colorProp] = color1;

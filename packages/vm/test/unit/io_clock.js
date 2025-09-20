@@ -2,7 +2,7 @@ const test = require("tap").test;
 const Clock = require("../../src/io/clock");
 const Runtime = require("../../src/engine/runtime");
 
-test("spec", (t) => {
+test("spec", t => {
     const rt = new Runtime();
     const c = new Clock(rt);
 
@@ -15,7 +15,7 @@ test("spec", (t) => {
     t.end();
 });
 
-test("cycle", (t) => {
+test("cycle", t => {
     const rt = new Runtime();
     const c = new Clock(rt);
 

@@ -23,7 +23,7 @@ class RectTool extends paper.Tool {
         setSelectedItems,
         clearSelectedItems,
         setCursor,
-        onUpdateImage,
+        onUpdateImage
     ) {
         super();
         this.setSelectedItems = setSelectedItems;
@@ -34,12 +34,12 @@ class RectTool extends paper.Tool {
             setSelectedItems,
             clearSelectedItems,
             setCursor,
-            onUpdateImage,
+            onUpdateImage
         );
         const nudgeTool = new NudgeTool(
             Modes.RECT,
             this.boundingBoxTool,
-            onUpdateImage,
+            onUpdateImage
         );
 
         // We have to set these functions instead of just declaring them because
@@ -63,7 +63,7 @@ class RectTool extends paper.Tool {
             curves: true,
             fill: true,
             guide: false,
-            match: (hitResult) =>
+            match: hitResult =>
                 (hitResult.item.data &&
                     (hitResult.item.data.isScaleHandle ||
                         hitResult.item.data.isRotHandle)) ||
@@ -91,7 +91,7 @@ class RectTool extends paper.Tool {
                 false /* clone */,
                 false /* multiselect */,
                 false /* doubleClicked */,
-                this.getHitOptions(),
+                this.getHitOptions()
             )
         ) {
             this.isBoundingBoxMode = true;
@@ -115,7 +115,7 @@ class RectTool extends paper.Tool {
         const rect = new paper.Rectangle(event.downPoint, event.point);
         const squareDimensions = getSquareDimensions(
             event.downPoint,
-            event.point,
+            event.point
         );
         if (event.modifiers.shift) {
             rect.size = squareDimensions.size.abs();

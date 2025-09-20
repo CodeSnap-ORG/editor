@@ -56,7 +56,7 @@ const base = {
     plugins: [
         new webpack.DefinePlugin({
             "process.env.ampmod_version": JSON.stringify(
-                monorepoPackageJson.version,
+                monorepoPackageJson.version
             ),
         }),
     ],
@@ -123,7 +123,7 @@ module.exports = [
                 },
                 {
                     test: require.resolve(
-                        "./src/extensions/scratch3_video_sensing/debug.js",
+                        "./src/extensions/scratch3_video_sensing/debug.js"
                     ),
                     loader: "expose-loader?Scratch3VideoSensingDebug",
                 },
@@ -173,7 +173,7 @@ module.exports = [
             ]),
             new webpack.DefinePlugin({
                 "process.env.ampmod_version": JSON.stringify(
-                    monorepoPackageJson.version,
+                    monorepoPackageJson.version
                 ),
             }),
         ]),

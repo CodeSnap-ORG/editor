@@ -8,7 +8,7 @@ const executeDir = path.resolve(__dirname, "../fixtures/execute");
 // sb2 project loading results in random IDs each time, so for now we only snapshot sb3 files
 const testFiles = fs
     .readdirSync(executeDir)
-    .filter((uri) => uri.endsWith(".sb3"));
+    .filter(uri => uri.endsWith(".sb3"));
 
 /**
  * @typedef {string} Snapshot Represents either a generated or parsed test case snapshot.
@@ -23,7 +23,7 @@ const testFiles = fs
 
 /** @type {TestCase[]} */
 const testCases = testFiles
-    .map((file) => [
+    .map(file => [
         {
             id: file,
             file: file,
@@ -49,31 +49,31 @@ fs.mkdirSync(path.join(snapshotDir, "warp-timer"), { recursive: true });
  * @param {TestCase} testCase From testCases.
  * @returns {Buffer} Compressed project file from disk.
  */
-const getProjectData = (testCase) =>
+const getProjectData = testCase =>
     fs.readFileSync(path.join(executeDir, testCase.file));
 
 /**
  * @param {TestCase} testCase From testCases.
  * @returns {string} The path on disk where this test's snapshot should be saved.
  */
-const getSnapshotPath = (testCase) =>
+const getSnapshotPath = testCase =>
     path.join(snapshotDir, `${testCase.id}.tw-snapshot`);
 
-const computeSHA256 = (buffer) =>
+const computeSHA256 = buffer =>
     crypto.createHash("SHA256").update(buffer).digest("hex");
 
 /**
  * @param {string} snapshot a snapshot
  * @returns {string} SHA-256
  */
-const parseSnapshotSHA256 = (snapshot) =>
+const parseSnapshotSHA256 = snapshot =>
     snapshot.match(/^\/\/ Input SHA-256: ([0-9a-f]{64})$/m)[1];
 
 /**
  * @param {TestCase} testCase Test to run from testCases
  * @returns {Promise<Snapshot>} Actual snapshot
  */
-const generateActualSnapshot = async (testCase) => {
+const generateActualSnapshot = async testCase => {
     const vm = new VM();
     vm.setCompilerOptions(testCase.compilerOptions);
     const projectData = getProjectData(testCase);
@@ -92,7 +92,7 @@ const generateActualSnapshot = async (testCase) => {
         }; })
         The numbers in the function names are indeterministic, we we remove them.
     */
-    const normalizeJS = (source) =>
+    const normalizeJS = source =>
         source
             .replace(/^\(function factory\d+/, "(function factoryXYZ")
             .replace(/return function\* gen\d+/, "return function* genXYZ")
@@ -120,7 +120,7 @@ const generateActualSnapshot = async (testCase) => {
     result += "\n";
     if (errors.length) {
         result += "// Errors:\n";
-        result += errors.map((i) => `// ${i.target.getName()}: ${i.error}\n`);
+        result += errors.map(i => `// ${i.target.getName()}: ${i.error}\n`);
         result += "\n";
     }
     result += generatedJS.join("\n\n");
@@ -132,7 +132,7 @@ const generateActualSnapshot = async (testCase) => {
  * @param {TestCase} testCase Test case from testCases
  * @returns {Snapshot|null} Snapshot stored on disk if it exists, otherwise null.
  */
-const getExpectedSnapshot = (testCase) => {
+const getExpectedSnapshot = testCase => {
     try {
         return fs.readFileSync(getSnapshotPath(testCase), "utf-8");
     } catch (e) {

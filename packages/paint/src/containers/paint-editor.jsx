@@ -154,7 +154,7 @@ class PaintEditor extends React.Component {
         ) {
             convertToVector(
                 this.props.clearSelectedItems,
-                this.props.onUpdateImage,
+                this.props.onUpdateImage
             );
         } else if (
             isVector(prevProps.format) &&
@@ -163,7 +163,7 @@ class PaintEditor extends React.Component {
             convertToBitmap(
                 this.props.clearSelectedItems,
                 this.props.onUpdateImage,
-                this.props.fontInlineFn,
+                this.props.fontInlineFn
             );
         }
     }
@@ -256,7 +256,7 @@ class PaintEditor extends React.Component {
         const newTheme =
             this.getEffectiveTheme() === "light" ? "dark" : "light";
         this.props.setReduxTheme(
-            newTheme === this.props.theme ? "default" : newTheme,
+            newTheme === this.props.theme ? "default" : newTheme
         );
     }
     handleZoomIn() {
@@ -331,7 +331,7 @@ class PaintEditor extends React.Component {
             paper.view.zoom,
             paper.project.view.bounds.x,
             paper.project.view.bounds.y,
-            isBitmap(this.props.format),
+            isBitmap(this.props.format)
         );
         this.eyeDropper.pickX = -1;
         this.eyeDropper.pickY = -1;
@@ -342,7 +342,7 @@ class PaintEditor extends React.Component {
             const colorInfo = this.eyeDropper.getColorInfo(
                 this.eyeDropper.pickX,
                 this.eyeDropper.pickY,
-                this.eyeDropper.hideLoupe,
+                this.eyeDropper.hideLoupe
             );
             if (!colorInfo) return;
             if (
@@ -407,7 +407,7 @@ PaintEditor.propTypes = {
         PropTypes.shape({
             name: PropTypes.string.isRequired,
             family: PropTypes.string.isRequired,
-        }),
+        })
     ).isRequired,
     onCustomFontsChanged: PropTypes.func.isRequired,
     onManageFonts: PropTypes.func,
@@ -460,7 +460,7 @@ PaintEditor.defaultProps = {
     customFonts: [],
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     changeColorToEyeDropper: state.scratchPaint.color.eyeDropper.callback,
     format: state.scratchPaint.format,
     isEyeDropping: state.scratchPaint.color.eyeDropper.active,
@@ -469,14 +469,14 @@ const mapStateToProps = (state) => ({
     reduxTheme: state.scratchPaint.theme,
     viewBounds: state.scratchPaint.viewBounds,
 });
-const mapDispatchToProps = (dispatch) => ({
-    changeMode: (mode) => {
+const mapDispatchToProps = dispatch => ({
+    changeMode: mode => {
         dispatch(changeMode(mode));
     },
     clearSelectedItems: () => {
         dispatch(clearSelectedItems());
     },
-    onCustomFontsChanged: (customFonts) => {
+    onCustomFontsChanged: customFonts => {
         dispatch(setCustomFonts(customFonts));
     },
     handleSwitchToBitmap: () => {
@@ -488,20 +488,20 @@ const mapDispatchToProps = (dispatch) => ({
     removeTextEditTarget: () => {
         dispatch(setTextEditTarget());
     },
-    setLayout: (layout) => {
+    setLayout: layout => {
         dispatch(setLayout(layout));
     },
-    setReduxTheme: (theme) => {
+    setReduxTheme: theme => {
         dispatch(setReduxTheme(theme));
     },
-    setSelectedItems: (format) => {
+    setSelectedItems: format => {
         dispatch(setSelectedItems(getSelectedLeafItems(), isBitmap(format)));
     },
     onDeactivateEyeDropper: () => {
         // set redux values to default for eye dropper reducer
         dispatch(deactivateEyeDropper());
     },
-    updateViewBounds: (matrix) => {
+    updateViewBounds: matrix => {
         dispatch(updateViewBounds(matrix));
     },
 });
@@ -510,8 +510,8 @@ export default UpdateImageHOC(
     SelectionHOC(
         UndoHOC(
             KeyboardShortcutsHOC(
-                connect(mapStateToProps, mapDispatchToProps)(PaintEditor),
-            ),
-        ),
-    ),
+                connect(mapStateToProps, mapDispatchToProps)(PaintEditor)
+            )
+        )
+    )
 );

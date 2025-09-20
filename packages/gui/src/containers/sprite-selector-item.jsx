@@ -193,16 +193,16 @@ const mapStateToProps = (state, { id }) => ({
         state.scratchGui.hoveredTarget.sprite === id,
     vm: state.scratchGui.vm,
 });
-const mapDispatchToProps = (dispatch) => ({
-    dispatchSetHoveredSprite: (spriteId) => {
+const mapDispatchToProps = dispatch => ({
+    dispatchSetHoveredSprite: spriteId => {
         dispatch(setHoveredSprite(spriteId));
     },
-    onDrag: (data) => dispatch(updateAssetDrag(data)),
+    onDrag: data => dispatch(updateAssetDrag(data)),
 });
 
 const ConnectedComponent = connect(
     mapStateToProps,
-    mapDispatchToProps,
+    mapDispatchToProps
 )(SpriteSelectorItem);
 
 export default ConnectedComponent;

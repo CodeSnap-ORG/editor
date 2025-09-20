@@ -5,7 +5,7 @@ import { APP_NAME } from "../lib/brand.js";
 
 if (bowser.parse(navigator.userAgent).browser.name === "Internet Explorer") {
     alert(
-        "AmpMod does not support Internet Explorer.\n\nIE has been deprecated for 3 years; please upgrade Windows and/or find a modern alternative such as Chrome.\n\nIf you are not able to update Windows or use a new browser, contact your admin.",
+        "AmpMod does not support Internet Explorer.\n\nIE has been deprecated for 3 years; please upgrade Windows and/or find a modern alternative such as Chrome.\n\nIf you are not able to update Windows or use a new browser, contact your admin."
     );
     throw new Error("AmpMod does not support Internet Explorer.");
 }
@@ -21,7 +21,7 @@ if (new URLSearchParams(window.location.search).has("crash-accidentally")) {
     throw new TypeError(
         "Simulated a TypeError to test the pre-React error screen. " +
             `If someone sent you a link to this, just open ${APP_NAME} in ` +
-            "a new tab and carry on with your day. This is not a bug.",
+            "a new tab and carry on with your day. This is not a bug."
     );
 }
 
@@ -30,12 +30,12 @@ if (bowser.parse(navigator.userAgent).platform.type == "mobile") {
         "You are using a phone. The UI on small screens can be very clunky " +
             "to use and is not recommended.\n\nPlease use a desktop, laptop, or " +
             "tablet for the best experience. You may also continue using this " +
-            "device, but it may not be optimal.",
+            "device, but it may not be optimal."
     );
 }
 setAppElement(appTarget);
 
-const render = (children) => {
+const render = children => {
     ReactDOM.render(children, appTarget);
 
     if (window.SplashEnd) {

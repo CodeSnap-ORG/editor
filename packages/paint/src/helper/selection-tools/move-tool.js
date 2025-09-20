@@ -33,7 +33,7 @@ class MoveTool {
         setSelectedItems,
         clearSelectedItems,
         onUpdateImage,
-        switchToTextTool,
+        switchToTextTool
     ) {
         this.mode = mode;
         this.setSelectedItems = setSelectedItems;
@@ -82,7 +82,7 @@ class MoveTool {
                     item,
                     true /* state */,
                     hitProperties.subselect,
-                    true /* fullySelect */,
+                    true /* fullySelect */
                 );
             } else if (hitProperties.multiselect) {
                 this._select(item, false /* state */, hitProperties.subselect);
@@ -153,11 +153,11 @@ class MoveTool {
 
         point.x = Math.max(
             actionBounds.left,
-            Math.min(point.x, actionBounds.right),
+            Math.min(point.x, actionBounds.right)
         );
         point.y = Math.max(
             actionBounds.top,
-            Math.min(point.y, actionBounds.bottom),
+            Math.min(point.y, actionBounds.bottom)
         );
 
         const dragVector = point.subtract(event.downPoint);
@@ -169,7 +169,7 @@ class MoveTool {
                 checkPointsClose(
                     this.selectionCenter.add(dragVector),
                     CENTER,
-                    SNAPPING_THRESHOLD / paper.view.zoom /* threshold */,
+                    SNAPPING_THRESHOLD / paper.view.zoom /* threshold */
                 )
             ) {
                 snapVector = CENTER.subtract(this.selectionCenter);
@@ -191,7 +191,7 @@ class MoveTool {
                 item.position = item.data.origPos.add(snapVector);
             } else if (event.modifiers.shift) {
                 item.position = item.data.origPos.add(
-                    snapDeltaToAngle(dragVector, Math.PI / 4),
+                    snapDeltaToAngle(dragVector, Math.PI / 4)
                 );
             } else {
                 item.position = item.data.origPos.add(dragVector);
@@ -223,16 +223,16 @@ class MoveTool {
             // rotation center is to one of the 4 corners of the selection bounding box
             const distX = Math.max(
                 CENTER.x - bounds.right,
-                bounds.left - CENTER.x,
+                bounds.left - CENTER.x
             );
             const distY = Math.max(
                 CENTER.y - bounds.bottom,
-                bounds.top - CENTER.y,
+                bounds.top - CENTER.y
             );
             const dist = Math.sqrt(distX * distX + distY * distY);
             opacityMultiplier = Math.max(
                 0,
-                1 - dist / (FADE_DISTANCE / paper.view.zoom),
+                1 - dist / (FADE_DISTANCE / paper.view.zoom)
             );
         } else if (CENTER.y < bounds.top || CENTER.y > bounds.bottom) {
             // rotation center is above or below the selection bounding box
@@ -240,7 +240,7 @@ class MoveTool {
                 0,
                 1 -
                     (Math.abs(CENTER.y - newCenter.y) - bounds.height / 2) /
-                        (FADE_DISTANCE / paper.view.zoom),
+                        (FADE_DISTANCE / paper.view.zoom)
             );
         } else if (CENTER.x < bounds.left || CENTER.x > bounds.right) {
             // rotation center is left or right of the selection bounding box
@@ -248,7 +248,7 @@ class MoveTool {
                 0,
                 1 -
                     (Math.abs(CENTER.x - newCenter.x) - bounds.width / 2) /
-                        (FADE_DISTANCE / paper.view.zoom),
+                        (FADE_DISTANCE / paper.view.zoom)
             );
         } // else the rotation center is within selection bounds, always show drag crosshair at full opacity
         getDragCrosshairLayer().opacity =

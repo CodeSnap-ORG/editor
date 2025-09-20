@@ -267,7 +267,7 @@ const PreviewsStep = ({
             />
         </div>
         <div className={styles.decks}>
-            {deckIds.slice(0, 2).map((id) => (
+            {deckIds.slice(0, 2).map(id => (
                 <div
                     className={styles.deck}
                     key={`deck-preview-${id}`}
@@ -305,7 +305,7 @@ PreviewsStep.propTypes = {
                     image: PropTypes.string,
                     video: PropTypes.string,
                     deckIds: PropTypes.arrayOf(PropTypes.string),
-                }),
+                })
             ),
         }),
     }).isRequired,
@@ -314,7 +314,7 @@ PreviewsStep.propTypes = {
     onShowAll: PropTypes.func.isRequired,
 };
 
-const Cards = (props) => {
+const Cards = props => {
     const {
         activeDeckId,
         content,
@@ -410,7 +410,7 @@ const Cards = (props) => {
                                         expanded={expanded}
                                         video={translateVideo(
                                             steps[step].video,
-                                            locale,
+                                            locale
                                         )}
                                     />
                                 ) : (
@@ -424,7 +424,7 @@ const Cards = (props) => {
                                 <ImageStep
                                     image={translateImage(
                                         steps[step].image,
-                                        locale,
+                                        locale
                                     )}
                                     title={steps[step].title}
                                 />
@@ -459,7 +459,7 @@ Cards.propTypes = {
                     image: PropTypes.string,
                     video: PropTypes.string,
                     deckIds: PropTypes.arrayOf(PropTypes.string),
-                }),
+                })
             ),
         }),
     }),

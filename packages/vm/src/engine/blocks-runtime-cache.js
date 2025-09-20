@@ -55,7 +55,7 @@ class RuntimeScriptCache {
         for (const key in this.fieldsOfInputs) {
             const field = (this.fieldsOfInputs[key] = Object.assign(
                 {},
-                this.fieldsOfInputs[key],
+                this.fieldsOfInputs[key]
             ));
             if (field.value.toUpperCase) {
                 field.value = field.value.toUpperCase();

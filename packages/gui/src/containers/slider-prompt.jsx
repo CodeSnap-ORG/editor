@@ -36,7 +36,7 @@ class SliderPrompt extends React.Component {
         this.props.onOk(
             parseFloat(minValue),
             parseFloat(maxValue),
-            this.shouldBeDiscrete(minValue, maxValue),
+            this.shouldBeDiscrete(minValue, maxValue)
         );
     }
     handleCancel() {

@@ -41,7 +41,7 @@ class UsernameModal extends React.Component {
         // eslint-disable-next-line no-alert
         const newFramerate = await prompt(
             this.props.intl.formatMessage(messages.newFramerate),
-            this.props.framerate,
+            this.props.framerate
         );
         const parsed = parseFloat(newFramerate);
         if (isFinite(parsed)) {
@@ -154,7 +154,7 @@ UsernameModal.propTypes = {
     disableCompiler: PropTypes.bool,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     vm: state.scratchGui.vm,
     isEmbedded: state.scratchGui.mode.isEmbedded,
     framerate: state.scratchGui.tw.framerate,
@@ -168,10 +168,10 @@ const mapStateToProps = (state) => ({
     disableCompiler: !state.scratchGui.tw.compilerOptions.enabled,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     onClose: () => dispatch(closeSettingsModal()),
 });
 
 export default injectIntl(
-    connect(mapStateToProps, mapDispatchToProps)(UsernameModal),
+    connect(mapStateToProps, mapDispatchToProps)(UsernameModal)
 );

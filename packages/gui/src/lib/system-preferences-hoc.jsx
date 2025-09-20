@@ -17,17 +17,17 @@ const systemPreferencesHOC = function (WrappedComponent) {
 
             if (window.matchMedia) {
                 this.highContrastMatchMedia = window.matchMedia(
-                    prefersHighContrastQuery,
+                    prefersHighContrastQuery
                 );
                 if (this.highContrastMatchMedia) {
                     if (this.highContrastMatchMedia.addEventListener) {
                         this.highContrastMatchMedia.addEventListener(
                             "change",
-                            this.preferencesListener,
+                            this.preferencesListener
                         );
                     } else {
                         this.highContrastMatchMedia.addListener(
-                            this.preferencesListener,
+                            this.preferencesListener
                         );
                     }
                 }
@@ -39,11 +39,11 @@ const systemPreferencesHOC = function (WrappedComponent) {
                 if (this.highContrastMatchMedia.removeEventListener) {
                     this.highContrastMatchMedia.removeEventListener(
                         "change",
-                        this.preferencesListener,
+                        this.preferencesListener
                     );
                 } else {
                     this.highContrastMatchMedia.removeListener(
-                        this.preferencesListener,
+                        this.preferencesListener
                     );
                 }
             }
@@ -64,8 +64,8 @@ const systemPreferencesHOC = function (WrappedComponent) {
         onSetTheme: PropTypes.func,
     };
 
-    const mapDispatchToProps = (dispatch) => ({
-        onSetTheme: (theme) => dispatch(setTheme(theme)),
+    const mapDispatchToProps = dispatch => ({
+        onSetTheme: theme => dispatch(setTheme(theme)),
     });
 
     return connect(null, mapDispatchToProps)(SystemPreferences);

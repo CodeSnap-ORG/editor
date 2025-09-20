@@ -72,7 +72,7 @@ class PointTool {
      */
     addPoint(hitProperties) {
         const newSegment = hitProperties.hitResult.item.divideAt(
-            hitProperties.hitResult.location,
+            hitProperties.hitResult.location
         );
 
         // If we're adding a point in the middle of a straight line, it won't be smooth by default, so smooth it
@@ -100,7 +100,7 @@ class PointTool {
             if (afterSegment) {
                 beforeSegment.handleOut = beforeSegment.handleOut.multiply(
                     (curveLength * HANDLE_RATIO) /
-                        beforeSegment.handleOut.length,
+                        beforeSegment.handleOut.length
                 );
             } else {
                 beforeSegment.handleOut = null;
@@ -109,7 +109,7 @@ class PointTool {
         if (afterSegment && afterSegment.handleIn) {
             if (beforeSegment) {
                 afterSegment.handleIn = afterSegment.handleIn.multiply(
-                    (curveLength * HANDLE_RATIO) / afterSegment.handleIn.length,
+                    (curveLength * HANDLE_RATIO) / afterSegment.handleIn.length
                 );
             } else {
                 afterSegment.handleIn = null;
@@ -142,7 +142,7 @@ class PointTool {
 
             if (event.modifiers.shift) {
                 seg.point = seg.origPoint.add(
-                    snapDeltaToAngle(dragVector, Math.PI / 4),
+                    snapDeltaToAngle(dragVector, Math.PI / 4)
                 );
             } else {
                 seg.point = seg.point.add(delta);

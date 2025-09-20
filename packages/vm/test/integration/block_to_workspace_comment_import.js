@@ -7,16 +7,16 @@ const VirtualMachine = require("../../src/index");
 
 const projectUri = path.resolve(
     __dirname,
-    "../fixtures/block-to-workspace-comments.sb2",
+    "../fixtures/block-to-workspace-comments.sb2"
 );
 const project = readFileToBuffer(projectUri);
 
-test("importing sb2 project where block comment is converted to workspace comment and block is deleted", (t) => {
+test("importing sb2 project where block comment is converted to workspace comment and block is deleted", t => {
     const vm = new VirtualMachine();
     vm.attachStorage(makeTestStorage());
 
     // Evaluate playground data and exit
-    vm.on("playgroundData", (e) => {
+    vm.on("playgroundData", e => {
         const threads = JSON.parse(e.threads);
         t.equal(threads.length, 0);
 
@@ -27,19 +27,19 @@ test("importing sb2 project where block comment is converted to workspace commen
         const targetComments = Object.values(target.comments);
         t.equal(targetComments.length, 3);
         const spriteWorkspaceComments = targetComments.filter(
-            (comment) => comment.blockId === null,
+            comment => comment.blockId === null
         );
         t.equal(spriteWorkspaceComments.length, 2);
 
         // Test the sprite block comments
         const blockComments = targetComments.filter(
-            (comment) => !!comment.blockId,
+            comment => !!comment.blockId
         );
         t.equal(blockComments.length, 1);
 
         // There should not be any comments where blockId is a number
         const invalidComments = targetComments.filter(
-            (comment) => typeof comment.blockId === "number",
+            comment => typeof comment.blockId === "number"
         );
         t.equal(invalidComments.length, 0);
 

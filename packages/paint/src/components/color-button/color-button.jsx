@@ -32,7 +32,7 @@ const colorToBackground = (color, color2, gradientType) => {
     }
 };
 
-const ColorButtonComponent = (props) => (
+const ColorButtonComponent = props => (
     <div className={styles.colorButton} onClick={props.onClick}>
         <div
             className={classNames(styles.colorButtonSwatch, {
@@ -43,7 +43,7 @@ const ColorButtonComponent = (props) => (
                 background: colorToBackground(
                     props.color,
                     props.color2,
-                    props.gradientType,
+                    props.gradientType
                 ),
             }}
         >

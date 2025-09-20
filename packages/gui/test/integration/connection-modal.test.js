@@ -37,7 +37,7 @@ describe("Hardware extension connection modal", () => {
         await clickXpath('//button[@title="Add Extension"]');
 
         await clickText("micro:bit");
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for modal to open
+        await new Promise(resolve => setTimeout(resolve, 1000)); // Wait for modal to open
         findByText("Scratch Link"); // Scratch Link is mentioned in the error modal
 
         const logs = await getLogs();
@@ -52,7 +52,7 @@ describe("Hardware extension connection modal", () => {
         await clickXpath('//button[@title="Add Extension"]');
 
         await clickText("EV3");
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for modal to open
+        await new Promise(resolve => setTimeout(resolve, 1000)); // Wait for modal to open
         findByText("Scratch Link"); // Scratch Link is mentioned in the error modal
 
         const logs = await getLogs();

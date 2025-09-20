@@ -22,7 +22,7 @@ class WorkerDispatch extends SharedDispatch {
          * @see {waitForConnection}
          * @private
          */
-        this._connectionPromise = new Promise((resolve) => {
+        this._connectionPromise = new Promise(resolve => {
             this._onConnect = resolve;
         });
 
@@ -63,7 +63,7 @@ class WorkerDispatch extends SharedDispatch {
     setService(service, provider) {
         if (Object.prototype.hasOwnProperty.call(this.services, service)) {
             log.warn(
-                `Worker dispatch replacing existing service provider for ${service}`,
+                `Worker dispatch replacing existing service provider for ${service}`
             );
         }
         this.services[service] = provider;
@@ -72,8 +72,8 @@ class WorkerDispatch extends SharedDispatch {
                 centralDispatchService,
                 "dispatch",
                 "setService",
-                service,
-            ),
+                service
+            )
         );
     }
 
@@ -114,7 +114,7 @@ class WorkerDispatch extends SharedDispatch {
                 break;
             default:
                 log.error(
-                    `Worker dispatch received message for unknown method: ${message.method}`,
+                    `Worker dispatch received message for unknown method: ${message.method}`
                 );
         }
         return promise;

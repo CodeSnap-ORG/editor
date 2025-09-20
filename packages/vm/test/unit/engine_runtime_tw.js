@@ -5,10 +5,10 @@ const makeTestStorage = require("../fixtures/make-test-storage");
 
 const test = tap.test;
 
-test("setFramerate emits an event", (t) => {
+test("setFramerate emits an event", t => {
     t.plan(1);
     const rt = new Runtime();
-    rt.addListener("FRAMERATE_CHANGED", (framerate) => {
+    rt.addListener("FRAMERATE_CHANGED", framerate => {
         if (framerate === 13) {
             t.pass();
         }
@@ -17,7 +17,7 @@ test("setFramerate emits an event", (t) => {
     t.end();
 });
 
-test("setFramerate and setCompatibilityMode do not emit a stop event if not running", (t) => {
+test("setFramerate and setCompatibilityMode do not emit a stop event if not running", t => {
     const rt = new Runtime();
     rt.addListener("RUNTIME_STOPPED", () => {
         t.fail();
@@ -27,10 +27,10 @@ test("setFramerate and setCompatibilityMode do not emit a stop event if not runn
     t.end();
 });
 
-test("setInterpolation emits an event", (t) => {
+test("setInterpolation emits an event", t => {
     t.plan(1);
     const rt = new Runtime();
-    rt.addListener("INTERPOLATION_CHANGED", (enabled) => {
+    rt.addListener("INTERPOLATION_CHANGED", enabled => {
         if (enabled) {
             t.pass();
         }
@@ -39,7 +39,7 @@ test("setInterpolation emits an event", (t) => {
     t.end();
 });
 
-test("setInterpolation does not restart runtime if not running", (t) => {
+test("setInterpolation does not restart runtime if not running", t => {
     const rt = new Runtime();
     let started = false;
     let stopped = false;
@@ -55,7 +55,7 @@ test("setInterpolation does not restart runtime if not running", (t) => {
     t.end();
 });
 
-test("Stopping the runtime emits an event", (t) => {
+test("Stopping the runtime emits an event", t => {
     const rt = new Runtime();
     rt.start();
     let stopped = false;
@@ -67,7 +67,7 @@ test("Stopping the runtime emits an event", (t) => {
     t.end();
 });
 
-test("Stop does not emit an event if already stopped", (t) => {
+test("Stop does not emit an event if already stopped", t => {
     const rt = new Runtime();
     let stopped = false;
     rt.addListener("RUNTIME_STOPPED", () => {
@@ -78,10 +78,10 @@ test("Stop does not emit an event if already stopped", (t) => {
     t.end();
 });
 
-test("setRuntimeOptions emits an event", (t) => {
+test("setRuntimeOptions emits an event", t => {
     t.plan(1);
     const rt = new Runtime();
-    rt.addListener("RUNTIME_OPTIONS_CHANGED", (options) => {
+    rt.addListener("RUNTIME_OPTIONS_CHANGED", options => {
         if (options.option === 17) {
             t.pass();
         }
@@ -90,11 +90,11 @@ test("setRuntimeOptions emits an event", (t) => {
     t.end();
 });
 
-test("setRuntimeOptions supports partial updates", (t) => {
+test("setRuntimeOptions supports partial updates", t => {
     t.plan(1);
     const rt = new Runtime();
     rt.setRuntimeOptions({ option: 17 });
-    rt.addListener("RUNTIME_OPTIONS_CHANGED", (options) => {
+    rt.addListener("RUNTIME_OPTIONS_CHANGED", options => {
         if (options.option === 17) {
             t.pass();
         }
@@ -103,10 +103,10 @@ test("setRuntimeOptions supports partial updates", (t) => {
     t.end();
 });
 
-test("setCompilerOptions emits an event", (t) => {
+test("setCompilerOptions emits an event", t => {
     t.plan(1);
     const rt = new Runtime();
-    rt.addListener("COMPILER_OPTIONS_CHANGED", (options) => {
+    rt.addListener("COMPILER_OPTIONS_CHANGED", options => {
         if (options.option === 17) {
             t.pass();
         }
@@ -115,11 +115,11 @@ test("setCompilerOptions emits an event", (t) => {
     t.end();
 });
 
-test("setCompilerOptions supports partial updates", (t) => {
+test("setCompilerOptions supports partial updates", t => {
     t.plan(1);
     const rt = new Runtime();
     rt.setCompilerOptions({ option: 17 });
-    rt.addListener("COMPILER_OPTIONS_CHANGED", (options) => {
+    rt.addListener("COMPILER_OPTIONS_CHANGED", options => {
         if (options.option === 17) {
             t.pass();
         }
@@ -128,7 +128,7 @@ test("setCompilerOptions supports partial updates", (t) => {
     t.end();
 });
 
-test("maxClones runtime option", (t) => {
+test("maxClones runtime option", t => {
     const rt = new Runtime();
     rt.setRuntimeOptions({ maxClones: 10 });
     for (let i = 0; i < 10; i++) {
@@ -140,14 +140,14 @@ test("maxClones runtime option", (t) => {
     t.end();
 });
 
-test("stageWidth and stageHeight", (t) => {
+test("stageWidth and stageHeight", t => {
     const rt = new Runtime();
     t.equal(rt.stageWidth, 480);
     t.equal(rt.stageHeight, 360);
     t.end();
 });
 
-test("debug", (t) => {
+test("debug", t => {
     const rt = new Runtime();
     t.equal(rt.debug, false);
     rt.enableDebug();
@@ -155,7 +155,7 @@ test("debug", (t) => {
     t.end();
 });
 
-test("setStageSize preserves monitor position relative to center of stage", (t) => {
+test("setStageSize preserves monitor position relative to center of stage", t => {
     const rt = new Runtime();
     rt.requestAddMonitor(
         new Map([
@@ -163,7 +163,7 @@ test("setStageSize preserves monitor position relative to center of stage", (t) 
             // top right corner
             ["x", 0],
             ["y", 0],
-        ]),
+        ])
     );
     rt.setStageSize(640, 362);
     const finalState = rt.getMonitorState().get("abc");
@@ -172,7 +172,7 @@ test("setStageSize preserves monitor position relative to center of stage", (t) 
     t.end();
 });
 
-test("setStageSize argument range", (t) => {
+test("setStageSize argument range", t => {
     t.plan(6);
     const rt = new Runtime();
 
@@ -197,7 +197,7 @@ test("setStageSize argument range", (t) => {
     t.end();
 });
 
-test("STAGE_SIZE_CHANGED does not fire if no change", (t) => {
+test("STAGE_SIZE_CHANGED does not fire if no change", t => {
     const rt = new Runtime();
     rt.on("STAGE_SIZE_CHANGED", () => {
         t.fail("STAGE_SIZE_CHANGED emitted");
@@ -206,7 +206,7 @@ test("STAGE_SIZE_CHANGED does not fire if no change", (t) => {
     t.end();
 });
 
-test("getNumberOfCloudVariables", (t) => {
+test("getNumberOfCloudVariables", t => {
     const rt = new Runtime();
 
     t.equal(rt.getNumberOfCloudVariables(), 0);
@@ -227,14 +227,14 @@ test("getNumberOfCloudVariables", (t) => {
     t.end();
 });
 
-test("currentStepTime default value", (t) => {
+test("currentStepTime default value", t => {
     const rt = new Runtime();
     t.type(rt.currentStepTime, "number");
     t.ok(rt.currentStepTime > 0);
     t.end();
 });
 
-test("convertToPackagedRuntime", (t) => {
+test("convertToPackagedRuntime", t => {
     const rt = new Runtime();
     t.equal(rt.isPackaged, false);
     rt.convertToPackagedRuntime();
@@ -242,7 +242,7 @@ test("convertToPackagedRuntime", (t) => {
     t.end();
 });
 
-test("convertToPackagedRuntime and attachStorage call order", (t) => {
+test("convertToPackagedRuntime and attachStorage call order", t => {
     try {
         const rt1 = new Runtime();
         rt1.attachStorage(makeTestStorage());
@@ -250,7 +250,7 @@ test("convertToPackagedRuntime and attachStorage call order", (t) => {
     } catch (e) {
         t.equal(
             e.message,
-            "convertToPackagedRuntime must be called before attachStorage",
+            "convertToPackagedRuntime must be called before attachStorage"
         );
     }
     const rt2 = new Runtime();

@@ -58,7 +58,7 @@ const baseExtensionInfo = {
     },
 };
 
-test("XML escaped in Runtime.getBlocksXML()", (t) => {
+test("XML escaped in Runtime.getBlocksXML()", t => {
     // While these changes will make the extension unusable in a real editor environment, we still
     // want to make sure that these fields are actually being escaped.
     const mangledExtension = JSON.parse(JSON.stringify(baseExtensionInfo));
@@ -108,23 +108,23 @@ test("XML escaped in Runtime.getBlocksXML()", (t) => {
     t.equal(
         category.attribs.name,
         "&lt;&gt;&quot;&apos;&amp;&amp; Name",
-        "escaped category name",
+        "escaped category name"
     );
     t.equal(category.attribs.id, "xmltest", "category id");
     t.equal(
         category.attribs.colour,
         "&lt;&quot;&apos;&amp;amp;amp;color1&gt;",
-        "escaped category color",
+        "escaped category color"
     );
     t.equal(
         category.attribs.secondarycolour,
         "&lt;&quot;&apos;&amp;amp;amp;color2&gt;",
-        "escaped category color 2",
+        "escaped category color 2"
     );
     t.equal(
         category.attribs.iconuri,
         "data:&lt;&gt;&amp;&quot;&apos; category icon",
-        "escaped category icon",
+        "escaped category icon"
     );
     t.equal(category.children.length, 3, "category has 3 children");
 
@@ -135,7 +135,7 @@ test("XML escaped in Runtime.getBlocksXML()", (t) => {
     t.equal(
         docsButton.attribs.callbackdata,
         "https://example.com/&amp;&apos;&apos;&quot;&quot;&lt;&lt;&gt;&gt;",
-        "escaped docs callback data",
+        "escaped docs callback data"
     );
     t.equal(docsButton.children.length, 0, "docs button has 0 children");
 
@@ -145,7 +145,7 @@ test("XML escaped in Runtime.getBlocksXML()", (t) => {
     t.equal(
         block.attribs.type,
         "xmltest_opcode &lt;&gt;&amp;&quot;&apos;",
-        "escaped block id",
+        "escaped block id"
     );
     t.equal(block.children.length, 3, "block has 3 children");
 
@@ -155,7 +155,7 @@ test("XML escaped in Runtime.getBlocksXML()", (t) => {
     t.equal(
         stringInput.attribs.name,
         "string argument &lt;&gt;&amp;&quot;&apos;",
-        "escaped string input id",
+        "escaped string input id"
     );
     t.equal(stringInput.children.length, 1, "string input has 1 child");
 
@@ -163,17 +163,17 @@ test("XML escaped in Runtime.getBlocksXML()", (t) => {
     t.equal(
         stringInputShadow.name,
         "shadow",
-        "string input shadow is <shadow>",
+        "string input shadow is <shadow>"
     );
     t.equal(
         stringInputShadow.attribs.type,
         "text",
-        "string input shadow is of type text",
+        "string input shadow is of type text"
     );
     t.equal(
         stringInputShadow.children.length,
         1,
-        "string input shadow has 1 child",
+        "string input shadow has 1 child"
     );
 
     const stringInputField = stringInputShadow.children[0];
@@ -184,7 +184,7 @@ test("XML escaped in Runtime.getBlocksXML()", (t) => {
     t.equal(
         stringInputFieldContent.data,
         "default string &lt;&gt;&amp;&quot;&apos;",
-        "escaped string input default value",
+        "escaped string input default value"
     );
 
     // Check the block's menu input
@@ -193,7 +193,7 @@ test("XML escaped in Runtime.getBlocksXML()", (t) => {
     t.equal(
         menuInput.attribs.name,
         "inputMenu &lt;&quot;&apos;&amp;&gt;",
-        "escaped menu input id",
+        "escaped menu input id"
     );
     t.equal(menuInput.children.length, 1, "menu input has 1 child");
 
@@ -202,7 +202,7 @@ test("XML escaped in Runtime.getBlocksXML()", (t) => {
     t.equal(
         inputShadow.attribs.type,
         "xmltest_menu_input &lt;&gt;&amp;&quot;&apos;",
-        "escaped menu id",
+        "escaped menu id"
     );
     t.equal(inputShadow.children.length, 1, "input shadow has 1 child");
 
@@ -214,7 +214,7 @@ test("XML escaped in Runtime.getBlocksXML()", (t) => {
     t.equal(
         inputFieldContent.data,
         "default input &lt;&gt;&amp;&quot;&apos;",
-        "escaped input default value",
+        "escaped input default value"
     );
 
     // Check the block's menu field
@@ -223,7 +223,7 @@ test("XML escaped in Runtime.getBlocksXML()", (t) => {
     t.equal(
         menuField.attribs.name,
         "fieldMenu &lt;&quot;&apos;&amp;&gt;",
-        "escaped field menu id",
+        "escaped field menu id"
     );
     t.equal(menuField.children.length, 1, "menu field has 1 child");
 
@@ -231,7 +231,7 @@ test("XML escaped in Runtime.getBlocksXML()", (t) => {
     t.equal(
         menuFieldContent.data,
         "default field &lt;&gt;&amp;&quot;&apos;",
-        "escaped field default value",
+        "escaped field default value"
     );
 
     // Check the button block
@@ -240,13 +240,13 @@ test("XML escaped in Runtime.getBlocksXML()", (t) => {
     t.equal(
         button.attribs.text,
         "&apos;&quot;&gt;&lt;&amp; button text",
-        "escaped button text",
+        "escaped button text"
     );
 
     t.end();
 });
 
-test("ID escaped in Runtime.getBlocksXML()", (t) => {
+test("ID escaped in Runtime.getBlocksXML()", t => {
     // Previous test needs to use an actually valid extension ID. For this test we will
     // register an invalid extension just to make sure that the ID ends up being escaped.
 
@@ -269,28 +269,28 @@ test("ID escaped in Runtime.getBlocksXML()", (t) => {
     t.equal(
         category.attribs.id,
         "id &lt;&gt;&amp;&quot;&apos;",
-        "escaped extension id",
+        "escaped extension id"
     );
     t.equal(category.children.length, 0, "category has no children");
 
     t.end();
 });
 
-test("XML escaped in Blocks.toXML()", async (t) => {
+test("XML escaped in Blocks.toXML()", async t => {
     const vm = new VirtualMachine();
     const serviceName = vm.extensionManager._registerInternalExtension({
         getInfo: () => baseExtensionInfo,
     });
     vm.extensionManager._loadedExtensions.set(
         baseExtensionInfo.id,
-        serviceName,
+        serviceName
     );
 
     const fixturePath = pathUtil.join(
         __dirname,
         "..",
         "fixtures",
-        "tw-project-using-xml-extension.sb3",
+        "tw-project-using-xml-extension.sb3"
     );
 
     const checkVM = () => {
@@ -323,7 +323,7 @@ test("XML escaped in Blocks.toXML()", async (t) => {
         t.equal(
             block.attribs.type,
             "xmltest_opcode &lt;&gt;&amp;&quot;&apos;",
-            "escaped block opcode",
+            "escaped block opcode"
         );
         t.equal(block.children.length, 3, "block has 3 children");
 
@@ -333,43 +333,43 @@ test("XML escaped in Blocks.toXML()", async (t) => {
         t.equal(
             stringInputValue.attribs.name,
             "string argument &lt;&gt;&amp;&quot;&apos;",
-            "escaped string input name",
+            "escaped string input name"
         );
         t.equal(
             stringInputValue.children.length,
             1,
-            "string input has 1 child",
+            "string input has 1 child"
         );
 
         const stringInputShadow = stringInputValue.children[0];
         t.equal(
             stringInputShadow.name,
             "shadow",
-            "string input shadow is <shadow>",
+            "string input shadow is <shadow>"
         );
         t.equal(
             stringInputValue.children.length,
             1,
-            "string input shadow has 1 child",
+            "string input shadow has 1 child"
         );
 
         const stringInputField = stringInputShadow.children[0];
         t.equal(
             stringInputField.name,
             "field",
-            "string input field is <field>",
+            "string input field is <field>"
         );
         t.equal(
             stringInputField.children.length,
             1,
-            "string input field has 1 child",
+            "string input field has 1 child"
         );
 
         const stringInputFieldContent = stringInputField.children[0];
         t.equal(
             stringInputFieldContent.data,
             `default string &lt;&gt;&amp;&quot;&apos;`,
-            "escaped string input value",
+            "escaped string input value"
         );
 
         // Check the input menu
@@ -378,7 +378,7 @@ test("XML escaped in Blocks.toXML()", async (t) => {
         t.equal(
             inputMenuValue.attribs.name,
             "inputMenu &lt;&quot;&apos;&amp;&gt;",
-            "escaped input menu name",
+            "escaped input menu name"
         );
         t.equal(inputMenuValue.children.length, 1, "input menu has 1 child");
 
@@ -386,12 +386,12 @@ test("XML escaped in Blocks.toXML()", async (t) => {
         t.equal(
             inputMenuShadow.name,
             "shadow",
-            "input menu shadow is <shadow>",
+            "input menu shadow is <shadow>"
         );
         t.equal(
             inputMenuValue.children.length,
             1,
-            "input menu shadow has 1 child",
+            "input menu shadow has 1 child"
         );
 
         const inputMenuField = inputMenuShadow.children[0];
@@ -399,14 +399,14 @@ test("XML escaped in Blocks.toXML()", async (t) => {
         t.equal(
             inputMenuField.children.length,
             1,
-            "input menu field has 1 child",
+            "input menu field has 1 child"
         );
 
         const inputMenuFieldContent = inputMenuField.children[0];
         t.equal(
             inputMenuFieldContent.data,
             `default input &lt;&gt;&amp;&quot;&apos;`,
-            "escaped input menu value",
+            "escaped input menu value"
         );
 
         // Check the field menu
@@ -415,7 +415,7 @@ test("XML escaped in Blocks.toXML()", async (t) => {
         t.equal(
             fieldMenu.attribs.name,
             "fieldMenu &lt;&quot;&apos;&amp;&gt;",
-            "escaped field menu name",
+            "escaped field menu name"
         );
         t.equal(fieldMenu.children.length, 1, "field menu has 1 child");
 
@@ -423,7 +423,7 @@ test("XML escaped in Blocks.toXML()", async (t) => {
         t.equal(
             fieldMenuContent.data,
             `default field &lt;&gt;&amp;&quot;&apos;`,
-            "escaped input menu value",
+            "escaped input menu value"
         );
     };
 

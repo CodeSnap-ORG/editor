@@ -77,7 +77,7 @@ const ClippyComponent = ({ isFixed, messageSet }) => {
             ? messageSets[messageSet]
             : defaultTips;
     const [tip, setTip] = useState(
-        initialTips[Math.floor(Math.random() * initialTips.length)],
+        initialTips[Math.floor(Math.random() * initialTips.length)]
     );
     const [isVisible, setIsVisible] = useState(false);
 
@@ -90,7 +90,7 @@ const ClippyComponent = ({ isFixed, messageSet }) => {
                         ? messageSets[messageSet]
                         : defaultTips;
                 setTip(
-                    currentTips[Math.floor(Math.random() * currentTips.length)],
+                    currentTips[Math.floor(Math.random() * currentTips.length)]
                 );
             }, 5000);
 

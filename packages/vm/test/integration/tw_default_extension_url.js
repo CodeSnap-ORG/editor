@@ -1,16 +1,16 @@
 const { test } = require("tap");
 const VirtualMachine = require("../../src/virtual-machine");
 
-test("Loading project uses default extension URLs", (t) => {
+test("Loading project uses default extension URLs", t => {
     t.plan(1);
 
     const vm = new VirtualMachine();
     const events = [];
-    vm.securityManager.canLoadExtensionFromProject = (url) => {
+    vm.securityManager.canLoadExtensionFromProject = url => {
         events.push(`canLoadExtensionFromProject ${url}`);
         return true;
     };
-    vm.extensionManager.loadExtensionURL = (url) => {
+    vm.extensionManager.loadExtensionURL = url => {
         events.push(`loadExtensionURL ${url}`);
         return Promise.resolve();
     };

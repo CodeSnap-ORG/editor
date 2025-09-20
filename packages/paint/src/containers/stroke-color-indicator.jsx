@@ -26,7 +26,7 @@ const messages = defineMessages({
 
 const StrokeColorIndicator = makeColorIndicator(messages.label, true);
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     colorIndex: state.scratchPaint.fillMode.colorIndex,
     disabled:
         state.scratchPaint.mode === Modes.BRUSH ||
@@ -44,8 +44,8 @@ const mapStateToProps = (state) => ({
     textEditTarget: state.scratchPaint.textEditTarget,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    onChangeColorIndex: (index) => {
+const mapDispatchToProps = dispatch => ({
+    onChangeColorIndex: index => {
         dispatch(changeColorIndex(index));
     },
     onChangeColor: (strokeColor, index) => {
@@ -55,7 +55,7 @@ const mapDispatchToProps = (dispatch) => ({
             dispatch(changeStrokeColor2(strokeColor));
         }
     },
-    onChangeStrokeWidth: (strokeWidth) => {
+    onChangeStrokeWidth: strokeWidth => {
         dispatch(changeStrokeWidth(strokeWidth));
     },
     onOpenColor: () => {
@@ -64,15 +64,15 @@ const mapDispatchToProps = (dispatch) => ({
     onCloseColor: () => {
         dispatch(closeStrokeColor());
     },
-    onChangeGradientType: (gradientType) => {
+    onChangeGradientType: gradientType => {
         dispatch(changeStrokeGradientType(gradientType));
     },
-    setSelectedItems: (format) => {
+    setSelectedItems: format => {
         dispatch(setSelectedItems(getSelectedLeafItems(), isBitmap(format)));
     },
 });
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps,
+    mapDispatchToProps
 )(StrokeColorIndicator);

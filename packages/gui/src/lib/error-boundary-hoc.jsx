@@ -14,7 +14,7 @@ const ErrorBoundaryHOC = function (action) {
      * @returns {React.ComponentType} the component wrapped with an error boundary.
      */
     return function (WrappedComponent) {
-        const ErrorBoundaryWrapper = (props) => (
+        const ErrorBoundaryWrapper = props => (
             <ErrorBoundary action={action}>
                 <WrappedComponent {...props} />
             </ErrorBoundary>

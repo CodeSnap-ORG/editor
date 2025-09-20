@@ -12,12 +12,12 @@ const project = readFileToBuffer(projectUri);
 
 const vm = new VirtualMachine();
 
-test("spec", (t) => {
+test("spec", t => {
     t.type(vm.addSprite, "function");
     t.end();
 });
 
-test("default cat", (t) => {
+test("default cat", t => {
     // Get default cat from .sprite2
     const uri = path.resolve(__dirname, "../fixtures/example_sprite.sprite2");
     const sprite = readFileToBuffer(uri);
@@ -25,7 +25,7 @@ test("default cat", (t) => {
     vm.attachStorage(makeTestStorage());
 
     // Evaluate playground data and exit
-    vm.on("playgroundData", (e) => {
+    vm.on("playgroundData", e => {
         const threads = JSON.parse(e.threads);
         t.ok(threads.length === 0);
         vm.quit();

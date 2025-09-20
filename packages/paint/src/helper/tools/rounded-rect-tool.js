@@ -17,7 +17,7 @@ class RoundedRectTool extends paper.Tool {
         clearHoveredItem,
         setSelectedItems,
         clearSelectedItems,
-        onUpdateImage,
+        onUpdateImage
     ) {
         super();
         this.setHoveredItem = setHoveredItem;

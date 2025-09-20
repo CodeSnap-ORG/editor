@@ -24,7 +24,7 @@ const PHASES = keyMirror({
     updatePeripheral: null,
 });
 
-const ConnectionModalComponent = (props) => (
+const ConnectionModalComponent = props => (
     <Modal
         className={styles.modalContent}
         contentLabel={props.name}

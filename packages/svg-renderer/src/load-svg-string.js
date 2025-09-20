@@ -12,7 +12,7 @@ const getSandbox = require("./tw-svg-sandbox");
  */
 const collectElements = (svgTag, tagName) => {
     const elts = [];
-    const collectElementsInner = (domElement) => {
+    const collectElementsInner = domElement => {
         if (
             (domElement.localName === tagName ||
                 typeof tagName === "undefined") &&
@@ -33,7 +33,7 @@ const collectElements = (svgTag, tagName) => {
  * SVG defaults to x2 = 1 when missing.
  * @param {SVGSVGElement} svgTag the SVG tag to apply the transformation to
  */
-const transformGradients = (svgTag) => {
+const transformGradients = svgTag => {
     const linearGradientElements = collectElements(svgTag, "linearGradient");
 
     // For each gradient element, supply x2 if necessary.
@@ -49,7 +49,7 @@ const transformGradients = (svgTag) => {
  * within SVGs.
  * @param {SVGSVGElement} svgTag the SVG tag to apply the transformation to
  */
-const transformImages = (svgTag) => {
+const transformImages = svgTag => {
     const imageElements = collectElements(svgTag, "image");
 
     // For each image element, set image rendering to pixelated
@@ -59,7 +59,7 @@ const transformImages = (svgTag) => {
         if (elt.getAttribute("style")) {
             elt.setAttribute(
                 "style",
-                `${pixelatedImages} ${elt.getAttribute("style")}`,
+                `${pixelatedImages} ${elt.getAttribute("style")}`
             );
         } else {
             elt.setAttribute("style", pixelatedImages);
@@ -76,10 +76,10 @@ const transformImages = (svgTag) => {
  * 4. Any required fonts are injected.
  * @param {SVGSVGElement} svgTag the SVG tag to apply the transformation to
  */
-const transformText = (svgTag) => {
+const transformText = svgTag => {
     // Collect all text elements into a list.
     const textElements = [];
-    const collectText = (domElement) => {
+    const collectText = domElement => {
         if (domElement.localName === "text") {
             textElements.push(domElement);
         }
@@ -173,9 +173,9 @@ const transformText = (svgTag) => {
  * @param {SVGSVGElement} rootNode The root SVG node to traverse.
  * @return {number} The largest stroke width in the SVG.
  */
-const findLargestStrokeWidth = (rootNode) => {
+const findLargestStrokeWidth = rootNode => {
     let largestStrokeWidth = 0;
-    const collectStrokeWidths = (domElement) => {
+    const collectStrokeWidths = domElement => {
         if (domElement.getAttribute) {
             if (domElement.getAttribute("stroke")) {
                 largestStrokeWidth = Math.max(largestStrokeWidth, 1);
@@ -183,7 +183,7 @@ const findLargestStrokeWidth = (rootNode) => {
             if (domElement.getAttribute("stroke-width")) {
                 largestStrokeWidth = Math.max(
                     largestStrokeWidth,
-                    Number(domElement.getAttribute("stroke-width")) || 0,
+                    Number(domElement.getAttribute("stroke-width")) || 0
                 );
             }
         }
@@ -210,7 +210,7 @@ const findLargestStrokeWidth = (rootNode) => {
  * a natural and performant way.
  * @param {SVGSVGElement} svgTag the SVG tag to apply the transformation to
  */
-const transformMeasurements = (svgTag) => {
+const transformMeasurements = svgTag => {
     const sandbox = getSandbox();
 
     // Append the SVG dom to the document.
@@ -272,7 +272,7 @@ const transformMeasurements = (svgTag) => {
  * have a round `stroke-linejoin` and `stroke-linecap`... for some reason.
  * @param {SVGSVGElement} svgTag the SVG tag to apply the transformation to
  */
-const setGradientStrokeRoundedness = (svgTag) => {
+const setGradientStrokeRoundedness = svgTag => {
     const elements = collectElements(svgTag);
 
     for (const elt of elements) {

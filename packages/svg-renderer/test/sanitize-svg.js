@@ -17,25 +17,25 @@ const sanitizeSvg = require("../src/sanitize-svg");
 // find all svg fixtures with filenames ending '.sanitized.svg', and compare their
 // content to the result when we run sanitizeSvg.sanitizeSvgText() on the raw
 // versions
-test("compare svg content before and after sanitize-svg sanitizes it", (t) => {
+test("compare svg content before and after sanitize-svg sanitizes it", t => {
     const dirPath = path.resolve(__dirname, "./fixtures/");
     const fixtureFilenames = fs.readdirSync(dirPath);
     // for simplicity, we'll call those existing '.sanitized.svg' files "correct"
     const correctSvgFilenames = [];
-    fixtureFilenames.forEach((filename) => {
+    fixtureFilenames.forEach(filename => {
         if (/^.*.sanitized.svg$/.test(filename)) {
             correctSvgFilenames.push(filename);
         }
     });
-    correctSvgFilenames.forEach((correctSvgFilename) => {
+    correctSvgFilenames.forEach(correctSvgFilename => {
         // load raw svg content and run it through sanitizeSvg.sanitizeSvgText()
         const rawSvgFilename = correctSvgFilename.replace(
             ".sanitized.svg",
-            ".svg",
+            ".svg"
         );
         const rawSvgFilePath = path.resolve(
             __dirname,
-            `./fixtures/${rawSvgFilename}`,
+            `./fixtures/${rawSvgFilename}`
         );
         const rawSvgString = fs.readFileSync(rawSvgFilePath).toString();
         const testSanitizedSvgString =
@@ -44,7 +44,7 @@ test("compare svg content before and after sanitize-svg sanitizes it", (t) => {
         // load "correct" content
         const correctSvgFilePath = path.resolve(
             __dirname,
-            `./fixtures/${correctSvgFilename}`,
+            `./fixtures/${correctSvgFilename}`
         );
         const correctSvgString = fs.readFileSync(correctSvgFilePath).toString();
 

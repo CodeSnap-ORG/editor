@@ -22,7 +22,7 @@ const groupItems = function (
     items,
     clearSelectedItems,
     setSelectedItems,
-    onUpdateImage,
+    onUpdateImage
 ) {
     if (items.length > 0) {
         const group = new paper.Group(items);
@@ -48,14 +48,14 @@ const groupItems = function (
 const groupSelection = function (
     clearSelectedItems,
     setSelectedItems,
-    onUpdateImage,
+    onUpdateImage
 ) {
     const items = getSelectedRootItems();
     return groupItems(
         items,
         clearSelectedItems,
         setSelectedItems,
-        onUpdateImage,
+        onUpdateImage
     );
 };
 
@@ -137,7 +137,7 @@ const ungroupItems = function (items, setSelectedItems, onUpdateImage) {
 const ungroupSelection = function (
     clearSelectedItems,
     setSelectedItems,
-    onUpdateImage,
+    onUpdateImage
 ) {
     const items = getSelectedRootItems();
     clearSelection(clearSelectedItems);

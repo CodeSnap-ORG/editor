@@ -46,7 +46,7 @@ const complexMessage = {
 const quickExpectedResult = "The quick brown fox jumped over the lazy dog.";
 const otherExpectedResult = "Too slow, Gobo!";
 
-test("preserve non-messages", (t) => {
+test("preserve non-messages", t => {
     t.plan(nonMessages.length);
 
     for (const x of nonMessages) {
@@ -57,7 +57,7 @@ test("preserve non-messages", (t) => {
     t.end();
 });
 
-test("format messages", (t) => {
+test("format messages", t => {
     const quickResult1 = maybeFormatMessage(simpleMessage);
     t.strictNotSame(quickResult1, simpleMessage);
     t.same(quickResult1, quickExpectedResult);

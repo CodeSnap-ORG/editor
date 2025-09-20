@@ -26,7 +26,7 @@ jQuery.getScript = (src, callback) => {
  * @param {Record<string, any>|undefined} obj
  * @returns {URLSearchParams}
  */
-const objectToQueryString = (obj) => {
+const objectToQueryString = obj => {
     const params = new URLSearchParams();
     if (obj) {
         for (const key of Object.keys(obj)) {
@@ -63,12 +63,12 @@ jQuery.ajax = async (arg1, arg2) => {
         return url;
     };
 
-    const successCallback = (result) => {
+    const successCallback = result => {
         if (options.success) {
             options.success(result);
         }
     };
-    const errorCallback = (error) => {
+    const errorCallback = error => {
         log.error(error);
         if (options.error) {
             // The error object we provide here might not match what jQuery provides but it's enough to
@@ -80,7 +80,7 @@ jQuery.ajax = async (arg1, arg2) => {
     try {
         if (options.dataType === "jsonp") {
             const callbackName = `_jsonp_callback${jsonpCallback++}`;
-            global[callbackName] = (data) => {
+            global[callbackName] = data => {
                 delete global[callbackName];
                 successCallback(data);
             };

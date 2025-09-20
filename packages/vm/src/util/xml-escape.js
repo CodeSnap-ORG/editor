@@ -19,7 +19,7 @@ const xmlEscape = function (unsafe) {
             return unsafe;
         }
     }
-    return unsafe.replace(/[<>&'"]/g, (c) => {
+    return unsafe.replace(/[<>&'"]/g, c => {
         switch (c) {
             case "<":
                 return "&lt;";

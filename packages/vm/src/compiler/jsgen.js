@@ -19,7 +19,7 @@ const {
 /* eslint-disable max-len */
 /* eslint-disable prefer-template */
 
-const sanitize = (string) => {
+const sanitize = string => {
     if (typeof string !== "string") {
         log.warn(`sanitize got unexpected type: ${typeof string}`);
         string = "" + string;
@@ -305,7 +305,7 @@ class VariableInput {
     }
 }
 
-const getNamesOfCostumesAndSounds = (runtime) => {
+const getNamesOfCostumesAndSounds = runtime => {
     const result = new Set();
     for (const target of runtime.targets) {
         if (target.isOriginal) {
@@ -321,7 +321,7 @@ const getNamesOfCostumesAndSounds = (runtime) => {
     return result;
 };
 
-const isSafeConstantForEqualsOptimization = (input) => {
+const isSafeConstantForEqualsOptimization = input => {
     const numberValue = +input.constantValue;
     // Do not optimize 0
     if (!numberValue) {
@@ -385,7 +385,7 @@ class JSGenerator {
         this.currentFrame = null;
 
         this.namesOfCostumesAndSounds = getNamesOfCostumesAndSounds(
-            target.runtime,
+            target.runtime
         );
 
         this.localVariables = new VariablePool("a");
@@ -440,20 +440,20 @@ class JSGenerator {
             case "addons.call":
                 return new TypedInput(
                     `(${this.descendAddonCall(node)})`,
-                    TYPE_UNKNOWN,
+                    TYPE_UNKNOWN
                 );
             case "control.ternary":
                 console.log(node);
                 console.log(this.descendInput(node.condition).asBoolean());
                 return new TypedInput(
                     `(${this.descendInput(node.condition).asBoolean()} ? ${this.descendInput(node.left).asString()} : ${this.descendInput(node.right).asString()})`,
-                    TYPE_UNKNOWN,
+                    TYPE_UNKNOWN
                 );
             case "compat":
                 // Compatibility layer inputs never use flags.
                 return new TypedInput(
                     `(${this.generateCompatibilityLayerCall(node, false)})`,
-                    TYPE_UNKNOWN,
+                    TYPE_UNKNOWN
                 );
 
             case "constant":
@@ -462,24 +462,24 @@ class JSGenerator {
             case "counter.get":
                 return new TypedInput(
                     "runtime.ext_scratch3_control._counter",
-                    TYPE_NUMBER,
+                    TYPE_NUMBER
                 );
 
             case "keyboard.pressed":
                 return new TypedInput(
                     `runtime.ioDevices.keyboard.getKeyIsDown(${this.descendInput(node.key).asSafe()})`,
-                    TYPE_BOOLEAN,
+                    TYPE_BOOLEAN
                 );
 
             case "list.contains":
                 return new TypedInput(
                     `listContains(${this.referenceVariable(node.list)}, ${this.descendInput(node.item).asUnknown()})`,
-                    TYPE_BOOLEAN,
+                    TYPE_BOOLEAN
                 );
             case "list.contents":
                 return new TypedInput(
                     `listContents(${this.referenceVariable(node.list)})`,
-                    TYPE_STRING,
+                    TYPE_STRING
                 );
             case "list.get": {
                 const index = this.descendInput(node.index);
@@ -487,7 +487,7 @@ class JSGenerator {
                     if (index.isAlwaysNumberOrNaN()) {
                         return new TypedInput(
                             `(${this.referenceVariable(node.list)}.value[(${index.asNumber()} | 0) - 1] ?? "")`,
-                            TYPE_UNKNOWN,
+                            TYPE_UNKNOWN
                         );
                     }
                     if (
@@ -496,24 +496,24 @@ class JSGenerator {
                     ) {
                         return new TypedInput(
                             `(${this.referenceVariable(node.list)}.value[${this.referenceVariable(node.list)}.value.length - 1] ?? "")`,
-                            TYPE_UNKNOWN,
+                            TYPE_UNKNOWN
                         );
                     }
                 }
                 return new TypedInput(
                     `listGet(${this.referenceVariable(node.list)}.value, ${index.asUnknown()})`,
-                    TYPE_UNKNOWN,
+                    TYPE_UNKNOWN
                 );
             }
             case "list.indexOf":
                 return new TypedInput(
                     `listIndexOf(${this.referenceVariable(node.list)}, ${this.descendInput(node.item).asUnknown()})`,
-                    TYPE_NUMBER,
+                    TYPE_NUMBER
                 );
             case "list.length":
                 return new TypedInput(
                     `${this.referenceVariable(node.list)}.value.length`,
-                    TYPE_NUMBER,
+                    TYPE_NUMBER
                 );
 
             case "looks.size":
@@ -521,22 +521,22 @@ class JSGenerator {
             case "looks.backdropName":
                 return new TypedInput(
                     "stage.getCostumes()[stage.currentCostume].name",
-                    TYPE_STRING,
+                    TYPE_STRING
                 );
             case "looks.backdropNumber":
                 return new TypedInput(
                     "(stage.currentCostume + 1)",
-                    TYPE_NUMBER,
+                    TYPE_NUMBER
                 );
             case "looks.costumeName":
                 return new TypedInput(
                     "target.getCostumes()[target.currentCostume].name",
-                    TYPE_STRING,
+                    TYPE_STRING
                 );
             case "looks.costumeNumber":
                 return new TypedInput(
                     "(target.currentCostume + 1)",
-                    TYPE_NUMBER,
+                    TYPE_NUMBER
                 );
 
             case "motion.direction":
@@ -548,28 +548,28 @@ class JSGenerator {
             case "motion.xy":
                 return new TypedInput(
                     "[limitPrecision(target.x), limitPrecision(target.y)]",
-                    TYPE_UNKNOWN,
+                    TYPE_UNKNOWN
                 );
 
             case "mouse.down":
                 return new TypedInput(
                     "runtime.ioDevices.mouse.getIsDown()",
-                    TYPE_BOOLEAN,
+                    TYPE_BOOLEAN
                 );
             case "mouse.x":
                 return new TypedInput(
                     "runtime.ioDevices.mouse.getScratchX()",
-                    TYPE_NUMBER,
+                    TYPE_NUMBER
                 );
             case "mouse.y":
                 return new TypedInput(
                     "runtime.ioDevices.mouse.getScratchY()",
-                    TYPE_NUMBER,
+                    TYPE_NUMBER
                 );
             case "motion.xy":
                 return new TypedInput(
                     "[runtime.ioDevices.mouse.getScratchX(), runtime.ioDevices.mouse.getScratchY()]",
-                    TYPE_UNKNOWN,
+                    TYPE_UNKNOWN
                 );
 
             case "noop":
@@ -578,56 +578,56 @@ class JSGenerator {
             case "op.abs":
                 return new TypedInput(
                     `Math.abs(${this.descendInput(node.value).asNumber()})`,
-                    TYPE_NUMBER,
+                    TYPE_NUMBER
                 );
             case "op.acos":
                 // Needs to be marked as NaN because Math.acos(1.0001) === NaN
                 return new TypedInput(
                     `((Math.acos(${this.descendInput(node.value).asNumber()}) * 180) / Math.PI)`,
-                    TYPE_NUMBER_NAN,
+                    TYPE_NUMBER_NAN
                 );
             case "op.add":
                 // Needs to be marked as NaN because Infinity + -Infinity === NaN
                 return new TypedInput(
                     `(${this.descendInput(node.left).asNumber()} + ${this.descendInput(node.right).asNumber()})`,
-                    TYPE_NUMBER_NAN,
+                    TYPE_NUMBER_NAN
                 );
             case "op.exponent":
                 return new TypedInput(
                     `(${this.descendInput(node.left).asNumber()} ** ${this.descendInput(node.right).asNumber()})`,
-                    TYPE_NUMBER_NAN,
+                    TYPE_NUMBER_NAN
                 );
             case "op.asin":
                 // Needs to be marked as NaN because Math.asin(1.0001) === NaN
                 return new TypedInput(
                     `((Math.asin(${this.descendInput(node.value).asNumber()}) * 180) / Math.PI)`,
-                    TYPE_NUMBER_NAN,
+                    TYPE_NUMBER_NAN
                 );
             case "op.atan":
                 return new TypedInput(
                     `((Math.atan(${this.descendInput(node.value).asNumber()}) * 180) / Math.PI)`,
-                    TYPE_NUMBER,
+                    TYPE_NUMBER
                 );
             case "op.ceiling":
                 return new TypedInput(
                     `Math.ceil(${this.descendInput(node.value).asNumber()})`,
-                    TYPE_NUMBER,
+                    TYPE_NUMBER
                 );
             case "op.contains":
                 return new TypedInput(
                     `(${this.descendInput(node.string).asString()}.toLowerCase().indexOf(${this.descendInput(node.contains).asString()}.toLowerCase()) !== -1)`,
-                    TYPE_BOOLEAN,
+                    TYPE_BOOLEAN
                 );
             case "op.cos":
                 return new TypedInput(
                     `(Math.round(Math.cos((Math.PI * ${this.descendInput(node.value).asNumber()}) / 180) * 1e10) / 1e10)`,
-                    TYPE_NUMBER_NAN,
+                    TYPE_NUMBER_NAN
                 );
             case "op.divide":
                 // Needs to be marked as NaN because 0 / 0 === NaN
                 return new TypedInput(
                     `(${this.descendInput(node.left).asNumber()} / ${this.descendInput(node.right).asNumber()})`,
-                    TYPE_NUMBER_NAN,
+                    TYPE_NUMBER_NAN
                 );
             case "op.equals": {
                 const left = this.descendInput(node.left);
@@ -636,7 +636,7 @@ class JSGenerator {
                 if (left.isNeverNumber() || right.isNeverNumber()) {
                     return new TypedInput(
                         `(${left.asString()}.toLowerCase() === ${right.asString()}.toLowerCase())`,
-                        TYPE_BOOLEAN,
+                        TYPE_BOOLEAN
                     );
                 }
                 const leftAlwaysNumber = left.isAlwaysNumber();
@@ -645,7 +645,7 @@ class JSGenerator {
                 if (leftAlwaysNumber && rightAlwaysNumber) {
                     return new TypedInput(
                         `(${left.asNumber()} === ${right.asNumber()})`,
-                        TYPE_BOOLEAN,
+                        TYPE_BOOLEAN
                     );
                 }
                 // In certain conditions, we can use === when one of the operands is known to be a safe number.
@@ -656,7 +656,7 @@ class JSGenerator {
                 ) {
                     return new TypedInput(
                         `(${left.asNumber()} === ${right.asNumber()})`,
-                        TYPE_BOOLEAN,
+                        TYPE_BOOLEAN
                     );
                 }
                 if (
@@ -666,24 +666,24 @@ class JSGenerator {
                 ) {
                     return new TypedInput(
                         `(${left.asNumber()} === ${right.asNumber()})`,
-                        TYPE_BOOLEAN,
+                        TYPE_BOOLEAN
                     );
                 }
                 // No compile-time optimizations possible - use fallback method.
                 return new TypedInput(
                     `compareEqual(${left.asUnknown()}, ${right.asUnknown()})`,
-                    TYPE_BOOLEAN,
+                    TYPE_BOOLEAN
                 );
             }
             case "op.e^":
                 return new TypedInput(
                     `Math.exp(${this.descendInput(node.value).asNumber()})`,
-                    TYPE_NUMBER,
+                    TYPE_NUMBER
                 );
             case "op.floor":
                 return new TypedInput(
                     `Math.floor(${this.descendInput(node.value).asNumber()})`,
-                    TYPE_NUMBER,
+                    TYPE_NUMBER
                 );
             case "op.greater": {
                 const left = this.descendInput(node.left);
@@ -692,38 +692,38 @@ class JSGenerator {
                 if (left.isAlwaysNumber() && right.isAlwaysNumberOrNaN()) {
                     return new TypedInput(
                         `(${left.asNumber()} > ${right.asNumberOrNaN()})`,
-                        TYPE_BOOLEAN,
+                        TYPE_BOOLEAN
                     );
                 }
                 // When the left operand is a number or NaN and the right operand is a number, we can negate <=
                 if (left.isAlwaysNumberOrNaN() && right.isAlwaysNumber()) {
                     return new TypedInput(
                         `!(${left.asNumberOrNaN()} <= ${right.asNumber()})`,
-                        TYPE_BOOLEAN,
+                        TYPE_BOOLEAN
                     );
                 }
                 // When either operand is known to never be a number, avoid all number parsing.
                 if (left.isNeverNumber() || right.isNeverNumber()) {
                     return new TypedInput(
                         `(${left.asString()}.toLowerCase() > ${right.asString()}.toLowerCase())`,
-                        TYPE_BOOLEAN,
+                        TYPE_BOOLEAN
                     );
                 }
                 // No compile-time optimizations possible - use fallback method.
                 return new TypedInput(
                     `compareGreaterThan(${left.asUnknown()}, ${right.asUnknown()})`,
-                    TYPE_BOOLEAN,
+                    TYPE_BOOLEAN
                 );
             }
             case "op.join":
                 return new TypedInput(
                     `(${this.descendInput(node.left).asString()} + ${this.descendInput(node.right).asString()})`,
-                    TYPE_STRING,
+                    TYPE_STRING
                 );
             case "op.length":
                 return new TypedInput(
                     `${this.descendInput(node.string).asString()}.length`,
-                    TYPE_NUMBER,
+                    TYPE_NUMBER
                 );
             case "op.less": {
                 const left = this.descendInput(node.left);
@@ -732,123 +732,123 @@ class JSGenerator {
                 if (left.isAlwaysNumberOrNaN() && right.isAlwaysNumber()) {
                     return new TypedInput(
                         `(${left.asNumberOrNaN()} < ${right.asNumber()})`,
-                        TYPE_BOOLEAN,
+                        TYPE_BOOLEAN
                     );
                 }
                 // When the left operand is a number and the right operand is a number or NaN, we can negate >=
                 if (left.isAlwaysNumber() && right.isAlwaysNumberOrNaN()) {
                     return new TypedInput(
                         `!(${left.asNumber()} >= ${right.asNumberOrNaN()})`,
-                        TYPE_BOOLEAN,
+                        TYPE_BOOLEAN
                     );
                 }
                 // When either operand is known to never be a number, avoid all number parsing.
                 if (left.isNeverNumber() || right.isNeverNumber()) {
                     return new TypedInput(
                         `(${left.asString()}.toLowerCase() < ${right.asString()}.toLowerCase())`,
-                        TYPE_BOOLEAN,
+                        TYPE_BOOLEAN
                     );
                 }
                 // No compile-time optimizations possible - use fallback method.
                 return new TypedInput(
                     `compareLessThan(${left.asUnknown()}, ${right.asUnknown()})`,
-                    TYPE_BOOLEAN,
+                    TYPE_BOOLEAN
                 );
             }
             case "op.letterOf":
                 return new TypedInput(
                     `((${this.descendInput(node.string).asString()})[(${this.descendInput(node.letter).asNumber()} | 0) - 1] || "")`,
-                    TYPE_STRING,
+                    TYPE_STRING
                 );
             case "op.ln":
                 // Needs to be marked as NaN because Math.log(-1) == NaN
                 return new TypedInput(
                     `Math.log(${this.descendInput(node.value).asNumber()})`,
-                    TYPE_NUMBER_NAN,
+                    TYPE_NUMBER_NAN
                 );
             case "op.log":
                 // Needs to be marked as NaN because Math.log(-1) == NaN
                 return new TypedInput(
                     `(Math.log(${this.descendInput(node.value).asNumber()}) / Math.LN10)`,
-                    TYPE_NUMBER_NAN,
+                    TYPE_NUMBER_NAN
                 );
             case "op.mod":
                 this.descendedIntoModulo = true;
                 // Needs to be marked as NaN because mod(0, 0) (and others) == NaN
                 return new TypedInput(
                     `mod(${this.descendInput(node.left).asNumber()}, ${this.descendInput(node.right).asNumber()})`,
-                    TYPE_NUMBER_NAN,
+                    TYPE_NUMBER_NAN
                 );
             case "op.multiply":
                 // Needs to be marked as NaN because Infinity * 0 === NaN
                 return new TypedInput(
                     `(${this.descendInput(node.left).asNumber()} * ${this.descendInput(node.right).asNumber()})`,
-                    TYPE_NUMBER_NAN,
+                    TYPE_NUMBER_NAN
                 );
             case "op.not":
                 return new TypedInput(
                     `!${this.descendInput(node.operand).asBoolean()}`,
-                    TYPE_BOOLEAN,
+                    TYPE_BOOLEAN
                 );
             case "op.or":
                 return new TypedInput(
                     `(${this.descendInput(node.left).asBoolean()} || ${this.descendInput(node.right).asBoolean()})`,
-                    TYPE_BOOLEAN,
+                    TYPE_BOOLEAN
                 );
             case "op.and":
                 return new TypedInput(
                     `(${this.descendInput(node.left).asBoolean()} && ${this.descendInput(node.right).asBoolean()})`,
-                    TYPE_BOOLEAN,
+                    TYPE_BOOLEAN
                 );
             case "op.random":
                 if (node.useInts) {
                     // Both inputs are ints, so we know neither are NaN
                     return new TypedInput(
                         `randomInt(${this.descendInput(node.low).asNumber()}, ${this.descendInput(node.high).asNumber()})`,
-                        TYPE_NUMBER,
+                        TYPE_NUMBER
                     );
                 }
                 if (node.useFloats) {
                     return new TypedInput(
                         `randomFloat(${this.descendInput(node.low).asNumber()}, ${this.descendInput(node.high).asNumber()})`,
-                        TYPE_NUMBER_NAN,
+                        TYPE_NUMBER_NAN
                     );
                 }
                 return new TypedInput(
                     `runtime.ext_scratch3_operators._random(${this.descendInput(node.low).asUnknown()}, ${this.descendInput(node.high).asUnknown()})`,
-                    TYPE_NUMBER_NAN,
+                    TYPE_NUMBER_NAN
                 );
             case "op.round":
                 return new TypedInput(
                     `Math.round(${this.descendInput(node.value).asNumber()})`,
-                    TYPE_NUMBER,
+                    TYPE_NUMBER
                 );
             case "op.sin":
                 return new TypedInput(
                     `(Math.round(Math.sin((Math.PI * ${this.descendInput(node.value).asNumber()}) / 180) * 1e10) / 1e10)`,
-                    TYPE_NUMBER_NAN,
+                    TYPE_NUMBER_NAN
                 );
             case "op.sqrt":
                 // Needs to be marked as NaN because Math.sqrt(-1) === NaN
                 return new TypedInput(
                     `Math.sqrt(${this.descendInput(node.value).asNumber()})`,
-                    TYPE_NUMBER_NAN,
+                    TYPE_NUMBER_NAN
                 );
             case "op.subtract":
                 // Needs to be marked as NaN because Infinity - Infinity === NaN
                 return new TypedInput(
                     `(${this.descendInput(node.left).asNumber()} - ${this.descendInput(node.right).asNumber()})`,
-                    TYPE_NUMBER_NAN,
+                    TYPE_NUMBER_NAN
                 );
             case "op.tan":
                 return new TypedInput(
                     `tan(${this.descendInput(node.value).asNumber()})`,
-                    TYPE_NUMBER_NAN,
+                    TYPE_NUMBER_NAN
                 );
             case "op.10^":
                 return new TypedInput(
                     `(10 ** ${this.descendInput(node.value).asNumber()})`,
-                    TYPE_NUMBER,
+                    TYPE_NUMBER
                 );
 
             case "procedures.call": {
@@ -880,18 +880,18 @@ class JSGenerator {
                         : "yieldThenCall";
                     return new TypedInput(
                         `(yield* ${runtimeFunction}(${procedureReference}, ${joinedArgs}))`,
-                        TYPE_UNKNOWN,
+                        TYPE_UNKNOWN
                     );
                 }
                 if (procedureData.yields) {
                     return new TypedInput(
                         `(yield* ${procedureReference}(${joinedArgs}))`,
-                        TYPE_UNKNOWN,
+                        TYPE_UNKNOWN
                     );
                 }
                 return new TypedInput(
                     `${procedureReference}(${joinedArgs})`,
-                    TYPE_UNKNOWN,
+                    TYPE_UNKNOWN
                 );
             }
             case "procedures.argument":
@@ -900,12 +900,12 @@ class JSGenerator {
             case "sensing.answer":
                 return new TypedInput(
                     `runtime.ext_scratch3_sensing._answer`,
-                    TYPE_STRING,
+                    TYPE_STRING
                 );
             case "sensing.colorTouchingColor":
                 return new TypedInput(
                     `target.colorIsTouchingColor(colorToList(${this.descendInput(node.target).asColor()}), colorToList(${this.descendInput(node.mask).asColor()}))`,
-                    TYPE_BOOLEAN,
+                    TYPE_BOOLEAN
                 );
             case "sensing.date":
                 return new TypedInput(`(new Date().getDate())`, TYPE_NUMBER);
@@ -917,7 +917,7 @@ class JSGenerator {
                 // TODO: on stages, this can be computed at compile time
                 return new TypedInput(
                     `distance(${this.descendInput(node.target).asString()})`,
-                    TYPE_NUMBER,
+                    TYPE_NUMBER
                 );
             case "sensing.hour":
                 return new TypedInput(`(new Date().getHours())`, TYPE_NUMBER);
@@ -926,7 +926,7 @@ class JSGenerator {
             case "sensing.month":
                 return new TypedInput(
                     `(new Date().getMonth() + 1)`,
-                    TYPE_NUMBER,
+                    TYPE_NUMBER
                 );
             case "sensing.of": {
                 const object = this.descendInput(node.object).asString();
@@ -937,12 +937,12 @@ class JSGenerator {
                     const objectReference = isStage
                         ? "stage"
                         : this.evaluateOnce(
-                              `runtime.getSpriteTargetByName(${object})`,
+                              `runtime.getSpriteTargetByName(${object})`
                           );
                     if (property === "volume") {
                         return new TypedInput(
                             `(${objectReference} ? ${objectReference}.volume : 0)`,
-                            TYPE_NUMBER,
+                            TYPE_NUMBER
                         );
                     }
                     if (isStage) {
@@ -952,12 +952,12 @@ class JSGenerator {
                             case "backdrop #":
                                 return new TypedInput(
                                     `(${objectReference}.currentCostume + 1)`,
-                                    TYPE_NUMBER,
+                                    TYPE_NUMBER
                                 );
                             case "backdrop name":
                                 return new TypedInput(
                                     `${objectReference}.getCostumes()[${objectReference}.currentCostume].name`,
-                                    TYPE_STRING,
+                                    TYPE_STRING
                                 );
                         }
                     } else {
@@ -965,46 +965,46 @@ class JSGenerator {
                             case "x position":
                                 return new TypedInput(
                                     `(${objectReference} ? ${objectReference}.x : 0)`,
-                                    TYPE_NUMBER,
+                                    TYPE_NUMBER
                                 );
                             case "y position":
                                 return new TypedInput(
                                     `(${objectReference} ? ${objectReference}.y : 0)`,
-                                    TYPE_NUMBER,
+                                    TYPE_NUMBER
                                 );
                             case "direction":
                                 return new TypedInput(
                                     `(${objectReference} ? ${objectReference}.direction : 0)`,
-                                    TYPE_NUMBER,
+                                    TYPE_NUMBER
                                 );
                             case "costume #":
                                 return new TypedInput(
                                     `(${objectReference} ? ${objectReference}.currentCostume + 1 : 0)`,
-                                    TYPE_NUMBER,
+                                    TYPE_NUMBER
                                 );
                             case "costume name":
                                 return new TypedInput(
                                     `(${objectReference} ? ${objectReference}.getCostumes()[${objectReference}.currentCostume}.name : 0)`,
-                                    TYPE_UNKNOWN,
+                                    TYPE_UNKNOWN
                                 );
                             case "size":
                                 return new TypedInput(
                                     `(${objectReference} ? ${objectReference}.size : 0)`,
-                                    TYPE_NUMBER,
+                                    TYPE_NUMBER
                                 );
                         }
                     }
                     const variableReference = this.evaluateOnce(
-                        `${objectReference} && ${objectReference}.lookupVariableByNameAndType("${sanitize(property)}", "", true)`,
+                        `${objectReference} && ${objectReference}.lookupVariableByNameAndType("${sanitize(property)}", "", true)`
                     );
                     return new TypedInput(
                         `(${variableReference} ? ${variableReference}.value : 0)`,
-                        TYPE_UNKNOWN,
+                        TYPE_UNKNOWN
                     );
                 }
                 return new TypedInput(
                     `runtime.ext_scratch3_sensing.getAttributeOf({OBJECT: ${object}, PROPERTY: "${sanitize(property)}" })`,
-                    TYPE_UNKNOWN,
+                    TYPE_UNKNOWN
                 );
             }
             case "sensing.second":
@@ -1012,34 +1012,34 @@ class JSGenerator {
             case "sensing.touching":
                 return new TypedInput(
                     `target.isTouchingObject(${this.descendInput(node.object).asUnknown()})`,
-                    TYPE_BOOLEAN,
+                    TYPE_BOOLEAN
                 );
             case "sensing.touchingColor":
                 return new TypedInput(
                     `target.isTouchingColor(colorToList(${this.descendInput(node.color).asColor()}))`,
-                    TYPE_BOOLEAN,
+                    TYPE_BOOLEAN
                 );
             case "sensing.username":
                 return new TypedInput(
                     "runtime.ioDevices.userData.getUsername()",
-                    TYPE_STRING,
+                    TYPE_STRING
                 );
             case "sensing.year":
                 return new TypedInput(
                     `(new Date().getFullYear())`,
-                    TYPE_NUMBER,
+                    TYPE_NUMBER
                 );
 
             case "timer.get":
                 return new TypedInput(
                     "runtime.ioDevices.clock.projectTimer()",
-                    TYPE_NUMBER,
+                    TYPE_NUMBER
                 );
 
             case "tw.lastKeyPressed":
                 return new TypedInput(
                     "runtime.ioDevices.keyboard.getLastKeyPressed()",
-                    TYPE_STRING,
+                    TYPE_STRING
                 );
 
             case "var.get":
@@ -1054,7 +1054,7 @@ class JSGenerator {
                     if (index.isAlwaysNumberOrNaN()) {
                         return new TypedInput(
                             `(${this.descendInput(node.array).asUnknown()}[(${index.asNumber()} | 0) - 1] ?? "")`,
-                            TYPE_UNKNOWN,
+                            TYPE_UNKNOWN
                         );
                     }
                     if (
@@ -1063,62 +1063,62 @@ class JSGenerator {
                     ) {
                         return new TypedInput(
                             `(${this.descendInput(node.array).asUnknown()}[${this.descendInput(node.array).asUnknown()}.length - 1] ?? "")`,
-                            TYPE_UNKNOWN,
+                            TYPE_UNKNOWN
                         );
                     }
                 }
                 return new TypedInput(
                     `listGet(${this.descendInput(node.array).asUnknown()}, ${index.asUnknown()})`,
-                    TYPE_UNKNOWN,
+                    TYPE_UNKNOWN
                 );
             }
 
             case "array.indexOf":
                 return new TypedInput(
                     `${this.descendInput(node.array).asUnknown()}.indexOf(${this.descendInput(node.item).asUnknown()})`,
-                    TYPE_NUMBER,
+                    TYPE_NUMBER
                 );
 
             case "array.contains":
                 return new TypedInput(
                     `listContains(${this.descendInput(node.array).asUnknown()}, ${this.descendInput(node.item).asUnknown()})`,
-                    TYPE_BOOLEAN,
+                    TYPE_BOOLEAN
                 );
 
             case "array.length":
                 return new TypedInput(
                     `${this.descendInput(node.array).asUnknown()}.length`,
-                    TYPE_NUMBER,
+                    TYPE_NUMBER
                 );
 
             case "array.insert":
                 return new TypedInput(
                     `listInsert(${this.descendInput(node.array).asUnknown()}, ${this.descendInput(node.index).asUnknown()}, ${this.descendInput(node.item).asSafe()})`,
-                    TYPE_UNKNOWN,
+                    TYPE_UNKNOWN
                 );
 
             case "array.addFront":
                 return new TypedInput(
                     `[...${this.descendInput(node.array).asUnknown()}, ${this.descendInput(node.item).asSafe()}]`,
-                    TYPE_UNKNOWN,
+                    TYPE_UNKNOWN
                 );
 
             case "array.addBack":
                 return new TypedInput(
                     `[${this.descendInput(node.item).asSafe()}, ...${this.descendInput(node.array).asUnknown()}]`,
-                    TYPE_UNKNOWN,
+                    TYPE_UNKNOWN
                 );
 
             case "array.range":
                 return new TypedInput(
                     `Array.from({length: Math.max(0, ${this.descendInput(node.end).asNumber()} - ${this.descendInput(node.start).asNumber()} + 1)}, (_, i) => i + ${this.descendInput(node.start).asNumber()})`,
-                    TYPE_UNKNOWN,
+                    TYPE_UNKNOWN
                 );
 
             case "array.delimited":
                 return new TypedInput(
                     `(${this.descendInput(node.text).asString()}.split(${this.descendInput(node.delimiter).asString()}))`,
-                    TYPE_UNKNOWN,
+                    TYPE_UNKNOWN
                 );
 
             default:
@@ -1159,7 +1159,7 @@ class JSGenerator {
                         this.source += `case ${+index}: {\n`;
                         this.descendStack(
                             node.substacks[index],
-                            new Frame(false),
+                            new Frame(false)
                         );
                         this.source += `break;\n`;
                         this.source += `}\n`; // close case
@@ -1387,7 +1387,7 @@ class JSGenerator {
                 if (
                     Object.prototype.hasOwnProperty.call(
                         this.target.effects,
-                        node.effect,
+                        node.effect
                     )
                 ) {
                     this.source += `target.setEffect("${sanitize(node.effect)}", runtime.ext_scratch3_looks.clampEffect("${sanitize(node.effect)}", ${this.descendInput(node.value).asNumber()} + target.effects["${sanitize(node.effect)}"]));\n`;
@@ -1428,7 +1428,7 @@ class JSGenerator {
                 if (
                     Object.prototype.hasOwnProperty.call(
                         this.target.effects,
-                        node.effect,
+                        node.effect
                     )
                 ) {
                     this.source += `target.setEffect("${sanitize(node.effect)}", runtime.ext_scratch3_looks.clampEffect("${sanitize(node.effect)}", ${this.descendInput(node.value).asNumber()}));\n`;
@@ -1560,7 +1560,7 @@ class JSGenerator {
             }
             case "procedures.return":
                 this.stopScriptAndReturn(
-                    this.descendInput(node.value).asSafe(),
+                    this.descendInput(node.value).asSafe()
                 );
                 break;
 
@@ -1643,13 +1643,13 @@ class JSGenerator {
         if (
             Object.prototype.hasOwnProperty.call(
                 this.variableInputs,
-                variable.id,
+                variable.id
             )
         ) {
             return this.variableInputs[variable.id];
         }
         const input = new VariableInput(
-            `${this.referenceVariable(variable)}.value`,
+            `${this.referenceVariable(variable)}.value`
         );
         this.variableInputs[variable.id] = input;
         return input;
@@ -1658,7 +1658,7 @@ class JSGenerator {
     referenceVariable(variable) {
         if (variable.scope === "target") {
             return this.evaluateOnce(
-                `target.variables["${sanitize(variable.id)}"]`,
+                `target.variables["${sanitize(variable.id)}"]`
             );
         }
         return this.evaluateOnce(`stage.variables["${sanitize(variable.id)}"]`);
@@ -1786,7 +1786,7 @@ class JSGenerator {
             result += `"${sanitize(fieldName)}":"${sanitize(field)}",`;
         }
         const opcodeFunction = this.evaluateOnce(
-            `runtime.getOpcodeFunction("${sanitize(opcode)}")`,
+            `runtime.getOpcodeFunction("${sanitize(opcode)}")`
         );
         result += `}, ${opcodeFunction}, ${this.isWarp}, ${setFlags}, "${sanitize(node.id)}", ${frameName})`;
 
@@ -1871,7 +1871,7 @@ class JSGenerator {
         if (this.debug) {
             log.info(
                 `JS: ${this.target.getName()}: compiled ${this.script.procedureCode || "script"}`,
-                factory,
+                factory
             );
         }
 

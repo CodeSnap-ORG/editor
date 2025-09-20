@@ -9,11 +9,11 @@ global.WebSocket = function (url) {
 
     // These are not real websocket methods, but used to trigger callbacks
     this._open = () => this.onopen();
-    this._error = (e) => this.onerror(e);
-    this._receive = (msg) => this.onmessage(msg);
+    this._error = e => this.onerror(e);
+    this._receive = msg => this.onmessage(msg);
 
     // Stub the real websocket.send to store sent messages
-    this.send = (msg) => this._sentMessages.push(msg);
+    this.send = msg => this._sentMessages.push(msg);
     this.close = () => this.onclose();
 
     websocketConstructorCount++;
@@ -40,7 +40,7 @@ describe("CloudProvider", () => {
             fn();
         };
         // Stub randomize to make it consistent for testing.
-        cloudProvider.randomizeDuration = (t) => t;
+        cloudProvider.randomizeDuration = t => t;
     });
 
     test("createVariable", () => {

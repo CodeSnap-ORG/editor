@@ -56,7 +56,7 @@ FontFallbackButton.propTypes = {
     selected: PropTypes.bool.isRequired,
 };
 
-const FontFallback = (props) => (
+const FontFallback = props => (
     <div className={styles.fallbackContainer}>
         <div className={styles.fallbackLabel}>
             <FormattedMessage
@@ -67,7 +67,7 @@ const FontFallback = (props) => (
         </div>
 
         <div className={styles.fallbackList}>
-            {Object.values(VanillaFonts).map((family) => (
+            {Object.values(VanillaFonts).map(family => (
                 <FontFallbackButton
                     key={family}
                     family={family}

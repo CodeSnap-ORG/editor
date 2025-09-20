@@ -13,7 +13,7 @@ import analytics from "./analytics";
  * @returns {string} The string id for the tutorial, or null if the URL ID
  * was not found.
  */
-const getDeckIdFromUrlId = (urlId) => {
+const getDeckIdFromUrlId = urlId => {
     for (const deckId in tutorials) {
         if (tutorials[deckId].urlId === urlId) {
             analytics.event({
@@ -34,7 +34,7 @@ const getDeckIdFromUrlId = (urlId) => {
  * @return {string} The ID of the requested tutorial or null if no tutorial was
  * requested or found.
  */
-const detectTutorialId = (queryParams) => {
+const detectTutorialId = queryParams => {
     const tutorialID = Array.isArray(queryParams.tutorial)
         ? queryParams.tutorial[0]
         : queryParams.tutorial;

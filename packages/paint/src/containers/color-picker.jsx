@@ -15,7 +15,7 @@ import { MIXED } from "../helper/style-path";
 import Modes from "../lib/modes";
 import { colorToHex, makeAlphaComponent } from "../lib/tw-color-utils";
 
-const colorStringToHsv = (hexString) => {
+const colorStringToHsv = hexString => {
     let hsv;
     if (hexString.startsWith("#") && hexString.length === 9) {
         // parseColor does not properly parse alpha of hex colors
@@ -132,8 +132,8 @@ class ColorPicker extends React.Component {
                 this.state.hue,
                 this.state.saturation,
                 this.state.brightness,
-                this.state.alpha,
-            ),
+                this.state.alpha
+            )
         );
     }
     handleAlphaChange(alpha) {
@@ -171,7 +171,7 @@ class ColorPicker extends React.Component {
     handleActivateEyeDropper() {
         this.props.onActivateEyeDropper(
             paper.tool, // get the currently active tool from paper
-            this.props.onChangeColor,
+            this.props.onChangeColor
         );
     }
     handleChangeGradientTypeHorizontal() {
@@ -204,7 +204,7 @@ class ColorPicker extends React.Component {
                 hexColor={colorToHex(
                     this.props.colorIndex === 0
                         ? this.props.color
-                        : this.props.color2,
+                        : this.props.color2
                 )}
                 onHexColorChange={this.handleHexColorChange}
                 shouldShowGradientTools={this.props.shouldShowGradientTools}
@@ -246,14 +246,14 @@ ColorPicker.propTypes = {
     shouldShowGradientTools: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     colorIndex: state.scratchPaint.fillMode.colorIndex,
     isEyeDropping: state.scratchPaint.color.eyeDropper.active,
     mode: state.scratchPaint.mode,
     rtl: state.scratchPaint.layout.rtl,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     clearSelectedItems: () => {
         dispatch(clearSelectedItems());
     },

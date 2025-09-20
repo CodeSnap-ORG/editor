@@ -125,7 +125,7 @@ class Blocks {
         if (
             Object.prototype.hasOwnProperty.call(
                 this._cache.compiledScripts,
-                blockId,
+                blockId
             )
         ) {
             return this._cache.compiledScripts[blockId];
@@ -378,7 +378,7 @@ class Blocks {
                     const names = JSON.parse(block.mutation.argumentnames);
                     const ids = JSON.parse(block.mutation.argumentids);
                     const defaults = JSON.parse(
-                        block.mutation.argumentdefaults,
+                        block.mutation.argumentdefaults
                     );
                     this._cache.procedureParamNames[name] = [
                         names,
@@ -482,7 +482,7 @@ class Blocks {
                 if (
                     !Object.prototype.hasOwnProperty.call(
                         this._blocks,
-                        e.blockId,
+                        e.blockId
                     ) ||
                     this._blocks[e.blockId].shadow
                 ) {
@@ -513,7 +513,7 @@ class Blocks {
                         editingTarget.createVariable(
                             e.varId,
                             e.varName,
-                            e.varType,
+                            e.varType
                         );
                         this.emitProjectChanged();
                     }
@@ -524,14 +524,14 @@ class Blocks {
                     }
                     // Check for name conflicts in all of the targets
                     const allTargets = this.runtime.targets.filter(
-                        (t) => t.isOriginal,
+                        t => t.isOriginal
                     );
                     for (const target of allTargets) {
                         if (
                             target.lookupVariableByNameAndType(
                                 e.varName,
                                 e.varType,
-                                true,
+                                true
                             )
                         ) {
                             return;
@@ -541,7 +541,7 @@ class Blocks {
                         e.varId,
                         e.varName,
                         e.varType,
-                        e.isCloud,
+                        e.isCloud
                     );
                     this.emitProjectChanged();
                 }
@@ -551,7 +551,7 @@ class Blocks {
                     editingTarget &&
                     Object.prototype.hasOwnProperty.call(
                         editingTarget.variables,
-                        e.varId,
+                        e.varId
                     )
                 ) {
                     // This is a local variable, rename on the current target
@@ -560,7 +560,7 @@ class Blocks {
                     // this variable
                     editingTarget.blocks.updateBlocksAfterVarRename(
                         e.varId,
-                        e.newName,
+                        e.newName
                     );
                 } else {
                     // This is a global variable
@@ -571,7 +571,7 @@ class Blocks {
                         const currTarget = targets[i];
                         currTarget.blocks.updateBlocksAfterVarRename(
                             e.varId,
-                            e.newName,
+                            e.newName
                         );
                     }
                 }
@@ -583,7 +583,7 @@ class Blocks {
                     editingTarget &&
                     Object.prototype.hasOwnProperty.call(
                         editingTarget.variables,
-                        e.varId,
+                        e.varId
                     )
                         ? editingTarget
                         : stage;
@@ -603,7 +603,7 @@ class Blocks {
                         e.xy.y,
                         e.width,
                         e.height,
-                        e.minimized,
+                        e.minimized
                     );
 
                     if (
@@ -629,11 +629,11 @@ class Blocks {
                     if (
                         !Object.prototype.hasOwnProperty.call(
                             currTarget.comments,
-                            e.commentId,
+                            e.commentId
                         )
                     ) {
                         log.warn(
-                            `Cannot change comment with id ${e.commentId} because it does not exist.`,
+                            `Cannot change comment with id ${e.commentId} because it does not exist.`
                         );
                         return;
                     }
@@ -642,7 +642,7 @@ class Blocks {
                     if (
                         Object.prototype.hasOwnProperty.call(
                             change,
-                            "minimized",
+                            "minimized"
                         )
                     ) {
                         comment.minimized = change.minimized;
@@ -667,11 +667,11 @@ class Blocks {
                         currTarget &&
                         !Object.prototype.hasOwnProperty.call(
                             currTarget.comments,
-                            e.commentId,
+                            e.commentId
                         )
                     ) {
                         log.warn(
-                            `Cannot change comment with id ${e.commentId} because it does not exist.`,
+                            `Cannot change comment with id ${e.commentId} because it does not exist.`
                         );
                         return;
                     }
@@ -690,7 +690,7 @@ class Blocks {
                     if (
                         !Object.prototype.hasOwnProperty.call(
                             currTarget.comments,
-                            e.commentId,
+                            e.commentId
                         )
                     ) {
                         // If we're in this state, we have probably received
@@ -704,7 +704,7 @@ class Blocks {
                         const block = currTarget.blocks.getBlock(e.blockId);
                         if (!block) {
                             log.warn(
-                                `Could not find block referenced by comment with id: ${e.commentId}`,
+                                `Could not find block referenced by comment with id: ${e.commentId}`
                             );
                             return;
                         }
@@ -833,7 +833,7 @@ class Blocks {
                             Map({
                                 id: flyoutBlock.id,
                                 params: this._getBlockParams(flyoutBlock),
-                            }),
+                            })
                         );
                     }
                 }
@@ -855,7 +855,7 @@ class Blocks {
                     // multiple monitor blocks with ids based on the selected argument
                     const newId = getMonitorIdForBlockWithArgs(
                         block.id,
-                        block.fields,
+                        block.fields
                     );
                     // Note: we're not just constantly creating a longer and longer id everytime we check
                     // the checkbox because we're using the id of the block in the flyout as the base
@@ -892,7 +892,7 @@ class Blocks {
                     isSpriteLocalVariable ||
                     (Object.prototype.hasOwnProperty.call(
                         this.runtime.monitorBlockInfo,
-                        block.opcode,
+                        block.opcode
                     ) &&
                         this.runtime.monitorBlockInfo[block.opcode]
                             .isSpriteSpecific);
@@ -928,7 +928,7 @@ class Blocks {
                                     block.opcode === "data_listcontents"
                                         ? "list"
                                         : "default",
-                            }),
+                            })
                         );
                     }
                 }
@@ -999,7 +999,7 @@ class Blocks {
                 if (
                     Object.prototype.hasOwnProperty.call(
                         this._blocks[e.newParent].inputs,
-                        e.newInput,
+                        e.newInput
                     )
                 ) {
                     oldShadow =
@@ -1032,8 +1032,8 @@ class Blocks {
     runAllMonitored(runtime) {
         if (this._cache._monitored === null) {
             this._cache._monitored = Object.keys(this._blocks)
-                .filter((blockId) => this.getBlock(blockId).isMonitored)
-                .map((blockId) => {
+                .filter(blockId => this.getBlock(blockId).isMonitored)
+                .map(blockId => {
                     const targetId = this.getBlock(blockId).targetId;
                     return {
                         blockId,
@@ -1101,7 +1101,7 @@ class Blocks {
      */
     deleteAllBlocks() {
         const blockIds = Object.keys(this._blocks);
-        blockIds.forEach((blockId) => this.deleteBlock(blockId));
+        blockIds.forEach(blockId => this.deleteBlock(blockId));
     }
 
     /**
@@ -1354,7 +1354,7 @@ class Blocks {
      */
     toXML(comments) {
         return this._scripts
-            .map((script) => this.blockToXML(script, comments))
+            .map(script => this.blockToXML(script, comments))
             .join();
     }
 
@@ -1385,12 +1385,12 @@ class Blocks {
                     xmlString += comments[commentId].toXML();
                 } else {
                     log.warn(
-                        `Could not find comment with id: ${commentId} in provided comment descriptions.`,
+                        `Could not find comment with id: ${commentId} in provided comment descriptions.`
                     );
                 }
             } else {
                 log.warn(
-                    `Cannot serialize comment with id: ${commentId}; no comment descriptions provided.`,
+                    `Cannot serialize comment with id: ${commentId}; no comment descriptions provided.`
                 );
             }
         }

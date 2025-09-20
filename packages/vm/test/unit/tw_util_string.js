@@ -1,7 +1,7 @@
 const { test } = require("tap");
 const StringUtil = require("../../src/util/string-util");
 
-test("caseInsensitiveUnusedName", (t) => {
+test("caseInsensitiveUnusedName", t => {
     t.equal(StringUtil.caseInsensitiveUnusedName("test", []), "test");
     t.equal(StringUtil.caseInsensitiveUnusedName("test", ["Test"]), "test2");
     t.equal(StringUtil.caseInsensitiveUnusedName("TEST3", ["test3"]), "TEST2");
@@ -11,7 +11,7 @@ test("caseInsensitiveUnusedName", (t) => {
             "TESt1",
             "teST2",
         ]),
-        "TEST3",
+        "TEST3"
     );
     t.end();
 });

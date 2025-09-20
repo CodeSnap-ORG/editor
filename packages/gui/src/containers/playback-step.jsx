@@ -12,7 +12,7 @@ class PlaybackStep extends React.Component {
     componentDidMount() {
         this.audioBufferPlayer = new AudioBufferPlayer(
             this.props.samples,
-            this.props.sampleRate,
+            this.props.sampleRate
         );
     }
     componentWillUnmount() {
@@ -23,7 +23,7 @@ class PlaybackStep extends React.Component {
             this.props.trimStart,
             this.props.trimEnd,
             this.props.onSetPlayhead,
-            this.props.onStopPlaying,
+            this.props.onStopPlaying
         );
         this.props.onPlay();
     }

@@ -4,7 +4,7 @@ import ToolSelectComponent from "../tool-select-base/tool-select-base.jsx";
 import messages from "../../lib/messages.js";
 import fillIcon from "./fill.svg";
 
-const FillModeComponent = (props) => (
+const FillModeComponent = props => (
     <ToolSelectComponent
         imgDescriptor={messages.fill}
         imgSrc={fillIcon}

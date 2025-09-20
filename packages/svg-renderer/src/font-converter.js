@@ -10,7 +10,7 @@
 const convertFonts = function (svgTag) {
     // Collect all text elements into a list.
     const textElements = [];
-    const collectText = (domElement) => {
+    const collectText = domElement => {
         if (domElement.localName === "text") {
             textElements.push(domElement);
         }

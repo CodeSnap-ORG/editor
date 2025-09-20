@@ -84,7 +84,7 @@ class SharedDispatch {
                         service,
                         method,
                         transfer,
-                        ...args,
+                        ...args
                     );
                 }
 
@@ -123,7 +123,7 @@ class SharedDispatch {
             service,
             method,
             null,
-            ...args,
+            ...args
         );
     }
 
@@ -155,7 +155,7 @@ class SharedDispatch {
             if (transfer) {
                 provider.postMessage(
                     { service, method, responseId, args },
-                    transfer,
+                    transfer
                 );
             } else {
                 provider.postMessage({ service, method, responseId, args });
@@ -214,12 +214,12 @@ class SharedDispatch {
                 promise = this.call(
                     message.service,
                     message.method,
-                    ...message.args,
+                    ...message.args
                 );
             }
         } else if (typeof message.responseId === "undefined") {
             log.error(
-                `Dispatch caught malformed message from a worker: ${JSON.stringify(event)}`,
+                `Dispatch caught malformed message from a worker: ${JSON.stringify(event)}`
             );
         } else {
             this._deliverResponse(message.responseId, message);
@@ -227,20 +227,20 @@ class SharedDispatch {
         if (promise) {
             if (typeof message.responseId === "undefined") {
                 log.error(
-                    `Dispatch message missing required response ID: ${JSON.stringify(event)}`,
+                    `Dispatch message missing required response ID: ${JSON.stringify(event)}`
                 );
             } else {
                 promise.then(
-                    (result) =>
+                    result =>
                         worker.postMessage({
                             responseId: message.responseId,
                             result,
                         }),
-                    (error) =>
+                    error =>
                         worker.postMessage({
                             responseId: message.responseId,
                             error: `${error}`,
-                        }),
+                        })
                 );
             }
         }
@@ -255,7 +255,7 @@ class SharedDispatch {
      */
     _getServiceProvider(service) {
         throw new Error(
-            `Could not get provider for ${service}: _getServiceProvider not implemented`,
+            `Could not get provider for ${service}: _getServiceProvider not implemented`
         );
     }
 
@@ -269,7 +269,7 @@ class SharedDispatch {
      */
     _onDispatchMessage(worker, message) {
         throw new Error(
-            `Unimplemented dispatch message handler cannot handle ${message.method} method`,
+            `Unimplemented dispatch message handler cannot handle ${message.method} method`
         );
     }
 }

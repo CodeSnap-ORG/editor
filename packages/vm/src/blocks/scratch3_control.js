@@ -89,7 +89,7 @@ class Scratch3ControlBlocks {
     forEach(args, util) {
         const variable = util.target.lookupOrCreateVariable(
             args.VARIABLE.id,
-            args.VARIABLE.name,
+            args.VARIABLE.name
         );
 
         if (typeof util.stackFrame.index === "undefined") {
@@ -211,7 +211,7 @@ class Scratch3ControlBlocks {
     }
 
     async async(args, util) {
-        const delay = (ms) => new Promise((res) => setTimeout(res, ms));
+        const delay = ms => new Promise(res => setTimeout(res, ms));
         await delay(0);
         util.startBranch(1, false);
     }

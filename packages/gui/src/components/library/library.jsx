@@ -83,7 +83,7 @@ class LibraryComponent extends React.Component {
             try {
                 localStorage.setItem(
                     this.getFavoriteStorageKey(),
-                    JSON.stringify(this.state.favorites),
+                    JSON.stringify(this.state.favorites)
                 );
             } catch (error) {
                 // ignore
@@ -98,7 +98,7 @@ class LibraryComponent extends React.Component {
         let data;
         try {
             data = JSON.parse(
-                localStorage.getItem(this.getFavoriteStorageKey()),
+                localStorage.getItem(this.getFavoriteStorageKey())
             );
         } catch (error) {
             // ignore
@@ -114,9 +114,9 @@ class LibraryComponent extends React.Component {
     handleFavorite(id) {
         const data = this.getFilteredData()[id];
         const key = data[this.props.persistableKey];
-        this.setState((oldState) => ({
+        this.setState(oldState => ({
             favorites: oldState.favorites.includes(key)
-                ? oldState.favorites.filter((i) => i !== key)
+                ? oldState.favorites.filter(i => i !== key)
                 : [...oldState.favorites, key],
         }));
     }
@@ -125,12 +125,12 @@ class LibraryComponent extends React.Component {
     }
     handleTagClick(tag) {
         const tagLower = tag.toLowerCase();
-        this.setState((oldState) => {
+        this.setState(oldState => {
             let selectedTags = oldState.selectedTags.filter(
-                (t) => t !== ALL_TAG.tag,
+                t => t !== ALL_TAG.tag
             );
             if (selectedTags.includes(tagLower)) {
-                selectedTags = selectedTags.filter((t) => t !== tagLower);
+                selectedTags = selectedTags.filter(t => t !== tagLower);
             } else {
                 selectedTags = [...selectedTags, tagLower];
             }
@@ -173,7 +173,7 @@ class LibraryComponent extends React.Component {
             });
         } else {
             this.props.onItemMouseLeave(
-                this.getFilteredData()[[this.state.playingItem]],
+                this.getFilteredData()[[this.state.playingItem]]
             );
             this.setState({
                 filterQuery: event.target.value,
@@ -186,16 +186,13 @@ class LibraryComponent extends React.Component {
     }
     getFilteredData() {
         // Helper: assign 'Other' tag if needed
-        const assignOtherTag = (dataArr) =>
-            dataArr.map((dataItem) => {
+        const assignOtherTag = dataArr =>
+            dataArr.map(dataItem => {
                 if (typeof dataItem !== "object" || !dataItem) return dataItem;
-                const tags = (dataItem.tags || []).map((t) => t.toLowerCase());
+                const tags = (dataItem.tags || []).map(t => t.toLowerCase());
                 const ignored = ["scratch", "tw", "ampmod"];
                 // If no tags, or only ignored tags, add 'Other'
-                if (
-                    tags.length === 0 ||
-                    tags.every((t) => ignored.includes(t))
-                ) {
+                if (tags.length === 0 || tags.every(t => ignored.includes(t))) {
                     return { ...dataItem, tags: [...tags, "Other"] };
                 }
                 return dataItem;
@@ -209,12 +206,12 @@ class LibraryComponent extends React.Component {
         ) {
             const allData = assignOtherTag(this.props.data);
             const favoriteItems = allData
-                .filter((dataItem) =>
+                .filter(dataItem =>
                     this.state.initialFavorites.includes(
-                        dataItem[this.props.persistableKey],
-                    ),
+                        dataItem[this.props.persistableKey]
+                    )
                 )
-                .map((dataItem) => ({
+                .map(dataItem => ({
                     ...dataItem,
                     key: `favorite-${dataItem[this.props.persistableKey]}`,
                 }));
@@ -235,7 +232,7 @@ class LibraryComponent extends React.Component {
                 // ignore
             } else if (
                 this.state.initialFavorites.includes(
-                    dataItem[this.props.persistableKey],
+                    dataItem[this.props.persistableKey]
                 )
             ) {
                 favoriteItems.push(dataItem);
@@ -247,19 +244,19 @@ class LibraryComponent extends React.Component {
         let filteredItems = favoriteItems.concat(nonFavoriteItems);
 
         // Multi-tag filtering: must match ALL selected tags (except 'all')
-        const activeTags = this.state.selectedTags.filter((t) => t !== "all");
+        const activeTags = this.state.selectedTags.filter(t => t !== "all");
         if (activeTags.length > 0) {
             filteredItems = filteredItems.filter(
-                (dataItem) =>
+                dataItem =>
                     dataItem.tags &&
-                    activeTags.every((tag) =>
-                        dataItem.tags.map((i) => i.toLowerCase()).includes(tag),
-                    ),
+                    activeTags.every(tag =>
+                        dataItem.tags.map(i => i.toLowerCase()).includes(tag)
+                    )
             );
         }
 
         if (this.state.filterQuery) {
-            filteredItems = filteredItems.filter((dataItem) => {
+            filteredItems = filteredItems.filter(dataItem => {
                 const search = [...(dataItem.tags || [])];
                 if (dataItem.name) {
                     // Use the name if it is a string, else use formatMessage to get the translated name
@@ -269,7 +266,7 @@ class LibraryComponent extends React.Component {
                         search.push(
                             this.props.intl.formatMessage(dataItem.name.props, {
                                 APP_NAME,
-                            }),
+                            })
                         );
                     }
                 }
@@ -311,9 +308,7 @@ class LibraryComponent extends React.Component {
         let sidebarTags = Array.isArray(this.props.tags)
             ? [...this.props.tags]
             : [];
-        if (
-            !sidebarTags.some((t) => t.tag && t.tag.toLowerCase() === "other")
-        ) {
+        if (!sidebarTags.some(t => t.tag && t.tag.toLowerCase() === "other")) {
             sidebarTags.push("---");
             sidebarTags.push({
                 tag: "Other",
@@ -338,12 +333,12 @@ class LibraryComponent extends React.Component {
                                 <Filter
                                     className={classNames(
                                         styles.filterBarItem,
-                                        styles.filter,
+                                        styles.filter
                                     )}
                                     filterQuery={this.state.filterQuery}
                                     inputClassName={styles.filterInput}
                                     placeholderText={this.props.intl.formatMessage(
-                                        messages.filterPlaceholder,
+                                        messages.filterPlaceholder
                                     )}
                                     onChange={this.handleFilterChange}
                                     onClear={this.handleFilterClear}
@@ -354,7 +349,7 @@ class LibraryComponent extends React.Component {
                                     <div
                                         className={classNames(
                                             styles.filterBarItem,
-                                            styles.divider,
+                                            styles.divider
                                         )}
                                     />
                                 )}
@@ -378,12 +373,12 @@ class LibraryComponent extends React.Component {
                                             return (
                                                 <TagButton
                                                     active={this.state.selectedTags.includes(
-                                                        tagProps.tag.toLowerCase(),
+                                                        tagProps.tag.toLowerCase()
                                                     )}
                                                     className={classNames(
                                                         styles.filterBarItem,
                                                         styles.tagButton,
-                                                        tagProps.className,
+                                                        tagProps.className
                                                     )}
                                                     key={`tag-button-${id}`}
                                                     onClick={
@@ -433,7 +428,7 @@ class LibraryComponent extends React.Component {
                                             dataItem.incompatibleWithScratch
                                         }
                                         favorite={this.state.favorites.includes(
-                                            dataItem[this.props.persistableKey],
+                                            dataItem[this.props.persistableKey]
                                         )}
                                         onFavorite={this.handleFavorite}
                                         insetIconURL={dataItem.insetIconURL}
@@ -461,7 +456,7 @@ class LibraryComponent extends React.Component {
                                         onMouseLeave={this.handleMouseLeave}
                                         onSelect={this.handleSelect}
                                     />
-                                ),
+                                )
                             )}
                         {filteredData && this.props.removedTrademarks && (
                             <React.Fragment>
@@ -504,7 +499,7 @@ LibraryComponent.propTypes = {
                 }),
                 PropTypes.string,
                 /* eslint-enable react/no-unused-prop-types, lines-around-comment */
-            ]),
+            ])
         ),
         PropTypes.instanceOf(Promise),
     ]),

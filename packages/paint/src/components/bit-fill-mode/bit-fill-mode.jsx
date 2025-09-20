@@ -5,7 +5,7 @@ import ToolSelectComponent from "../tool-select-base/tool-select-base.jsx";
 import messages from "../../lib/messages.js";
 import fillIcon from "./fill.svg";
 
-const BitFillComponent = (props) => (
+const BitFillComponent = props => (
     <ToolSelectComponent
         imgDescriptor={messages.fill}
         imgSrc={fillIcon}

@@ -69,7 +69,7 @@ TargetHighlight.propTypes = {
     vm: PropTypes.instanceOf(VM),
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     highlightedTargetTime: state.scratchGui.targets.highlightedTargetTime,
     highlightedTargetId: state.scratchGui.targets.highlightedTargetId,
     vm: state.scratchGui.vm,

@@ -40,13 +40,13 @@ const TWFullScreenResizerHOC = function (WrappedComponent) {
         isFullScreen: PropTypes.bool,
         onSetDimensions: PropTypes.func,
     };
-    const mapStateToProps = (state) => ({
+    const mapStateToProps = state => ({
         isFullScreen:
             state.scratchGui.mode.isFullScreen ||
             state.scratchGui.mode.isEmbedded,
     });
-    const mapDispatchToProps = (dispatch) => ({
-        onSetDimensions: (dimensions) => dispatch(setDimensions(dimensions)),
+    const mapDispatchToProps = dispatch => ({
+        onSetDimensions: dimensions => dispatch(setDimensions(dimensions)),
     });
     return connect(mapStateToProps, mapDispatchToProps)(FullScreenResizer);
 };

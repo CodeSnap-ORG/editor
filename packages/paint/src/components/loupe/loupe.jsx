@@ -40,7 +40,7 @@ class LoupeComponent extends React.Component {
             0,
             0,
             loupeDiameter,
-            loupeDiameter,
+            loupeDiameter
         );
 
         // Draw an outlined square at the cursor position (cursor is hidden)
@@ -52,7 +52,7 @@ class LoupeComponent extends React.Component {
             loupeRadius - boxSize / 2,
             loupeRadius - boxSize / 2,
             boxSize,
-            boxSize,
+            boxSize
         );
         ctx.fill();
         ctx.stroke();

@@ -118,7 +118,7 @@ class LoaderComponent extends React.Component {
     componentDidMount() {
         this.handleAssetProgress(
             this.props.vm.runtime.finishedAssetRequests,
-            this.props.vm.runtime.totalAssetRequests,
+            this.props.vm.runtime.totalAssetRequests
         );
         this.props.vm.on("ASSET_PROGRESS", this.handleAssetProgress);
         this.props.vm.runtime.on("PROJECT_LOADED", this.handleProjectLoaded);
@@ -154,7 +154,7 @@ class LoaderComponent extends React.Component {
             // Started loading a new project.
             this.barInnerEl.style.width = "0";
             this.messageEl.textContent = this.props.intl.formatMessage(
-                messages.projectData,
+                messages.projectData
             );
         } else {
             this.barInnerEl.style.width = `${(finished / total) * 100}%`;
@@ -166,7 +166,7 @@ class LoaderComponent extends React.Component {
                 {
                     complete: finished,
                     total,
-                },
+                }
             );
         }
     }
@@ -255,7 +255,7 @@ LoaderComponent.defaultProps = {
     messageId: "gui.loader.headline",
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     isRemote: getIsLoadingWithId(state.scratchGui.projectState.loadingState),
     vm: state.scratchGui.vm,
 });
@@ -264,5 +264,5 @@ const mapDispatchToProps = () => ({});
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps,
+    mapDispatchToProps
 )(injectIntl(LoaderComponent));

@@ -86,7 +86,7 @@ class LanguageMenu extends React.PureComponent {
                     className={styles.languageSubmenu}
                     place={this.props.isRtl ? "left" : "right"}
                 >
-                    {Object.keys(locales).map((locale) => (
+                    {Object.keys(locales).map(locale => (
                         <MenuItem
                             key={locale}
                             className={styles.languageMenuItem}
@@ -123,7 +123,7 @@ LanguageMenu.propTypes = {
     onRequestOpen: PropTypes.func,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     currentLocale: state.locales.locale,
     isRtl: state.locales.isRtl,
     menuOpen: languageMenuOpen(state),
@@ -131,7 +131,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    onChangeLanguage: (locale) => {
+    onChangeLanguage: locale => {
         dispatch(selectLocale(locale));
         ownProps.onRequestCloseSettings();
     },

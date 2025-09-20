@@ -15,7 +15,7 @@ const reducer = (state = initialState, action) => {
     }
 };
 
-const setTheme = (theme) => ({
+const setTheme = theme => ({
     type: SET_THEME,
     theme,
 });

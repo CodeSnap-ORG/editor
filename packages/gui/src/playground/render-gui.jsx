@@ -5,7 +5,7 @@ const searchParams = new URLSearchParams(location.search);
 const cloudHost =
     searchParams.get("cloud_host") || "wss://clouddata.turbowarp.org";
 
-const RenderGUI = (props) => {
+const RenderGUI = props => {
     return (
         <GUI
             cloudHost={cloudHost}

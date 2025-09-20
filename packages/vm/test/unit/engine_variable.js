@@ -2,7 +2,7 @@ const test = require("tap").test;
 const Variable = require("../../src/engine/variable");
 const htmlparser = require("htmlparser2");
 
-test("spec", (t) => {
+test("spec", t => {
     t.type(typeof Variable.SCALAR_TYPE, typeof Variable.LIST_TYPE);
     t.type(typeof Variable.SCALAR_TYPE, typeof Variable.BROADCAST_MESSAGE_TYPE);
 
@@ -30,14 +30,14 @@ test("spec", (t) => {
         varId,
         varName,
         Variable.BROADCAST_MESSAGE_TYPE,
-        varIsCloud,
+        varIsCloud
     );
     t.equal(v.value, "varName");
 
     t.end();
 });
 
-test("toXML", (t) => {
+test("toXML", t => {
     const varId = "varId";
     const varName = "varName";
     const varIsCloud = false;
@@ -58,7 +58,7 @@ test("toXML", (t) => {
                 t.equal(text, varName);
             },
         },
-        { decodeEntities: false },
+        { decodeEntities: false }
     );
     parser.write(v.toXML(false));
     parser.end();
@@ -66,7 +66,7 @@ test("toXML", (t) => {
     t.end();
 });
 
-test("escape variable name for XML", (t) => {
+test("escape variable name for XML", t => {
     const varId = "varId";
     const varName = "<>&'\"";
     const varIsCloud = false;
@@ -87,7 +87,7 @@ test("escape variable name for XML", (t) => {
                 t.equal(text, "&lt;&gt;&amp;&apos;&quot;");
             },
         },
-        { decodeEntities: false },
+        { decodeEntities: false }
     );
     parser.write(v.toXML(false));
     parser.end();

@@ -146,7 +146,7 @@ const messages = defineMessages({
     },
 });
 
-const formatTime = (timeSeconds) => {
+const formatTime = timeSeconds => {
     const minutes = Math.floor(timeSeconds / 60)
         .toString()
         .padStart(2, "0");
@@ -158,7 +158,7 @@ const formatDuration = (
     playheadPercent,
     trimStartPercent,
     trimEndPercent,
-    durationSeconds,
+    durationSeconds
 ) => {
     // If no selection, the trim is the entire sound.
     trimStartPercent = trimStartPercent === null ? 0 : trimStartPercent;
@@ -179,14 +179,14 @@ const formatDuration = (
     return `${formatTime(currentTime)} / ${formatTime(trimDuration)}`;
 };
 
-const formatSoundSize = (bytes) => {
+const formatSoundSize = bytes => {
     if (bytes > 1000 * 1000) {
         return `${(bytes / 1000 / 1000).toFixed(2)}MB`;
     }
     return `${(bytes / 1000).toFixed(2)}KB`;
 };
 
-const SoundEditor = (props) => (
+const SoundEditor = props => (
     <div
         className={styles.editorContainer}
         ref={props.setRef}
@@ -276,14 +276,14 @@ const SoundEditor = (props) => (
             <div
                 className={classNames(
                     styles.roundButtonOuter,
-                    styles.inputGroup,
+                    styles.inputGroup
                 )}
             >
                 {props.playhead ? (
                     <button
                         className={classNames(
                             styles.roundButton,
-                            styles.stopButtonn,
+                            styles.stopButtonn
                         )}
                         title={props.intl.formatMessage(messages.stop)}
                         onClick={props.onStop}
@@ -294,7 +294,7 @@ const SoundEditor = (props) => (
                     <button
                         className={classNames(
                             styles.roundButton,
-                            styles.playButton,
+                            styles.playButton
                         )}
                         title={props.intl.formatMessage(messages.play)}
                         onClick={props.onPlay}
@@ -320,7 +320,7 @@ const SoundEditor = (props) => (
                     disabled={props.tooLoud}
                     className={classNames(
                         styles.effectButton,
-                        styles.flipInRtl,
+                        styles.flipInRtl
                     )}
                     img={louderIcon}
                     title={<FormattedMessage {...messages.louder} />}
@@ -329,7 +329,7 @@ const SoundEditor = (props) => (
                 <IconButton
                     className={classNames(
                         styles.effectButton,
-                        styles.flipInRtl,
+                        styles.flipInRtl
                     )}
                     img={softerIcon}
                     title={<FormattedMessage {...messages.softer} />}
@@ -338,7 +338,7 @@ const SoundEditor = (props) => (
                 <IconButton
                     className={classNames(
                         styles.effectButton,
-                        styles.flipInRtl,
+                        styles.flipInRtl
                     )}
                     img={muteIcon}
                     title={<FormattedMessage {...messages.mute} />}
@@ -382,7 +382,7 @@ const SoundEditor = (props) => (
                     props.playhead,
                     props.trimStart,
                     props.trimEnd,
-                    props.duration,
+                    props.duration
                 )}
             </div>
             <div className={styles.advancedInfo}>

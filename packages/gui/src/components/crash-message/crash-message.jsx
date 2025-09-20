@@ -6,7 +6,7 @@ import { FormattedMessage } from "react-intl";
 import styles from "./crash-message.css";
 import reloadIcon from "./reload.svg";
 
-const CrashMessage = (props) => {
+const CrashMessage = props => {
     const [copied, setCopied] = useState(false);
 
     const handleCopy = () => {
@@ -142,7 +142,7 @@ const CrashMessage = (props) => {
                                     onClick={() => {
                                         var search = location.search.replace(
                                             /[?&]nocache=\d+/,
-                                            "",
+                                            ""
                                         );
                                         location.replace(
                                             location.pathname +
@@ -150,8 +150,8 @@ const CrashMessage = (props) => {
                                                 (search ? "&" : "?") +
                                                 "nocache=" +
                                                 Math.floor(
-                                                    Math.random() * 100000,
-                                                ),
+                                                    Math.random() * 100000
+                                                )
                                         );
                                     }}
                                 >
@@ -168,23 +168,23 @@ const CrashMessage = (props) => {
                                     onClick={() => {
                                         if (
                                             window.confirm(
-                                                "Your backpack and restore points will be deleted. Continue?",
+                                                "Your backpack and restore points will be deleted. Continue?"
                                             )
                                         ) {
                                             window.indexedDB.deleteDatabase(
-                                                "TW_RestorePoints",
+                                                "TW_RestorePoints"
                                             );
                                             window.indexedDB.deleteDatabase(
-                                                "TW_Backpack",
+                                                "TW_Backpack"
                                             );
                                             window.localStorage.removeItem(
-                                                "tw:theme",
+                                                "tw:theme"
                                             );
                                             window.localStorage.removeItem(
-                                                "tw:username",
+                                                "tw:username"
                                             );
                                             window.localStorage.removeItem(
-                                                "tw:language",
+                                                "tw:language"
                                             );
                                             window.location.reload();
                                         }

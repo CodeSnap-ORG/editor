@@ -58,7 +58,7 @@ const messages = defineMessages({
     },
 });
 
-const PaintEditorComponent = (props) => (
+const PaintEditorComponent = props => (
     <div
         className={styles.editorContainer}
         dir={props.rtl ? "rtl" : "ltr"}
@@ -86,7 +86,7 @@ const PaintEditorComponent = (props) => (
                             className={classNames(
                                 styles.row,
                                 styles.modDashedBorder,
-                                styles.modLabeledIconHeight,
+                                styles.modLabeledIconHeight
                             )}
                         >
                             {/* fill */}
@@ -116,7 +116,7 @@ const PaintEditorComponent = (props) => (
                             className={classNames(
                                 styles.row,
                                 styles.modDashedBorder,
-                                styles.modLabeledIconHeight,
+                                styles.modLabeledIconHeight
                             )}
                         >
                             {/* fill */}

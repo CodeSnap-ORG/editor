@@ -102,7 +102,7 @@ class SpriteInfo extends React.Component {
                 })}
                 disabled={this.props.disabled}
                 placeholder={this.props.intl.formatMessage(
-                    messages.spritePlaceholder,
+                    messages.spritePlaceholder
                 )}
                 tabIndex="0"
                 type="text"
@@ -207,7 +207,7 @@ class SpriteInfo extends React.Component {
                                         this.props.visible &&
                                         !this.props.disabled,
                                     title: this.props.intl.formatMessage(
-                                        messages.showSpriteAction,
+                                        messages.showSpriteAction
                                     ),
                                 },
                                 {
@@ -217,7 +217,7 @@ class SpriteInfo extends React.Component {
                                         !this.props.visible &&
                                         !this.props.disabled,
                                     title: this.props.intl.formatMessage(
-                                        messages.hideSpriteAction,
+                                        messages.hideSpriteAction
                                     ),
                                 },
                             ]}
@@ -239,7 +239,7 @@ class SpriteInfo extends React.Component {
                                             this.props.draggable &&
                                             !this.props.disabled,
                                         title: this.props.intl.formatMessage(
-                                            messages.draggableSpriteAction,
+                                            messages.draggableSpriteAction
                                         ),
                                     },
                                     {
@@ -250,7 +250,7 @@ class SpriteInfo extends React.Component {
                                             !this.props.draggable &&
                                             !this.props.disabled,
                                         title: this.props.intl.formatMessage(
-                                            messages.nonDraggableSpriteAction,
+                                            messages.nonDraggableSpriteAction
                                         ),
                                     },
                                 ]}

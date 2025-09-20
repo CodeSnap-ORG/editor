@@ -19,7 +19,7 @@ const messages = defineMessages({
     },
 });
 
-const platformToString = (platform) => {
+const platformToString = platform => {
     if (!platform) {
         return "(?)";
     }
@@ -33,7 +33,7 @@ const platformToString = (platform) => {
     return "(?)";
 };
 
-const UnknownPlatformModal = (props) => (
+const UnknownPlatformModal = props => (
     <Modal
         className={styles.modalContent}
         onRequestClose={props.onClose}

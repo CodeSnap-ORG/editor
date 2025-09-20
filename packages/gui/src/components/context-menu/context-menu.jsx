@@ -4,15 +4,15 @@ import classNames from "classnames";
 
 import styles from "./context-menu.css";
 
-const StyledContextMenu = (props) => (
+const StyledContextMenu = props => (
     <ContextMenu {...props} className={styles.contextMenu} />
 );
 
-const StyledMenuItem = (props) => (
+const StyledMenuItem = props => (
     <MenuItem {...props} attributes={{ className: styles.menuItem }} />
 );
 
-const BorderedMenuItem = (props) => (
+const BorderedMenuItem = props => (
     <MenuItem
         {...props}
         attributes={{
@@ -21,14 +21,14 @@ const BorderedMenuItem = (props) => (
     />
 );
 
-const DangerousMenuItem = (props) => (
+const DangerousMenuItem = props => (
     <MenuItem
         {...props}
         attributes={{
             className: classNames(
                 styles.menuItem,
                 styles.menuItemBordered,
-                styles.menuItemDanger,
+                styles.menuItemDanger
             ),
         }}
     />

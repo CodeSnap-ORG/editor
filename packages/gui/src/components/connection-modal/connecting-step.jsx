@@ -11,7 +11,7 @@ import closeIcon from "../close-button/icon--close.svg";
 
 import styles from "./connection-modal.css";
 
-const ConnectingStep = (props) => (
+const ConnectingStep = props => (
     <Box className={styles.body}>
         <Box className={styles.activityArea}>
             <Box className={styles.centeredRow}>
@@ -33,7 +33,7 @@ const ConnectingStep = (props) => (
             <Box
                 className={classNames(
                     styles.bottomAreaItem,
-                    styles.instructions,
+                    styles.instructions
                 )}
             >
                 {props.connectingMessage}
@@ -42,7 +42,7 @@ const ConnectingStep = (props) => (
             <div
                 className={classNames(
                     styles.bottomAreaItem,
-                    styles.segmentedButton,
+                    styles.segmentedButton
                 )}
             >
                 <button disabled className={styles.connectionButton}>

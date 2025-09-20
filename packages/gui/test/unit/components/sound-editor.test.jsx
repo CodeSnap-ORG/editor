@@ -44,7 +44,7 @@ describe("Sound Editor Component", () => {
 
     test("delete button appears when selection is not null", () => {
         const wrapper = mountWithIntl(
-            <SoundEditor {...props} trimEnd={0.75} trimStart={0.25} />,
+            <SoundEditor {...props} trimEnd={0.75} trimStart={0.25} />
         );
         wrapper.find('[children="Delete"]').simulate("click");
         expect(props.onDelete).toHaveBeenCalled();
@@ -52,7 +52,7 @@ describe("Sound Editor Component", () => {
 
     test("play button appears when playhead is null", () => {
         const wrapper = mountWithIntl(
-            <SoundEditor {...props} playhead={null} />,
+            <SoundEditor {...props} playhead={null} />
         );
         wrapper.find('button[title="Play"]').simulate("click");
         expect(props.onPlay).toHaveBeenCalled();
@@ -60,7 +60,7 @@ describe("Sound Editor Component", () => {
 
     test("stop button appears when playhead is not null", () => {
         const wrapper = mountWithIntl(
-            <SoundEditor {...props} playhead={0.5} />,
+            <SoundEditor {...props} playhead={0.5} />
         );
         wrapper.find('button[title="Stop"]').simulate("click");
         expect(props.onStop).toHaveBeenCalled();
@@ -99,29 +99,29 @@ describe("Sound Editor Component", () => {
 
     test("undo and redo buttons can be disabled by canUndo/canRedo", () => {
         let wrapper = mountWithIntl(
-            <SoundEditor {...props} canUndo canRedo={false} />,
+            <SoundEditor {...props} canUndo canRedo={false} />
         );
         expect(wrapper.find('button[title="Undo"]').prop("disabled")).toBe(
-            false,
+            false
         );
         expect(wrapper.find('button[title="Redo"]').prop("disabled")).toBe(
-            true,
+            true
         );
 
         wrapper = mountWithIntl(
-            <SoundEditor {...props} canRedo canUndo={false} />,
+            <SoundEditor {...props} canRedo canUndo={false} />
         );
         expect(wrapper.find('button[title="Undo"]').prop("disabled")).toBe(
-            true,
+            true
         );
         expect(wrapper.find('button[title="Redo"]').prop("disabled")).toBe(
-            false,
+            false
         );
     });
 
     test.skip("undo/redo buttons call the correct callback", () => {
         const wrapper = mountWithIntl(
-            <SoundEditor {...props} canRedo canUndo />,
+            <SoundEditor {...props} canRedo canUndo />
         );
         wrapper.find('button[title="Undo"]').simulate("click");
         expect(props.onUndo).toHaveBeenCalled();

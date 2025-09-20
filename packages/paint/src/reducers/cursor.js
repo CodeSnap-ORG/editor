@@ -12,12 +12,12 @@ const reducer = function (state, action) {
         case CHANGE_CURSOR:
             if (typeof action.cursorString === "undefined") {
                 log.warn(
-                    `Cursor should not be set to undefined. Use 'default'.`,
+                    `Cursor should not be set to undefined. Use 'default'.`
                 );
                 return state;
             } else if (!Object.values(Cursors).includes(action.cursorString)) {
                 log.warn(
-                    `Cursor should be a valid cursor string. Got: ${action.cursorString}`,
+                    `Cursor should be a valid cursor string. Got: ${action.cursorString}`
                 );
             }
             return action.cursorString;

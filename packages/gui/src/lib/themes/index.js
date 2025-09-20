@@ -58,7 +58,7 @@ const BLOCKS_MAP = {
         colors: defaultsDeep(
             {},
             blocksHighContrast.blockColors,
-            defaultBlockColors,
+            defaultBlockColors
         ),
         extensions: blocksHighContrast.extensions,
         customExtensionColors: blocksHighContrast.customExtensionColors,
@@ -107,7 +107,7 @@ class Theme {
     static highContrast = new Theme(
         ACCENT_DEFAULT,
         GUI_DEFAULT,
-        BLOCKS_HIGH_CONTRAST,
+        BLOCKS_HIGH_CONTRAST
     );
 
     set(what, to) {
@@ -130,7 +130,7 @@ class Theme {
             {},
             ACCENT_MAP[this.accent].guiColors,
             GUI_MAP[this.gui].guiColors,
-            guiLight.guiColors,
+            guiLight.guiColors
         );
     }
 
@@ -139,7 +139,7 @@ class Theme {
             {},
             ACCENT_MAP[this.accent].blockColors,
             GUI_MAP[this.gui].blockColors,
-            BLOCKS_MAP[this.blocks].colors,
+            BLOCKS_MAP[this.blocks].colors
         );
     }
 

@@ -11,7 +11,7 @@ import { persistTheme } from "../../lib/themes/themePersistance.js";
 import addonsIcon from "./addons.svg";
 import styles from "./settings-menu.css";
 
-const handleClickAddonSettings = (addonId) => {
+const handleClickAddonSettings = addonId => {
     // addonId might be a string of the addon to focus on, undefined, or an event (treat like undefined)
     const path =
         process.env.ROUTING_STYLE === "wildcard" ? "addons" : "addons.html";
@@ -43,12 +43,12 @@ GuiThemeMenu.propTypes = {
     theme: PropTypes.instanceOf(Theme),
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     theme: state.scratchGui.theme.theme,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    onChangeTheme: (theme) => {
+const mapDispatchToProps = dispatch => ({
+    onChangeTheme: theme => {
         dispatch(setTheme(theme));
         dispatch(closeSettingsMenu());
         persistTheme(theme);

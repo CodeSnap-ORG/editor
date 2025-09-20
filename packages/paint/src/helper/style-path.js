@@ -27,7 +27,7 @@ const _getColorStateListeners = function (textEditTargetId) {
     const items = getSelectedLeafItems();
     if (textEditTargetId) {
         const matches = getItems({
-            match: (item) => item.id === textEditTargetId,
+            match: item => item.id === textEditTargetId,
         });
         if (matches.length) {
             items.push(matches[0]);
@@ -95,7 +95,7 @@ const createGradientObject = function (
     gradientType,
     bounds,
     radialCenter,
-    minSize,
+    minSize
 ) {
     if (gradientType === GradientTypes.SOLID) return color1;
     if (color1 === null) {
@@ -144,7 +144,7 @@ const createGradientObject = function (
                 Math.max(bounds.width, bounds.height) / 2;
             start = radialCenter || bounds.center;
             end = start.add(
-                new paper.Point(Math.max(halfLongestDimension, minSize / 2), 0),
+                new paper.Point(Math.max(halfLongestDimension, minSize / 2), 0)
             );
             break;
         }
@@ -175,7 +175,7 @@ const applyColorToSelection = function (
     colorIndex,
     isSolidGradient,
     applyToStroke,
-    textEditTargetId,
+    textEditTargetId
 ) {
     const items = _getColorStateListeners(textEditTargetId);
     let changed = false;
@@ -206,7 +206,7 @@ const applyColorToSelection = function (
         } else if (
             !_colorMatch(
                 itemColor.gradient.stops[colorIndex].color,
-                colorString,
+                colorString
             )
         ) {
             // Changing one color of an existing gradient
@@ -214,7 +214,7 @@ const applyColorToSelection = function (
             const otherIndex = colorIndex === 0 ? 1 : 0;
             if (colorString === null) {
                 colorString = getColorStringForTransparent(
-                    itemColor.gradient.stops[otherIndex].color.toCSS(),
+                    itemColor.gradient.stops[otherIndex].color.toCSS()
                 );
             }
             const colors = [0, 0];
@@ -261,7 +261,7 @@ const swapColorsInSelection = function (applyToStroke, textEditTargetId) {
             continue;
         } else if (
             !itemColor.gradient.stops[0].color.equals(
-                itemColor.gradient.stops[1].color,
+                itemColor.gradient.stops[1].color
             )
         ) {
             // Changing one color of an existing gradient
@@ -290,7 +290,7 @@ const swapColorsInSelection = function (applyToStroke, textEditTargetId) {
 const applyGradientTypeToSelection = function (
     gradientType,
     applyToStroke,
-    textEditTargetId,
+    textEditTargetId
 ) {
     const items = _getColorStateListeners(textEditTargetId);
     let changed = false;
@@ -410,7 +410,7 @@ const applyGradientTypeToSelection = function (
                 gradientType,
                 item.bounds,
                 null, // radialCenter
-                item.strokeWidth,
+                item.strokeWidth
             );
         }
     }
@@ -440,7 +440,7 @@ const applyStrokeWidthToSelection = function (value, textEditTargetId) {
     return changed;
 };
 
-const _colorStateFromGradient = (gradient) => {
+const _colorStateFromGradient = gradient => {
     const colorState = {};
     // Scratch only recognizes 2 color gradients
     if (gradient.stops.length === 2) {
@@ -631,7 +631,7 @@ const getColorsFromSelection = function (selectedItems, bitmapMode) {
                     ? firstItem.strokeColor
                     : firstItem.fillColor;
             const direction = firstItemColor.destination.subtract(
-                firstItemColor.origin,
+                firstItemColor.origin
             );
             if (Math.abs(direction.angle) === 90) {
                 selectionFillGradientType = GradientTypes.VERTICAL;
@@ -640,7 +640,7 @@ const getColorsFromSelection = function (selectedItems, bitmapMode) {
 
         if (selectionStrokeGradientType !== GradientTypes.SOLID) {
             const direction = firstItem.strokeColor.destination.subtract(
-                firstItem.strokeColor.origin,
+                firstItem.strokeColor.origin
             );
             if (Math.abs(direction.angle) === 90) {
                 selectionStrokeGradientType = GradientTypes.VERTICAL;
@@ -717,7 +717,7 @@ const styleShape = function (path, options) {
                 gradientType,
                 path.bounds,
                 null, // radialCenter
-                options.strokeWidth, // minimum gradient size is stroke width
+                options.strokeWidth // minimum gradient size is stroke width
             );
         }
     }

@@ -39,7 +39,7 @@ Cards.propTypes = {
     locale: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     visible: state.scratchGui.cards.visible,
     content: state.scratchGui.cards.content,
     activeDeckId: state.scratchGui.cards.activeDeckId,
@@ -53,8 +53,8 @@ const mapStateToProps = (state) => ({
     showVideos: notScratchDesktop(),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    onActivateDeckFactory: (id) => () => dispatch(activateDeck(id)),
+const mapDispatchToProps = dispatch => ({
+    onActivateDeckFactory: id => () => dispatch(activateDeck(id)),
     onShowAll: () => {
         dispatch(openTipsLibrary());
         dispatch(closeCards());

@@ -68,7 +68,7 @@ const icons = {
     [ACCENT_RAINBOW]: rainbowIcon,
 };
 
-const ColorIcon = (props) =>
+const ColorIcon = props =>
     icons[props.id] ? (
         <img
             className={styles.accentIconOuter}
@@ -94,7 +94,7 @@ ColorIcon.propTypes = {
     id: PropTypes.string,
 };
 
-const AccentMenuItem = (props) => (
+const AccentMenuItem = props => (
     <MenuItem onClick={props.onClick}>
         <div className={styles.option}>
             <img
@@ -136,7 +136,7 @@ const AccentThemeMenu = ({ isOpen, isRtl, onChangeTheme, onOpen, theme }) => (
             />
         </div>
         <Submenu place={isRtl ? "left" : "right"}>
-            {Object.keys(options).map((item) => (
+            {Object.keys(options).map(item => (
                 <AccentMenuItem
                     key={item}
                     id={item}
@@ -157,14 +157,14 @@ AccentThemeMenu.propTypes = {
     theme: PropTypes.instanceOf(Theme),
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     isOpen: accentMenuOpen(state),
     isRtl: state.locales.isRtl,
     theme: state.scratchGui.theme.theme,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    onChangeTheme: (theme) => {
+const mapDispatchToProps = dispatch => ({
+    onChangeTheme: theme => {
         dispatch(setTheme(theme));
         dispatch(closeSettingsMenu());
         persistTheme(theme);

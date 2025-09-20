@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import styles from "./scrollable-canvas.css";
 
-const ScrollableCanvasComponent = (props) => (
+const ScrollableCanvasComponent = props => (
     <div className={props.style}>
         {props.children}
         <div

@@ -15,7 +15,7 @@ defaults.set("tw", "https://ampmod.codeberg.page/extensions/turbowarp/tw.js");
 // Turboloader's AudioStream
 defaults.set(
     "audiostr",
-    "https://extensions.turbowarp.org/turboloader/audiostream.js",
+    "https://extensions.turbowarp.org/turboloader/audiostream.js"
 );
 
 module.exports = defaults;

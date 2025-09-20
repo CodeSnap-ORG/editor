@@ -185,7 +185,7 @@ class ModeTools extends React.Component {
         for (let i = 0; i < selectedItems.length; i++) {
             itemGroup.layer.insertChild(
                 selectedItems[i].data.index,
-                selectedItems[i],
+                selectedItems[i]
             );
             selectedItems[i].data.index = null;
         }
@@ -262,20 +262,20 @@ ModeTools.propTypes = {
     setSelectedItems: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     format: state.scratchPaint.format,
     mode: state.scratchPaint.mode,
     selectedItems: state.scratchPaint.selectedItems,
 });
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     clearSelectedItems: () => {
         dispatch(clearSelectedItems());
     },
-    setSelectedItems: (format) => {
+    setSelectedItems: format => {
         dispatch(setSelectedItems(getSelectedLeafItems(), isBitmap(format)));
     },
 });
 
 export default CopyPasteHOC(
-    connect(mapStateToProps, mapDispatchToProps)(ModeTools),
+    connect(mapStateToProps, mapDispatchToProps)(ModeTools)
 );

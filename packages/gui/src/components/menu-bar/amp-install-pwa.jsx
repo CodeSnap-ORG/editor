@@ -13,13 +13,13 @@ import appleIcon from "./tw-advanced.svg";
 
 let showPwaButton = false;
 let deferredPrompt;
-window.addEventListener("beforeinstallprompt", (e) => {
+window.addEventListener("beforeinstallprompt", e => {
     e.preventDefault();
     deferredPrompt = e;
     showPwaButton = true;
 });
 
-const handleClickPwaInstall = (addonId) => {
+const handleClickPwaInstall = addonId => {
     deferredPrompt.prompt();
 };
 
@@ -58,12 +58,12 @@ GuiThemeMenu.propTypes = {
     theme: PropTypes.instanceOf(Theme),
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     theme: state.scratchGui.theme.theme,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    onChangeTheme: (theme) => {
+const mapDispatchToProps = dispatch => ({
+    onChangeTheme: theme => {
         dispatch(setTheme(theme));
         dispatch(closeSettingsMenu());
         persistTheme(theme);

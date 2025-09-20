@@ -26,7 +26,7 @@ class FaceSensing {
         alert(
             "The Face Sensing extension is not supported. Blocks from it will still show but will be ignored." +
                 " We hope to add the extension soon, but we cannot simply copy from Scratch due to licencing issues." +
-                "\n\nSee https://codeberg.org/ampmod/ampmod/issues/6 for more information.",
+                "\n\nSee https://codeberg.org/ampmod/ampmod/issues/6 for more information."
         );
     }
 

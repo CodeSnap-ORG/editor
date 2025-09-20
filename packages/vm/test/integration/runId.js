@@ -16,10 +16,10 @@ const project = readFileToBuffer(uri);
 // By default Central Dispatch works with the Worker class built into the browser. Tell it to use TinyWorker instead.
 dispatch.workerClass = Worker;
 
-test("runId", async (t) => {
+test("runId", async t => {
     const guidRegex =
         /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
-    const isGuid = (data) => guidRegex.test(data);
+    const isGuid = data => guidRegex.test(data);
 
     const storage = makeTestStorage();
 
@@ -27,12 +27,12 @@ test("runId", async (t) => {
     const runIdLog = [];
     const pushRunId = () => {
         const runId = storage.scratchFetch.getMetadata(
-            storage.scratchFetch.RequestMetadata.RunId,
+            storage.scratchFetch.RequestMetadata.RunId
         );
         t.ok(
             isGuid(runId),
             "Run IDs should always be a properly-formatted GUID",
-            { runId },
+            { runId }
         );
         runIdLog.push(runId);
     };
@@ -55,8 +55,8 @@ test("runId", async (t) => {
     pushRunId();
 
     // Turn the playgroundData event into a Promise that we can await
-    const playgroundDataPromise = new Promise((resolve) => {
-        vm.on("playgroundData", (data) => resolve(data));
+    const playgroundDataPromise = new Promise(resolve => {
+        vm.on("playgroundData", data => resolve(data));
     });
 
     // Let the project run for a bit, then get playground data and stop the project
@@ -76,7 +76,7 @@ test("runId", async (t) => {
                 runIdLog[i],
                 runIdLog[j],
                 "Run IDs should always be unique",
-                { runIdLog },
+                { runIdLog }
             );
         }
     }

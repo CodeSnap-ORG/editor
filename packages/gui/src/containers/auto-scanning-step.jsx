@@ -31,7 +31,7 @@ class AutoScanningStep extends React.Component {
     }
     handlePeripheralListUpdate(newList) {
         // TODO: sort peripherals by signal strength? so they don't jump around
-        const peripheralArray = Object.keys(newList).map((id) => newList[id]);
+        const peripheralArray = Object.keys(newList).map(id => newList[id]);
         if (peripheralArray.length > 0) {
             this.props.onConnecting(peripheralArray[0].peripheralId);
         }
@@ -39,21 +39,21 @@ class AutoScanningStep extends React.Component {
     bindPeripheralUpdates() {
         this.props.vm.on(
             "PERIPHERAL_LIST_UPDATE",
-            this.handlePeripheralListUpdate,
+            this.handlePeripheralListUpdate
         );
         this.props.vm.on(
             "PERIPHERAL_SCAN_TIMEOUT",
-            this.handlePeripheralScanTimeout,
+            this.handlePeripheralScanTimeout
         );
     }
     unbindPeripheralUpdates() {
         this.props.vm.removeListener(
             "PERIPHERAL_LIST_UPDATE",
-            this.handlePeripheralListUpdate,
+            this.handlePeripheralListUpdate
         );
         this.props.vm.removeListener(
             "PERIPHERAL_SCAN_TIMEOUT",
-            this.handlePeripheralScanTimeout,
+            this.handlePeripheralScanTimeout
         );
     }
     handleRefresh() {

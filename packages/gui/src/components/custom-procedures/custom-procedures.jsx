@@ -24,7 +24,7 @@ const messages = defineMessages({
     },
 });
 
-const CustomProcedures = (props) => (
+const CustomProcedures = props => (
     <Modal
         className={styles.modalContent}
         contentLabel={props.intl.formatMessage(messages.myblockModalTitle)}

@@ -28,7 +28,7 @@ const getRandomColor = (function () {
     };
 })();
 
-const Box = (props) => {
+const Box = props => {
     const {
         alignContent,
         alignItems,
@@ -73,11 +73,11 @@ const Box = (props) => {
                           outline: `1px solid black`,
                       }
                     : {},
-                style,
+                style
             ),
             ...componentProps,
         },
-        children,
+        children
     );
 };
 Box.propTypes = {

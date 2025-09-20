@@ -3,21 +3,21 @@ const { test } = require("tap");
 const { serialize } = require("../../src/serialization/sb3");
 const MonitorRecord = require("../../src/engine/monitor-record");
 
-test("does not serialize hidden monitors from extensions", (t) => {
+test("does not serialize hidden monitors from extensions", t => {
     const rt = new Runtime();
     rt.requestAddMonitor(
         MonitorRecord({
             id: "timer",
             opcode: "sensing_timer",
             visible: true,
-        }),
+        })
     );
     rt.requestAddMonitor(
         MonitorRecord({
             id: "other_monitor",
             opcode: "tw_someOpcodeThatIsntPartOfACoreExtension",
             visible: true,
-        }),
+        })
     );
 
     const monitorsWhenVisible = serialize(rt).monitors;

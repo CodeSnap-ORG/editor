@@ -8,12 +8,12 @@ const VirtualMachine = require("../../src/index");
 const projectUri = path.resolve(__dirname, "../fixtures/comments.sb3");
 const project = readFileToBuffer(projectUri);
 
-test("load an sb3 project with comments", (t) => {
+test("load an sb3 project with comments", t => {
     const vm = new VirtualMachine();
     vm.attachStorage(makeTestStorage());
 
     // Evaluate playground data and exit
-    vm.on("playgroundData", (e) => {
+    vm.on("playgroundData", e => {
         const threads = JSON.parse(e.threads);
         t.equal(threads.length, 0);
 
@@ -33,18 +33,18 @@ test("load an sb3 project with comments", (t) => {
         const targetComments = Object.values(target.comments);
         t.equal(targetComments.length, 6);
         const spriteWorkspaceComments = targetComments.filter(
-            (comment) => comment.blockId === null,
+            comment => comment.blockId === null
         );
         t.equal(spriteWorkspaceComments.length, 1);
         t.equal(spriteWorkspaceComments[0].minimized, false);
         t.equal(
             spriteWorkspaceComments[0].text,
-            "This is a workspace comment.",
+            "This is a workspace comment."
         );
 
         // Test the sprite block comments
         const blockComments = targetComments.filter(
-            (comment) => !!comment.blockId,
+            comment => !!comment.blockId
         );
         t.equal(blockComments.length, 5);
 
@@ -69,10 +69,10 @@ test("load an sb3 project with comments", (t) => {
         t.equal(blockComments[3].minimized, false);
         t.equal(
             blockComments[3].text,
-            "4. Comment for a block nested in a loop.",
+            "4. Comment for a block nested in a loop."
         );
         const changeColorBlock = target.blocks.getBlock(
-            blockComments[3].blockId,
+            blockComments[3].blockId
         );
         t.equal(changeColorBlock.comment, blockComments[3].id);
         t.equal(changeColorBlock.opcode, "looks_changeeffectby");
@@ -80,7 +80,7 @@ test("load an sb3 project with comments", (t) => {
         t.equal(blockComments[4].minimized, false);
         t.equal(
             blockComments[4].text,
-            "5. Comment for a block outside of a loop.",
+            "5. Comment for a block outside of a loop."
         );
         const stopAllBlock = target.blocks.getBlock(blockComments[4].blockId);
         t.equal(stopAllBlock.comment, blockComments[4].id);

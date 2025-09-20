@@ -38,14 +38,14 @@ ProjectTitleInput.propTypes = {
     projectTitle: PropTypes.string,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     projectTitle: state.scratchGui.projectTitle,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    onSubmit: (title) => dispatch(setProjectTitle(title)),
+const mapDispatchToProps = dispatch => ({
+    onSubmit: title => dispatch(setProjectTitle(title)),
 });
 
 export default injectIntl(
-    connect(mapStateToProps, mapDispatchToProps)(ProjectTitleInput),
+    connect(mapStateToProps, mapDispatchToProps)(ProjectTitleInput)
 );

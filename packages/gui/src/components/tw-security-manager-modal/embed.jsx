@@ -4,7 +4,7 @@ import { FormattedMessage } from "react-intl";
 import URL from "./url.jsx";
 import DataURL from "./data-url.jsx";
 
-const EmbedModal = (props) => (
+const EmbedModal = props => (
     <div>
         {props.url.startsWith("data:") ? (
             <React.Fragment>

@@ -48,7 +48,7 @@ class CentralDispatch extends SharedDispatch {
         if (provider) {
             if (isRemote) {
                 throw new Error(
-                    `Cannot use 'callSync' on remote provider for service ${service}.`,
+                    `Cannot use 'callSync' on remote provider for service ${service}.`
                 );
             }
 
@@ -68,7 +68,7 @@ class CentralDispatch extends SharedDispatch {
     setServiceSync(service, provider) {
         if (Object.prototype.hasOwnProperty.call(this.services, service)) {
             log.warn(
-                `Central dispatch replacing existing service provider for ${service}`,
+                `Central dispatch replacing existing service provider for ${service}`
             );
         }
         this.services[service] = provider;
@@ -100,12 +100,12 @@ class CentralDispatch extends SharedDispatch {
         if (this.workers.indexOf(worker) === -1) {
             this.workers.push(worker);
             worker.onmessage = this._onMessage.bind(this, worker);
-            this._remoteCall(worker, "dispatch", "handshake").catch((e) => {
+            this._remoteCall(worker, "dispatch", "handshake").catch(e => {
                 log.error(`Could not handshake with worker: ${e}`);
             });
         } else {
             log.warn(
-                "Central dispatch ignoring attempt to add duplicate worker",
+                "Central dispatch ignoring attempt to add duplicate worker"
             );
         }
     }
@@ -125,7 +125,7 @@ class CentralDispatch extends SharedDispatch {
                 isRemote: Boolean(
                     (this.workerClass &&
                         provider instanceof this.workerClass) ||
-                        provider.isRemote,
+                        provider.isRemote
                 ),
             }
         );
@@ -147,7 +147,7 @@ class CentralDispatch extends SharedDispatch {
                 break;
             default:
                 log.error(
-                    `Central dispatch received message for unknown method: ${message.method}`,
+                    `Central dispatch received message for unknown method: ${message.method}`
                 );
         }
         return promise;

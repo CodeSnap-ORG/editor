@@ -4,7 +4,7 @@ import ToolSelectComponent from "../tool-select-base/tool-select-base.jsx";
 import messages from "../../lib/messages.js";
 import brushIcon from "./brush.svg";
 
-const BrushModeComponent = (props) => (
+const BrushModeComponent = props => (
     <ToolSelectComponent
         imgDescriptor={messages.brush}
         imgSrc={brushIcon}

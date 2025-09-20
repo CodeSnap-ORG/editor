@@ -52,7 +52,7 @@ class BitEraserMode extends React.Component {
         clearSelection(this.props.clearSelectedItems);
         this.tool = new BitBrushTool(
             this.props.onUpdateImage,
-            true /* isEraser */,
+            true /* isEraser */
         );
         this.tool.setBrushSize(this.props.bitEraserSize);
 
@@ -81,11 +81,11 @@ BitEraserMode.propTypes = {
     onUpdateImage: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     bitEraserSize: state.scratchPaint.bitEraserSize,
     isBitEraserModeActive: state.scratchPaint.mode === Modes.BIT_ERASER,
 });
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     clearSelectedItems: () => {
         dispatch(clearSelectedItems());
     },

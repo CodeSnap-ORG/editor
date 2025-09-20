@@ -42,7 +42,7 @@ const messages = defineMessages({
     },
 });
 
-const StageSelector = (props) => {
+const StageSelector = props => {
     const {
         backdropCount,
         containerRef,
@@ -116,21 +116,21 @@ const StageSelector = (props) => {
                     },
                     {
                         title: intl.formatMessage(
-                            messages.addBackdropFromSurprise,
+                            messages.addBackdropFromSurprise
                         ),
                         img: surpriseIcon,
                         onClick: onSurpriseBackdropClick,
                     },
                     {
                         title: intl.formatMessage(
-                            messages.addBackdropFromPaint,
+                            messages.addBackdropFromPaint
                         ),
                         img: paintIcon,
                         onClick: onEmptyBackdropClick,
                     },
                     {
                         title: intl.formatMessage(
-                            messages.addBackdropFromLibrary,
+                            messages.addBackdropFromLibrary
                         ),
                         img: searchIcon,
                         onClick: onNewBackdropClick,

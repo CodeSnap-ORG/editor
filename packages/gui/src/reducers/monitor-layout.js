@@ -35,7 +35,7 @@ const _addMonitorRect = function (state, action) {
         Object.prototype.hasOwnProperty.call(state.monitors, action.monitorId)
     ) {
         log.error(
-            `Can't add monitor, monitor with id ${action.monitorId} already exists.`,
+            `Can't add monitor, monitor with id ${action.monitorId} already exists.`
         );
         return state;
     }
@@ -66,7 +66,7 @@ const _moveMonitorRect = function (state, action) {
         !Object.prototype.hasOwnProperty.call(state.monitors, action.monitorId)
     ) {
         log.error(
-            `Can't move monitor, monitor with id ${action.monitorId} does not exist.`,
+            `Can't move monitor, monitor with id ${action.monitorId} does not exist.`
         );
         return state;
     }
@@ -107,7 +107,7 @@ const _resizeMonitorRect = function (state, action) {
         !Object.prototype.hasOwnProperty.call(state.monitors, action.monitorId)
     ) {
         log.error(
-            `Can't resize monitor, monitor with id ${action.monitorId} does not exist.`,
+            `Can't resize monitor, monitor with id ${action.monitorId} does not exist.`
         );
         return state;
     }
@@ -150,7 +150,7 @@ const _removeMonitorRect = function (state, action) {
         !Object.prototype.hasOwnProperty.call(state.monitors, action.monitorId)
     ) {
         log.error(
-            `Can't remove monitor, monitor with id ${action.monitorId} does not exist.`,
+            `Can't remove monitor, monitor with id ${action.monitorId} does not exist.`
         );
         return state;
     }
@@ -210,7 +210,7 @@ const getInitialPosition = function (state, monitorId, eltWidth, eltHeight) {
     if (
         Object.prototype.hasOwnProperty.call(
             state.savedMonitorPositions,
-            monitorId,
+            monitorId
         )
     ) {
         const saved = state.savedMonitorPositions[monitorId];
@@ -294,7 +294,7 @@ const getInitialPosition = function (state, monitorId, eltWidth, eltHeight) {
     // If plan B fails and there's nowhere reasonable to put it, plan C is to place the monitor randomly
     const randX = Math.ceil(Math.random() * (SCREEN_WIDTH / 2));
     const randY = Math.ceil(
-        Math.random() * (SCREEN_HEIGHT - SCREEN_EDGE_BUFFER),
+        Math.random() * (SCREEN_HEIGHT - SCREEN_EDGE_BUFFER)
     );
     return {
         upperStart: {
@@ -324,7 +324,7 @@ const addMonitorRect = function (
     monitorId,
     upperStart,
     lowerEnd,
-    savePosition,
+    savePosition
 ) {
     return {
         type: ADD_MONITOR_RECT,

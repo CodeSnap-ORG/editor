@@ -45,7 +45,7 @@ const _TextDecoder =
                   const array = new Uint8Array(
                       view.buffer,
                       view.byteOffset,
-                      view.byteLength,
+                      view.byteLength
                   );
                   let result = "";
                   for (let i = 0; i < array.length; i++) {

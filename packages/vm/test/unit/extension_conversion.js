@@ -131,7 +131,7 @@ const testButton = function (t, button) {
     t.same(button.json, null); // should be null or undefined
     t.equal(
         button.xml,
-        '<button text="this is a button" callbackKey="MAKE_A_VARIABLE"></button>',
+        '<button text="this is a button" callbackKey="MAKE_A_VARIABLE"></button>'
     );
 };
 
@@ -141,17 +141,14 @@ const testReporter = function (t, reporter) {
     t.equal(reporter.json.checkboxInFlyout, true);
     t.equal(
         reporter.json.outputShape,
-        ScratchBlocksConstants.OUTPUT_SHAPE_ROUND,
+        ScratchBlocksConstants.OUTPUT_SHAPE_ROUND
     );
     t.equal(reporter.json.output, "String");
     t.notOk(
-        Object.prototype.hasOwnProperty.call(
-            reporter.json,
-            "previousStatement",
-        ),
+        Object.prototype.hasOwnProperty.call(reporter.json, "previousStatement")
     );
     t.notOk(
-        Object.prototype.hasOwnProperty.call(reporter.json, "nextStatement"),
+        Object.prototype.hasOwnProperty.call(reporter.json, "nextStatement")
     );
     t.same(reporter.json.extensions, ["from_extension", "scratch_extension"]);
     t.equal(reporter.json.message0, "%1 %2simple text"); // "%1 %2" from the block icon
@@ -179,17 +176,17 @@ const testInlineImage = function (t, inlineImage) {
     t.equal(inlineImage.json.checkboxInFlyout, true);
     t.equal(
         inlineImage.json.outputShape,
-        ScratchBlocksConstants.OUTPUT_SHAPE_ROUND,
+        ScratchBlocksConstants.OUTPUT_SHAPE_ROUND
     );
     t.equal(inlineImage.json.output, "String");
     t.notOk(
         Object.prototype.hasOwnProperty.call(
             inlineImage.json,
-            "previousStatement",
-        ),
+            "previousStatement"
+        )
     );
     t.notOk(
-        Object.prototype.hasOwnProperty.call(inlineImage.json, "nextStatement"),
+        Object.prototype.hasOwnProperty.call(inlineImage.json, "nextStatement")
     );
     t.same(inlineImage.json.extensions, ["from_extension"]);
     t.equal(inlineImage.json.message0, "text and %1"); // block text followed by inline image
@@ -218,13 +215,13 @@ const testCommand = function (t, command) {
     testCategoryInfo(t, command);
     t.equal(
         command.json.outputShape,
-        ScratchBlocksConstants.OUTPUT_SHAPE_SQUARE,
+        ScratchBlocksConstants.OUTPUT_SHAPE_SQUARE
     );
     t.assert(
-        Object.prototype.hasOwnProperty.call(command.json, "previousStatement"),
+        Object.prototype.hasOwnProperty.call(command.json, "previousStatement")
     );
     t.assert(
-        Object.prototype.hasOwnProperty.call(command.json, "nextStatement"),
+        Object.prototype.hasOwnProperty.call(command.json, "nextStatement")
     );
     t.same(command.json.extensions, ["from_extension"]);
     t.equal(command.json.message0, "text with %1 %2");
@@ -238,7 +235,7 @@ const testCommand = function (t, command) {
         command.xml,
         '<block type="test_command"><value name="ARG"><shadow type="text"></shadow></value>' +
             '<value name="ARG_WITH_DEFAULT"><shadow type="text"><field name="TEXT">' +
-            "default text</field></shadow></value></block>",
+            "default text</field></shadow></value></block>"
     );
 };
 
@@ -247,16 +244,16 @@ const testConditional = function (t, conditional) {
     testCategoryInfo(t, conditional);
     t.equal(
         conditional.json.outputShape,
-        ScratchBlocksConstants.OUTPUT_SHAPE_SQUARE,
+        ScratchBlocksConstants.OUTPUT_SHAPE_SQUARE
     );
     t.ok(
         Object.prototype.hasOwnProperty.call(
             conditional.json,
-            "previousStatement",
-        ),
+            "previousStatement"
+        )
     );
     t.ok(
-        Object.prototype.hasOwnProperty.call(conditional.json, "nextStatement"),
+        Object.prototype.hasOwnProperty.call(conditional.json, "nextStatement")
     );
     t.same(conditional.json.extensions, ["from_extension"]);
     t.equal(conditional.json.message0, "test if %1 is spiffy and if so then");
@@ -276,8 +273,8 @@ const testConditional = function (t, conditional) {
     t.notOk(
         Object.prototype.hasOwnProperty.call(
             conditional.json,
-            conditional.json.args2,
-        ),
+            conditional.json.args2
+        )
     );
     t.strictSame(conditional.json.args3[0], {
         type: "input_statement",
@@ -286,7 +283,7 @@ const testConditional = function (t, conditional) {
     t.notOk(Object.prototype.hasOwnProperty.call(conditional.json, "args4"));
     t.equal(
         conditional.xml,
-        '<block type="test_ifElse"><value name="THING"></value></block>',
+        '<block type="test_ifElse"><value name="THING"></value></block>'
     );
 };
 
@@ -315,22 +312,22 @@ const testLoop = function (t, loop) {
     t.notOk(Object.prototype.hasOwnProperty.call(loop.json, "args3"));
     t.equal(
         loop.xml,
-        '<block type="test_loop"><value name="MANY"><shadow type="math_number"></shadow></value></block>',
+        '<block type="test_loop"><value name="MANY"><shadow type="math_number"></shadow></value></block>'
     );
 };
 
-test("registerExtensionPrimitives", (t) => {
+test("registerExtensionPrimitives", t => {
     const runtime = new Runtime();
 
-    runtime.on(Runtime.EXTENSION_ADDED, (categoryInfo) => {
+    runtime.on(Runtime.EXTENSION_ADDED, categoryInfo => {
         const blocksInfo = categoryInfo.blocks;
         t.equal(blocksInfo.length, testExtensionInfo.blocks.length);
 
-        blocksInfo.forEach((blockInfo) => {
+        blocksInfo.forEach(blockInfo => {
             // `true` here means "either an object or a non-empty string but definitely not null or undefined"
             t.true(
                 blockInfo.info,
-                'Every block and pseudo-block must have a non-empty "info" field',
+                'Every block and pseudo-block must have a non-empty "info" field'
             );
         });
 
@@ -359,16 +356,16 @@ test("registerExtensionPrimitives", (t) => {
     runtime._registerExtensionPrimitives(testExtensionInfo);
 });
 
-test("custom field types should be added to block and EXTENSION_FIELD_ADDED callback triggered", (t) => {
+test("custom field types should be added to block and EXTENSION_FIELD_ADDED callback triggered", t => {
     const runtime = new Runtime();
 
-    runtime.on(Runtime.EXTENSION_ADDED, (categoryInfo) => {
+    runtime.on(Runtime.EXTENSION_ADDED, categoryInfo => {
         const blockInfo = categoryInfo.blocks[0];
 
         // We expect that for each argument there's a corresponding <field>-tag in the block XML
-        Object.values(blockInfo.info.arguments).forEach((argument) => {
+        Object.values(blockInfo.info.arguments).forEach(argument => {
             const regex = new RegExp(
-                `<field name="field_${categoryInfo.id}_${argument.type}">`,
+                `<field name="field_${categoryInfo.id}_${argument.type}">`
             );
             t.true(regex.test(blockInfo.xml));
         });

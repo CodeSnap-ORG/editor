@@ -42,7 +42,7 @@ class ManageFont extends React.Component {
         const allowed = confirm(
             this.props.intl.formatMessage(messages.delete, {
                 font: this.props.name,
-            }),
+            })
         );
         if (allowed) {
             this.props.fontManager.deleteFont(this.props.index);

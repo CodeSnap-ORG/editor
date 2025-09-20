@@ -25,7 +25,7 @@ class CloudVariablesToggler extends React.Component {
     toggleCloudVariables() {
         if (!this.props.canUseCloudVariables) {
             const message = this.props.intl.formatMessage(
-                messages.cloudUnavailableAlert,
+                messages.cloudUnavailableAlert
             );
             // eslint-disable-next-line no-alert
             alert(message);
@@ -53,17 +53,17 @@ CloudVariablesToggler.propTypes = {
     canUseCloudVariables: PropTypes.bool,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     username: state.scratchGui.tw.username,
     enabled: state.scratchGui.tw.cloud,
     canUseCloudVariables:
         isScratchDesktop() || !state.scratchGui.mode.hasEverEnteredEditor,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    onCloudChange: (enabled) => dispatch(setCloud(enabled)),
+const mapDispatchToProps = dispatch => ({
+    onCloudChange: enabled => dispatch(setCloud(enabled)),
 });
 
 export default injectIntl(
-    connect(mapStateToProps, mapDispatchToProps)(CloudVariablesToggler),
+    connect(mapStateToProps, mapDispatchToProps)(CloudVariablesToggler)
 );

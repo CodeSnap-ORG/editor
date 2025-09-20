@@ -8,7 +8,7 @@ const Target = require("../../src/engine/target");
 const Thread = require("../../src/engine/thread");
 const Variable = require("../../src/engine/variable");
 
-test("#760 - broadcastAndWait", (t) => {
+test("#760 - broadcastAndWait", t => {
     const broadcastAndWaitBlock = {
         id: "broadcastAndWaitBlock",
         fields: {
@@ -56,7 +56,7 @@ test("#760 - broadcastAndWait", (t) => {
     tgt.createVariable(
         "testBroadcastID",
         "message",
-        Variable.BROADCAST_MESSAGE_TYPE,
+        Variable.BROADCAST_MESSAGE_TYPE
     );
 
     rt.addTarget(tgt);
@@ -70,7 +70,7 @@ test("#760 - broadcastAndWait", (t) => {
     // creates threads
     e.broadcastAndWait(
         { BROADCAST_OPTION: { id: "testBroadcastID", name: "message" } },
-        util,
+        util
     );
     t.strictEqual(rt.threads.length, 2);
     t.strictEqual(rt.threads[1].topBlock, "receiveMessageBlock");
@@ -79,7 +79,7 @@ test("#760 - broadcastAndWait", (t) => {
     th.status = Thread.STATUS_RUNNING;
     e.broadcastAndWait(
         { BROADCAST_OPTION: { id: "testBroadcastID", name: "message" } },
-        util,
+        util
     );
     t.strictEqual(th.status, Thread.STATUS_YIELD);
     // does not yield once all threads are done
@@ -88,7 +88,7 @@ test("#760 - broadcastAndWait", (t) => {
     rt.threads.splice(1, 1);
     e.broadcastAndWait(
         { BROADCAST_OPTION: { id: "testBroadcastID", name: "message" } },
-        util,
+        util
     );
     t.strictEqual(th.status, Thread.STATUS_RUNNING);
 
@@ -98,7 +98,7 @@ test("#760 - broadcastAndWait", (t) => {
     util.thread = th;
     e.broadcastAndWait(
         { BROADCAST_OPTION: { id: "testBroadcastID", name: "message" } },
-        util,
+        util
     );
     t.strictEqual(rt.threads.length, 3);
     t.strictEqual(rt.threads[2].status, Thread.STATUS_RUNNING);
@@ -107,7 +107,7 @@ test("#760 - broadcastAndWait", (t) => {
     th.status = Thread.STATUS_RUNNING;
     e.broadcastAndWait(
         { BROADCAST_OPTION: { id: "testBroadcastID", name: "message" } },
-        util,
+        util
     );
     t.strictEqual(th.status, Thread.STATUS_YIELD);
     // does not yield once all threads are done
@@ -116,14 +116,14 @@ test("#760 - broadcastAndWait", (t) => {
     rt.threads.splice(2, 1);
     e.broadcastAndWait(
         { BROADCAST_OPTION: { id: "testBroadcastID", name: "message" } },
-        util,
+        util
     );
     t.strictEqual(th.status, Thread.STATUS_RUNNING);
 
     t.end();
 });
 
-test("When > hat - loudness", (t) => {
+test("When > hat - loudness", t => {
     const rt = new Runtime();
     rt.audioEngine = { getLoudness: () => 10 };
     const e = new Event(rt);

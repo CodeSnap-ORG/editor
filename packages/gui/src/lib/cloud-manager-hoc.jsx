@@ -31,7 +31,7 @@ const cloudManagerHOC = function (WrappedComponent) {
 
             this.props.vm.on(
                 "HAS_CLOUD_DATA_UPDATE",
-                this.handleCloudDataUpdate,
+                this.handleCloudDataUpdate
             );
             this.props.vm.on("EXTENSION_ADDED", this.handleExtensionAdded);
         }
@@ -72,7 +72,7 @@ const cloudManagerHOC = function (WrappedComponent) {
         componentWillUnmount() {
             this.props.vm.off(
                 "HAS_CLOUD_DATA_UPDATE",
-                this.handleCloudDataUpdate,
+                this.handleCloudDataUpdate
             );
             this.props.vm.off("EXTENSION_ADDED", this.handleExtensionAdded);
             this.disconnectFromCloud();
@@ -123,7 +123,7 @@ const cloudManagerHOC = function (WrappedComponent) {
                 this.props.reduxCloudHost,
                 this.props.vm,
                 this.props.username,
-                this.props.projectId,
+                this.props.projectId
             );
             this.cloudProvider.onInvalidUsername = this.props.onInvalidUsername;
             this.props.vm.setCloudProvider(this.cloudProvider);
@@ -218,14 +218,14 @@ const cloudManagerHOC = function (WrappedComponent) {
                 !(
                     DISABLE_WITH_VIDEO_SENSING &&
                     ownProps.vm.extensionManager.isExtensionLoaded(
-                        "videoSensing",
+                        "videoSensing"
                     )
                 ),
         };
     };
 
-    const mapDispatchToProps = (dispatch) => ({
-        onSetReduxCloudHost: (cloudHost) => dispatch(setCloudHost(cloudHost)),
+    const mapDispatchToProps = dispatch => ({
+        onSetReduxCloudHost: cloudHost => dispatch(setCloudHost(cloudHost)),
         onShowCloudInfo: () => showAlertWithTimeout(dispatch, "cloudInfo"),
         onInvalidUsername: () => {
             dispatch(setUsernameInvalid(true));
@@ -240,7 +240,7 @@ const cloudManagerHOC = function (WrappedComponent) {
     return connect(
         mapStateToProps,
         mapDispatchToProps,
-        mergeProps,
+        mergeProps
     )(CloudManager);
 };
 

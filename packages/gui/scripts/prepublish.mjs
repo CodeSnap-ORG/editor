@@ -46,14 +46,14 @@ const extractFirstMatchingFile = (filter, relativeDestDir, zipBuffer) =>
                     zipfile.on("end", () => {
                         resolve(extractedFileName);
                     });
-                    zipfile.on("entry", (entry) => {
+                    zipfile.on("entry", entry => {
                         if (!filter(entry)) {
                             // ignore non-matching file
                             return zipfile.readEntry();
                         }
                         if (extractedFileName) {
                             console.warn(
-                                `Multiple matching files found. Ignoring: ${entry.fileName}`,
+                                `Multiple matching files found. Ignoring: ${entry.fileName}`
                             );
                             return zipfile.readEntry();
                         }
@@ -68,19 +68,19 @@ const extractFirstMatchingFile = (filter, relativeDestDir, zipBuffer) =>
                                 const baseName = path.basename(entry.fileName);
                                 const relativeDestFile = path.join(
                                     relativeDestDir,
-                                    baseName,
+                                    baseName
                                 );
                                 console.info(`Extracting ${relativeDestFile}`);
                                 const absoluteDestDir = path.join(
                                     basePath,
-                                    relativeDestDir,
+                                    relativeDestDir
                                 );
                                 fs.mkdirSync(absoluteDestDir, {
                                     recursive: true,
                                 });
                                 const absoluteDestFile = path.join(
                                     basePath,
-                                    relativeDestFile,
+                                    relativeDestFile
                                 );
                                 const outStream =
                                     fs.createWriteStream(absoluteDestFile);
@@ -89,10 +89,10 @@ const extractFirstMatchingFile = (filter, relativeDestDir, zipBuffer) =>
                                     zipfile.readEntry();
                                 });
                                 readStream.pipe(outStream);
-                            },
+                            }
                         );
                     });
-                },
+                }
             );
         } catch (error) {
             reject(error);
@@ -113,20 +113,20 @@ const downloadMicrobitHex = async () => {
         .digest("hex");
     if (sha256 !== expectedSHA256) {
         throw new Error(
-            `microbit hex has SHA-256 ${sha256} but expected ${expectedSHA256}`,
+            `microbit hex has SHA-256 ${sha256} but expected ${expectedSHA256}`
         );
     }
     const relativeHexDir = path.join("static", "microbit");
     const hexFileName = await extractFirstMatchingFile(
-        (entry) => /\.hex$/.test(entry.fileName),
+        entry => /\.hex$/.test(entry.fileName),
         path.join("static", "microbit"),
-        zipBuffer,
+        zipBuffer
     );
     const relativeHexFile = path.join(relativeHexDir, hexFileName);
     const relativeGeneratedDir = path.join("src", "generated");
     const relativeGeneratedFile = path.join(
         relativeGeneratedDir,
-        "microbit-hex-url.cjs",
+        "microbit-hex-url.cjs"
     );
     const absoluteGeneratedDir = path.join(basePath, relativeGeneratedDir);
     fs.mkdirSync(absoluteGeneratedDir, { recursive: true });
@@ -143,7 +143,7 @@ const downloadMicrobitHex = async () => {
             "// This file relies on a loader to turn this `require` into a URL",
             `module.exports = require('${requirePath}');`,
             "", // final newline
-        ].join("\n"),
+        ].join("\n")
     );
     console.info(`Wrote ${relativeGeneratedFile}`);
 };
@@ -157,8 +157,8 @@ prepublish().then(
         console.info("Prepublish script complete");
         process.exit(0);
     },
-    (e) => {
+    e => {
         console.error(e);
         process.exit(1);
-    },
+    }
 );

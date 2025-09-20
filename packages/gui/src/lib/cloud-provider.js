@@ -1,7 +1,7 @@
 import log from "./log.js";
 import throttle from "lodash.throttle";
 
-const anonymizeUsername = (username) => {
+const anonymizeUsername = username => {
     if (/^player\d{2,7}$/i.test(username)) {
         return "player";
     }
@@ -78,7 +78,7 @@ class CloudProvider {
     onMessage(event) {
         const messageString = event.data;
         // Multiple commands can be received, newline separated
-        messageString.split("\n").forEach((message) => {
+        messageString.split("\n").forEach(message => {
             if (message) {
                 // .split can also contain '' in the array it returns
                 const parsedData = this.parseMessage(JSON.parse(message));
@@ -96,7 +96,7 @@ class CloudProvider {
 
         // Go through the queued data and send off messages that we weren't
         // ready to send before
-        this.queuedData.forEach((data) => {
+        this.queuedData.forEach(data => {
             this.sendCloudData(data);
         });
         // Reset the queue
@@ -118,13 +118,13 @@ class CloudProvider {
         // Code 4004 is "Project Unavailable" -- do not try to reconnect
         if (e && e.code === 4004) {
             log.info(
-                "Cloud variables are disabled for this project. Not reconnecting.",
+                "Cloud variables are disabled for this project. Not reconnecting."
             );
             return;
         }
         log.info(`Closed connection to websocket`);
         const randomizedTimeout = this.randomizeDuration(
-            this.exponentialTimeout(),
+            this.exponentialTimeout()
         );
         this.setTimeout(this.openConnection.bind(this), randomizedTimeout);
     }
@@ -144,7 +144,7 @@ class CloudProvider {
 
     setTimeout(fn, time) {
         log.info(
-            `Reconnecting in ${(time / 1000).toFixed(1)}s, attempt ${this.connectionAttempts}`,
+            `Reconnecting in ${(time / 1000).toFixed(1)}s, attempt ${this.connectionAttempts}`
         );
         this._connectionTimeout = window.setTimeout(fn, time);
     }

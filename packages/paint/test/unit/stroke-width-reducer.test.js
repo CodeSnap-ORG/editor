@@ -12,14 +12,14 @@ test("initialState", () => {
     expect(
         strokeWidthReducer(
             defaultState /* state */,
-            { type: "anything" } /* action */,
-        ),
+            { type: "anything" } /* action */
+        )
     ).toBeDefined();
     expect(
         strokeWidthReducer(
             defaultState /* state */,
-            { type: "anything" } /* action */,
-        ),
+            { type: "anything" } /* action */
+        )
     ).toBeGreaterThanOrEqual(0);
 });
 
@@ -30,23 +30,23 @@ test("changestrokeWidth", () => {
     expect(
         strokeWidthReducer(
             defaultState /* state */,
-            changeStrokeWidth(newstrokeWidth) /* action */,
-        ),
+            changeStrokeWidth(newstrokeWidth) /* action */
+        )
     ).toEqual(newstrokeWidth);
     expect(
         strokeWidthReducer(
             1 /* state */,
-            changeStrokeWidth(newstrokeWidth) /* action */,
-        ),
+            changeStrokeWidth(newstrokeWidth) /* action */
+        )
     ).toEqual(newstrokeWidth);
     expect(
-        strokeWidthReducer(1 /* state */, changeStrokeWidth(-1) /* action */),
+        strokeWidthReducer(1 /* state */, changeStrokeWidth(-1) /* action */)
     ).toEqual(0);
     expect(
         strokeWidthReducer(
             1 /* state */,
-            changeStrokeWidth(453452352) /* action */,
-        ),
+            changeStrokeWidth(453452352) /* action */
+        )
     ).toEqual(MAX_STROKE_WIDTH);
 });
 
@@ -61,8 +61,8 @@ test("changeStrokeWidthViaSelectedItems", () => {
     expect(
         strokeWidthReducer(
             defaultState /* state */,
-            setSelectedItems(selectedItems) /* action */,
-        ),
+            setSelectedItems(selectedItems) /* action */
+        )
     ).toEqual(strokeWidth1);
     selectedItems = [
         mockPaperRootItem({ strokeColor: "#000", strokeWidth: strokeWidth2 }),
@@ -70,8 +70,8 @@ test("changeStrokeWidthViaSelectedItems", () => {
     expect(
         strokeWidthReducer(
             defaultState /* state */,
-            setSelectedItems(selectedItems) /* action */,
-        ),
+            setSelectedItems(selectedItems) /* action */
+        )
     ).toEqual(0); // Convert no outline to stroke width 0
     selectedItems = [
         mockPaperRootItem({ strokeColor: "#000", strokeWidth: strokeWidth1 }),
@@ -80,8 +80,8 @@ test("changeStrokeWidthViaSelectedItems", () => {
     expect(
         strokeWidthReducer(
             defaultState /* state */,
-            setSelectedItems(selectedItems) /* action */,
-        ),
+            setSelectedItems(selectedItems) /* action */
+        )
     ).toEqual(null); // null indicates mixed for stroke width
 });
 
@@ -94,8 +94,8 @@ test("showNoStrokeWidthIfNoStrokeColor", () => {
     expect(
         strokeWidthReducer(
             defaultState /* state */,
-            setSelectedItems(selectedItems) /* action */,
-        ),
+            setSelectedItems(selectedItems) /* action */
+        )
     ).toEqual(0);
 });
 
@@ -105,13 +105,13 @@ test("invalidChangestrokeWidth", () => {
     expect(
         strokeWidthReducer(
             origState /* state */,
-            changeStrokeWidth("invalid argument") /* action */,
-        ),
+            changeStrokeWidth("invalid argument") /* action */
+        )
     ).toBe(origState);
     expect(
         strokeWidthReducer(
             origState /* state */,
-            changeStrokeWidth() /* action */,
-        ),
+            changeStrokeWidth() /* action */
+        )
     ).toBe(origState);
 });

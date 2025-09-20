@@ -21,11 +21,11 @@ class VariableUtil {
      */
     static getAllVarRefsForTargets(targets, shouldIncludeBroadcast) {
         return targets
-            .map((t) =>
+            .map(t =>
                 t.blocks.getAllVariableAndListReferences(
                     null,
-                    shouldIncludeBroadcast,
-                ),
+                    shouldIncludeBroadcast
+                )
             )
             .reduce(VariableUtil._mergeVarRefObjects, {});
     }
@@ -40,7 +40,7 @@ class VariableUtil {
      * If this parameter is not provided or is '', no name change occurs.
      */
     static updateVariableIdentifiers(referencesToUpdate, newId, optNewName) {
-        referencesToUpdate.map((ref) => {
+        referencesToUpdate.map(ref => {
             ref.referencingField.id = newId;
             if (optNewName) {
                 ref.referencingField.value = optNewName;

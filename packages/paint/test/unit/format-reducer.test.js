@@ -6,7 +6,7 @@ import { undo, redo } from "../../src/reducers/undo";
 test("initialState", () => {
     let defaultState;
     expect(
-        reducer(defaultState /* state */, { type: "anything" } /* action */),
+        reducer(defaultState /* state */, { type: "anything" } /* action */)
     ).toBeNull();
 });
 
@@ -15,20 +15,20 @@ test("changeFormat", () => {
     expect(
         reducer(
             defaultState /* state */,
-            changeFormat(Formats.BITMAP) /* action */,
-        ),
+            changeFormat(Formats.BITMAP) /* action */
+        )
     ).toBe(Formats.BITMAP);
     expect(
         reducer(
             Formats.BITMAP /* state */,
-            changeFormat(Formats.BITMAP) /* action */,
-        ),
+            changeFormat(Formats.BITMAP) /* action */
+        )
     ).toBe(Formats.BITMAP);
     expect(
         reducer(
             Formats.BITMAP /* state */,
-            changeFormat(Formats.VECTOR) /* action */,
-        ),
+            changeFormat(Formats.VECTOR) /* action */
+        )
     ).toBe(Formats.VECTOR);
 });
 
@@ -36,17 +36,17 @@ test("undoRedoChangeFormat", () => {
     let defaultState;
     let reduxState = reducer(
         defaultState /* state */,
-        changeFormat(Formats.BITMAP) /* action */,
+        changeFormat(Formats.BITMAP) /* action */
     );
     expect(reduxState).toBe(Formats.BITMAP);
     reduxState = reducer(
         reduxState /* state */,
-        undo(Formats.BITMAP_SKIP_CONVERT) /* action */,
+        undo(Formats.BITMAP_SKIP_CONVERT) /* action */
     );
     expect(reduxState).toBe(Formats.BITMAP_SKIP_CONVERT);
     reduxState = reducer(
         reduxState /* state */,
-        redo(Formats.VECTOR_SKIP_CONVERT) /* action */,
+        redo(Formats.VECTOR_SKIP_CONVERT) /* action */
     );
     expect(reduxState).toBe(Formats.VECTOR_SKIP_CONVERT);
 });
@@ -55,10 +55,10 @@ test("invalidChangeMode", () => {
     expect(
         reducer(
             Formats.BITMAP /* state */,
-            changeFormat("non-existant mode") /* action */,
-        ),
+            changeFormat("non-existant mode") /* action */
+        )
     ).toBe(Formats.BITMAP);
     expect(
-        reducer(Formats.BITMAP /* state */, changeFormat() /* action */),
+        reducer(Formats.BITMAP /* state */, changeFormat() /* action */)
     ).toBe(Formats.BITMAP);
 });

@@ -56,7 +56,7 @@ PrehistoricMode.propTypes = {
     show: PropTypes.bool,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     // This is the button's mode, as opposed to the actual current state
     show: isTimeTravel220022BC(state),
 });

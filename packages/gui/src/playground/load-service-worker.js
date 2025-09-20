@@ -3,7 +3,7 @@ import serviceWorker from "!!file-loader?name=sw.js!./service-worker.js";
 
 let loaded = false;
 const actuallyLoadServiceWorker = () => {
-    navigator.serviceWorker.register(serviceWorker).catch((err) => {
+    navigator.serviceWorker.register(serviceWorker).catch(err => {
         log.error("sw error", err);
     });
 };

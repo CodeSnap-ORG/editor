@@ -57,7 +57,7 @@ class ComingSoonContent extends React.Component {
         const messageNumber =
             Math.floor(Math.random() * Object.keys(messages).length) + 1;
         const imageNumber = Math.floor(
-            Math.random() * Object.keys(images).length,
+            Math.random() * Object.keys(images).length
         );
         return (
             <FormattedMessage
@@ -104,7 +104,7 @@ ComingSoonContent.defaultProps = {
 
 const ComingSoon = injectIntl(ComingSoonContent);
 
-const ComingSoonTooltip = (props) => (
+const ComingSoonTooltip = props => (
     <div className={props.className}>
         <div
             data-delay-hide={props.delayHide}

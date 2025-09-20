@@ -6,7 +6,7 @@ import log from "./log";
 import { setProjectTitle } from "../reducers/project-title";
 import { setAuthor, setDescription } from "../reducers/tw";
 
-export const fetchProjectMeta = async (projectId) => {
+export const fetchProjectMeta = async projectId => {
     const urls = [
         `https://trampoline.turbowarp.org/api/projects/${projectId}`,
         `https://trampoline.turbowarp.xyz/api/projects/${projectId}`,
@@ -34,7 +34,7 @@ export const fetchProjectMeta = async (projectId) => {
 
 const getNoIndexTag = () =>
     document.querySelector('meta[name="robots"][content="noindex"]');
-const setIndexable = (indexable) => {
+const setIndexable = indexable => {
     if (indexable) {
         const tag = getNoIndexTag();
         if (tag) {
@@ -61,7 +61,7 @@ const TWProjectMetaFetcherHOC = function (WrappedComponent) {
                     // don't try to get metadata
                 } else {
                     fetchProjectMeta(projectId)
-                        .then((data) => {
+                        .then(data => {
                             // If project ID changed, ignore the results.
                             if (this.props.reduxProjectId !== projectId) {
                                 return;
@@ -79,17 +79,17 @@ const TWProjectMetaFetcherHOC = function (WrappedComponent) {
                             if (instructions || credits) {
                                 this.props.onSetDescription(
                                     instructions,
-                                    credits,
+                                    credits
                                 );
                             }
                             setIndexable(true);
                         })
-                        .catch((err) => {
+                        .catch(err => {
                             setIndexable(false);
                             if (`${err}`.includes("unshared")) {
                                 this.props.onSetDescription(
                                     "unshared",
-                                    "unshared",
+                                    "unshared"
                                 );
                             }
                             log.warn("cannot fetch project meta", err);
@@ -116,29 +116,29 @@ const TWProjectMetaFetcherHOC = function (WrappedComponent) {
         onSetDescription: PropTypes.func,
         onSetProjectTitle: PropTypes.func,
     };
-    const mapStateToProps = (state) => ({
+    const mapStateToProps = state => ({
         reduxProjectId: state.scratchGui.projectState.projectId,
     });
-    const mapDispatchToProps = (dispatch) => ({
+    const mapDispatchToProps = dispatch => ({
         onSetAuthor: (username, thumbnail) =>
             dispatch(
                 setAuthor({
                     username,
                     thumbnail,
-                }),
+                })
             ),
         onSetDescription: (instructions, credits) =>
             dispatch(
                 setDescription({
                     instructions,
                     credits,
-                }),
+                })
             ),
-        onSetProjectTitle: (title) => dispatch(setProjectTitle(title)),
+        onSetProjectTitle: title => dispatch(setProjectTitle(title)),
     });
     return connect(
         mapStateToProps,
-        mapDispatchToProps,
+        mapDispatchToProps
     )(ProjectMetaFetcherComponent);
 };
 

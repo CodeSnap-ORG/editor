@@ -16,7 +16,7 @@ const Color = require("../util/color");
  * @param {*} val A value that evaluates to 0 in JS string-to-number conversation such as empty string, 0, or tab.
  * @returns {boolean} True if the value should not be treated as the number zero.
  */
-const isNotActuallyZero = (val) => {
+const isNotActuallyZero = val => {
     if (typeof val !== "string") return false;
     for (let i = 0; i < val.length; i++) {
         const code = val.charCodeAt(i);

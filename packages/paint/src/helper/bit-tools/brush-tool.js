@@ -39,7 +39,7 @@ class BrushTool extends paper.Tool {
         this.tmpCanvas = getBrushMark(
             this.size,
             this.color,
-            this.isEraser || !this.color,
+            this.isEraser || !this.color
         );
     }
     setBrushSize(size) {
@@ -48,7 +48,7 @@ class BrushTool extends paper.Tool {
         this.tmpCanvas = getBrushMark(
             this.size,
             this.color,
-            this.isEraser || !this.color,
+            this.isEraser || !this.color
         );
     }
     drawNextLine(previousPoint, nextPoint) {
@@ -61,7 +61,7 @@ class BrushTool extends paper.Tool {
             context.drawImage(
                 this.maskBrush || this.tmpCanvas,
                 ~~x - roundedUpRadius,
-                ~~y - roundedUpRadius,
+                ~~y - roundedUpRadius
             );
         });
         if (this.isEraser || !this.color) {
@@ -99,7 +99,7 @@ class BrushTool extends paper.Tool {
             this.tmpCanvas = getBrushMark(
                 this.size,
                 this.color,
-                this.isEraser || !this.color,
+                this.isEraser || !this.color
             );
             this.cursorPreview = new paper.Raster(this.tmpCanvas);
             this.cursorPreview.guide = true;
@@ -114,7 +114,7 @@ class BrushTool extends paper.Tool {
         this.updateCursorIfNeeded();
         this.cursorPreview.position = new paper.Point(
             ~~event.point.x,
-            ~~event.point.y,
+            ~~event.point.y
         );
     }
     handleMouseDown(event) {
@@ -157,7 +157,7 @@ class BrushTool extends paper.Tool {
         if (!this.isEraser) {
             getRaster().drawImage(
                 this.drawTarget.canvas,
-                new paper.Point(0, 0),
+                new paper.Point(0, 0)
             );
             this.drawTarget.remove();
         }
@@ -172,7 +172,7 @@ class BrushTool extends paper.Tool {
         this.updateCursorIfNeeded();
         this.cursorPreview.position = new paper.Point(
             ~~event.point.x,
-            ~~event.point.y,
+            ~~event.point.y
         );
     }
     deactivateTool() {

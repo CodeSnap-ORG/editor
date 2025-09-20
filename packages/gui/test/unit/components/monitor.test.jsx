@@ -24,7 +24,7 @@ describe("Monitor Component", () => {
                 // eslint-disable-next-line react/jsx-no-bind
                 onNextMode={noop}
                 theme={DEFAULT_THEME}
-            />,
+            />
         );
 
         const defaultMonitor = wrapper.find(DefaultMonitor);
@@ -52,7 +52,7 @@ describe("Monitor Component", () => {
                 // eslint-disable-next-line react/jsx-no-bind
                 onNextMode={noop}
                 theme={DARK_THEME}
-            />,
+            />
         );
 
         const defaultMonitor = wrapper.find(DefaultMonitor);

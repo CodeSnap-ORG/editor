@@ -52,8 +52,8 @@ class SegmentBrushHelper {
             new paper.Segment(
                 this.lastPoint.subtract(step),
                 handleVec.multiply(-1),
-                handleVec,
-            ),
+                handleVec
+            )
         );
         step.angle += 90;
 
@@ -68,8 +68,8 @@ class SegmentBrushHelper {
             new paper.Segment(
                 event.point.add(step),
                 handleVec,
-                handleVec.multiply(-1),
-            ),
+                handleVec.multiply(-1)
+            )
         );
         path.closed = true;
         // The unite function on curved paths does not always work (sometimes deletes half the path)

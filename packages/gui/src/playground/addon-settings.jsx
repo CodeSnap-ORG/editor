@@ -20,7 +20,7 @@ import Settings from "../addons/settings/settings.jsx";
 import render from "./app-target";
 import Clippy from "../containers/amp-clippy.jsx";
 
-const onExportSettings = (settings) => {
+const onExportSettings = settings => {
     const blob = new Blob([JSON.stringify(settings)]);
     downloadBlob("turbowarp-addon-settings.json", blob);
 };
@@ -29,5 +29,5 @@ render(
     <React.Fragment>
         <Clippy isFixed />
         <Settings onExportSettings={onExportSettings} />
-    </React.Fragment>,
+    </React.Fragment>
 );

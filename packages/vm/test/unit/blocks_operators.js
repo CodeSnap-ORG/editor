@@ -3,36 +3,36 @@ const Operators = require("../../src/blocks/scratch3_operators");
 
 const blocks = new Operators(null);
 
-test("getPrimitives", (t) => {
+test("getPrimitives", t => {
     t.type(blocks.getPrimitives(), "object");
     t.end();
 });
 
-test("add", (t) => {
+test("add", t => {
     t.strictEqual(blocks.add({ NUM1: "1", NUM2: "1" }), 2);
     t.strictEqual(blocks.add({ NUM1: "foo", NUM2: "bar" }), 0);
     t.end();
 });
 
-test("subtract", (t) => {
+test("subtract", t => {
     t.strictEqual(blocks.subtract({ NUM1: "1", NUM2: "1" }), 0);
     t.strictEqual(blocks.subtract({ NUM1: "foo", NUM2: "bar" }), 0);
     t.end();
 });
 
-test("multiply", (t) => {
+test("multiply", t => {
     t.strictEqual(blocks.multiply({ NUM1: "2", NUM2: "2" }), 4);
     t.strictEqual(blocks.multiply({ NUM1: "foo", NUM2: "bar" }), 0);
     t.end();
 });
 
-test("divide", (t) => {
+test("divide", t => {
     t.strictEqual(blocks.divide({ NUM1: "2", NUM2: "2" }), 1);
     t.ok(isNaN(blocks.divide({ NUM1: "foo", NUM2: "bar" }))); // @todo
     t.end();
 });
 
-test("lt", (t) => {
+test("lt", t => {
     t.strictEqual(blocks.lt({ OPERAND1: "1", OPERAND2: "2" }), true);
     t.strictEqual(blocks.lt({ OPERAND1: "2", OPERAND2: "1" }), false);
     t.strictEqual(blocks.lt({ OPERAND1: "1", OPERAND2: "1" }), false);
@@ -41,7 +41,7 @@ test("lt", (t) => {
     t.end();
 });
 
-test("equals", (t) => {
+test("equals", t => {
     t.strictEqual(blocks.equals({ OPERAND1: "1", OPERAND2: "2" }), false);
     t.strictEqual(blocks.equals({ OPERAND1: "2", OPERAND2: "1" }), false);
     t.strictEqual(blocks.equals({ OPERAND1: "1", OPERAND2: "1" }), true);
@@ -49,34 +49,34 @@ test("equals", (t) => {
     t.end();
 });
 
-test("gt", (t) => {
+test("gt", t => {
     t.strictEqual(blocks.gt({ OPERAND1: "1", OPERAND2: "2" }), false);
     t.strictEqual(blocks.gt({ OPERAND1: "2", OPERAND2: "1" }), true);
     t.strictEqual(blocks.gt({ OPERAND1: "1", OPERAND2: "1" }), false);
     t.end();
 });
 
-test("and", (t) => {
+test("and", t => {
     t.strictEqual(blocks.and({ OPERAND1: true, OPERAND2: true }), true);
     t.strictEqual(blocks.and({ OPERAND1: true, OPERAND2: false }), false);
     t.strictEqual(blocks.and({ OPERAND1: false, OPERAND2: false }), false);
     t.end();
 });
 
-test("or", (t) => {
+test("or", t => {
     t.strictEqual(blocks.or({ OPERAND1: true, OPERAND2: true }), true);
     t.strictEqual(blocks.or({ OPERAND1: true, OPERAND2: false }), true);
     t.strictEqual(blocks.or({ OPERAND1: false, OPERAND2: false }), false);
     t.end();
 });
 
-test("not", (t) => {
+test("not", t => {
     t.strictEqual(blocks.not({ OPERAND: true }), false);
     t.strictEqual(blocks.not({ OPERAND: false }), true);
     t.end();
 });
 
-test("random", (t) => {
+test("random", t => {
     const min = 0;
     const max = 100;
     const result = blocks.random({ FROM: min, TO: max });
@@ -85,14 +85,14 @@ test("random", (t) => {
     t.end();
 });
 
-test("random - equal", (t) => {
+test("random - equal", t => {
     const min = 1;
     const max = 1;
     t.strictEqual(blocks.random({ FROM: min, TO: max }), min);
     t.end();
 });
 
-test("random - decimal", (t) => {
+test("random - decimal", t => {
     const min = 0.1;
     const max = 10;
     const result = blocks.random({ FROM: min, TO: max });
@@ -101,7 +101,7 @@ test("random - decimal", (t) => {
     t.end();
 });
 
-test("random - int", (t) => {
+test("random - int", t => {
     const min = 0;
     const max = 10;
     const result = blocks.random({ FROM: min, TO: max });
@@ -110,7 +110,7 @@ test("random - int", (t) => {
     t.end();
 });
 
-test("random - reverse", (t) => {
+test("random - reverse", t => {
     const min = 0;
     const max = 10;
     const result = blocks.random({ FROM: max, TO: min });
@@ -119,13 +119,13 @@ test("random - reverse", (t) => {
     t.end();
 });
 
-test("join", (t) => {
+test("join", t => {
     t.strictEqual(blocks.join({ STRING1: "foo", STRING2: "bar" }), "foobar");
     t.strictEqual(blocks.join({ STRING1: "1", STRING2: "2" }), "12");
     t.end();
 });
 
-test("letterOf", (t) => {
+test("letterOf", t => {
     t.strictEqual(blocks.letterOf({ STRING: "foo", LETTER: 0 }), "");
     t.strictEqual(blocks.letterOf({ STRING: "foo", LETTER: 1 }), "f");
     t.strictEqual(blocks.letterOf({ STRING: "foo", LETTER: 2 }), "o");
@@ -135,7 +135,7 @@ test("letterOf", (t) => {
     t.end();
 });
 
-test("length", (t) => {
+test("length", t => {
     t.strictEqual(blocks.length({ STRING: "" }), 0);
     t.strictEqual(blocks.length({ STRING: "foo" }), 3);
     t.strictEqual(blocks.length({ STRING: "1" }), 1);
@@ -143,34 +143,34 @@ test("length", (t) => {
     t.end();
 });
 
-test("contains", (t) => {
+test("contains", t => {
     t.strictEqual(
         blocks.contains({ STRING1: "hello world", STRING2: "hello" }),
-        true,
+        true
     );
     t.strictEqual(blocks.contains({ STRING1: "foo", STRING2: "bar" }), false);
     t.strictEqual(
         blocks.contains({ STRING1: "HeLLo world", STRING2: "hello" }),
-        true,
+        true
     );
     t.end();
 });
 
-test("mod", (t) => {
+test("mod", t => {
     t.strictEqual(blocks.mod({ NUM1: 1, NUM2: 1 }), 0);
     t.strictEqual(blocks.mod({ NUM1: 3, NUM2: 6 }), 3);
     t.strictEqual(blocks.mod({ NUM1: -3, NUM2: 6 }), 3);
     t.end();
 });
 
-test("round", (t) => {
+test("round", t => {
     t.strictEqual(blocks.round({ NUM: 1 }), 1);
     t.strictEqual(blocks.round({ NUM: 1.1 }), 1);
     t.strictEqual(blocks.round({ NUM: 1.5 }), 2);
     t.end();
 });
 
-test("mathop", (t) => {
+test("mathop", t => {
     t.strictEqual(blocks.mathop({ OPERATOR: "abs", NUM: -1 }), 1);
     t.strictEqual(blocks.mathop({ OPERATOR: "floor", NUM: 1.5 }), 1);
     t.strictEqual(blocks.mathop({ OPERATOR: "ceiling", NUM: 0.1 }), 1);
@@ -189,7 +189,7 @@ test("mathop", (t) => {
     t.strictEqual(blocks.mathop({ OPERATOR: "log", NUM: 1 }), 0);
     t.strictEqual(
         blocks.mathop({ OPERATOR: "e ^", NUM: 1 }),
-        2.718281828459045,
+        2.718281828459045
     );
     t.strictEqual(blocks.mathop({ OPERATOR: "10 ^", NUM: 1 }), 10);
     t.strictEqual(blocks.mathop({ OPERATOR: "undefined", NUM: 1 }), 0);

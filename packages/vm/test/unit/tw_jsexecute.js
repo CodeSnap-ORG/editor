@@ -3,10 +3,10 @@ const jsexecute = require("../../src/compiler/jsexecute");
 const Cast = require("../../src/util/cast");
 const { stringify } = require("@turbowarp/json");
 
-const evaluateRuntimeFunction = (functionName) =>
+const evaluateRuntimeFunction = functionName =>
     jsexecute.scopedEval(functionName);
 
-test("runtimeFunctions are valid", (t) => {
+test("runtimeFunctions are valid", t => {
     for (const functionName of Object.keys(jsexecute.runtimeFunctions)) {
         const fn = evaluateRuntimeFunction(functionName);
         t.type(fn, "function", `${functionName} is function`);
@@ -14,13 +14,13 @@ test("runtimeFunctions are valid", (t) => {
     t.end();
 });
 
-test("all runtimeFunctions can be used together", (t) => {
+test("all runtimeFunctions can be used together", t => {
     const script = Object.keys(jsexecute.runtimeFunctions).join(";");
     jsexecute.scopedEval(script);
     t.end();
 });
 
-test("comparison functions are equivalent to Cast.compare", (t) => {
+test("comparison functions are equivalent to Cast.compare", t => {
     const VALUES = [
         0,
         -0,

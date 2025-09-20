@@ -39,7 +39,7 @@ const rgbSimilar = function (t, actual, expected) {
     }
 };
 
-test("decimalToHex", (t) => {
+test("decimalToHex", t => {
     t.strictEqual(color.decimalToHex(0), "#000000");
     t.strictEqual(color.decimalToHex(1), "#000001");
     t.strictEqual(color.decimalToHex(16777215), "#ffffff");
@@ -48,7 +48,7 @@ test("decimalToHex", (t) => {
     t.end();
 });
 
-test("decimalToRgb", (t) => {
+test("decimalToRgb", t => {
     t.deepEqual(color.decimalToRgb(0), { a: 255, r: 0, g: 0, b: 0 });
     t.deepEqual(color.decimalToRgb(1), { a: 255, r: 0, g: 0, b: 1 });
     t.deepEqual(color.decimalToRgb(16777215), {
@@ -62,7 +62,7 @@ test("decimalToRgb", (t) => {
     t.end();
 });
 
-test("hexToRgb", (t) => {
+test("hexToRgb", t => {
     t.deepEqual(color.hexToRgb("#000"), { r: 0, g: 0, b: 0 });
     t.deepEqual(color.hexToRgb("#000000"), { r: 0, g: 0, b: 0 });
     t.deepEqual(color.hexToRgb("#fff"), { r: 255, g: 255, b: 255 });
@@ -83,21 +83,21 @@ test("hexToRgb", (t) => {
     t.end();
 });
 
-test("rgbToHex", (t) => {
+test("rgbToHex", t => {
     t.strictEqual(color.rgbToHex({ r: 0, g: 0, b: 0 }), "#000000");
     t.strictEqual(color.rgbToHex({ r: 255, g: 255, b: 255 }), "#ffffff");
     t.strictEqual(color.rgbToHex({ r: 0, g: 255, b: 170 }), "#00ffaa");
     t.end();
 });
 
-test("rgbToDecimal", (t) => {
+test("rgbToDecimal", t => {
     t.strictEqual(color.rgbToDecimal({ r: 0, g: 0, b: 0 }), 0);
     t.strictEqual(color.rgbToDecimal({ r: 255, g: 255, b: 255 }), 16777215);
     t.strictEqual(color.rgbToDecimal({ r: 0, g: 255, b: 170 }), 65450);
     t.end();
 });
 
-test("hexToDecimal", (t) => {
+test("hexToDecimal", t => {
     t.strictEqual(color.hexToDecimal("#000"), 0);
     t.strictEqual(color.hexToDecimal("#000000"), 0);
     t.strictEqual(color.hexToDecimal("#fff"), 16777215);
@@ -107,7 +107,7 @@ test("hexToDecimal", (t) => {
     t.end();
 });
 
-test("hsvToRgb", (t) => {
+test("hsvToRgb", t => {
     rgbSimilar(t, color.hsvToRgb({ h: 0, s: 0, v: 0 }), { r: 0, g: 0, b: 0 });
     rgbSimilar(t, color.hsvToRgb({ h: 123, s: 0.1234, v: 0 }), {
         r: 0,
@@ -138,7 +138,7 @@ test("hsvToRgb", (t) => {
     t.end();
 });
 
-test("rgbToHsv", (t) => {
+test("rgbToHsv", t => {
     hsvSimilar(t, color.rgbToHsv({ r: 0, g: 0, b: 0 }), { h: 0, s: 0, v: 0 });
     hsvSimilar(t, color.rgbToHsv({ r: 64, g: 64, b: 64 }), {
         h: 0,
@@ -174,41 +174,41 @@ test("rgbToHsv", (t) => {
     t.end();
 });
 
-test("mixRgb", (t) => {
+test("mixRgb", t => {
     rgbSimilar(
         t,
         color.mixRgb({ r: 10, g: 20, b: 30 }, { r: 30, g: 40, b: 50 }, -1),
-        { r: 10, g: 20, b: 30 },
+        { r: 10, g: 20, b: 30 }
     );
     rgbSimilar(
         t,
         color.mixRgb({ r: 10, g: 20, b: 30 }, { r: 30, g: 40, b: 50 }, 0),
-        { r: 10, g: 20, b: 30 },
+        { r: 10, g: 20, b: 30 }
     );
     rgbSimilar(
         t,
         color.mixRgb({ r: 10, g: 20, b: 30 }, { r: 30, g: 40, b: 50 }, 0.25),
-        { r: 15, g: 25, b: 35 },
+        { r: 15, g: 25, b: 35 }
     );
     rgbSimilar(
         t,
         color.mixRgb({ r: 10, g: 20, b: 30 }, { r: 30, g: 40, b: 50 }, 0.5),
-        { r: 20, g: 30, b: 40 },
+        { r: 20, g: 30, b: 40 }
     );
     rgbSimilar(
         t,
         color.mixRgb({ r: 10, g: 20, b: 30 }, { r: 30, g: 40, b: 50 }, 0.75),
-        { r: 25, g: 35, b: 45 },
+        { r: 25, g: 35, b: 45 }
     );
     rgbSimilar(
         t,
         color.mixRgb({ r: 10, g: 20, b: 30 }, { r: 30, g: 40, b: 50 }, 1),
-        { r: 30, g: 40, b: 50 },
+        { r: 30, g: 40, b: 50 }
     );
     rgbSimilar(
         t,
         color.mixRgb({ r: 10, g: 20, b: 30 }, { r: 30, g: 40, b: 50 }, 2),
-        { r: 30, g: 40, b: 50 },
+        { r: 30, g: 40, b: 50 }
     );
     t.end();
 });

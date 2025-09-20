@@ -8,7 +8,7 @@ const VirtualMachine = require("../../src/index");
 const projectUri = path.resolve(__dirname, "../fixtures/clone-cleanup.sb2");
 const project = readFileToBuffer(projectUri);
 
-test("clone-cleanup", (t) => {
+test("clone-cleanup", t => {
     const vm = new VirtualMachine();
     vm.attachStorage(makeTestStorage());
 
@@ -23,28 +23,28 @@ test("clone-cleanup", (t) => {
         t.strictEqual(
             vm.runtime.targets.length,
             2 + expectedClones,
-            `target count at step ${testStep}`,
+            `target count at step ${testStep}`
         );
 
         // the stage should never have any clones
         t.strictEqual(
             vm.runtime.targets[0].sprite.clones.length,
             1,
-            `stage clone count at step ${testStep}`,
+            `stage clone count at step ${testStep}`
         );
 
         // check sprite clone count (+1 for original)
         t.strictEqual(
             vm.runtime.targets[1].sprite.clones.length,
             1 + expectedClones,
-            `sprite clone count at step ${testStep}`,
+            `sprite clone count at step ${testStep}`
         );
 
         // thread count isn't directly tied to clone count since threads can end
         t.strictEqual(
             vm.runtime.threads.length,
             extraThreads + 2 * expectedClones,
-            `thread count at step ${testStep}`,
+            `thread count at step ${testStep}`
         );
     };
 

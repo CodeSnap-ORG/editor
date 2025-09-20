@@ -39,7 +39,7 @@ const saveExtensionToLocalStorage = async (name, description, options) => {
     const dataToHash = encoder.encode(hashInput);
     const hashBuffer = await crypto.subtle.digest("SHA-1", dataToHash);
     const hashArray = Array.from(new Uint8Array(hashBuffer));
-    const id = hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
+    const id = hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
 
     const newExtension = {
         id,
@@ -62,15 +62,15 @@ const saveExtensionToLocalStorage = async (name, description, options) => {
  * @param {Blob} blob Blob
  * @returns {Promise<string>} data: uri
  */
-const readAsDataURL = (blob) =>
+const readAsDataURL = blob =>
     new Promise((resolve, reject) => {
         const reader = new FileReader();
         reader.onload = () => resolve(reader.result);
         reader.onerror = () =>
             reject(
                 new Error(
-                    `Could not read extension as data URL: ${reader.error}`,
-                ),
+                    `Could not read extension as data URL: ${reader.error}`
+                )
             );
         reader.readAsDataURL(blob);
     });
@@ -321,15 +321,15 @@ CustomExtensionModal.propTypes = {
     }),
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     vm: state.scratchGui.vm,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     onClose: () => dispatch(closeCustomExtensionModal()),
 });
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps,
+    mapDispatchToProps
 )(CustomExtensionModal);

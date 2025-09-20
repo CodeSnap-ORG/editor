@@ -73,7 +73,7 @@ const vmManagerHOC = function (WrappedComponent) {
                 .then(() => {
                     this.props.onLoadedProject(
                         this.props.loadingState,
-                        this.props.canSave,
+                        this.props.canSave
                     );
                     // Wrap in a setTimeout because skin loading in
                     // the renderer can be async.
@@ -90,7 +90,7 @@ const vmManagerHOC = function (WrappedComponent) {
                         setTimeout(() => this.props.vm.renderer.draw());
                     }
                 })
-                .catch((e) => {
+                .catch(e => {
                     this.props.onError(e);
                 });
         }
@@ -140,7 +140,7 @@ const vmManagerHOC = function (WrappedComponent) {
         vm: PropTypes.instanceOf(VM).isRequired,
     };
 
-    const mapStateToProps = (state) => {
+    const mapStateToProps = state => {
         const loadingState = state.scratchGui.projectState.loadingState;
         return {
             fontsLoaded: state.scratchGui.fontsLoaded,
@@ -155,8 +155,8 @@ const vmManagerHOC = function (WrappedComponent) {
         };
     };
 
-    const mapDispatchToProps = (dispatch) => ({
-        onError: (error) => dispatch(projectError(error)),
+    const mapDispatchToProps = dispatch => ({
+        onError: error => dispatch(projectError(error)),
         onLoadedProject: (loadingState, canSave) =>
             dispatch(onLoadedProject(loadingState, canSave, true)),
         onSetProjectUnchanged: () => dispatch(setProjectUnchanged()),

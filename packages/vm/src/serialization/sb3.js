@@ -373,7 +373,7 @@ const serializeBlocks = function (blocks) {
             log.warn(
                 `Found an unexpected top level primitive with block ID: ${
                     blockID
-                }; deleting it from serialized blocks.`,
+                }; deleting it from serialized blocks.`
             );
             delete obj[blockID];
         }
@@ -385,7 +385,7 @@ const serializeBlocks = function (blocks) {
  * @param {unknown} blocks Output of serializeStandaloneBlocks
  * @returns {{blocks: Block[], extensionURLs: Map<string, string>}}
  */
-const deserializeStandaloneBlocks = (blocks) => {
+const deserializeStandaloneBlocks = blocks => {
     // deep clone to ensure it's safe to modify later
     blocks = JSON.parse(JSON.stringify(blocks));
 
@@ -491,11 +491,11 @@ const serializeSound = function (sound) {
 // variables or lists. This will cause make the project unusable after exporting without JSON editing
 // as it will fail validation in scratch-parser.
 // To avoid this, we'll convert those objects to strings before saving them.
-const isVariableValueSafeForJSON = (value) =>
+const isVariableValueSafeForJSON = value =>
     typeof value === "number" ||
     typeof value === "string" ||
     typeof value === "boolean";
-const makeSafeForJSON = (value) => {
+const makeSafeForJSON = value => {
     if (Array.isArray(value)) {
         let copy = null;
         for (let i = 0; i < value.length; i++) {
@@ -572,10 +572,10 @@ const serializeComments = function (comments) {
             // another field
             serializedComment.text = comment.text.substring(
                 0,
-                UPSTREAM_MAX_COMMENT_LENGTH,
+                UPSTREAM_MAX_COMMENT_LENGTH
             );
             serializedComment.extraText = comment.text.substring(
-                UPSTREAM_MAX_COMMENT_LENGTH,
+                UPSTREAM_MAX_COMMENT_LENGTH
             );
         } else {
             serializedComment.text = comment.text;
@@ -611,12 +611,12 @@ const serializeTarget = function (target, extensions) {
         target.currentCostume >= target.costumes.length
     ) {
         log.warn(
-            `currentCostume property for target ${target.name} is out of range`,
+            `currentCostume property for target ${target.name} is out of range`
         );
         target.currentCostume = MathUtil.clamp(
             target.currentCostume,
             0,
-            target.costumes.length - 1,
+            target.costumes.length - 1
         );
     }
 
@@ -655,7 +655,7 @@ const serializeTarget = function (target, extensions) {
     }
 
     // Add found extensions to the extensions object
-    targetExtensions.forEach((extensionId) => {
+    targetExtensions.forEach(extensionId => {
         extensions.add(extensionId);
     });
     return obj;
@@ -686,7 +686,7 @@ const serializeExtensionStorage = (extensionStorage, extensions) => {
 };
 
 const getSimplifiedLayerOrdering = function (targets) {
-    const layerOrders = targets.map((t) => t.getLayerOrder());
+    const layerOrders = targets.map(t => t.getLayerOrder());
     return MathUtil.reducedSortOrdering(layerOrders);
 };
 
@@ -699,7 +699,7 @@ const serializeMonitors = function (monitors, runtime, extensions) {
             .valueSeq()
             // Don't include hidden monitors from extensions
             // https://github.com/LLK/scratch-vm/issues/2331
-            .filter((monitorData) => {
+            .filter(monitorData => {
                 const extensionID = getExtensionIdForOpcode(monitorData.opcode);
                 if (!extensionID) {
                     // Native block, always safe
@@ -711,7 +711,7 @@ const serializeMonitors = function (monitors, runtime, extensions) {
                 }
                 return false;
             })
-            .map((monitorData) => {
+            .map(monitorData => {
                 const serializedMonitor = {
                     id: monitorData.id,
                     mode: monitorData.mode,
@@ -747,7 +747,7 @@ const serializeMonitors = function (monitors, runtime, extensions) {
 const serialize = function (
     runtime,
     targetId,
-    { allowOptimization = true } = {},
+    { allowOptimization = true } = {}
 ) {
     // Fetch targets
     const obj = Object.create(null);
@@ -756,14 +756,14 @@ const serialize = function (
 
     const originalTargetsToSerialize = targetId
         ? [runtime.getTargetById(targetId)]
-        : runtime.targets.filter((target) => target.isOriginal);
+        : runtime.targets.filter(target => target.isOriginal);
 
     const layerOrdering = getSimplifiedLayerOrdering(
-        originalTargetsToSerialize,
+        originalTargetsToSerialize
     );
 
-    const flattenedOriginalTargets = originalTargetsToSerialize.map((t) =>
-        t.toJSON(),
+    const flattenedOriginalTargets = originalTargetsToSerialize.map(t =>
+        t.toJSON()
     );
 
     // If the renderer is attached, and we're serializing a whole project (not a sprite)
@@ -775,13 +775,13 @@ const serialize = function (
     }
 
     const serializedTargets = flattenedOriginalTargets
-        .map((t) => serializeTarget(t, extensions))
+        .map(t => serializeTarget(t, extensions))
         .map((serialized, index) => {
             // can't serialize extensionStorage until the list of used extensions is fully known
             const target = originalTargetsToSerialize[index];
             const targetExtensionStorage = serializeExtensionStorage(
                 target.extensionStorage,
-                extensions,
+                extensions
             );
             if (targetExtensionStorage) {
                 serialized.extensionStorage = targetExtensionStorage;
@@ -809,7 +809,7 @@ const serialize = function (
 
     const globalExtensionStorage = serializeExtensionStorage(
         runtime.extensionStorage,
-        extensions,
+        extensions
     );
     if (globalExtensionStorage) {
         obj.extensionStorage = globalExtensionStorage;
@@ -820,7 +820,7 @@ const serialize = function (
     obj.monitors = serializeMonitors(
         runtime.getMonitorState(),
         runtime,
-        extensions,
+        extensions
     );
 
     obj.extensions = Array.from(extensions);
@@ -874,7 +874,7 @@ const deserializeInputDesc = function (
     inputDescOrId,
     parentId,
     isShadow,
-    blocks,
+    blocks
 ) {
     if (!Array.isArray(inputDescOrId)) return inputDescOrId;
     const primitiveObj = Object.create(null);
@@ -1012,7 +1012,7 @@ const deserializeInputDesc = function (
         }
         default: {
             log.error(
-                `Found unknown primitive type during deserialization: ${JSON.stringify(inputDescOrId)}`,
+                `Found unknown primitive type during deserialization: ${JSON.stringify(inputDescOrId)}`
             );
             return null;
         }
@@ -1047,14 +1047,14 @@ const deserializeInputs = function (inputs, parentId, blocks) {
                 inputDescArr[1],
                 parentId,
                 true,
-                blocks,
+                blocks
             );
         } else if (blockShadowInfo === INPUT_BLOCK_NO_SHADOW) {
             block = deserializeInputDesc(
                 inputDescArr[1],
                 parentId,
                 false,
-                blocks,
+                blocks
             );
         } else {
             // assume INPUT_DIFF_BLOCK_SHADOW
@@ -1062,13 +1062,13 @@ const deserializeInputs = function (inputs, parentId, blocks) {
                 inputDescArr[1],
                 parentId,
                 false,
-                blocks,
+                blocks
             );
             shadow = deserializeInputDesc(
                 inputDescArr[2],
                 parentId,
                 true,
-                blocks,
+                blocks
             );
         }
         obj[inputName] = {
@@ -1168,7 +1168,7 @@ const parseScratchAssets = function (object, runtime, zip) {
     };
 
     // Costumes from JSON.
-    assets.costumePromises = (object.costumes || []).map((costumeSource) => {
+    assets.costumePromises = (object.costumes || []).map(costumeSource => {
         // @todo: Make sure all the relevant metadata is being pulled out.
         const costume = {
             // costumeSource only has an asset if an image is being uploaded as
@@ -1188,7 +1188,7 @@ const parseScratchAssets = function (object, runtime, zip) {
             "png"; // if all else fails, guess that it might be a PNG
         const costumeMd5Ext = Object.prototype.hasOwnProperty.call(
             costumeSource,
-            "md5ext",
+            "md5ext"
         )
             ? costumeSource.md5ext
             : `${costumeSource.assetId}.${dataFormat}`;
@@ -1201,14 +1201,14 @@ const parseScratchAssets = function (object, runtime, zip) {
         // of building up the costume object into an sb3 format
         return runtime.wrapAssetRequest(() =>
             deserializeCostume(costume, runtime, zip).then(() =>
-                loadCostume(costumeMd5Ext, costume, runtime),
-            ),
+                loadCostume(costumeMd5Ext, costume, runtime)
+            )
         );
         // Only attempt to load the costume after the deserialization
         // process has been completed
     });
     // Sounds from JSON
-    assets.soundPromises = (object.sounds || []).map((soundSource) => {
+    assets.soundPromises = (object.sounds || []).map(soundSource => {
         const sound = {
             assetId: soundSource.assetId,
             format: soundSource.format,
@@ -1229,8 +1229,8 @@ const parseScratchAssets = function (object, runtime, zip) {
         // of building up the costume object into an sb3 format
         return runtime.wrapAssetRequest(() =>
             deserializeSound(sound, runtime, zip).then(() =>
-                loadSound(sound, runtime, assets.soundBank),
-            ),
+                loadSound(sound, runtime, assets.soundBank)
+            )
         );
         // Only attempt to load the sound after the deserialization
         // process has been completed.
@@ -1289,7 +1289,7 @@ const parseScratchObject = function (object, runtime, extensions, zip, assets) {
     const target = sprite.createClone(
         object.isStage
             ? StageLayering.BACKGROUND_LAYER
-            : StageLayering.SPRITE_LAYER,
+            : StageLayering.SPRITE_LAYER
     );
     // Load target properties from JSON.
     if (Object.prototype.hasOwnProperty.call(object, "tempo")) {
@@ -1323,7 +1323,7 @@ const parseScratchObject = function (object, runtime, extensions, zip, assets) {
                 varId, // var id is the index of the variable desc array in the variables obj
                 variable[0], // name of the variable
                 Variable.SCALAR_TYPE, // type of the variable
-                isCloud,
+                isCloud
             );
             if (isCloud) runtime.addCloudVariable();
             newVariable.value = variable[1];
@@ -1337,7 +1337,7 @@ const parseScratchObject = function (object, runtime, extensions, zip, assets) {
                 listId,
                 list[0],
                 Variable.LIST_TYPE,
-                false,
+                false
             );
             newList.value = list[1];
             target.variables[newList.id] = newList;
@@ -1350,7 +1350,7 @@ const parseScratchObject = function (object, runtime, extensions, zip, assets) {
                 broadcastId,
                 broadcast,
                 Variable.BROADCAST_MESSAGE_TYPE,
-                false,
+                false
             );
             // no need to explicitly set the value, variable constructor
             // sets the value to the same as the name for broadcast msgs
@@ -1371,7 +1371,7 @@ const parseScratchObject = function (object, runtime, extensions, zip, assets) {
                 comment.y,
                 comment.width,
                 comment.height,
-                comment.minimized,
+                comment.minimized
             );
             if (comment.blockId) {
                 newComment.blockId = comment.blockId;
@@ -1400,7 +1400,7 @@ const parseScratchObject = function (object, runtime, extensions, zip, assets) {
         target.currentCostume = MathUtil.clamp(
             object.currentCostume,
             0,
-            object.costumes.length - 1,
+            object.costumes.length - 1
         );
     }
     if (Object.prototype.hasOwnProperty.call(object, "rotationStyle")) {
@@ -1421,16 +1421,16 @@ const parseScratchObject = function (object, runtime, extensions, zip, assets) {
     if (Object.prototype.hasOwnProperty.call(object, "extensionStorage")) {
         target.extensionStorage = object.extensionStorage;
     }
-    Promise.all(costumePromises).then((costumes) => {
+    Promise.all(costumePromises).then(costumes => {
         sprite.costumes = costumes;
     });
-    Promise.all(soundPromises).then((sounds) => {
+    Promise.all(soundPromises).then(sounds => {
         sprite.sounds = sounds;
         // Make sure if soundBank is undefined, sprite.soundBank is then null.
         sprite.soundBank = soundBank || null;
     });
     return Promise.all(costumePromises.concat(soundPromises)).then(
-        () => target,
+        () => target
     );
 };
 
@@ -1438,7 +1438,7 @@ const deserializeMonitor = function (
     monitorData,
     runtime,
     targets,
-    extensions,
+    extensions
 ) {
     // Monitors position is always stored as position from top-left corner in 480x360 stage.
     const xOffset = (runtime.stageWidth - 480) / 2;
@@ -1453,7 +1453,7 @@ const deserializeMonitor = function (
     // to match the sprite's id.
     if (monitorData.spriteName) {
         const filteredTargets = targets.filter(
-            (t) => t.sprite.name === monitorData.spriteName,
+            t => t.sprite.name === monitorData.spriteName
         );
         if (filteredTargets && filteredTargets.length > 0) {
             monitorData.targetId = filteredTargets[0].id;
@@ -1461,7 +1461,7 @@ const deserializeMonitor = function (
             log.warn(
                 `Tried to deserialize sprite specific monitor ${
                     monitorData.opcode
-                } but could not find sprite ${monitorData.spriteName}.`,
+                } but could not find sprite ${monitorData.spriteName}.`
             );
         }
     }
@@ -1474,13 +1474,13 @@ const deserializeMonitor = function (
     // with an outdated/incorrect LIST parameter. Fix it up to use the current name of the actual corresponding list.
     if (monitorData.opcode === "data_listcontents") {
         const listTarget = monitorData.targetId
-            ? targets.find((t) => t.id === monitorData.targetId)
-            : targets.find((t) => t.isStage);
+            ? targets.find(t => t.id === monitorData.targetId)
+            : targets.find(t => t.isStage);
         if (
             listTarget &&
             Object.prototype.hasOwnProperty.call(
                 listTarget.variables,
-                monitorData.id,
+                monitorData.id
             )
         ) {
             monitorData.params.LIST = listTarget.variables[monitorData.id].name;
@@ -1573,8 +1573,8 @@ const deserializeMonitor = function (
 const replaceUnsafeCharsInVariableIds = function (targets) {
     const allVarRefs = VariableUtil.getAllVarRefsForTargets(targets, true);
     // Re-id the variables in the actual targets
-    targets.forEach((t) => {
-        Object.keys(t.variables).forEach((id) => {
+    targets.forEach(t => {
+        Object.keys(t.variables).forEach(id => {
             const newId = StringUtil.replaceUnsafeChars(id);
             if (newId === id) return;
             t.variables[id].id = newId;
@@ -1618,7 +1618,7 @@ const checkPlatformCompatibility = (json, runtime) => {
         return;
     }
 
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
         runtime.emit(Runtime.PLATFORM_MISMATCH, json.meta.platform, () => {
             pending--;
             if (pending === 0) {
@@ -1666,7 +1666,7 @@ const deserialize = async function (json, runtime, zip, isSingleSprite) {
         fontPromise = runtime.fontManager.deserialize(
             json.customFonts,
             zip,
-            isSingleSprite,
+            isSingleSprite
         );
     } else {
         fontPromise = Promise.resolve();
@@ -1685,14 +1685,14 @@ const deserialize = async function (json, runtime, zip, isSingleSprite) {
     return (
         fontPromise
             .then(() =>
-                targetObjects.map((target) =>
-                    parseScratchAssets(target, runtime, zip),
-                ),
+                targetObjects.map(target =>
+                    parseScratchAssets(target, runtime, zip)
+                )
             )
             // Force this promise to wait for the next loop in the js tick. Let
             // storage have some time to send off asset requests.
-            .then((assets) => Promise.resolve(assets))
-            .then((assets) =>
+            .then(assets => Promise.resolve(assets))
+            .then(assets =>
                 Promise.all(
                     targetObjects.map((target, index) =>
                         parseScratchObject(
@@ -1700,12 +1700,12 @@ const deserialize = async function (json, runtime, zip, isSingleSprite) {
                             runtime,
                             extensions,
                             zip,
-                            assets[index],
-                        ),
-                    ),
-                ),
+                            assets[index]
+                        )
+                    )
+                )
             )
-            .then((targets) =>
+            .then(targets =>
                 targets // Re-sort targets back into original sprite-pane ordering
                     .map((t, i) => {
                         // Add layer order property to deserialized targets.
@@ -1715,34 +1715,34 @@ const deserialize = async function (json, runtime, zip, isSingleSprite) {
                         return t;
                     })
                     .sort((a, b) => a.targetPaneOrder - b.targetPaneOrder)
-                    .map((t) => {
+                    .map(t => {
                         // Delete the temporary properties used for
                         // sprite pane ordering and stage layer ordering
                         delete t.targetPaneOrder;
                         return t;
-                    }),
+                    })
             )
-            .then((targets) => replaceUnsafeCharsInVariableIds(targets))
-            .then((targets) => {
-                monitorObjects.map((monitorDesc) =>
+            .then(targets => replaceUnsafeCharsInVariableIds(targets))
+            .then(targets => {
+                monitorObjects.map(monitorDesc =>
                     deserializeMonitor(
                         monitorDesc,
                         runtime,
                         targets,
-                        extensions,
-                    ),
+                        extensions
+                    )
                 );
                 if (
                     Object.prototype.hasOwnProperty.call(
                         json,
-                        "extensionStorage",
+                        "extensionStorage"
                     )
                 ) {
                     runtime.extensionStorage = json.extensionStorage;
                 }
                 return targets;
             })
-            .then((targets) => ({
+            .then(targets => ({
                 targets,
                 extensions,
             }))

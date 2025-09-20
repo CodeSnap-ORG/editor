@@ -42,7 +42,7 @@ const setLocalStorage = (key, value) => {
     }
 };
 
-const getLocalStorage = (key) => {
+const getLocalStorage = key => {
     try {
         return localStorage.getItem(key);
     } catch (e) {
@@ -161,7 +161,7 @@ class WildcardRouter extends Router {
                 history.replaceState(
                     null,
                     null,
-                    `${location.pathname}${location.search}`,
+                    `${location.pathname}${location.search}`
                 );
             }
         } else {
@@ -178,7 +178,7 @@ class WildcardRouter extends Router {
         const path = location.pathname.substr(this.root.length);
         const parts = path.split("/");
 
-        const parseProjectId = (id) => {
+        const parseProjectId = id => {
             if (id) {
                 this.onSetProjectId(id);
             } else {
@@ -186,7 +186,7 @@ class WildcardRouter extends Router {
             }
         };
 
-        const parsePageType = (type) => {
+        const parsePageType = type => {
             if (!detectPageType) {
                 return;
             }
@@ -260,7 +260,7 @@ const createRouter = (style, callbacks) => {
 
     if (!supportedStyles.includes(style)) {
         log.warn(
-            `routing style is unknown or not supported: ${style}, falling back to hash`,
+            `routing style is unknown or not supported: ${style}, falling back to hash`
         );
         style = "hash";
     }
@@ -346,7 +346,7 @@ const TWStateManager = function (WrappedComponent) {
                 const clones = +urlParams.get("clones");
                 if (Number.isNaN(clones) || clones < 0) {
                     alert(
-                        this.props.intl.formatMessage(messages.invalidClones),
+                        this.props.intl.formatMessage(messages.invalidClones)
                     );
                 } else {
                     this.props.vm.setRuntimeOptions({
@@ -378,7 +378,7 @@ const TWStateManager = function (WrappedComponent) {
             };
             this.router = createRouter(
                 this.props.routingStyle,
-                routerCallbacks,
+                routerCallbacks
             );
             this.router.onhashchange();
             window.addEventListener("hashchange", this.handleHashChange);
@@ -591,7 +591,7 @@ const TWStateManager = function (WrappedComponent) {
     StateManagerComponent.defaultProps = {
         routingStyle: process.env.ROUTING_STYLE,
     };
-    const mapStateToProps = (state) => ({
+    const mapStateToProps = state => ({
         customStageSize: state.scratchGui.customStageSize,
         isFullScreen: state.scratchGui.mode.isFullScreen,
         isPlayerOnly: state.scratchGui.mode.isPlayerOnly,
@@ -607,15 +607,15 @@ const TWStateManager = function (WrappedComponent) {
         username: state.scratchGui.tw.username,
         vm: state.scratchGui.vm,
     });
-    const mapDispatchToProps = (dispatch) => ({
-        onSetIsFullScreen: (isFullScreen) =>
+    const mapDispatchToProps = dispatch => ({
+        onSetIsFullScreen: isFullScreen =>
             dispatch(setFullScreen(isFullScreen)),
-        onSetIsPlayerOnly: (isPlayerOnly) => dispatch(setPlayer(isPlayerOnly)),
-        onSetProjectId: (projectId) => dispatch(setProjectId(projectId)),
-        onSetUsername: (username) => dispatch(setUsername(username)),
+        onSetIsPlayerOnly: isPlayerOnly => dispatch(setPlayer(isPlayerOnly)),
+        onSetProjectId: projectId => dispatch(setProjectId(projectId)),
+        onSetUsername: username => dispatch(setUsername(username)),
     });
     return injectIntl(
-        connect(mapStateToProps, mapDispatchToProps)(StateManagerComponent),
+        connect(mapStateToProps, mapDispatchToProps)(StateManagerComponent)
     );
 };
 

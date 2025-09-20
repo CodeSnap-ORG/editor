@@ -7,7 +7,7 @@ import DataURL from "./data-url.jsx";
 import FancyCheckbox from "../tw-fancy-checkbox/checkbox.jsx";
 import { APP_NAME } from "../../lib/brand";
 
-const LoadExtensionModal = (props) => (
+const LoadExtensionModal = props => (
     <div>
         {props.url.startsWith("data:") ? (
             <React.Fragment>

@@ -15,13 +15,13 @@ const reducer = function (state, action) {
                 !(action.selectedItems instanceof Array)
             ) {
                 log.warn(
-                    `No selected items or wrong format provided: ${action.selectedItems}`,
+                    `No selected items or wrong format provided: ${action.selectedItems}`
                 );
                 return state;
             }
             if (action.selectedItems.length > 1 && action.bitmapMode) {
                 log.warn(
-                    `Multiselect should not be possible in bitmap mode: ${action.selectedItems}`,
+                    `Multiselect should not be possible in bitmap mode: ${action.selectedItems}`
                 );
                 return state;
             }

@@ -151,7 +151,7 @@ class CostumeTab extends React.Component {
         const costumes = Array.isArray(costume) ? costume : [costume];
 
         return Promise.all(
-            costumes.map((c) => {
+            costumes.map(c => {
                 if (fromCostumeLibrary) {
                     return this.props.vm.addCostumeFromLibrary(c.md5, c);
                 }
@@ -159,7 +159,7 @@ class CostumeTab extends React.Component {
                 // However, targetId should be provided to prevent #5876,
                 // if making new costume takes a while
                 return this.props.vm.addCostume(c.md5, c, targetId);
-            }),
+            })
         );
     }
     handleNewBlankCostume() {
@@ -211,7 +211,7 @@ class CostumeTab extends React.Component {
                     buffer,
                     fileType,
                     vm,
-                    (vmCostumes) => {
+                    vmCostumes => {
                         vmCostumes.forEach((costume, i) => {
                             costume.name = `${fileName}${i ? i + 1 : ""}`;
                         });
@@ -220,13 +220,13 @@ class CostumeTab extends React.Component {
                                 if (fileIndex === fileCount - 1) {
                                     this.props.onCloseImporting();
                                 }
-                            },
+                            }
                         );
                     },
-                    this.props.onCloseImporting,
+                    this.props.onCloseImporting
                 );
             },
-            this.props.onCloseImporting,
+            this.props.onCloseImporting
         );
     }
     handleFileUploadClick() {
@@ -240,7 +240,7 @@ class CostumeTab extends React.Component {
             this.props.vm.reorderCostume(
                 this.props.vm.editingTarget.id,
                 dropInfo.index,
-                dropInfo.newIndex,
+                dropInfo.newIndex
             );
             this.setState({
                 selectedCostumeIndex: sprite.costumes.indexOf(activeCostume),
@@ -302,13 +302,13 @@ class CostumeTab extends React.Component {
             : addLibraryCostumeIcon;
 
         const costumeData = target.costumes
-            ? target.costumes.map((costume) => ({
+            ? target.costumes.map(costume => ({
                   name: costume.name,
                   asset: costume.asset,
                   details: costume.size
                       ? this.formatCostumeDetails(
                             costume.size,
-                            costume.bitmapResolution,
+                            costume.bitmapResolution
                         )
                       : null,
                   dragPayload: costume,
@@ -334,7 +334,7 @@ class CostumeTab extends React.Component {
                     },
                     {
                         title: intl.formatMessage(
-                            messages.addSurpriseCostumeMsg,
+                            messages.addSurpriseCostumeMsg
                         ),
                         img: surpriseIcon,
                         onClick: addSurpriseFunc,
@@ -391,7 +391,7 @@ CostumeTab.propTypes = {
                     url: PropTypes.string,
                     name: PropTypes.string.isRequired,
                     skinId: PropTypes.number,
-                }),
+                })
             ),
         }),
     }),
@@ -399,13 +399,13 @@ CostumeTab.propTypes = {
         sounds: PropTypes.arrayOf(
             PropTypes.shape({
                 name: PropTypes.string.isRequired,
-            }),
+            })
         ),
     }),
     vm: PropTypes.instanceOf(VM),
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     editingTarget: state.scratchGui.targets.editingTarget,
     isRtl: state.locales.isRtl,
     sprites: state.scratchGui.targets.sprites,
@@ -413,17 +413,17 @@ const mapStateToProps = (state) => ({
     dragging: state.scratchGui.assetDrag.dragging,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     onActivateSoundsTab: () => dispatch(activateTab(SOUNDS_TAB_INDEX)),
-    onNewLibraryBackdropClick: (e) => {
+    onNewLibraryBackdropClick: e => {
         e.preventDefault();
         dispatch(openBackdropLibrary());
     },
-    onNewLibraryCostumeClick: (e) => {
+    onNewLibraryCostumeClick: e => {
         e.preventDefault();
         dispatch(openCostumeLibrary());
     },
-    dispatchUpdateRestore: (restoreState) => {
+    dispatchUpdateRestore: restoreState => {
         dispatch(setRestore(restoreState));
     },
     onCloseImporting: () => dispatch(closeAlertWithId("importingAsset")),
@@ -431,5 +431,5 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default errorBoundaryHOC("Costume Tab")(
-    injectIntl(connect(mapStateToProps, mapDispatchToProps)(CostumeTab)),
+    injectIntl(connect(mapStateToProps, mapDispatchToProps)(CostumeTab))
 );

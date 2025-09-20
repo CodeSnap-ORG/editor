@@ -10,7 +10,7 @@ import { mount, shallow } from "enzyme";
 const intlProvider = new IntlProvider({ locale: "en" }, {});
 const { intl } = intlProvider.getChildContext();
 
-const nodeWithIntlProp = (node) => React.cloneElement(node, { intl });
+const nodeWithIntlProp = node => React.cloneElement(node, { intl });
 
 const shallowWithIntl = (node, { context } = {}) =>
     shallow(nodeWithIntlProp(node), {
@@ -23,7 +23,7 @@ const mountWithIntl = (node, { context, childContextTypes } = {}) =>
         childContextTypes: Object.assign(
             {},
             { intl: intlShape },
-            childContextTypes,
+            childContextTypes
         ),
     });
 

@@ -2,7 +2,7 @@
  * Prepare the targets of a runtime for interpolation.
  * @param {Runtime} runtime The Runtime with targets to prepare for interpolation.
  */
-const setupInitialState = (runtime) => {
+const setupInitialState = runtime => {
     const renderer = runtime.renderer;
 
     for (const target of runtime.targets) {
@@ -15,12 +15,12 @@ const setupInitialState = (runtime) => {
             renderer.updateDrawableDirectionScale(
                 drawableID,
                 directionAndScale.direction,
-                directionAndScale.scale,
+                directionAndScale.scale
             );
             renderer.updateDrawableEffect(
                 drawableID,
                 "ghost",
-                target.effects.ghost,
+                target.effects.ghost
             );
         }
 
@@ -77,10 +77,10 @@ const interpolate = (runtime, time) => {
             const bounds = drawable.getAABB();
             const tolerance = Math.min(
                 240,
-                Math.max(50, 1.5 * (bounds.width + bounds.height)),
+                Math.max(50, 1.5 * (bounds.width + bounds.height))
             );
             const distance = Math.sqrt(
-                absoluteXDistance ** 2 + absoluteYDistance ** 2,
+                absoluteXDistance ** 2 + absoluteYDistance ** 2
             );
             if (distance < tolerance) {
                 const newX = interpolationData.x + xDistance * time;
@@ -121,7 +121,7 @@ const interpolate = (runtime, time) => {
                             Math.sin(currentRadians) * time +
                                 Math.sin(startingRadians) * (1 - time),
                             Math.cos(currentRadians) * time +
-                                Math.cos(startingRadians) * (1 - time),
+                                Math.cos(startingRadians) * (1 - time)
                         ) *
                             180) /
                         Math.PI;
@@ -157,7 +157,7 @@ const interpolate = (runtime, time) => {
                 renderer.updateDrawableDirectionScale(
                     drawableID,
                     direction,
-                    scale,
+                    scale
                 );
             }
         }

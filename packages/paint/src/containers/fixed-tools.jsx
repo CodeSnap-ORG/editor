@@ -43,14 +43,14 @@ class FixedTools extends React.Component {
         groupSelection(
             this.props.clearSelectedItems,
             this.handleSetSelectedItems,
-            this.props.onUpdateImage,
+            this.props.onUpdateImage
         );
     }
     handleUngroup() {
         ungroupSelection(
             this.props.clearSelectedItems,
             this.handleSetSelectedItems,
-            this.props.onUpdateImage,
+            this.props.onUpdateImage
         );
     }
     handleSendBackward() {
@@ -104,7 +104,7 @@ FixedTools.propTypes = {
     width: PropTypes.number,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     changeColorToEyeDropper: state.scratchPaint.color.eyeDropper.callback,
     format: state.scratchPaint.format,
     isEyeDropping: state.scratchPaint.color.eyeDropper.active,
@@ -114,8 +114,8 @@ const mapStateToProps = (state) => ({
     selectedItems: state.scratchPaint.selectedItems,
     viewBounds: state.scratchPaint.viewBounds,
 });
-const mapDispatchToProps = (dispatch) => ({
-    changeMode: (mode) => {
+const mapDispatchToProps = dispatch => ({
+    changeMode: mode => {
         dispatch(changeMode(mode));
     },
     clearSelectedItems: () => {
@@ -130,10 +130,10 @@ const mapDispatchToProps = (dispatch) => ({
     removeTextEditTarget: () => {
         dispatch(setTextEditTarget());
     },
-    setLayout: (layout) => {
+    setLayout: layout => {
         dispatch(setLayout(layout));
     },
-    setSelectedItems: (format) => {
+    setSelectedItems: format => {
         dispatch(setSelectedItems(getSelectedLeafItems(), isBitmap(format)));
     },
     onDeactivateEyeDropper: () => {

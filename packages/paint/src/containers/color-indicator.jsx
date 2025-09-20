@@ -67,14 +67,14 @@ const makeColorIndicator = (label, isStroke) => {
                     this._hasChanged =
                         applyStrokeWidthToSelection(
                             1,
-                            this.props.textEditTarget,
+                            this.props.textEditTarget
                         ) || this._hasChanged;
                     this.props.onChangeStrokeWidth(1);
                 } else if (!oldStyleWasNull && newStyleIsNull) {
                     this._hasChanged =
                         applyStrokeWidthToSelection(
                             0,
-                            this.props.textEditTarget,
+                            this.props.textEditTarget
                         ) || this._hasChanged;
                     this.props.onChangeStrokeWidth(0);
                 }
@@ -89,7 +89,7 @@ const makeColorIndicator = (label, isStroke) => {
                 // In bitmap mode, only the fill color selector is used, but it applies to stroke if fillBitmapShapes
                 // is set to true via the "Fill"/"Outline" selector button
                 isStroke || (formatIsBitmap && !this.props.fillBitmapShapes),
-                this.props.textEditTarget,
+                this.props.textEditTarget
             );
             this._hasChanged = this._hasChanged || isDifferent;
             this.props.onChangeColor(newColor, this.props.colorIndex);
@@ -100,7 +100,7 @@ const makeColorIndicator = (label, isStroke) => {
             const isDifferent = applyGradientTypeToSelection(
                 gradientType,
                 isStroke || (formatIsBitmap && !this.props.fillBitmapShapes),
-                this.props.textEditTarget,
+                this.props.textEditTarget
             );
             this._hasChanged = this._hasChanged || isDifferent;
             const hasSelectedItems = getSelectedLeafItems().length > 0;
@@ -118,7 +118,7 @@ const makeColorIndicator = (label, isStroke) => {
                 if (!hasSelectedItems) {
                     this.props.onChangeColor(
                         generateSecondaryColor(this.props.color),
-                        1,
+                        1
                     );
                 }
                 this.props.onChangeColorIndex(1);
@@ -143,7 +143,7 @@ const makeColorIndicator = (label, isStroke) => {
                 const isDifferent = swapColorsInSelection(
                     isStroke ||
                         (formatIsBitmap && !this.props.fillBitmapShapes),
-                    this.props.textEditTarget,
+                    this.props.textEditTarget
                 );
                 this.props.setSelectedItems(this.props.format);
                 this._hasChanged = this._hasChanged || isDifferent;

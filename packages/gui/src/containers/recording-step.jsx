@@ -36,7 +36,7 @@ class RecordingStep extends React.Component {
         this.audioRecorder.startListening(
             this.handleStarted,
             this.handleLevelUpdate,
-            this.handleRecordingError,
+            this.handleRecordingError
         );
     }
     componentWillUnmount() {
@@ -69,7 +69,7 @@ class RecordingStep extends React.Component {
             sampleRate,
             levels,
             trimStart,
-            trimEnd,
+            trimEnd
         );
     }
     render() {

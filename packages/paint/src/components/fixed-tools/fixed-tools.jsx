@@ -88,7 +88,7 @@ const messages = defineMessages({
     },
 });
 
-const FixedToolsComponent = (props) => {
+const FixedToolsComponent = props => {
     const redoDisabled = !props.canRedo();
     const undoDisabled = !props.canUndo();
 
@@ -141,7 +141,7 @@ const FixedToolsComponent = (props) => {
                             alt={props.intl.formatMessage(messages.undo)}
                             className={classNames(
                                 styles.buttonGroupButtonIcon,
-                                styles.undoIcon,
+                                styles.undoIcon
                             )}
                             draggable={false}
                             src={undoIcon}
@@ -251,7 +251,7 @@ const FixedToolsComponent = (props) => {
                                             {
                                                 [styles.modDisabled]:
                                                     !shouldShowBringForward(),
-                                            },
+                                            }
                                         )}
                                         disabled={!shouldShowBringForward()}
                                         onClick={props.onSendToFront}
@@ -263,7 +263,7 @@ const FixedToolsComponent = (props) => {
                                         />
                                         <span>
                                             {props.intl.formatMessage(
-                                                messages.front,
+                                                messages.front
                                             )}
                                         </span>
                                     </Button>
@@ -273,7 +273,7 @@ const FixedToolsComponent = (props) => {
                                             {
                                                 [styles.modDisabled]:
                                                     !shouldShowSendBackward(),
-                                            },
+                                            }
                                         )}
                                         disabled={!shouldShowSendBackward()}
                                         onClick={props.onSendToBack}
@@ -285,7 +285,7 @@ const FixedToolsComponent = (props) => {
                                         />
                                         <span>
                                             {props.intl.formatMessage(
-                                                messages.back,
+                                                messages.back
                                             )}
                                         </span>
                                     </Button>
@@ -334,7 +334,7 @@ FixedToolsComponent.propTypes = {
     width: PropTypes.number,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     format: state.scratchPaint.format,
     rtl: state.scratchPaint.layout.rtl,
     selectedItems: state.scratchPaint.selectedItems,

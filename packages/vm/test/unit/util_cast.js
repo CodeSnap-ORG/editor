@@ -1,7 +1,7 @@
 const test = require("tap").test;
 const cast = require("../../src/util/cast");
 
-test("toNumber", (t) => {
+test("toNumber", t => {
     // Numeric
     t.strictEqual(cast.toNumber(0), 0);
     t.strictEqual(cast.toNumber(1), 1);
@@ -27,7 +27,7 @@ test("toNumber", (t) => {
     t.end();
 });
 
-test("toBoolean", (t) => {
+test("toBoolean", t => {
     // Numeric
     t.strictEqual(cast.toBoolean(0), false);
     t.strictEqual(cast.toBoolean(1), true);
@@ -50,7 +50,7 @@ test("toBoolean", (t) => {
     t.end();
 });
 
-test("toString", (t) => {
+test("toString", t => {
     // Numeric
     t.strictEqual(cast.toString(0), "0");
     t.strictEqual(cast.toString(1), "1");
@@ -73,7 +73,7 @@ test("toString", (t) => {
     t.end();
 });
 
-test("toRgbColorList", (t) => {
+test("toRgbColorList", t => {
     // Hex (minimal, see "color" util tests)
     t.deepEqual(cast.toRgbColorList("#000"), [0, 0, 0]);
     t.deepEqual(cast.toRgbColorList("#000000"), [0, 0, 0]);
@@ -92,7 +92,7 @@ test("toRgbColorList", (t) => {
     t.end();
 });
 
-test("toRgbColorObject", (t) => {
+test("toRgbColorObject", t => {
     // Hex (minimal, see "color" util tests)
     t.deepEqual(cast.toRgbColorObject("#000"), { r: 0, g: 0, b: 0 });
     t.deepEqual(cast.toRgbColorObject("#000000"), { r: 0, g: 0, b: 0 });
@@ -122,7 +122,7 @@ test("toRgbColorObject", (t) => {
     t.end();
 });
 
-test("compare", (t) => {
+test("compare", t => {
     // Numeric
     t.strictEqual(cast.compare(0, 0), 0);
     t.strictEqual(cast.compare(1, 0), 1);
@@ -149,7 +149,7 @@ test("compare", (t) => {
     t.end();
 });
 
-test("isInt", (t) => {
+test("isInt", t => {
     // Numeric
     t.strictEqual(cast.isInt(0), true);
     t.strictEqual(cast.isInt(1), true);
@@ -174,7 +174,7 @@ test("isInt", (t) => {
     t.end();
 });
 
-test("toListIndex", (t) => {
+test("toListIndex", t => {
     const list = [0, 1, 2, 3, 4, 5];
     const empty = [];
 
@@ -192,14 +192,14 @@ test("toListIndex", (t) => {
     t.strictEqual(cast.toListIndex("all", list.length, true), cast.LIST_ALL);
     t.strictEqual(
         cast.toListIndex("all", list.length, false),
-        cast.LIST_INVALID,
+        cast.LIST_INVALID
     );
 
     // "last"
     t.strictEqual(cast.toListIndex("last", list.length, false), list.length);
     t.strictEqual(
         cast.toListIndex("last", empty.length, false),
-        cast.LIST_INVALID,
+        cast.LIST_INVALID
     );
 
     // "random"
@@ -208,7 +208,7 @@ test("toListIndex", (t) => {
     t.ok(random > 0);
     t.strictEqual(
         cast.toListIndex("random", empty.length, false),
-        cast.LIST_INVALID,
+        cast.LIST_INVALID
     );
 
     // "any" (alias for "random")
@@ -217,7 +217,7 @@ test("toListIndex", (t) => {
     t.ok(any > 0);
     t.strictEqual(
         cast.toListIndex("any", empty.length, false),
-        cast.LIST_INVALID,
+        cast.LIST_INVALID
     );
     t.end();
 });

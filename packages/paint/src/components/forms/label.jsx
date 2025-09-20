@@ -7,7 +7,7 @@ import React from "react";
 
 import styles from "./label.css";
 
-const Label = (props) => (
+const Label = props => (
     <label className={styles.inputGroup}>
         <span
             className={

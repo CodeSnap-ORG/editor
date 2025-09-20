@@ -105,7 +105,7 @@ class Scratch3VideoSensingBlocks {
             // Configure the video device with values from globally stored locations.
             this.runtime.on(
                 Runtime.PROJECT_LOADED,
-                this.updateVideoDisplay.bind(this),
+                this.updateVideoDisplay.bind(this)
             );
 
             // Clear target motion state values when the project starts.
@@ -221,7 +221,7 @@ class Scratch3VideoSensingBlocks {
         const targets = this.runtime.targets;
         for (let i = 0; i < targets.length; i++) {
             const state = targets[i].getCustomState(
-                Scratch3VideoSensingBlocks.STATE_KEY,
+                Scratch3VideoSensingBlocks.STATE_KEY
             );
             if (state) {
                 state.motionAmount = 0;
@@ -238,7 +238,7 @@ class Scratch3VideoSensingBlocks {
     _loop() {
         const loopTime = Math.max(
             this.runtime.currentStepTime,
-            Scratch3VideoSensingBlocks.INTERVAL,
+            Scratch3VideoSensingBlocks.INTERVAL
         );
         this._loopInterval = setTimeout(this._loop.bind(this), loopTime);
 
@@ -293,15 +293,15 @@ class Scratch3VideoSensingBlocks {
      */
     _getMotionState(target) {
         let motionState = target.getCustomState(
-            Scratch3VideoSensingBlocks.STATE_KEY,
+            Scratch3VideoSensingBlocks.STATE_KEY
         );
         if (!motionState) {
             motionState = Clone.simple(
-                Scratch3VideoSensingBlocks.DEFAULT_MOTION_STATE,
+                Scratch3VideoSensingBlocks.DEFAULT_MOTION_STATE
             );
             target.setCustomState(
                 Scratch3VideoSensingBlocks.STATE_KEY,
-                motionState,
+                motionState
             );
         }
         return motionState;

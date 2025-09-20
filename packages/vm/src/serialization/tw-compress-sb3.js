@@ -3,7 +3,7 @@
 // https://tc39.es/ecma262/#sec-ordinaryownpropertykeys
 const SOUP =
     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!#%()*+,-./:;=?@[]^_`{|}~";
-const generateId = (i) => {
+const generateId = i => {
     let str = "";
     while (i >= 0) {
         str = SOUP[i % SOUP.length] + str;
@@ -55,7 +55,7 @@ class Pool {
     }
 }
 
-const compress = (projectData) => {
+const compress = projectData => {
     // projectData is modified in-place
 
     // The optimization here is not optimal. This is intentional.

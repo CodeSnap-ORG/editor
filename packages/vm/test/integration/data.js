@@ -8,7 +8,7 @@ const VirtualMachine = require("../../src/index");
 const uri = path.resolve(__dirname, "../fixtures/data.sb2");
 const project = readFileToBuffer(uri);
 
-test("data", (t) => {
+test("data", t => {
     const vm = new VirtualMachine();
     vm.attachStorage(makeTestStorage());
 

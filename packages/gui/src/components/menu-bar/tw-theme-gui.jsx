@@ -21,8 +21,8 @@ const GuiThemeMenu = ({ onChangeTheme, theme }) => (
                 onChangeTheme(
                     theme.set(
                         "gui",
-                        theme.gui === GUI_DARK ? GUI_LIGHT : GUI_DARK,
-                    ),
+                        theme.gui === GUI_DARK ? GUI_LIGHT : GUI_DARK
+                    )
                 )
             }
         >
@@ -56,12 +56,12 @@ GuiThemeMenu.propTypes = {
     theme: PropTypes.instanceOf(Theme),
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     theme: state.scratchGui.theme.theme,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    onChangeTheme: (theme) => {
+const mapDispatchToProps = dispatch => ({
+    onChangeTheme: theme => {
         dispatch(setTheme(theme));
         dispatch(closeSettingsMenu());
         persistTheme(theme);

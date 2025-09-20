@@ -59,7 +59,7 @@ class RoundedRectMode extends React.Component {
             this.props.clearHoveredItem,
             this.props.setSelectedItems,
             this.props.clearSelectedItems,
-            this.props.onUpdateImage,
+            this.props.onUpdateImage
         );
         this.tool.activate();
     }
@@ -89,12 +89,12 @@ RoundedRectMode.propTypes = {
     setSelectedItems: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     isRoundedRectModeActive: state.scratchPaint.mode === Modes.ROUNDED_RECT,
     hoveredItemId: state.scratchPaint.hoveredItemId,
 });
-const mapDispatchToProps = (dispatch) => ({
-    setHoveredItem: (hoveredItemId) => {
+const mapDispatchToProps = dispatch => ({
+    setHoveredItem: hoveredItemId => {
         dispatch(setHoveredItem(hoveredItemId));
     },
     clearHoveredItem: () => {
@@ -105,7 +105,7 @@ const mapDispatchToProps = (dispatch) => ({
     },
     setSelectedItems: () => {
         dispatch(
-            setSelectedItems(getSelectedLeafItems(), false /* bitmapMode */),
+            setSelectedItems(getSelectedLeafItems(), false /* bitmapMode */)
         );
     },
     handleMouseDown: () => {

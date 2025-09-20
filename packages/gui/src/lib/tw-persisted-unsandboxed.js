@@ -18,7 +18,7 @@ const getPersistedUnsandboxed = () => {
 /**
  * @param {boolean} persisted True if persistence enabled
  */
-const setPersistedUnsandboxed = (persisted) => {
+const setPersistedUnsandboxed = persisted => {
     try {
         localStorage.setItem(PERSISTED_UNSANDBOXED_KEY, persisted === true);
     } catch (e) {

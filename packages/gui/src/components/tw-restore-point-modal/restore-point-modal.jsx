@@ -50,9 +50,9 @@ const INTERVAL_OPTIONS = [
     MINUTE * 30,
     -1,
 ];
-const IntervalSelector = (props) => (
+const IntervalSelector = props => (
     <select value={props.value} onChange={props.onChange}>
-        {INTERVAL_OPTIONS.map((interval) => (
+        {INTERVAL_OPTIONS.map(interval => (
             <option key={interval} value={interval}>
                 {interval < 0
                     ? props.intl.formatMessage(messages.never)
@@ -76,7 +76,7 @@ IntervalSelector.propTypes = {
     onChange: PropTypes.func.isRequired,
 };
 
-const RestorePointModal = (props) => (
+const RestorePointModal = props => (
     <Modal
         className={styles.modalContent}
         onRequestClose={props.onClose}
@@ -158,7 +158,7 @@ const RestorePointModal = (props) => (
             ) : (
                 <React.Fragment>
                     <div className={styles.restorePointContainer}>
-                        {props.restorePoints.map((restorePoint) => (
+                        {props.restorePoints.map(restorePoint => (
                             <RestorePoint
                                 key={restorePoint.id}
                                 onClickDelete={props.onClickDelete}
@@ -197,7 +197,7 @@ const RestorePointModal = (props) => (
                             onClick={props.onClickDeleteAll}
                             className={classNames(
                                 styles.button,
-                                styles.deleteAllButton,
+                                styles.deleteAllButton
                             )}
                             disabled={props.isLoading}
                         >

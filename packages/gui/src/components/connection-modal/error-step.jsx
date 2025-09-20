@@ -10,7 +10,7 @@ import backIcon from "./icons/back.svg";
 
 import styles from "./connection-modal.css";
 
-const ErrorStep = (props) => (
+const ErrorStep = props => (
     <Box className={styles.body}>
         <Box className={styles.activityArea}>
             <Box className={styles.centeredRow}>
@@ -27,7 +27,7 @@ const ErrorStep = (props) => (
             <div
                 className={classNames(
                     styles.bottomAreaItem,
-                    styles.instructions,
+                    styles.instructions
                 )}
             >
                 <FormattedMessage
@@ -47,7 +47,7 @@ const ErrorStep = (props) => (
                     <img
                         className={classNames(
                             styles.buttonIconLeft,
-                            styles.buttonIconBack,
+                            styles.buttonIconBack
                         )}
                         src={backIcon}
                         draggable={false}

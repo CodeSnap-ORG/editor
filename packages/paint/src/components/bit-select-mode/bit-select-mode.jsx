@@ -4,7 +4,7 @@ import ToolSelectComponent from "../tool-select-base/tool-select-base.jsx";
 import messages from "../../lib/messages.js";
 import selectIcon from "./marquee.svg";
 
-const BitSelectComponent = (props) => (
+const BitSelectComponent = props => (
     <ToolSelectComponent
         imgDescriptor={messages.select}
         imgSrc={selectIcon}

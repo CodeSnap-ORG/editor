@@ -20,7 +20,7 @@ const log = require("../util/log");
  * @param {string} font
  * @returns {string}
  */
-const removeInvalidCharacters = (font) => font.replace(/[^-\w ]/g, "");
+const removeInvalidCharacters = font => font.replace(/[^-\w ]/g, "");
 
 /**
  * @param {InternalFont[]} fonts Modified in-place
@@ -30,7 +30,7 @@ const removeInvalidCharacters = (font) => font.replace(/[^-\w ]/g, "");
 const addOrUpdateFont = (fonts, newFont) => {
     let oldFont;
     const oldIndex = fonts.findIndex(
-        (i) => i.family.toLowerCase() === newFont.family.toLowerCase(),
+        i => i.family.toLowerCase() === newFont.family.toLowerCase()
     );
     if (oldIndex !== -1) {
         oldFont = fonts[oldIndex];
@@ -73,7 +73,7 @@ class FontManager extends EventEmitter {
 
         const oldLength = this.fonts.length;
         this.fonts = this.fonts.filter(
-            (font) => font.system || this.isValidCustomFont(font.family),
+            font => font.system || this.isValidCustomFont(font.family)
         );
         if (this.fonts.length !== oldLength) {
             this.updateRenderer();
@@ -114,7 +114,7 @@ class FontManager extends EventEmitter {
     getUnusedSystemFont(family) {
         return StringUtil.caseInsensitiveUnusedName(
             removeInvalidCharacters(family),
-            this.fonts.map((i) => i.family),
+            this.fonts.map(i => i.family)
         );
     }
 
@@ -125,7 +125,7 @@ class FontManager extends EventEmitter {
     getUnusedCustomFont(family) {
         return StringUtil.caseInsensitiveUnusedName(
             removeInvalidCharacters(family),
-            [...this.fonts.map((i) => i.family), ...this.restrictedFonts],
+            [...this.fonts.map(i => i.family), ...this.restrictedFonts]
         );
     }
 
@@ -135,7 +135,7 @@ class FontManager extends EventEmitter {
      */
     hasFont(family) {
         return !!this.fonts.find(
-            (i) => i.family.toLowerCase() === family.toLowerCase(),
+            i => i.family.toLowerCase() === family.toLowerCase()
         );
     }
 
@@ -185,7 +185,7 @@ class FontManager extends EventEmitter {
      * @returns {Array<{system: boolean; name: string; family: string; data: Uint8Array | null; format: string | null}>}
      */
     getFonts() {
-        return this.fonts.map((font) => ({
+        return this.fonts.map(font => ({
             system: font.system,
             name: font.family,
             family: `"${font.family}", ${font.fallback}`,
@@ -206,7 +206,7 @@ class FontManager extends EventEmitter {
     }
 
     clear() {
-        const hadNonSystemFont = this.fonts.some((i) => !i.system);
+        const hadNonSystemFont = this.fonts.some(i => !i.system);
         this.fonts = [];
         if (hadNonSystemFont) {
             this.updateRenderer();
@@ -239,7 +239,7 @@ class FontManager extends EventEmitter {
             return null;
         }
 
-        return this.fonts.map((font) => {
+        return this.fonts.map(font => {
             const serialized = {
                 system: font.system,
                 family: font.family,
@@ -259,7 +259,7 @@ class FontManager extends EventEmitter {
      * @returns {Asset[]} list of scratch-storage assets
      */
     serializeAssets() {
-        return this.fonts.filter((i) => !i.system).map((i) => i.asset);
+        return this.fonts.filter(i => !i.system).map(i => i.asset);
     }
 
     /**
@@ -307,7 +307,7 @@ class FontManager extends EventEmitter {
                         this.runtime,
                         zip,
                         this.runtime.storage.AssetType.Font,
-                        md5ext,
+                        md5ext
                     );
                     this.addCustomFont(family, fallback, asset);
                 }

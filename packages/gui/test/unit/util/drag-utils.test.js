@@ -18,38 +18,38 @@ describe("indexForPositionOnList", () => {
 
         // Inside the second box.
         expect(indexForPositionOnList({ x: 150, y: 50 }, boxes, false)).toEqual(
-            1,
+            1
         );
 
         // On the border edge of the first and second box. Given to the first box.
         expect(indexForPositionOnList({ x: 100, y: 50 }, boxes, false)).toEqual(
-            0,
+            0
         );
 
         // Off the top/left edge.
         expect(
-            indexForPositionOnList({ x: -100, y: -100 }, boxes, false),
+            indexForPositionOnList({ x: -100, y: -100 }, boxes, false)
         ).toEqual(0);
 
         // Off the left edge, in the second row.
         expect(
-            indexForPositionOnList({ x: -100, y: 175 }, boxes, false),
+            indexForPositionOnList({ x: -100, y: 175 }, boxes, false)
         ).toEqual(3);
 
         // Off the right edge, in the first row.
         expect(indexForPositionOnList({ x: 400, y: 75 }, boxes, false)).toEqual(
-            2,
+            2
         );
 
         // Off the top edge, middle of second item.
         expect(
-            indexForPositionOnList({ x: 150, y: -75 }, boxes, false),
+            indexForPositionOnList({ x: 150, y: -75 }, boxes, false)
         ).toEqual(1);
 
         // Within the right edge bounds, but on the second (incomplete) row.
         // This tests that wrapped lists with incomplete final rows work correctly.
         expect(
-            indexForPositionOnList({ x: 375, y: 175 }, boxes, false),
+            indexForPositionOnList({ x: 375, y: 175 }, boxes, false)
         ).toEqual(4);
     });
 
@@ -64,38 +64,38 @@ describe("indexForPositionOnList", () => {
 
         // Inside the second box.
         expect(indexForPositionOnList({ x: -150, y: 50 }, boxes, true)).toEqual(
-            1,
+            1
         );
 
         // On the border edge of the first and second box. Given to the first box.
         expect(indexForPositionOnList({ x: -100, y: 50 }, boxes, true)).toEqual(
-            0,
+            0
         );
 
         // Off the top/right edge.
         expect(
-            indexForPositionOnList({ x: 100, y: -100 }, boxes, true),
+            indexForPositionOnList({ x: 100, y: -100 }, boxes, true)
         ).toEqual(0);
 
         // Off the right edge, in the second row.
         expect(indexForPositionOnList({ x: 100, y: 175 }, boxes, true)).toEqual(
-            3,
+            3
         );
 
         // Off the left edge, in the first row.
         expect(indexForPositionOnList({ x: -400, y: 75 }, boxes, true)).toEqual(
-            2,
+            2
         );
 
         // Off the top edge, middle of second item.
         expect(
-            indexForPositionOnList({ x: -150, y: -75 }, boxes, true),
+            indexForPositionOnList({ x: -150, y: -75 }, boxes, true)
         ).toEqual(1);
 
         // Within the left edge bounds, but on the second (incomplete) row.
         // This tests that wrapped lists with incomplete final rows work correctly.
         expect(
-            indexForPositionOnList({ x: -375, y: 175 }, boxes, true),
+            indexForPositionOnList({ x: -375, y: 175 }, boxes, true)
         ).toEqual(4);
     });
 });

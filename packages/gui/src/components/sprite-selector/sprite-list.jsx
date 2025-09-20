@@ -14,7 +14,7 @@ import styles from "./sprite-selector.css";
 
 const ThrottledSpriteSelectorItem = ThrottledPropertyHOC(
     "asset",
-    500,
+    500
 )(SpriteSelectorItem);
 
 const SpriteList = function (props) {
@@ -134,7 +134,7 @@ SpriteList.propTypes = {
             }),
             name: PropTypes.any, // modified by folders addon
             order: PropTypes.number.isRequired,
-        }),
+        })
     ),
     onAddSortable: PropTypes.func,
     onDeleteSprite: PropTypes.func,

@@ -83,7 +83,7 @@ class PaperCanvas extends React.Component {
             this.props.imageFormat,
             this.props.image,
             this.props.rotationCenterX,
-            this.props.rotationCenterY,
+            this.props.rotationCenterY
         );
     }
     componentWillReceiveProps(newProps) {
@@ -94,7 +94,7 @@ class PaperCanvas extends React.Component {
                 newProps.rotationCenterX,
                 newProps.rotationCenterY,
                 this.props.zoomLevelId,
-                newProps.zoomLevelId,
+                newProps.zoomLevelId
             );
         }
         if (this.props.format !== newProps.format) {
@@ -130,7 +130,7 @@ class PaperCanvas extends React.Component {
         rotationCenterX,
         rotationCenterY,
         oldZoomLevelId,
-        newZoomLevelId,
+        newZoomLevelId
     ) {
         if (oldZoomLevelId && oldZoomLevelId !== newZoomLevelId) {
             this.props.saveZoomLevel();
@@ -171,7 +171,7 @@ class PaperCanvas extends React.Component {
             this.props.changeFormat(Formats.VECTOR_SKIP_CONVERT);
             performSnapshot(
                 this.props.undoSnapshot,
-                Formats.VECTOR_SKIP_CONVERT,
+                Formats.VECTOR_SKIP_CONVERT
             );
             this.recalibrateSize();
             return;
@@ -207,13 +207,13 @@ class PaperCanvas extends React.Component {
                 getRaster().drawImage(
                     imgElement,
                     ART_BOARD_WIDTH / 2 - rotationCenterX,
-                    ART_BOARD_HEIGHT / 2 - rotationCenterY,
+                    ART_BOARD_HEIGHT / 2 - rotationCenterY
                 );
 
                 this.maybeZoomToFit(true /* isBitmap */);
                 performSnapshot(
                     this.props.undoSnapshot,
-                    Formats.BITMAP_SKIP_CONVERT,
+                    Formats.BITMAP_SKIP_CONVERT
                 );
                 this.recalibrateSize();
             };
@@ -224,12 +224,12 @@ class PaperCanvas extends React.Component {
         } else {
             this.clearPaperCanvas();
             log.error(
-                `Didn't recognize format: ${format}. Use 'jpg', 'png' or 'svg'.`,
+                `Didn't recognize format: ${format}. Use 'jpg', 'png' or 'svg'.`
             );
             this.props.changeFormat(Formats.VECTOR_SKIP_CONVERT);
             performSnapshot(
                 this.props.undoSnapshot,
-                Formats.VECTOR_SKIP_CONVERT,
+                Formats.VECTOR_SKIP_CONVERT
             );
             this.recalibrateSize();
         }
@@ -260,7 +260,7 @@ class PaperCanvas extends React.Component {
         if (svgAttrs && svgAttrs[0].indexOf("xmlns=") === -1) {
             svg = svg.replace(
                 "<svg ",
-                '<svg xmlns="http://www.w3.org/2000/svg" ',
+                '<svg xmlns="http://www.w3.org/2000/svg" '
             );
         }
 
@@ -289,7 +289,7 @@ class PaperCanvas extends React.Component {
                     paperCanvas.props.changeFormat(Formats.VECTOR_SKIP_CONVERT);
                     performSnapshot(
                         paperCanvas.props.undoSnapshot,
-                        Formats.VECTOR_SKIP_CONVERT,
+                        Formats.VECTOR_SKIP_CONVERT
                     );
                     return;
                 }
@@ -302,7 +302,7 @@ class PaperCanvas extends React.Component {
                         item,
                         rotationCenterX,
                         rotationCenterY,
-                        viewBox,
+                        viewBox
                     );
                 });
             },
@@ -354,7 +354,7 @@ class PaperCanvas extends React.Component {
         ) {
             let rotationPoint = new paper.Point(
                 rotationCenterX,
-                rotationCenterY,
+                rotationCenterY
             );
             if (
                 viewBox &&
@@ -454,14 +454,14 @@ PaperCanvas.propTypes = {
         currentZoomLevelId: PropTypes.string,
     }),
 };
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     mode: state.scratchPaint.mode,
     cursor: state.scratchPaint.cursor,
     format: state.scratchPaint.format,
     zoomLevels: state.scratchPaint.zoomLevels,
 });
-const mapDispatchToProps = (dispatch) => ({
-    undoSnapshot: (snapshot) => {
+const mapDispatchToProps = dispatch => ({
+    undoSnapshot: snapshot => {
         dispatch(undoSnapshot(snapshot));
     },
     clearUndo: () => {
@@ -476,16 +476,16 @@ const mapDispatchToProps = (dispatch) => ({
     clearPasteOffset: () => {
         dispatch(clearPasteOffset());
     },
-    changeFormat: (format) => {
+    changeFormat: format => {
         dispatch(changeFormat(format));
     },
     saveZoomLevel: () => {
         dispatch(saveZoomLevel(paper.view.matrix));
     },
-    setZoomLevelId: (zoomLevelId) => {
+    setZoomLevelId: zoomLevelId => {
         dispatch(setZoomLevelId(zoomLevelId));
     },
-    updateViewBounds: (matrix) => {
+    updateViewBounds: matrix => {
         dispatch(updateViewBounds(matrix));
     },
 });

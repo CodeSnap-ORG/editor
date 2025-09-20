@@ -65,7 +65,7 @@ const messages = defineMessages({
 });
 
 const enableSettingsButton = new URLSearchParams(location.search).has(
-    "settings-button",
+    "settings-button"
 );
 
 const StageHeaderComponent = function (props) {
@@ -92,7 +92,7 @@ const StageHeaderComponent = function (props) {
     const stageDimensions = getStageDimensions(
         stageSize,
         customStageSize,
-        isFullScreen || isEmbedded,
+        isFullScreen || isEmbedded
     );
 
     if (isFullScreen || isEmbedded) {
@@ -101,7 +101,7 @@ const StageHeaderComponent = function (props) {
                 <div
                     className={classNames(
                         styles.settingsButton,
-                        styles.unselectWrapper,
+                        styles.unselectWrapper
                     )}
                 >
                     <Button
@@ -110,13 +110,13 @@ const StageHeaderComponent = function (props) {
                     >
                         <img
                             alt={props.intl.formatMessage(
-                                messages.openSettingsMessage,
+                                messages.openSettingsMessage
                             )}
                             className={styles.stageButtonIcon}
                             draggable={false}
                             src={settingsIcon}
                             title={props.intl.formatMessage(
-                                messages.openSettingsMessage,
+                                messages.openSettingsMessage
                             )}
                         />
                     </Button>
@@ -131,13 +131,13 @@ const StageHeaderComponent = function (props) {
                 >
                     <img
                         alt={props.intl.formatMessage(
-                            messages.unFullScreenMessage,
+                            messages.unFullScreenMessage
                         )}
                         className={styles.stageButtonIcon}
                         draggable={false}
                         src={unFullScreenIcon}
                         title={props.intl.formatMessage(
-                            messages.fullscreenControl,
+                            messages.fullscreenControl
                         )}
                     />
                 </Button>
@@ -150,13 +150,13 @@ const StageHeaderComponent = function (props) {
                 >
                     <img
                         alt={props.intl.formatMessage(
-                            messages.fullScreenMessage,
+                            messages.fullScreenMessage
                         )}
                         className={styles.stageButtonIcon}
                         draggable={false}
                         src={fullScreenIcon}
                         title={props.intl.formatMessage(
-                            messages.fullscreenControl,
+                            messages.fullscreenControl
                         )}
                     />
                 </Button>
@@ -197,7 +197,7 @@ const StageHeaderComponent = function (props) {
                             isSelected:
                                 stageSizeMode === STAGE_SIZE_MODES.small,
                             title: props.intl.formatMessage(
-                                messages.smallStageSizeMessage,
+                                messages.smallStageSizeMessage
                             ),
                         },
                         ...(showFixedLargeSize
@@ -210,7 +210,7 @@ const StageHeaderComponent = function (props) {
                                           stageSizeMode ===
                                           STAGE_SIZE_MODES.large,
                                       title: props.intl.formatMessage(
-                                          messages.largeStageSizeMessage,
+                                          messages.largeStageSizeMessage
                                       ),
                                   },
                               ]
@@ -223,7 +223,7 @@ const StageHeaderComponent = function (props) {
                             iconClassName: styles.stageButtonIcon,
                             isSelected: stageSizeMode === STAGE_SIZE_MODES.full,
                             title: props.intl.formatMessage(
-                                messages.fullStageSizeMessage,
+                                messages.fullStageSizeMessage
                             ),
                         },
                     ]}
@@ -253,13 +253,13 @@ const StageHeaderComponent = function (props) {
                             >
                                 <img
                                     alt={props.intl.formatMessage(
-                                        messages.fullStageSizeMessage,
+                                        messages.fullStageSizeMessage
                                     )}
                                     className={styles.stageButtonIcon}
                                     draggable={false}
                                     src={fullScreenIcon}
                                     title={props.intl.formatMessage(
-                                        messages.fullscreenControl,
+                                        messages.fullscreenControl
                                     )}
                                 />
                             </Button>
@@ -273,7 +273,7 @@ const StageHeaderComponent = function (props) {
     return header;
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     // This is the button's mode, as opposed to the actual current state
     stageSizeMode: state.scratchGui.stageSize.stageSize,
 });

@@ -193,7 +193,7 @@ class GdxFor {
                 optionalServices: [BLEUUID.service],
             },
             this._onConnect,
-            this.reset,
+            this.reset
         );
     }
 
@@ -259,32 +259,32 @@ class GdxFor {
         const adapter = new ScratchLinkDeviceAdapter(this._ble, BLEUUID);
         godirect
             .createDevice(adapter, { open: true, startMeasurements: false })
-            .then((device) => {
+            .then(device => {
                 // Setup device
                 this._device = device;
                 this._device.keepValues = false; // todo: possibly remove after updating Vernier godirect module
 
                 // Enable sensors
-                this._device.sensors.forEach((sensor) => {
+                this._device.sensors.forEach(sensor => {
                     sensor.setEnabled(true);
                 });
 
                 // Set sensor value-update behavior
                 this._device.on("measurements-started", () => {
                     const enabledSensors = this._device.sensors.filter(
-                        (s) => s.enabled,
+                        s => s.enabled
                     );
-                    enabledSensors.forEach((sensor) => {
-                        sensor.on("value-changed", (s) => {
+                    enabledSensors.forEach(sensor => {
+                        sensor.on("value-changed", s => {
                             this._onSensorValueChanged(s);
                         });
                     });
                     this._timeoutID = window.setInterval(
                         () =>
                             this._ble.handleDisconnectError(
-                                BLEDataStoppedError,
+                                BLEDataStoppedError
                             ),
-                        BLETimeout,
+                        BLETimeout
                     );
                 });
 
@@ -306,7 +306,7 @@ class GdxFor {
                 this._sensors.force = MathUtil.clamp(
                     sensor.value * 2,
                     -100,
-                    100,
+                    100
                 );
                 break;
             case GDXFOR_SENSOR.ACCELERATION_X:
@@ -320,17 +320,17 @@ class GdxFor {
                 break;
             case GDXFOR_SENSOR.SPIN_SPEED_X:
                 this._sensors.spinSpeedX = this._spinSpeedFromGyro(
-                    sensor.value,
+                    sensor.value
                 );
                 break;
             case GDXFOR_SENSOR.SPIN_SPEED_Y:
                 this._sensors.spinSpeedY = this._spinSpeedFromGyro(
-                    sensor.value,
+                    sensor.value
                 );
                 break;
             case GDXFOR_SENSOR.SPIN_SPEED_Z:
                 this._sensors.spinSpeedZ = this._spinSpeedFromGyro(
-                    sensor.value,
+                    sensor.value
                 );
                 break;
         }
@@ -338,7 +338,7 @@ class GdxFor {
         window.clearInterval(this._timeoutID);
         this._timeoutID = window.setInterval(
             () => this._ble.handleDisconnectError(BLEDataStoppedError),
-            BLETimeout,
+            BLETimeout
         );
     }
 
@@ -646,7 +646,7 @@ class Scratch3GdxForBlocks {
         // Create a new GdxFor peripheral instance
         this._peripheral = new GdxFor(
             this.runtime,
-            Scratch3GdxForBlocks.EXTENSION_ID,
+            Scratch3GdxForBlocks.EXTENSION_ID
         );
     }
 
@@ -828,7 +828,7 @@ class Scratch3GdxForBlocks {
                 return this._peripheral.getForce() > FORCE_THRESHOLD;
             default:
                 log.warn(
-                    `unknown push/pull value in whenForcePushedOrPulled: ${args.PUSH_PULL}`,
+                    `unknown push/pull value in whenForcePushedOrPulled: ${args.PUSH_PULL}`
                 );
                 return false;
         }
@@ -850,7 +850,7 @@ class Scratch3GdxForBlocks {
                 return this._isFacing(GestureValues.TURNED_FACE_DOWN);
             default:
                 log.warn(
-                    `unknown gesture value in whenGesture: ${args.GESTURE}`,
+                    `unknown gesture value in whenGesture: ${args.GESTURE}`
                 );
                 return false;
         }
@@ -942,7 +942,7 @@ class Scratch3GdxForBlocks {
                 return Math.round(this._peripheral.getSpinSpeedZ());
             default:
                 log.warn(
-                    `Unknown direction in getSpinSpeed: ${args.DIRECTION}`,
+                    `Unknown direction in getSpinSpeed: ${args.DIRECTION}`
                 );
         }
     }
@@ -957,7 +957,7 @@ class Scratch3GdxForBlocks {
                 return Math.round(this._peripheral.getAccelerationZ());
             default:
                 log.warn(
-                    `Unknown direction in getAcceleration: ${args.DIRECTION}`,
+                    `Unknown direction in getAcceleration: ${args.DIRECTION}`
                 );
         }
     }
@@ -976,7 +976,7 @@ class Scratch3GdxForBlocks {
         return this.magnitude(
             this._peripheral.getAccelerationX(),
             this._peripheral.getAccelerationY(),
-            this._peripheral.getAccelerationZ(),
+            this._peripheral.getAccelerationZ()
         );
     }
 
@@ -988,7 +988,7 @@ class Scratch3GdxForBlocks {
         return this.magnitude(
             this._peripheral.getSpinSpeedX(),
             this._peripheral.getSpinSpeedY(),
-            this._peripheral.getSpinSpeedZ(),
+            this._peripheral.getSpinSpeedZ()
         );
     }
 

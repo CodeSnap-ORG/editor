@@ -54,7 +54,7 @@ import styles from "./interface.css";
 
 const isInvalidEmbed = window.parent !== window;
 
-const handleClickAddonSettings = (addonId) => {
+const handleClickAddonSettings = addonId => {
     // addonId might be a string of the addon to focus on, undefined, or an event (treat like undefined)
     const path =
         process.env.ROUTING_STYLE === "wildcard" ? "addons" : "addons.html";
@@ -72,7 +72,7 @@ const messages = defineMessages({
 
 const WrappedMenuBar = compose(
     SBFileUploaderHOC,
-    TWPackagerIntegrationHOC,
+    TWPackagerIntegrationHOC
 )(MenuBar);
 
 if (AddonChannels.reloadChannel) {
@@ -82,7 +82,7 @@ if (AddonChannels.reloadChannel) {
 }
 
 if (AddonChannels.changeChannel) {
-    AddonChannels.changeChannel.addEventListener("message", (e) => {
+    AddonChannels.changeChannel.addEventListener("message", e => {
         SettingsStore.setStoreWithVersionCheck(e.data);
     });
 }
@@ -114,7 +114,7 @@ class Interface extends React.Component {
             throw new TypeError(
                 "Simulated a TypeError to test the error screen. " +
                     `If someone sent you a link to this, just open ${APP_NAME} in ` +
-                    "a new tab and carry on with your day. This is not a bug.",
+                    "a new tab and carry on with your day. This is not a bug."
             );
         }
         if (isInvalidEmbed) {
@@ -185,7 +185,7 @@ class Interface extends React.Component {
                                     <div
                                         className={classNames(
                                             styles.infobox,
-                                            styles.unsharedUpdate,
+                                            styles.unsharedUpdate
                                         )}
                                     >
                                         <p>
@@ -316,7 +316,7 @@ Interface.propTypes = {
     projectId: PropTypes.string,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     hasCloudVariables: state.scratchGui.tw.hasCloudVariables,
     customStageSize: state.scratchGui.customStageSize,
     description: state.scratchGui.tw.description,
@@ -330,7 +330,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = () => ({});
 
 const ConnectedInterface = injectIntl(
-    connect(mapStateToProps, mapDispatchToProps)(Interface),
+    connect(mapStateToProps, mapDispatchToProps)(Interface)
 );
 
 const WrappedInterface = compose(
@@ -340,7 +340,7 @@ const WrappedInterface = compose(
     TWThemeManagerHOC,
     TWProjectMetaFetcherHOC,
     TWStateManagerHOC,
-    TWPackagerIntegrationHOC,
+    TWPackagerIntegrationHOC
 )(ConnectedInterface);
 
 export default WrappedInterface;

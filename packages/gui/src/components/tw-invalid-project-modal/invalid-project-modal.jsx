@@ -18,7 +18,7 @@ const messages = defineMessages({
     },
 });
 
-const formatError = (error) => {
+const formatError = error => {
     let message;
     if (error && error.stack) {
         message = `${error}\n\nStack:\n${error.stack}`;
@@ -28,7 +28,7 @@ const formatError = (error) => {
     return `${message}\n\n---\n\nURL: ${location.href}\nUser-Agent: ${navigator.userAgent}`;
 };
 
-const InvalidProjectModal = (props) => (
+const InvalidProjectModal = props => (
     <Modal
         className={styles.modalContent}
         onRequestClose={props.onClose}

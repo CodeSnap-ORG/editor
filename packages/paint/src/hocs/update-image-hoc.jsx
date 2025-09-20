@@ -77,14 +77,14 @@ const UpdateImageHOC = function (WrappedComponent) {
                 // However, this may happen if the user is rapidly undoing/redoing. In this case it's safe
                 // to skip the update.
                 log.warn(
-                    "Bitmap layer should be loaded before calling updateImage.",
+                    "Bitmap layer should be loaded before calling updateImage."
                 );
                 return;
             }
             // Anything that is selected is on the vector layer waiting to be committed to the bitmap layer.
             // Plaster the selection onto the raster layer before exporting, if there is a selection.
             const plasteredRaster = getRaster().getSubRaster(
-                getRaster().bounds,
+                getRaster().bounds
             ); // Clone the raster layer
             plasteredRaster.remove(); // Don't insert
             const selectedItems = getSelectedLeafItems();
@@ -100,7 +100,7 @@ const UpdateImageHOC = function (WrappedComponent) {
                         // This may get logged when rapidly undoing/redoing or changing costumes,
                         // in which case the warning is not relevant.
                         log.warn(
-                            "Bitmap layer should be loaded before calling updateImage.",
+                            "Bitmap layer should be loaded before calling updateImage."
                         );
                         return;
                     }
@@ -120,14 +120,14 @@ const UpdateImageHOC = function (WrappedComponent) {
                     const textRaster = item.rasterize(
                         72,
                         false /* insert */,
-                        bounds,
+                        bounds
                     );
                     plasteredRaster.drawImage(
                         textRaster.canvas,
                         new paper.Point(
                             Math.floor(bounds.x),
-                            Math.floor(bounds.y),
-                        ),
+                            Math.floor(bounds.y)
+                        )
                     );
                 }
             }
@@ -146,7 +146,7 @@ const UpdateImageHOC = function (WrappedComponent) {
                 false /* isVector */,
                 imageData,
                 ART_BOARD_WIDTH / 2 - rect.x,
-                ART_BOARD_HEIGHT / 2 - rect.y,
+                ART_BOARD_HEIGHT / 2 - rect.y
             );
 
             if (!skipSnapshot) {
@@ -190,7 +190,7 @@ const UpdateImageHOC = function (WrappedComponent) {
                     matrix: new paper.Matrix().translate(-bounds.x, -bounds.y),
                 }),
                 centerX,
-                centerY,
+                centerY
             );
             scaleWithStrokes(paper.project.activeLayer, 2, new paper.Point());
             paper.project.activeLayer.applyMatrix = true;
@@ -230,21 +230,21 @@ const UpdateImageHOC = function (WrappedComponent) {
         updateViewBounds: PropTypes.func.isRequired,
     };
 
-    const mapStateToProps = (state) => ({
+    const mapStateToProps = state => ({
         format: state.scratchPaint.format,
         mode: state.scratchPaint.mode,
         undoState: state.scratchPaint.undo,
     });
-    const mapDispatchToProps = (dispatch) => ({
-        setSelectedItems: (format) => {
+    const mapDispatchToProps = dispatch => ({
+        setSelectedItems: format => {
             dispatch(
-                setSelectedItems(getSelectedLeafItems(), isBitmap(format)),
+                setSelectedItems(getSelectedLeafItems(), isBitmap(format))
             );
         },
-        undoSnapshot: (snapshot) => {
+        undoSnapshot: snapshot => {
             dispatch(undoSnapshot(snapshot));
         },
-        updateViewBounds: (matrix) => {
+        updateViewBounds: matrix => {
             dispatch(updateViewBounds(matrix));
         },
     });

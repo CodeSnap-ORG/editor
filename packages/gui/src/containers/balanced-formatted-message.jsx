@@ -4,7 +4,7 @@ import { FormattedMessage } from "react-intl";
 
 import BalancedText from "./balanced-text.jsx";
 
-const BalancedFormattedMessage = (props) => {
+const BalancedFormattedMessage = props => {
     const { className, resize, style, ...otherProps } = props;
     const balancedTextProps = { className, resize, style };
     return (

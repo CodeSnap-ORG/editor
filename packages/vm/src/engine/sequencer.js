@@ -95,7 +95,7 @@ class Sequencer {
             if (this.runtime.profiler !== null) {
                 if (stepThreadsInnerProfilerId === -1) {
                     stepThreadsInnerProfilerId = this.runtime.profiler.idByName(
-                        stepThreadsInnerProfilerFrame,
+                        stepThreadsInnerProfilerFrame
                     );
                 }
                 this.runtime.profiler.start(stepThreadsInnerProfilerId);
@@ -132,7 +132,7 @@ class Sequencer {
                         if (stepThreadProfilerId === -1) {
                             stepThreadProfilerId =
                                 this.runtime.profiler.idByName(
-                                    stepThreadProfilerFrame,
+                                    stepThreadProfilerFrame
                                 );
                         }
 
@@ -319,7 +319,7 @@ class Sequencer {
         const currentBlockId = thread.peekStack();
         const branchId = thread.target.blocks.getBranch(
             currentBlockId,
-            branchNum,
+            branchNum
         );
         thread.peekStackFrame().isLoop = isLoop;
         if (branchId) {
@@ -361,7 +361,7 @@ class Sequencer {
             // to warp-mode if needed.
             const definitionBlock = thread.target.blocks.getBlock(definition);
             const innerBlock = thread.target.blocks.getBlock(
-                definitionBlock.inputs.custom_block.block,
+                definitionBlock.inputs.custom_block.block
             );
             let doWarp = false;
             if (innerBlock && innerBlock.mutation) {

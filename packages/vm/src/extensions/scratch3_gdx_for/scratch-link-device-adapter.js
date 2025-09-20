@@ -25,7 +25,7 @@ class ScratchLinkDeviceAdapter {
             this._service,
             this._commandChar,
             data,
-            "base64",
+            "base64"
         );
     }
 
@@ -34,7 +34,7 @@ class ScratchLinkDeviceAdapter {
         return this.socket.startNotifications(
             this._service,
             this._responseChar,
-            this._onResponse,
+            this._onResponse
         );
 
         // TODO:

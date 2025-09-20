@@ -4,7 +4,7 @@ import { FormattedMessage } from "react-intl";
 import { APP_NAME } from "../../lib/brand";
 import URL from "./url.jsx";
 
-const OpenWindowModal = (props) => (
+const OpenWindowModal = props => (
     <div>
         <FormattedMessage
             defaultMessage="The project wants to open a new window or tab with the URL:"

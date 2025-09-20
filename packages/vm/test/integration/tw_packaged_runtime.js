@@ -31,7 +31,7 @@ class FakeAudioEngine {
     }
 }
 
-test("load bitmap in packaged runtime", async (t) => {
+test("load bitmap in packaged runtime", async t => {
     const rt = new Runtime();
     rt.convertToPackagedRuntime();
     rt.attachRenderer(new FakeRenderer());
@@ -43,14 +43,14 @@ test("load bitmap in packaged runtime", async (t) => {
         storage.DataFormat.PNG,
         new ArrayBuffer(10),
         null,
-        true,
+        true
     );
     const costume = await loadCostume(`${asset.assetId}.png`, { asset }, rt);
     t.equal(costume.asset, null);
     t.end();
 });
 
-test("load vector in packaged runtime", async (t) => {
+test("load vector in packaged runtime", async t => {
     const rt = new Runtime();
     rt.convertToPackagedRuntime();
     rt.attachRenderer(new FakeRenderer());
@@ -61,14 +61,14 @@ test("load vector in packaged runtime", async (t) => {
         storage.DataFormat.SVG,
         new ArrayBuffer(10),
         null,
-        true,
+        true
     );
     const costume = await loadCostume(`${asset.assetId}.svg`, { asset }, rt);
     t.equal(costume.asset, null);
     t.end();
 });
 
-test("load sound in packaged runtime", async (t) => {
+test("load sound in packaged runtime", async t => {
     const rt = new Runtime();
     rt.convertToPackagedRuntime();
     const storage = makeTestStorage();
@@ -79,7 +79,7 @@ test("load sound in packaged runtime", async (t) => {
         storage.DataFormat.MP3,
         new ArrayBuffer(10),
         null,
-        true,
+        true
     );
     const costume = await loadSound(
         {
@@ -87,13 +87,13 @@ test("load sound in packaged runtime", async (t) => {
             md5: `${asset.assetId}.mp3`,
         },
         rt,
-        null,
+        null
     );
     t.equal(costume.asset, null);
     t.end();
 });
 
-test("storage.createAsset never generates real asset IDs", (t) => {
+test("storage.createAsset never generates real asset IDs", t => {
     const rt = new Runtime();
     rt.convertToPackagedRuntime();
     const storage = makeTestStorage();
@@ -102,7 +102,7 @@ test("storage.createAsset never generates real asset IDs", (t) => {
         storage.AssetType.ImageBitmap,
         storage.DataFormat.PNG,
         new ArrayBuffer(10),
-        "a".repeat(32),
+        "a".repeat(32)
     );
     t.equal(shouldUseGivenID.assetId, "a".repeat(32));
     const shouldUseFakeID = storage.createAsset(
@@ -110,7 +110,7 @@ test("storage.createAsset never generates real asset IDs", (t) => {
         storage.DataFormat.PNG,
         new ArrayBuffer(11),
         null,
-        true,
+        true
     );
     t.equal(shouldUseFakeID.assetId, "1");
     const shouldUseDifferentFakeID = storage.createAsset(
@@ -118,7 +118,7 @@ test("storage.createAsset never generates real asset IDs", (t) => {
         storage.DataFormat.PNG,
         new ArrayBuffer(12),
         null,
-        true,
+        true
     );
     t.equal(shouldUseDifferentFakeID.assetId, "2");
     t.end();

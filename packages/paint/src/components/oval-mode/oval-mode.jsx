@@ -4,7 +4,7 @@ import ToolSelectComponent from "../tool-select-base/tool-select-base.jsx";
 import messages from "../../lib/messages.js";
 import ovalIcon from "./oval.svg";
 
-const OvalModeComponent = (props) => (
+const OvalModeComponent = props => (
     <ToolSelectComponent
         imgDescriptor={messages.oval}
         imgSrc={ovalIcon}

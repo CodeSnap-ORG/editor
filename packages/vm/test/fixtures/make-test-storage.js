@@ -47,7 +47,7 @@ const makeTestStorage = function () {
     storage.addWebStore([AssetType.Project], getProjectUrl);
     storage.addWebStore(
         [AssetType.ImageVector, AssetType.ImageBitmap, AssetType.Sound],
-        getAssetUrl,
+        getAssetUrl
     );
     return storage;
 };

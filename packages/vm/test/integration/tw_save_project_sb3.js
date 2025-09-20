@@ -7,10 +7,10 @@ const makeTestStorage = require("../fixtures/make-test-storage");
 const JSZip = require("@turbowarp/jszip");
 
 const fixture = fs.readFileSync(
-    pathUtil.join(__dirname, "..", "fixtures", "tw-save-project-sb3.sb3"),
+    pathUtil.join(__dirname, "..", "fixtures", "tw-save-project-sb3.sb3")
 );
 
-test("saveProjectSb3", async (t) => {
+test("saveProjectSb3", async t => {
     t.plan(6);
 
     const vm = new VirtualMachine();
@@ -36,7 +36,7 @@ test("saveProjectSb3", async (t) => {
                 .file("d9c625ae1996b615a146ac2a7dbe74d7.svg")
                 .async("uint8array")
         ).byteLength,
-        691,
+        691
     );
     t.equal(
         (
@@ -44,13 +44,13 @@ test("saveProjectSb3", async (t) => {
                 .file("cd21514d0531fdffb22204e0ec5ed84a.svg")
                 .async("uint8array")
         ).byteLength,
-        202,
+        202
     );
 
     t.end();
 });
 
-test("saveProjectSb3Stream", async (t) => {
+test("saveProjectSb3Stream", async t => {
     t.plan(6);
 
     const vm = new VirtualMachine();
@@ -59,7 +59,7 @@ test("saveProjectSb3Stream", async (t) => {
 
     let receivedDataEvent = false;
     const stream = vm.saveProjectSb3Stream();
-    stream.on("data", (data) => {
+    stream.on("data", data => {
         if (receivedDataEvent) {
             return;
         }
@@ -82,7 +82,7 @@ test("saveProjectSb3Stream", async (t) => {
                 .file("d9c625ae1996b615a146ac2a7dbe74d7.svg")
                 .async("uint8array")
         ).byteLength,
-        691,
+        691
     );
     t.equal(
         (
@@ -90,13 +90,13 @@ test("saveProjectSb3Stream", async (t) => {
                 .file("cd21514d0531fdffb22204e0ec5ed84a.svg")
                 .async("uint8array")
         ).byteLength,
-        202,
+        202
     );
 
     t.end();
 });
 
-test("saveProjectSb3DontZip", async (t) => {
+test("saveProjectSb3DontZip", async t => {
     const vm = new VirtualMachine();
     vm.attachStorage(makeTestStorage());
     await vm.loadProject(fixture);

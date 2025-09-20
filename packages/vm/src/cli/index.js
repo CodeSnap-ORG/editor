@@ -9,7 +9,7 @@ if (!file) {
     throw new Error("Invalid file");
 }
 
-const runProject = async (buffer) => {
+const runProject = async buffer => {
     const vm = new VirtualMachine();
     vm.runtime.on("SAY", (target, type, text) => {
         console.log(text);
@@ -19,7 +19,7 @@ const runProject = async (buffer) => {
     await vm.loadProject(buffer);
     vm.start();
     vm.greenFlag();
-    await new Promise((resolve) => {
+    await new Promise(resolve => {
         const interval = setInterval(() => {
             let active = 0;
             const threads = vm.runtime.threads;

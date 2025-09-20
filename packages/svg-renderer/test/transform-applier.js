@@ -49,7 +49,7 @@ let comparisonFileString = "";
 const comparisonFileAppend = function (svgString, svgElement, name) {
     if (!OUTPUT_COMPARISON_FILES) return;
     const newSvgString = new window.XMLSerializer().serializeToString(
-        svgElement,
+        svgElement
     );
     comparisonFileString += `<p>${name}</p>
         <div style="width: 500px; border-style: solid; border-width: 1px;">
@@ -65,19 +65,19 @@ const outputComparisonFile = function () {
     fs.writeFile(
         `${__dirname}/test-output/transform-applier-test.html`,
         `<!-- THIS IS A GENERATED FILE -->\n<html><body>${comparisonFileString}\n</body></html>`,
-        (err) => log.error(err),
+        err => log.error(err)
     );
 };
 
 // No transform attribute on the path
-test("noTransformPath", (t) => {
+test("noTransformPath", t => {
     const svgString =
         `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" width="100px" height="100px" viewBox="0 0 100 100">` +
         `<path id="path" fill="#0000" stroke="red" stroke-width="1" d="${d}"/>` +
         `</svg>`;
     const svgElement = parser.parseFromString(
         svgString,
-        "text/xml",
+        "text/xml"
     ).documentElement;
     transformStrokeWidths(svgElement, window);
     comparisonFileAppend(svgString, svgElement, "noTransformPath");
@@ -88,34 +88,34 @@ test("noTransformPath", (t) => {
 });
 
 // No stroke width attribute on the path. Stroke width is 1 by default in SVG, so transform should increase it to 2.
-test("transformedNoStrokeWidthPath", (t) => {
+test("transformedNoStrokeWidthPath", t => {
     const svgString =
         `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" width="100px" height="100px" viewBox="0 0 100 100">` +
         `<path id="path" transform="scale(2)" fill="#0000" stroke="red" d="${d}"/>` +
         `</svg>`;
     const svgElement = parser.parseFromString(
         svgString,
-        "text/xml",
+        "text/xml"
     ).documentElement;
     transformStrokeWidths(svgElement, window);
     comparisonFileAppend(svgString, svgElement, "noStrokeWidthPath");
 
     t.equals(
         "2",
-        svgElement.getElementById("path").attributes["stroke-width"].value,
+        svgElement.getElementById("path").attributes["stroke-width"].value
     );
     t.end();
 });
 
 // Transform is identity matrix
-test("identityTransformPath", (t) => {
+test("identityTransformPath", t => {
     const svgString =
         `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" width="100px" height="100px" viewBox="0 0 100 100">` +
         `<path transform="matrix(1 0 0 1 0 0)" id="path" fill="#0000" stroke="red" stroke-width="1" d="${d}"/>` +
         `</svg>`;
     const svgElement = parser.parseFromString(
         svgString,
-        "text/xml",
+        "text/xml"
     ).documentElement;
     transformStrokeWidths(svgElement, window);
     comparisonFileAppend(svgString, svgElement, "identityTransformPath");
@@ -126,7 +126,7 @@ test("identityTransformPath", (t) => {
 });
 
 // Transform on a simple box
-test("transformBox", (t) => {
+test("transformBox", t => {
     const svgString =
         `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" width="250px" height="250px" viewBox="0 0 250 250">` +
         `<path transform="matrix(20 0 0 10 45 45)" id="path" fill="#0000" stroke="red" stroke-width="1" ` +
@@ -134,7 +134,7 @@ test("transformBox", (t) => {
         `</svg>`;
     const svgElement = parser.parseFromString(
         svgString,
-        "text/xml",
+        "text/xml"
     ).documentElement;
     transformStrokeWidths(svgElement, window);
     comparisonFileAppend(svgString, svgElement, "transformBox");
@@ -146,20 +146,20 @@ test("transformBox", (t) => {
     const quadraticMean = Math.sqrt((20 * 20 + 10 * 10) / 2);
     t.equals(
         `${quadraticMean}`,
-        svgElement.getElementById("path").attributes["stroke-width"].value,
+        svgElement.getElementById("path").attributes["stroke-width"].value
     );
     t.end();
 });
 
 // Transform is not identity matrix
-test("transformPath", (t) => {
+test("transformPath", t => {
     const svgString =
         `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" width="250px" height="250px" viewBox="0 0 250 250">` +
         `<path transform="matrix(2 0 0 2 45 45)" id="path" fill="#0000" stroke="red" stroke-width="1" d="${d}"/>` +
         `</svg>`;
     const svgElement = parser.parseFromString(
         svgString,
-        "text/xml",
+        "text/xml"
     ).documentElement;
     transformStrokeWidths(svgElement, window);
     comparisonFileAppend(svgString, svgElement, "transformPath");
@@ -172,13 +172,13 @@ test("transformPath", (t) => {
     t.false(svgElement.getElementById("path").attributes.transform);
     t.equals(
         "2",
-        svgElement.getElementById("path").attributes["stroke-width"].value,
+        svgElement.getElementById("path").attributes["stroke-width"].value
     );
     t.end();
 });
 
 // Transform has multiple matrices that compose to identity matrix
-test("composedTransformPathIdentity", (t) => {
+test("composedTransformPathIdentity", t => {
     const svgString =
         `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" width="100px" height="100px" viewBox="0 0 100 100">` +
         `<path transform="matrix(.5,0,0,.5,0,0) matrix(2,0,0,2,0,0)" id="path" ` +
@@ -186,13 +186,13 @@ test("composedTransformPathIdentity", (t) => {
         `</svg>`;
     const svgElement = parser.parseFromString(
         svgString,
-        "text/xml",
+        "text/xml"
     ).documentElement;
     transformStrokeWidths(svgElement, window);
     comparisonFileAppend(
         svgString,
         svgElement,
-        "composedTransformPathIdentity",
+        "composedTransformPathIdentity"
     );
 
     t.equals(d, svgElement.getElementById("path").attributes.d.value);
@@ -201,7 +201,7 @@ test("composedTransformPathIdentity", (t) => {
 });
 
 // Transform has multiple matrices that don't compose to identity
-test("composedTransformPath", (t) => {
+test("composedTransformPath", t => {
     const svgString =
         `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" width="230px" height="230px" viewBox="-30 -30 200 200">` +
         `<path transform="matrix(.5,0,0,.5,0,0) matrix(3,0,0,3,1,2)" id="path" ` +
@@ -209,7 +209,7 @@ test("composedTransformPath", (t) => {
         `</svg>`;
     const svgElement = parser.parseFromString(
         svgString,
-        "text/xml",
+        "text/xml"
     ).documentElement;
     transformStrokeWidths(svgElement, window);
     comparisonFileAppend(svgString, svgElement, "composedTransformPath");
@@ -220,13 +220,13 @@ test("composedTransformPath", (t) => {
         "A 60 75 0 1 1 0.5 151 Z ";
     t.equals(
         transformedPath,
-        svgElement.getElementById("path").attributes.d.value,
+        svgElement.getElementById("path").attributes.d.value
     );
     t.end();
 });
 
 // Transform is on parent group
-test("parentTransformPath", (t) => {
+test("parentTransformPath", t => {
     const svgString =
         `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" width="300px" height="300px" viewBox="-50 -50 250 250">` +
         `<g id="group" transform="matrix(2, 0, 0, 2, 0, 0)">` +
@@ -235,7 +235,7 @@ test("parentTransformPath", (t) => {
         `</svg>`;
     const svgElement = parser.parseFromString(
         svgString,
-        "text/xml",
+        "text/xml"
     ).documentElement;
     transformStrokeWidths(svgElement, window);
     comparisonFileAppend(svgString, svgElement, "parentTransformPath");
@@ -249,13 +249,13 @@ test("parentTransformPath", (t) => {
     t.false(svgElement.getElementById("path").attributes.transform);
     t.equals(
         "2",
-        svgElement.getElementById("path").attributes["stroke-width"].value,
+        svgElement.getElementById("path").attributes["stroke-width"].value
     );
     t.end();
 });
 
 // Nested path
-test("nestedNoTransformPath", (t) => {
+test("nestedNoTransformPath", t => {
     const svgString =
         `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" width="100px" height="100px" viewBox="0 0 100 100">` +
         `<g>` +
@@ -264,7 +264,7 @@ test("nestedNoTransformPath", (t) => {
         `</svg>`;
     const svgElement = parser.parseFromString(
         svgString,
-        "text/xml",
+        "text/xml"
     ).documentElement;
     transformStrokeWidths(svgElement, window);
     comparisonFileAppend(svgString, svgElement, "nestedNoTransformPath");
@@ -274,7 +274,7 @@ test("nestedNoTransformPath", (t) => {
 });
 
 // Transforms on parents and children
-test("nestedTransformPath", (t) => {
+test("nestedTransformPath", t => {
     const svgString =
         `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" width="300px" height="300px" viewBox="-40 -40 260 260">` +
         `<g transform=" matrix(1.5 0 0 1.5 0 0) ">` +
@@ -286,7 +286,7 @@ test("nestedTransformPath", (t) => {
         `</svg>`;
     const svgElement = parser.parseFromString(
         svgString,
-        "text/xml",
+        "text/xml"
     ).documentElement;
     transformStrokeWidths(svgElement, window);
     comparisonFileAppend(svgString, svgElement, "nestedTransformPath");
@@ -300,7 +300,7 @@ test("nestedTransformPath", (t) => {
 });
 
 // Transform combines all types of transforms
-test("variousTransformsPath", (t) => {
+test("variousTransformsPath", t => {
     const svgString =
         `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" width="500px" height="400px" viewBox="0 0 500 400">` +
         `<path transform="rotate(25) matrix(2,0,0,2,0,0) skewX(10) translate(20) ` +
@@ -309,7 +309,7 @@ test("variousTransformsPath", (t) => {
         `</svg>`;
     const svgElement = parser.parseFromString(
         svgString,
-        "text/xml",
+        "text/xml"
     ).documentElement;
     transformStrokeWidths(svgElement, window);
     comparisonFileAppend(svgString, svgElement, "variousTransformsPath");
@@ -322,14 +322,14 @@ test("variousTransformsPath", (t) => {
         "A 75.4328 127.2656 -51.6345 1 1 45.2364 273.5062 Z ";
     t.equals(
         transformedPath,
-        svgElement.getElementById("path").attributes.d.value,
+        svgElement.getElementById("path").attributes.d.value
     );
     t.false(svgElement.getElementById("path").attributes.transform);
     t.end();
 });
 
 // Transform is pushed down to other children
-test("siblingsTransformPath", (t) => {
+test("siblingsTransformPath", t => {
     const svgString =
         `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" width="160px" height="160px" viewBox="-20 -20 140 140">` +
         `<g transform="matrix(0.5 0 0 0.5 0 0)">` +
@@ -345,28 +345,28 @@ test("siblingsTransformPath", (t) => {
         `</svg>`;
     const svgElement = parser.parseFromString(
         svgString,
-        "text/xml",
+        "text/xml"
     ).documentElement;
     transformStrokeWidths(svgElement, window);
     comparisonFileAppend(svgString, svgElement, "siblingsTransformPath");
 
     t.equals(
         "matrix(0.5,0,0,0.5,5,10)",
-        svgElement.getElementById("sibling").attributes.transform.value,
+        svgElement.getElementById("sibling").attributes.transform.value
     );
     t.equals(
         "matrix(0.5,0,0,0.5,-0.25,-0.25)",
-        svgElement.getElementById("distantCousin1").attributes.transform.value,
+        svgElement.getElementById("distantCousin1").attributes.transform.value
     );
     t.equals(
         "matrix(0.5,0,0,0.5,0,0)",
-        svgElement.getElementById("distantCousin2").attributes.transform.value,
+        svgElement.getElementById("distantCousin2").attributes.transform.value
     );
     t.end();
 });
 
 // Stroke width is pushed down to leaf level
-test("siblingsStroke", (t) => {
+test("siblingsStroke", t => {
     const svgString =
         `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" width="120px" height="120px" viewBox="-20 -20 100 100">` +
         `<g stroke-width="5">` +
@@ -382,30 +382,30 @@ test("siblingsStroke", (t) => {
         `</svg>`;
     const svgElement = parser.parseFromString(
         svgString,
-        "text/xml",
+        "text/xml"
     ).documentElement;
     transformStrokeWidths(svgElement, window);
     comparisonFileAppend(svgString, svgElement, "siblingsStroke");
 
     t.equals(
         "10",
-        svgElement.getElementById("sibling").attributes["stroke-width"].value,
+        svgElement.getElementById("sibling").attributes["stroke-width"].value
     );
     t.equals(
         "15",
         svgElement.getElementById("distantCousin1").attributes["stroke-width"]
-            .value,
+            .value
     );
     t.equals(
         "5",
         svgElement.getElementById("distantCousin2").attributes["stroke-width"]
-            .value,
+            .value
     );
     t.end();
 });
 
 // Nested stroke width is transformed
-test("transformedNestedStroke", (t) => {
+test("transformedNestedStroke", t => {
     const svgString =
         `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" width="650px" height="170px" viewBox="-100 -20 550 150">` +
         `<g stroke-width="1" transform="scale(-.5,.5)">` +
@@ -414,23 +414,23 @@ test("transformedNestedStroke", (t) => {
         `</svg>`;
     const svgElement = parser.parseFromString(
         svgString,
-        "text/xml",
+        "text/xml"
     ).documentElement;
     transformStrokeWidths(svgElement, window);
     comparisonFileAppend(svgString, svgElement, "transformedNestedStroke");
 
     const quadraticMean = Math.sqrt(
-        (((5 / 2) * 5) / 2 + ((2 / 2) * 2) / 2) / 2,
+        (((5 / 2) * 5) / 2 + ((2 / 2) * 2) / 2) / 2
     );
     t.equals(
         `${quadraticMean}`,
-        svgElement.getElementById("path").attributes["stroke-width"].value,
+        svgElement.getElementById("path").attributes["stroke-width"].value
     );
     t.end();
 });
 
 // Various transforms applied to a path with relative instructions
-test("variousTransformsRelativePath", (t) => {
+test("variousTransformsRelativePath", t => {
     const pathData =
         "m 20 20 0 20 10 0 l 5 5 h 10 v 10 c 0 10 0 20 15 5 z " +
         "m -50 5 s 15 0 15 10 q 20 10 10 20 t 20 10 20 10 a 30 10 30 1 1 0 1 ";
@@ -441,13 +441,13 @@ test("variousTransformsRelativePath", (t) => {
         `</svg>`;
     const svgElement = parser.parseFromString(
         svgString,
-        "text/xml",
+        "text/xml"
     ).documentElement;
     transformStrokeWidths(svgElement, window);
     comparisonFileAppend(
         svgString,
         svgElement,
-        "variousTransformsRelativePath",
+        "variousTransformsRelativePath"
     );
 
     const transformed =
@@ -461,7 +461,7 @@ test("variousTransformsRelativePath", (t) => {
 });
 
 // Testing scale transform, elliptical paths
-test("scaleTransformEllipticalPath", (t) => {
+test("scaleTransformEllipticalPath", t => {
     const svgString =
         `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" width="600px" height="250px" viewBox="0 0 600 250"> ` +
         `<path transform="scale(.5)" ` +
@@ -469,7 +469,7 @@ test("scaleTransformEllipticalPath", (t) => {
         `</svg>`;
     const svgElement = parser.parseFromString(
         svgString,
-        "text/xml",
+        "text/xml"
     ).documentElement;
     transformStrokeWidths(svgElement, window);
     comparisonFileAppend(svgString, svgElement, "scaleTransformEllipticalPath");
@@ -484,7 +484,7 @@ test("scaleTransformEllipticalPath", (t) => {
 });
 
 // Testing invert transform, elliptical paths
-test("invertTransformEllipticalPath", (t) => {
+test("invertTransformEllipticalPath", t => {
     const svgString =
         `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" width="600px" height="500px" viewBox="0 0 600 500"> ` +
         `<path transform="matrix(0 1 1 0 0 0)" ` +
@@ -492,13 +492,13 @@ test("invertTransformEllipticalPath", (t) => {
         `</svg>`;
     const svgElement = parser.parseFromString(
         svgString,
-        "text/xml",
+        "text/xml"
     ).documentElement;
     transformStrokeWidths(svgElement, window);
     comparisonFileAppend(
         svgString,
         svgElement,
-        "invertTransformEllipticalPath",
+        "invertTransformEllipticalPath"
     );
 
     const inverted =
@@ -511,7 +511,7 @@ test("invertTransformEllipticalPath", (t) => {
 });
 
 // Testing rotate transform, elliptical paths
-test("rotateTransformEllipticalPath", (t) => {
+test("rotateTransformEllipticalPath", t => {
     const svgString =
         `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" width="600px" height="600px" viewBox="0 0 600 600"> ` +
         `<path transform="rotate(-255) translate(0,-500)" ` +
@@ -519,13 +519,13 @@ test("rotateTransformEllipticalPath", (t) => {
         `</svg>`;
     const svgElement = parser.parseFromString(
         svgString,
-        "text/xml",
+        "text/xml"
     ).documentElement;
     transformStrokeWidths(svgElement, window);
     comparisonFileAppend(
         svgString,
         svgElement,
-        "rotateTransformEllipticalPath",
+        "rotateTransformEllipticalPath"
     );
 
     const rotated =
@@ -540,7 +540,7 @@ test("rotateTransformEllipticalPath", (t) => {
 });
 
 // Testing skewX transform, elliptical paths
-test("skewXTransformEllipticalPath", (t) => {
+test("skewXTransformEllipticalPath", t => {
     const svgString =
         `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" width="600px" height="350px" viewBox="0 0 600 350"> ` +
         `<path transform="skewX(-20)" ` +
@@ -548,7 +548,7 @@ test("skewXTransformEllipticalPath", (t) => {
         `</svg>`;
     const svgElement = parser.parseFromString(
         svgString,
-        "text/xml",
+        "text/xml"
     ).documentElement;
     transformStrokeWidths(svgElement, window);
     comparisonFileAppend(svgString, svgElement, "skewXTransformEllipticalPath");
@@ -565,7 +565,7 @@ test("skewXTransformEllipticalPath", (t) => {
 });
 
 // Testing skewY transform, elliptical paths
-test("skewYTransformEllipticalPath", (t) => {
+test("skewYTransformEllipticalPath", t => {
     const svgString =
         `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" width="600px" height="400px" viewBox="0 0 600 400"> ` +
         `<path transform="skewY(-20)" ` +
@@ -573,7 +573,7 @@ test("skewYTransformEllipticalPath", (t) => {
         `</svg>`;
     const svgElement = parser.parseFromString(
         svgString,
-        "text/xml",
+        "text/xml"
     ).documentElement;
     transformStrokeWidths(svgElement, window);
     comparisonFileAppend(svgString, svgElement, "skewYTransformEllipticalPath");
@@ -590,7 +590,7 @@ test("skewYTransformEllipticalPath", (t) => {
 });
 
 // Testing various transforms, elliptical paths
-test("variousTransformsEllipticalPath", (t) => {
+test("variousTransformsEllipticalPath", t => {
     const svgString =
         `<svg xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" width="600px" height="600px" viewBox="0 -200 600 300"> ` +
         `<path transform="skewX(10) rotate(-25) translate(-50 -200)" ` +
@@ -598,13 +598,13 @@ test("variousTransformsEllipticalPath", (t) => {
         `</svg>`;
     const svgElement = parser.parseFromString(
         svgString,
-        "text/xml",
+        "text/xml"
     ).documentElement;
     transformStrokeWidths(svgElement, window);
     comparisonFileAppend(
         svgString,
         svgElement,
-        "variousTransformsEllipticalPath",
+        "variousTransformsEllipticalPath"
     );
 
     const transformed =
@@ -620,7 +620,7 @@ test("variousTransformsEllipticalPath", (t) => {
     t.end();
 });
 
-test("linearGradientTransformSquareSkewY", (t) => {
+test("linearGradientTransformSquareSkewY", t => {
     const svgString =
         `<svg version="1.1" width="200" height="200" viewBox="-100 0 100 200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">` +
         `<defs>` +
@@ -634,7 +634,7 @@ test("linearGradientTransformSquareSkewY", (t) => {
         `</svg>`;
     const svgElement = parser.parseFromString(
         svgString,
-        "text/xml",
+        "text/xml"
     ).documentElement;
     transformStrokeWidths(svgElement, window, {
         width: 100,
@@ -645,33 +645,33 @@ test("linearGradientTransformSquareSkewY", (t) => {
     comparisonFileAppend(
         svgString,
         svgElement,
-        "linearGradientTransformSquareSkewY",
+        "linearGradientTransformSquareSkewY"
     );
     t.equals(
         "-50",
         svgElement.getElementById("grad_a-0.75,-0.2679491924311227,0,1,-50,50")
-            .attributes.x1.value,
+            .attributes.x1.value
     );
     t.equals(
         "-81.6826",
         svgElement.getElementById("grad_a-0.75,-0.2679491924311227,0,1,-50,50")
-            .attributes.x2.value,
+            .attributes.x2.value
     );
     t.equals(
         "50",
         svgElement.getElementById("grad_a-0.75,-0.2679491924311227,0,1,-50,50")
-            .attributes.y1.value,
+            .attributes.y1.value
     );
     t.equals(
         "138.6809",
         svgElement.getElementById("grad_a-0.75,-0.2679491924311227,0,1,-50,50")
-            .attributes.y2.value,
+            .attributes.y2.value
     );
 
     t.end();
 });
 
-test("linearGradientTransformSquareSkewX", (t) => {
+test("linearGradientTransformSquareSkewX", t => {
     const svgString =
         `<svg version="1.1" width="200" height="200" viewBox="-100 0 100 200" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">` +
         `<defs>` +
@@ -685,7 +685,7 @@ test("linearGradientTransformSquareSkewX", (t) => {
         `</svg>`;
     const svgElement = parser.parseFromString(
         svgString,
-        "text/xml",
+        "text/xml"
     ).documentElement;
     transformStrokeWidths(svgElement, window, {
         width: 100,
@@ -696,33 +696,33 @@ test("linearGradientTransformSquareSkewX", (t) => {
     comparisonFileAppend(
         svgString,
         svgElement,
-        "linearGradientTransformSquareSkewX",
+        "linearGradientTransformSquareSkewX"
     );
     t.equals(
         "-50",
         svgElement.getElementById("grad_b-0.75,0,0.20096189432334202,1,-50,50")
-            .attributes.x1.value,
+            .attributes.x1.value
     );
     t.equals(
         "-50",
         svgElement.getElementById("grad_b-0.75,0,0.20096189432334202,1,-50,50")
-            .attributes.x2.value,
+            .attributes.x2.value
     );
     t.equals(
         "50",
         svgElement.getElementById("grad_b-0.75,0,0.20096189432334202,1,-50,50")
-            .attributes.y1.value,
+            .attributes.y1.value
     );
     t.equals(
         "150",
         svgElement.getElementById("grad_b-0.75,0,0.20096189432334202,1,-50,50")
-            .attributes.y2.value,
+            .attributes.y2.value
     );
 
     t.end();
 });
 
-test("linearGradientTransform", (t) => {
+test("linearGradientTransform", t => {
     const svgString =
         `<svg version="1.1" width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">` +
         `<defs>` +
@@ -736,35 +736,35 @@ test("linearGradientTransform", (t) => {
         `</svg>`;
     const svgElement = parser.parseFromString(
         svgString,
-        "text/xml",
+        "text/xml"
     ).documentElement;
     transformStrokeWidths(svgElement, window, trickyBoundsPathBounds);
     comparisonFileAppend(svgString, svgElement, "linearGradientTransform");
     t.equals(
         "26.9399",
         svgElement.getElementById("grad_c-.75,0,-0.20096189432334202,0.75,0,0")
-            .attributes.x1.value,
+            .attributes.x1.value
     );
     t.equals(
         "84.6436",
         svgElement.getElementById("grad_c-.75,0,-0.20096189432334202,0.75,0,0")
-            .attributes.x2.value,
+            .attributes.x2.value
     );
     t.equals(
         "0.9571",
         svgElement.getElementById("grad_c-.75,0,-0.20096189432334202,0.75,0,0")
-            .attributes.y1.value,
+            .attributes.y1.value
     );
     t.equals(
         "16.4187",
         svgElement.getElementById("grad_c-.75,0,-0.20096189432334202,0.75,0,0")
-            .attributes.y2.value,
+            .attributes.y2.value
     );
 
     t.end();
 });
 
-test("reusedLinearGradientTransform", (t) => {
+test("reusedLinearGradientTransform", t => {
     const svgString =
         `<svg version="1.1" width="200" height="150" viewBox="0 0 200 150" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">` +
         `<defs>` +
@@ -782,63 +782,63 @@ test("reusedLinearGradientTransform", (t) => {
         `</svg>`;
     const svgElement = parser.parseFromString(
         svgString,
-        "text/xml",
+        "text/xml"
     ).documentElement;
     transformStrokeWidths(svgElement, window, trickyBoundsPathBounds);
     comparisonFileAppend(
         svgString,
         svgElement,
-        "reusedLinearGradientTransform",
+        "reusedLinearGradientTransform"
     );
     t.equals(
         "26.9399",
         svgElement.getElementById("grad_1-.75,0,-0.20096189432334202,0.75,0,0")
-            .attributes.x1.value,
+            .attributes.x1.value
     );
     t.equals(
         "84.6436",
         svgElement.getElementById("grad_1-.75,0,-0.20096189432334202,0.75,0,0")
-            .attributes.x2.value,
+            .attributes.x2.value
     );
     t.equals(
         "0.9571",
         svgElement.getElementById("grad_1-.75,0,-0.20096189432334202,0.75,0,0")
-            .attributes.y1.value,
+            .attributes.y1.value
     );
     t.equals(
         "16.4187",
         svgElement.getElementById("grad_1-.75,0,-0.20096189432334202,0.75,0,0")
-            .attributes.y2.value,
+            .attributes.y2.value
     );
     t.equals(
         "113.7382",
         svgElement.getElementById(
-            "grad_1-1,1.2246467991473532e-16,-1.2246467991473532e-16,-1,150,150",
-        ).attributes.x1.value,
+            "grad_1-1,1.2246467991473532e-16,-1.2246467991473532e-16,-1,150,150"
+        ).attributes.x1.value
     );
     t.equals(
         "31.2761",
         svgElement.getElementById(
-            "grad_1-1,1.2246467991473532e-16,-1.2246467991473532e-16,-1,150,150",
-        ).attributes.x2.value,
+            "grad_1-1,1.2246467991473532e-16,-1.2246467991473532e-16,-1,150,150"
+        ).attributes.x2.value
     );
     t.equals(
         "148.7239",
         svgElement.getElementById(
-            "grad_1-1,1.2246467991473532e-16,-1.2246467991473532e-16,-1,150,150",
-        ).attributes.y1.value,
+            "grad_1-1,1.2246467991473532e-16,-1.2246467991473532e-16,-1,150,150"
+        ).attributes.y1.value
     );
     t.equals(
         "148.7239",
         svgElement.getElementById(
-            "grad_1-1,1.2246467991473532e-16,-1.2246467991473532e-16,-1,150,150",
-        ).attributes.y2.value,
+            "grad_1-1,1.2246467991473532e-16,-1.2246467991473532e-16,-1,150,150"
+        ).attributes.y2.value
     );
 
     t.end();
 });
 
-test("nestedLinearGradientTransform", (t) => {
+test("nestedLinearGradientTransform", t => {
     const svgString = `<svg version="1.1" width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
       <defs>
         <linearGradient id="grad_2" x2="0" y2="1">
@@ -852,39 +852,39 @@ test("nestedLinearGradientTransform", (t) => {
     </svg>`;
     const svgElement = parser.parseFromString(
         svgString,
-        "text/xml",
+        "text/xml"
     ).documentElement;
     transformStrokeWidths(svgElement, window, trickyBoundsPathBounds);
     comparisonFileAppend(
         svgString,
         svgElement,
-        "nestedLinearGradientTransform",
+        "nestedLinearGradientTransform"
     );
     t.equals(
         "26.9399",
         svgElement.getElementById("grad_2-.75,0,-0.20096189432334202,0.75,0,0")
-            .attributes.x1.value,
+            .attributes.x1.value
     );
     t.equals(
         "26.9399",
         svgElement.getElementById("grad_2-.75,0,-0.20096189432334202,0.75,0,0")
-            .attributes.x2.value,
+            .attributes.x2.value
     );
     t.equals(
         "0.9571",
         svgElement.getElementById("grad_2-.75,0,-0.20096189432334202,0.75,0,0")
-            .attributes.y1.value,
+            .attributes.y1.value
     );
     t.equals(
         "62.8036",
         svgElement.getElementById("grad_2-.75,0,-0.20096189432334202,0.75,0,0")
-            .attributes.y2.value,
+            .attributes.y2.value
     );
 
     t.end();
 });
 
-test("percentLinearGradientTransform", (t) => {
+test("percentLinearGradientTransform", t => {
     const svgString = `<svg version="1.1" width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
       <defs>
         <linearGradient id="grad_3" x2="50%" y2="50%">
@@ -897,39 +897,39 @@ test("percentLinearGradientTransform", (t) => {
     </svg>`;
     const svgElement = parser.parseFromString(
         svgString,
-        "text/xml",
+        "text/xml"
     ).documentElement;
     transformStrokeWidths(svgElement, window, trickyBoundsPathBounds);
     comparisonFileAppend(
         svgString,
         svgElement,
-        "percentLinearGradientTransform",
+        "percentLinearGradientTransform"
     );
     t.equals(
         "26.9399",
         svgElement.getElementById("grad_3-.75,0,-0.20096189432334202,0.75,0,0")
-            .attributes.x1.value,
+            .attributes.x1.value
     );
     t.equals(
         "50.6569",
         svgElement.getElementById("grad_3-.75,0,-0.20096189432334202,0.75,0,0")
-            .attributes.x2.value,
+            .attributes.x2.value
     );
     t.equals(
         "0.9571",
         svgElement.getElementById("grad_3-.75,0,-0.20096189432334202,0.75,0,0")
-            .attributes.y1.value,
+            .attributes.y1.value
     );
     t.equals(
         "31.029",
         svgElement.getElementById("grad_3-.75,0,-0.20096189432334202,0.75,0,0")
-            .attributes.y2.value,
+            .attributes.y2.value
     );
 
     t.end();
 });
 
-test("userSpaceLinearGradientTransform", (t) => {
+test("userSpaceLinearGradientTransform", t => {
     const svgString = `<svg version="1.1" width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
       <defs>
         <linearGradient id="grad_4" x1="20" x2="80" y1="20" y2="80" gradientUnits="userSpaceOnUse">
@@ -942,39 +942,39 @@ test("userSpaceLinearGradientTransform", (t) => {
     </svg>`;
     const svgElement = parser.parseFromString(
         svgString,
-        "text/xml",
+        "text/xml"
     ).documentElement;
     transformStrokeWidths(svgElement, window, trickyBoundsPathBounds);
     comparisonFileAppend(
         svgString,
         svgElement,
-        "userSpaceLinearGradientTransform",
+        "userSpaceLinearGradientTransform"
     );
     t.equals(
         "10.9808",
         svgElement.getElementById("grad_4-.75,0,-0.20096189432334202,0.75,0,0")
-            .attributes.x1.value,
+            .attributes.x1.value
     );
     t.equals(
         "45.494",
         svgElement.getElementById("grad_4-.75,0,-0.20096189432334202,0.75,0,0")
-            .attributes.x2.value,
+            .attributes.x2.value
     );
     t.equals(
         "15",
         svgElement.getElementById("grad_4-.75,0,-0.20096189432334202,0.75,0,0")
-            .attributes.y1.value,
+            .attributes.y1.value
     );
     t.equals(
         "58.761",
         svgElement.getElementById("grad_4-.75,0,-0.20096189432334202,0.75,0,0")
-            .attributes.y2.value,
+            .attributes.y2.value
     );
 
     t.end();
 });
 
-test("degenerateLinearGradientTransform", (t) => {
+test("degenerateLinearGradientTransform", t => {
     const svgString =
         `<svg version="1.1" width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">` +
         `<defs>` +
@@ -988,7 +988,7 @@ test("degenerateLinearGradientTransform", (t) => {
         `</svg>`;
     const svgElement = parser.parseFromString(
         svgString,
-        "text/xml",
+        "text/xml"
     ).documentElement;
     transformStrokeWidths(svgElement, window, trickyBoundsPathBounds);
     comparisonFileAppend(svgString, svgElement, "linearGradientTransform");
@@ -996,7 +996,7 @@ test("degenerateLinearGradientTransform", (t) => {
     t.end();
 });
 
-test("nestedRadialGradientTransform", (t) => {
+test("nestedRadialGradientTransform", t => {
     const svgString = `<svg version="1.1" width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
       <defs>
         <radialGradient id="grad_5">
@@ -1010,34 +1010,34 @@ test("nestedRadialGradientTransform", (t) => {
     </svg>`;
     const svgElement = parser.parseFromString(
         svgString,
-        "text/xml",
+        "text/xml"
     ).documentElement;
     transformStrokeWidths(svgElement, window, trickyBoundsPathBounds);
     comparisonFileAppend(
         svgString,
         svgElement,
-        "nestedRadialGradientTransform. Note that radial gradients are not expected to match exactly.",
+        "nestedRadialGradientTransform. Note that radial gradients are not expected to match exactly."
     );
     t.equals(
         "49.5773",
         svgElement.getElementById("grad_5-.75,0,-0.20096189432334202,0.75,0,0")
-            .attributes.cx.value,
+            .attributes.cx.value
     );
     t.equals(
         "31.8804",
         svgElement.getElementById("grad_5-.75,0,-0.20096189432334202,0.75,0,0")
-            .attributes.cy.value,
+            .attributes.cy.value
     );
     t.equals(
         "30.9233",
         svgElement.getElementById("grad_5-.75,0,-0.20096189432334202,0.75,0,0")
-            .attributes.r.value,
+            .attributes.r.value
     );
 
     t.end();
 });
 
-test("focalRadialGradientTransform", (t) => {
+test("focalRadialGradientTransform", t => {
     const svgString = `<svg version="1.1" width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
       <defs>
         <radialGradient id="grad_6" fx=".75" fy=".75">
@@ -1051,40 +1051,40 @@ test("focalRadialGradientTransform", (t) => {
     </svg>`;
     const svgElement = parser.parseFromString(
         svgString,
-        "text/xml",
+        "text/xml"
     ).documentElement;
     transformStrokeWidths(svgElement, window, trickyBoundsPathBounds);
     comparisonFileAppend(svgString, svgElement, "focalRadialGradientTransform");
     t.equals(
         "49.5773",
         svgElement.getElementById("grad_6-.75,0,-0.20096189432334202,0.75,0,0")
-            .attributes.cx.value,
+            .attributes.cx.value
     );
     t.equals(
         "31.8804",
         svgElement.getElementById("grad_6-.75,0,-0.20096189432334202,0.75,0,0")
-            .attributes.cy.value,
+            .attributes.cy.value
     );
     t.equals(
         "30.9233",
         svgElement.getElementById("grad_6-.75,0,-0.20096189432334202,0.75,0,0")
-            .attributes.r.value,
+            .attributes.r.value
     );
     t.equals(
         "60.896",
         svgElement.getElementById("grad_6-.75,0,-0.20096189432334202,0.75,0,0")
-            .attributes.fx.value,
+            .attributes.fx.value
     );
     t.equals(
         "47.342",
         svgElement.getElementById("grad_6-.75,0,-0.20096189432334202,0.75,0,0")
-            .attributes.fy.value,
+            .attributes.fy.value
     );
 
     t.end();
 });
 
-test("percentRadialGradientTransform", (t) => {
+test("percentRadialGradientTransform", t => {
     const svgString = `<svg version="1.1" width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
       <defs>
         <radialGradient id="grad_7" cx="60%" cy="80%" fx="75%" fy="85%">
@@ -1098,44 +1098,44 @@ test("percentRadialGradientTransform", (t) => {
     </svg>`;
     const svgElement = parser.parseFromString(
         svgString,
-        "text/xml",
+        "text/xml"
     ).documentElement;
     transformStrokeWidths(svgElement, window, trickyBoundsPathBounds);
     comparisonFileAppend(
         svgString,
         svgElement,
-        "percentRadialGradientTransform",
+        "percentRadialGradientTransform"
     );
     t.equals(
         "50.7905",
         svgElement.getElementById("grad_7-.75,0,-0.20096189432334202,0.75,0,0")
-            .attributes.cx.value,
+            .attributes.cx.value
     );
     t.equals(
         "50.4343",
         svgElement.getElementById("grad_7-.75,0,-0.20096189432334202,0.75,0,0")
-            .attributes.cy.value,
+            .attributes.cy.value
     );
     t.equals(
         "30.9233",
         svgElement.getElementById("grad_7-.75,0,-0.20096189432334202,0.75,0,0")
-            .attributes.r.value,
+            .attributes.r.value
     );
     t.equals(
         "59.2389",
         svgElement.getElementById("grad_7-.75,0,-0.20096189432334202,0.75,0,0")
-            .attributes.fx.value,
+            .attributes.fx.value
     );
     t.equals(
         "53.5267",
         svgElement.getElementById("grad_7-.75,0,-0.20096189432334202,0.75,0,0")
-            .attributes.fy.value,
+            .attributes.fy.value
     );
 
     t.end();
 });
 
-test("userSpaceRadialGradientTransform", (t) => {
+test("userSpaceRadialGradientTransform", t => {
     const svgString = `<svg version="1.1" width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
       <defs>
         <radialGradient id="grad_8" cx="80" r="10" cy="60" gradientUnits="userSpaceOnUse">
@@ -1148,34 +1148,34 @@ test("userSpaceRadialGradientTransform", (t) => {
     </svg>`;
     const svgElement = parser.parseFromString(
         svgString,
-        "text/xml",
+        "text/xml"
     ).documentElement;
     transformStrokeWidths(svgElement, window, trickyBoundsPathBounds);
     comparisonFileAppend(
         svgString,
         svgElement,
-        "userSpaceRadialGradientTransform",
+        "userSpaceRadialGradientTransform"
     );
     t.equals(
         "47.9423",
         svgElement.getElementById("grad_8-.75,0,-0.20096189432334202,0.75,0,0")
-            .attributes.cx.value,
+            .attributes.cx.value
     );
     t.equals(
         "45",
         svgElement.getElementById("grad_8-.75,0,-0.20096189432334202,0.75,0,0")
-            .attributes.cy.value,
+            .attributes.cy.value
     );
     t.equals(
         "7.5",
         svgElement.getElementById("grad_8-.75,0,-0.20096189432334202,0.75,0,0")
-            .attributes.r.value,
+            .attributes.r.value
     );
 
     t.end();
 });
 
-test("blackFillsBugFix", (t) => {
+test("blackFillsBugFix", t => {
     const svgString = `<svg width="26px" height="14px" viewBox="0 0 26 14" version="1.1" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
       <g>
         <g id="Page-1" stroke="none" stroke-width="5" fill="none" fill-rule="evenodd">
@@ -1187,7 +1187,7 @@ test("blackFillsBugFix", (t) => {
     </svg>`;
     const svgElement = parser.parseFromString(
         svgString,
-        "text/xml",
+        "text/xml"
     ).documentElement;
     transformStrokeWidths(svgElement, window, {
         height: 12.5,
@@ -1199,7 +1199,7 @@ test("blackFillsBugFix", (t) => {
     t.equals("none", svgElement.getElementById("Shape").attributes.fill.value);
     t.equals(
         "5",
-        svgElement.getElementById("Shape").attributes["stroke-width"].value,
+        svgElement.getElementById("Shape").attributes["stroke-width"].value
     );
 
     t.end();

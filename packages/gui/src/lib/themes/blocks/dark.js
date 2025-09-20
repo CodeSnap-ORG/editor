@@ -82,16 +82,16 @@ const blockColors = {
 const extensions = {};
 
 const customExtensionColors = {
-    primary: (primary) => {
+    primary: primary => {
         const hsv = hex2hsv(primary);
         hsv[2] = Math.max(hsv[2] - 70, 20);
         return hsv2hex(hsv);
     },
     secondary: () => "#4C4C4C",
-    tertiary: (primary) => primary,
-    quaternary: (primary) => primary,
-    categoryIconBackground: (primary) => customExtensionColors.primary(primary),
-    categoryIconBorder: (primary) => customExtensionColors.tertiary(primary),
+    tertiary: primary => primary,
+    quaternary: primary => primary,
+    categoryIconBackground: primary => customExtensionColors.primary(primary),
+    categoryIconBorder: primary => customExtensionColors.tertiary(primary),
 };
 
 export { blockColors, extensions, customExtensionColors };

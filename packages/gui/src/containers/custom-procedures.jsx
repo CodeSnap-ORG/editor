@@ -36,7 +36,7 @@ class CustomProcedures extends React.Component {
             {},
             CustomProcedures.defaultOptions,
             this.props.options,
-            { rtl: this.props.isRtl },
+            { rtl: this.props.isRtl }
         );
 
         const ScratchBlocks = LazyScratchBlocks.get();
@@ -204,7 +204,7 @@ CustomProcedures.defaultProps = {
     options: CustomProcedures.defaultOptions,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     isRtl: state.locales.isRtl,
     mutator: state.scratchGui.customProcedures.mutator,
 });

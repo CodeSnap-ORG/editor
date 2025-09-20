@@ -4,7 +4,7 @@ const formatMessage = require("format-message");
  * @param {VM|null} vm
  * @returns {object}
  */
-const createTranslate = (vm) => {
+const createTranslate = vm => {
     const namespace = formatMessage.namespace();
 
     const translate = (message, args) => {
@@ -20,7 +20,7 @@ const createTranslate = (vm) => {
         return namespace(message, args);
     };
 
-    const generateId = (defaultMessage) => `_${defaultMessage}`;
+    const generateId = defaultMessage => `_${defaultMessage}`;
 
     const getLocale = () => {
         if (vm) return vm.getLocale();
@@ -29,7 +29,7 @@ const createTranslate = (vm) => {
     };
 
     let storedTranslations = {};
-    translate.setup = (newTranslations) => {
+    translate.setup = newTranslations => {
         if (newTranslations) {
             storedTranslations = newTranslations;
         }

@@ -4,12 +4,12 @@ const { test } = require("tap");
 const VM = require("../../src/virtual-machine");
 
 const compilerAndInterpreter = (name, callback) => {
-    test(`${name} - interpreted`, (t) => {
+    test(`${name} - interpreted`, t => {
         callback(t, {
             enabled: false,
         });
     });
-    test(`${name} - compiled`, (t) => {
+    test(`${name} - compiled`, t => {
         callback(t, {
             enabled: true,
         });
@@ -28,7 +28,7 @@ compilerAndInterpreter("last block in loop returns Promise", (t, co) => {
 
     const fixturePath = path.join(
         __dirname,
-        "../fixtures/tw-last-block-in-loop-returns-promise.sb3",
+        "../fixtures/tw-last-block-in-loop-returns-promise.sb3"
     );
     vm.loadProject(fs.readFileSync(fixturePath)).then(async () => {
         // This is a stand-in for a block like "move 10 steps"

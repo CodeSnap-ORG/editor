@@ -81,7 +81,7 @@ tap.beforeEach(() => {
 
 const test = tap.test;
 
-test("load sprite2 with corrupted bitmap costume file", (t) => {
+test("load sprite2 with corrupted bitmap costume file", t => {
     t.equal(vm.runtime.targets.length, 3);
 
     const stage = vm.runtime.targets[0];
@@ -104,7 +104,7 @@ test("load sprite2 with corrupted bitmap costume file", (t) => {
     t.end();
 });
 
-test("load and then save sprite with corrupted costume file", (t) => {
+test("load and then save sprite with corrupted costume file", t => {
     const resavedSprite = JSON.parse(vm.toJSON(vm.runtime.targets[2].id));
 
     t.equal(resavedSprite.name, "GreenGuy");
@@ -121,10 +121,10 @@ test("load and then save sprite with corrupted costume file", (t) => {
     t.end();
 });
 
-test("serializeCostume saves orignal broken costume", (t) => {
+test("serializeCostume saves orignal broken costume", t => {
     const costumeDescs = serializeCostumes(
         vm.runtime,
-        vm.runtime.targets[2].id,
+        vm.runtime.targets[2].id
     );
     t.equal(costumeDescs.length, 1);
     const costume = costumeDescs[0];

@@ -142,7 +142,7 @@ for (const Extension of [
     TestExtensionUsingStartBranch,
 ]) {
     for (const compilerEnabled of [false, true]) {
-        test(`CONDITIONAL - ${Extension.name} - ${compilerEnabled ? "compiled" : "interpreted"}`, (t) => {
+        test(`CONDITIONAL - ${Extension.name} - ${compilerEnabled ? "compiled" : "interpreted"}`, t => {
             t.plan(1);
 
             const vm = new VirtualMachine();
@@ -151,7 +151,7 @@ for (const Extension of [
             });
             vm.extensionManager.addBuiltinExtension(
                 "loopsAndThings",
-                Extension,
+                Extension
             );
             vm.runtime.on("COMPILE_ERROR", () => {
                 t.fail("Compile error");
@@ -159,8 +159,8 @@ for (const Extension of [
 
             vm.loadProject(
                 fs.readFileSync(
-                    path.join(__dirname, "../fixtures/tw-conditional.sb3"),
-                ),
+                    path.join(__dirname, "../fixtures/tw-conditional.sb3")
+                )
             ).then(() => {
                 let okayCount = 0;
                 vm.runtime.on("SAY", (target, type, text) => {
@@ -180,7 +180,7 @@ for (const Extension of [
             });
         });
 
-        test(`LOOP - ${Extension.name} - ${compilerEnabled ? "compiled" : "interpreted"}`, (t) => {
+        test(`LOOP - ${Extension.name} - ${compilerEnabled ? "compiled" : "interpreted"}`, t => {
             t.plan(1);
 
             const vm = new VirtualMachine();
@@ -189,16 +189,14 @@ for (const Extension of [
             });
             vm.extensionManager.addBuiltinExtension(
                 "loopsAndThings",
-                Extension,
+                Extension
             );
             vm.runtime.on("COMPILE_ERROR", () => {
                 t.fail("Compile error");
             });
 
             vm.loadProject(
-                fs.readFileSync(
-                    path.join(__dirname, "../fixtures/tw-loop.sb3"),
-                ),
+                fs.readFileSync(path.join(__dirname, "../fixtures/tw-loop.sb3"))
             ).then(() => {
                 vm.runtime.on("SAY", (target, type, text) => {
                     vm.quit();
@@ -211,7 +209,7 @@ for (const Extension of [
             });
         });
 
-        test(`beyond branchCount - ${Extension.name} - ${compilerEnabled ? "compiled" : "interpreted"}`, (t) => {
+        test(`beyond branchCount - ${Extension.name} - ${compilerEnabled ? "compiled" : "interpreted"}`, t => {
             t.plan(1);
 
             const vm = new VirtualMachine();
@@ -220,7 +218,7 @@ for (const Extension of [
             });
             vm.extensionManager.addBuiltinExtension(
                 "loopsAndThings",
-                Extension,
+                Extension
             );
             vm.runtime.on("COMPILE_ERROR", () => {
                 t.fail("Compile error");
@@ -230,9 +228,9 @@ for (const Extension of [
                 fs.readFileSync(
                     path.join(
                         __dirname,
-                        "../fixtures/tw-beyond-branchCount.sb3",
-                    ),
-                ),
+                        "../fixtures/tw-beyond-branchCount.sb3"
+                    )
+                )
             ).then(() => {
                 vm.runtime.on("SAY", (target, type, text) => {
                     if (text === "BeyondBranchCount") {

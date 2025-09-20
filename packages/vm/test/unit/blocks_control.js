@@ -3,14 +3,14 @@ const Control = require("../../src/blocks/scratch3_control");
 const Runtime = require("../../src/engine/runtime");
 const BlockUtility = require("../../src/engine/block-utility");
 
-test("getPrimitives", (t) => {
+test("getPrimitives", t => {
     const rt = new Runtime();
     const c = new Control(rt);
     t.type(c.getPrimitives(), "object");
     t.end();
 });
 
-test("repeat", (t) => {
+test("repeat", t => {
     const rt = new Runtime();
     const c = new Control(rt);
 
@@ -32,7 +32,7 @@ test("repeat", (t) => {
     t.end();
 });
 
-test("repeat rounds with round()", (t) => {
+test("repeat rounds with round()", t => {
     const rt = new Runtime();
     const c = new Control(rt);
 
@@ -59,7 +59,7 @@ test("repeat rounds with round()", (t) => {
     t.end();
 });
 
-test("repeatUntil", (t) => {
+test("repeatUntil", t => {
     const rt = new Runtime();
     const c = new Control(rt);
 
@@ -80,7 +80,7 @@ test("repeatUntil", (t) => {
     t.end();
 });
 
-test("repeatWhile", (t) => {
+test("repeatWhile", t => {
     const rt = new Runtime();
     const c = new Control(rt);
 
@@ -102,7 +102,7 @@ test("repeatWhile", (t) => {
     t.end();
 });
 
-test("forEach", (t) => {
+test("forEach", t => {
     const rt = new Runtime();
     const c = new Control(rt);
 
@@ -143,7 +143,7 @@ test("forEach", (t) => {
     t.end();
 });
 
-test("forever", (t) => {
+test("forever", t => {
     const rt = new Runtime();
     const c = new Control(rt);
 
@@ -163,7 +163,7 @@ test("forever", (t) => {
     t.end();
 });
 
-test("if / ifElse", (t) => {
+test("if / ifElse", t => {
     const rt = new Runtime();
     const c = new Control(rt);
 
@@ -187,7 +187,7 @@ test("if / ifElse", (t) => {
     t.end();
 });
 
-test("stop", (t) => {
+test("stop", t => {
     const rt = new Runtime();
     const c = new Control(rt);
 
@@ -220,7 +220,7 @@ test("stop", (t) => {
     t.end();
 });
 
-test("counter, incrCounter, clearCounter", (t) => {
+test("counter, incrCounter, clearCounter", t => {
     const rt = new Runtime();
     const c = new Control(rt);
 
@@ -237,7 +237,7 @@ test("counter, incrCounter, clearCounter", (t) => {
     t.end();
 });
 
-test("allAtOnce", (t) => {
+test("allAtOnce", t => {
     const rt = new Runtime();
     const c = new Control(rt);
 
@@ -255,7 +255,7 @@ test("allAtOnce", (t) => {
     t.end();
 });
 
-test("wait", (t) => {
+test("wait", t => {
     const rt = new Runtime();
     const c = new Control(rt);
     const args = { DURATION: 0.01 };
@@ -291,11 +291,11 @@ test("wait", (t) => {
     t.equal(waitTime, mockUtil.stackFrame.duration);
     t.ok(
         timeElapsed >= waitTime - thresholdSmall,
-        `Wait block ended too early: ${timeElapsed} < ${waitTime} - ${thresholdSmall}`,
+        `Wait block ended too early: ${timeElapsed} < ${waitTime} - ${thresholdSmall}`
     );
     t.ok(
         timeElapsed <= waitTime + thresholdLarge,
-        `Wait block ended too late: ${timeElapsed} > ${waitTime} + ${thresholdLarge}`,
+        `Wait block ended too late: ${timeElapsed} > ${waitTime} + ${thresholdLarge}`
     );
     t.end();
 });

@@ -45,11 +45,11 @@ const QueryParserHOC = function (WrappedComponent) {
         onOpenTipsLibrary: PropTypes.func,
         onUpdateReduxDeck: PropTypes.func,
     };
-    const mapDispatchToProps = (dispatch) => ({
+    const mapDispatchToProps = dispatch => ({
         onOpenTipsLibrary: () => {
             dispatch(openTipsLibrary());
         },
-        onUpdateReduxDeck: (tutorialId) => {
+        onUpdateReduxDeck: tutorialId => {
             dispatch(activateDeck(tutorialId));
         },
     });

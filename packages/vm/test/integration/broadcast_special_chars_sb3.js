@@ -10,16 +10,16 @@ const VariableUtil = require("../../src/util/variable-util");
 
 const projectUri = path.resolve(
     __dirname,
-    "../fixtures/broadcast_special_chars.sb3",
+    "../fixtures/broadcast_special_chars.sb3"
 );
 const project = readFileToBuffer(projectUri);
 
-test("importing sb3 project with special chars in message names", (t) => {
+test("importing sb3 project with special chars in message names", t => {
     const vm = new VirtualMachine();
     vm.attachStorage(makeTestStorage());
 
     // Evaluate playground data and exit
-    vm.on("playgroundData", (e) => {
+    vm.on("playgroundData", e => {
         const threads = JSON.parse(e.threads);
         t.equal(threads.length, 0);
 
@@ -30,11 +30,11 @@ test("importing sb3 project with special chars in message names", (t) => {
 
         const allBroadcastFields = VariableUtil.getAllVarRefsForTargets(
             vm.runtime.targets,
-            true,
+            true
         );
 
         const abMessageId = Object.keys(stage.variables).filter(
-            (k) => stage.variables[k].name === "a&b",
+            k => stage.variables[k].name === "a&b"
         )[0];
         const abMessage = stage.variables[abMessageId];
         // Check for unsafe characters, replaceUnsafeChars should just result in the original string
@@ -49,7 +49,7 @@ test("importing sb3 project with special chars in message names", (t) => {
         t.equal(abMessage.value, "a&b");
 
         const ltPerfectMessageId = Object.keys(stage.variables).filter(
-            (k) => stage.variables[k].name === "< perfect",
+            k => stage.variables[k].name === "< perfect"
         )[0];
         const ltPerfectMessage = stage.variables[ltPerfectMessageId];
         // Check for unsafe characters, replaceUnsafeChars should just result in the original string
@@ -57,13 +57,13 @@ test("importing sb3 project with special chars in message names", (t) => {
         // Check that the message ID does not have any unsafe characters
         t.equal(
             StringUtil.replaceUnsafeChars(ltPerfectMessageId),
-            ltPerfectMessageId,
+            ltPerfectMessageId
         );
 
         // Check that the message still has the correct info
         t.equal(
             StringUtil.replaceUnsafeChars(ltPerfectMessage.id),
-            ltPerfectMessage.id,
+            ltPerfectMessage.id
         );
         t.equal(ltPerfectMessage.id, ltPerfectMessageId);
         t.equal(ltPerfectMessage.type, Variable.BROADCAST_MESSAGE_TYPE);
@@ -73,18 +73,18 @@ test("importing sb3 project with special chars in message names", (t) => {
         t.equal(allBroadcastFields[ltPerfectMessageId].length, 1);
         t.equal(allBroadcastFields[abMessageId].length, 1);
         const catBlocks = Object.keys(cat.blocks._blocks).map(
-            (blockId) => cat.blocks._blocks[blockId],
+            blockId => cat.blocks._blocks[blockId]
         );
-        const catMessageBlocks = catBlocks.filter((block) =>
+        const catMessageBlocks = catBlocks.filter(block =>
             Object.prototype.hasOwnProperty.call(
                 block.fields,
-                "BROADCAST_OPTION",
-            ),
+                "BROADCAST_OPTION"
+            )
         );
         t.equal(catMessageBlocks.length, 2);
         t.equal(
             catMessageBlocks[0].fields.BROADCAST_OPTION.id,
-            ltPerfectMessageId,
+            ltPerfectMessageId
         );
         t.equal(catMessageBlocks[1].fields.BROADCAST_OPTION.id, abMessageId);
 

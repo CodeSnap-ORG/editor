@@ -8,7 +8,7 @@ import LiveInputHOC from "./forms/live-input-hoc.jsx";
 import { MAX_STROKE_WIDTH } from "../reducers/stroke-width";
 
 const LiveInput = LiveInputHOC(Input);
-const StrokeWidthIndicatorComponent = (props) => (
+const StrokeWidthIndicatorComponent = props => (
     <InputGroup disabled={props.disabled}>
         <LiveInput
             range

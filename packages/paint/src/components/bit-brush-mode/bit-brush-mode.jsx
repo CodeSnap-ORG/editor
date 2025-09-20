@@ -5,7 +5,7 @@ import messages from "../../lib/messages.js";
 
 import brushIcon from "./brush.svg";
 
-const BitBrushModeComponent = (props) => (
+const BitBrushModeComponent = props => (
     <ToolSelectComponent
         imgDescriptor={messages.brush}
         imgSrc={brushIcon}

@@ -15,15 +15,15 @@ const codePayload = ({ blockObjects, topBlockId }) => {
 
     return blockToImage(topBlockId)
         .then(createThumbnail)
-        .then((thumbnail) => {
+        .then(thumbnail => {
             payload.thumbnail = thumbnail;
             return payload;
         });
 };
 
-const findTopBlock = (payload) => {
+const findTopBlock = payload => {
     const blocks = payload.extensionURLs ? payload.blocks : payload;
-    return blocks.find((i) => i.topLevel);
+    return blocks.find(i => i.topLevel);
 };
 
 const placeInViewport = (payload, workspaceMetrics, isRtl) => {

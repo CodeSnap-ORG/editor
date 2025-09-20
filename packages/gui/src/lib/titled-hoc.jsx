@@ -46,11 +46,11 @@ const TitledHOC = function (WrappedComponent) {
                 this.props.reduxProjectTitle !== this.props.projectTitle
             ) {
                 const defaultProjectTitle = this.props.intl.formatMessage(
-                    messages.defaultProjectTitle,
+                    messages.defaultProjectTitle
                 );
                 this.props.onUpdateProjectTitle(
                     this.props.reduxProjectTitle,
-                    this.props.reduxProjectTitle === defaultProjectTitle,
+                    this.props.reduxProjectTitle === defaultProjectTitle
                 );
             }
         }
@@ -59,7 +59,7 @@ const TitledHOC = function (WrappedComponent) {
             let isDefault = false;
             if (newTitle === null || typeof newTitle === "undefined") {
                 newTitle = this.props.intl.formatMessage(
-                    messages.defaultProjectTitle,
+                    messages.defaultProjectTitle
                 );
                 isDefault = true;
             }
@@ -100,7 +100,7 @@ const TitledHOC = function (WrappedComponent) {
         onUpdateProjectTitle: () => {},
     };
 
-    const mapStateToProps = (state) => {
+    const mapStateToProps = state => {
         const loadingState = state.scratchGui.projectState.loadingState;
         return {
             isAnyCreatingNewState: getIsAnyCreatingNewState(loadingState),
@@ -109,12 +109,12 @@ const TitledHOC = function (WrappedComponent) {
         };
     };
 
-    const mapDispatchToProps = (dispatch) => ({
-        onChangedProjectTitle: (title) => dispatch(setProjectTitle(title)),
+    const mapDispatchToProps = dispatch => ({
+        onChangedProjectTitle: title => dispatch(setProjectTitle(title)),
     });
 
     return injectIntl(
-        connect(mapStateToProps, mapDispatchToProps)(TitledComponent),
+        connect(mapStateToProps, mapDispatchToProps)(TitledComponent)
     );
 };
 

@@ -4,7 +4,7 @@ const spritePayload = (id, vm) => {
     const target = vm.runtime.getTargetById(id);
     if (!target) return null;
 
-    return vm.exportSprite(id, "base64").then((zippedSprite) => {
+    return vm.exportSprite(id, "base64").then(zippedSprite => {
         const payload = {
             type: "sprite",
             name: target.sprite.name,
@@ -17,7 +17,7 @@ const spritePayload = (id, vm) => {
         const costumeDataUrl =
             target.sprite.costumes[target.currentCostume].asset.encodeDataURI();
 
-        return createThumbnail(costumeDataUrl).then((thumbnail) => {
+        return createThumbnail(costumeDataUrl).then(thumbnail => {
             payload.thumbnail = thumbnail;
             return payload;
         });

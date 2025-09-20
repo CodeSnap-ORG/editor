@@ -39,14 +39,14 @@ const importLoadCostume = require("../import/load-costume");
 const costumeMiddleware = new LoadingMiddleware();
 importLoadCostume.loadCostume = costumeMiddleware.install(
     importLoadCostume,
-    importLoadCostume.loadCostume,
+    importLoadCostume.loadCostume
 );
 
 const importLoadSound = require("../import/load-sound");
 const soundMiddleware = new LoadingMiddleware();
 importLoadSound.loadSound = soundMiddleware.install(
     importLoadSound,
-    importLoadSound.loadSound,
+    importLoadSound.loadSound
 );
 
 const ScratchStorage = require("scratch-storage");
@@ -81,7 +81,7 @@ document.querySelector(".run").addEventListener(
         params.set("compiler", compilerInput.checked);
         location.href = `${location.pathname}?${params}#${projectInput.value}`;
     },
-    false,
+    false
 );
 
 const setShareLink = function (json) {
@@ -90,27 +90,27 @@ const setShareLink = function (json) {
     document.querySelectorAll(".share")[1].href = `suite.html`;
 };
 
-const getProjectMetadata = async (projectId) => {
+const getProjectMetadata = async projectId => {
     const response = await fetch(
-        `https://trampoline.turbowarp.org/api/projects/${projectId}`,
+        `https://trampoline.turbowarp.org/api/projects/${projectId}`
     );
     if (response.status === 404) {
         throw new Error("The project is unshared or does not exist");
     }
     if (!response.ok) {
         throw new Error(
-            `HTTP error ${response.status} fetching project metadata`,
+            `HTTP error ${response.status} fetching project metadata`
         );
     }
     const json = await response.json();
     return json;
 };
 
-const getProjectData = async (projectId) => {
+const getProjectData = async projectId => {
     const metadata = await getProjectMetadata(projectId);
     const token = metadata.project_token;
     const response = await fetch(
-        `https://projects.scratch.mit.edu/${projectId}?token=${token}`,
+        `https://projects.scratch.mit.edu/${projectId}?token=${token}`
     );
     if (!response.ok) {
         throw new Error(`HTTP error ${response.status} fetching project data`);
@@ -124,7 +124,7 @@ const loadProject = function () {
     if (id.length < 1 || !isFinite(id)) {
         id = projectInput.value;
     }
-    getProjectData(id).then((data) => Scratch.vm.loadProject(data));
+    getProjectData(id).then(data => Scratch.vm.loadProject(data));
     return id;
 };
 
@@ -187,7 +187,7 @@ class LoadingProgress {
             _this.hydrateTotal += 1;
             _this.sampleMemory();
             _this.callback(_this);
-            return Promise.resolve(next(args)).then((value) => {
+            return Promise.resolve(next(args)).then(value => {
                 _this.hydrateComplete += 1;
                 _this.sampleMemory();
                 _this.callback(_this);
@@ -230,7 +230,7 @@ class LoadingProgress {
                         performance.measure(
                             "Scratch.LoadData",
                             "Scratch.LoadDataStart",
-                            "Scratch.LoadDataEnd",
+                            "Scratch.LoadDataEnd"
                         );
                     }
 
@@ -252,7 +252,7 @@ class LoadingProgress {
                         performance.measure(
                             "Scratch.Download",
                             "Scratch.DownloadStart",
-                            "Scratch.DownloadEnd",
+                            "Scratch.DownloadEnd"
                         );
                     }
 
@@ -275,7 +275,7 @@ class LoadingProgress {
                 performance.measure(
                     "Scratch.Load",
                     "Scratch.LoadStart",
-                    "Scratch.LoadEnd",
+                    "Scratch.LoadEnd"
                 );
             }
 
@@ -305,12 +305,12 @@ class StatTable {
 
     render() {
         const table = this.table;
-        Array.from(table.children).forEach((node) => table.removeChild(node));
+        Array.from(table.children).forEach(node => table.removeChild(node));
         const keys = this.keys();
         for (const key of keys) {
             this.viewOf(key).render({
                 table,
-                isSlow: (frame) => this.isSlow(key, frame),
+                isSlow: frame => this.isSlow(key, frame),
             });
         }
     }
@@ -374,7 +374,7 @@ class StatView {
 class RunningStats {
     constructor(profiler) {
         this.stepThreadsInnerId = profiler.idByName(
-            "Sequencer.stepThreads#inner",
+            "Sequencer.stepThreads#inner"
         );
         this.blockFunctionId = profiler.idByName("blockFunction");
         this.stpeThreadsId = profiler.idByName("Sequencer.stepThreads");
@@ -402,13 +402,13 @@ const WORK_TIME = 0.75;
 class RunningStatsView {
     constructor({ runningStats, maxRecordedTime, dom }) {
         this.recordedTimeDom = dom.getElementsByClassName(
-            "profile-count-amount-recorded",
+            "profile-count-amount-recorded"
         )[0];
         this.stepsLoopedDom = dom.getElementsByClassName(
-            "profile-count-steps-looped",
+            "profile-count-steps-looped"
         )[0];
         this.blocksExecutedDom = dom.getElementsByClassName(
-            "profile-count-blocks-executed",
+            "profile-count-blocks-executed"
         )[0];
 
         this.maxRecordedTime = maxRecordedTime;
@@ -466,8 +466,8 @@ class FramesTable extends StatTable {
     }
 
     keys() {
-        const keys = Object.keys(this.frames.frames).map((id) =>
-            this.profiler.nameById(Number(id)),
+        const keys = Object.keys(this.frames.frames).map(id =>
+            this.profiler.nameById(Number(id))
         );
         keys.sort((a, b) => frameOrder.indexOf(a) - frameOrder.indexOf(b));
         return keys;
@@ -586,7 +586,7 @@ class ProfilerRun {
             {
                 type: "BENCH_MESSAGE_LOADING",
             },
-            "*",
+            "*"
         );
 
         this.vm.on("workspaceUpdate", () => {
@@ -595,7 +595,7 @@ class ProfilerRun {
                     {
                         type: "BENCH_MESSAGE_WARMING_UP",
                     },
-                    "*",
+                    "*"
                 );
                 this.vm.greenFlag();
             }, 100);
@@ -604,7 +604,7 @@ class ProfilerRun {
                     {
                         type: "BENCH_MESSAGE_ACTIVE",
                     },
-                    "*",
+                    "*"
                 );
                 this.vm.runtime.profiler = this.profiler;
             }, 100 + this.warmUpTime);
@@ -623,7 +623,7 @@ class ProfilerRun {
                             frames: this.frames.frames,
                             opcodes: this.opcodes.opcodes,
                         },
-                        "*",
+                        "*"
                     );
 
                     setShareLink({
@@ -636,7 +636,7 @@ class ProfilerRun {
                         opcodes: this.opcodes.opcodes,
                     });
                 },
-                100 + this.warmUpTime + this.maxRecordedTime,
+                100 + this.warmUpTime + this.maxRecordedTime
             );
         });
     }
@@ -649,12 +649,12 @@ class ProfilerRun {
             fixture.recordingTime,
         ].join(",");
 
-        this.frames.frames = json.frames.map((frame) =>
+        this.frames.frames = json.frames.map(frame =>
             Object.assign(new StatView(), frame, {
                 name: this.profiler.nameById(
-                    this.profiler.idByName(frame.name),
+                    this.profiler.idByName(frame.name)
                 ),
-            }),
+            })
         );
 
         this.opcodes.opcodes = {};
@@ -687,15 +687,15 @@ const runBenchmark = function () {
     storage.addWebSource([AssetType.Project], getProjectUrl);
     storage.addWebSource(
         [AssetType.ImageVector, AssetType.ImageBitmap, AssetType.Sound],
-        getAssetUrl,
+        getAssetUrl
     );
     vm.attachStorage(storage);
 
-    new LoadingProgress((progress) => {
+    new LoadingProgress(progress => {
         const setElement = (name, value) => {
             document.getElementsByClassName(name)[0].innerText = value;
         };
-        const sinceLoadStart = (key) =>
+        const sinceLoadStart = key =>
             `(${(window[key] || Date.now()) - window.ScratchVMLoadStart}ms)`;
 
         setElement("loading-total", 1);
@@ -706,7 +706,7 @@ const runBenchmark = function () {
         setElement("loading-content-complete", progress.contentComplete);
         setElement(
             "loading-content-time",
-            sinceLoadStart("ScratchVMDownloadEnd"),
+            sinceLoadStart("ScratchVMDownloadEnd")
         );
 
         setElement("loading-hydrate-total", progress.hydrateTotal);
@@ -716,11 +716,11 @@ const runBenchmark = function () {
         if (progress.memoryPeak) {
             setElement(
                 "loading-memory-current",
-                `${(progress.memoryCurrent / 1000000).toFixed(0)}MB`,
+                `${(progress.memoryCurrent / 1000000).toFixed(0)}MB`
             );
             setElement(
                 "loading-memory-peak",
-                `${(progress.memoryPeak / 1000000).toFixed(0)}MB`,
+                `${(progress.memoryPeak / 1000000).toFixed(0)}MB`
             );
         }
     }).on(storage, vm);
@@ -752,7 +752,7 @@ const runBenchmark = function () {
     vm.attachV2BitmapAdapter(new ScratchSVGRenderer.BitmapAdapter());
 
     // Feed mouse events as VM I/O events.
-    document.addEventListener("mousemove", (e) => {
+    document.addEventListener("mousemove", e => {
         const rect = canvas.getBoundingClientRect();
         const coordinates = {
             x: e.clientX - rect.left,
@@ -762,7 +762,7 @@ const runBenchmark = function () {
         };
         Scratch.vm.postIOData("mouse", coordinates);
     });
-    canvas.addEventListener("mousedown", (e) => {
+    canvas.addEventListener("mousedown", e => {
         const rect = canvas.getBoundingClientRect();
         const data = {
             isDown: true,
@@ -774,7 +774,7 @@ const runBenchmark = function () {
         Scratch.vm.postIOData("mouse", data);
         e.preventDefault();
     });
-    canvas.addEventListener("mouseup", (e) => {
+    canvas.addEventListener("mouseup", e => {
         const rect = canvas.getBoundingClientRect();
         const data = {
             isDown: false,
@@ -788,7 +788,7 @@ const runBenchmark = function () {
     });
 
     // Feed keyboard events as VM I/O events.
-    document.addEventListener("keydown", (e) => {
+    document.addEventListener("keydown", e => {
         // Don't capture keys intended for Blockly inputs.
         if (e.target !== document && e.target !== document.body) {
             return;
@@ -799,7 +799,7 @@ const runBenchmark = function () {
         });
         e.preventDefault();
     });
-    document.addEventListener("keyup", (e) => {
+    document.addEventListener("keyup", e => {
         // Always capture up events,
         // even those that have switched to other targets.
         Scratch.vm.postIOData("keyboard", {

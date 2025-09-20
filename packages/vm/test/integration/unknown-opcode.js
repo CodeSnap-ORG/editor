@@ -8,7 +8,7 @@ const VirtualMachine = require("../../src/index");
 const uri = path.resolve(__dirname, "../fixtures/unknown-opcode.sb2");
 const project = readFileToBuffer(uri);
 
-test("unknown opcode", (t) => {
+test("unknown opcode", t => {
     const vm = new VirtualMachine();
     vm.attachStorage(makeTestStorage());
 
@@ -43,7 +43,7 @@ test("unknown opcode", (t) => {
         // The comment previously attached to the undefined block should become
         // a workspace comment, at 0/0, with the same text as it had.
         const undefinedCommentId = Object.keys(target.comments).filter(
-            (id) => id !== topCommentId && id !== secondCommentId,
+            id => id !== topCommentId && id !== secondCommentId
         )[0];
         const undefinedComment = target.comments[undefinedCommentId];
         t.equal(undefinedComment.blockId, null);

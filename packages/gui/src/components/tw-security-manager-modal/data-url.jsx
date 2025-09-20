@@ -6,7 +6,7 @@ import styles from "./data-url.css";
  * @param {string} dataURI data: URI
  * @returns {string} A hopefully human-readable version
  */
-const decodeDataURI = (dataURI) => {
+const decodeDataURI = dataURI => {
     const delimeter = dataURI.indexOf(",");
     if (delimeter === -1) {
         return dataURI;
@@ -27,7 +27,7 @@ const decodeDataURI = (dataURI) => {
     }
 };
 
-const DataURL = (props) => (
+const DataURL = props => (
     <textarea
         className={styles.code}
         value={decodeDataURI(props.url)}

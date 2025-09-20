@@ -46,7 +46,7 @@ describe("Working with costumes", () => {
         await loadUri(uri);
         await clickText("Costumes");
         const el = await findByXpath(
-            '//button[@aria-label="Choose a Costume"]',
+            '//button[@aria-label="Choose a Costume"]'
         );
         await driver.actions().mouseMove(el).perform();
         await driver.sleep(500); // Wait for thermometer menu to come up
@@ -59,7 +59,7 @@ describe("Working with costumes", () => {
         await loadUri(uri);
         await clickText("Costumes");
         const el = await findByXpath(
-            '//button[@aria-label="Choose a Costume"]',
+            '//button[@aria-label="Choose a Costume"]'
         );
         await driver.actions().mouseMove(el).perform();
         await driver.sleep(500); // Wait for thermometer menu to come up
@@ -74,7 +74,7 @@ describe("Working with costumes", () => {
 
         await rightClickText("costume1", scope.costumesTab);
         await clickText("duplicate", scope.costumesTab);
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for duplication to finish
+        await new Promise(resolve => setTimeout(resolve, 1000)); // Wait for duplication to finish
 
         // Make sure the duplicated costume is named correctly.
         await clickText("costume3", scope.costumesTab);
@@ -124,13 +124,13 @@ describe("Working with costumes", () => {
         await loadUri(uri);
         await clickText("Costumes");
         const el = await findByXpath(
-            '//button[@aria-label="Choose a Costume"]',
+            '//button[@aria-label="Choose a Costume"]'
         );
         await driver.actions().mouseMove(el).perform();
         await driver.sleep(500); // Wait for thermometer menu to come up
         const input = await findByXpath('//input[@type="file"]');
         await input.sendKeys(
-            path.resolve(__dirname, "../fixtures/100-100.svg"),
+            path.resolve(__dirname, "../fixtures/100-100.svg")
         );
         await clickText("100-100", scope.costumesTab); // Name from filename
         await clickText("100 x 100", scope.costumesTab); // Size is right
@@ -142,13 +142,13 @@ describe("Working with costumes", () => {
         await loadUri(uri);
         await clickText("Costumes");
         const el = await findByXpath(
-            '//button[@aria-label="Choose a Costume"]',
+            '//button[@aria-label="Choose a Costume"]'
         );
         await driver.actions().mouseMove(el).perform();
         await driver.sleep(500); // Wait for thermometer menu to come up
         const input = await findByXpath('//input[@type="file"]');
         await input.sendKeys(
-            path.resolve(__dirname, "../fixtures/gh-3582-png.png"),
+            path.resolve(__dirname, "../fixtures/gh-3582-png.png")
         );
         await clickText("gh-3582-png", scope.costumesTab);
         const logs = await getLogs();
@@ -159,13 +159,13 @@ describe("Working with costumes", () => {
         await loadUri(uri);
         await clickText("Costumes");
         const el = await findByXpath(
-            '//button[@aria-label="Choose a Costume"]',
+            '//button[@aria-label="Choose a Costume"]'
         );
         await driver.actions().mouseMove(el).perform();
         await driver.sleep(500); // Wait for thermometer menu to come up
         const input = await findByXpath('//input[@type="file"]');
         await input.sendKeys(
-            path.resolve(__dirname, "../fixtures/bmpfile.bmp"),
+            path.resolve(__dirname, "../fixtures/bmpfile.bmp")
         );
         await clickText("bmpfile", scope.costumesTab);
         const logs = await getLogs();
@@ -176,13 +176,13 @@ describe("Working with costumes", () => {
         await loadUri(uri);
         await clickText("Costumes");
         const el = await findByXpath(
-            '//button[@aria-label="Choose a Costume"]',
+            '//button[@aria-label="Choose a Costume"]'
         );
         await driver.actions().mouseMove(el).perform();
         await driver.sleep(500); // Wait for thermometer menu to come up
         const input = await findByXpath('//input[@type="file"]');
         await input.sendKeys(
-            path.resolve(__dirname, "../fixtures/paddleball.gif"),
+            path.resolve(__dirname, "../fixtures/paddleball.gif")
         );
 
         await findByText("paddleball", scope.costumesTab);
@@ -212,14 +212,14 @@ describe("Working with costumes", () => {
         await loadUri(uri);
         await clickXpath('//button[@aria-label="Choose a Sprite"]');
         const searchElement = await findByXpath(
-            "//input[@placeholder='Search']",
+            "//input[@placeholder='Search']"
         );
         await searchElement.sendKeys("abb");
         const abbyElement = await findByXpath('//*[span[text()="Abby"]]');
         driver.actions().mouseMove(abbyElement).perform();
         // wait for one of Abby's alternate costumes to appear
         await findByXpath(
-            '//img[@src="https://cdn.assets.scratch.mit.edu/internalapi/asset/45de34b47a2ce22f6f5d28bb35a44ff5.svg/get/"]',
+            '//img[@src="https://cdn.assets.scratch.mit.edu/internalapi/asset/45de34b47a2ce22f6f5d28bb35a44ff5.svg/get/"]'
         );
         const logs = await getLogs();
         await expect(logs).toEqual([]);
@@ -233,7 +233,7 @@ describe("Working with costumes", () => {
         await loadUri(uri);
         await clickText("Costumes");
         const el = await findByXpath(
-            '//button[@aria-label="Choose a Costume"]',
+            '//button[@aria-label="Choose a Costume"]'
         );
         await driver.actions().mouseMove(el).perform();
         await driver.sleep(500); // Wait for thermometer menu to come up
@@ -252,17 +252,17 @@ describe("Working with costumes", () => {
         await loadUri(uri);
         await clickText("Costumes");
         const el = await findByXpath(
-            '//button[@aria-label="Choose a Costume"]',
+            '//button[@aria-label="Choose a Costume"]'
         );
         await driver.actions().mouseMove(el).perform();
         await driver.sleep(500); // Wait for thermometer menu to come up
         const input = await findByXpath('//input[@type="file"]');
         await input.sendKeys(
-            path.resolve(__dirname, "../fixtures/corrupt-from-scratch3.svg"),
+            path.resolve(__dirname, "../fixtures/corrupt-from-scratch3.svg")
         );
         const costumeTile = await findByText(
             "corrupt-from-scratch3",
-            scope.costumesTab,
+            scope.costumesTab
         ); // Name from filename
         const tileVisible = await costumeTile.isDisplayed();
         await expect(tileVisible).toBe(true);
@@ -273,17 +273,17 @@ describe("Working with costumes", () => {
         await loadUri(uri);
         await clickText("Costumes");
         const el = await findByXpath(
-            '//button[@aria-label="Choose a Costume"]',
+            '//button[@aria-label="Choose a Costume"]'
         );
         await driver.actions().mouseMove(el).perform();
         await driver.sleep(500); // Wait for thermometer menu to come up
         const input = await findByXpath('//input[@type="file"]');
         await input.sendKeys(
-            path.resolve(__dirname, "../fixtures/scratch2-corrupted.svg"),
+            path.resolve(__dirname, "../fixtures/scratch2-corrupted.svg")
         );
         const costumeTile = await findByText(
             "scratch2-corrupted",
-            scope.costumesTab,
+            scope.costumesTab
         ); // Name from filename
         const tileVisible = await costumeTile.isDisplayed();
         await expect(tileVisible).toBe(true);

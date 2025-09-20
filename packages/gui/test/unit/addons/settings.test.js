@@ -96,7 +96,7 @@ test("changing enabled throws on unknown addons", () => {
     const fn = jest.fn();
     store.addEventListener("setting-changed", fn);
     expect(() =>
-        store.setAddonEnabled("egriohergoijergijregojiergdfoijre", true),
+        store.setAddonEnabled("egriohergoijergijregojiergdfoijre", true)
     ).toThrow();
     expect(fn).toHaveBeenCalledTimes(0);
 });
@@ -106,10 +106,10 @@ test("changing settings throws on unknown settings", () => {
     const fn = jest.fn();
     store.addEventListener("setting-changed", fn);
     expect(() =>
-        store.setAddonSetting("onion-skinning", "sdlkjfslkdjfljksd", true),
+        store.setAddonSetting("onion-skinning", "sdlkjfslkdjfljksd", true)
     ).toThrow();
     expect(() =>
-        store.setAddonSetting("ergfoijgi", "sdflkjsfdlkj", true),
+        store.setAddonSetting("ergfoijgi", "sdflkjsfdlkj", true)
     ).toThrow();
     expect(fn).toHaveBeenCalledTimes(0);
 });
@@ -131,71 +131,71 @@ test("changing settings checks value validity and throws", () => {
     store.addEventListener("setting-changed", fn);
     // boolean
     expect(() =>
-        store.setAddonSetting("onion-skinning", "default", "#abcdef"),
+        store.setAddonSetting("onion-skinning", "default", "#abcdef")
     ).toThrow();
     expect(() =>
-        store.setAddonSetting("onion-skinning", "default", []),
+        store.setAddonSetting("onion-skinning", "default", [])
     ).toThrow();
     expect(() =>
-        store.setAddonSetting("onion-skinning", "default", {}),
+        store.setAddonSetting("onion-skinning", "default", {})
     ).toThrow();
     expect(() =>
-        store.setAddonSetting("onion-skinning", "default", ""),
+        store.setAddonSetting("onion-skinning", "default", "")
     ).toThrow();
     expect(() =>
-        store.setAddonSetting("onion-skinning", "default", 1),
+        store.setAddonSetting("onion-skinning", "default", 1)
     ).toThrow();
     // integer
     expect(() =>
-        store.setAddonSetting("onion-skinning", "next", "#abcdef"),
+        store.setAddonSetting("onion-skinning", "next", "#abcdef")
     ).toThrow();
     expect(() => store.setAddonSetting("onion-skinning", "next", [])).toThrow();
     expect(() => store.setAddonSetting("onion-skinning", "next", {})).toThrow();
     expect(() => store.setAddonSetting("onion-skinning", "next", "")).toThrow();
     expect(() =>
-        store.setAddonSetting("onion-skinning", "next", "3"),
+        store.setAddonSetting("onion-skinning", "next", "3")
     ).toThrow();
     expect(() =>
-        store.setAddonSetting("onion-skinning", "next", false),
+        store.setAddonSetting("onion-skinning", "next", false)
     ).toThrow();
     // select
     expect(() =>
-        store.setAddonSetting("onion-skinning", "mode", "#abcdef"),
+        store.setAddonSetting("onion-skinning", "mode", "#abcdef")
     ).toThrow();
     expect(() => store.setAddonSetting("onion-skinning", "mode", [])).toThrow();
     expect(() => store.setAddonSetting("onion-skinning", "mode", {})).toThrow();
     expect(() => store.setAddonSetting("onion-skinning", "mode", "")).toThrow();
     expect(() =>
-        store.setAddonSetting("onion-skinning", "mode", false),
+        store.setAddonSetting("onion-skinning", "mode", false)
     ).toThrow();
     expect(() => store.setAddonSetting("onion-skinning", "mode", 1)).toThrow();
     expect(() =>
-        store.setAddonSetting("onion-skinning", "mode", "tint"),
+        store.setAddonSetting("onion-skinning", "mode", "tint")
     ).not.toThrow();
     expect(() =>
-        store.setAddonSetting("onion-skinning", "mode", "merge"),
+        store.setAddonSetting("onion-skinning", "mode", "merge")
     ).not.toThrow();
     // color
     expect(() =>
-        store.setAddonSetting("onion-skinning", "beforeTint", "#abcdef"),
+        store.setAddonSetting("onion-skinning", "beforeTint", "#abcdef")
     ).not.toThrow();
     expect(() =>
-        store.setAddonSetting("onion-skinning", "beforeTint", "#abcDE1"),
+        store.setAddonSetting("onion-skinning", "beforeTint", "#abcDE1")
     ).not.toThrow();
     expect(() =>
-        store.setAddonSetting("onion-skinning", "beforeTint", []),
+        store.setAddonSetting("onion-skinning", "beforeTint", [])
     ).toThrow();
     expect(() =>
-        store.setAddonSetting("onion-skinning", "beforeTint", {}),
+        store.setAddonSetting("onion-skinning", "beforeTint", {})
     ).toThrow();
     expect(() =>
-        store.setAddonSetting("onion-skinning", "beforeTint", ""),
+        store.setAddonSetting("onion-skinning", "beforeTint", "")
     ).toThrow();
     expect(() =>
-        store.setAddonSetting("onion-skinning", "beforeTint", false),
+        store.setAddonSetting("onion-skinning", "beforeTint", false)
     ).toThrow();
     expect(() =>
-        store.setAddonSetting("onion-skinning", "beforeTint", 1),
+        store.setAddonSetting("onion-skinning", "beforeTint", 1)
     ).toThrow();
     expect(fn).toHaveBeenCalledTimes(4);
 });
@@ -204,15 +204,15 @@ test("colors with alpha channel", () => {
     const store = new SettingStore();
     store.setAddonSetting("onion-skinning", "beforeTint", "#123456");
     expect(store.getAddonSetting("onion-skinning", "beforeTint")).toBe(
-        "#123456",
+        "#123456"
     );
     store.setAddonSetting("onion-skinning", "beforeTint", "#234567ff");
     expect(store.getAddonSetting("onion-skinning", "beforeTint")).toBe(
-        "#234567",
+        "#234567"
     );
     store.setAddonSetting("onion-skinning", "beforeTint", "#abc67800");
     expect(store.getAddonSetting("onion-skinning", "beforeTint")).toBe(
-        "#abc678",
+        "#abc678"
     );
     store.import({
         addons: {
@@ -224,7 +224,7 @@ test("colors with alpha channel", () => {
         },
     });
     expect(store.getAddonSetting("onion-skinning", "beforeTint")).toBe(
-        "#56789a",
+        "#56789a"
     );
 });
 
@@ -277,7 +277,7 @@ test("apply preset", () => {
     store.applyAddonPreset("editor-theme3", "original");
     expect(fn.mock.calls.length).toBeGreaterThan(5);
     expect(store.getAddonSetting("editor-theme3", "motion-color")).toBe(
-        "#4a6cd4",
+        "#4a6cd4"
     );
     // TODO: test that settings not specified in the preset don't change
 });
@@ -287,10 +287,10 @@ test("unknown preset throws", () => {
     const fn = jest.fn();
     store.addEventListener("setting-changed", fn);
     expect(() =>
-        store.applyAddonPreset("alksdfjlksdf", "jksdflkjsdf"),
+        store.applyAddonPreset("alksdfjlksdf", "jksdflkjsdf")
     ).toThrow();
     expect(() =>
-        store.applyAddonPreset("editor-theme3", "jksdflkjsdf"),
+        store.applyAddonPreset("editor-theme3", "jksdflkjsdf")
     ).toThrow();
     expect(fn).toHaveBeenCalledTimes(0);
 });
@@ -384,7 +384,7 @@ test("invalid imports", () => {
     expect(() =>
         store.import({
             addons: {},
-        }),
+        })
     ).not.toThrow();
     expect(() =>
         store.import({
@@ -396,7 +396,7 @@ test("invalid imports", () => {
                     },
                 },
             },
-        }),
+        })
     ).not.toThrow();
     expect(() =>
         store.import({
@@ -406,7 +406,7 @@ test("invalid imports", () => {
                     settings: {},
                 },
             },
-        }),
+        })
     ).not.toThrow();
     expect(() =>
         store.import({
@@ -418,7 +418,7 @@ test("invalid imports", () => {
                     },
                 },
             },
-        }),
+        })
     ).not.toThrow();
     expect(store.getAddonEnabled("onion-skinning")).toBe(false);
     expect(store.getAddonSetting("onion-skinning", "default")).toBe(false);
@@ -504,14 +504,14 @@ test("setStore weird values", () => {
 test("resetting an addon through setStore", () => {
     const store = new SettingStore();
     expect(store.getAddonSetting("custom-block-shape", "paddingSize")).toBe(
-        100,
+        100
     );
     store.setAddonSetting("custom-block-shape", "paddingSize", 50);
     expect(store.getAddonSetting("custom-block-shape", "paddingSize")).toBe(50);
     const store2 = new SettingStore();
     store.setStore(store2.store);
     expect(store.getAddonSetting("custom-block-shape", "paddingSize")).toBe(
-        100,
+        100
     );
 });
 
@@ -539,7 +539,7 @@ test("parseUrlParameter", () => {
     expect(store.getAddonEnabled("remove-curved-stage-border")).toBe(false);
     expect(store.remote).toBe(false);
     store.parseUrlParameter(
-        "pause,remove-curved-stage-border,,invalid addon??43t987(*&$",
+        "pause,remove-curved-stage-border,,invalid addon??43t987(*&$"
     );
     expect(store.getAddonEnabled("pause")).toBe(true);
     expect(store.getAddonEnabled("mute-project")).toBe(false);
@@ -621,54 +621,54 @@ test("if", () => {
     expect(
         store.evaluateCondition("editor-theme3", {
             addonEnabled: ["onion-skinning"],
-        }),
+        })
     ).toBe(false);
     expect(
         store.evaluateCondition("editor-theme3", {
             addonEnabled: "onion-skinning",
-        }),
+        })
     ).toBe(false);
     expect(
         store.evaluateCondition("editor-theme3", {
             addonEnabled: ["editor-devtools"],
-        }),
+        })
     ).toBe(true);
     expect(
         store.evaluateCondition("editor-theme3", {
             addonEnabled: "editor-devtools",
-        }),
+        })
     ).toBe(true);
     expect(
         store.evaluateCondition("editor-theme3", {
             addonEnabled: ["editor-devtools", "onion-skinning"],
-        }),
+        })
     ).toBe(true);
 
     expect(
         store.evaluateCondition("editor-theme3", {
             settings: {},
-        }),
+        })
     ).toBe(true);
     expect(
         store.evaluateCondition("editor-theme3", {
             settings: {
                 "motion-color": "#000000",
             },
-        }),
+        })
     ).toBe(true);
     expect(
         store.evaluateCondition("editor-theme3", {
             settings: {
                 "looks-color": "#FFFFFF",
             },
-        }),
+        })
     ).toBe(true);
     expect(
         store.evaluateCondition("editor-theme3", {
             settings: {
                 "looks-color": "#FFFFFE",
             },
-        }),
+        })
     ).toBe(false);
     expect(
         store.evaluateCondition("editor-theme3", {
@@ -676,7 +676,7 @@ test("if", () => {
                 "motion-color": "#000000",
                 "looks-color": "#FFFFFF",
             },
-        }),
+        })
     ).toBe(true);
     expect(
         store.evaluateCondition("editor-theme3", {
@@ -684,7 +684,7 @@ test("if", () => {
                 "motion-color": "#000001",
                 "looks-color": "#FFFFFF",
             },
-        }),
+        })
     ).toBe(false);
 
     expect(
@@ -692,42 +692,42 @@ test("if", () => {
             settings: {
                 "looks-color": ["#FFFFFF"],
             },
-        }),
+        })
     ).toBe(true);
     expect(
         store.evaluateCondition("editor-theme3", {
             settings: {
                 "looks-color": ["#FFFFFE", "#FFFFFF"],
             },
-        }),
+        })
     ).toBe(true);
     expect(
         store.evaluateCondition("editor-theme3", {
             settings: {
                 "looks-color": ["#FFFFFF", "#FFFFFE"],
             },
-        }),
+        })
     ).toBe(true);
     expect(
         store.evaluateCondition("editor-theme3", {
             settings: {
                 "looks-color": ["#FFFFFE"],
             },
-        }),
+        })
     ).toBe(false);
     expect(
         store.evaluateCondition("editor-theme3", {
             settings: {
                 "looks-color": ["#FFFFFE", "#FFFFFD"],
             },
-        }),
+        })
     ).toBe(false);
     expect(
         store.evaluateCondition("editor-theme3", {
             settings: {
                 "looks-color": [],
             },
-        }),
+        })
     ).toBe(false);
 
     expect(
@@ -736,7 +736,7 @@ test("if", () => {
             settings: {
                 "motion-color": "#000000",
             },
-        }),
+        })
     ).toBe(true);
     expect(
         store.evaluateCondition("editor-theme3", {
@@ -744,7 +744,7 @@ test("if", () => {
             settings: {
                 "motion-color": "#000000",
             },
-        }),
+        })
     ).toBe(false);
     expect(
         store.evaluateCondition("editor-theme3", {
@@ -752,7 +752,7 @@ test("if", () => {
             settings: {
                 "motion-color": "#000001",
             },
-        }),
+        })
     ).toBe(false);
     expect(
         store.evaluateCondition("editor-theme3", {
@@ -760,7 +760,7 @@ test("if", () => {
             settings: {
                 "motion-color": "#000001",
             },
-        }),
+        })
     ).toBe(false);
 });
 

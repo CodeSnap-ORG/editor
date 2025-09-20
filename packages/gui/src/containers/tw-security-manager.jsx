@@ -17,7 +17,7 @@ import {
  */
 const extensionsTrustedByUser = new Set();
 
-const manuallyTrustExtension = (url) => {
+const manuallyTrustExtension = url => {
     extensionsTrustedByUser.add(url);
 };
 
@@ -26,7 +26,7 @@ const manuallyTrustExtension = (url) => {
  * @param {string} url URL as a string.
  * @returns {boolean} True if the extension can is trusted
  */
-const isTrustedExtension = (url) =>
+const isTrustedExtension = url =>
     // Always trust AmpMod website.
     url.startsWith("https://ampmod.codeberg.page/") ||
     // Always trust TurboWarp's official extension repository.
@@ -51,7 +51,7 @@ const embedOriginsTrustedByUser = new Set();
  * @param {URL} parsed Parsed URL object
  * @returns {boolean} True if the URL is part of the builtin set of URLs to always trust fetching from.
  */
-const isAlwaysTrustedForFetching = (parsed) =>
+const isAlwaysTrustedForFetching = parsed =>
     // If we would trust loading an extension from here, we can trust loading resources too.
     isTrustedExtension(parsed.href) ||
     // AmpMod
@@ -177,7 +177,7 @@ class TWSecurityManagerComponent extends React.Component {
         // closed before it knows if it needs to display another modal.
 
         if (this.modalLocked) {
-            await new Promise((resolve) => {
+            await new Promise(resolve => {
                 this.nextModalCallbacks.push(resolve);
             });
         } else {
@@ -198,8 +198,8 @@ class TWSecurityManagerComponent extends React.Component {
         };
 
         const showModal = async (type, data) => {
-            const result = await new Promise((resolve) => {
-                this.setState((oldState) => ({
+            const result = await new Promise(resolve => {
+                this.setState(oldState => ({
                     type,
                     data,
                     callback: resolve,
@@ -238,7 +238,7 @@ class TWSecurityManagerComponent extends React.Component {
 
     handleChangeUnsandboxed(e) {
         const checked = e.target.checked;
-        this.setState((oldState) => ({
+        this.setState(oldState => ({
             data: {
                 ...oldState.data,
                 unsandboxed: checked,
@@ -365,7 +365,7 @@ class TWSecurityManagerComponent extends React.Component {
         if (!allowedReadClipboard) {
             const { showModal } = await this.acquireModalLock();
             allowedReadClipboard = await showModal(
-                SecurityModals.ReadClipboard,
+                SecurityModals.ReadClipboard
             );
         }
         return allowedReadClipboard;
@@ -458,14 +458,14 @@ TWSecurityManagerComponent.propTypes = {
                 SECURITY_MANAGER_METHODS.reduce((obj, method) => {
                     obj[method] = PropTypes.func.isRequired;
                     return obj;
-                }, {}),
+                }, {})
             ).isRequired,
         }).isRequired,
     }).isRequired,
     securityManager: PropTypes.shape(
         Object.fromEntries(
-            SECURITY_MANAGER_METHODS.map((i) => [i, PropTypes.func]),
-        ),
+            SECURITY_MANAGER_METHODS.map(i => [i, PropTypes.func])
+        )
     ),
 };
 
@@ -473,7 +473,7 @@ TWSecurityManagerComponent.defaultProps = {
     securityManager: {},
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     vm: state.scratchGui.vm,
 });
 
@@ -481,7 +481,7 @@ const mapDispatchToProps = () => ({});
 
 const ConnectedSecurityManagerComponent = connect(
     mapStateToProps,
-    mapDispatchToProps,
+    mapDispatchToProps
 )(TWSecurityManagerComponent);
 
 export {

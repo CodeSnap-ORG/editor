@@ -15,7 +15,7 @@ const project = readFileToBuffer(projectUri);
  * The intention is to make sure that the stack can be activated by a stack click
  * even when the hat predicate is false.
  */
-test("stack click activates the stack", (t) => {
+test("stack click activates the stack", t => {
     const vm = new VirtualMachine();
     vm.attachStorage(makeTestStorage());
 

@@ -57,9 +57,7 @@ class ListMonitorScroller extends React.Component {
                                 className={classNames(
                                     styles.listInput,
                                     "no-drag",
-                                    isNestedList
-                                        ? styles.nestedListInput
-                                        : null,
+                                    isNestedList ? styles.nestedListInput : null
                                 )}
                                 spellCheck={false}
                                 style={{ color: this.props.categoryColor.text }}
@@ -137,7 +135,7 @@ ListMonitorScroller.propTypes = {
             PropTypes.string,
             PropTypes.number,
             PropTypes.array, // Added support for arrays
-        ]),
+        ])
     ),
     width: PropTypes.number,
 };

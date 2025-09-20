@@ -3,7 +3,7 @@ const htmlparser = require("htmlparser2");
 const VM = require("../../src/virtual-machine");
 const BlockType = require("../../src/extension-support/block-type");
 
-test("buttons", (t) => {
+test("buttons", t => {
     const vm = new VM();
     let buttonRunCount = 0;
     vm.extensionManager._registerInternalExtension({

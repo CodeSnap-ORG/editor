@@ -14,7 +14,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-const normalize = (text) =>
+const normalize = text =>
     text
         .normalize("NFD")
         .replace(/[\u0300-\u036f]/g, "")
@@ -22,12 +22,12 @@ const normalize = (text) =>
         .replace(/['"()\-+,./[\]]/g, " ")
         .trim();
 
-const splitToWords = (text) =>
+const splitToWords = text =>
     normalize(text)
         .split(" ")
-        .filter((i) => i);
+        .filter(i => i);
 
-const parseTexts = (texts) => {
+const parseTexts = texts => {
     const result = [];
     for (const { score, text } of texts) {
         result.push({
@@ -46,7 +46,7 @@ class Search {
     search(query) {
         const terms = splitToWords(query);
         const result = [];
-        const processItem = (item) => {
+        const processItem = item => {
             let totalScore = 0;
             for (const term of terms) {
                 let highestScoreForTerm = 0;

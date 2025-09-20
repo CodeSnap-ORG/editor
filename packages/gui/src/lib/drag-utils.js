@@ -20,19 +20,19 @@ const indexForPositionOnList = ({ x, y }, boxes, isRtl) => {
     let index = null;
     const leftEdge = Math.min.apply(
         null,
-        boxes.map((b) => b.left),
+        boxes.map(b => b.left)
     );
     const rightEdge = Math.max.apply(
         null,
-        boxes.map((b) => b.right),
+        boxes.map(b => b.right)
     );
     const topEdge = Math.min.apply(
         null,
-        boxes.map((b) => b.top),
+        boxes.map(b => b.top)
     );
     const bottomEdge = Math.max.apply(
         null,
-        boxes.map((b) => b.bottom),
+        boxes.map(b => b.bottom)
     );
     for (let n = 0; n < boxes.length; n++) {
         const box = boxes[n];

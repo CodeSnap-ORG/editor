@@ -2,12 +2,12 @@ const test = require("tap").test;
 const adapter = require("../../src/engine/adapter");
 const events = require("../fixtures/events.json");
 
-test("spec", (t) => {
+test("spec", t => {
     t.type(adapter, "function");
     t.end();
 });
 
-test("invalid inputs", (t) => {
+test("invalid inputs", t => {
     let nothing = adapter("not an object");
     t.type(nothing, "undefined");
     nothing = adapter({ noxmlproperty: true });
@@ -15,7 +15,7 @@ test("invalid inputs", (t) => {
     t.end();
 });
 
-test("create event", (t) => {
+test("create event", t => {
     const result = adapter(events.create);
 
     t.ok(Array.isArray(result));
@@ -44,7 +44,7 @@ test("create event", (t) => {
     t.end();
 });
 
-test("create with comment", (t) => {
+test("create with comment", t => {
     const result = adapter(events.createComment);
 
     // This test should be the same as above except that it also has a comment.
@@ -58,7 +58,7 @@ test("create with comment", (t) => {
     t.end();
 });
 
-test("create with branch", (t) => {
+test("create with branch", t => {
     const result = adapter(events.createbranch);
     // Outer block
     t.type(result[0].id, "string");
@@ -84,7 +84,7 @@ test("create with branch", (t) => {
     t.end();
 });
 
-test("create with two branches", (t) => {
+test("create with two branches", t => {
     const result = adapter(events.createtwobranches);
     // Outer block
     t.type(result[0].id, "string");
@@ -120,7 +120,7 @@ test("create with two branches", (t) => {
     t.end();
 });
 
-test("create with top-level shadow", (t) => {
+test("create with top-level shadow", t => {
     const result = adapter(events.createtoplevelshadow);
     t.ok(Array.isArray(result));
     t.equal(result.length, 1);
@@ -135,7 +135,7 @@ test("create with top-level shadow", (t) => {
     t.end();
 });
 
-test("create with next connection", (t) => {
+test("create with next connection", t => {
     const result = adapter(events.createwithnext);
 
     t.ok(Array.isArray(result));
@@ -163,14 +163,14 @@ test("create with next connection", (t) => {
     t.end();
 });
 
-test("create with obscured shadow", (t) => {
+test("create with obscured shadow", t => {
     const result = adapter(events.createobscuredshadow);
     t.ok(Array.isArray(result));
     t.equal(result.length, 4);
     t.end();
 });
 
-test("create variable with entity in name", (t) => {
+test("create variable with entity in name", t => {
     const result = adapter(events.createvariablewithentity);
 
     t.ok(Array.isArray(result));
@@ -188,7 +188,7 @@ test("create variable with entity in name", (t) => {
     t.end();
 });
 
-test("create with invalid block xml", (t) => {
+test("create with invalid block xml", t => {
     // Entirely invalid block XML
     const result = adapter(events.createinvalid);
     t.ok(Array.isArray(result));
@@ -205,14 +205,14 @@ test("create with invalid block xml", (t) => {
     t.end();
 });
 
-test("create with invalid xml", (t) => {
+test("create with invalid xml", t => {
     const result = adapter(events.createbadxml);
     t.ok(Array.isArray(result));
     t.equal(result.length, 0);
     t.end();
 });
 
-test("create with empty field", (t) => {
+test("create with empty field", t => {
     const result = adapter(events.createemptyfield);
     t.ok(Array.isArray(result));
     t.equal(result.length, 3);

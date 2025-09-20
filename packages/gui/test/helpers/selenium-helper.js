@@ -41,7 +41,7 @@ const enhanceError = async (outerError, cause, driver) => {
         const pageSource = await driver.getPageSource();
         const browserLogEntries = await driver.manage().logs().get("browser");
         const browserLogText = browserLogEntries
-            .map((entry) => entry.message)
+            .map(entry => entry.message)
             .join("\n");
         outerError.message += `\nBrowser URL: ${url}`;
         outerError.message += `\nBrowser title: ${title}`;
@@ -85,7 +85,7 @@ class SeleniumHelper {
     async setTitle(title) {
         await this.driver.executeScript(
             `document.title = arguments[0];`,
-            title,
+            title
         );
     }
 
@@ -100,7 +100,7 @@ class SeleniumHelper {
             await this.setTitle(`elementIsVisible ${await element.getId()}`);
             await this.driver.wait(
                 until.elementIsVisible(element),
-                DEFAULT_TIMEOUT_MILLISECONDS,
+                DEFAULT_TIMEOUT_MILLISECONDS
             );
         } catch (cause) {
             throw await enhanceError(outerError, cause, this.driver);
@@ -174,7 +174,7 @@ class SeleniumHelper {
                 accessKey: accessKey,
             })
             .usingServer(
-                `http://${username}:${accessKey}@ondemand.saucelabs.com:80/wd/hub`,
+                `http://${username}:${accessKey}@ondemand.saucelabs.com:80/wd/hub`
             )
             .build();
         return this.driver;
@@ -187,13 +187,13 @@ class SeleniumHelper {
      */
     async findByXpath(xpath) {
         const outerError = new Error(
-            `findByXpath failed with arguments:\n\txpath: ${xpath}`,
+            `findByXpath failed with arguments:\n\txpath: ${xpath}`
         );
         try {
             await this.setTitle(`findByXpath ${xpath}`);
             const el = await this.driver.wait(
                 until.elementLocated(By.xpath(xpath)),
-                DEFAULT_TIMEOUT_MILLISECONDS,
+                DEFAULT_TIMEOUT_MILLISECONDS
             );
             // await this.driver.wait(() => el.isDisplayed(), DEFAULT_TIMEOUT_MILLISECONDS);
             return el;
@@ -230,12 +230,12 @@ class SeleniumHelper {
      */
     async textExists(text, scope) {
         const outerError = new Error(
-            `textExists failed with arguments:\n\ttext: ${text}\n\tscope: ${scope}`,
+            `textExists failed with arguments:\n\ttext: ${text}\n\tscope: ${scope}`
         );
         try {
             await this.setTitle(`textExists ${text}`);
             const elements = await this.driver.findElements(
-                By.xpath(this.textToXpath(text, scope)),
+                By.xpath(this.textToXpath(text, scope))
             );
             return elements.length > 0;
         } catch (cause) {
@@ -250,7 +250,7 @@ class SeleniumHelper {
      */
     async loadUri(uri) {
         const outerError = new Error(
-            `loadUri failed with arguments:\n\turi: ${uri}`,
+            `loadUri failed with arguments:\n\turi: ${uri}`
         );
         try {
             await this.setTitle(`loadUri ${uri}`);
@@ -258,7 +258,7 @@ class SeleniumHelper {
             const WINDOW_HEIGHT = 768;
             await this.driver.get(`file://${uri}`);
             await this.driver.executeScript(
-                "window.onbeforeunload = undefined;",
+                "window.onbeforeunload = undefined;"
             );
             await this.driver
                 .manage()
@@ -267,9 +267,9 @@ class SeleniumHelper {
             await this.driver.wait(
                 async () =>
                     (await this.driver.executeScript(
-                        "return document.readyState;",
+                        "return document.readyState;"
                     )) === "complete",
-                DEFAULT_TIMEOUT_MILLISECONDS,
+                DEFAULT_TIMEOUT_MILLISECONDS
             );
         } catch (cause) {
             throw await enhanceError(outerError, cause, this.driver);
@@ -283,7 +283,7 @@ class SeleniumHelper {
      */
     async clickXpath(xpath) {
         const outerError = new Error(
-            `clickXpath failed with arguments:\n\txpath: ${xpath}`,
+            `clickXpath failed with arguments:\n\txpath: ${xpath}`
         );
         try {
             await this.setTitle(`clickXpath ${xpath}`);
@@ -302,7 +302,7 @@ class SeleniumHelper {
      */
     async clickText(text, scope) {
         const outerError = new Error(
-            `clickText failed with arguments:\n\ttext: ${text}\n\tscope: ${scope}`,
+            `clickText failed with arguments:\n\ttext: ${text}\n\tscope: ${scope}`
         );
         try {
             await this.setTitle(`clickText ${text}`);
@@ -320,7 +320,7 @@ class SeleniumHelper {
      */
     async clickBlocksCategory(categoryText) {
         const outerError = new Error(
-            `clickBlocksCategory failed with arguments:\n\tcategoryText: ${categoryText}`,
+            `clickBlocksCategory failed with arguments:\n\tcategoryText: ${categoryText}`
         );
         // The toolbox is destroyed and recreated several times, so avoid clicking on a nonexistent element and erroring
         // out. First we wait for the block pane itself to appear, then wait 100ms for the toolbox to finish refreshing,
@@ -331,7 +331,7 @@ class SeleniumHelper {
             await this.driver.sleep(100);
             await this.clickText(
                 categoryText,
-                'div[contains(@class, "blocks_blocks")]',
+                'div[contains(@class, "blocks_blocks")]'
             );
             await this.driver.sleep(500); // Wait for scroll to finish
         } catch (cause) {
@@ -347,7 +347,7 @@ class SeleniumHelper {
      */
     async rightClickText(text, scope) {
         const outerError = new Error(
-            `rightClickText failed with arguments:\n\ttext: ${text}\n\tscope: ${scope}`,
+            `rightClickText failed with arguments:\n\ttext: ${text}\n\tscope: ${scope}`
         );
         try {
             await this.setTitle(`rightClickText ${text}`);
@@ -365,7 +365,7 @@ class SeleniumHelper {
      */
     async clickButton(text) {
         const outerError = new Error(
-            `clickButton failed with arguments:\n\ttext: ${text}`,
+            `clickButton failed with arguments:\n\ttext: ${text}`
         );
         try {
             await this.setTitle(`clickButton ${text}`);
@@ -382,7 +382,7 @@ class SeleniumHelper {
      */
     async getLogs(whitelist) {
         const outerError = new Error(
-            `getLogs failed with arguments:\n\twhitelist: ${whitelist}`,
+            `getLogs failed with arguments:\n\twhitelist: ${whitelist}`
         );
         try {
             await this.setTitle(`getLogs ${whitelist}`);
@@ -393,7 +393,7 @@ class SeleniumHelper {
                 ];
             }
             const entries = await this.driver.manage().logs().get("browser");
-            return entries.filter((entry) => {
+            return entries.filter(entry => {
                 const message = entry.message;
                 for (const element of whitelist) {
                     if (message.indexOf(element) !== -1) {

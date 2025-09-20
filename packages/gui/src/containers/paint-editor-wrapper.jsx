@@ -53,7 +53,7 @@ class PaintEditorWrapper extends React.Component {
                 this.props.selectedCostumeIndex,
                 image,
                 rotationCenterX,
-                rotationCenterY,
+                rotationCenterY
             );
         } else {
             this.props.vm.updateBitmap(
@@ -61,7 +61,7 @@ class PaintEditorWrapper extends React.Component {
                 image,
                 rotationCenterX,
                 rotationCenterY,
-                2 /* bitmapResolution */,
+                2 /* bitmapResolution */
             );
         }
     }
@@ -129,10 +129,10 @@ const mapStateToProps = (state, { selectedCostumeIndex }) => {
     };
 };
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     onManageFonts: () => dispatch(openFontsModal()),
 });
 
 export default ErrorBoundaryHOC("paint")(
-    connect(mapStateToProps, mapDispatchToProps)(PaintEditorWrapper),
+    connect(mapStateToProps, mapDispatchToProps)(PaintEditorWrapper)
 );

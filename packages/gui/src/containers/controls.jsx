@@ -66,7 +66,7 @@ Controls.propTypes = {
     vm: PropTypes.instanceOf(VM),
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     isStarted: state.scratchGui.vmStatus.started,
     projectRunning: state.scratchGui.vmStatus.running,
     framerate: state.scratchGui.tw.framerate,

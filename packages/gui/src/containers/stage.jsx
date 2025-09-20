@@ -64,11 +64,11 @@ class Stage extends React.Component {
                 -this.props.customStageSize.width / 2,
                 this.props.customStageSize.width / 2,
                 -this.props.customStageSize.height / 2,
-                this.props.customStageSize.height / 2,
+                this.props.customStageSize.height / 2
             );
             this.props.vm.setStageSize(
                 this.props.customStageSize.width,
-                this.props.customStageSize.height,
+                this.props.customStageSize.height
             );
             this.props.vm.attachRenderer(this.renderer);
 
@@ -84,7 +84,7 @@ class Stage extends React.Component {
             // tw: handle changes to high quality pen
             this.props.vm.renderer.on(
                 "UseHighQualityRenderChanged",
-                this.props.onHighQualityPenChanged,
+                this.props.onHighQualityPenChanged
             );
         }
         this.props.vm.attachV2BitmapAdapter(new V2BitmapAdapter());
@@ -201,7 +201,7 @@ class Stage extends React.Component {
         const mousePosition = [x - this.rect.left, y - this.rect.top];
         const drawableId = this.renderer.pick(
             mousePosition[0],
-            mousePosition[1],
+            mousePosition[1]
         );
         if (drawableId === null) return;
         const targetId = this.props.vm.getTargetIdForDrawableId(drawableId);
@@ -222,12 +222,12 @@ class Stage extends React.Component {
             const distanceFromMouseDown = Math.sqrt(
                 Math.pow(
                     mousePosition[0] - this.state.mouseDownPosition[0],
-                    2,
+                    2
                 ) +
                     Math.pow(
                         mousePosition[1] - this.state.mouseDownPosition[1],
-                        2,
-                    ),
+                        2
+                    )
             );
             if (distanceFromMouseDown > dragThreshold) {
                 this.cancelMouseDownTimeout();
@@ -242,7 +242,7 @@ class Stage extends React.Component {
             } else {
                 const spritePosition = this.getScratchCoords(
                     mousePosition[0],
-                    mousePosition[1],
+                    mousePosition[1]
                 );
                 this.props.vm.postSpriteInfo({
                     x: spritePosition[0] + this.state.dragOffset[0],
@@ -289,7 +289,7 @@ class Stage extends React.Component {
             mousePosition[1] < this.rect.height
         ) {
             const { r, g, b } = this.state.colorInfo.color;
-            const componentToString = (c) => {
+            const componentToString = c => {
                 const hex = c.toString(16);
                 return hex.length === 1 ? `0${hex}` : hex;
             };
@@ -322,9 +322,9 @@ class Stage extends React.Component {
                         this.onStartDrag.bind(
                             this,
                             mousePosition[0],
-                            mousePosition[1],
+                            mousePosition[1]
                         ),
-                        400,
+                        400
                     ),
                 });
             }
@@ -522,7 +522,7 @@ Stage.defaultProps = {
     useEditorDragStyle: true,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     highQualityPen: state.scratchGui.tw.highQualityPen,
     customStageSize: state.scratchGui.customStageSize,
     disableEditingTargetChange:
@@ -544,12 +544,12 @@ const mapStateToProps = (state) => ({
     ),
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     // tw: handler for syncing high quality pen option changes
-    onHighQualityPenChanged: (enabled) =>
+    onHighQualityPenChanged: enabled =>
         dispatch(setHighQualityPenState(enabled)),
     onActivateColorPicker: () => dispatch(activateColorPicker()),
-    onDeactivateColorPicker: (color) => dispatch(deactivateColorPicker(color)),
+    onDeactivateColorPicker: color => dispatch(deactivateColorPicker(color)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Stage);

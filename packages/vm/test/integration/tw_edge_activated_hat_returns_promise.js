@@ -4,12 +4,12 @@ const fs = require("fs");
 const path = require("path");
 
 const compilerAndInterpreter = (name, callback) => {
-    test(`${name} - interpreted`, (t) => {
+    test(`${name} - interpreted`, t => {
         callback(t, {
             enabled: false,
         });
     });
-    test(`${name} - compiled`, (t) => {
+    test(`${name} - compiled`, t => {
         callback(t, {
             enabled: true,
         });
@@ -38,7 +38,7 @@ compilerAndInterpreter(
             __dirname,
             "..",
             "fixtures",
-            "tw-edge-activated-hat-returns-promise.sb3",
+            "tw-edge-activated-hat-returns-promise.sb3"
         );
         await vm.loadProject(fs.readFileSync(projectPath));
 
@@ -76,5 +76,5 @@ compilerAndInterpreter(
         t.equal(sayCounter, 2);
 
         t.end();
-    },
+    }
 );

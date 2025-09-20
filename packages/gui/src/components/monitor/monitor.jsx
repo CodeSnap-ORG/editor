@@ -44,7 +44,7 @@ const getCategoryColor = (theme, category) => {
     };
 };
 
-const MonitorComponent = (props) => {
+const MonitorComponent = props => {
     const mode = Array.isArray(props.value) ? "list" : props.mode;
 
     return (
@@ -77,7 +77,7 @@ const MonitorComponent = (props) => {
                     {React.createElement(modes[mode], {
                         categoryColor: getCategoryColor(
                             props.theme,
-                            props.category,
+                            props.category
                         ),
                         ...props,
                     })}
@@ -157,7 +157,7 @@ const MonitorComponent = (props) => {
                         </BorderedMenuItem>
                     )}
                 </ContextMenu>,
-                document.body,
+                document.body
             )}
         </ContextMenuTrigger>
     );

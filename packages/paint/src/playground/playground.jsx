@@ -17,8 +17,7 @@ document.body.appendChild(appTarget);
 const store = createStore(
     reducer,
     intlInitialState,
-    window.__REDUX_DEVTOOLS_EXTENSION__ &&
-        window.__REDUX_DEVTOOLS_EXTENSION__(),
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 const svgString =
     '<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"' +
@@ -62,11 +61,11 @@ class Playground extends React.Component {
         });
         if (!isVector) {
             console.log(
-                `Image width: ${image.width}    Image height: ${image.height}`,
+                `Image width: ${image.width}    Image height: ${image.height}`
             );
         }
         console.log(
-            `rotationCenterX: ${rotationCenterX}    rotationCenterY: ${rotationCenterY}`,
+            `rotationCenterX: ${rotationCenterX}    rotationCenterY: ${rotationCenterY}`
         );
         if (isVector) {
             this.setState({ image, rotationCenterX, rotationCenterY });
@@ -168,7 +167,7 @@ class Playground extends React.Component {
         }
 
         const that = this;
-        reader.onload = (readerEvent) => {
+        reader.onload = readerEvent => {
             var content = readerEvent.target.result; // this is the content!
 
             that.setState({
@@ -217,5 +216,5 @@ ReactDOM.render(
             <Playground />
         </IntlProvider>
     </Provider>,
-    appTarget,
+    appTarget
 );

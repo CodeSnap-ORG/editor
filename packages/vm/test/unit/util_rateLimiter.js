@@ -1,7 +1,7 @@
 const test = require("tap").test;
 const RateLimiter = require("../../src/util/rateLimiter.js");
 
-test("rate limiter", (t) => {
+test("rate limiter", t => {
     // Create a rate limiter with maximum of 20 sends per second
     const rate = 20;
     const limiter = new RateLimiter(rate);

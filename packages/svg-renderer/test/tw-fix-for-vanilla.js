@@ -7,7 +7,7 @@ const xmldom = require("xmldom");
 global.DOMParser = xmldom.DOMParser;
 global.XMLSerializer = xmldom.XMLSerializer;
 
-test("fixForVanilla", (t) => {
+test("fixForVanilla", t => {
     const fixtureDir = pathUtil.join(__dirname, "fixtures");
     const allFixtureNames = fs.readdirSync(fixtureDir).sort();
 
@@ -24,14 +24,14 @@ test("fixForVanilla", (t) => {
         // If there is no .fixed.svg, then we expect no change.
         const expectedPath = pathUtil.join(
             fixtureDir,
-            fixtureName.replace(/\.svg$/, ".fixed.svg"),
+            fixtureName.replace(/\.svg$/, ".fixed.svg")
         );
         if (fs.existsSync(expectedPath)) {
             const expectedFixed = fs.readFileSync(expectedPath, "utf-8");
             t.equal(
                 new TextDecoder().decode(actualFixed),
                 expectedFixed,
-                `${fixtureName} - changed`,
+                `${fixtureName} - changed`
             );
         } else {
             // Output should be pointer to the input, not a copy

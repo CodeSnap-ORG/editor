@@ -36,7 +36,7 @@ describe("Menu bar settings", () => {
         await loadUri(uri);
         await clickXpath(FILE_MENU_XPATH);
         await findByXpath(
-            '//*[li[span[text()="New"]] and not(@data-tip="tooltip")]',
+            '//*[li[span[text()="New"]] and not(@data-tip="tooltip")]'
         );
     });
 
@@ -44,7 +44,7 @@ describe("Menu bar settings", () => {
         await loadUri(uri);
         await clickXpath(FILE_MENU_XPATH);
         await findByXpath(
-            '//*[li[text()="Load from your computer"] and not(@data-tip="tooltip")]',
+            '//*[li[text()="Load from your computer"] and not(@data-tip="tooltip")]'
         );
     });
 
@@ -52,14 +52,14 @@ describe("Menu bar settings", () => {
         await loadUri(uri);
         await clickXpath(FILE_MENU_XPATH);
         await findByXpath(
-            '//*[li[span[text()="Save to your computer"]] and not(@data-tip="tooltip")]',
+            '//*[li[span[text()="Save to your computer"]] and not(@data-tip="tooltip")]'
         );
     });
 
     test("Share button should NOT be enabled", async () => {
         await loadUri(uri);
         await findByXpath(
-            '//div[span[div[span[text()="Share"]]] and @data-tip="tooltip"]',
+            '//div[span[div[span[text()="Share"]]] and @data-tip="tooltip"]'
         );
     });
 
@@ -83,10 +83,10 @@ describe("Menu bar settings", () => {
         await clickXpath(FILE_MENU_XPATH);
         await clickText("Load from your computer");
         const input = await findByXpath(
-            '//input[@accept=".sb,.sb2,.sb3,.apz"]',
+            '//input[@accept=".sb,.sb2,.sb3,.apz"]'
         );
         await input.sendKeys(
-            path.resolve(__dirname, "../fixtures/project1.sb3"),
+            path.resolve(__dirname, "../fixtures/project1.sb3")
         );
         // No replace alert since no changes were made
         await findByText("project1-sprite");
@@ -103,7 +103,7 @@ describe("Menu bar settings", () => {
         await clickText("Load from your computer");
         const input = await findByXpath('//input[@accept=".sb,.sb2,.sb3"]');
         await input.sendKeys(
-            path.resolve(__dirname, "../fixtures/project1.sb3"),
+            path.resolve(__dirname, "../fixtures/project1.sb3")
         );
         await driver.switchTo().alert().accept();
         await findByText("project1-sprite");
@@ -115,12 +115,12 @@ describe("Menu bar settings", () => {
         await clickText("Color Mode", scope.menuBar);
 
         expect(
-            await (await findByText("Original", scope.menuBar)).isDisplayed(),
+            await (await findByText("Original", scope.menuBar)).isDisplayed()
         ).toBe(true);
         expect(
             await (
                 await findByText("High Contrast", scope.menuBar)
-            ).isDisplayed(),
+            ).isDisplayed()
         ).toBe(true);
     });
 
@@ -135,7 +135,7 @@ describe("Menu bar settings", () => {
             async () => {
                 const motionCategoryDiv = await findByXpath(
                     '//div[contains(@class, "scratchCategoryMenuItem") and ' +
-                        'contains(@class, "scratchCategoryId-motion")]/*[1]',
+                        'contains(@class, "scratchCategoryId-motion")]/*[1]'
                 );
                 const color =
                     await motionCategoryDiv.getCssValue("background-color");
@@ -148,7 +148,7 @@ describe("Menu bar settings", () => {
                 );
             },
             5000,
-            "Motion category color does not match high contrast theme",
+            "Motion category color does not match high contrast theme"
         );
     });
 
@@ -160,10 +160,10 @@ describe("Menu bar settings", () => {
         expect(
             await (
                 await findByText("High Contrast", scope.menuBar)
-            ).isDisplayed(),
+            ).isDisplayed()
         ).toBe(false);
         expect(
-            await (await findByText("Esperanto", scope.menuBar)).isDisplayed(),
+            await (await findByText("Esperanto", scope.menuBar)).isDisplayed()
         ).toBe(false);
 
         await clickText("Color Mode", scope.menuBar);
@@ -172,10 +172,10 @@ describe("Menu bar settings", () => {
         expect(
             await (
                 await findByText("High Contrast", scope.menuBar)
-            ).isDisplayed(),
+            ).isDisplayed()
         ).toBe(true);
         expect(
-            await (await findByText("Esperanto", scope.menuBar)).isDisplayed(),
+            await (await findByText("Esperanto", scope.menuBar)).isDisplayed()
         ).toBe(false);
 
         await clickText("Language", scope.menuBar);
@@ -184,10 +184,10 @@ describe("Menu bar settings", () => {
         expect(
             await (
                 await findByText("High Contrast", scope.menuBar)
-            ).isDisplayed(),
+            ).isDisplayed()
         ).toBe(false);
         expect(
-            await (await findByText("Esperanto", scope.menuBar)).isDisplayed(),
+            await (await findByText("Esperanto", scope.menuBar)).isDisplayed()
         ).toBe(true);
     });
 

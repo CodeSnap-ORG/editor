@@ -145,7 +145,7 @@ class SoundTab extends React.Component {
                     buffer,
                     fileType,
                     storage,
-                    (newSound) => {
+                    newSound => {
                         newSound.name = fileName;
                         this.props.vm.addSound(newSound, targetId).then(() => {
                             this.handleNewSound();
@@ -154,10 +154,10 @@ class SoundTab extends React.Component {
                             }
                         });
                     },
-                    this.props.onCloseImporting,
+                    this.props.onCloseImporting
                 );
             },
-            this.props.onCloseImporting,
+            this.props.onCloseImporting
         );
     }
 
@@ -169,7 +169,7 @@ class SoundTab extends React.Component {
             this.props.vm.reorderSound(
                 this.props.vm.editingTarget.id,
                 dropInfo.index,
-                dropInfo.newIndex,
+                dropInfo.newIndex
             );
 
             this.setState({
@@ -215,7 +215,7 @@ class SoundTab extends React.Component {
         const sprite = vm.editingTarget.sprite;
 
         const sounds = sprite.sounds
-            ? sprite.sounds.map((sound) => ({
+            ? sprite.sounds.map(sound => ({
                   url: isRtl ? soundIconRtl : soundIcon,
                   name: sound.name,
                   details: (sound.sampleCount / sound.rate).toFixed(2),
@@ -259,7 +259,7 @@ class SoundTab extends React.Component {
                               },
                               {
                                   title: intl.formatMessage(
-                                      messages.fileUploadSound,
+                                      messages.fileUploadSound
                                   ),
                                   img: fileUploadIcon,
                                   onClick: this.handleFileUploadClick,
@@ -271,14 +271,14 @@ class SoundTab extends React.Component {
                               },
                               {
                                   title: intl.formatMessage(
-                                      messages.surpriseSound,
+                                      messages.surpriseSound
                                   ),
                                   img: surpriseIcon,
                                   onClick: this.handleSurpriseSound,
                               },
                               {
                                   title: intl.formatMessage(
-                                      messages.recordSound,
+                                      messages.recordSound
                                   ),
                                   img: addSoundFromRecordingIcon,
                                   onClick: onNewSoundFromRecordingClick,
@@ -344,7 +344,7 @@ SoundTab.propTypes = {
             sounds: PropTypes.arrayOf(
                 PropTypes.shape({
                     name: PropTypes.string.isRequired,
-                }),
+                })
             ),
         }),
     }),
@@ -352,13 +352,13 @@ SoundTab.propTypes = {
         sounds: PropTypes.arrayOf(
             PropTypes.shape({
                 name: PropTypes.string.isRequired,
-            }),
+            })
         ),
     }),
     vm: PropTypes.instanceOf(VM).isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     editingTarget: state.scratchGui.targets.editingTarget,
     isRtl: state.locales.isRtl,
     sprites: state.scratchGui.targets.sprites,
@@ -367,9 +367,9 @@ const mapStateToProps = (state) => ({
     soundRecorderVisible: state.scratchGui.modals.soundRecorder,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     onActivateCostumesTab: () => dispatch(activateTab(COSTUMES_TAB_INDEX)),
-    onNewSoundFromLibraryClick: (e) => {
+    onNewSoundFromLibraryClick: e => {
         e.preventDefault();
         dispatch(openSoundLibrary());
     },
@@ -379,7 +379,7 @@ const mapDispatchToProps = (dispatch) => ({
     onRequestCloseSoundLibrary: () => {
         dispatch(closeSoundLibrary());
     },
-    dispatchUpdateRestore: (restoreState) => {
+    dispatchUpdateRestore: restoreState => {
         dispatch(setRestore(restoreState));
     },
     onCloseImporting: () => dispatch(closeAlertWithId("importingAsset")),
@@ -387,5 +387,5 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default errorBoundaryHOC("Sound Tab")(
-    injectIntl(connect(mapStateToProps, mapDispatchToProps)(SoundTab)),
+    injectIntl(connect(mapStateToProps, mapDispatchToProps)(SoundTab))
 );

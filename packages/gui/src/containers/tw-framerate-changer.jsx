@@ -24,7 +24,7 @@ class FramerateChanger extends React.Component {
             // eslint-disable-next-line no-alert
             const newFPS = await prompt(
                 this.props.intl.formatMessage(messages.newFramerate),
-                this.props.framerate,
+                this.props.framerate
             );
             if (newFPS === null) {
                 return;
@@ -59,7 +59,7 @@ FramerateChanger.propTypes = {
     vm: PropTypes.instanceOf(VM),
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     framerate: state.scratchGui.tw.framerate,
     vm: state.scratchGui.vm,
 });
@@ -67,6 +67,6 @@ const mapStateToProps = (state) => ({
 export default injectIntl(
     connect(
         mapStateToProps,
-        () => ({}), // omit dispatch prop
-    )(FramerateChanger),
+        () => ({}) // omit dispatch prop
+    )(FramerateChanger)
 );

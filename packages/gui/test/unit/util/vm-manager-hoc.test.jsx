@@ -44,7 +44,7 @@ describe("VMManagerHOC", () => {
                 isStarted={false}
                 store={store}
                 vm={vm}
-            />,
+            />
         );
         expect(vm.attachAudioEngine.mock.calls.length).toBe(1);
         expect(vm.setLocale.mock.calls.length).toBe(1);
@@ -62,7 +62,7 @@ describe("VMManagerHOC", () => {
                 isStarted={false}
                 store={store}
                 vm={vm}
-            />,
+            />
         );
         expect(vm.attachAudioEngine.mock.calls.length).toBe(1);
         expect(vm.setLocale.mock.calls.length).toBe(1);
@@ -80,7 +80,7 @@ describe("VMManagerHOC", () => {
                 isStarted={false}
                 store={store}
                 vm={vm}
-            />,
+            />
         );
         expect(vm.attachAudioEngine.mock.calls.length).toBe(0);
         expect(vm.setLocale.mock.calls.length).toBe(0);
@@ -99,7 +99,7 @@ describe("VMManagerHOC", () => {
                 isStarted={false}
                 store={store}
                 vm={vm}
-            />,
+            />
         );
         expect(vm.start).not.toHaveBeenCalled();
         mounted.setProps({
@@ -112,7 +112,7 @@ describe("VMManagerHOC", () => {
         const WrappedComponent = vmManagerHOC(Component);
         vm.initialized = true;
         const mounted = mount(
-            <WrappedComponent isPlayerOnly isStarted store={store} vm={vm} />,
+            <WrappedComponent isPlayerOnly isStarted store={store} vm={vm} />
         );
         expect(vm.start).not.toHaveBeenCalled();
         mounted.setProps({
@@ -132,7 +132,7 @@ describe("VMManagerHOC", () => {
                 store={store}
                 vm={vm}
                 onLoadedProject={mockedOnLoadedProject}
-            />,
+            />
         );
         mounted.setProps({
             canSave: true,
@@ -145,8 +145,8 @@ describe("VMManagerHOC", () => {
         process.nextTick(() =>
             expect(mockedOnLoadedProject).toHaveBeenLastCalledWith(
                 LoadingState.LOADING_VM_WITH_ID,
-                true,
-            ),
+                true
+            )
         );
     });
     test("if the fontsLoaded prop becomes true, it loads project data into the vm", () => {
@@ -160,7 +160,7 @@ describe("VMManagerHOC", () => {
                 store={store}
                 vm={vm}
                 onLoadedProject={mockedOnLoadedProject}
-            />,
+            />
         );
         mounted.setProps({
             canSave: false,
@@ -173,8 +173,8 @@ describe("VMManagerHOC", () => {
         process.nextTick(() =>
             expect(mockedOnLoadedProject).toHaveBeenLastCalledWith(
                 LoadingState.LOADING_VM_WITH_ID,
-                false,
-            ),
+                false
+            )
         );
     });
     test("if the fontsLoaded prop is false, project data is never loaded", () => {
@@ -188,7 +188,7 @@ describe("VMManagerHOC", () => {
                 store={store}
                 vm={vm}
                 onLoadedProject={mockedOnLoadedProject}
-            />,
+            />
         );
         mounted.setProps({
             loadingState: LoadingState.LOADING_VM_WITH_ID,
@@ -196,7 +196,7 @@ describe("VMManagerHOC", () => {
         });
         expect(vm.loadProject).toHaveBeenCalledTimes(0);
         process.nextTick(() =>
-            expect(mockedOnLoadedProject).toHaveBeenCalledTimes(0),
+            expect(mockedOnLoadedProject).toHaveBeenCalledTimes(0)
         );
     });
 });

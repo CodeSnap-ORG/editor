@@ -28,5 +28,5 @@ window.parent.postMessage(
         vmIframeId: id,
         ready: true,
     },
-    "*",
+    "*"
 );

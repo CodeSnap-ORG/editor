@@ -57,7 +57,7 @@ class IframeExtensionWorker {
             ],
             {
                 type: "text/html; charset=utf-8",
-            },
+            }
         );
         this.iframe.src = URL.createObjectURL(blob);
     }

@@ -16,11 +16,11 @@ const TWFullScreenHOC = function (WrappedComponent) {
         componentDidMount() {
             document.addEventListener(
                 "fullscreenchange",
-                this.handleFullScreenChange,
+                this.handleFullScreenChange
             );
             document.addEventListener(
                 "webkitfullscreenchange",
-                this.handleFullScreenChange,
+                this.handleFullScreenChange
             );
         }
         shouldComponentUpdate(nextProps) {
@@ -38,11 +38,11 @@ const TWFullScreenHOC = function (WrappedComponent) {
         componentWillUnmount() {
             document.removeEventListener(
                 "fullscreenchange",
-                this.handleFullScreenChange,
+                this.handleFullScreenChange
             );
             document.removeEventListener(
                 "webkitfullscreenchange",
-                this.handleFullScreenChange,
+                this.handleFullScreenChange
             );
         }
         handleFullScreenChange() {
@@ -67,13 +67,13 @@ const TWFullScreenHOC = function (WrappedComponent) {
         onSetIsFullScreen: PropTypes.func,
         onSetWindowIsFullScreen: PropTypes.func,
     };
-    const mapStateToProps = (state) => ({
+    const mapStateToProps = state => ({
         isFullScreen: state.scratchGui.mode.isFullScreen,
     });
-    const mapDispatchToProps = (dispatch) => ({
-        onSetIsFullScreen: (isFullScreen) =>
+    const mapDispatchToProps = dispatch => ({
+        onSetIsFullScreen: isFullScreen =>
             dispatch(setFullScreen(isFullScreen)),
-        onSetWindowIsFullScreen: (isFullScreen) =>
+        onSetWindowIsFullScreen: isFullScreen =>
             dispatch(setIsWindowFullScreen(isFullScreen)),
     });
     return connect(mapStateToProps, mapDispatchToProps)(FullScreenComponent);

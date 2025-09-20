@@ -16,7 +16,7 @@ class Storage extends ScratchStorage {
             [this.AssetType.Project],
             this.getProjectGetConfig.bind(this),
             this.getProjectCreateConfig.bind(this),
-            this.getProjectUpdateConfig.bind(this),
+            this.getProjectUpdateConfig.bind(this)
         );
         this.addWebStore(
             [
@@ -29,7 +29,7 @@ class Storage extends ScratchStorage {
             // storage assumes it should update if there is an assetId, but the
             // asset store uses the assetId as part of the create URI.
             this.getAssetCreateConfig.bind(this),
-            this.getAssetCreateConfig.bind(this),
+            this.getAssetCreateConfig.bind(this)
         );
     }
     setProjectHost(projectHost) {
@@ -78,13 +78,13 @@ class Storage extends ScratchStorage {
     }
     cacheDefaultProject() {
         const defaultProjectAssets = defaultProject(this.translator);
-        defaultProjectAssets.forEach((asset) =>
+        defaultProjectAssets.forEach(asset =>
             this.builtinHelper._store(
                 this.AssetType[asset.assetType],
                 this.DataFormat[asset.dataFormat],
                 asset.data,
-                asset.id,
-            ),
+                asset.id
+            )
         );
     }
 }

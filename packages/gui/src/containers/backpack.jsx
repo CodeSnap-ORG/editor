@@ -79,7 +79,7 @@ class Backpack extends React.Component {
                     storage.AssetType.ImageBitmap,
                     storage.AssetType.Sound,
                 ],
-                this.getBackpackAssetURL,
+                this.getBackpackAssetURL
             );
             storage._hasAddedBackpackSource = true;
         }
@@ -88,14 +88,14 @@ class Backpack extends React.Component {
         this.props.vm.addListener("BLOCK_DRAG_END", this.handleBlockDragEnd);
         this.props.vm.addListener(
             "BLOCK_DRAG_UPDATE",
-            this.handleBlockDragUpdate,
+            this.handleBlockDragUpdate
         );
     }
     componentWillUnmount() {
         this.props.vm.removeListener("BLOCK_DRAG_END", this.handleBlockDragEnd);
         this.props.vm.removeListener(
             "BLOCK_DRAG_UPDATE",
-            this.handleBlockDragUpdate,
+            this.handleBlockDragUpdate
         );
     }
     getBackpackAssetURL(asset) {
@@ -143,7 +143,7 @@ class Backpack extends React.Component {
         // Creating the payload is async, so set loading before starting
         this.setState({ loading: true }, () => {
             payloader(dragInfo.payload, this.props.vm)
-                .then((payload) => {
+                .then(payload => {
                     // Force the asset to save to the asset server before storing in backpack
                     // Ensures any asset present in the backpack is also on the asset server
                     if (
@@ -156,27 +156,27 @@ class Backpack extends React.Component {
                                 presaveAsset.assetType,
                                 presaveAsset.dataFormat,
                                 presaveAsset.data,
-                                presaveAsset.assetId,
+                                presaveAsset.assetId
                             )
                             .then(() => payload);
                     }
                     return payload;
                 })
-                .then((payload) =>
+                .then(payload =>
                     saveBackpackObject({
                         host: this.props.host,
                         token: this.props.token,
                         username: this.props.username,
                         ...payload,
-                    }),
+                    })
                 )
-                .then((item) => {
+                .then(item => {
                     this.setState({
                         loading: false,
                         contents: [item].concat(this.state.contents),
                     });
                 })
-                .catch((error) => {
+                .catch(error => {
                     this.handleError(error);
                 });
         });
@@ -192,18 +192,16 @@ class Backpack extends React.Component {
                 .then(() => {
                     this.setState({
                         loading: false,
-                        contents: this.state.contents.filter(
-                            (o) => o.id !== id,
-                        ),
+                        contents: this.state.contents.filter(o => o.id !== id),
                     });
                 })
-                .catch((error) => {
+                .catch(error => {
                     this.handleError(error);
                 });
         });
     }
     findItemById(id) {
-        return this.state.contents.find((i) => i.id === id);
+        return this.state.contents.find(i => i.id === id);
     }
     async handleRename(id) {
         const item = this.findItemById(id);
@@ -211,7 +209,7 @@ class Backpack extends React.Component {
         // eslint-disable-next-line no-alert
         const newName = await prompt(
             this.props.intl.formatMessage(messages.rename),
-            item.name,
+            item.name
         );
         if (!newName) {
             return;
@@ -222,15 +220,15 @@ class Backpack extends React.Component {
                 ...item,
                 name: newName,
             })
-                .then((newItem) => {
+                .then(newItem => {
                     this.setState({
                         loading: false,
-                        contents: this.state.contents.map((i) =>
-                            i === item ? newItem : i,
+                        contents: this.state.contents.map(i =>
+                            i === item ? newItem : i
                         ),
                     });
                 })
-                .catch((error) => {
+                .catch(error => {
                     this.handleError(error);
                 });
         });
@@ -248,7 +246,7 @@ class Backpack extends React.Component {
                     offset: this.state.contents.length,
                     limit: this.state.itemsPerPage,
                 })
-                    .then((contents) => {
+                    .then(contents => {
                         this.setState({
                             contents: this.state.contents.concat(contents),
                             moreToLoad:
@@ -256,7 +254,7 @@ class Backpack extends React.Component {
                             loading: false,
                         });
                     })
-                    .catch((error) => {
+                    .catch(error => {
                         this.handleError(error);
                     });
             });
@@ -326,7 +324,7 @@ Backpack.propTypes = {
     vm: PropTypes.instanceOf(VM),
 };
 
-const getTokenAndUsername = (state) => {
+const getTokenAndUsername = state => {
     // Look for the session state provided by scratch-www
     if (state.session && state.session.session && state.session.session.user) {
         return {
@@ -338,7 +336,7 @@ const getTokenAndUsername = (state) => {
     // TODO a hack for testing the backpack
     const tokenMatches = window.location.href.match(/[?&]token=([^&]*)&?/);
     const usernameMatches = window.location.href.match(
-        /[?&]username=([^&]*)&?/,
+        /[?&]username=([^&]*)&?/
     );
     return {
         token: tokenMatches ? tokenMatches[1] : null,
@@ -346,18 +344,18 @@ const getTokenAndUsername = (state) => {
     };
 };
 
-const mapStateToProps = (state) =>
+const mapStateToProps = state =>
     Object.assign(
         {
             dragInfo: state.scratchGui.assetDrag,
             vm: state.scratchGui.vm,
             blockDrag: state.scratchGui.blockDrag,
         },
-        getTokenAndUsername(state),
+        getTokenAndUsername(state)
     );
 
 const mapDispatchToProps = () => ({});
 
 export default injectIntl(
-    connect(mapStateToProps, mapDispatchToProps)(Backpack),
+    connect(mapStateToProps, mapDispatchToProps)(Backpack)
 );

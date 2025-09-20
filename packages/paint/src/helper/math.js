@@ -109,7 +109,7 @@ const _doRecursively = function (item, func) {
 
 // Make item clockwise. Drill down into groups.
 const ensureClockwise = function (root) {
-    _doRecursively(root, (item) => {
+    _doRecursively(root, item => {
         if (item instanceof paper.PathItem) {
             item.clockwise = true;
         }
@@ -118,7 +118,7 @@ const ensureClockwise = function (root) {
 
 // Scale item and its strokes by factor
 const scaleWithStrokes = function (root, factor, pivot) {
-    _doRecursively(root, (item) => {
+    _doRecursively(root, item => {
         if (item instanceof paper.PointText) {
             // Text outline size is controlled by text transform matrix, thus it's already scaled.
             return;
@@ -155,7 +155,7 @@ const getSquareDimensions = function (startPos, eventPoint) {
 
     const size = new paper.Point(
         (length * offsetX) / Math.abs(offsetX),
-        (length * offsetY) / Math.abs(offsetY),
+        (length * offsetY) / Math.abs(offsetY)
     );
 
     const position = startPos.add(size.multiply(0.5));

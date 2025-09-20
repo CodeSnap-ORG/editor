@@ -4,15 +4,18 @@ const nodeCrypto = require("crypto");
  * @param {ArrayBuffer} buffer
  * @returns {string}
  */
-const computeMD5 = (buffer) =>
-  nodeCrypto.createHash("md5").update(new Uint8Array(buffer)).digest("hex");
+const computeMD5 = buffer =>
+    nodeCrypto.createHash("md5").update(new Uint8Array(buffer)).digest("hex");
 
 /**
  * @param {ArrayBuffer} buffer
  * @returns {string}
  */
-const computeSHA256 = (buffer) =>
-  nodeCrypto.createHash("sha256").update(new Uint8Array(buffer)).digest("hex");
+const computeSHA256 = buffer =>
+    nodeCrypto
+        .createHash("sha256")
+        .update(new Uint8Array(buffer))
+        .digest("hex");
 
 /**
  * @param {string} url
@@ -20,26 +23,26 @@ const computeSHA256 = (buffer) =>
  * @returns {Promise<Response>}
  */
 const persistentFetch = async (url, opts) => {
-  let err;
-  for (let i = 0; i < 3; i++) {
-    try {
-      const response = await fetch(url, opts);
-      if (response.status !== 200) {
-        throw new Error(
-          `${md5ext}: Unexpected status code: ${response.status}`,
-        );
-      }
-      return response;
-    } catch (e) {
-      if (i === 0) err = e;
-      console.warn(`Attempt to fetch ${url} failed, trying again...`);
+    let err;
+    for (let i = 0; i < 3; i++) {
+        try {
+            const response = await fetch(url, opts);
+            if (response.status !== 200) {
+                throw new Error(
+                    `${md5ext}: Unexpected status code: ${response.status}`
+                );
+            }
+            return response;
+        } catch (e) {
+            if (i === 0) err = e;
+            console.warn(`Attempt to fetch ${url} failed, trying again...`);
+        }
     }
-  }
-  throw err;
+    throw err;
 };
 
 module.exports = {
-  computeMD5,
-  computeSHA256,
-  persistentFetch,
+    computeMD5,
+    computeSHA256,
+    persistentFetch,
 };

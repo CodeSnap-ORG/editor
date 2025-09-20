@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styles from "./meter.css";
 
-const Meter = (props) => {
+const Meter = props => {
     const { level, width, height } = props;
 
     const nGreen = 11;

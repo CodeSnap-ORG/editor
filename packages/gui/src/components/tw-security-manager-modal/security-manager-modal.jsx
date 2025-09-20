@@ -35,7 +35,7 @@ const messages = defineMessages({
 
 const noop = () => {};
 
-const SecurityManagerModalComponent = (props) => (
+const SecurityManagerModalComponent = props => (
     <Modal
         className={styles.modalContent}
         onRequestClose={props.enableButtons ? props.onDenied : noop}
@@ -113,5 +113,5 @@ export default DelayedMountPropertyHOC(
     BUTTON_DELAY,
     {
         enableButtons: true,
-    },
+    }
 );

@@ -32,7 +32,7 @@ const messages = defineMessages({
     },
 });
 
-const RecordingStep = (props) => (
+const RecordingStep = props => (
     <Box>
         <Box className={styles.visualizationContainer}>
             <Box className={styles.meterContainer}>

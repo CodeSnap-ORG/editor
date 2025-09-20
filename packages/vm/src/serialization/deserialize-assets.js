@@ -20,7 +20,7 @@ const deserializeSound = function (sound, runtime, zip, assetFileName) {
     if (!storage) {
         log.warn(
             "No storage module present; cannot load sound asset: ",
-            fileName,
+            fileName
         );
         return Promise.resolve(null);
     }
@@ -39,7 +39,7 @@ const deserializeSound = function (sound, runtime, zip, assetFileName) {
 
     if (!soundFile) {
         log.error(
-            `Could not find sound file associated with the ${sound.name} sound.`,
+            `Could not find sound file associated with the ${sound.name} sound.`
         );
         return Promise.resolve(null);
     }
@@ -55,16 +55,16 @@ const deserializeSound = function (sound, runtime, zip, assetFileName) {
             : storage.DataFormat.WAV;
     return soundFile
         .async("uint8array")
-        .then((data) =>
+        .then(data =>
             storage.createAsset(
                 storage.AssetType.Sound,
                 dataFormat,
                 data,
                 null,
-                true,
-            ),
+                true
+            )
         )
-        .then((asset) => {
+        .then(asset => {
             sound.asset = asset;
             sound.assetId = asset.assetId;
             sound.md5 = `${asset.assetId}.${asset.dataFormat}`;
@@ -91,7 +91,7 @@ const deserializeCostume = function (
     runtime,
     zip,
     assetFileName,
-    textLayerFileName,
+    textLayerFileName
 ) {
     const storage = runtime.storage;
     const assetId = costume.assetId;
@@ -102,7 +102,7 @@ const deserializeCostume = function (
     if (!storage) {
         log.warn(
             "No storage module present; cannot load costume asset: ",
-            fileName,
+            fileName
         );
         return Promise.resolve(null);
     }
@@ -116,13 +116,13 @@ const deserializeCostume = function (
                 costume.asset.dataFormat,
                 new Uint8Array(
                     Object.keys(costume.asset.data).map(
-                        (key) => costume.asset.data[key],
-                    ),
+                        key => costume.asset.data[key]
+                    )
                 ),
                 null,
-                true,
-            ),
-        ).then((asset) => {
+                true
+            )
+        ).then(asset => {
             costume.asset = asset;
             costume.assetId = asset.assetId;
             costume.md5 = `${asset.assetId}.${asset.dataFormat}`;
@@ -143,7 +143,7 @@ const deserializeCostume = function (
 
     if (!costumeFile) {
         log.error(
-            `Could not find costume file associated with the ${costume.name} costume.`,
+            `Could not find costume file associated with the ${costume.name} costume.`
         );
         return Promise.resolve(null);
     }
@@ -170,21 +170,21 @@ const deserializeCostume = function (
         const textLayerFile = zip.file(textLayerFileName);
         if (!textLayerFile) {
             log.error(
-                `Could not find text layer file associated with the ${costume.name} costume.`,
+                `Could not find text layer file associated with the ${costume.name} costume.`
             );
             return Promise.resolve(null);
         }
         textLayerFilePromise = textLayerFile
             .async("uint8array")
-            .then((data) =>
+            .then(data =>
                 storage.createAsset(
                     storage.AssetType.ImageBitmap,
                     "png",
                     data,
-                    costume.textLayerMD5,
-                ),
+                    costume.textLayerMD5
+                )
             )
-            .then((asset) => {
+            .then(asset => {
                 costume.textLayerAsset = asset;
             });
     } else {
@@ -195,17 +195,17 @@ const deserializeCostume = function (
         textLayerFilePromise,
         costumeFile
             .async("uint8array")
-            .then((data) =>
+            .then(data =>
                 storage.createAsset(
                     assetType,
                     // TODO eventually we want to map non-png's to their actual file types?
                     costumeFormat,
                     data,
                     null,
-                    true,
-                ),
+                    true
+                )
             )
-            .then((asset) => {
+            .then(asset => {
                 costume.asset = asset;
                 costume.assetId = asset.assetId;
                 costume.md5 = `${asset.assetId}.${asset.dataFormat}`;

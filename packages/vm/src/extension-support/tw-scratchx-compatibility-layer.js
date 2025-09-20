@@ -22,7 +22,7 @@ const {
  * @property {string} msg
  */
 
-const parseScratchXBlockType = (type) => {
+const parseScratchXBlockType = type => {
     if (type === "" || type === " " || type === "w") {
         return {
             type: BlockType.COMMAND,
@@ -51,7 +51,7 @@ const parseScratchXBlockType = (type) => {
     throw new Error(`Unknown ScratchX block type: ${type}`);
 };
 
-const isScratchCompatibleValue = (v) =>
+const isScratchCompatibleValue = v =>
     typeof v === "string" || typeof v === "number" || typeof v === "boolean";
 
 /**
@@ -91,14 +91,14 @@ const parseScratchXArgument = (argument, defaultValue) => {
 };
 
 const wrapScratchXFunction =
-    (originalFunction, argumentCount, async) => (args) => {
+    (originalFunction, argumentCount, async) => args => {
         // Convert Scratch 3's argument object to an argument list expected by ScratchX
         const argumentList = [];
         for (let i = 0; i < argumentCount; i++) {
             argumentList.push(args[argumentIndexToId(i)]);
         }
         if (async) {
-            return new Promise((resolve) => {
+            return new Promise(resolve => {
                 originalFunction(...argumentList, resolve);
             });
         }
@@ -154,7 +154,7 @@ const convert = (name, descriptor, functions) => {
                 const argumentId = argumentIndexToId(argumentIndex);
                 argumentInfo[argumentId] = parseScratchXArgument(
                     part,
-                    argumentDefaultValue,
+                    argumentDefaultValue
                 );
                 scratchText += `[${argumentId}]`;
             } else {
@@ -176,7 +176,7 @@ const convert = (name, descriptor, functions) => {
         scratch3Extension[functionName] = wrapScratchXFunction(
             originalFunction,
             argumentCount,
-            scratch3BlockType.async,
+            scratch3BlockType.async
         );
     }
 
@@ -202,7 +202,7 @@ const extensionNameToExtension = new Map();
  * @param {*} Scratch Scratch 3.0 extension API object
  * @returns {*} ScratchX-compatible API object
  */
-const createScratchX = (Scratch) => {
+const createScratchX = Scratch => {
     const register = (name, descriptor, functions) => {
         const scratch3Extension = convert(name, descriptor, functions);
         extensionNameToExtension.set(name, scratch3Extension);
@@ -213,7 +213,7 @@ const createScratchX = (Scratch) => {
      * @param {string} extensionName
      * @returns {ScratchXStatus}
      */
-    const getStatus = (extensionName) => {
+    const getStatus = extensionName => {
         const extension = extensionNameToExtension.get(extensionName);
         if (extension) {
             return extension._getStatus();

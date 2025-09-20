@@ -40,7 +40,7 @@ Watermark.propTypes = {
     vm: PropTypes.instanceOf(VM).isRequired,
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
     const targets = state.scratchGui.targets;
     const currentTargetId = targets.editingTarget;
 
@@ -51,7 +51,7 @@ const mapStateToProps = (state) => {
         } else if (
             Object.prototype.hasOwnProperty.call(
                 targets.sprites,
-                currentTargetId,
+                currentTargetId
             )
         ) {
             const currentSprite = targets.sprites[currentTargetId];
@@ -66,7 +66,7 @@ const mapStateToProps = (state) => {
 };
 
 const ConnectedComponent = connect(mapStateToProps)(
-    ThrottledPropertyHOC("asset", 500)(Watermark),
+    ThrottledPropertyHOC("asset", 500)(Watermark)
 );
 
 export default ConnectedComponent;

@@ -15,7 +15,7 @@ describe("IconButtonComponent", () => {
                 img={imgSrc}
                 title={title}
                 onClick={onClick}
-            />,
+            />
         );
         expect(component.toJSON()).toMatchSnapshot();
     });
@@ -25,7 +25,7 @@ describe("IconButtonComponent", () => {
         const title = <div>Text</div>;
         const imgSrc = "imgSrc";
         const componentShallowWrapper = shallow(
-            <IconButton img={imgSrc} title={title} onClick={onClick} />,
+            <IconButton img={imgSrc} title={title} onClick={onClick} />
         );
         componentShallowWrapper.simulate("click");
         expect(onClick).toHaveBeenCalled();

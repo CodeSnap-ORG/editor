@@ -23,13 +23,13 @@ class TaskQueue {
         this._pendingTaskRecords = [];
         this._tokenCount = Object.prototype.hasOwnProperty.call(
             options,
-            "startingTokens",
+            "startingTokens"
         )
             ? options.startingTokens
             : maxTokens;
         this._maxTotalCost = Object.prototype.hasOwnProperty.call(
             options,
-            "maxTotalCost",
+            "maxTotalCost"
         )
             ? options.maxTotalCost
             : Infinity;
@@ -63,7 +63,7 @@ class TaskQueue {
         if (this._maxTotalCost < Infinity) {
             const currentTotalCost = this._pendingTaskRecords.reduce(
                 (t, r) => t + r.cost,
-                0,
+                0
             );
             if (currentTotalCost + cost > this._maxTotalCost) {
                 return Promise.reject(new Error("Maximum total cost exceeded"));
@@ -105,7 +105,7 @@ class TaskQueue {
      */
     cancel(taskPromise) {
         const taskIndex = this._pendingTaskRecords.findIndex(
-            (r) => r.promise === taskPromise,
+            r => r.promise === taskPromise
         );
         if (taskIndex !== -1) {
             const [taskRecord] = this._pendingTaskRecords.splice(taskIndex, 1);
@@ -130,7 +130,7 @@ class TaskQueue {
         }
         const oldTasks = this._pendingTaskRecords;
         this._pendingTaskRecords = [];
-        oldTasks.forEach((r) => r.cancel());
+        oldTasks.forEach(r => r.cancel());
     }
 
     /**
@@ -197,7 +197,7 @@ class TaskQueue {
             }
             if (nextRecord.cost > this._maxTokens) {
                 throw new Error(
-                    `Task cost ${nextRecord.cost} is greater than bucket limit ${this._maxTokens}`,
+                    `Task cost ${nextRecord.cost} is greater than bucket limit ${this._maxTokens}`
                 );
             }
             // Refill before each task in case the time it took for the last task to run was enough to afford the next.
@@ -208,14 +208,14 @@ class TaskQueue {
                 this._pendingTaskRecords.unshift(nextRecord);
                 const tokensNeeded = Math.max(
                     nextRecord.cost - this._tokenCount,
-                    0,
+                    0
                 );
                 const estimatedWait = Math.ceil(
-                    (1000 * tokensNeeded) / this._refillRate,
+                    (1000 * tokensNeeded) / this._refillRate
                 );
                 this._timeout = this._timer.setTimeout(
                     this._runTasks,
-                    estimatedWait,
+                    estimatedWait
                 );
                 return;
             }

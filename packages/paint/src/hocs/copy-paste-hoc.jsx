@@ -71,7 +71,7 @@ const CopyPasteHOC = function (WrappedComponent) {
             let items = [];
             for (let i = 0; i < this.props.clipboardItems.length; i++) {
                 const item = paper.Base.importJSON(
-                    this.props.clipboardItems[i],
+                    this.props.clipboardItems[i]
                 );
                 if (item) {
                     items.push(item);
@@ -131,14 +131,14 @@ const CopyPasteHOC = function (WrappedComponent) {
         setClipboardItems: PropTypes.func.isRequired,
         setSelectedItems: PropTypes.func.isRequired,
     };
-    const mapStateToProps = (state) => ({
+    const mapStateToProps = state => ({
         clipboardItems: state.scratchPaint.clipboard.items,
         format: state.scratchPaint.format,
         mode: state.scratchPaint.mode,
         pasteOffset: state.scratchPaint.clipboard.pasteOffset,
     });
-    const mapDispatchToProps = (dispatch) => ({
-        setClipboardItems: (items) => {
+    const mapDispatchToProps = dispatch => ({
+        setClipboardItems: items => {
             dispatch(setClipboardItems(items));
         },
         incrementPasteOffset: () => {
@@ -147,9 +147,9 @@ const CopyPasteHOC = function (WrappedComponent) {
         clearSelectedItems: () => {
             dispatch(clearSelectedItems());
         },
-        setSelectedItems: (format) => {
+        setSelectedItems: format => {
             dispatch(
-                setSelectedItems(getSelectedLeafItems(), isBitmap(format)),
+                setSelectedItems(getSelectedLeafItems(), isBitmap(format))
             );
         },
     });

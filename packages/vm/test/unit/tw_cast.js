@@ -1,7 +1,7 @@
 const Cast = require("../../src/util/cast");
 const { test } = require("tap");
 
-test("Cast.compare with assorted whitespace characters", (t) => {
+test("Cast.compare with assorted whitespace characters", t => {
     t.equal(Cast.compare("", ""), 0);
 
     t.equal(Cast.compare("  ", ""), 1);

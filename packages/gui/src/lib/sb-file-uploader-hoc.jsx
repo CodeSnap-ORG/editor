@@ -152,9 +152,7 @@ const SBFileUploaderHOC = function (WrappedComponent) {
                 if (userOwnsProject || (projectChanged && isShowingWithoutId)) {
                     uploadAllowed = confirm(
                         // eslint-disable-line no-alert
-                        intl.formatMessage(
-                            sharedMessages.replaceProjectWarning,
-                        ),
+                        intl.formatMessage(sharedMessages.replaceProjectWarning)
                     );
                 }
                 if (uploadAllowed) {
@@ -222,14 +220,14 @@ const SBFileUploaderHOC = function (WrappedComponent) {
                         this.props.vm.renderer.draw();
                         loadingSuccess = true;
                     })
-                    .catch((error) => {
+                    .catch(error => {
                         log.error(error);
                         this.props.onLoadingFailed(error);
                     })
                     .then(() => {
                         this.props.onLoadingFinished(
                             this.props.loadingState,
-                            loadingSuccess,
+                            loadingSuccess
                         );
                         // go back to step 7: whether project loading succeeded
                         // or failed, reset file objects
@@ -332,10 +330,10 @@ const SBFileUploaderHOC = function (WrappedComponent) {
         };
     };
     const mapDispatchToProps = (dispatch, ownProps) => ({
-        cancelFileUpload: (loadingState) =>
+        cancelFileUpload: loadingState =>
             dispatch(onLoadedProject(loadingState, false, false)),
         closeFileMenu: () => dispatch(closeFileMenu()),
-        onLoadingFailed: (error) => {
+        onLoadingFailed: error => {
             dispatch(setProjectError(error));
             dispatch(openInvalidProjectModal());
         },
@@ -348,13 +346,13 @@ const SBFileUploaderHOC = function (WrappedComponent) {
         },
         // show project loading screen
         onLoadingStarted: () => dispatch(openLoadingProject()),
-        onSetProjectTitle: (title) => dispatch(setProjectTitle(title)),
+        onSetProjectTitle: title => dispatch(setProjectTitle(title)),
         // step 4: transition the project state so we're ready to handle the new
         // project data. When this is done, the project state transition will be
         // noticed by componentDidUpdate()
-        requestProjectUpload: (loadingState) =>
+        requestProjectUpload: loadingState =>
             dispatch(requestProjectUpload(loadingState)),
-        onSetFileHandle: (fileHandle) => dispatch(setFileHandle(fileHandle)),
+        onSetFileHandle: fileHandle => dispatch(setFileHandle(fileHandle)),
     });
     // Allow incoming props to override redux-provided props. Used to mock in tests.
     const mergeProps = (stateProps, dispatchProps, ownProps) =>
@@ -363,8 +361,8 @@ const SBFileUploaderHOC = function (WrappedComponent) {
         connect(
             mapStateToProps,
             mapDispatchToProps,
-            mergeProps,
-        )(SBFileUploaderComponent),
+            mergeProps
+        )(SBFileUploaderComponent)
     );
 };
 

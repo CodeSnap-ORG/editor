@@ -68,7 +68,7 @@ class RectMode extends React.Component {
             this.props.setSelectedItems,
             this.props.clearSelectedItems,
             this.props.setCursor,
-            this.props.onUpdateImage,
+            this.props.onUpdateImage
         );
         this.tool.setColorState(this.props.colorState);
         this.tool.activate();
@@ -159,12 +159,12 @@ RectMode.propTypes = {
     setSelectedItems: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     colorState: state.scratchPaint.color,
     isRectModeActive: state.scratchPaint.mode === Modes.RECT,
     selectedItems: state.scratchPaint.selectedItems,
 });
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     clearSelectedItems: () => {
         dispatch(clearSelectedItems());
     },
@@ -176,19 +176,19 @@ const mapDispatchToProps = (dispatch) => ({
     },
     setSelectedItems: () => {
         dispatch(
-            setSelectedItems(getSelectedLeafItems(), false /* bitmapMode */),
+            setSelectedItems(getSelectedLeafItems(), false /* bitmapMode */)
         );
     },
-    setCursor: (cursorString) => {
+    setCursor: cursorString => {
         dispatch(setCursor(cursorString));
     },
     handleMouseDown: () => {
         dispatch(changeMode(Modes.RECT));
     },
-    onChangeFillColor: (fillColor) => {
+    onChangeFillColor: fillColor => {
         dispatch(changeFillColor(fillColor));
     },
-    onChangeStrokeColor: (strokeColor) => {
+    onChangeStrokeColor: strokeColor => {
         dispatch(changeStrokeColor(strokeColor));
     },
 });

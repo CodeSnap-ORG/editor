@@ -46,12 +46,12 @@ const PackagerIntegrationHOC = function (WrappedComponent) {
                         type: "start-import",
                     },
                 },
-                e.origin,
+                e.origin
             );
 
             this.props.vm
                 .saveProjectSb3("arraybuffer")
-                .then((buffer) => {
+                .then(buffer => {
                     const name = `${this.props.reduxProjectTitle}.apz`;
                     e.source.postMessage(
                         {
@@ -62,10 +62,10 @@ const PackagerIntegrationHOC = function (WrappedComponent) {
                             },
                         },
                         e.origin,
-                        [buffer],
+                        [buffer]
                     );
                 })
-                .catch((err) => {
+                .catch(err => {
                     log.error(err);
                     e.source.postMessage(
                         {
@@ -73,7 +73,7 @@ const PackagerIntegrationHOC = function (WrappedComponent) {
                                 type: "cancel-import",
                             },
                         },
-                        e.origin,
+                        e.origin
                     );
                 });
         }
@@ -99,9 +99,9 @@ const PackagerIntegrationHOC = function (WrappedComponent) {
             saveProjectSb3: PropTypes.func,
         }),
     };
-    const mapStateToProps = (state) => ({
+    const mapStateToProps = state => ({
         canOpenPackager: getIsShowingProject(
-            state.scratchGui.projectState.loadingState,
+            state.scratchGui.projectState.loadingState
         ),
         reduxProjectTitle: state.scratchGui.projectTitle,
         vm: state.scratchGui.vm,
@@ -109,7 +109,7 @@ const PackagerIntegrationHOC = function (WrappedComponent) {
     const mapDispatchToProps = () => ({});
     return connect(
         mapStateToProps,
-        mapDispatchToProps,
+        mapDispatchToProps
     )(PackagerIntegrationComponent);
 };
 

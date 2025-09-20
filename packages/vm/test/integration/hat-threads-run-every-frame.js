@@ -9,12 +9,12 @@ const Runtime = require("../../src/engine/runtime");
 const execute = require("../../src/engine/execute.js");
 
 const compilerAndInterpreter = (name, callback) => {
-    test(`${name} - interpreted`, (t) => {
+    test(`${name} - interpreted`, t => {
         callback(t, {
             enabled: false,
         });
     });
-    test(`${name} - compiled`, (t) => {
+    test(`${name} - compiled`, t => {
         callback(t, {
             enabled: true,
         });
@@ -23,7 +23,7 @@ const compilerAndInterpreter = (name, callback) => {
 
 const projectUri = path.resolve(
     __dirname,
-    "../fixtures/timer-greater-than-hat.sb2",
+    "../fixtures/timer-greater-than-hat.sb2"
 );
 const project = readFileToBuffer(projectUri);
 
@@ -32,7 +32,7 @@ const checkIsHatThread = (t, vm, hatThread) => {
     t.equal(hatThread.updateMonitor, false);
     const blockContainer = hatThread.target.blocks;
     const opcode = blockContainer.getOpcode(
-        blockContainer.getBlock(hatThread.topBlock),
+        blockContainer.getBlock(hatThread.topBlock)
     );
     t.assert(vm.runtime.getIsEdgeActivatedHat(opcode));
 };
@@ -84,7 +84,7 @@ compilerAndInterpreter(
                 t.end();
             });
         });
-    },
+    }
 );
 
 /**
@@ -119,13 +119,13 @@ compilerAndInterpreter(
 
                 // Add a second hat that should create a second thread
                 const hatBlock = threads[0].target.blocks.getBlock(
-                    threads[0].topBlock,
+                    threads[0].topBlock
                 );
                 threads[0].target.blocks.createBlock(
                     Object.assign({}, hatBlock, {
                         id: "hatblock2",
                         next: null,
-                    }),
+                    })
                 );
 
                 // Check that the hat thread is added again when another step is taken
@@ -140,7 +140,7 @@ compilerAndInterpreter(
                 t.end();
             });
         });
-    },
+    }
 );
 
 /**
@@ -195,7 +195,7 @@ compilerAndInterpreter(
         // the sprite can be duplicated
         const projectWithSpriteUri = path.resolve(
             __dirname,
-            "../fixtures/edge-triggered-hat.sb3",
+            "../fixtures/edge-triggered-hat.sb3"
         );
         const projectWithSprite = readFileToBuffer(projectWithSpriteUri);
 
@@ -218,13 +218,13 @@ compilerAndInterpreter(
                 t.equal(vm.runtime.threads.length, 1);
                 checkIsHatThread(t, vm, vm.runtime.threads[0]);
                 t.assert(
-                    vm.runtime.threads[0].status === Thread.STATUS_RUNNING,
+                    vm.runtime.threads[0].status === Thread.STATUS_RUNNING
                 );
                 let numTargetEdgeHats = vm.runtime.targets.reduce(
                     (val, target) =>
                         val +
                         Object.keys(target._edgeActivatedHatValues).length,
-                    0,
+                    0
                 );
                 t.equal(numTargetEdgeHats, 1);
 
@@ -236,14 +236,14 @@ compilerAndInterpreter(
                         (val, target) =>
                             val +
                             Object.keys(target._edgeActivatedHatValues).length,
-                        0,
+                        0
                     );
                     t.equal(numTargetEdgeHats, 2);
                     t.end();
                 });
             });
         });
-    },
+    }
 );
 
 /**
@@ -257,7 +257,7 @@ compilerAndInterpreter(
         // the sprite can be duplicated
         const projectWithSpriteUri = path.resolve(
             __dirname,
-            "../fixtures/edge-triggered-hat.sb3",
+            "../fixtures/edge-triggered-hat.sb3"
         );
         const projectWithSprite = readFileToBuffer(projectWithSpriteUri);
 
@@ -280,7 +280,7 @@ compilerAndInterpreter(
                 t.equal(vm.runtime.threads.length, 1);
                 checkIsHatThread(t, vm, vm.runtime.threads[0]);
                 t.assert(
-                    vm.runtime.threads[0].status === Thread.STATUS_RUNNING,
+                    vm.runtime.threads[0].status === Thread.STATUS_RUNNING
                 );
                 // Run execute on the thread to populate the runtime's
                 // _edgeActivatedHatValues object
@@ -289,7 +289,7 @@ compilerAndInterpreter(
                     (val, target) =>
                         val +
                         Object.keys(target._edgeActivatedHatValues).length,
-                    0,
+                    0
                 );
                 t.equal(numTargetEdgeHats, 1);
 
@@ -299,20 +299,20 @@ compilerAndInterpreter(
                 vm.runtime._step();
                 // Check that the runtime's _edgeActivatedHatValues object has two separate keys
                 // after execute is run on each thread
-                vm.runtime.threads.forEach((thread) =>
-                    execute(vm.runtime.sequencer, thread),
+                vm.runtime.threads.forEach(thread =>
+                    execute(vm.runtime.sequencer, thread)
                 );
                 numTargetEdgeHats = vm.runtime.targets.reduce(
                     (val, target) =>
                         val +
                         Object.keys(target._edgeActivatedHatValues).length,
-                    0,
+                    0
                 );
                 t.equal(numTargetEdgeHats, 2);
                 t.end();
             });
         });
-    },
+    }
 );
 
 /**
@@ -370,7 +370,7 @@ compilerAndInterpreter(
                 t.end();
             });
         });
-    },
+    }
 );
 
 /**
@@ -401,7 +401,7 @@ compilerAndInterpreter(
                 t.equal(doneThreads.length, 0);
                 checkIsHatThread(t, vm, vm.runtime.threads[0]);
                 t.assert(
-                    vm.runtime.threads[0].status === Thread.STATUS_RUNNING,
+                    vm.runtime.threads[0].status === Thread.STATUS_RUNNING
                 );
 
                 vm.runtime.currentStepTime = Runtime.THREAD_STEP_INTERVAL;
@@ -432,5 +432,5 @@ compilerAndInterpreter(
                 t.end();
             });
         });
-    },
+    }
 );

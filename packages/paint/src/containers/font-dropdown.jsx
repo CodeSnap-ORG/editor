@@ -53,9 +53,7 @@ class FontDropdown extends React.Component {
             }
         }
 
-        const customFont = this.props.customFonts.find(
-            (i) => i.family === font,
-        );
+        const customFont = this.props.customFonts.find(i => i.family === font);
         if (customFont) {
             return customFont.name;
         }
@@ -198,19 +196,19 @@ FontDropdown.propTypes = {
         PropTypes.shape({
             name: PropTypes.string.isRequired,
             family: PropTypes.string.isRequired,
-        }),
+        })
     ).isRequired,
     onManageFonts: PropTypes.func,
     font: PropTypes.string,
     onUpdateImage: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     font: state.scratchPaint.font,
     customFonts: state.scratchPaint.customFonts,
 });
-const mapDispatchToProps = (dispatch) => ({
-    changeFont: (font) => {
+const mapDispatchToProps = dispatch => ({
+    changeFont: font => {
         dispatch(changeFont(font));
     },
 });

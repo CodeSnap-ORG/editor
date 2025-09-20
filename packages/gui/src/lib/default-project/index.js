@@ -7,7 +7,7 @@ import costume1 from "!raw-loader!./dango-cat.svg";
 /* eslint-enable import/no-unresolved */
 import { TextEncoder } from "../tw-text-encoder";
 
-const defaultProject = (translator) => {
+const defaultProject = translator => {
     if (overrideDefaultProject.byteLength > 0) {
         return [
             {

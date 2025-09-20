@@ -34,7 +34,7 @@ export default function (vm) {
         name,
         menuOptionsFn,
         colors,
-        start,
+        start
     ) {
         return {
             message0: hatName,
@@ -83,7 +83,7 @@ export default function (vm) {
     const soundsMenu = function () {
         let menu = [["", ""]];
         if (vm.editingTarget && vm.editingTarget.sprite.sounds.length > 0) {
-            menu = vm.editingTarget.sprite.sounds.map((sound) => [
+            menu = vm.editingTarget.sprite.sounds.map(sound => [
                 sound.name,
                 sound.name,
             ]);
@@ -99,7 +99,7 @@ export default function (vm) {
         if (vm.editingTarget && vm.editingTarget.getCostumes().length > 0) {
             return vm.editingTarget
                 .getCostumes()
-                .map((costume) => [costume.name, costume.name]);
+                .map(costume => [costume.name, costume.name]);
         }
         return [["", ""]];
     };
@@ -107,15 +107,15 @@ export default function (vm) {
     const backdropsMenu = function () {
         const next = ScratchBlocks.ScratchMsgs.translate(
             "LOOKS_NEXTBACKDROP",
-            "next backdrop",
+            "next backdrop"
         );
         const previous = ScratchBlocks.ScratchMsgs.translate(
             "LOOKS_PREVIOUSBACKDROP",
-            "previous backdrop",
+            "previous backdrop"
         );
         const random = ScratchBlocks.ScratchMsgs.translate(
             "LOOKS_RANDOMBACKDROP",
-            "random backdrop",
+            "random backdrop"
         );
         if (
             vm.runtime.targets[0] &&
@@ -123,7 +123,7 @@ export default function (vm) {
         ) {
             return vm.runtime.targets[0]
                 .getCostumes()
-                .map((costume) => [costume.name, costume.name])
+                .map(costume => [costume.name, costume.name])
                 .concat([
                     [next, "next backdrop"],
                     [previous, "previous backdrop"],
@@ -138,7 +138,7 @@ export default function (vm) {
         if (stage && stage.getCostumes().length > 0) {
             return stage
                 .getCostumes()
-                .map((costume) => [costume.name, costume.name]);
+                .map(costume => [costume.name, costume.name]);
         }
         return [["", ""]];
     };
@@ -149,7 +149,7 @@ export default function (vm) {
             if (
                 !Object.prototype.hasOwnProperty.call(
                     vm.runtime.targets,
-                    targetId,
+                    targetId
                 )
             )
                 continue;
@@ -178,7 +178,7 @@ export default function (vm) {
         }
         const myself = ScratchBlocks.ScratchMsgs.translate(
             "CONTROL_CREATECLONEOF_MYSELF",
-            "myself",
+            "myself"
         );
         return [[myself, "_myself_"]].concat(spriteMenu());
     };
@@ -200,7 +200,7 @@ export default function (vm) {
             "SOUND_MENU",
             soundsMenu,
             soundColors,
-            [],
+            []
         );
         this.jsonInit(json);
     };
@@ -215,7 +215,7 @@ export default function (vm) {
             "BACKDROP",
             backdropsMenu,
             looksColors,
-            [],
+            []
         );
         this.jsonInit(json);
     };
@@ -226,7 +226,7 @@ export default function (vm) {
             "BACKDROP",
             backdropNamesMenu,
             eventColors,
-            [],
+            []
         );
         this.jsonInit(json);
     };
@@ -234,11 +234,11 @@ export default function (vm) {
     ScratchBlocks.Blocks.motion_pointtowards_menu.init = function () {
         const random = ScratchBlocks.ScratchMsgs.translate(
             "MOTION_POINTTOWARDS_RANDOM",
-            "random direction",
+            "random direction"
         );
         const mouse = ScratchBlocks.ScratchMsgs.translate(
             "MOTION_POINTTOWARDS_POINTER",
-            "mouse-pointer",
+            "mouse-pointer"
         );
         const json = jsonForMenuBlock("TOWARDS", spriteMenu, motionColors, [
             [mouse, "_mouse_"],
@@ -250,11 +250,11 @@ export default function (vm) {
     ScratchBlocks.Blocks.motion_goto_menu.init = function () {
         const random = ScratchBlocks.ScratchMsgs.translate(
             "MOTION_GOTO_RANDOM",
-            "random position",
+            "random position"
         );
         const mouse = ScratchBlocks.ScratchMsgs.translate(
             "MOTION_GOTO_POINTER",
-            "mouse-pointer",
+            "mouse-pointer"
         );
         const json = jsonForMenuBlock("TO", spriteMenu, motionColors, [
             [random, "_random_"],
@@ -266,11 +266,11 @@ export default function (vm) {
     ScratchBlocks.Blocks.motion_glideto_menu.init = function () {
         const random = ScratchBlocks.ScratchMsgs.translate(
             "MOTION_GLIDETO_RANDOM",
-            "random position",
+            "random position"
         );
         const mouse = ScratchBlocks.ScratchMsgs.translate(
             "MOTION_GLIDETO_POINTER",
-            "mouse-pointer",
+            "mouse-pointer"
         );
         const json = jsonForMenuBlock("TO", spriteMenu, motionColors, [
             [random, "_random_"],
@@ -282,7 +282,7 @@ export default function (vm) {
     ScratchBlocks.Blocks.sensing_of_object_menu.init = function () {
         const stage = ScratchBlocks.ScratchMsgs.translate(
             "SENSING_OF_STAGE",
-            "Stage",
+            "Stage"
         );
         const json = jsonForMenuBlock("OBJECT", spriteMenu, sensingColors, [
             [stage, "_stage_"],
@@ -297,7 +297,7 @@ export default function (vm) {
         // Get the sensing_of block from vm.
         let defaultSensingOfBlock;
         const blocks = vm.runtime.flyoutBlocks._blocks;
-        Object.keys(blocks).forEach((id) => {
+        Object.keys(blocks).forEach(id => {
             const block = blocks[id];
             if (id === blockType || (block && block.opcode === blockType)) {
                 defaultSensingOfBlock = block;
@@ -340,7 +340,7 @@ export default function (vm) {
                 }
                 const sort = function (options) {
                     options.sort(
-                        ScratchBlocks.scratchBlocksUtils.compareStrings,
+                        ScratchBlocks.scratchBlocksUtils.compareStrings
                     );
                 };
                 // Get all the stage variables (no lists) so we can add them to menu when the stage is selected.
@@ -349,7 +349,7 @@ export default function (vm) {
                     .getAllVariableNamesInScopeByType("");
                 sort(stageVariableOptions);
                 const stageVariableMenuItems = stageVariableOptions.map(
-                    (variable) => [variable, variable],
+                    variable => [variable, variable]
                 );
                 if (
                     sensingOfBlock.inputs.OBJECT.shadow !==
@@ -361,7 +361,7 @@ export default function (vm) {
                     return stageOptions.concat(stageVariableMenuItems);
                 }
                 const menuBlock = lookupBlocks.getBlock(
-                    sensingOfBlock.inputs.OBJECT.shadow,
+                    sensingOfBlock.inputs.OBJECT.shadow
                 );
                 const selectedItem = menuBlock.fields.OBJECT.value;
                 if (selectedItem === "_stage_") {
@@ -377,7 +377,7 @@ export default function (vm) {
                     sort(spriteVariableOptions);
                 }
                 const spriteVariableMenuItems = spriteVariableOptions.map(
-                    (variable) => [variable, variable],
+                    variable => [variable, variable]
                 );
                 return spriteOptions.concat(spriteVariableMenuItems);
             }
@@ -391,13 +391,13 @@ export default function (vm) {
     ScratchBlocks.Blocks.sensing_distancetomenu.init = function () {
         const mouse = ScratchBlocks.ScratchMsgs.translate(
             "SENSING_DISTANCETO_POINTER",
-            "mouse-pointer",
+            "mouse-pointer"
         );
         const json = jsonForMenuBlock(
             "DISTANCETOMENU",
             spriteMenu,
             sensingColors,
-            [[mouse, "_mouse_"]],
+            [[mouse, "_mouse_"]]
         );
         this.jsonInit(json);
     };
@@ -405,11 +405,11 @@ export default function (vm) {
     ScratchBlocks.Blocks.sensing_touchingobjectmenu.init = function () {
         const mouse = ScratchBlocks.ScratchMsgs.translate(
             "SENSING_TOUCHINGOBJECT_POINTER",
-            "mouse-pointer",
+            "mouse-pointer"
         );
         const edge = ScratchBlocks.ScratchMsgs.translate(
             "SENSING_TOUCHINGOBJECT_EDGE",
-            "edge",
+            "edge"
         );
         const json = jsonForMenuBlock(
             "TOUCHINGOBJECTMENU",
@@ -418,7 +418,7 @@ export default function (vm) {
             [
                 [mouse, "_mouse_"],
                 [edge, "_edge_"],
-            ],
+            ]
         );
         this.jsonInit(json);
     };
@@ -426,11 +426,11 @@ export default function (vm) {
     ScratchBlocks.Blocks.event_touchingobjectmenu.init = function () {
         const mouse = ScratchBlocks.ScratchMsgs.translate(
             "SENSING_TOUCHINGOBJECT_POINTER",
-            "mouse-pointer",
+            "mouse-pointer"
         );
         const edge = ScratchBlocks.ScratchMsgs.translate(
             "SENSING_TOUCHINGOBJECT_EDGE",
-            "edge",
+            "edge"
         );
         const json = jsonForMenuBlock(
             "TOUCHINGOBJECTMENU",
@@ -439,7 +439,7 @@ export default function (vm) {
             [
                 [mouse, "_mouse_"],
                 [edge, "_edge_"],
-            ],
+            ]
         );
         this.jsonInit(json);
     };
@@ -449,7 +449,7 @@ export default function (vm) {
             "CLONE_OPTION",
             cloneMenu,
             controlColors,
-            [],
+            []
         );
         this.jsonInit(json);
     };
@@ -460,7 +460,7 @@ export default function (vm) {
     };
 
     ScratchBlocks.FlyoutExtensionCategoryHeader.getExtensionState = function (
-        extensionId,
+        extensionId
     ) {
         if (vm.getPeripheralIsConnected(extensionId)) {
             return ScratchBlocks.StatusButtonState.READY;

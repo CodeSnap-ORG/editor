@@ -51,7 +51,7 @@ class TestInternalExtension {
     }
 }
 
-test("internal extension", (t) => {
+test("internal extension", t => {
     const vm = new VirtualMachine();
 
     const extension = new TestInternalExtension();
@@ -91,7 +91,7 @@ test("internal extension", (t) => {
     t.end();
 });
 
-test("load sync", (t) => {
+test("load sync", t => {
     const vm = new VirtualMachine();
     vm.extensionManager.loadExtensionIdSync("coreExample");
     t.ok(vm.extensionManager.isExtensionLoaded("coreExample"));
@@ -109,7 +109,7 @@ test("load sync", (t) => {
     t.type(vm.runtime._blockInfo[0].blocks[2].info, "object");
     t.equal(
         vm.runtime._blockInfo[0].blocks[2].info.opcode,
-        "exampleWithInlineImage",
+        "exampleWithInlineImage"
     );
     t.equal(vm.runtime._blockInfo[0].blocks[2].info.blockType, "command");
 
