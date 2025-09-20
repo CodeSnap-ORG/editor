@@ -25,6 +25,9 @@ function migrateLocalStorageKeys(oldPrefix, newPrefix) {
         return false;
     }
     keysToMigrate.forEach(oldKey => {
+        window.SetCustomSplashInfo(
+            `Migrating key name ${oldKey}... If this fails, <a href="https://ampmod.flarum.cloud/t/bugs-and-glitches">please report as a bug</a>.`
+        );
         const newKey = newPrefix + oldKey.substring(oldPrefix.length);
         const value = localStorage.getItem(oldKey);
         localStorage.setItem(newKey, value);
@@ -142,9 +145,6 @@ async function runAllMigrations() {
     // Part 1: Migrate localStorage keys.
     if (migrateLocalStorageKeys("tw:", "amp:")) {
         migrationOccurred = true;
-        window.SetCustomSplashInfo(
-            "Migrating... If this fails, please <a href='https://ampmod.flarum.cloud/bugs-and-glitches'>report as a bug</a>."
-        );
     }
 
     // Part 2: Migrate IndexedDB databases.
@@ -192,6 +192,9 @@ async function runAllMigrations() {
         for (const oldDbName of dbsToMigrate) {
             const newDbName = newPrefix + oldDbName.substring(oldPrefix.length);
             try {
+                window.SetCustomSplashInfo(
+                    `Migrating database ${oldDbName}... If this fails, <a href="https://ampmod.flarum.cloud/t/bugs-and-glitches">please report as a bug</a>.`
+                );
                 await migrateIndexedDB(oldDbName, newDbName);
                 migrationOccurred = true;
             } catch (e) {
@@ -202,6 +205,7 @@ async function runAllMigrations() {
 
     // Part 3: Reload if any migrations occurred.
     if (migrationOccurred) {
+        window.SetCustomSplashInfo("Done! Reloading...");
         window.location.reload();
     }
 }
