@@ -812,6 +812,9 @@ class ScriptTreeGenerator {
                     }
                 );
 
+            case "operator_newline":
+                return this.createConstantInput("\n", true);
+
             case "procedures_call": {
                 const procedureInfo = this.getProcedureInfo(block);
                 return new IntermediateInput(
