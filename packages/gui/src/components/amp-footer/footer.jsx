@@ -34,7 +34,7 @@ const hardRefresh = () => {
 const eraseData = async () => {
     if (
         confirm(
-            "Please be aware that this will reset all your local data, including the Restore Points and backpack. Are you sure you want to continue?"
+            "Please be aware that this will reset all your local data, including the Restore Points and backpack. Only do this if you're experiencing many bugs or errors. Again, this is a last resort, and all data will be ERASED FROM YOUR BROWSER, and CANNOT be undone. Are you sure you want to continue?"
         )
     ) {
         const prefix = process.env.ampmod_is_canary ? "canary:" : "tw:";
