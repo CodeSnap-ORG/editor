@@ -12,12 +12,28 @@
             body[data-splash-theme="dark"] {
                 background: #111;
             }
+            .splash-custom-info[hidden] {
+                display: none;
+            }
+            .splash-custom-info {
+                padding: 20px;
+                border-radius: 8px;
+                margin: 10px;
+                background: #59c059;
+                color: white;
+                font-family: sans-serif;
+            }
+            .splash-custom-info a {
+                color: white;
+            }
         </style>
     </head>
     <body>
         <noscript>
             <h1>This page requires JavaScript</h1>
         </noscript>
+
+        <div class="splash-custom-info" hidden></div>
 
         <div id="app"></div>
 
@@ -67,6 +83,14 @@
                     window.location.href = "/editor.html";
                 }
             }, 300);
+
+            var splashCustomInfo = document.querySelector(
+                ".splash-custom-info"
+            );
+            window.SetCustomSplashInfo = text => {
+                splashCustomInfo.hidden = false;
+                splashCustomInfo.innerHTML = text;
+            };
         </script>
     </body>
 </html>
