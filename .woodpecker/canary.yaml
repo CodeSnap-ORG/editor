@@ -42,9 +42,12 @@ steps:
       - git config --global --add safe.directory /woodpecker/src/codeberg.org/kRxZy_kRxZy/ampmod/amp-build
       - git config --global user.email "no@thankyou.com"
       - git config --global user.name "CI Builder"
+      - npm ci
+      - npm run ci-build
       # clone and move the target repo
       - git clone -b pages https://$CBTOKEN@codeberg.org/kRxZy_kRxZy/pages.git amp-build
       - chmod -R a+w amp-build
+      - ccd 
   - name: install
     when:
         event: [ push, manual ]
