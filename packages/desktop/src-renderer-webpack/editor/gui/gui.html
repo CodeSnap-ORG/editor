@@ -27,6 +27,10 @@
                 background-color: #333;
                 color: white;
             }
+            .splash-screen[data-theme="amoled"] {
+                background-color: black;
+                color: white;
+            }
             .splash-spinner:after {
                 content: " ";
                 display: block;
@@ -64,7 +68,10 @@
                 }
                 if (themeSetting === "light") {
                     theme = "light";
-                } else if (themeSetting === "dark") {
+                } else if (
+                    themeSetting === "dark" ||
+                    themeSetting === "amoled"
+                ) {
                     theme = "dark";
                 } else if (themeSetting) {
                     try {

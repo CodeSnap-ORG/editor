@@ -9,6 +9,7 @@ import * as accentGrey from "./accent/grey";
 
 import * as guiLight from "./gui/light";
 import * as guiDark from "./gui/dark";
+import * as guiAmoled from "./gui/amp-amoled";
 
 import * as blocksThree from "./blocks/three";
 import * as blocksHighContrast from "./blocks/high-contrast";
@@ -33,9 +34,11 @@ const ACCENT_DEFAULT = process.env.ampmod_is_canary ? ACCENT_RED : ACCENT_GREEN;
 
 const GUI_LIGHT = "light";
 const GUI_DARK = "dark";
+const GUI_AMOLED = "amoled";
 const GUI_MAP = {
     [GUI_LIGHT]: guiLight,
     [GUI_DARK]: guiDark,
+    [GUI_AMOLED]: guiAmoled,
 };
 const GUI_DEFAULT = GUI_LIGHT;
 
@@ -148,7 +151,10 @@ class Theme {
     }
 
     isDark() {
-        return this.getGuiColors()["color-scheme"] === "dark";
+        return (
+            this.getGuiColors()["color-scheme"] === "dark" ||
+            this.getGuiColors()["color-scheme"] === "amoled"
+        );
     }
 
     getStageBlockColors() {
@@ -175,6 +181,7 @@ export {
     ACCENT_MAP,
     GUI_LIGHT,
     GUI_DARK,
+    GUI_AMOLED,
     GUI_MAP,
     BLOCKS_THREE,
     BLOCKS_DARK,
