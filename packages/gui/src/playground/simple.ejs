@@ -91,6 +91,9 @@
                 splashCustomInfo.hidden = false;
                 splashCustomInfo.innerHTML = text;
             };
+            window.SplashEnd = () => {
+                splashCustomInfo.parentNode.removeChild(splashCustomInfo);
+            };
         </script>
     </body>
 </html>
