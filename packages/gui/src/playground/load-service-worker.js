@@ -9,7 +9,7 @@ const actuallyLoadServiceWorker = () => {
 };
 const loadServiceWorker = () => {
     if (
-        process.env.ENABLE_SERVICE_WORKER &&
+        !process.env.DISABLE_SERVICE_WORKER &&
         "serviceWorker" in navigator &&
         !loaded
     ) {

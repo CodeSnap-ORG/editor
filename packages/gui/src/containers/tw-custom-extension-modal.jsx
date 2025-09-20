@@ -15,6 +15,50 @@ import {
 } from "../lib/tw-persisted-unsandboxed.js";
 
 /**
+ * amp: Saves a custom extension to localStorage in the correct format.
+ *
+ * @param {string} name - Name of the extension.
+ * @param {string} description - Description of the extension.
+ * @param {object} options - Options object that can contain either jsText or uri.
+ */
+const saveExtensionToLocalStorage = async (name, description, options) => {
+    const key = `${process.env.ampmod_is_canary ? "canary" : "amp"}:saved-custom-extensions`;
+    let data = { extensions: [] };
+
+    try {
+        if (localStorage[key]) {
+            data = JSON.parse(localStorage[key]);
+        }
+    } catch (e) {
+        console.warn("Failed to parse saved custom extensions:", e);
+    }
+
+    // Generate a unique SHA hash using the Web Crypto API
+    const hashInput = `${Math.random().toString(36).substring(2, 15)}${Date.now()}`;
+    const encoder = new TextEncoder();
+    const dataToHash = encoder.encode(hashInput);
+    const hashBuffer = await crypto.subtle.digest("SHA-1", dataToHash);
+    const hashArray = Array.from(new Uint8Array(hashBuffer));
+    const id = hashArray.map((b) => b.toString(16).padStart(2, "0")).join("");
+
+    const newExtension = {
+        id,
+        name,
+        description,
+    };
+
+    if (options.jsText) {
+        const base64 = btoa(unescape(encodeURIComponent(options.jsText)));
+        newExtension.base64 = base64;
+    } else if (options.uri) {
+        newExtension.uri = options.uri;
+    }
+
+    data.extensions.push(newExtension);
+    localStorage[key] = JSON.stringify(data);
+};
+
+/**
  * @param {Blob} blob Blob
  * @returns {Promise<string>} data: uri
  */
@@ -75,7 +119,7 @@ class CustomExtensionModal extends React.Component {
 
         if (this.state.type === "text") {
             return Promise.resolve([
-                `data:application/javascript,${encodeURIComponent(this.state.text)}`,
+                `data:application/javascript;base64,${btoa(unescape(this.state.text))}`,
             ]);
         }
 
@@ -130,7 +174,7 @@ class CustomExtensionModal extends React.Component {
         }
     }
 
-    async handleLoadExtension() {
+    async handleLoadExtension(extraOptions = {}) {
         this.handleClose();
         try {
             const urls = await this.getExtensionURLs();
@@ -147,9 +191,31 @@ class CustomExtensionModal extends React.Component {
             for (const url of urls) {
                 await this.props.vm.extensionManager.loadExtensionURL(url);
             }
+
+            const { saveToLocalStorage, saveName, saveDescription } =
+                extraOptions;
+
+            if (saveToLocalStorage && saveName && saveDescription) {
+                if (this.state.type === "text") {
+                    saveExtensionToLocalStorage(saveName, saveDescription, {
+                        jsText: this.state.text,
+                    });
+                } else if (this.state.type === "url") {
+                    saveExtensionToLocalStorage(saveName, saveDescription, {
+                        uri: this.state.url,
+                    });
+                } else if (this.state.type === "file") {
+                    const files = Array.from(this.state.files);
+                    for (const file of files) {
+                        const text = await file.text();
+                        saveExtensionToLocalStorage(saveName, saveDescription, {
+                            jsText: text,
+                        });
+                    }
+                }
+            }
         } catch (err) {
             log.error(err);
-            // eslint-disable-next-line no-alert
             alert(err);
         }
     }
@@ -200,13 +266,13 @@ class CustomExtensionModal extends React.Component {
 
     isUnsandboxed() {
         if (this.state.type === "url") {
-            return isTrustedExtension(this.state.url);
+            return isTrustedExtension(this.state.url) || this.state.unsandboxed;
         }
         return this.state.unsandboxed;
     }
 
     canChangeUnsandboxed() {
-        return this.state.type !== "url";
+        return true;
     }
 
     handleChangeUnsandboxed(e) {

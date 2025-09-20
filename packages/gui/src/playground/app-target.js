@@ -3,6 +3,13 @@ import { setAppElement } from "react-modal";
 import * as bowser from "bowser";
 import { APP_NAME } from "../lib/brand.js";
 
+if (bowser.parse(navigator.userAgent).browser.name === "Internet Explorer") {
+    alert(
+        "AmpMod does not support Internet Explorer.\n\nIE has been deprecated for 3 years; please upgrade Windows and/or find a modern alternative such as Chrome.\n\nIf you are not able to update Windows or use a new browser, contact your admin.",
+    );
+    throw new Error("AmpMod does not support Internet Explorer.");
+}
+
 const appTarget = document.getElementById("app");
 
 // Remove everything from the target to fix macOS Safari "Save Page As",

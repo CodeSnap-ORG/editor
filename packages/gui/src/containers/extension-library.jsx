@@ -14,6 +14,7 @@ import extensionTags from "../lib/libraries/tw-extension-tags";
 
 import LibraryComponent from "../components/library/library.jsx";
 import extensionIcon from "../components/action-menu/icon--sprite.svg";
+import localExtensionIcon from "../lib/libraries/extensions/local/local.svg";
 
 const messages = defineMessages({
     extensionTitle: {
@@ -97,6 +98,55 @@ const fetchLibrary = async () => {
     }));
 };
 
+const parseExtLocalStorage = async () => {
+    const raw =
+        localStorage[
+            `${process.env.ampmod_is_canary ? "canary" : "amp"}:saved-custom-extensions`
+        ];
+
+    if (!raw) return [];
+
+    let data;
+    try {
+        data = JSON.parse(raw);
+    } catch (e) {
+        console.error("Invalid JSON in saved-custom-extensions:", e);
+        return [];
+    }
+
+    if (!Array.isArray(data.extensions)) {
+        console.error("Expected 'extensions' to be an array.");
+        return [];
+    }
+
+    return data.extensions
+        .map((extension) => {
+            if (extension.uri) {
+                return {
+                    extensionId: `local_${extension.id}`,
+                    iconURL: localExtensionIcon,
+                    name: extension.name,
+                    description: extension.description,
+                    extensionURL: extension.uri,
+                    tags: ["localStorage"],
+                    featured: true,
+                };
+            } else if (extension.base64) {
+                return {
+                    extensionId: `saved_to_local_${extension.id}`,
+                    iconURL: localExtensionIcon,
+                    name: extension.name,
+                    description: extension.description,
+                    extensionURL: `data:application/javascript;base64,${extension.base64}`,
+                    tags: ["localStorage"],
+                    featured: true,
+                };
+            }
+            return null;
+        })
+        .filter(Boolean);
+};
+
 class ExtensionLibrary extends React.PureComponent {
     constructor(props) {
         super(props);
@@ -105,6 +155,7 @@ class ExtensionLibrary extends React.PureComponent {
             gallery: cachedGallery,
             galleryError: null,
             galleryTimedOut: false,
+            savedCustomExtensions: [], // added state for custom extensions
         };
     }
     componentDidMount() {
@@ -131,6 +182,15 @@ class ExtensionLibrary extends React.PureComponent {
                     clearTimeout(timeout);
                 });
         }
+
+        // Load saved custom extensions
+        parseExtLocalStorage()
+            .then((savedCustomExtensions) => {
+                this.setState({ savedCustomExtensions });
+            })
+            .catch((e) => {
+                console.warn("Failed to parse saved custom extensions", e);
+            });
     }
     handleItemSelect(item) {
         if (item.href) {
@@ -175,27 +235,30 @@ class ExtensionLibrary extends React.PureComponent {
         }
     }
     render() {
-        let library = null;
-        if (
-            this.state.gallery ||
-            this.state.galleryError ||
-            this.state.galleryTimedOut
-        ) {
-            library = extensionLibraryContent.map(toLibraryItem);
+        let library = extensionLibraryContent.map(toLibraryItem);
+        library.push("---");
+
+        // Add saved custom extensions from state
+        if (this.state.savedCustomExtensions.length > 0) {
+            library.push(
+                ...this.state.savedCustomExtensions.map(toLibraryItem),
+            );
             library.push("---");
-            if (this.state.gallery) {
-                library.push(toLibraryItem(galleryMore));
-                const locale = this.props.intl.locale;
-                library.push(
-                    ...this.state.gallery
-                        .map((i) => translateGalleryItem(i, locale))
-                        .map(toLibraryItem),
-                );
-            } else if (this.state.galleryError) {
-                library.push(toLibraryItem(galleryError));
-            } else {
-                library.push(toLibraryItem(galleryLoading));
-            }
+        }
+
+        // Add gallery extensions or loading/error indicators
+        if (this.state.gallery) {
+            library.push(toLibraryItem(galleryMore));
+            const locale = this.props.intl.locale;
+            library.push(
+                ...this.state.gallery
+                    .map((i) => translateGalleryItem(i, locale))
+                    .map(toLibraryItem),
+            );
+        } else if (this.state.galleryError) {
+            library.push(toLibraryItem(galleryError));
+        } else if (this.state.galleryTimedOut) {
+            library.push(toLibraryItem(galleryLoading));
         }
 
         return (

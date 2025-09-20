@@ -314,11 +314,12 @@ class LibraryComponent extends React.Component {
         if (
             !sidebarTags.some((t) => t.tag && t.tag.toLowerCase() === "other")
         ) {
+            sidebarTags.push("---");
             sidebarTags.push({
                 tag: "Other",
                 intlLabel: {
                     id: "gui.library.otherTag",
-                    defaultMessage: "Other",
+                    defaultMessage: "Uncategorised",
                 },
             });
         }
@@ -361,21 +362,37 @@ class LibraryComponent extends React.Component {
                                 <div className={styles.tagWrapper}>
                                     {tagListPrefix
                                         .concat(sidebarTags)
-                                        .map((tagProps, id) => (
-                                            <TagButton
-                                                active={this.state.selectedTags.includes(
-                                                    tagProps.tag.toLowerCase(),
-                                                )}
-                                                className={classNames(
-                                                    styles.filterBarItem,
-                                                    styles.tagButton,
-                                                    tagProps.className,
-                                                )}
-                                                key={`tag-button-${id}`}
-                                                onClick={this.handleTagClick}
-                                                {...tagProps}
-                                            />
-                                        ))}
+                                        .map((tagProps, id) => {
+                                            if (tagProps === "---") {
+                                                return (
+                                                    <Separator
+                                                        key={`separator-${id}`}
+                                                    />
+                                                );
+                                            }
+                                            if (tagProps["heading"]) {
+                                                return (
+                                                    <h3>{tagProps.heading}</h3>
+                                                );
+                                            }
+                                            return (
+                                                <TagButton
+                                                    active={this.state.selectedTags.includes(
+                                                        tagProps.tag.toLowerCase(),
+                                                    )}
+                                                    className={classNames(
+                                                        styles.filterBarItem,
+                                                        styles.tagButton,
+                                                        tagProps.className,
+                                                    )}
+                                                    key={`tag-button-${id}`}
+                                                    onClick={
+                                                        this.handleTagClick
+                                                    }
+                                                    {...tagProps}
+                                                />
+                                            );
+                                        })}
                                 </div>
                             )}
                         </div>

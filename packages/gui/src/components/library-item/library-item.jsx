@@ -165,6 +165,12 @@ class LibraryItemComponent extends React.PureComponent {
                     </div>
                 )}
 
+                {this.props.tags.includes("localStorage") && (
+                    <div className={styles.extensionLinks}>
+                        Saved locally. (you will be able to delete soon)
+                    </div>
+                )}
+
                 {this.props.credits && this.props.credits.length > 0 && (
                     <div className={styles.extensionLinks}>
                         <div>

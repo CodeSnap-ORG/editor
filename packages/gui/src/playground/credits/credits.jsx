@@ -128,10 +128,6 @@ const Credits = () => (
                             <a href="https://librekitten.org">LibreKitten</a>{" "}
                             (home page header)
                         </li>
-                        <li>
-                            Can't mention this one (hint: Antarctic species)
-                            (case blocks)
-                        </li>
                     </ul>
                 </details>
             </section>

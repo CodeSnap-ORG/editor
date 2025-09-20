@@ -22,6 +22,12 @@ if (root.length > 0 && !root.endsWith("/")) {
     throw new Error("If ROOT is defined, it must have a trailing slash.");
 }
 
+if (process.env.ENABLE_SERVICE_WORKER) {
+    console.warn(
+        "amp: ENABLE_SERVICE_WORKER is deprecated as the service worker is now enabled by default. To disable the service worker, use DISABLE_SERVICE_WORKER instead.",
+    );
+}
+
 const IS_CBP_BUILD = Boolean(process.env.IS_CBP_BUILD);
 const htmlWebpackPluginCommon = {
     root: root,
@@ -53,6 +59,7 @@ const base = {
                 { from: /^\/\d+\/editor\/?$/, to: "/ameditor.html" },
                 { from: /^\/\d+\/embed\/?$/, to: "/amembed.html" },
                 { from: /^\/addons\/?$/, to: "/amaddons.html" },
+                { from: /./, to: "/404.html" },
             ],
         },
     },
@@ -204,6 +211,7 @@ module.exports = [
             "addon-settings": "./src/playground/addon-settings.jsx",
             credits: "./src/playground/credits/credits.jsx",
             home: "./src/playground/home/home.jsx",
+            notfound: "./src/playground/not-found/not-found.jsx",
         },
         output: {
             path: path.resolve(__dirname, "build"),
@@ -220,8 +228,8 @@ module.exports = [
             new webpack.DefinePlugin({
                 "process.env.NODE_ENV": `"${process.env.NODE_ENV}"`,
                 "process.env.DEBUG": Boolean(process.env.DEBUG),
-                "process.env.ENABLE_SERVICE_WORKER": JSON.stringify(
-                    process.env.ENABLE_SERVICE_WORKER || "",
+                "process.env.DISABLE_SERVICE_WORKER": JSON.stringify(
+                    process.env.DISABLE_SERVICE_WORKER || "",
                 ),
                 "process.env.ROOT": JSON.stringify(root),
                 "process.env.ROUTING_STYLE": JSON.stringify(
@@ -238,15 +246,16 @@ module.exports = [
                 chunks: ["editor"],
                 template: "src/playground/index.ejs",
                 filename: IS_CBP_BUILD ? "editor/index.html" : "editor.html",
-                title: `${APP_NAME} - Block based programming, amplified`,
+                title: `${APP_NAME} - Block-based programming, amplified`,
                 isEditor: true,
                 ...htmlWebpackPluginCommon,
             }),
             new HtmlWebpackPlugin({
                 chunks: ["player"],
-                template: "src/playground/simple.ejs",
+                template: "src/playground/index.ejs",
                 filename: IS_CBP_BUILD ? "player/index.html" : "player.html",
-                title: `${APP_NAME} - Block based programming, amplified`,
+                title: `${APP_NAME} - Block-based programming, amplified`,
+                isEditor: true,
                 ...htmlWebpackPluginCommon,
             }),
             new HtmlWebpackPlugin({
@@ -255,7 +264,7 @@ module.exports = [
                 filename: IS_CBP_BUILD
                     ? "fullscreen/index.html"
                     : "fullscreen.html",
-                title: `${APP_NAME} - Block based programming, amplified`,
+                title: `${APP_NAME} - Block-based programming, amplified`,
                 ...htmlWebpackPluginCommon,
             }),
             new HtmlWebpackPlugin({
@@ -269,7 +278,7 @@ module.exports = [
                 chunks: ["home"],
                 template: "src/playground/simple.ejs",
                 filename: "index.html",
-                title: `${APP_NAME} - Block based programming, amplified`,
+                title: `${APP_NAME} - Block-based programming, amplified`,
                 ...htmlWebpackPluginCommon,
             }),
             new HtmlWebpackPlugin({
@@ -284,6 +293,13 @@ module.exports = [
                 template: "src/playground/simple.ejs",
                 filename: IS_CBP_BUILD ? "credits/index.html" : "credits.html",
                 title: `Credits - ${APP_NAME}`,
+                ...htmlWebpackPluginCommon,
+            }),
+            new HtmlWebpackPlugin({
+                chunks: ["notfound"],
+                template: "src/playground/simple.ejs",
+                filename: "404.html",
+                title: `Not Found - ${APP_NAME}`,
                 ...htmlWebpackPluginCommon,
             }),
             new CopyWebpackPlugin({

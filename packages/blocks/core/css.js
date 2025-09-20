@@ -1030,7 +1030,7 @@ Blockly.Css.CONTENT = [
     'border-style: solid;',
     'border-width: 1px;',
     'cursor: default;',
-    'font: normal 13px Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;',
+    'font: normal 13px "Inter Variable", "Helvetica Neue", Helvetica, Arial, sans-serif;',
     'margin: 0;',
     'outline: none;',
     'padding: 4px 0;',
@@ -1042,7 +1042,7 @@ Blockly.Css.CONTENT = [
 
   '.blocklyDropDownDiv .goog-menu {',
     'cursor: default;',
-    'font: normal 13px Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;',
+    'font: normal 13px "Inter Variable", "Helvetica Neue", Helvetica, Arial, sans-serif;',
     'outline: none;',
     'z-index: 20000;',  /* Arbitrary, but some apps depend on it... */
   '}',
@@ -1077,7 +1077,7 @@ Blockly.Css.CONTENT = [
    * #noflip to .goog-menuitem.
    */
   '.blocklyWidgetDiv .goog-menuitem {',
-    'font: normal 13px Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;',
+    'font: normal 13px "Inter Variable", "Helvetica Neue", Helvetica, Arial, sans-serif;',
     'list-style: none;',
     'margin: 0;',
      /* 28px on the left for icon or checkbox; 7em on the right for shortcut. */
@@ -1087,7 +1087,7 @@ Blockly.Css.CONTENT = [
 
   '.blocklyDropDownDiv .goog-menuitem {',
     'color: $colour_text;',
-    'font: normal 13px Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;',
+    'font: normal 13px "Inter Variable", "Helvetica Neue", Helvetica, Arial, sans-serif;',
     'font-weight: bold;',
     'list-style: none;',
     'margin: 0;',
@@ -1127,7 +1127,7 @@ Blockly.Css.CONTENT = [
   '.blocklyWidgetDiv .goog-menuitem-content ',
   '.blocklyDropDownDiv .goog-menuitem-content {',
     'color: #000;',
-    'font: normal 13px Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;',
+    'font: normal 13px "Inter Variable", "Helvetica Neue", Helvetica, Arial, sans-serif;',
   '}',
 
   /* State: disabled. */
