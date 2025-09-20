@@ -94,6 +94,8 @@ class LibraryItemComponent extends React.PureComponent {
                         loading="lazy"
                         draggable={false}
                         src={this.props.iconURL}
+                        width={600}
+                        height={150}
                     />
                 </div>
                 <div
