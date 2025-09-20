@@ -32,6 +32,7 @@ const IS_CBP_BUILD = Boolean(process.env.IS_CBP_BUILD);
 const htmlWebpackPluginCommon = {
     root: root,
     meta: JSON.parse(process.env.EXTRA_META || "{}"),
+    isCbp: process.env.IS_CBP_BUILD || false,
     APP_NAME,
 };
 
