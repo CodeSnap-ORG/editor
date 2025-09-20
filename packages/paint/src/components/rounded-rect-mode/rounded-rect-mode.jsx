@@ -11,6 +11,7 @@ const RoundedRectModeComponent = props => (
         imgSrc={roundedRectIcon}
         isSelected={props.isSelected}
         onMouseDown={props.onMouseDown}
+        keybinding="O"
     />
 );
 

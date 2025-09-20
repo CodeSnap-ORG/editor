@@ -8,6 +8,7 @@ import { changeBrushSize as changeEraserSize } from "../../reducers/eraser-mode"
 import { changeBitBrushSize } from "../../reducers/bit-brush-size";
 import { changeBitEraserSize } from "../../reducers/bit-eraser-size";
 import { setShapesFilled } from "../../reducers/fill-bitmap-shapes";
+import { changeRoundedRectRadius } from "../../reducers/rounded-rect-mode"; // New import
 
 import FontDropdown from "../../containers/font-dropdown.jsx";
 import LiveInputHOC from "../forms/live-input-hoc.jsx";
@@ -108,6 +109,11 @@ const ModeToolsComponent = props => {
             description:
                 "Label for the button that sets the bitmap rectangle/oval mode to draw filled-in shapes",
             id: "paint.modeTools.outlined",
+        },
+        roundness: {
+            defaultMessage: "Roundness",
+            description: "Label for the roundness input for rounded rectangles",
+            id: "paint.modeTools.roundness",
         },
     });
 
@@ -371,6 +377,7 @@ ModeToolsComponent.propTypes = {
     hasSelectedUnpointedPoints: PropTypes.bool,
     intl: intlShape.isRequired,
     mode: PropTypes.string.isRequired,
+    roundedRectRadius: PropTypes.number, // New propType
     onBitBrushSliderChange: PropTypes.func.isRequired,
     onBitEraserSliderChange: PropTypes.func.isRequired,
     onBrushSliderChange: PropTypes.func.isRequired,
@@ -385,6 +392,7 @@ ModeToolsComponent.propTypes = {
     onOutlineShapes: PropTypes.func.isRequired,
     onPasteFromClipboard: PropTypes.func.isRequired,
     onPointPoints: PropTypes.func.isRequired,
+    onRoundedRectRadiusChange: PropTypes.func, // New propType
     onUpdateImage: PropTypes.func.isRequired,
 };
 
@@ -397,6 +405,7 @@ const mapStateToProps = state => ({
     brushValue: state.scratchPaint.brushMode.brushSize,
     clipboardItems: state.scratchPaint.clipboard.items,
     eraserValue: state.scratchPaint.eraserMode.brushSize,
+    roundedRectRadius: state.scratchPaint.roundedRectMode.roundedRectRadius, // New state mapping
 });
 const mapDispatchToProps = dispatch => ({
     onBrushSliderChange: brushSize => {
@@ -416,6 +425,10 @@ const mapDispatchToProps = dispatch => ({
     },
     onOutlineShapes: () => {
         dispatch(setShapesFilled(false));
+    },
+    onRoundedRectRadiusChange: roundedRectRadius => {
+        // New dispatch
+        dispatch(changeRoundedRectRadius(roundedRectRadius));
     },
 });
 
