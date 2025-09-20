@@ -47,7 +47,9 @@ steps:
       # clone and move the target repo
       - git clone -b pages https://$CBTOKEN@codeberg.org/kRxZy_kRxZy/pages.git amp-build
       - chmod -R a+w amp-build
-      - ccd 
+      - cd ./amp-build
+      - git add .
+      - git commit -m "CI BUILD AMPMOD"
   - name: install
     when:
         event: [ push, manual ]
