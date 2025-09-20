@@ -66,7 +66,7 @@ steps:
     image: node:20-trixie-slim
     commands:
       # Don't specify CBP build mode since redirects aren't properly implemented in canary
-      - NODE_ENV=production BUILD_MODE=canary npm run ci-build
+      - npm run ci-build
       # Only needed for custom domains
       # - cp domains build/.domains
   - name: push
