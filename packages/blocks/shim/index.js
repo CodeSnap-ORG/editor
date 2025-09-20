@@ -12,6 +12,6 @@
  *     msg/messages
  **/
 module.exports = {
-  // Horizontal: require('./horizontal'),
-  Vertical: require("./vertical"),
+    // Horizontal: require('./horizontal'),
+    Vertical: require("./vertical"),
 };

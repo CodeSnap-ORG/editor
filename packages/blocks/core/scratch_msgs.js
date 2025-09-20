@@ -22,16 +22,15 @@
  * @fileoverview Scratch Messages singleton, with function to override Blockly.Msg values.
  * @author chrisg@media.mit.edu (Chris Garrity)
  */
-'use strict';
+"use strict";
 
 /**
  * Name space for the ScratchMsgs singleton.
  * Msg gets populated in the message files.
  */
-goog.provide('Blockly.ScratchMsgs');
+goog.provide("Blockly.ScratchMsgs");
 
-goog.require('Blockly.Msg');
-
+goog.require("Blockly.Msg");
 
 /**
  * The object containing messages for all locales - loaded from msg/scratch_msgs.
@@ -44,7 +43,7 @@ Blockly.ScratchMsgs.locales = {};
  * @type {String}
  * @private
  */
-Blockly.ScratchMsgs.currentLocale_ = 'en';
+Blockly.ScratchMsgs.currentLocale_ = "en";
 
 /**
  * Change the Blockly.Msg strings to a new Locale
@@ -52,14 +51,18 @@ Blockly.ScratchMsgs.currentLocale_ = 'en';
  * @param {string} locale E.g., 'de', or 'zh-tw'
  * @package
  */
-Blockly.ScratchMsgs.setLocale = function(locale) {
-  if (Object.keys(Blockly.ScratchMsgs.locales).includes(locale)) {
-    Blockly.ScratchMsgs.currentLocale_ = locale;
-    Blockly.Msg = Object.assign({}, Blockly.Msg, Blockly.ScratchMsgs.locales[locale]);
-  } else {
-    // keep current locale
-    console.warn('Ignoring unrecognized locale: ' + locale);
-  }
+Blockly.ScratchMsgs.setLocale = function (locale) {
+    if (Object.keys(Blockly.ScratchMsgs.locales).includes(locale)) {
+        Blockly.ScratchMsgs.currentLocale_ = locale;
+        Blockly.Msg = Object.assign(
+            {},
+            Blockly.Msg,
+            Blockly.ScratchMsgs.locales[locale]
+        );
+    } else {
+        // keep current locale
+        console.warn("Ignoring unrecognized locale: " + locale);
+    }
 };
 
 /**
@@ -72,14 +75,14 @@ Blockly.ScratchMsgs.setLocale = function(locale) {
  * @return {string} message with placeholders filled.
  * @package
  */
-Blockly.ScratchMsgs.translate = function(msgId, defaultMsg, useLocale) {
-  var locale = useLocale || Blockly.ScratchMsgs.currentLocale_;
+Blockly.ScratchMsgs.translate = function (msgId, defaultMsg, useLocale) {
+    var locale = useLocale || Blockly.ScratchMsgs.currentLocale_;
 
-  if (Object.keys(Blockly.ScratchMsgs.locales).includes(locale)) {
-    var messages = Blockly.ScratchMsgs.locales[locale];
-    if (Object.keys(messages).includes(msgId)) {
-      return messages[msgId];
+    if (Object.keys(Blockly.ScratchMsgs.locales).includes(locale)) {
+        var messages = Blockly.ScratchMsgs.locales[locale];
+        if (Object.keys(messages).includes(msgId)) {
+            return messages[msgId];
+        }
     }
-  }
-  return defaultMsg;
+    return defaultMsg;
 };

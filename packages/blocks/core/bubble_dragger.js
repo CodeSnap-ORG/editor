@@ -22,17 +22,16 @@
  * @fileoverview Methods for dragging a bubble visually.
  * @author fenichel@google.com (Rachel Fenichel)
  */
-'use strict';
+"use strict";
 
-goog.provide('Blockly.BubbleDragger');
+goog.provide("Blockly.BubbleDragger");
 
-goog.require('Blockly.Bubble');
-goog.require('Blockly.Events.CommentMove');
-goog.require('Blockly.WorkspaceCommentSvg');
+goog.require("Blockly.Bubble");
+goog.require("Blockly.Events.CommentMove");
+goog.require("Blockly.WorkspaceCommentSvg");
 
-goog.require('goog.math.Coordinate');
-goog.require('goog.asserts');
-
+goog.require("goog.math.Coordinate");
+goog.require("goog.asserts");
 
 /**
  * Class for a bubble dragger.  It moves things on the bubble canvas around the
@@ -43,89 +42,91 @@ goog.require('goog.asserts');
  * @param {!Blockly.WorkspaceSvg} workspace The workspace to drag on.
  * @constructor
  */
-Blockly.BubbleDragger = function(bubble, workspace) {
-  /**
-   * The item on the bubble canvas that is being dragged.
-   * @type {!Blockly.Bubble|!Blockly.WorkspaceCommentSvg}
-   * @private
-   */
-  this.draggingBubble_ = bubble;
+Blockly.BubbleDragger = function (bubble, workspace) {
+    /**
+     * The item on the bubble canvas that is being dragged.
+     * @type {!Blockly.Bubble|!Blockly.WorkspaceCommentSvg}
+     * @private
+     */
+    this.draggingBubble_ = bubble;
 
-  /**
-   * The workspace on which the bubble is being dragged.
-   * @type {!Blockly.WorkspaceSvg}
-   * @private
-   */
-  this.workspace_ = workspace;
+    /**
+     * The workspace on which the bubble is being dragged.
+     * @type {!Blockly.WorkspaceSvg}
+     * @private
+     */
+    this.workspace_ = workspace;
 
-  /**
-   * Which delete area the mouse pointer is over, if any.
-   * One of {@link Blockly.DELETE_AREA_TRASH},
-   * {@link Blockly.DELETE_AREA_TOOLBOX}, or {@link Blockly.DELETE_AREA_NONE}.
-   * @type {?number}
-   * @private
-   */
-  this.deleteArea_ = null;
+    /**
+     * Which delete area the mouse pointer is over, if any.
+     * One of {@link Blockly.DELETE_AREA_TRASH},
+     * {@link Blockly.DELETE_AREA_TOOLBOX}, or {@link Blockly.DELETE_AREA_NONE}.
+     * @type {?number}
+     * @private
+     */
+    this.deleteArea_ = null;
 
-  /**
-   * Whether the bubble would be deleted if dropped immediately.
-   * @type {boolean}
-   * @private
-   */
-  this.wouldDeleteBubble_ = false;
+    /**
+     * Whether the bubble would be deleted if dropped immediately.
+     * @type {boolean}
+     * @private
+     */
+    this.wouldDeleteBubble_ = false;
 
-  /**
-   * The location of the top left corner of the dragging bubble's body at the
-   * beginning of the drag, in workspace coordinates.
-   * @type {!goog.math.Coordinate}
-   * @private
-   */
-  this.startXY_ = this.draggingBubble_.getRelativeToSurfaceXY();
+    /**
+     * The location of the top left corner of the dragging bubble's body at the
+     * beginning of the drag, in workspace coordinates.
+     * @type {!goog.math.Coordinate}
+     * @private
+     */
+    this.startXY_ = this.draggingBubble_.getRelativeToSurfaceXY();
 
-  /**
-   * The drag surface to move bubbles to during a drag, or null if none should
-   * be used.  Block dragging and bubble dragging use the same surface.
-   * @type {?Blockly.BlockDragSurfaceSvg}
-   * @private
-   */
-  this.dragSurface_ =
-      Blockly.utils.is3dSupported() && !!workspace.getBlockDragSurface() ?
-      workspace.getBlockDragSurface() : null;
+    /**
+     * The drag surface to move bubbles to during a drag, or null if none should
+     * be used.  Block dragging and bubble dragging use the same surface.
+     * @type {?Blockly.BlockDragSurfaceSvg}
+     * @private
+     */
+    this.dragSurface_ =
+        Blockly.utils.is3dSupported() && !!workspace.getBlockDragSurface()
+            ? workspace.getBlockDragSurface()
+            : null;
 };
 
 /**
  * Sever all links from this object.
  * @package
  */
-Blockly.BubbleDragger.prototype.dispose = function() {
-  this.draggingBubble_ = null;
-  this.workspace_ = null;
-  this.dragSurface_ = null;
+Blockly.BubbleDragger.prototype.dispose = function () {
+    this.draggingBubble_ = null;
+    this.workspace_ = null;
+    this.dragSurface_ = null;
 };
 
 /**
  * Start dragging a bubble.  This includes moving it to the drag surface.
  * @package
  */
-Blockly.BubbleDragger.prototype.startBubbleDrag = function() {
-  if (!Blockly.Events.getGroup()) {
-    Blockly.Events.setGroup(true);
-  }
+Blockly.BubbleDragger.prototype.startBubbleDrag = function () {
+    if (!Blockly.Events.getGroup()) {
+        Blockly.Events.setGroup(true);
+    }
 
-  this.workspace_.setResizesEnabled(false);
-  this.draggingBubble_.setAutoLayout(false);
-  if (this.dragSurface_) {
-    this.moveToDragSurface_();
-  }
+    this.workspace_.setResizesEnabled(false);
+    this.draggingBubble_.setAutoLayout(false);
+    if (this.dragSurface_) {
+        this.moveToDragSurface_();
+    }
 
-  this.draggingBubble_.setDragging && this.draggingBubble_.setDragging(true);
+    this.draggingBubble_.setDragging && this.draggingBubble_.setDragging(true);
 
-  var toolbox = this.workspace_.getToolbox();
-  if (toolbox) {
-    var style = this.draggingBubble_.isDeletable() ? 'blocklyToolboxDelete' :
-        'blocklyToolboxGrab';
-    toolbox.addStyle(style);
-  }
+    var toolbox = this.workspace_.getToolbox();
+    if (toolbox) {
+        var style = this.draggingBubble_.isDeletable()
+            ? "blocklyToolboxDelete"
+            : "blocklyToolboxGrab";
+        toolbox.addStyle(style);
+    }
 };
 
 /**
@@ -136,16 +137,16 @@ Blockly.BubbleDragger.prototype.startBubbleDrag = function() {
  *     moved from the position at the start of the drag, in pixel units.
  * @package
  */
-Blockly.BubbleDragger.prototype.dragBubble = function(e, currentDragDeltaXY) {
-  var delta = this.pixelsToWorkspaceUnits_(currentDragDeltaXY);
-  var newLoc = goog.math.Coordinate.sum(this.startXY_, delta);
+Blockly.BubbleDragger.prototype.dragBubble = function (e, currentDragDeltaXY) {
+    var delta = this.pixelsToWorkspaceUnits_(currentDragDeltaXY);
+    var newLoc = goog.math.Coordinate.sum(this.startXY_, delta);
 
-  this.draggingBubble_.moveDuringDrag(this.dragSurface_, newLoc);
+    this.draggingBubble_.moveDuringDrag(this.dragSurface_, newLoc);
 
-  if (this.draggingBubble_.isDeletable()) {
-    this.deleteArea_ =  this.workspace_.isDeleteArea(e);
-    this.updateCursorDuringBubbleDrag_();
-  }
+    if (this.draggingBubble_.isDeletable()) {
+        this.deleteArea_ = this.workspace_.isDeleteArea(e);
+        this.updateCursorDuringBubbleDrag_();
+    }
 };
 
 /**
@@ -154,21 +155,21 @@ Blockly.BubbleDragger.prototype.dragBubble = function(e, currentDragDeltaXY) {
  * @return {boolean} whether the bubble was deleted.
  * @private
  */
-Blockly.BubbleDragger.prototype.maybeDeleteBubble_ = function() {
-  var trashcan = this.workspace_.trashcan;
+Blockly.BubbleDragger.prototype.maybeDeleteBubble_ = function () {
+    var trashcan = this.workspace_.trashcan;
 
-  if (this.wouldDeleteBubble_) {
-    if (trashcan) {
-      setTimeout(trashcan.close.bind(trashcan), 100);
+    if (this.wouldDeleteBubble_) {
+        if (trashcan) {
+            setTimeout(trashcan.close.bind(trashcan), 100);
+        }
+        // Fire a move event, so we know where to go back to for an undo.
+        this.fireMoveEvent_();
+        this.draggingBubble_.dispose(false, true);
+    } else if (trashcan) {
+        // Make sure the trash can is closed.
+        trashcan.close();
     }
-    // Fire a move event, so we know where to go back to for an undo.
-    this.fireMoveEvent_();
-    this.draggingBubble_.dispose(false, true);
-  } else if (trashcan) {
-    // Make sure the trash can is closed.
-    trashcan.close();
-  }
-  return this.wouldDeleteBubble_;
+    return this.wouldDeleteBubble_;
 };
 
 /**
@@ -176,20 +177,20 @@ Blockly.BubbleDragger.prototype.maybeDeleteBubble_ = function() {
  * dragging bubble would be deleted if released immediately.
  * @private
  */
-Blockly.BubbleDragger.prototype.updateCursorDuringBubbleDrag_ = function() {
-  this.wouldDeleteBubble_ = this.deleteArea_ != Blockly.DELETE_AREA_NONE;
-  var trashcan = this.workspace_.trashcan;
-  if (this.wouldDeleteBubble_) {
-    this.draggingBubble_.setDeleteStyle(true);
-    if (this.deleteArea_ == Blockly.DELETE_AREA_TRASH && trashcan) {
-      trashcan.setOpen_(true);
+Blockly.BubbleDragger.prototype.updateCursorDuringBubbleDrag_ = function () {
+    this.wouldDeleteBubble_ = this.deleteArea_ != Blockly.DELETE_AREA_NONE;
+    var trashcan = this.workspace_.trashcan;
+    if (this.wouldDeleteBubble_) {
+        this.draggingBubble_.setDeleteStyle(true);
+        if (this.deleteArea_ == Blockly.DELETE_AREA_TRASH && trashcan) {
+            trashcan.setOpen_(true);
+        }
+    } else {
+        this.draggingBubble_.setDeleteStyle(false);
+        if (trashcan) {
+            trashcan.setOpen_(false);
+        }
     }
-  } else {
-    this.draggingBubble_.setDeleteStyle(false);
-    if (trashcan) {
-      trashcan.setOpen_(false);
-    }
-  }
 };
 
 /**
@@ -199,53 +200,57 @@ Blockly.BubbleDragger.prototype.updateCursorDuringBubbleDrag_ = function() {
  *     moved from the position at the start of the drag, in pixel units.
  * @package
  */
-Blockly.BubbleDragger.prototype.endBubbleDrag = function(
-    e, currentDragDeltaXY) {
-  // Make sure internal state is fresh.
-  this.dragBubble(e, currentDragDeltaXY);
+Blockly.BubbleDragger.prototype.endBubbleDrag = function (
+    e,
+    currentDragDeltaXY
+) {
+    // Make sure internal state is fresh.
+    this.dragBubble(e, currentDragDeltaXY);
 
-  var delta = this.pixelsToWorkspaceUnits_(currentDragDeltaXY);
-  var newLoc = goog.math.Coordinate.sum(this.startXY_, delta);
+    var delta = this.pixelsToWorkspaceUnits_(currentDragDeltaXY);
+    var newLoc = goog.math.Coordinate.sum(this.startXY_, delta);
 
-  // Move the bubble to its final location.
-  this.draggingBubble_.moveTo(newLoc.x, newLoc.y);
-  var deleted = this.maybeDeleteBubble_();
+    // Move the bubble to its final location.
+    this.draggingBubble_.moveTo(newLoc.x, newLoc.y);
+    var deleted = this.maybeDeleteBubble_();
 
-  if (!deleted) {
-    // Put everything back onto the bubble canvas.
-    if (this.dragSurface_) {
-      this.dragSurface_.clearAndHide(this.workspace_.getBubbleCanvas());
+    if (!deleted) {
+        // Put everything back onto the bubble canvas.
+        if (this.dragSurface_) {
+            this.dragSurface_.clearAndHide(this.workspace_.getBubbleCanvas());
+        }
+
+        this.draggingBubble_.setDragging &&
+            this.draggingBubble_.setDragging(false);
+        this.fireMoveEvent_();
     }
+    this.workspace_.setResizesEnabled(true);
 
-    this.draggingBubble_.setDragging && this.draggingBubble_.setDragging(false);
-    this.fireMoveEvent_();
-  }
-  this.workspace_.setResizesEnabled(true);
-
-  if (this.workspace_.toolbox_) {
-    var style = this.draggingBubble_.isDeletable() ? 'blocklyToolboxDelete' :
-        'blocklyToolboxGrab';
-    this.workspace_.toolbox_.removeStyle(style);
-  }
-  Blockly.Events.setGroup(false);
+    if (this.workspace_.toolbox_) {
+        var style = this.draggingBubble_.isDeletable()
+            ? "blocklyToolboxDelete"
+            : "blocklyToolboxGrab";
+        this.workspace_.toolbox_.removeStyle(style);
+    }
+    Blockly.Events.setGroup(false);
 };
 
 /**
  * Fire a move event at the end of a bubble drag.
  * @private
  */
-Blockly.BubbleDragger.prototype.fireMoveEvent_ = function() {
-  var event = null;
-  if (this.draggingBubble_.isComment) {
-    event = new Blockly.Events.CommentMove(this.draggingBubble_);
-  } else if (this.draggingBubble_ instanceof Blockly.ScratchBubble) {
-    event = new Blockly.Events.CommentMove(this.draggingBubble_.comment);
-  } else {
-    return;
-  }
-  event.setOldCoordinate(this.startXY_);
-  event.recordNew();
-  Blockly.Events.fire(event);
+Blockly.BubbleDragger.prototype.fireMoveEvent_ = function () {
+    var event = null;
+    if (this.draggingBubble_.isComment) {
+        event = new Blockly.Events.CommentMove(this.draggingBubble_);
+    } else if (this.draggingBubble_ instanceof Blockly.ScratchBubble) {
+        event = new Blockly.Events.CommentMove(this.draggingBubble_.comment);
+    } else {
+        return;
+    }
+    event.setOldCoordinate(this.startXY_);
+    event.recordNew();
+    Blockly.Events.fire(event);
 };
 
 /**
@@ -259,27 +264,31 @@ Blockly.BubbleDragger.prototype.fireMoveEvent_ = function() {
  *     scale.
  * @private
  */
-Blockly.BubbleDragger.prototype.pixelsToWorkspaceUnits_ = function(pixelCoord) {
-  var result = new goog.math.Coordinate(pixelCoord.x / this.workspace_.scale,
-      pixelCoord.y / this.workspace_.scale);
-  if (this.workspace_.isMutator) {
-    // If we're in a mutator, its scale is always 1, purely because of some
-    // oddities in our rendering optimizations.  The actual scale is the same as
-    // the scale on the parent workspace.
-    // Fix that for dragging.
-    var mainScale = this.workspace_.options.parentWorkspace.scale;
-    result = result.scale(1 / mainScale);
-  }
-  return result;
+Blockly.BubbleDragger.prototype.pixelsToWorkspaceUnits_ = function (
+    pixelCoord
+) {
+    var result = new goog.math.Coordinate(
+        pixelCoord.x / this.workspace_.scale,
+        pixelCoord.y / this.workspace_.scale
+    );
+    if (this.workspace_.isMutator) {
+        // If we're in a mutator, its scale is always 1, purely because of some
+        // oddities in our rendering optimizations.  The actual scale is the same as
+        // the scale on the parent workspace.
+        // Fix that for dragging.
+        var mainScale = this.workspace_.options.parentWorkspace.scale;
+        result = result.scale(1 / mainScale);
+    }
+    return result;
 };
 /**
  * Move the bubble onto the drag surface at the beginning of a drag.  Move the
  * drag surface to preserve the apparent location of the bubble.
  * @private
  */
-Blockly.BubbleDragger.prototype.moveToDragSurface_ = function() {
-  this.draggingBubble_.moveTo(0, 0);
-  this.dragSurface_.translateSurface(this.startXY_.x, this.startXY_.y);
-  // Execute the move on the top-level SVG component.
-  this.dragSurface_.setBlocksAndShow(this.draggingBubble_.getSvgRoot());
+Blockly.BubbleDragger.prototype.moveToDragSurface_ = function () {
+    this.draggingBubble_.moveTo(0, 0);
+    this.dragSurface_.translateSurface(this.startXY_.x, this.startXY_.y);
+    // Execute the move on the top-level SVG component.
+    this.dragSurface_.setBlocksAndShow(this.draggingBubble_.getSvgRoot());
 };

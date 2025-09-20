@@ -22,14 +22,13 @@
  * @fileoverview Components for the variable model.
  * @author marisaleung@google.com (Marisa Leung)
  */
-'use strict';
+"use strict";
 
-goog.provide('Blockly.VariableModel');
+goog.provide("Blockly.VariableModel");
 
-goog.require('Blockly.Events.VarCreate');
+goog.require("Blockly.Events.VarCreate");
 
-goog.require('goog.string');
-
+goog.require("goog.string");
 
 /**
  * Class for a variable model.
@@ -47,60 +46,66 @@ goog.require('goog.string');
  * @see {Blockly.FieldVariable}
  * @constructor
  */
-Blockly.VariableModel = function(workspace, name, opt_type, opt_id,
-    opt_isLocal, opt_isCloud) {
-  /**
-   * The workspace the variable is in.
-   * @type {!Blockly.Workspace}
-   */
-  this.workspace = workspace;
+Blockly.VariableModel = function (
+    workspace,
+    name,
+    opt_type,
+    opt_id,
+    opt_isLocal,
+    opt_isCloud
+) {
+    /**
+     * The workspace the variable is in.
+     * @type {!Blockly.Workspace}
+     */
+    this.workspace = workspace;
 
-  /**
-   * The name of the variable, typically defined by the user. It must be
-   * unique across all names used for procedures and variables. It may be
-   * changed by the user.
-   * @type {string}
-   */
-  this.name = name;
+    /**
+     * The name of the variable, typically defined by the user. It must be
+     * unique across all names used for procedures and variables. It may be
+     * changed by the user.
+     * @type {string}
+     */
+    this.name = name;
 
-  /**
-   * The type of the variable, such as 'int' or 'sound_effect'. This may be
-   * used to build a list of variables of a specific type. By default this is
-   * the empty string '', which is a specific type.
-   * @see {Blockly.FieldVariable}
-   * @type {string}
-   */
-  this.type = opt_type || '';
+    /**
+     * The type of the variable, such as 'int' or 'sound_effect'. This may be
+     * used to build a list of variables of a specific type. By default this is
+     * the empty string '', which is a specific type.
+     * @see {Blockly.FieldVariable}
+     * @type {string}
+     */
+    this.type = opt_type || "";
 
-  /**
-   * A unique id for the variable. This should be defined at creation and
-   * not change, even if the name changes. In most cases this should be a
-   * UUID.
-   * @type {string}
-   * @private
-   */
-  this.id_ = opt_id || Blockly.utils.genUid();
+    /**
+     * A unique id for the variable. This should be defined at creation and
+     * not change, even if the name changes. In most cases this should be a
+     * UUID.
+     * @type {string}
+     * @private
+     */
+    this.id_ = opt_id || Blockly.utils.genUid();
 
-  /**
-   * Whether this variable is locally scoped.
-   * @package
-   */
-  this.isLocal = opt_isLocal || false;
+    /**
+     * Whether this variable is locally scoped.
+     * @package
+     */
+    this.isLocal = opt_isLocal || false;
 
-  /**
-   * Whether the variable is a cloud variable.
-   * @package
-   */
-  this.isCloud = opt_isCloud || false;
+    /**
+     * Whether the variable is a cloud variable.
+     * @package
+     */
+    this.isCloud = opt_isCloud || false;
 
-  Blockly.Events.fire(new Blockly.Events.VarCreate(this));
+    Blockly.Events.fire(new Blockly.Events.VarCreate(this));
 };
 
 /**
  * @return {!string} The ID for the variable.
  */
-Blockly.VariableModel.prototype.getId = function() {
-  return this.id_;
+Blockly.VariableModel.prototype.getId = function () {
+    return this.id_;
 };
 
 /**
@@ -111,6 +116,6 @@ Blockly.VariableModel.prototype.getId = function() {
  *     and 1 if greater.
  * @package
  */
-Blockly.VariableModel.compareByName = function(var1, var2) {
-  return Blockly.scratchBlocksUtils.compareStrings(var1.name, var2.name);
+Blockly.VariableModel.compareByName = function (var1, var2) {
+    return Blockly.scratchBlocksUtils.compareStrings(var1.name, var2.name);
 };
