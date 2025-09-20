@@ -122,13 +122,18 @@ const AccentThemeMenu = ({ isOpen, isRtl, onChangeTheme, onOpen, theme }) => (
     <MenuItem expanded={isOpen}>
         <div className={styles.option} onClick={onOpen}>
             <ColorIcon id={theme.accent} />
-            <span className={styles.submenuLabel}>
-                <FormattedMessage
-                    defaultMessage="Accent"
-                    description="Label for menu to choose accent color (eg. TurboWarp's red, Scratch's purple)"
-                    id="tw.menuBar.accent"
-                />
-            </span>
+            <div className={styles.menuItemTitleAndSubtitle}>
+                <span className={styles.submenuLabel}>
+                    <FormattedMessage
+                        defaultMessage="Accent"
+                        description="Label for menu to choose accent color (eg. TurboWarp's red, Scratch's purple)"
+                        id="tw.menuBar.accent"
+                    />
+                </span>
+                <span className={styles.menuItemSubtitle}>
+                    <FormattedMessage {...options[theme.accent]} />
+                </span>
+            </div>
             <img
                 className={styles.expandCaret}
                 src={dropdownCaret}

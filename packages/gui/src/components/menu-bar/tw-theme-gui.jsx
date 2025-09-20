@@ -85,13 +85,18 @@ const GuiThemeMenu = ({ isOpen, isRtl, onChangeTheme, onOpen, theme }) => (
     <MenuItem expanded={isOpen}>
         <div className={styles.option}>
             <GuiIcon id={theme.gui} />
-            <span className={styles.submenuLabel}>
-                <FormattedMessage
-                    defaultMessage="Theme"
-                    description="Label for menu to choose GUI theme (light, dark, AMOLED)"
-                    id="tw.menuBar.guiTheme"
-                />
-            </span>
+            <div className={styles.menuItemTitleAndSubtitle}>
+                <span className={styles.submenuLabel}>
+                    <FormattedMessage
+                        defaultMessage="Theme"
+                        description="Label for menu to choose GUI theme (light, dark, AMOLED)"
+                        id="amp.menuBar.guiTheme"
+                    />
+                </span>
+                <span className={styles.menuItemSubtitle}>
+                    <FormattedMessage {...options[theme.gui]} />
+                </span>
+            </div>
             <img
                 className={styles.expandCaret}
                 src={dropdownCaret}
