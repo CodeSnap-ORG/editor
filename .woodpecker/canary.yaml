@@ -28,7 +28,7 @@
 steps:
   - name: clone-pages
     when:
-      - event: [ push, manual ]
+        event: [ push, manual ]
         branch: develop
     environment:
       # secrets must be set in Woodpecker configuration
@@ -47,7 +47,7 @@ steps:
       - chmod -R a+w amp-build
   - name: install
     when:
-      - event: [ push, manual ]
+        event: [ push, manual ]
         branch: develop
     image: node:20-trixie-slim
     commands:
@@ -55,7 +55,7 @@ steps:
       - npm ci
   - name: build-monorepo
     when:
-      - event: [ push, manual ]
+        event: [ push, manual ]
         branch: develop
     image: node:20-trixie-slim
     commands:
@@ -65,7 +65,7 @@ steps:
       # - cp domains build/.domains
   - name: push
     when:
-      - event: [ push, manual ]
+        event: [ push, manual ]
         branch: develop
     image: alpine/git
     environment:
