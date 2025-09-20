@@ -40,7 +40,7 @@ const manifest = {
       "default": false
     }
   ],
-  "enabledByDefault": true,
+  "enabledByDefault": false,
   "dynamicDisable": true
 };
 export default manifest;
