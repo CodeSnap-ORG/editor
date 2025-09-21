@@ -1290,6 +1290,10 @@ class ScriptTreeGenerator {
                     StackOpcode.CONTORL_INCR_COUNTER
                 );
 
+            // amp: arrays are not in tw
+            case "arrays_empty_array":
+                return this.createConstantInput([]);
+
             case "data_addtolist":
                 return new IntermediateStackBlock(StackOpcode.LIST_ADD, {
                     list: this.descendVariable(block, "LIST", LIST_TYPE),
