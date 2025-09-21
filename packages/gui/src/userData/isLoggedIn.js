@@ -1,0 +1,1 @@
+export default localStorage.getItem('sessionToken') ? true : false;
