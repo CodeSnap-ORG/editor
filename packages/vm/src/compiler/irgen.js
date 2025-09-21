@@ -812,7 +812,7 @@ class ScriptTreeGenerator {
                     }
                 );
 
-            case "operator_newline":
+            case "operator_newline": // amp: not in tw
                 return this.createConstantInput("\n", true);
 
             case "procedures_call": {
