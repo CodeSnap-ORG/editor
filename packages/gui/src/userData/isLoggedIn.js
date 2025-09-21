@@ -1,1 +1,1 @@
-export default localStorage.getItem('sessionToken') ? true : false;
+export default await fetch(`https://ampmod-api.onrender.com/session`, { body: { apiToken: localStorage.getItem('sessionToken') } }).json().includes("username") ? true : false;
