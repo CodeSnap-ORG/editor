@@ -3,6 +3,8 @@
 This is mostly a basic summary; please see the [dev docs](https://ampmod.codeberg.page/manual/dev)
 for more information on developing AmpMod packages.
 
+*Temporary note: Contributions to the compiler are banned until the new compiler is merged.*
+
 ## I don't know JavaScript! / I don't want to create a Codeberg account!
 
 If you don't want to use this repository but still found a bug or want to add a feature, we recommend
