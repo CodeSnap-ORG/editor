@@ -129,7 +129,7 @@ class Scratch3ProcedureBlocks {
             ) {
                 return true;
             }
-            if (lowercaseValue === "is turbowarp?") {
+            if (/is (ampmod|ultiblocks|turbowarp)\?/.test(lowercaseValue)) {
                 return true;
             }
             // When the parameter is not found in the most recent procedure

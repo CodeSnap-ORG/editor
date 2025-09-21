@@ -300,7 +300,10 @@ class ScriptTreeGenerator {
                 if (index === -1) {
                     if (
                         name.toLowerCase() === "is compiled?" ||
-                        name.toLowerCase() === "is turbowarp?"
+                        // amp: "is UltiBlocks?" is for compatibility with projects before the rename.
+                        /is (ampmod|ultiblocks|turbowarp)\?/.test(
+                            name.toLowerCase()
+                        )
                     ) {
                         return this.createConstantInput(true).toType(
                             InputType.BOOLEAN
