@@ -2,6 +2,9 @@
 // This can be accessed externally on `vm.runtime.platform`
 
 module.exports = {
-    name: "TurboWarp",
-    url: "https://turbowarp.org/",
+    name: "AmpMod",
+    url: "https://ampmod.codeberg.page/",
+    // amp: added extra information about platform
+    version: process.env.ampmod_version,
+    contact: "https://ampmod.flarum.cloud",
 };
