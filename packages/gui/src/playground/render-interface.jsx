@@ -52,7 +52,7 @@ import Clippy from "../containers/amp-clippy.jsx";
 import Footer from "../components/amp-footer/footer.jsx";
 import styles from "./interface.css";
 
-const isInvalidEmbed = window.parent !== window;
+const isInvalidEmbed = false;
 
 const handleClickAddonSettings = (addonId) => {
     // addonId might be a string of the addon to focus on, undefined, or an event (treat like undefined)
