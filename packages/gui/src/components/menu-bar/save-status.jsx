@@ -12,7 +12,6 @@ import { filterInlineAlerts } from "../../reducers/alerts";
 import styles from "./save-status.css";
 
 
-const isOwner = fetch('https://ampmod-api.onrender.com/session' { body: { apiToken: localStorage.getItem('sessionToken') } }).json()?.username == fetch(`https://ampmod-api.onrender.com/projects/${window.location.hash.substring(1)}`)?.author?.username
 // Wrapper for inline messages in the nav bar, which are all related to saving.
 // Show any inline messages if present, else show the "Save Now" button if the
 // project has changed.
