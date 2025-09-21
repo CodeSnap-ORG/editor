@@ -1,0 +1,1 @@
+export default isOwner = fetch('https://ampmod-api.onrender.com/session' { body: { apiToken: localStorage.getItem('sessionToken') } }).json()?.username == fetch(`https://ampmod-api.onrender.com/projects/${window.location.hash.substring(1)}`)?.author?.username;
