@@ -6,7 +6,7 @@ export class AmpMod {
     }
 
     ampmodWebLoggedIn() {
-        return false;
+        return localStorage.getItem('sessionToken') ? true : false;
     }
 }
 
