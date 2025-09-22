@@ -7,3 +7,6 @@ npm-*
 
 # Testing
 coverage
+
+# Hooks
+.husky/_
