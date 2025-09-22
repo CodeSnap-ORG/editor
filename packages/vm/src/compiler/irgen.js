@@ -444,6 +444,21 @@ class ScriptTreeGenerator {
                         ),
                     }
                 );
+
+            case "operator_exponent":
+                return new IntermediateInput(
+                    InputOpcode.OP_EXPO,
+                    InputType.NUMBER_OR_NAN,
+                    {
+                        left: this.descendInputOfBlock(block, "NUM1").toType(
+                            InputType.NUMBER
+                        ),
+                        right: this.descendInputOfBlock(block, "NUM2").toType(
+                            InputType.NUMBER
+                        ),
+                    }
+                );
+
             case "operator_and":
                 return new IntermediateInput(
                     InputOpcode.OP_AND,

@@ -255,6 +255,87 @@ class IROptimizer {
                 return resultType;
             }
 
+            case InputOpcode.OP_EXPO: {
+                const leftType = inputs.left.type; // base
+                const rightType = inputs.right.type; // exponent
+
+                let resultType = 0;
+
+                const canBeNaN = () => {
+                    // 0 ** 0 = NaN
+                    if (
+                        leftType & InputType.NUMBER_ZERO &&
+                        rightType & InputType.NUMBER_ZERO
+                    )
+                        return true;
+                    // Negative base with fractional exponent = NaN
+                    if (
+                        leftType & InputType.NUMBER_NEG &&
+                        rightType & InputType.NUMBER_FRACT
+                    )
+                        return true;
+                    // Infinity ** 0 = NaN
+                    if (
+                        (leftType & InputType.NUMBER_POS_INF ||
+                            leftType & InputType.NUMBER_NEG_INF) &&
+                        rightType & InputType.NUMBER_ZERO
+                    )
+                        return true;
+                };
+                if (canBeNaN()) resultType |= InputType.NUMBER_NAN;
+
+                const canBeZero = () => {
+                    // 0 ** positive = 0
+                    if (
+                        leftType & InputType.NUMBER_ZERO &&
+                        rightType & InputType.NUMBER_POS
+                    )
+                        return true;
+                };
+                if (canBeZero()) resultType |= InputType.NUMBER_ZERO;
+
+                const canBeFractional = () => {
+                    // Fractional base or fractional exponent can yield fractional result
+                    if (leftType & InputType.NUMBER_FRACT) return true;
+                    if (rightType & InputType.NUMBER_FRACT) return true;
+                };
+                const canBeFract = canBeFractional();
+
+                const canBePos = () => {
+                    // Positive base to any exponent is positive
+                    if (leftType & InputType.NUMBER_POS_REAL) return true;
+                    // Negative base to even integer exponent is positive
+                    if (
+                        leftType & InputType.NUMBER_NEG &&
+                        rightType & InputType.NUMBER_POS_INT
+                    )
+                        return true;
+                };
+                if (canBePos()) {
+                    resultType |=
+                        InputType.NUMBER_POS_INT | InputType.NUMBER_POS_INF;
+                    if (canBeFract) resultType |= InputType.NUMBER_POS_FRACT;
+                }
+
+                const canBeInf = () => {
+                    // Positive base > 1 raised to positive infinity = positive infinity
+                    if (
+                        leftType & InputType.NUMBER_POS_REAL &&
+                        rightType & InputType.NUMBER_POS_INF
+                    )
+                        return true;
+                    // 0 raised to negative exponent = positive infinity
+                    if (
+                        leftType & InputType.NUMBER_ZERO &&
+                        rightType & InputType.NUMBER_NEG
+                    )
+                        return true;
+                };
+                if (canBeInf()) resultType |= InputType.NUMBER_POS_INF;
+
+                return resultType;
+            }
+
             case InputOpcode.OP_SUBTRACT: {
                 const leftType = inputs.left.type;
                 const rightType = inputs.right.type;

@@ -312,6 +312,8 @@ class JSGenerator {
                 return `((Math.acos(${this.descendInput(node.value)}) * 180) / Math.PI)`;
             case InputOpcode.OP_ADD:
                 return `(${this.descendInput(node.left)} + ${this.descendInput(node.right)})`;
+            case InputOpcode.OP_EXPO:
+                return `Math.pow(${this.descendInput(node.left)}, ${this.descendInput(node.right)})`;
             case InputOpcode.OP_AND:
                 return `(${this.descendInput(node.left)} && ${this.descendInput(node.right)})`;
             case InputOpcode.OP_ASIN:

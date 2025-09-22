@@ -222,6 +222,7 @@ const InputOpcode = {
     MOTION_DIRECTION_GET: "motion.direction",
 
     OP_ADD: "op.add",
+    OP_EXPO: "op.exponent",
     OP_AND: "op.and",
     OP_CONTAINS: "op.contains",
     OP_DIVIDE: "op.divide",
