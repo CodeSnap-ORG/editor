@@ -374,6 +374,10 @@ class ScriptTreeGenerator {
                     }
                 );
 
+            // amp: arrays are not in tw
+            case "arrays_empty_array":
+                return this.createConstantInput([]);
+
             case "event_broadcast_menu": {
                 const broadcastOption = block.fields.BROADCAST_OPTION;
                 const broadcastVariable = this.target.lookupBroadcastMsg(
@@ -1304,10 +1308,6 @@ class ScriptTreeGenerator {
                 return new IntermediateStackBlock(
                     StackOpcode.CONTORL_INCR_COUNTER
                 );
-
-            // amp: arrays are not in tw
-            case "arrays_empty_array":
-                return this.createConstantInput([]);
 
             case "data_addtolist":
                 return new IntermediateStackBlock(StackOpcode.LIST_ADD, {
