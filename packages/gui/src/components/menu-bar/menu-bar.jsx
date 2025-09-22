@@ -118,7 +118,7 @@ import isScratchDesktop, {
 } from "../../lib/isScratchDesktop.js";
 import { APP_NAME } from "../../lib/brand.js";
 
-import ampmodIcon from "./ampmod.svg";
+import ampmodIcon from "./tw-advanced.svg";
 import ampmodCanaryIcon from "./ampmod-canary.svg";
 import lampmodIcon from "./lampmod.svg";
 
@@ -192,7 +192,7 @@ const AboutButton = props => (
         className={classNames(styles.menuBarItem, styles.hoverable)}
         iconClassName={styles.aboutIcon}
         iconSrc={ampmodIcon}
-        height={32}
+        height={28}
         onClick={props.onClick}
     />
 );
@@ -583,7 +583,7 @@ class MenuBar extends React.Component {
                                               : ampmodIcon
                                     }
                                     draggable={false}
-                                    height={32}
+                                    height={28}
                                     alt="AmpMod"
                                 />
                             </a>
@@ -1138,7 +1138,7 @@ class MenuBar extends React.Component {
                                 {/* todo: icon */}
                                 <Button className={styles.feedbackButton}>
                                     <FormattedMessage
-                                        defaultMessage="AmpMod Forums"
+                                        defaultMessage="{APP_NAME} Forums"
                                         description="Button to give feedback in the menu bar"
                                         id="tw.topicButton"
                                         values={{

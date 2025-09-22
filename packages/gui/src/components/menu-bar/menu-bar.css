@@ -8,7 +8,7 @@
     flex-direction: row;
     justify-content: space-between;
     flex-wrap: nowrap;
-    gap: 0.5rem;
+    gap: 0.3rem;
 
     /*
         For most things, we shouldn't explicitly set height, and let the
@@ -96,7 +96,7 @@
 }
 
 .file-group .menu-bar-item {
-    padding: 0 0.75rem;
+    padding: 0 0.6rem;
 }
 
 .menu-bar-menu {
