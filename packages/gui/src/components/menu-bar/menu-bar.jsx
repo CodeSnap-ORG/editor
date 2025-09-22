@@ -38,6 +38,7 @@ import FramerateChanger from "../../containers/tw-framerate-changer.jsx";
 import ChangeUsername from "../../containers/tw-change-username.jsx";
 import CloudVariablesToggler from "../../containers/tw-cloud-toggler.jsx";
 import TWSaveStatus from "./tw-save-status.jsx";
+import TWNews from "./tw-news.jsx";
 
 import {
     openTipsLibrary,
@@ -498,7 +499,7 @@ class MenuBar extends React.Component {
         const isAprilFools = today.getMonth() === 3 && today.getDate() === 1;
         // Show the About button only if we have a handler for it (like in the desktop app)
         const aboutButton = this.buildAboutMenu(this.props.onClickAbout);
-        return (
+        const menuBar = (
             <Box className={classNames(this.props.className, styles.menuBar)}>
                 <div className={styles.mainMenu}>
                     <div className={styles.fileGroup}>
@@ -1150,6 +1151,14 @@ class MenuBar extends React.Component {
                     )}
                 </div>
             </Box>
+        );
+
+        return (
+            <React.Fragment>
+                {menuBar}
+
+                <TWNews />
+            </React.Fragment>
         );
     }
 }
