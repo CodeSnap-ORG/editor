@@ -1607,7 +1607,12 @@ const checkPlatformCompatibility = (json, runtime) => {
     }
 
     const projectPlatform = json.meta.platform.name;
-    if (projectPlatform === runtime.platform.name) {
+    if (
+        projectPlatform === runtime.platform.name ||
+        projectPlatform === "TurboWarp" ||
+        // amp: for forks
+        projectPlatform === "AmpMod"
+    ) {
         return;
     }
 
