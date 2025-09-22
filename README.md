@@ -45,9 +45,3 @@ The licence for each package is in their respective folders.
 Any files outside of `packages` and `.woodpecker` are under the 0BSD licence.
 
 The `.woodpecker` folder is under the GPL v3.
-
-## Wait, is that Banana Dog?
-
-> I am going to take over AmpMod!!!! - Banana Dog
-
-> We must stop him! - Apple Cat
