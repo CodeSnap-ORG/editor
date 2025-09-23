@@ -42,6 +42,7 @@ const inputs = [
     "sensing_loudness",
     "sensing_userid",
     "sound_volume",
+    "control_ternary", // amp: We would make this compile normally but attempts to add it to the compiler failed.
 ];
 
 module.exports = {

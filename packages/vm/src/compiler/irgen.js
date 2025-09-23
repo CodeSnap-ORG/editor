@@ -252,6 +252,12 @@ class ScriptTreeGenerator {
         }
 
         switch (block.opcode) {
+            case "boolean":
+                // amp: Mistake during early development; do nothing.
+                return new IntermediateInput(
+                    InputOpcode.NOP,
+                    InputType.BOOLEAN
+                );
             case "colour_picker":
                 return this.createConstantInput(
                     block.fields.COLOUR.value,
@@ -1077,20 +1083,6 @@ class ScriptTreeGenerator {
                 return new IntermediateInput(
                     InputOpcode.CONTROL_COUNTER,
                     InputType.NUMBER_POS_INT | InputType.NUMBER_ZERO
-                );
-
-            case "control_ternary":
-                return new IntermediateInput(
-                    InputOpcode.CONTROL_TERNARY,
-                    InputType.ANY,
-                    {
-                        condition: this.descendInputOfBlock(
-                            block,
-                            "CONDITION"
-                        ).toType(InputType.BOOLEAN),
-                        left: this.descendInputOfBlock(block, "LEFT"),
-                        right: this.descendInputOfBlock(block, "RIGHT"),
-                    }
                 );
 
             case "tw_getLastKeyPressed":

@@ -461,9 +461,6 @@ const control = function (isInitialSetup, isStage, targetId, colors) {
         <block type="control_if"/>
         <block type="control_if_else"/>
         <block type="control_ternary">
-            <value name="CONDITION">
-                <shadow type="boolean"/>
-            </value>
             <value name="LEFT">
                 <shadow type="text"/>
             </value>
