@@ -9,7 +9,7 @@ import { closeSettingsMenu } from "../../reducers/menus.js";
 import { setTheme } from "../../reducers/theme.js";
 import { persistTheme } from "../../lib/themes/themePersistance.js";
 import styles from "./settings-menu.css";
-import appleIcon from "./tw-advanced.svg";
+import { notScratchDesktop } from "../../lib/isScratchDesktop.js";
 
 let showPwaButton = false;
 let deferredPrompt;
@@ -24,7 +24,7 @@ const handleClickPwaInstall = addonId => {
 };
 
 const GuiThemeMenu = () => {
-    if (showPwaButton) {
+    if (showPwaButton && notScratchDesktop) {
         return (
             <MenuItem>
                 <div
@@ -32,15 +32,9 @@ const GuiThemeMenu = () => {
                     // eslint-disable-next-line react/jsx-no-bind
                     onClick={handleClickPwaInstall}
                 >
-                    <img
-                        src={appleIcon}
-                        draggable={false}
-                        width={24}
-                        height={24}
-                    />
                     <span className={styles.submenuLabel}>
                         <FormattedMessage
-                            defaultMessage="Install app"
+                            defaultMessage="Install app (beta)"
                             description="Button to install the AmpMod Progressive Web App."
                             id="amp.installPwa"
                         />
