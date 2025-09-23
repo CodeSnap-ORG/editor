@@ -573,6 +573,9 @@ class JSGenerator {
             case InputOpcode.CONTROL_COUNTER:
                 return "runtime.ext_scratch3_control._counter";
 
+            case InputOpcode.CONTROL_TERNARY:
+                return `(${this.descendInput(node.conditional)} ? ${this.descendInput(node.left)} : ${this.descendInput(node.right)})`;
+
             case InputOpcode.TW_KEY_LAST_PRESSED:
                 return "runtime.ioDevices.keyboard.getLastKeyPressed()";
 

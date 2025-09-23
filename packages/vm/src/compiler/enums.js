@@ -203,6 +203,8 @@ const InputOpcode = {
     COMPATIBILITY_LAYER: "compat",
     OLD_COMPILER_COMPATIBILITY_LAYER: "oldCompiler",
 
+    CONTROL_TERNARY: "control.ternary",
+
     LOOKS_BACKDROP_NUMBER: "looks.backdropNumber",
     LOOKS_BACKDROP_NAME: "looks.backdropName",
     LOOKS_COSTUME_NUMBER: "looks.costumeNumber",
