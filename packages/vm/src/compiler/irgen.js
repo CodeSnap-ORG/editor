@@ -1079,6 +1079,20 @@ class ScriptTreeGenerator {
                     InputType.NUMBER_POS_INT | InputType.NUMBER_ZERO
                 );
 
+            case "control_ternary":
+                return new IntermediateInput(
+                    InputOpcode.CONTROL_TERNARY,
+                    InputType.ANY,
+                    {
+                        condition: this.descendInputOfBlock(
+                            block,
+                            "CONDITION"
+                        ).toType(InputType.BOOLEAN),
+                        left: this.descendInputOfBlock(block, "LEFT"),
+                        right: this.descendInputOfBlock(block, "RIGHT"),
+                    }
+                );
+
             case "tw_getLastKeyPressed":
                 return new IntermediateInput(
                     InputOpcode.TW_KEY_LAST_PRESSED,
