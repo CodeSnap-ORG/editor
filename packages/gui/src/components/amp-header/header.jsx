@@ -40,12 +40,11 @@ const Header = () => {
                         href="/"
                         className={classNames(
                             styles.headerItem,
-                            styles.hoverable,
                             styles.ampmodLogo
                         )}
                     >
                         <img
-                            height="32px"
+                            height="26px"
                             src={
                                 process.env.ampmod_is_canary
                                     ? CanaryLogo
@@ -70,13 +69,13 @@ const Header = () => {
                         Create
                     </a>
                     <a
-                        href="/credits.html"
+                        href="https://ampmod.codeberg.page/manual"
                         className={classNames(
                             styles.headerItem,
                             styles.hoverable
                         )}
                     >
-                        Credits
+                        Manual
                     </a>
                     <a
                         href="https://ampmod.flarum.cloud"
@@ -85,7 +84,16 @@ const Header = () => {
                             styles.hoverable
                         )}
                     >
-                        Discuss
+                        Forums
+                    </a>
+                    <a
+                        href="https://ampmod.miraheze.org"
+                        className={classNames(
+                            styles.headerItem,
+                            styles.hoverable
+                        )}
+                    >
+                        Wiki
                     </a>
                     <a
                         href="https://codeberg.org/AmpMod"
@@ -94,7 +102,16 @@ const Header = () => {
                             styles.hoverable
                         )}
                     >
-                        Contribute
+                        Source code
+                    </a>
+                    <a
+                        href="https://ampmod.codeberg.page/extensions"
+                        className={classNames(
+                            styles.headerItem,
+                            styles.hoverable
+                        )}
+                    >
+                        Extension gallery
                     </a>
                 </div>
             </div>
