@@ -290,6 +290,7 @@ module.exports = [
                 template: "src/playground/simple.ejs",
                 filename: "index.html",
                 title: `${APP_NAME} - Block-based programming, amplified`,
+                description: `${APP_NAME} is a powerful block-based programming language built on Scratch 3.0 and TurboWarp.`,
                 ...htmlWebpackPluginCommon,
             }),
             new HtmlWebpackPlugin({
@@ -304,6 +305,7 @@ module.exports = [
                 template: "src/playground/simple.ejs",
                 filename: IS_CBP_BUILD ? "credits/index.html" : "credits.html",
                 title: `Credits - ${APP_NAME}`,
+                description: `Meet the development team of ${APP_NAME}.`,
                 ...htmlWebpackPluginCommon,
             }),
             new HtmlWebpackPlugin({

@@ -36,7 +36,11 @@ const Header = () => {
             <div className={styles.mainGroup}>
                 <a
                     href="/"
-                    className={classNames(styles.headerItem, styles.hoverable)}
+                    className={classNames(
+                        styles.headerItem,
+                        styles.hoverable,
+                        styles.ampmodLogo
+                    )}
                 >
                     <img
                         height="32px"

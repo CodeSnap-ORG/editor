@@ -223,14 +223,12 @@
     margin: 0 0.25rem;
 }
 
-@media only screen and (max-width: 1124px) {
-    .tutorials-label,
-    .collapsible-label {
+@media only screen and (max-width: 720px) {
+    .header-item:not(.ampmod-logo) {
         display: none;
     }
-
-    .help-icon {
-        margin-right: 0;
+    .ampmod-logo {
+        margin: auto;
     }
 }
 
