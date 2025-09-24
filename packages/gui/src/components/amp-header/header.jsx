@@ -19,6 +19,7 @@ import Button from "../button/button.jsx";
 import styles from "./header.css";
 
 import { APP_NAME } from "../../lib/brand.js";
+import TWNews from "../menu-bar/tw-news.jsx";
 
 function isAprilFools() {
     const now = new Date();
@@ -32,58 +33,73 @@ const Header = () => {
     const showFakeLogo = isAprilFools();
 
     return (
-        <div className={styles.header}>
-            <div className={styles.mainGroup}>
-                <a
-                    href="/"
-                    className={classNames(
-                        styles.headerItem,
-                        styles.hoverable,
-                        styles.ampmodLogo
-                    )}
-                >
-                    <img
-                        height="32px"
-                        src={
-                            process.env.ampmod_is_canary
-                                ? CanaryLogo
-                                : showFakeLogo
-                                  ? FakeLogo
-                                  : Logo
-                        }
-                        alt={
-                            showFakeLogo && !process.env.ampmod_is_canary
-                                ? "LampMod Logo"
-                                : "AmpMod Logo"
-                        }
-                    />
-                </a>
-                <a
-                    href="/editor.html"
-                    className={classNames(styles.headerItem, styles.hoverable)}
-                >
-                    Create
-                </a>
-                <a
-                    href="/credits.html"
-                    className={classNames(styles.headerItem, styles.hoverable)}
-                >
-                    Credits
-                </a>
-                <a
-                    href="https://ampmod.flarum.cloud"
-                    className={classNames(styles.headerItem, styles.hoverable)}
-                >
-                    Discuss
-                </a>
-                <a
-                    href="https://codeberg.org/AmpMod"
-                    className={classNames(styles.headerItem, styles.hoverable)}
-                >
-                    Contribute
-                </a>
+        <React.Fragment>
+            <div className={styles.header}>
+                <div className={styles.mainGroup}>
+                    <a
+                        href="/"
+                        className={classNames(
+                            styles.headerItem,
+                            styles.hoverable,
+                            styles.ampmodLogo
+                        )}
+                    >
+                        <img
+                            height="32px"
+                            src={
+                                process.env.ampmod_is_canary
+                                    ? CanaryLogo
+                                    : showFakeLogo
+                                      ? FakeLogo
+                                      : Logo
+                            }
+                            alt={
+                                showFakeLogo && !process.env.ampmod_is_canary
+                                    ? "LampMod Logo"
+                                    : "AmpMod Logo"
+                            }
+                        />
+                    </a>
+                    <a
+                        href="/editor.html"
+                        className={classNames(
+                            styles.headerItem,
+                            styles.hoverable
+                        )}
+                    >
+                        Create
+                    </a>
+                    <a
+                        href="/credits.html"
+                        className={classNames(
+                            styles.headerItem,
+                            styles.hoverable
+                        )}
+                    >
+                        Credits
+                    </a>
+                    <a
+                        href="https://ampmod.flarum.cloud"
+                        className={classNames(
+                            styles.headerItem,
+                            styles.hoverable
+                        )}
+                    >
+                        Discuss
+                    </a>
+                    <a
+                        href="https://codeberg.org/AmpMod"
+                        className={classNames(
+                            styles.headerItem,
+                            styles.hoverable
+                        )}
+                    >
+                        Contribute
+                    </a>
+                </div>
             </div>
-        </div>
+            <TWNews />
+        </React.Fragment>
     );
 };
 

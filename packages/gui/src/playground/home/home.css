@@ -4,14 +4,6 @@ section {
     text-align: center;
 }
 
-.notification {
-    background-color: $data-primary;
-    color: white;
-    width: 100%;
-    padding: 0.2em;
-    font-weight: bold;
-}
-
 .primary-button {
     background-color: white;
     color: $looks-secondary !important;
