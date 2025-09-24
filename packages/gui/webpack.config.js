@@ -56,10 +56,14 @@ const base = {
         historyApiFallback: {
             rewrites: [
                 { from: /^\/\d+\/?$/, to: "/index.html" },
-                { from: /^\/\d+\/fullscreen\/?$/, to: "/amfullscreen.html" },
-                { from: /^\/\d+\/editor\/?$/, to: "/ameditor.html" },
-                { from: /^\/\d+\/embed\/?$/, to: "/amembed.html" },
-                { from: /^\/addons\/?$/, to: "/amaddons.html" },
+                {
+                    from: /^\/\d+\/fullscreen\/?$/,
+                    to: "/fullscreen/index.html",
+                },
+                { from: /^\/\d+\/editor\/?$/, to: "/editor/index.html" },
+                { from: /^\/\d+\/embed\/?$/, to: "/embed/index.html" },
+                { from: /^\/addons\/?$/, to: "/addons/index.html" },
+                { from: /^\/new-compiler\/?$/, to: "/new-compiler/index.html" },
                 { from: /./, to: "/404.html" },
             ],
         },
@@ -223,6 +227,7 @@ module.exports = [
             credits: "./src/playground/credits/credits.jsx",
             home: "./src/playground/home/home.jsx",
             notfound: "./src/playground/not-found/not-found.jsx",
+            newcompiler: "./src/playground/new-compiler/new-compiler.jsx",
         },
         output: {
             path: path.resolve(__dirname, "build"),
@@ -291,6 +296,17 @@ module.exports = [
                 filename: "index.html",
                 title: `${APP_NAME} - Block-based programming, amplified`,
                 description: `${APP_NAME} is a powerful block-based programming language built on Scratch 3.0 and TurboWarp.`,
+                ...htmlWebpackPluginCommon,
+            }),
+            new HtmlWebpackPlugin({
+                chunks: ["newcompiler"],
+                template: "src/playground/simple.ejs",
+                filename: IS_CBP_BUILD
+                    ? "new-compiler/index.html"
+                    : "new-compiler.html",
+                title: `New compiler - ${APP_NAME}`,
+                description: `${APP_NAME} 0.3 includes a rewritten compiler to make projects
+                                run up to 2 times faster than in ${APP_NAME} 0.2.2.`,
                 ...htmlWebpackPluginCommon,
             }),
             new HtmlWebpackPlugin({

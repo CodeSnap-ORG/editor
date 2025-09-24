@@ -49,12 +49,8 @@ class TWNews extends React.Component {
                 <div className={styles.text}>
                     {/* eslint-disable-next-line max-len */}
                     {`Run projects 2 times faster with the ${APP_NAME} 0.3 compiler! `}
-                    <a
-                        href="https://ampmod.flarum.cloud/t/bugs-and-glitches"
-                        target="_blank"
-                        rel="noreferrer"
-                    >
-                        {"Report bugs here."}
+                    <a href="new-compiler/" target="_blank" rel="noreferrer">
+                        {"Learn more."}
                     </a>
                 </div>
                 <CloseButton
