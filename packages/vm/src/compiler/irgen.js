@@ -399,6 +399,20 @@ class ScriptTreeGenerator {
                     }
                 );
 
+            case "arrays_range":
+                return new IntermediateInput(
+                    InputOpcode.ARRAYS_RANGE,
+                    InputType.ARRAY,
+                    {
+                        start: this.descendInputOfBlock(block, "START").toType(
+                            InputType.NUMBER_WHOLE
+                        ),
+                        end: this.descendInputOfBlock(block, "END").toType(
+                            InputType.NUMBER_WHOLE
+                        ),
+                    }
+                );
+
             case "event_broadcast_menu": {
                 const broadcastOption = block.fields.BROADCAST_OPTION;
                 const broadcastVariable = this.target.lookupBroadcastMsg(

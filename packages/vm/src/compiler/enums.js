@@ -294,6 +294,7 @@ const InputOpcode = {
     CONTROL_COUNTER: "control.counter",
 
     ARRAYS_DELIMITED: "arrays.delimited",
+    ARRAYS_RANGE: "arrays.range",
 
     TW_KEY_LAST_PRESSED: "tw.lastKeyPressed",
 };
