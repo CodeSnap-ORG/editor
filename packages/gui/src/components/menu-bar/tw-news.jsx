@@ -39,7 +39,9 @@ class TWNews extends React.Component {
         window.dispatchEvent(new Event("resize"));
     }
     render() {
-        if (this.state.closed || isScratchDesktop()) {
+        const today = new Date();
+        const is911 = today.getMonth() === 8 && today.getDate() === 11; // September is month 8 (0-indexed)
+        if (this.state.closed || isScratchDesktop() | is911) {
             return null;
         }
         return (
