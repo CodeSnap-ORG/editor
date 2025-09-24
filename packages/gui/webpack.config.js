@@ -305,8 +305,9 @@ module.exports = [
                     ? "new-compiler/index.html"
                     : "new-compiler.html",
                 title: `New compiler - ${APP_NAME}`,
-                description: `${APP_NAME} 0.3 includes a rewritten compiler to make projects
-                                run up to 2 times faster than in ${APP_NAME} 0.2.2.`,
+                // prettier-ignore
+                // eslint-disable-next-line max-len
+                description: `${APP_NAME} 0.3 includes a rewritten compiler to make projects run up to 2 times faster than in ${APP_NAME} 0.2.2.`,
                 ...htmlWebpackPluginCommon,
             }),
             new HtmlWebpackPlugin({
