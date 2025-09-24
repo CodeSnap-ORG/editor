@@ -579,6 +579,9 @@ class JSGenerator {
             case InputOpcode.VAR_GET:
                 return `${this.referenceVariable(node.variable)}.value`;
 
+            case InputOpcode.ARRAYS_DELIMITED:
+                return `(${this.descendInput(node.text)}.split(${this.descendInput(node.delimiter)}))`;
+
             default:
                 log.warn(`JS: Unknown input: ${block.opcode}`, node);
                 throw new Error(`JS: Unknown input: ${block.opcode}`);
