@@ -88,6 +88,9 @@ const InputType = {
 
     /** An array of values in the form [R, G, B] */
     COLOR: 0x2000,
+
+    /** amp: An array. */
+    ARRAY: 0xffff,
 };
 
 /**
@@ -289,6 +292,8 @@ const InputOpcode = {
     PROCEDURE_ARGUMENT: "procedures.argument",
 
     CONTROL_COUNTER: "control.counter",
+
+    ARRAYS_DELIMITED: "arrays.delimited",
 
     TW_KEY_LAST_PRESSED: "tw.lastKeyPressed",
 };
