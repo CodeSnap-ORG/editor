@@ -2424,6 +2424,7 @@ class IRGenerator {
             for (const [
                 procedureVariant,
                 definitionId,
+                // @ts-ignore
             ] of this.compilingProcedures.entries()) {
                 if (procedureTreeCache[procedureVariant]) {
                     const result = procedureTreeCache[procedureVariant];
