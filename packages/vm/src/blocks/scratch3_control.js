@@ -35,11 +35,13 @@ class Scratch3ControlBlocks {
             control_stop: this.stop,
             control_create_clone_of: this.createClone,
             control_delete_this_clone: this.deleteClone,
+            control_is_clone: this.isClone,
             control_get_counter: this.getCounter,
             control_incr_counter: this.incrCounter,
             control_clear_counter: this.clearCounter,
             control_all_at_once: this.allAtOnce,
             control_ternary: this.ternary,
+            control_async: this.async,
         };
     }
 
@@ -208,9 +210,20 @@ class Scratch3ControlBlocks {
         util.startBranch(1, false);
     }
 
-    ternary(args) {
-        // amp: If CONDITION is true, return LEFT, else return RIGHT.
-        return args.CONDITION ? args.LEFT : args.RIGHT;
+    async async(args, util) {
+        const delay = ms => new Promise(res => setTimeout(res, ms));
+        await delay(0);
+        util.startBranch(1, false);
+    }
+
+    ternary(args, util) {
+        return Cast.toBoolean(args.CONDITION)
+            ? Cast.toString(args.LEFT)
+            : Cast.toString(args.RIGHT);
+    }
+
+    isClone(args, util) {
+        return !util.target.isOriginal;
     }
 }
 

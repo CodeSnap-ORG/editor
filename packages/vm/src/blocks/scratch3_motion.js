@@ -35,6 +35,7 @@ class Scratch3MotionBlocks {
             motion_xposition: this.getX,
             motion_yposition: this.getY,
             motion_direction: this.getDirection,
+            motion_position: this.getPosition,
             // Legacy no-op blocks:
             motion_scroll_right: () => {},
             motion_scroll_up: () => {},
@@ -57,6 +58,10 @@ class Scratch3MotionBlocks {
             motion_direction: {
                 isSpriteSpecific: true,
                 getId: targetId => `${targetId}_direction`,
+            },
+            motion_position: {
+                isSpriteSpecific: true,
+                getId: targetId => `${targetId}_position`,
             },
         };
     }
@@ -284,6 +289,13 @@ class Scratch3MotionBlocks {
 
     getY(args, util) {
         return this.limitPrecision(util.target.y);
+    }
+
+    getPosition(args, util) {
+        return [
+            this.limitPrecision(util.target.x),
+            this.limitPrecision(util.target.y),
+        ];
     }
 
     getDirection(args, util) {
