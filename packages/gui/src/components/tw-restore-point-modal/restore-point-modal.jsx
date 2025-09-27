@@ -10,7 +10,7 @@ import Modal from "../../containers/modal.jsx";
 import RestorePoint from "./restore-point.jsx";
 import styles from "./restore-point-modal.css";
 import classNames from "classnames";
-import { APP_NAME } from "../../lib/brand";
+import { APP_NAME } from "@ampmod/branding";
 import { formatBytes } from "../../lib/tw-bytes-utils";
 
 const messages = defineMessages({

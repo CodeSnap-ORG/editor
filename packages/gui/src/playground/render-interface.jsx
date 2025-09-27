@@ -47,10 +47,10 @@ import AddonChannels from "../addons/channels";
 import { loadServiceWorker } from "./load-service-worker";
 import runAddons from "../addons/entry";
 import InvalidEmbed from "../components/tw-invalid-embed/invalid-embed.jsx";
-import { APP_NAME } from "../lib/brand.js";
 import Clippy from "../containers/amp-clippy.jsx";
 import Footer from "../components/amp-footer/footer.jsx";
 import styles from "./interface.css";
+import { APP_NAME, APP_SLOGAN } from "@ampmod/branding";
 
 const isInvalidEmbed = window.parent !== window;
 
@@ -102,7 +102,7 @@ class Interface extends React.Component {
     }
     handleUpdateProjectTitle(title, isDefault) {
         if (isDefault || !title) {
-            document.title = `${APP_NAME} - Block-based programming, amplified`;
+            document.title = `${APP_NAME} - ${APP_SLOGAN}`;
         } else {
             document.title = `${title} - ${APP_NAME}`;
         }

@@ -36,7 +36,7 @@ import TWFancyCheckbox from "../../components/tw-fancy-checkbox/checkbox.jsx";
 import styles from "./settings.css";
 import { detectTheme } from "../../lib/themes/themePersistance.js";
 import { applyGuiColors } from "../../lib/themes/guiHelpers.js";
-import { APP_NAME } from "../../lib/brand.js";
+import { APP_NAME } from "@ampmod/branding";
 import "modern-normalize";
 
 /* eslint-disable no-alert */

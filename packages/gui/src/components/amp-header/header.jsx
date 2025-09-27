@@ -18,7 +18,7 @@ import Button from "../button/button.jsx";
 
 import styles from "./header.css";
 
-import { APP_NAME } from "../../lib/brand.js";
+import { APP_NAME } from "@ampmod/branding";
 import TWNews from "../menu-bar/tw-news.jsx";
 
 function isAprilFools() {

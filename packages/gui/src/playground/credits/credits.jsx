@@ -5,7 +5,7 @@ import render from "../app-target";
 import styles from "../info.css";
 import myStyles from "./credits.css";
 
-import { APP_NAME } from "../../lib/brand";
+import { APP_NAME } from "@ampmod/branding";
 import { applyGuiColors } from "../../lib/themes/guiHelpers";
 import { detectTheme } from "../../lib/themes/themePersistance";
 import UserData from "./users";

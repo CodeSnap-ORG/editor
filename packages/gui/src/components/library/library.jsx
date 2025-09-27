@@ -13,7 +13,7 @@ import Spinner from "../spinner/spinner.jsx";
 import Separator from "../tw-extension-separator/separator.jsx";
 import RemovedTrademarks from "../tw-removed-trademarks/removed-trademarks.jsx";
 import NoFaceSensing from "../amp-no-face-sensing/no-face-sensing.jsx";
-import { APP_NAME } from "../../lib/brand.js";
+import { APP_NAME } from "@ampmod/branding";
 import Clippy from "../../containers/amp-clippy.jsx"; // ADDED THIS LINE
 
 import styles from "./library.css";

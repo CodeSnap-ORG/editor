@@ -15,7 +15,7 @@ const postcssVars = require("postcss-simple-vars");
 const postcssImport = require("postcss-import");
 
 const STATIC_PATH = process.env.STATIC_PATH || "/static";
-const { APP_NAME } = require("./src/lib/brand");
+const { APP_NAME, APP_SLOGAN, APP_DESCRIPTION } = require("@ampmod/branding");
 
 const root = process.env.ROOT || "";
 if (root.length > 0 && !root.endsWith("/")) {
@@ -262,7 +262,7 @@ module.exports = [
                 chunks: ["editor"],
                 template: "src/playground/index.ejs",
                 filename: IS_CBP_BUILD ? "editor/index.html" : "editor.html",
-                title: `${APP_NAME} - Block-based programming, amplified`,
+                title: `${APP_NAME} - ${APP_SLOGAN}`,
                 isEditor: true,
                 ...htmlWebpackPluginCommon,
             }),
@@ -270,7 +270,7 @@ module.exports = [
                 chunks: ["player"],
                 template: "src/playground/index.ejs",
                 filename: IS_CBP_BUILD ? "player/index.html" : "player.html",
-                title: `${APP_NAME} - Block-based programming, amplified`,
+                title: `${APP_NAME} - ${APP_SLOGAN}`,
                 isEditor: true,
                 ...htmlWebpackPluginCommon,
             }),
@@ -280,7 +280,7 @@ module.exports = [
                 filename: IS_CBP_BUILD
                     ? "fullscreen/index.html"
                     : "fullscreen.html",
-                title: `${APP_NAME} - Block-based programming, amplified`,
+                title: `${APP_NAME} - ${APP_SLOGAN}`,
                 ...htmlWebpackPluginCommon,
             }),
             new HtmlWebpackPlugin({
@@ -294,8 +294,8 @@ module.exports = [
                 chunks: ["home"],
                 template: "src/playground/simple.ejs",
                 filename: "index.html",
-                title: `${APP_NAME} - Block-based programming, amplified`,
-                description: `${APP_NAME} is a powerful block-based programming language built on Scratch 3.0 and TurboWarp.`,
+                title: `${APP_NAME} - ${APP_SLOGAN}`,
+                description: APP_DESCRIPTION,
                 ...htmlWebpackPluginCommon,
             }),
             new HtmlWebpackPlugin({

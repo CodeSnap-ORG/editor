@@ -115,7 +115,7 @@ import SeeInsideButton from "./tw-see-inside.jsx";
 import isScratchDesktop, {
     notScratchDesktop,
 } from "../../lib/isScratchDesktop.js";
-import { APP_NAME } from "../../lib/brand.js";
+import { APP_NAME } from "@ampmod/branding";
 
 import ampmodIcon from "./tw-advanced.svg";
 import ampmodCanaryIcon from "./ampmod-canary.svg";

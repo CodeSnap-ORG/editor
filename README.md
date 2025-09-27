@@ -27,6 +27,7 @@ The following packages are included in this monorepo:
 - `paint`: The paint editor for creating costumes and backdrops.
 - `render-fonts`: A package that contains fonts used in projects.
 - `svg-renderer`: A package for rendering SVG images. Unmodified from TurboWarp; forked due to dependency issues.
+- `branding`: Self-explanatory. See [Forking](#forking).
 
 `ampmod-web` uses a multirepo structure (`ampmod-web-front` and `ampmod-web-back`) due to relatively
 small size and being almost entirely unrelated to this monorepo's packages.
@@ -37,6 +38,18 @@ https://codeberg.org/ampmod/-/packages
 ## Setup
 
 Run `npm i` in the root directory to install all packages needed.
+
+## Forking
+
+Here are some important recommendations for forks. Since AmpMod is free and open-source,wWe don't strictly require
+you to follow these.
+
+- Change the branding of your mod. This is perhaps the most important change for a fork. Instead of modifying
+  `packages/gui/src/lib/brand.js`, you should modify `packages/branding/src/index.js`. You will especially
+  want to change `APP_NAME` and `APP_SOURCE`.
+- Create your own accent colour. We recommend using a colour from the Scratch category palette, or at least a colour
+  made to look like it. Some other accent colours like `rainbow` and `grey` already exist; you can use those.
+-
 
 ## Licence
 

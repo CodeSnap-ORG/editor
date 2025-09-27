@@ -1,7 +1,7 @@
 import ReactDOM from "react-dom";
 import { setAppElement } from "react-modal";
 import * as bowser from "bowser";
-import { APP_NAME } from "../lib/brand.js";
+import { APP_NAME } from "@ampmod/branding";
 
 const appTarget = document.getElementById("app");
 let migrationOccurred = false;

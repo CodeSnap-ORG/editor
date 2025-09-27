@@ -13,7 +13,7 @@ import styles from "./custom-extension-modal.css";
 import FancyCheckbox from "../tw-fancy-checkbox/checkbox.jsx";
 import { isTrustedExtension } from "../../containers/tw-security-manager.jsx";
 
-import { APP_NAME } from "../../lib/brand";
+import { APP_NAME } from "@ampmod/branding";
 
 const messages = defineMessages({
     title: {

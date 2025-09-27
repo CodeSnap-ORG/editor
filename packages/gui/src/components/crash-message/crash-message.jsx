@@ -6,6 +6,8 @@ import { FormattedMessage } from "react-intl";
 import styles from "./crash-message.css";
 import reloadIcon from "./reload.svg";
 
+import { APP_FORUMS_BUGS, APP_CONTACT } from "@ampmod/branding";
+
 const CrashMessage = props => {
     const [copied, setCopied] = useState(false);
 
@@ -47,7 +49,7 @@ const CrashMessage = props => {
                         values={{
                             forumLink: (
                                 <a
-                                    href="https://ampmod.flarum.cloud"
+                                    href={APP_FORUMS_BUGS}
                                     rel="noreferrer noopener"
                                     target="_blank"
                                 >
@@ -60,7 +62,7 @@ const CrashMessage = props => {
                             ),
                             issueTracker: (
                                 <a
-                                    href="https://codeberg.org/ampmod/ampmod/issues"
+                                    href={APP_CONTACT}
                                     rel="noreferrer noopener"
                                     target="_blank"
                                 >
@@ -191,7 +193,7 @@ const CrashMessage = props => {
                                     }}
                                 >
                                     <FormattedMessage
-                                        defaultMessage="erasing AmpMod's data"
+                                        defaultMessage="erasing the data"
                                         description="Link text to delete AmpMod's site data"
                                         id="gui.crashMessage.eraseDataLinkText"
                                     />

@@ -5,7 +5,7 @@ import styles from "../info.css";
 import homeStyles from "./home.css";
 import * as bowser from "bowser";
 
-import { APP_NAME } from "../../lib/brand";
+import { APP_DESCRIPTION, APP_NAME, APP_SLOGAN } from "@ampmod/branding";
 import { applyGuiColors } from "../../lib/themes/guiHelpers";
 import { detectTheme } from "../../lib/themes/themePersistance";
 
@@ -24,7 +24,7 @@ const Home = () => (
         <Clippy isFixed messageSet="website" />
         <header className={styles.headerContainer}>
             <h1 className={styles.headerText}>
-                {APP_NAME} - Block-based programming, amplified
+                {APP_NAME} - {APP_SLOGAN}
             </h1>
             {process.env.ampmod_is_canary && (
                 <p>
@@ -32,10 +32,7 @@ const Home = () => (
                     build for production work.
                 </p>
             )}{" "}
-            <p>
-                {APP_NAME} is a powerful block-based programming language built
-                on Scratch 3.0 and TurboWarp.
-            </p>
+            <p>{APP_DESCRIPTION}</p>
             <a href="editor.html" className={homeStyles.primaryButton}>
                 Try now!
             </a>

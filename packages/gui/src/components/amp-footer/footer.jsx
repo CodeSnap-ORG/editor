@@ -15,7 +15,7 @@
  */
 
 import React from "react";
-import { APP_NAME } from "../../lib/brand.js";
+import { APP_NAME } from "@ampmod/branding";
 import { FormattedMessage } from "react-intl";
 
 import styles from "./footer.css";
@@ -74,7 +74,6 @@ const Footer = () => {
                         description="The current version of the application"
                         id="tw.footer.version"
                         values={{
-                            APP_NAME,
                             APP_VERSION: process.env.ampmod_version,
                         }}
                     />

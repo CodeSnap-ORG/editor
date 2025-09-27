@@ -13,7 +13,7 @@ import {
     isNewFunctionSupported,
     findIncompatibleUserscripts,
 } from "../../lib/tw-environment-support-prober.js";
-import { APP_NAME } from "../../lib/brand.js";
+import { APP_NAME } from "@ampmod/branding";
 
 import styles from "./browser-modal.css";
 import unhappyBrowser from "./unsupported-browser.svg";
