@@ -384,6 +384,35 @@ class ScriptTreeGenerator {
             case "arrays_empty_array":
                 return this.createConstantInput([]);
 
+            case "arrays_delimited_to_array":
+                return new IntermediateInput(
+                    InputOpcode.ARRAYS_DELIMITED,
+                    InputType.ARRAY,
+                    {
+                        text: this.descendInputOfBlock(block, "TEXT").toType(
+                            InputType.STRING
+                        ),
+                        delimiter: this.descendInputOfBlock(
+                            block,
+                            "DELIM"
+                        ).toType(InputType.STRING),
+                    }
+                );
+
+            /* case "arrays_range":
+                return new IntermediateInput(
+                    InputOpcode.ARRAYS_RANGE,
+                    InputType.ARRAY,
+                    {
+                        start: this.descendInputOfBlock(block, "START").toType(
+                            InputType.NUMBER_WHOLE
+                        ),
+                        end: this.descendInputOfBlock(block, "END").toType(
+                            InputType.NUMBER_WHOLE
+                        ),
+                    }
+                ); */
+
             case "event_broadcast_menu": {
                 const broadcastOption = block.fields.BROADCAST_OPTION;
                 const broadcastVariable = this.target.lookupBroadcastMsg(
@@ -2395,6 +2424,7 @@ class IRGenerator {
             for (const [
                 procedureVariant,
                 definitionId,
+                // @ts-ignore
             ] of this.compilingProcedures.entries()) {
                 if (procedureTreeCache[procedureVariant]) {
                     const result = procedureTreeCache[procedureVariant];
