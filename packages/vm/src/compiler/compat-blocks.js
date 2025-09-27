@@ -36,15 +36,24 @@ const stacked = [
 ];
 
 const inputs = [
+    // amp: arrays blocks that just don't compile correctly
+    "arrays_at",
+    "arrays_behind",
+    "arrays_contains",
+    "arrays_delimited_to_array",
+    "arrays_empty_array",
+    "arrays_in_front_of",
+    "arrays_item_no_of",
+    "arrays_item_of",
+    "arrays_length",
+    "arrays_range",
+    "control_ternary", // amp: We would make this compile normally but attempts to add it to the compiler failed.
     "motion_xscroll",
     "motion_yscroll",
     "sensing_loud",
     "sensing_loudness",
     "sensing_userid",
     "sound_volume",
-    "control_ternary", // amp: We would make this compile normally but attempts to add it to the compiler failed.
-    // amp: arrays blocks that just don't compile correctly
-    "arrays_range",
 ];
 
 module.exports = {
