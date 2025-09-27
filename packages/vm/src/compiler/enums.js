@@ -222,6 +222,7 @@ const InputOpcode = {
 
     MOTION_X_GET: "motion.x",
     MOTION_Y_GET: "motion.y",
+    MOTION_POSITION_GET: "motion.position",
     MOTION_DIRECTION_GET: "motion.direction",
 
     OP_ADD: "op.add",

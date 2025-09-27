@@ -298,6 +298,8 @@ class JSGenerator {
                 return "limitPrecision(target.x)";
             case InputOpcode.MOTION_Y_GET:
                 return "limitPrecision(target.y)";
+            case InputOpcode.MOTION_POSITION_GET:
+                return "[limitPrecision(target.x),limitPrecision(target.y)]";
 
             case InputOpcode.SENSING_MOUSE_DOWN:
                 return "runtime.ioDevices.mouse.getIsDown()";

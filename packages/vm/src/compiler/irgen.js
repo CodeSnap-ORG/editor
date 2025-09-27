@@ -454,6 +454,11 @@ class ScriptTreeGenerator {
                     InputType.NUMBER_POS_REAL
                 );
 
+            case "motion_position":
+                return new IntermediateInput(
+                    InputOpcode.MOTION_POSITION_GET,
+                    InputType.NUMBER_REAL
+                );
             case "motion_direction":
                 return new IntermediateInput(
                     InputOpcode.MOTION_DIRECTION_GET,
