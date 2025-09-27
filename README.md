@@ -49,7 +49,7 @@ you to follow these.
   want to change `APP_NAME` and `APP_SOURCE`.
 - Create your own accent colour. We recommend using a colour from the Scratch category palette, or at least a colour
   made to look like it. Some other accent colours like `rainbow` and `grey` already exist; you can use those.
-- Licencing: Pleace release your source code. Not doing so is illegal and violates the GPL. However, you _are_ allowed to
+- Licencing: Please release your source code. Not doing so is illegal and violates the GPL. However, you _are_ allowed to
   copy the files outside of `packages` and `.woodpecker` as those are under 0BSD.
 
 ## Licence
