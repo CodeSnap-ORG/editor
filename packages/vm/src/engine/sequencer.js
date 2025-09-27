@@ -211,6 +211,7 @@ class Sequencer {
         }
         // Save the current block ID to notice if we did control flow.
         while ((currentBlockId = thread.peekStack())) {
+            const initialStackSize = thread.stack.length;
             let isWarpMode = thread.peekStackFrame().warpMode;
             if (isWarpMode && !thread.warpTimer) {
                 // Initialize warp-mode timer if it hasn't been already.
@@ -260,6 +261,7 @@ class Sequencer {
             }
             // If no control flow has happened, switch to next block.
             if (
+                thread.stack.length === initialStackSize &&
                 thread.peekStack() === currentBlockId &&
                 !thread.peekStackFrame().waitingReporter
             ) {

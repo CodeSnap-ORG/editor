@@ -44,9 +44,9 @@ const defaultBlockPackages = {
     scratch3_operators: require("../blocks/scratch3_operators"),
     scratch3_sound: require("../blocks/scratch3_sound"),
     scratch3_sensing: require("../blocks/scratch3_sensing"),
+    ampmod_arrays: require("../blocks/ampmod_arrays"),
     scratch3_data: require("../blocks/scratch3_data"),
     scratch3_procedures: require("../blocks/scratch3_procedures"),
-    ampmod_arrays: require("../blocks/ampmod_arrays"),
 };
 
 const interpolate = require("./tw-interpolate");
@@ -1491,20 +1491,25 @@ class Runtime extends EventEmitter {
                 blockJSON.outputShape =
                     ScratchBlocksConstants.OUTPUT_SHAPE_ROUND;
                 break;
-            case BlockType.MULTIREPORTER:
-                blockJSON.output = blockInfo.allowDropAnywhere ? null : "";
+            case BlockType.BOOLEAN:
+                blockJSON.output = "Boolean";
                 blockJSON.outputShape =
-                    ScratchBlocksConstants.OUTPUT_SHAPE_ROUND;
-                break;
-            case BlockType.ARRAY:
-                blockJSON.output = blockInfo.allowDropAnywhere ? null : "Array";
-                blockJSON.outputShape =
-                    ScratchBlocksConstants.OUTPUT_SHAPE_SQUARE;
+                    ScratchBlocksConstants.OUTPUT_SHAPE_HEXAGONAL;
                 break;
             case BlockType.BOOLEAN:
                 blockJSON.output = "Boolean";
                 blockJSON.outputShape =
                     ScratchBlocksConstants.OUTPUT_SHAPE_HEXAGONAL;
+                break;
+            case BlockType.MULTIREPORTER:
+                blockJSON.output = null;
+                blockJSON.outputShape =
+                    ScratchBlocksConstants.OUTPUT_SHAPE_ROUND;
+                break;
+            case BlockType.ARRAY:
+                blockJSON.output = "Array";
+                blockJSON.outputShape =
+                    ScratchBlocksConstants.OUTPUT_SHAPE_SQUARE;
                 break;
             case BlockType.HAT:
             case BlockType.EVENT:
@@ -1531,6 +1536,11 @@ class Runtime extends EventEmitter {
                     blockJSON.nextStatement = null; // null = available connection; undefined = terminal
                 }
                 break;
+        }
+
+        // Allow extensiosn to override outputShape
+        if (blockInfo.blockShape) {
+            blockJSON.outputShape = blockInfo.blockShape;
         }
 
         const blockText = Array.isArray(blockInfo.text)
@@ -1582,9 +1592,10 @@ class Runtime extends EventEmitter {
         }
 
         if (
+            blockInfo.blockType === BlockType.ARRAY ||
+            blockInfo.blockType === BlockType.MULTIREPORTER ||
             blockInfo.blockType === BlockType.REPORTER ||
-            blockInfo.blockType === BlockType.BOOLEAN ||
-            blockInfo.blockType === BlockType.ARRAY
+            blockInfo.blockType === BlockType.BOOLEAN
         ) {
             if (!blockInfo.disableMonitor && context.inputList.length === 0) {
                 blockJSON.checkboxInFlyout = true;
@@ -2653,9 +2664,25 @@ class Runtime extends EventEmitter {
     }
 
     /**
-     * Base for greenFlag and stopAll.
+     * Start all threads that start with the green flag.
      */
-    stopBase() {
+    greenFlag() {
+        this._stopAll();
+        this.emit(Runtime.PROJECT_START);
+        this.updateCurrentMSecs();
+        this.ioDevices.clock.resetProjectTimer();
+        this.targets.forEach(target => target.clearEdgeActivatedValues());
+        // Inform all targets of the green flag.
+        for (let i = 0; i < this.targets.length; i++) {
+            this.targets[i].onGreenFlag();
+        }
+        this.startHats("event_whenflagclicked");
+    }
+
+    /**
+     * Stop "everything."
+     */
+    _stopAll() {
         // Emit stop event to allow blocks to clean up any state.
         this.emit(Runtime.PROJECT_STOP_ALL);
 
@@ -2675,11 +2702,13 @@ class Runtime extends EventEmitter {
                 newTargets.push(this.targets[i]);
             }
         }
+
         this.targets = newTargets;
         // Dispose of the active thread.
         if (this.sequencer.activeThread !== null) {
             this._stopThread(this.sequencer.activeThread);
         }
+
         // Remove all remaining threads from executing in the next tick.
         this.threads = [];
         this.threadMap.clear();
@@ -2688,26 +2717,10 @@ class Runtime extends EventEmitter {
     }
 
     /**
-     * Start all threads that start with the green flag.
-     */
-    greenFlag() {
-        this.stopBase();
-        this.emit(Runtime.PROJECT_START);
-        this.updateCurrentMSecs();
-        this.ioDevices.clock.resetProjectTimer();
-        this.targets.forEach(target => target.clearEdgeActivatedValues());
-        // Inform all targets of the green flag.
-        for (let i = 0; i < this.targets.length; i++) {
-            this.targets[i].onGreenFlag();
-        }
-        this.startHats("event_whenflagclicked");
-    }
-
-    /**
-     * Stop "everything."
+     * amp: Wrapper around _stopAll. Runs "when stop clicked" blocks.
      */
     stopAll() {
-        this.stopBase();
+        this._stopAll();
         this.startHats("event_whenstopclicked");
     }
 
@@ -3349,11 +3362,17 @@ class Runtime extends EventEmitter {
 
     /**
      * Emit value for reporter to show in the blocks.
+     * @param {Target} target The target that the block was run in.
      * @param {string} blockId ID for the block.
      * @param {string} value Value to show associated with the block.
      */
-    visualReport(blockId, value) {
-        this.emit(Runtime.VISUAL_REPORT, { id: blockId, value: String(value) });
+    visualReport(target, blockId, value) {
+        if (target === this.getEditingTarget()) {
+            this.emit(Runtime.VISUAL_REPORT, {
+                id: blockId,
+                value: String(value),
+            });
+        }
     }
 
     /**

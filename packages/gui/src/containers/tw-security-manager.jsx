@@ -36,16 +36,16 @@ const isTrustedExtension = url =>
     extensionsTrustedByUser.has(url);
 
 /**
- * Set of fetch resource origins that were manually trusted by the user.
+ * Set of fetch resource hosts that were manually trusted by the user.
  * @type {Set<string>}
  */
-const fetchOriginsTrustedByUser = new Set();
+const fetchHostsTrustedByUser = new Set();
 
 /**
- * Set of origins manually trusted by the user for embedding.
+ * Set of hosts manually trusted by the user for embedding.
  * @type {Set<string>}
  */
-const embedOriginsTrustedByUser = new Set();
+const embedHostsTrustedByUser = new Set();
 
 /**
  * @param {URL} parsed Parsed URL object
@@ -54,8 +54,6 @@ const embedOriginsTrustedByUser = new Set();
 const isAlwaysTrustedForFetching = parsed =>
     // If we would trust loading an extension from here, we can trust loading resources too.
     isTrustedExtension(parsed.href) ||
-    // AmpMod
-    parsed.origin === "https://ampmod.codeberg.page" ||
     // Any TurboWarp service such as trampoline
     parsed.origin === "https://turbowarp.org" ||
     parsed.origin.endsWith(".turbowarp.org") ||
@@ -97,6 +95,7 @@ const VISITABLE_PROTOCOLS = [
     "https:",
     "data:",
     "blob:",
+    "mailto:",
     "steam:",
     "calculator:",
 ];
@@ -289,19 +288,22 @@ class TWSecurityManagerComponent extends React.Component {
             return true;
         }
         const { showModal, releaseLock } = await this.acquireModalLock();
-        const origin =
-            parsed.protocol === "http:" || parsed.protocol === "https:"
-                ? parsed.origin
+        const host =
+            parsed.protocol === "http:" ||
+            parsed.protocol === "https:" ||
+            parsed.protocol === "ws:" ||
+            parsed.protocol === "wss:"
+                ? parsed.host
                 : null;
-        if (origin && fetchOriginsTrustedByUser.has(origin)) {
+        if (host && fetchHostsTrustedByUser.has(host)) {
             releaseLock();
             return true;
         }
         const allowed = await showModal(SecurityModals.Fetch, {
             url,
         });
-        if (origin && allowed) {
-            fetchOriginsTrustedByUser.add(origin);
+        if (host && allowed) {
+            fetchHostsTrustedByUser.add(host);
         }
         return allowed;
     }
@@ -402,18 +404,18 @@ class TWSecurityManagerComponent extends React.Component {
         if (!parsed) {
             return false;
         }
-        const origin =
+        const host =
             parsed.protocol === "http:" || parsed.protocol === "https:"
-                ? parsed.origin
+                ? parsed.host
                 : null;
         const { showModal, releaseLock } = await this.acquireModalLock();
-        if (origin && embedOriginsTrustedByUser.has(origin)) {
+        if (host && embedHostsTrustedByUser.has(host)) {
             releaseLock();
             return true;
         }
         const allowed = await showModal(SecurityModals.Embed, { url });
-        if (origin && allowed) {
-            embedOriginsTrustedByUser.add(origin);
+        if (host && allowed) {
+            embedHostsTrustedByUser.add(host);
         }
         return allowed;
     }

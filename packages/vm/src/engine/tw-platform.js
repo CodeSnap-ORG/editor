@@ -6,5 +6,5 @@ module.exports = {
     url: "https://ampmod.codeberg.page/",
     // amp: added extra information about platform
     version: process.env.ampmod_version,
-    contact: "https://ampmod.flarum.cloud",
+    contact: "https://codeberg.org/ampmod/ampmod/issues",
 };

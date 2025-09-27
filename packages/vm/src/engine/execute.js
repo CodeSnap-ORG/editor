@@ -108,7 +108,11 @@ const handleReport = function (
             thread.atStackTop()
         ) {
             if (thread.stackClick) {
-                sequencer.runtime.visualReport(currentBlockId, resolvedValue);
+                sequencer.runtime.visualReport(
+                    thread.target,
+                    currentBlockId,
+                    resolvedValue
+                );
             }
             if (thread.updateMonitor) {
                 const targetId =

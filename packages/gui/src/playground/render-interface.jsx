@@ -264,25 +264,44 @@ class Interface extends React.Component {
                             <div className={classNames(styles.infobox)}>
                                 <h3>
                                     <FormattedMessage
-                                        defaultMessage="Heads up!"
-                                        description="Notice header"
-                                        id="tw.development.noticeHeader"
+                                        defaultMessage="{APP_NAME} 0.3 released!"
+                                        description="AmpMod News header"
+                                        id="amp.news.zeropointthree"
+                                        values={{ APP_NAME }}
                                     />
                                 </h3>
                                 <p>
                                     <FormattedMessage
-                                        defaultMessage="{APP_NAME} is in development. It is no longer considered alpha due to a heavy load of hard work put into new features, and it is expected to be stable by release time. However, breaking changes may occur. For updates, visit the {link}."
-                                        description="Notice about active development"
-                                        id="tw.development.notice"
+                                        defaultMessage="{APP_NAME} 0.3 is now available, with new features such as a new compiler to make projects run up to two times faster than in the previous compiler! See the {blog} for more information."
+                                        description="AmpMod News Part 1"
+                                        id="amp.news.zeropointthree.part1"
                                         values={{
                                             APP_NAME,
-                                            link: (
+                                            blog: (
                                                 <a
                                                     href="https://ampmod.flarum.cloud/blog"
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                 >
                                                     {"AmpMod Blog"}
+                                                </a>
+                                            ),
+                                        }}
+                                    />
+                                </p>
+                                <p>
+                                    <FormattedMessage
+                                        defaultMessage="We are aware of possible bugs and inconsistencies. If your project is broken, please tell us on {bugtracker}."
+                                        description="AmpMod News Part 2"
+                                        id="amp.news.zeropointthree.part2"
+                                        values={{
+                                            bugtracker: (
+                                                <a
+                                                    href="https://ampmod.flarum.cloud/t/bugs-and-glitches"
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                >
+                                                    {"the forums"}
                                                 </a>
                                             ),
                                         }}

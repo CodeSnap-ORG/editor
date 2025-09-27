@@ -126,6 +126,19 @@ class Cast {
     }
 
     /**
+     * Cast a non-array value to an array with the single item being the value.
+     * If the value is already an array, it is returned as is.
+     * @param {*} value Value to convert to an array.
+     * @return {Array} The value converted to an array.
+     */
+    static toList(value) {
+        if (Array.isArray(value)) {
+            return value;
+        }
+        return [value];
+    }
+
+    /**
      * Determine if a Scratch argument is a white space string (or null / empty).
      * @param {*} val value to check.
      * @return {boolean} True if the argument is all white spaces or null / empty.

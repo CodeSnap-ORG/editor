@@ -59,6 +59,7 @@ const CORE_EXTENSIONS = [
     "procedures",
     "sensing",
     "sound",
+    // amp: arrays
     "arrays",
 ];
 
@@ -1608,7 +1609,9 @@ const checkPlatformCompatibility = (json, runtime) => {
     const projectPlatform = json.meta.platform.name;
     if (
         projectPlatform === runtime.platform.name ||
-        projectPlatform === "TurboWarp"
+        projectPlatform === "TurboWarp" ||
+        // amp: for forks
+        projectPlatform === "AmpMod"
     ) {
         return;
     }

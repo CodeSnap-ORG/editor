@@ -1,12 +1,12 @@
 /* eslint-env worker */
 
 const ScratchCommon = require("./tw-extension-api-common");
-const AmpModApi = require("./ampmod-api");
 const createScratchX = require("./tw-scratchx-compatibility-layer");
 const dispatch = require("../dispatch/worker-dispatch");
 const log = require("../util/log");
 const { isWorker } = require("./tw-extension-worker-context");
 const createTranslate = require("./tw-l10n");
+const AmpModApi = require("./ampmod-api");
 
 const translate = createTranslate(null);
 
@@ -115,6 +115,7 @@ Object.assign(global.Scratch, ScratchCommon, {
         ),
     translate,
 });
+global.amp = AmpModApi || {};
 
 /**
  * Expose only specific parts of the worker to extensions.

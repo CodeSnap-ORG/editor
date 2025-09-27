@@ -12,13 +12,13 @@
     "main": "./src/index.js",
     "browser": "./src/index.js",
     "scripts": {
-        "build": "NODE_OPTIONS=--openssl-legacy-provider webpack --progress --colors --bail",
+        "build": "webpack --progress --colors --bail",
         "coverage": "tap ./test/{unit,integration}/*.js --coverage --coverage-report=lcov",
         "docs": "jsdoc -c .jsdoc.json",
         "i18n:src": "mkdirp translations/core && format-message extract --out-file translations/core/en.json src/extensions/**/index.js",
         "i18n:push": "tx-push-src scratch-editor extensions translations/core/en.json",
         "lint": "eslint .",
-        "prepare": "# There is no prepare script for scratch-vm. This is a comment so that npm doesn't get mad",
+        "prepublish": "in-publish && npm run build || not-in-publish",
         "start": "webpack-dev-server",
         "tap": "tap ./test/{unit,integration}/*.js",
         "tap:unit": "tap ./test/unit/*.js",
@@ -34,14 +34,12 @@
         "statements": 70
     },
     "dependencies": {
-        "@turbowarp/ancient-hull.js": "^0.2.13",
         "@turbowarp/json": "^0.1.2",
         "@turbowarp/jszip": "^3.11.0",
         "@turbowarp/nanolog": "^0.2.0",
         "@vernier/godirect": "1.5.0",
         "arraybuffer-loader": "^1.0.6",
         "atob": "2.1.2",
-        "audio-context": "^1.0.3",
         "btoa": "1.2.1",
         "canvas-toBlob": "1.0.0",
         "decode-html": "2.0.0",
@@ -52,13 +50,12 @@
         "scratch-parser": "github:TurboWarp/scratch-parser#master",
         "scratch-sb1-converter": "0.2.7",
         "scratch-translate-extension-languages": "0.0.20191118205314",
-        "startaudiocontext": "^1.2.1",
         "text-encoding": "0.7.0",
         "uuid": "8.3.2",
         "worker-loader": "^1.1.1"
     },
     "peerDependencies": {
-        "@turbowarp/scratch-svg-renderer": "*"
+        "@turbowarp/scratch-svg-renderer": "^1.0.0-202312300007-62fe825"
     },
     "devDependencies": {
         "@babel/core": "7.13.10",
@@ -81,16 +78,19 @@
         "lodash.defaultsdeep": "4.6.1",
         "pngjs": "3.3.3",
         "scratch-audio": "0.1.0-prerelease.20231221012053",
-        "scratch-blocks": "*",
+        "scratch-blocks": "0.1.0-prerelease.20230527085947",
         "scratch-l10n": "3.16.20231222031921",
         "scratch-render": "0.1.0-prerelease.20231220210403",
-        "scratch-render-fonts": "*",
+        "scratch-render-fonts": "github:TurboWarp/scratch-render-fonts#master",
         "scratch-storage": "2.3.1",
         "script-loader": "0.7.2",
         "stats.js": "0.17.0",
         "tap": "16.2.0",
         "tiny-worker": "2.3.0",
         "uglifyjs-webpack-plugin": "1.2.7",
+        "webpack": "4.47.0",
+        "webpack-cli": "3.1.0",
         "webpack-dev-server": "3.11.2"
-    }
+    },
+    "private": true
 }

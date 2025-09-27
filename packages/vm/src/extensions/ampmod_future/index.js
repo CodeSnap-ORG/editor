@@ -1,5 +1,3 @@
-// Honestly I wished you could use "Scratch.___" in core extensions... -AmpElectrecuted
-
 const BlockType = require("../../extension-support/block-type");
 const ArgumentType = require("../../extension-support/argument-type");
 const Cast = require("../../util/cast");

@@ -4,7 +4,22 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <title><%= htmlWebpackPlugin.options.title %></title>
+        <% if (htmlWebpackPlugin.options.description) { %>
+          <% /* SEO to try and battle outdated GitHub mirrors. */ %>
+          <meta name="description" content="<%= htmlWebpackPlugin.options.description %>" />
+          <meta property="og:title" content="<%= htmlWebpackPlugin.options.title %>">
+          <meta property="og:description" content="<%= htmlWebpackPlugin.options.description %>">
+          <meta property="og:type" content="website">
+          <meta name="twitter:card" content="summary_large_image">
+          <meta name="twitter:title" content="<%= htmlWebpackPlugin.options.title %>">
+          <meta name="twitter:description" content="<%= htmlWebpackPlugin.options.description %>">
+          <meta name="twitter:image" content="/images/card.png">
+        <% } %>
+        <link rel="canonical" href="https://ampmod.codeberg.page">
         <% if (htmlWebpackPlugin.options.isCbp) { %>
+          <% /* If you are forkimg, you will need to remove or replace google-site-verification,
+           and if you don't use Simple Analytics you will want to remove or replace that script too. */ %>
+          <meta name="google-site-verification" content="xMC75_ZeQyXE1iaRV31N-hOLPJVubcfmiKfoiOqcNH8" /> 
           <script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
         <% } %>
         <style>

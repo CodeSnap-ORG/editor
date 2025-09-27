@@ -122,10 +122,7 @@ compilerAndInterpreter(
                     threads[0].topBlock
                 );
                 threads[0].target.blocks.createBlock(
-                    Object.assign({}, hatBlock, {
-                        id: "hatblock2",
-                        next: null,
-                    })
+                    Object.assign({}, hatBlock, { id: "hatblock2", next: null })
                 );
 
                 // Check that the hat thread is added again when another step is taken

@@ -6,10 +6,12 @@
     height: 100%;
     font-family:
         "Inter Variable", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
 }
 
 .body-wrapper {
-    height: calc(100% - $menu-bar-height);
+    flex-grow: 1;
     background-color: $ui-primary;
 }
 

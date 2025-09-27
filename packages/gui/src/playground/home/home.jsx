@@ -22,26 +22,16 @@ const Home = () => (
     <>
         <Header />
         <Clippy isFixed messageSet="website" />
-        {process.env.ampmod_is_canary && (
-            <section className={homeStyles.notification}>
-                <p>
-                    This is a canary build. Bugs may be present. Do NOT use this
-                    build for production work.
-                </p>
-            </section>
-        )}
-        {bowser.parse(navigator.userAgent).platform.type == "mobile" && (
-            <section className={homeStyles.notification}>
-                <p>
-                    Phones not officially supported. Desktop/tablet is
-                    recommended.
-                </p>
-            </section>
-        )}
         <header className={styles.headerContainer}>
             <h1 className={styles.headerText}>
                 {APP_NAME} - Block-based programming, amplified
             </h1>
+            {process.env.ampmod_is_canary && (
+                <p>
+                    This is a canary build. Bugs may be present. Do NOT use this
+                    build for production work.
+                </p>
+            )}{" "}
             <p>
                 {APP_NAME} is a powerful block-based programming language built
                 on Scratch 3.0 and TurboWarp.

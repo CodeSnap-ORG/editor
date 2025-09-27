@@ -3,7 +3,7 @@
     const INTERVAL = 33;
 
     const video = document.createElement("video");
-    navigator.mediaDevices.getUserMedia(
+    navigator.getUserMedia(
         {
             audio: false,
             video: {

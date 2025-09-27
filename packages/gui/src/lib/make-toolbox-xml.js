@@ -461,9 +461,6 @@ const control = function (isInitialSetup, isStage, targetId, colors) {
         <block type="control_if"/>
         <block type="control_if_else"/>
         <block type="control_ternary">
-            <value name="CONDITION">
-                <shadow type="boolean"/>
-            </value>
             <value name="LEFT">
                 <shadow type="text"/>
             </value>
@@ -474,7 +471,7 @@ const control = function (isInitialSetup, isStage, targetId, colors) {
         <block id="wait_until" type="control_wait_until"/>
         <block id="repeat_until" type="control_repeat_until"/>
         <block id="while" type="control_while"/>
-        ${blockSeparator}
+        <!-- ${blockSeparator}
         <block id="switch" type="control_switch">
             <value name="VALUE">
                 <shadow type="text">
@@ -490,7 +487,7 @@ const control = function (isInitialSetup, isStage, targetId, colors) {
             </value>
         </block>
         ${blockSeparator}
-        <block id="async" type="control_async"/>
+        <block id="async" type="control_async"/> -->
         ${blockSeparator}
         <block type="control_stop"/>
         ${blockSeparator}

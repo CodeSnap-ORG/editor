@@ -11,6 +11,7 @@ import TWGuiThemeMenu from "./tw-theme-gui.jsx";
 import TWBlocksThemeMenu from "./tw-theme-blocks.jsx";
 import TWDesktopSettings from "./tw-desktop-settings.jsx";
 import AmpAddonSettings from "./amp-addon-settings.jsx";
+import AmpInstallPWA from "./amp-install-pwa.jsx";
 
 import menuBarStyles from "./menu-bar.css";
 import styles from "./settings-menu.css";
@@ -64,6 +65,7 @@ const SettingsMenu = ({
                 {onClickDesktopSettings && (
                     <TWDesktopSettings onClick={onClickDesktopSettings} />
                 )}
+                <AmpInstallPWA />
             </MenuSection>
         </MenuBarMenu>
     </MenuLabel>

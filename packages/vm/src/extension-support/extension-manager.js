@@ -13,7 +13,6 @@ const defaultBuiltinExtensions = {
     // This is an example that isn't loaded with the other core blocks,
     // but serves as a reference for loading core blocks as extensions.
     coreExample: () => require("../blocks/scratch3_core_example"),
-    electroTest: () => require("../extensions/electrotest"),
     // These are the non-core built-in extensions.
     pen: () => require("../extensions/scratch3_pen"),
     wedo2: () => require("../extensions/scratch3_wedo2"),
@@ -26,10 +25,9 @@ const defaultBuiltinExtensions = {
     makeymakey: () => require("../extensions/scratch3_makeymakey"),
     boost: () => require("../extensions/scratch3_boost"),
     gdxfor: () => require("../extensions/scratch3_gdx_for"),
-    // ampmod: future extension (similar to Python's __future__ module)
-    future: () => require("../extensions/future"),
-    // ampmod: fake "Face Sensing" extension for legal reasons
-    faceSensing: () => require("../extensions/scratch3_facesensing"),
+    // amp: our own extensions
+    future: () => require("../extensions/ampmod_future"),
+    electroTest: () => require("../extensions/ampmod_electro_test"),
 };
 
 /**

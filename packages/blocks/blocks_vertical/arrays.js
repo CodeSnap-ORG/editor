@@ -166,7 +166,7 @@ Blockly.Blocks["arrays_in_front_of"] = {
      */
     init: function () {
         this.jsonInit({
-            message0: "%1 behind %2",
+            message0: "add %1 to %2",
             args0: [
                 {
                     type: "input_value",

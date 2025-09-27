@@ -1,4 +1,4 @@
-const VERSION = "0.3.0";
+const VERSION = process.env.ampmod_version;
 
 export class AmpMod {
     constructor() {
