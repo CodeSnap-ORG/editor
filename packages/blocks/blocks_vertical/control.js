@@ -503,8 +503,55 @@ Blockly.Blocks["control_delete_this_clone"] = {
             message0: Blockly.Msg.CONTROL_DELETETHISCLONE,
             args0: [],
             category: Blockly.Categories.control,
-            extensions: ["colours_control", "shape_statement"],
+            extensions: ["colours_control"],
         });
+
+        // Add both shapes — set default
+        this.setPreviousStatement(true);
+        this.setNextStatement(true);
+
+        this.updateShape_(); // shape based on context
+    },
+
+    /**
+     * Inline function to determine the top block and update shape.
+     */
+    updateShape_: function () {
+        let topBlock = this;
+        while (topBlock.getPreviousBlock()) {
+            topBlock = topBlock.getPreviousBlock();
+        }
+
+        const isCloneTop =
+            topBlock && topBlock.type === "control_start_as_clone";
+
+        this.setNextStatement(!isCloneTop); // if top is clone, make this an "end" block
+        this.setPreviousStatement(true);
+
+        // Save internal state for mutation persistence
+        this.isEndShape_ = isCloneTop;
+    },
+
+    /**
+     * React to changes in the workspace (e.g., moved, connected).
+     */
+    onchange: function () {
+        // Avoid errors when not attached to a workspace (e.g., in flyout)
+        if (!this.workspace || this.isInFlyout) return;
+        this.updateShape_();
+    },
+
+    mutationToDom: function () {
+        const container = document.createElement("mutation");
+        container.setAttribute("isend", this.isEndShape_ ? "true" : "false");
+        return container;
+    },
+
+    domToMutation: function (xmlElement) {
+        const isEnd = xmlElement.getAttribute("isend") === "true";
+        this.isEndShape_ = isEnd;
+        this.setNextStatement(!isEnd);
+        this.setPreviousStatement(true);
     },
 };
 
