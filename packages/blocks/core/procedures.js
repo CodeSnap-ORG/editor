@@ -252,27 +252,30 @@ Blockly.Procedures.flyoutCategory = function (workspace) {
     mutations.length > 0 :
     workspace.procedureReturnsEnabled
   ); */
-    var showReturn = true;
-    if (showReturn) {
-        var returnBlock = goog.dom.createDom("block");
-        returnBlock.setAttribute("type", Blockly.PROCEDURES_RETURN_BLOCK_TYPE);
-        returnBlock.setAttribute("gap", 12);
-        var returnBlockValue = goog.dom.createDom("value");
-        returnBlockValue.setAttribute("name", "VALUE");
-        var returnBlockShadow = goog.dom.createDom("shadow");
-        returnBlockShadow.setAttribute("type", "text");
-        var returnBlockField = goog.dom.createDom("field");
-        returnBlockField.setAttribute("name", "TEXT");
-        returnBlockShadow.appendChild(returnBlockField);
-        returnBlockValue.appendChild(returnBlockShadow);
-        returnBlock.appendChild(returnBlockValue);
-        xmlList.unshift(returnBlock);
+    // amp: "call and return" block
+    var inlineBlock = goog.dom.createDom("block");
+    inlineBlock.setAttribute("type", "procedures_inline");
+    inlineBlock.setAttribute("gap", 12);
+    xmlList.unshift(inlineBlock);
 
-        var returnDocsButton = goog.dom.createDom("button");
-        returnDocsButton.setAttribute("callbackkey", "OPEN_RETURN_DOCS");
-        returnDocsButton.setAttribute("text", Blockly.Msg.PROCEDURES_DOCS);
-        xmlList.unshift(returnDocsButton);
-    }
+    var returnBlock = goog.dom.createDom("block");
+    returnBlock.setAttribute("type", Blockly.PROCEDURES_RETURN_BLOCK_TYPE);
+    returnBlock.setAttribute("gap", 12);
+    var returnBlockValue = goog.dom.createDom("value");
+    returnBlockValue.setAttribute("name", "VALUE");
+    var returnBlockShadow = goog.dom.createDom("shadow");
+    returnBlockShadow.setAttribute("type", "text");
+    var returnBlockField = goog.dom.createDom("field");
+    returnBlockField.setAttribute("name", "TEXT");
+    returnBlockShadow.appendChild(returnBlockField);
+    returnBlockValue.appendChild(returnBlockShadow);
+    returnBlock.appendChild(returnBlockValue);
+    xmlList.unshift(returnBlock);
+
+    var returnDocsButton = goog.dom.createDom("button");
+    returnDocsButton.setAttribute("callbackkey", "OPEN_RETURN_DOCS");
+    returnDocsButton.setAttribute("text", Blockly.Msg.PROCEDURES_DOCS);
+    xmlList.unshift(returnDocsButton);
 
     return xmlList;
 };

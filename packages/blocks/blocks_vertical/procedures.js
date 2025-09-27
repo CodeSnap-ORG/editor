@@ -1142,3 +1142,24 @@ Blockly.Blocks["procedures_return"] = {
         this.workspace.enableProcedureReturns();
     },
 };
+
+Blockly.Blocks["procedures_inline"] = {
+    /**
+     * amp: Call a script and run it as if it were a custom reporter.
+     * @this Blockly.Block
+     */
+    init: function () {
+        this.jsonInit({
+            message0: Blockly.Msg.PROCEDURES_INLINE,
+            message1: "%1",
+            args1: [
+                {
+                    type: "input_statement",
+                    name: "SUBSTACK",
+                },
+            ],
+            output: null,
+            extensions: ["colours_more", "shape_square"],
+        });
+    },
+};
