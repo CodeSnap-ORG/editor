@@ -293,6 +293,7 @@ const InputOpcode = {
     PROCEDURE_ARGUMENT: "procedures.argument",
 
     CONTROL_COUNTER: "control.counter",
+    CONTROL_IS_CLONE: "control.isClone",
 
     ARRAYS_DELIMITED: "arrays.delimited",
     ARRAYS_RANGE: "arrays.range",

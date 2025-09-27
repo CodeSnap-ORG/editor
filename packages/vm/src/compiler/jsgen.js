@@ -575,6 +575,9 @@ class JSGenerator {
             case InputOpcode.CONTROL_COUNTER:
                 return "runtime.ext_scratch3_control._counter";
 
+            case InputOpcode.CONTROL_IS_CLONE:
+                return "!target.isOriginal";
+
             case InputOpcode.TW_KEY_LAST_PRESSED:
                 return "runtime.ioDevices.keyboard.getLastKeyPressed()";
 

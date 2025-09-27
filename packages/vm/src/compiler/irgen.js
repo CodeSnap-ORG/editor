@@ -1119,6 +1119,12 @@ class ScriptTreeGenerator {
                     InputType.NUMBER_POS_INT | InputType.NUMBER_ZERO
                 );
 
+            case "control_is_clone":
+                return new IntermediateInput(
+                    InputOpcode.CONTROL_IS_CLONE,
+                    InputType.BOOLEAN
+                );
+
             case "tw_getLastKeyPressed":
                 return new IntermediateInput(
                     InputOpcode.TW_KEY_LAST_PRESSED,
