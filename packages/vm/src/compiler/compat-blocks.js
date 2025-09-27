@@ -43,6 +43,8 @@ const inputs = [
     "sensing_userid",
     "sound_volume",
     "control_ternary", // amp: We would make this compile normally but attempts to add it to the compiler failed.
+    // amp: arrays blocks that just don't compile correctly
+    "arrays_range",
 ];
 
 module.exports = {

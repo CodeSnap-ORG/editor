@@ -399,7 +399,7 @@ class ScriptTreeGenerator {
                     }
                 );
 
-            case "arrays_range":
+            /* case "arrays_range":
                 return new IntermediateInput(
                     InputOpcode.ARRAYS_RANGE,
                     InputType.ARRAY,
@@ -411,7 +411,7 @@ class ScriptTreeGenerator {
                             InputType.NUMBER_WHOLE
                         ),
                     }
-                );
+                ); */
 
             case "event_broadcast_menu": {
                 const broadcastOption = block.fields.BROADCAST_OPTION;
