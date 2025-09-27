@@ -2667,7 +2667,7 @@ class Runtime extends EventEmitter {
      * Start all threads that start with the green flag.
      */
     greenFlag() {
-        this.stopAll();
+        this._stopAll();
         this.emit(Runtime.PROJECT_START);
         this.updateCurrentMSecs();
         this.ioDevices.clock.resetProjectTimer();
@@ -2682,7 +2682,7 @@ class Runtime extends EventEmitter {
     /**
      * Stop "everything."
      */
-    stopAll() {
+    _stopAll() {
         // Emit stop event to allow blocks to clean up any state.
         this.emit(Runtime.PROJECT_STOP_ALL);
 
@@ -2702,16 +2702,26 @@ class Runtime extends EventEmitter {
                 newTargets.push(this.targets[i]);
             }
         }
+
         this.targets = newTargets;
         // Dispose of the active thread.
         if (this.sequencer.activeThread !== null) {
             this._stopThread(this.sequencer.activeThread);
         }
+
         // Remove all remaining threads from executing in the next tick.
         this.threads = [];
         this.threadMap.clear();
 
         this.resetRunId();
+    }
+
+    /**
+     * amp: Wrapper around _stopAll. Runs "when stop clicked" blocks.
+     */
+    stopAll() {
+        this._stopAll();
+        this.startHats("event_whenstopclicked");
     }
 
     _renderInterpolatedPositions() {

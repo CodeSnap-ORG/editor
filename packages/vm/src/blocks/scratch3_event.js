@@ -36,6 +36,9 @@ class Scratch3EventBlocks {
             event_whenflagclicked: {
                 restartExistingThreads: true,
             },
+            event_whenstopclicked: {
+                restartExistingThreads: true,
+            },
             event_whenkeypressed: {
                 restartExistingThreads: false,
             },
