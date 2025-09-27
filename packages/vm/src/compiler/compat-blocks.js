@@ -40,8 +40,6 @@ const inputs = [
     "arrays_at",
     "arrays_behind",
     "arrays_contains",
-    "arrays_delimited_to_array",
-    "arrays_empty_array",
     "arrays_in_front_of",
     "arrays_item_no_of",
     "arrays_item_of",
