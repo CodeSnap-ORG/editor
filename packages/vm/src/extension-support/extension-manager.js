@@ -25,6 +25,9 @@ const defaultBuiltinExtensions = {
     makeymakey: () => require("../extensions/scratch3_makeymakey"),
     boost: () => require("../extensions/scratch3_boost"),
     gdxfor: () => require("../extensions/scratch3_gdx_for"),
+    // amp: our own extensions
+    future: () => require("../extensions/ampmod_future"),
+    electroTest: () => require("../extensions/ampmod_electro_test"),
 };
 
 /**

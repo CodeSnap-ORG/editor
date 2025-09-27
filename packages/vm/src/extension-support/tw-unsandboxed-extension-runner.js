@@ -3,6 +3,7 @@ const createScratchX = require("./tw-scratchx-compatibility-layer");
 const AsyncLimiter = require("../util/async-limiter");
 const createTranslate = require("./tw-l10n");
 const staticFetch = require("../util/tw-static-fetch");
+const AmpModAPI = require("./ampmod-api");
 
 /* eslint-disable require-await */
 
@@ -40,6 +41,9 @@ const setupUnsandboxedExtensionAPI = vm =>
         };
         Scratch.vm = vm;
         Scratch.renderer = vm.runtime.renderer;
+
+        // Same for amp
+        const amp = Object.assign({}, global.amp || {}, AmpModAPI);
 
         Scratch.canFetch = async url => {
             const parsed = parseURL(url);
@@ -160,8 +164,10 @@ const setupUnsandboxedExtensionAPI = vm =>
 
         global.Scratch = Scratch;
         global.ScratchExtensions = createScratchX(Scratch);
+        global.amp = amp;
 
         vm.emit("CREATE_UNSANDBOXED_EXTENSION_API", Scratch);
+        vm.emit("CREATE_UNSANDBOXED_EXTENSION_API", amp);
     });
 
 /**
