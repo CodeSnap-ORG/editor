@@ -3,6 +3,8 @@ import { setAppElement } from "react-modal";
 import * as bowser from "bowser";
 import { APP_NAME, APP_SOURCE } from "@ampmod/branding";
 
+// amp: Non-foolproof check to prevent copyleft violations
+// TODO: Make this run in other components of the source code too, maybe even branding itself
 if (
     !APP_SOURCE ||
     (APP_NAME !== "AmpMod" &&
