@@ -118,41 +118,48 @@ AccentMenuItem.propTypes = {
     onClick: PropTypes.func,
 };
 
-const AccentThemeMenu = ({ isOpen, isRtl, onChangeTheme, onOpen, theme }) => (
-    <MenuItem expanded={isOpen}>
-        <div className={styles.option} onClick={onOpen}>
-            <ColorIcon id={theme.accent} />
-            <div className={styles.menuItemTitleAndSubtitle}>
-                <span className={styles.submenuLabel}>
-                    <FormattedMessage
-                        defaultMessage="Accent"
-                        description="Label for menu to choose accent color (eg. TurboWarp's red, Scratch's purple)"
-                        id="tw.menuBar.accent"
-                    />
-                </span>
-                <span className={styles.menuItemSubtitle}>
-                    <FormattedMessage {...options[theme.accent]} />
-                </span>
-            </div>
-            <img
-                className={styles.expandCaret}
-                src={dropdownCaret}
-                draggable={false}
-            />
-        </div>
-        <Submenu place={isRtl ? "left" : "right"}>
-            {Object.keys(options).map(item => (
-                <AccentMenuItem
-                    key={item}
-                    id={item}
-                    isSelected={theme.accent === item}
-                    // eslint-disable-next-line react/jsx-no-bind
-                    onClick={() => onChangeTheme(theme.set("accent", item))}
+const AccentThemeMenu = ({ isOpen, isRtl, onChangeTheme, onOpen, theme }) => {
+    // Check if the GUI theme is "high-contrast" and return null if it is.
+    if (theme.gui === "high-contrast") {
+        return null;
+    }
+
+    return (
+        <MenuItem expanded={isOpen}>
+            <div className={styles.option} onClick={onOpen}>
+                <ColorIcon id={theme.accent} />
+                <div className={styles.menuItemTitleAndSubtitle}>
+                    <span className={styles.submenuLabel}>
+                        <FormattedMessage
+                            defaultMessage="Accent"
+                            description="Label for menu to choose accent color (eg. TurboWarp's red, Scratch's purple)"
+                            id="tw.menuBar.accent"
+                        />
+                    </span>
+                    <span className={styles.menuItemSubtitle}>
+                        <FormattedMessage {...options[theme.accent]} />
+                    </span>
+                </div>
+                <img
+                    className={styles.expandCaret}
+                    src={dropdownCaret}
+                    draggable={false}
                 />
-            ))}
-        </Submenu>
-    </MenuItem>
-);
+            </div>
+            <Submenu place={isRtl ? "left" : "right"}>
+                {Object.keys(options).map(item => (
+                    <AccentMenuItem
+                        key={item}
+                        id={item}
+                        isSelected={theme.accent === item}
+                        // eslint-disable-next-line react/jsx-no-bind
+                        onClick={() => onChangeTheme(theme.set("accent", item))}
+                    />
+                ))}
+            </Submenu>
+        </MenuItem>
+    );
+};
 
 AccentThemeMenu.propTypes = {
     isOpen: PropTypes.bool,
