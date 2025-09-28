@@ -26,6 +26,7 @@ const Home = () => (
                 projects run up to 2 times faster than they did in {APP_NAME}{" "}
                 0.2.2, by analysing project scripts even more thoroughly.
             </p>
+            <div className={styles.spacing}></div>
         </header>
         <main className={styles.main}>
             <section>

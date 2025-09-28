@@ -62,6 +62,7 @@ const Credits = () => (
                 the most popular block-based programming language in the world.
                 So truly, thank you.
             </p>
+            <div className={styles.spacing}></div>
         </header>
         <main className={styles.main}>
             <section>

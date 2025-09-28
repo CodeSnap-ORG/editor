@@ -33,7 +33,10 @@ a {
     background-color: $motion-tertiary;
     padding: 14px 0;
     text-align: center;
-    padding-bottom: 30px;
+}
+
+.header-container-alt-colour {
+    background-color: $looks-secondary;
 }
 
 .users {

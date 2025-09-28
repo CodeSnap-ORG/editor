@@ -8,9 +8,6 @@ import { APP_NAME } from "@ampmod/branding";
 import { applyGuiColors } from "../../lib/themes/guiHelpers";
 import { detectTheme } from "../../lib/themes/themePersistance";
 
-import Header from "../../components/amp-header/header.jsx";
-import Footer from "../../components/amp-footer/footer.jsx";
-
 /* eslint-disable react/jsx-no-literals */
 
 applyGuiColors(detectTheme());
@@ -18,8 +15,9 @@ document.documentElement.lang = "en";
 
 const Home = () => (
     <>
-        <Header />
-        <header className={styles.headerContainer}>
+        <header
+            className={`${styles.headerContainer} ${styles.headerContainerAltColour}`}
+        >
             <h1 className={styles.headerText}>404 Not Found</h1>
             <p className={styles.headerText}>
                 Sorry, this page doesn't appear to exist.
@@ -34,11 +32,9 @@ const Home = () => (
                 </p>
                 <p>
                     If you have any questions or concerns, you can post on the{" "}
-                    <a href="https://ampmod.flarum.cloud">forums</a>.
+                    <a href={APP_NAME}>forums</a>.
                 </p>
-                <p>Happy AmpModding!</p>
             </section>
-            <Footer />
         </main>
     </>
 );

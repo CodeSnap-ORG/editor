@@ -47,6 +47,7 @@ const Home = () => (
             <a href="editor.html" className={homeStyles.primaryButton}>
                 Try {APP_NAME} now!
             </a>
+            <div className={styles.spacing}></div>
         </header>
         {/* <section>
             <div className={homeStyles.notification}>
