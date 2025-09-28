@@ -42,6 +42,8 @@ const guiColors = {
 
     "menu-bar-background": "#000000",
     "high-contrast-border": "1px white solid",
+
+    "menu-bar-hover": "blue",
 };
 
 const blockColors = {
