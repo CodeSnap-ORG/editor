@@ -8,6 +8,7 @@ import check from "./check.svg";
 import dropdownCaret from "./dropdown-caret.svg";
 import { MenuItem, Submenu } from "../menu/menu.jsx";
 import {
+    GUI_MAP,
     GUI_LIGHT,
     GUI_DARK,
     GUI_AMOLED,
@@ -51,7 +52,32 @@ const icons = {
     [GUI_HIGH_CONTRAST]: darkModeIcon,
 };
 
-const GuiIcon = ({ id }) => <img src={icons[id]} draggable={false} alt="" />;
+const GuiIcon = ({ id }) => (
+    <>
+        <div
+            className={styles.guiThemeIconOuter}
+            style={{
+                backgroundColor: GUI_MAP[id].guiColors["ui-primary"],
+            }}
+        >
+            <div
+                className={styles.guiThemeIconMenubar}
+                style={{
+                    backgroundColor:
+                        GUI_MAP[id].guiColors["menu-bar-background"],
+                }}
+            />
+            <div
+                className={styles.guiThemeIconFakeBlocks}
+                style={{
+                    borderColor: GUI_MAP[id].guiColors["ui-black-transparent"],
+                    backgroundColor:
+                        GUI_MAP[id].blockColors["workspace"] || "#fff",
+                }}
+            />
+        </div>
+    </>
+);
 
 GuiIcon.propTypes = {
     id: PropTypes.string,

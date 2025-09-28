@@ -1,4 +1,5 @@
 @import "../../css/colors.css";
+@import "../../css/units.css";
 
 .icon {
     width: 1.5rem;
@@ -93,6 +94,32 @@
     box-sizing: border-box;
     transform-origin: center;
     transform: scale(90%);
+}
+
+.gui-theme-icon-outer {
+    width: 24px;
+    height: 24px;
+    border: 3px solid $menu-bar-foreground;
+    border-radius: calc($space / 1.5);
+    box-sizing: border-box;
+    transform-origin: center;
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+}
+
+.gui-theme-icon-menubar {
+    height: 4px;
+    width: 100%;
+    background: $menu-bar-background;
+}
+
+.gui-theme-icon-fake-blocks {
+    flex-grow: 1;
+    border-width: 1px;
+    border-style: solid;
+    margin: 1px;
+    border-radius: calc($space / 2);
 }
 
 .disabled {
