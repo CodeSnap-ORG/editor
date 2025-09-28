@@ -45,7 +45,7 @@ const Home = () => (
             <p className={styles.wrap}>{APP_DESCRIPTION}</p>
             <div className={styles.spacing}></div>
             <a href="editor.html" className={homeStyles.primaryButton}>
-                Try now!
+                Try {APP_NAME} now!
             </a>
         </header>
         {/* <section>
@@ -57,46 +57,101 @@ const Home = () => (
                 </p>
             </div>
         </section> */}
-        <main className={`${styles.main} ${homeStyles.center}`}>
-            <section>
-                <h2>What is {APP_NAME}?</h2>
-                <p>
-                    {APP_NAME} is a powerful block-based programming language,
-                    built on Scratch 3.0 and TurboWarp. It can be used for many
-                    things, from simple throwaway spaghetti scripts to
-                    large-scale calculations.
-                </p>
-            </section>
-            <section>
-                <h2>It's not just Scratch, it's {APP_NAME}!</h2>
-                <p>
-                    {APP_NAME} is designed to be a convenient package of
-                    features to make complex projects easily. From clicker games
-                    to scientific experiments, we have it all.
-                </p>
-            </section>
-            <section>
-                <h2>{APP_NAME} is licenced under the GPL v3</h2>
-                <a href="LICENSE.txt" className={homeStyles.button}>
-                    View the licence
-                </a>
-            </section>
-            <section>
-                <h2>Need help?</h2>
-                {/* If you are modifying AmpMod, you should replace or remove these links */}
-                <a
-                    href="https://ampmod.flarum.cloud"
-                    className={`${homeStyles.button} ${homeStyles.marginRight}`}
-                >
-                    Visit the forums
-                </a>
-                <a
-                    href="https://ultiblocks.miraheze.org/wiki/Main_Page"
-                    className={homeStyles.button}
-                >
-                    Visit the wiki
-                </a>
-            </section>
+        <main className={homeStyles.main}>
+            {/* START: Main two-column layout wrapper */}
+            <div className={homeStyles.mainContentGrid}>
+                {/* LEFT COLUMN: Contains the introductory sections */}
+                <div className={homeStyles.leftColumn}>
+                    <section>
+                        <h2>What is {APP_NAME}?</h2>
+                        <p>
+                            {APP_NAME} is a powerful block-based programming
+                            language, built on Scratch 3.0 and TurboWarp. It can
+                            be used for many things, from simple throwaway
+                            spaghetti scripts to large-scale calculations.
+                        </p>
+                    </section>
+                    <section>
+                        <h2>It's not just Scratch, it's {APP_NAME}!</h2>
+                        <p>
+                            {APP_NAME} is designed to be a convenient package of
+                            features to make complex projects easily. From
+                            clicker games to scientific experiments, we have it
+                            all.
+                        </p>
+                    </section>
+                    <section>
+                        <h2>{APP_NAME} is licenced under the GPL v3</h2>
+                        <a href="LICENSE.txt" className={homeStyles.button}>
+                            View the licence
+                        </a>
+                    </section>
+                    <section>
+                        <h2>Need help?</h2>
+                        {/* If you are modifying AmpMod, you should replace or remove these links */}
+                        <a
+                            href="https://ampmod.flarum.cloud"
+                            className={`${homeStyles.button} ${homeStyles.marginRight}`}
+                        >
+                            Visit the forums
+                        </a>
+                        <a
+                            href="https://ultiblocks.miraheze.org/wiki/Main_Page"
+                            className={homeStyles.button}
+                        >
+                            Visit the wiki
+                        </a>
+                    </section>
+                </div>
+
+                {/* RIGHT COLUMN: Contains the Features section */}
+                <div className={homeStyles.rightColumn}>
+                    <section>
+                        <h2>Features</h2>
+                        {/* Inner 2-column grid for the features list */}
+                        <div className={homeStyles.twoColumnGrid}>
+                            <div className={homeStyles.columnItem}>
+                                <h3>For programmers</h3>
+                                <ul>
+                                    <li>
+                                        {APP_NAME} compiles projects to
+                                        JavaScript to make them run faster than
+                                        in vanilla Scratch.
+                                    </li>
+                                    <li>
+                                        With arrays, you can create complex list
+                                        structures and store them as variables.
+                                    </li>
+                                    <li>
+                                        {APP_NAME} adds over 100 new unsandboxed
+                                        extensions to Scratch, opening access to
+                                        various browser features.
+                                    </li>
+                                </ul>
+                            </div>
+                            <div className={homeStyles.columnItem}>
+                                <h3>For artists and animators</h3>
+                                <ul>
+                                    <li>
+                                        {APP_NAME} features new fonts like Comic
+                                        and Amplification to use in your
+                                        costumes and backdrops.
+                                    </li>
+                                    <li>
+                                        Creating a rounded rectangle has never
+                                        been easier with the Rounded Rectangle
+                                        tool.
+                                    </li>
+                                    <li>
+                                        Custom fonts can be loaded from system
+                                        font name or a font file.
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
             <Footer />
         </main>
     </>
