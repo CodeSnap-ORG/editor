@@ -27,7 +27,6 @@ a {
 .wrap {
     max-width: 900px;
     margin: auto;
-    margin-bottom: 30px;
 }
 
 .header-container {
@@ -59,4 +58,8 @@ a {
 }
 .user:link:hover {
     background: $ui-black-transparent;
+}
+
+.spacing {
+    margin-bottom: 12px;
 }

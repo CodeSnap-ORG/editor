@@ -24,15 +24,26 @@ const Home = () => (
         <Clippy isFixed messageSet="website" />
         <header className={styles.headerContainer}>
             <h1 className={styles.headerText}>
-                {APP_NAME} - {APP_SLOGAN}
+                {APP_NAME}{" "}
+                {process.env.ampmod_is_canary
+                    ? " (canary build)"
+                    : `- ${APP_SLOGAN}`}
             </h1>
             {process.env.ampmod_is_canary && (
-                <p>
-                    This is a canary build. Bugs may be present. Do NOT use this
-                    build for production work.
-                </p>
-            )}{" "}
-            <p>{APP_DESCRIPTION}</p>
+                <>
+                    <p className={styles.wrap}>
+                        <strong>
+                            This is a canary build. Bugs may be present, and
+                            your projects may break when the final version is
+                            released. You should not use this version for
+                            creating non-test projects.
+                        </strong>
+                    </p>
+                    <div className={styles.spacing}></div>
+                </>
+            )}
+            <p className={styles.wrap}>{APP_DESCRIPTION}</p>
+            <div className={styles.spacing}></div>
             <a href="editor.html" className={homeStyles.primaryButton}>
                 Try now!
             </a>
