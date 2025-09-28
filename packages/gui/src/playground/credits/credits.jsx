@@ -73,7 +73,7 @@ const Credits = () => (
                 </p>
             </section>
             {/* Please don't remove this. Be nice! */}
-            {APP_NAME !== "AmpMod" && APP_NAME !== "AmpMod (canary build)" && (
+            {APP_NAME !== "AmpMod" && (
                 <section>
                     <h2>AmpMod</h2>
                     <p>
@@ -94,11 +94,6 @@ const Credits = () => (
                     </a>{" "}
                     but is not endorsed by TurboWarp in any way.
                 </p>
-                <p>
-                    <a href="https://github.com/GarboMuffin/sponsors">
-                        Donate to support TurboWarp.
-                    </a>
-                </p>
             </section>
             <section>
                 <h2>Scratch</h2>
@@ -111,7 +106,7 @@ const Credits = () => (
                 </p>
                 <p>
                     <a href="https://scratch.mit.edu/donate">
-                        Donate to support Scratch.
+                        Donate to support TurboWarp and Scratch.
                     </a>
                 </p>
             </section>
