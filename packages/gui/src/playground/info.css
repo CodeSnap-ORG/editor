@@ -16,7 +16,6 @@ body {
     padding: 0;
     background: $page-background;
     color: $page-foreground;
-    margin-top: $menu-bar-height;
 }
 
 a {

@@ -119,6 +119,7 @@ const Header = () => {
                     </a>
                 </div>
             </div>
+            <div className={styles.spacer}></div>
             <TWNews />
         </React.Fragment>
     );
