@@ -61,7 +61,7 @@ const GuiIcon = ({ id }) => (
             }}
         >
             <div
-                className={styles.guiThemeIconMenubar}
+                className={`${styles.guiThemeIconMenubar} ${!GUI_MAP[id].guiColors["menu-bar-background"] && styles.noCustomMenuBar}`}
                 style={{
                     borderBottomColor:
                         GUI_MAP[id].guiColors["high-contrast-border"] ||

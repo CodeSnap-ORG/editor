@@ -97,10 +97,10 @@
 }
 
 .gui-theme-icon-outer {
-    width: 24px;
-    height: 24px;
-    border: 3px solid $menu-bar-foreground;
-    border-radius: calc($space / 1.5);
+    width: calc(24px / 1.1);
+    height: calc(24px / 1.1);
+    border: calc(3px / 1.1) solid $menu-bar-foreground;
+    border-radius: calc($space / 1.3);
     box-sizing: border-box;
     transform-origin: center;
     display: flex;
@@ -111,16 +111,20 @@
 .gui-theme-icon-menubar {
     height: 4px;
     width: 100%;
-    background: $menu-bar-background;
+    background-color: $menu-bar-background;
     border-bottom-width: 1px;
     border-bottom-style: solid;
+}
+
+.gui-theme-icon-menubar-no-custom-menu-bar {
+    background-image: $menu-bar-background-image;
 }
 
 .gui-theme-icon-fake-blocks {
     flex-grow: 1;
     border-width: 1px;
     border-style: solid;
-    margin: 1px;
+    margin: 1.4px;
     border-radius: calc($space / 2);
 }
 
