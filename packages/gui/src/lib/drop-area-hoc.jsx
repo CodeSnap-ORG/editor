@@ -116,7 +116,7 @@ const DropAreaHOC = function (dragTypes) {
             onDrop: PropTypes.func,
         };
 
-        const mapStateToProps = (state) => ({
+        const mapStateToProps = state => ({
             dragInfo: state.scratchGui.assetDrag,
         });
 

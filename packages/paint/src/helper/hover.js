@@ -13,7 +13,7 @@ import { sortItemsByZIndex } from "./math";
  */
 const getHoveredItem = function (event, hitOptions, subselect) {
     const oldMatch = hitOptions.match;
-    hitOptions.match = (hitResult) => {
+    hitOptions.match = hitResult => {
         if (hitResult.item.data && hitResult.item.data.noHover) return false;
         return oldMatch ? oldMatch(hitResult) : true;
     };

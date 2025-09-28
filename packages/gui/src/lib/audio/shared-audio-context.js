@@ -18,7 +18,7 @@ const initAudioContext = () => {
     } catch (e) {
         log.error(
             "could not create shared audio context; sound-related features will not be available",
-            e,
+            e
         );
     }
 };

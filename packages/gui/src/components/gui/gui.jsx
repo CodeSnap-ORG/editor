@@ -84,7 +84,7 @@ const getFullscreenBackgroundColor = () => {
 
 const fullscreenBackgroundColor = getFullscreenBackgroundColor();
 
-const GUIComponent = (props) => {
+const GUIComponent = props => {
     const {
         accountNavOpen,
         activeTabIndex,
@@ -184,11 +184,11 @@ const GUIComponent = (props) => {
         tabPanel: classNames(tabStyles.reactTabsTabPanel, styles.tabPanel),
         tabPanelSelected: classNames(
             tabStyles.reactTabsTabPanelSelected,
-            styles.isSelected,
+            styles.isSelected
         ),
         tabSelected: classNames(
             tabStyles.reactTabsTabSelected,
-            styles.isSelected,
+            styles.isSelected
         ),
     };
 
@@ -198,10 +198,10 @@ const GUIComponent = (props) => {
         Math.max(0, customStageSize.width - FIXED_WIDTH);
     return (
         <MediaQuery minWidth={unconstrainedWidth}>
-            {(isUnconstrained) => {
+            {isUnconstrained => {
                 const stageSize = resolveStageSize(
                     stageSizeMode,
-                    isUnconstrained,
+                    isUnconstrained
                 );
 
                 const alwaysEnabledModals = (
@@ -417,55 +417,73 @@ const GUIComponent = (props) => {
                                         <TabPanel
                                             className={tabClassNames.tabPanel}
                                         >
-                                            <Box
-                                                className={styles.blocksWrapper}
-                                            >
-                                                <Blocks
-                                                    key={`${blocksId}/${theme.id}`}
-                                                    canUseCloud={canUseCloud}
-                                                    grow={1}
-                                                    isVisible={blocksTabVisible}
-                                                    options={{
-                                                        media: `${basePath}static/${theme.getBlocksMediaFolder()}/`,
-                                                    }}
-                                                    stageSize={stageSize}
-                                                    onOpenCustomExtensionModal={
-                                                        onOpenCustomExtensionModal
-                                                    }
-                                                    theme={theme}
-                                                    vm={vm}
-                                                />
-                                            </Box>
-                                            <Box
-                                                className={
-                                                    styles.extensionButtonContainer
-                                                }
-                                            >
-                                                <button
-                                                    className={
-                                                        styles.extensionButton
-                                                    }
-                                                    title={intl.formatMessage(
-                                                        messages.addExtension,
-                                                    )}
-                                                    onClick={
-                                                        onExtensionButtonClick
-                                                    }
-                                                >
-                                                    <img
-                                                        className={
-                                                            styles.extensionButtonIcon
-                                                        }
-                                                        draggable={false}
-                                                        src={addExtensionIcon}
-                                                    />
-                                                </button>
-                                            </Box>
-                                            <Box className={styles.watermark}>
-                                                <Watermark />
-                                            </Box>
                                             {blocksTabVisible ? (
-                                                <Clippy messageSet="codeMenu" />
+                                                <>
+                                                    <Box
+                                                        className={
+                                                            styles.blocksWrapper
+                                                        }
+                                                    >
+                                                        <Blocks
+                                                            key={`${blocksId}/${theme.id}`}
+                                                            canUseCloud={
+                                                                canUseCloud
+                                                            }
+                                                            grow={1}
+                                                            isVisible={
+                                                                blocksTabVisible
+                                                            }
+                                                            options={{
+                                                                media: `${basePath}static/${theme.getBlocksMediaFolder()}/`,
+                                                            }}
+                                                            stageSize={
+                                                                stageSize
+                                                            }
+                                                            onOpenCustomExtensionModal={
+                                                                onOpenCustomExtensionModal
+                                                            }
+                                                            theme={theme}
+                                                            vm={vm}
+                                                        />
+                                                    </Box>
+                                                    <Box
+                                                        className={
+                                                            styles.extensionButtonContainer
+                                                        }
+                                                    >
+                                                        <button
+                                                            className={
+                                                                styles.extensionButton
+                                                            }
+                                                            title={intl.formatMessage(
+                                                                messages.addExtension
+                                                            )}
+                                                            onClick={
+                                                                onExtensionButtonClick
+                                                            }
+                                                        >
+                                                            <img
+                                                                className={
+                                                                    styles.extensionButtonIcon
+                                                                }
+                                                                draggable={
+                                                                    false
+                                                                }
+                                                                src={
+                                                                    addExtensionIcon
+                                                                }
+                                                            />
+                                                        </button>
+                                                    </Box>
+                                                    <Box
+                                                        className={
+                                                            styles.watermark
+                                                        }
+                                                    >
+                                                        <Watermark />
+                                                    </Box>
+                                                    <Clippy messageSet="codeMenu" />
+                                                </>
                                             ) : null}
                                         </TabPanel>
                                         <TabPanel
@@ -497,7 +515,7 @@ const GUIComponent = (props) => {
                                 <Box
                                     className={classNames(
                                         styles.stageAndTargetWrapper,
-                                        styles[stageSize],
+                                        styles[stageSize]
                                     )}
                                 >
                                     <StageWrapper
@@ -634,7 +652,7 @@ GUIComponent.defaultProps = {
     stageSizeMode: STAGE_SIZE_MODES.large,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     customStageSize: state.scratchGui.customStageSize,
     isWindowFullScreen: state.scratchGui.tw.isWindowFullScreen,
     // This is the button's mode, as opposed to the actual current state

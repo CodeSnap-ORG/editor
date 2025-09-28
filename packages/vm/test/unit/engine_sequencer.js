@@ -5,7 +5,7 @@ const Thread = require("../../src/engine/thread");
 const RenderedTarget = require("../../src/sprites/rendered-target");
 const Sprite = require("../../src/sprites/sprite");
 
-test("spec", (t) => {
+test("spec", t => {
     t.type(Sequencer, "function");
 
     const r = new Runtime();
@@ -77,7 +77,7 @@ const generateThread = function (runtime) {
     let inp = randomString();
     let name = th.topBlock;
 
-    const pushStack = (id) => {
+    const pushStack = id => {
         th.pushStack(id);
         th.peekStackFrame().op = { id };
     };
@@ -105,7 +105,7 @@ const generateThread = function (runtime) {
     return th;
 };
 
-test("stepThread", (t) => {
+test("stepThread", t => {
     const r = new Runtime();
     const s = new Sequencer(r);
     let th = generateThread(r);
@@ -123,7 +123,7 @@ test("stepThread", (t) => {
     t.end();
 });
 
-test("stepToBranch", (t) => {
+test("stepToBranch", t => {
     const r = new Runtime();
     const s = new Sequencer(r);
     const th = generateThread(r);
@@ -140,7 +140,7 @@ test("stepToBranch", (t) => {
     t.end();
 });
 
-test("retireThread", (t) => {
+test("retireThread", t => {
     const r = new Runtime();
     const s = new Sequencer(r);
     const th = generateThread(r);
@@ -152,7 +152,7 @@ test("retireThread", (t) => {
     t.end();
 });
 
-test("stepToProcedure", (t) => {
+test("stepToProcedure", t => {
     const r = new Runtime();
     const s = new Sequencer(r);
     const th = generateThread(r);
@@ -180,7 +180,7 @@ test("stepToProcedure", (t) => {
     t.end();
 });
 
-test("stepThreads", (t) => {
+test("stepThreads", t => {
     const r = new Runtime();
     r.currentStepTime = Infinity;
     const s = new Sequencer(r);

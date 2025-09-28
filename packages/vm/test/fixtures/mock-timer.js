@@ -64,7 +64,7 @@ class MockTimer {
      * @memberof MockTimer
      */
     advanceMockTimeAsync(milliseconds) {
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
             this.advanceMockTime(milliseconds);
             global.setTimeout(resolve, 0);
         });
@@ -150,7 +150,7 @@ class MockTimer {
 
         // next tick, call everything that's ready
         global.setTimeout(() => {
-            ready.forEach((o) => o.handler());
+            ready.forEach(o => o.handler());
         }, 0);
     }
 }

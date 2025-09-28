@@ -32,15 +32,15 @@ const reducer = function (state, action) {
     }
 };
 
-const activateColorPicker = (callback) => ({
+const activateColorPicker = callback => ({
     type: ACTIVATE_COLOR_PICKER,
     callback: callback,
 });
-const deactivateColorPicker = (color) => ({
+const deactivateColorPicker = color => ({
     type: DEACTIVATE_COLOR_PICKER,
     color: color,
 });
-const setCallback = (callback) => ({ type: SET_CALLBACK, callback: callback });
+const setCallback = callback => ({ type: SET_CALLBACK, callback: callback });
 
 export {
     reducer as default,

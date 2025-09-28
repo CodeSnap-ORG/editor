@@ -117,7 +117,7 @@ You can typically only package for a certain operating system while on that oper
 TurboWarp Desktop uses a free code signing provided by [SignPath.io](https://about.signpath.io/), certificate by [SignPath Foundation](https://signpath.org/).
 
 - Approvers:
-  - [GarboMuffin](https://github.com/GarboMuffin)
+    - [GarboMuffin](https://github.com/GarboMuffin)
 - Privacy policy: https://desktop.turbowarp.org/privacy.html
 
 ## Advanced customizations

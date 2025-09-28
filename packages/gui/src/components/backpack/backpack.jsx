@@ -114,7 +114,7 @@ const Backpack = ({
                     </div>
                 ) : contents.length > 0 ? (
                     <div className={styles.backpackListInner}>
-                        {contents.map((item) => (
+                        {contents.map(item => (
                             <SpriteSelectorItem
                                 className={styles.backpackItem}
                                 costumeURL={item.thumbnailUrl}
@@ -166,7 +166,7 @@ Backpack.propTypes = {
             thumbnailUrl: PropTypes.string,
             type: PropTypes.string,
             name: PropTypes.string,
-        }),
+        })
     ),
     dragOver: PropTypes.bool,
     error: PropTypes.oneOfType([PropTypes.bool, PropTypes.string]),

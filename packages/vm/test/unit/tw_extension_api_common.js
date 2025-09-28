@@ -1,22 +1,22 @@
 const ScratchCommon = require("../../src/extension-support/tw-extension-api-common");
 const { test } = require("tap");
 
-test("ArgumentType", (t) => {
+test("ArgumentType", t => {
     t.equal(ScratchCommon.ArgumentType.ANGLE, "angle");
     t.end();
 });
 
-test("BlockType", (t) => {
+test("BlockType", t => {
     t.equal(ScratchCommon.BlockType.BOOLEAN, "Boolean");
     t.end();
 });
 
-test("TargetType", (t) => {
+test("TargetType", t => {
     t.equal(ScratchCommon.TargetType.SPRITE, "sprite");
     t.end();
 });
 
-test("Cast", (t) => {
+test("Cast", t => {
     // Cast is thoroughly tested elsewhere. We just want to make sure that the public methods
     // don't get deleted unexpectedly.
     t.equal(ScratchCommon.Cast.toNumber("5"), 5);

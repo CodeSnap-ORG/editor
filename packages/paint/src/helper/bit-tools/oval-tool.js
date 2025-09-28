@@ -25,7 +25,7 @@ class OvalTool extends paper.Tool {
         setSelectedItems,
         clearSelectedItems,
         setCursor,
-        onUpdateImage,
+        onUpdateImage
     ) {
         super();
         this.setSelectedItems = setSelectedItems;
@@ -36,12 +36,12 @@ class OvalTool extends paper.Tool {
             setSelectedItems,
             clearSelectedItems,
             setCursor,
-            onUpdateImage,
+            onUpdateImage
         );
         const nudgeTool = new NudgeTool(
             Modes.BIT_OVAL,
             this.boundingBoxTool,
-            onUpdateImage,
+            onUpdateImage
         );
 
         // We have to set these functions instead of just declaring them because
@@ -64,7 +64,7 @@ class OvalTool extends paper.Tool {
             curves: false,
             fill: true,
             guide: false,
-            match: (hitResult) =>
+            match: hitResult =>
                 (hitResult.item.data &&
                     (hitResult.item.data.isScaleHandle ||
                         hitResult.item.data.isRotHandle)) ||
@@ -141,7 +141,7 @@ class OvalTool extends paper.Tool {
                 false /* clone */,
                 false /* multiselect */,
                 false /* doubleClicked */,
-                this.getHitOptions(),
+                this.getHitOptions()
             )
         ) {
             this.isBoundingBoxMode = true;
@@ -170,7 +170,7 @@ class OvalTool extends paper.Tool {
         const point = new paper.Point(event.point.x, event.point.y);
         const squareDimensions = getSquareDimensions(
             event.downPoint,
-            event.point,
+            event.point
         );
         if (event.modifiers.shift) {
             this.oval.size = squareDimensions.size.abs();
@@ -184,7 +184,7 @@ class OvalTool extends paper.Tool {
             this.oval.position = squareDimensions.position;
         } else {
             this.oval.position = downPoint.subtract(
-                this.oval.size.multiply(0.5),
+                this.oval.size.multiply(0.5)
             );
         }
         this.styleOval();
@@ -213,7 +213,7 @@ class OvalTool extends paper.Tool {
                 // Hit testing does not work correctly unless the width and height are positive
                 this.oval.size = new paper.Point(
                     Math.abs(this.oval.size.width),
-                    Math.abs(this.oval.size.height),
+                    Math.abs(this.oval.size.height)
                 );
                 this.oval.selected = true;
                 this.styleOval();

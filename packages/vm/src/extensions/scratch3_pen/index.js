@@ -127,7 +127,7 @@ class Scratch3PenBlocks {
         return MathUtil.clamp(
             requestedSize,
             Scratch3PenBlocks.PEN_SIZE_RANGE.min,
-            Scratch3PenBlocks.PEN_SIZE_RANGE.max,
+            Scratch3PenBlocks.PEN_SIZE_RANGE.max
         );
     }
 
@@ -138,15 +138,16 @@ class Scratch3PenBlocks {
      * @private
      */
     _getPenLayerID() {
-        if (this._penSkinId < 0 && this.runtime.renderer) {
-            this._penSkinId = this.runtime.renderer.createPenSkin();
-            this._penDrawableId = this.runtime.renderer.createDrawable(
-                StageLayering.PEN_LAYER,
+        const renderer = this.runtime.renderer;
+        if (this._penSkinId < 0 && renderer) {
+            this._penSkinId = renderer.createPenSkin();
+            this._penDrawableId = renderer.createDrawable(
+                StageLayering.PEN_LAYER
             );
-            this.runtime.renderer.updateDrawableSkinId(
-                this._penDrawableId,
-                this._penSkinId,
-            );
+            if (renderer.markDrawableAsNoninteractive) {
+                renderer.markDrawableAsNoninteractive(this._penDrawableId);
+            }
+            renderer.updateDrawableSkinId(this._penDrawableId, this._penSkinId);
         }
         return this._penSkinId;
     }
@@ -175,12 +176,12 @@ class Scratch3PenBlocks {
     _onTargetCreated(newTarget, sourceTarget) {
         if (sourceTarget) {
             const penState = sourceTarget.getCustomState(
-                Scratch3PenBlocks.STATE_KEY,
+                Scratch3PenBlocks.STATE_KEY
             );
             if (penState) {
                 newTarget.setCustomState(
                     Scratch3PenBlocks.STATE_KEY,
-                    Clone.simple(penState),
+                    Clone.simple(penState)
                 );
                 if (penState.penDown) {
                     newTarget.onTargetMoved = this._onTargetMoved;
@@ -209,7 +210,7 @@ class Scratch3PenBlocks {
                     oldX,
                     oldY,
                     target.x,
-                    target.y,
+                    target.y
                 );
                 this.runtime.requestRedraw();
             }
@@ -592,7 +593,7 @@ class Scratch3PenBlocks {
                 penSkinId,
                 penState.penAttributes,
                 target.x,
-                target.y,
+                target.y
             );
             this.runtime.requestRedraw();
         }
@@ -662,7 +663,7 @@ class Scratch3PenBlocks {
         penState.penAttributes.color4f[1] = rgb.g / 255.0;
         penState.penAttributes.color4f[2] = rgb.b / 255.0;
         penState.penAttributes.color4f[3] = this._transparencyToAlpha(
-            penState.transparency,
+            penState.transparency
         );
     }
 
@@ -679,27 +680,27 @@ class Scratch3PenBlocks {
         switch (param) {
             case ColorParam.COLOR:
                 penState.color = this._wrapColor(
-                    value + (change ? penState.color : 0),
+                    value + (change ? penState.color : 0)
                 );
                 break;
             case ColorParam.SATURATION:
                 penState.saturation = this._clampColorParam(
-                    value + (change ? penState.saturation : 0),
+                    value + (change ? penState.saturation : 0)
                 );
                 break;
             case ColorParam.BRIGHTNESS:
                 penState.brightness = this._clampColorParam(
-                    value + (change ? penState.brightness : 0),
+                    value + (change ? penState.brightness : 0)
                 );
                 break;
             case ColorParam.TRANSPARENCY:
                 penState.transparency = this._clampColorParam(
-                    value + (change ? penState.transparency : 0),
+                    value + (change ? penState.transparency : 0)
                 );
                 break;
             default:
                 log.warn(
-                    `Tried to set or change unknown color parameter: ${param}`,
+                    `Tried to set or change unknown color parameter: ${param}`
                 );
         }
         this._updatePenColor(penState);
@@ -719,7 +720,7 @@ class Scratch3PenBlocks {
             args.COLOR_PARAM,
             Cast.toNumber(args.VALUE),
             penState,
-            true,
+            true
         );
     }
 
@@ -737,7 +738,7 @@ class Scratch3PenBlocks {
             args.COLOR_PARAM,
             Cast.toNumber(args.VALUE),
             penState,
-            false,
+            false
         );
     }
 
@@ -754,7 +755,7 @@ class Scratch3PenBlocks {
         // used by compiler
         const penAttributes = this._getPenState(target).penAttributes;
         penAttributes.diameter = this._clampPenSize(
-            penAttributes.diameter + size,
+            penAttributes.diameter + size
         );
     }
 
@@ -790,13 +791,13 @@ class Scratch3PenBlocks {
             ColorParam.COLOR,
             colorValue,
             penState,
-            false,
+            false
         );
         this._setOrChangeColorParam(
             ColorParam.TRANSPARENCY,
             0,
             penState,
-            false,
+            false
         );
         this._legacyUpdatePenColor(penState);
     }
@@ -818,7 +819,7 @@ class Scratch3PenBlocks {
             ColorParam.COLOR,
             colorChange,
             penState,
-            true,
+            true
         );
 
         this._legacyUpdatePenColor(penState);

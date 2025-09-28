@@ -1,16 +1,16 @@
 /* eslint-env worker */
 
 const ScratchCommon = require("./tw-extension-api-common");
-const AmpModApi = require("./ampmod-api");
 const createScratchX = require("./tw-scratchx-compatibility-layer");
 const dispatch = require("../dispatch/worker-dispatch");
 const log = require("../util/log");
 const { isWorker } = require("./tw-extension-worker-context");
 const createTranslate = require("./tw-l10n");
+const AmpModApi = require("./ampmod-api");
 
 const translate = createTranslate(null);
 
-const loadScripts = (url) => {
+const loadScripts = url => {
     if (isWorker) {
         importScripts(url);
     } else {
@@ -20,8 +20,8 @@ const loadScripts = (url) => {
             script.onerror = () => {
                 reject(
                     new Error(
-                        `Error in sandboxed script: ${url}. Check the console for more information.`,
-                    ),
+                        `Error in sandboxed script: ${url}. Check the console for more information.`
+                    )
                 );
             };
             script.src = url;
@@ -36,12 +36,12 @@ class ExtensionWorker {
 
         this.initialRegistrations = [];
 
-        this.firstRegistrationPromise = new Promise((resolve) => {
+        this.firstRegistrationPromise = new Promise(resolve => {
             this.firstRegistrationCallback = resolve;
         });
 
         dispatch.waitForConnection.then(() => {
-            dispatch.call("extensions", "allocateWorker").then(async (x) => {
+            dispatch.call("extensions", "allocateWorker").then(async x => {
                 const [id, extension] = x;
                 this.workerId = id;
 
@@ -53,7 +53,7 @@ class ExtensionWorker {
                     this.initialRegistrations = null;
 
                     Promise.all(initialRegistrations).then(() =>
-                        dispatch.call("extensions", "onWorkerInit", id),
+                        dispatch.call("extensions", "onWorkerInit", id)
                     );
                 } catch (e) {
                     log.error(e);
@@ -75,8 +75,8 @@ class ExtensionWorker {
                 dispatch.call(
                     "extensions",
                     "registerExtensionService",
-                    serviceName,
-                ),
+                    serviceName
+                )
             );
         if (this.initialRegistrations) {
             this.firstRegistrationCallback();
@@ -94,13 +94,13 @@ Object.assign(global.Scratch, ScratchCommon, {
     openWindow: () =>
         Promise.reject(
             new Error(
-                "Scratch.openWindow not supported in sandboxed extensions",
-            ),
+                "Scratch.openWindow not supported in sandboxed extensions"
+            )
         ),
     canRedirect: () => Promise.resolve(false),
     redirect: () =>
         Promise.reject(
-            new Error("Scratch.redirect not supported in sandboxed extensions"),
+            new Error("Scratch.redirect not supported in sandboxed extensions")
         ),
     canRecordAudio: () => Promise.resolve(false),
     canRecordVideo: () => Promise.resolve(false),
@@ -111,10 +111,11 @@ Object.assign(global.Scratch, ScratchCommon, {
     canDownload: () => Promise.resolve(false),
     download: () =>
         Promise.reject(
-            new Error("Scratch.download not supported in sandboxed extensions"),
+            new Error("Scratch.download not supported in sandboxed extensions")
         ),
     translate,
 });
+global.amp = AmpModApi || {};
 
 /**
  * Expose only specific parts of the worker to extensions.

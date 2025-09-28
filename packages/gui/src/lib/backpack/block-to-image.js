@@ -14,7 +14,7 @@ export default function (blockId) {
 
     // Once we have the cloned SVG, do the rest in a setTimeout to prevent
     // blocking the drag end from finishing promptly.
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
         setTimeout(() => {
             // TW: Fixes issues caused by scratch-blocks block hiding
             blockSvg.style.display = "";
@@ -40,7 +40,7 @@ export default function (blockId) {
             const leftPadding = padding;
             blockSvg.setAttribute(
                 "transform",
-                `translate(${leftPadding} ${topPadding})`,
+                `translate(${leftPadding} ${topPadding})`
             );
 
             const bounds = blockSvg.getBoundingClientRect();
@@ -64,7 +64,7 @@ export default function (blockId) {
             svg.parentNode.removeChild(svg);
 
             resolve(
-                `data:image/svg+xml;utf-8,${encodeURIComponent(svgString)}`,
+                `data:image/svg+xml;utf-8,${encodeURIComponent(svgString)}`
             );
         }, 10);
     });

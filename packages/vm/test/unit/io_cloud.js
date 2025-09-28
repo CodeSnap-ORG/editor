@@ -4,7 +4,7 @@ const Target = require("../../src/engine/target");
 const Variable = require("../../src/engine/variable");
 const Runtime = require("../../src/engine/runtime");
 
-test("spec", (t) => {
+test("spec", t => {
     const runtime = new Runtime();
     const cloud = new Cloud(runtime);
 
@@ -21,7 +21,7 @@ test("spec", (t) => {
     t.end();
 });
 
-test("stage and provider are null initially", (t) => {
+test("stage and provider are null initially", t => {
     const runtime = new Runtime();
     const cloud = new Cloud(runtime);
 
@@ -30,7 +30,7 @@ test("stage and provider are null initially", (t) => {
     t.end();
 });
 
-test("setProvider sets the provider", (t) => {
+test("setProvider sets the provider", t => {
     const runtime = new Runtime();
     const cloud = new Cloud(runtime);
 
@@ -44,14 +44,14 @@ test("setProvider sets the provider", (t) => {
     t.end();
 });
 
-test("postData update message updates the variable", (t) => {
+test("postData update message updates the variable", t => {
     const runtime = new Runtime();
     const stage = new Target(runtime);
     const fooVar = new Variable(
         "a fake var id",
         "foo",
         Variable.SCALAR_TYPE,
-        true /* isCloud */,
+        true /* isCloud */
     );
     stage.variables[fooVar.id] = fooVar;
 
@@ -69,7 +69,7 @@ test("postData update message updates the variable", (t) => {
     t.end();
 });
 
-test("requestUpdateVariable calls provider's updateVariable function", (t) => {
+test("requestUpdateVariable calls provider's updateVariable function", t => {
     let updateVariableCalled = false;
     let mockVarName = "";
     let mockVarValue = "";
@@ -94,13 +94,13 @@ test("requestUpdateVariable calls provider's updateVariable function", (t) => {
     t.end();
 });
 
-test("requestCreateVariable calls provider's createVariable function", (t) => {
+test("requestCreateVariable calls provider's createVariable function", t => {
     let createVariableCalled = false;
     const mockVariable = new Variable(
         "a var id",
         "my var",
         Variable.SCALAR_TYPE,
-        false,
+        false
     );
     let mockVarName;
     let mockVarValue;
@@ -127,7 +127,7 @@ test("requestCreateVariable calls provider's createVariable function", (t) => {
     t.end();
 });
 
-test("requestRenameVariable calls provider's renameVariable function", (t) => {
+test("requestRenameVariable calls provider's renameVariable function", t => {
     let renameVariableCalled = false;
     let mockVarOldName;
     let mockVarNewName;
@@ -152,10 +152,10 @@ test("requestRenameVariable calls provider's renameVariable function", (t) => {
     t.end();
 });
 
-test("requestDeleteVariable calls provider's deleteVariable function", (t) => {
+test("requestDeleteVariable calls provider's deleteVariable function", t => {
     let deleteVariableCalled = false;
     let mockVarName;
-    const mockDeleteVariable = (name) => {
+    const mockDeleteVariable = name => {
         deleteVariableCalled = true;
         mockVarName = name;
         return;

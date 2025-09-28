@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { FormattedMessage } from "react-intl";
 import styles from "./fonts-modal.css";
 
-const AddButton = (props) => (
+const AddButton = props => (
     <button
         onClick={props.onClick}
         disabled={props.disabled}

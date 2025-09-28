@@ -32,7 +32,7 @@ class ScratchLinkWebSocket {
             )
         ) {
             throw new Error(
-                "Must set open, close, message and error handlers before calling open on the socket",
+                "Must set open, close, message and error handlers before calling open on the socket"
             );
         }
 
@@ -46,7 +46,7 @@ class ScratchLinkWebSocket {
                 break;
             default:
                 throw new Error(
-                    `Unknown ScratchLink socket Type: ${this._type}`,
+                    `Unknown ScratchLink socket Type: ${this._type}`
                 );
         }
 
@@ -68,7 +68,7 @@ class ScratchLinkWebSocket {
 
         const ws = new WebSocket(`ws://127.0.0.1:20111/${pathname}`);
         const wss = new WebSocket(
-            `wss://device-manager.scratch.mit.edu:20110/${pathname}`,
+            `wss://device-manager.scratch.mit.edu:20110/${pathname}`
         );
 
         const connectTimeout = setTimeout(() => {
@@ -76,12 +76,12 @@ class ScratchLinkWebSocket {
             setSocket(ws, wss);
             this._ws.onerror(new Event("timeout"));
         }, 15 * 1000);
-        ws.onopen = (openEvent) => {
+        ws.onopen = openEvent => {
             clearTimeout(connectTimeout);
             setSocket(ws, wss);
             this._ws.onopen(openEvent);
         };
-        wss.onopen = (openEvent) => {
+        wss.onopen = openEvent => {
             clearTimeout(connectTimeout);
             setSocket(wss, ws);
             this._ws.onopen(openEvent);
@@ -97,11 +97,11 @@ class ScratchLinkWebSocket {
                 this._ws.onerror(wsError);
             }
         };
-        ws.onerror = (errorEvent) => {
+        ws.onerror = errorEvent => {
             wsError = errorEvent;
             errorHandler();
         };
-        wss.onerror = (errorEvent) => {
+        wss.onerror = errorEvent => {
             wssError = errorEvent;
             errorHandler();
         };

@@ -18,7 +18,7 @@ describe("ToggleButtons", () => {
                         icon: "Button 2 icon",
                     },
                 ]}
-            />,
+            />
         );
 
         const buttons = component.find("button");
@@ -45,7 +45,7 @@ describe("ToggleButtons", () => {
                         icon: "Button 2 icon",
                     },
                 ]}
-            />,
+            />
         );
         const button2 = component.find('button[title="Button 2"]');
         button2.simulate("click");

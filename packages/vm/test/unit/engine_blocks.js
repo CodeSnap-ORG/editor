@@ -5,7 +5,7 @@ const adapter = require("../../src/engine/adapter");
 const events = require("../fixtures/events.json");
 const Runtime = require("../../src/engine/runtime");
 
-test("spec", (t) => {
+test("spec", t => {
     const b = new Blocks(new Runtime());
 
     t.type(Blocks, "function");
@@ -32,7 +32,7 @@ test("spec", (t) => {
 });
 
 // Getter tests
-test("getBlock", (t) => {
+test("getBlock", t => {
     const b = new Blocks(new Runtime());
     b.createBlock({
         id: "foo",
@@ -49,7 +49,7 @@ test("getBlock", (t) => {
     t.end();
 });
 
-test("getScripts", (t) => {
+test("getScripts", t => {
     const b = new Blocks(new Runtime());
     let scripts = b.getScripts();
     t.type(scripts, "object");
@@ -89,7 +89,7 @@ test("getScripts", (t) => {
     t.end();
 });
 
-test("getNextBlock", (t) => {
+test("getNextBlock", t => {
     const b = new Blocks(new Runtime());
     b.createBlock({
         id: "foo",
@@ -123,7 +123,7 @@ test("getNextBlock", (t) => {
     t.end();
 });
 
-test("getBranch", (t) => {
+test("getBranch", t => {
     const b = new Blocks(new Runtime());
     // Single branch
     b.createBlock({
@@ -158,7 +158,7 @@ test("getBranch", (t) => {
     t.end();
 });
 
-test("getBranch2", (t) => {
+test("getBranch2", t => {
     const b = new Blocks(new Runtime());
     // Second branch
     b.createBlock({
@@ -205,7 +205,7 @@ test("getBranch2", (t) => {
     t.end();
 });
 
-test("getBranch with none", (t) => {
+test("getBranch with none", t => {
     const b = new Blocks(new Runtime());
     b.createBlock({
         id: "foo",
@@ -220,7 +220,7 @@ test("getBranch with none", (t) => {
     t.end();
 });
 
-test("getOpcode", (t) => {
+test("getOpcode", t => {
     const b = new Blocks(new Runtime());
     const block = {
         id: "foo",
@@ -239,7 +239,7 @@ test("getOpcode", (t) => {
     t.end();
 });
 
-test("mutationToXML", (t) => {
+test("mutationToXML", t => {
     const b = new Blocks(new Runtime());
     const testStringRaw = "\"arbitrary\" & 'complicated' test string";
     const testStringEscaped =
@@ -254,13 +254,13 @@ test("mutationToXML", (t) => {
     const xml = b.mutationToXML(mutation);
     t.equals(
         xml,
-        `<mutation blockInfo="{&quot;text&quot;:&quot;${testStringEscaped}&quot;}"></mutation>`,
+        `<mutation blockInfo="{&quot;text&quot;:&quot;${testStringEscaped}&quot;}"></mutation>`
     );
     t.end();
 });
 
 // Block events tests
-test("create", (t) => {
+test("create", t => {
     const b = new Blocks(new Runtime());
     b.createBlock({
         id: "foo",
@@ -277,7 +277,7 @@ test("create", (t) => {
     t.end();
 });
 
-test("move", (t) => {
+test("move", t => {
     const b = new Blocks(new Runtime());
     b.createBlock({
         id: "foo",
@@ -317,7 +317,7 @@ test("move", (t) => {
     t.end();
 });
 
-test("move into empty", (t) => {
+test("move into empty", t => {
     const b = new Blocks(new Runtime());
     b.createBlock({
         id: "foo",
@@ -344,7 +344,7 @@ test("move into empty", (t) => {
     t.end();
 });
 
-test("move no obscure shadow", (t) => {
+test("move no obscure shadow", t => {
     const b = new Blocks(new Runtime());
     b.createBlock({
         id: "foo",
@@ -378,7 +378,7 @@ test("move no obscure shadow", (t) => {
     t.end();
 });
 
-test("move - attaching new shadow", (t) => {
+test("move - attaching new shadow", t => {
     const b = new Blocks(new Runtime());
     // Block/shadow are null to mimic state right after a procedure_call block
     // is mutated by adding an input. The "move" will attach the new shadow.
@@ -415,7 +415,7 @@ test("move - attaching new shadow", (t) => {
     t.end();
 });
 
-test("change", (t) => {
+test("change", t => {
     const b = new Blocks(new Runtime());
     b.createBlock({
         id: "foo",
@@ -472,7 +472,7 @@ test("change", (t) => {
     t.end();
 });
 
-test("delete", (t) => {
+test("delete", t => {
     const b = new Blocks(new Runtime());
     b.createBlock({
         id: "foo",
@@ -489,7 +489,7 @@ test("delete", (t) => {
     t.end();
 });
 
-test("delete chain", (t) => {
+test("delete chain", t => {
     // Create a chain of connected blocks and delete the top one.
     // All of them should be deleted.
     const b = new Blocks(new Runtime());
@@ -527,7 +527,7 @@ test("delete chain", (t) => {
     t.end();
 });
 
-test("delete inputs", (t) => {
+test("delete inputs", t => {
     // Create a block with two inputs, one of which has its own input.
     // Delete the block - all of them should be deleted.
     const b = new Blocks(new Runtime());
@@ -600,7 +600,7 @@ test("delete inputs", (t) => {
     t.end();
 });
 
-test("updateAssetName function updates name in sound field", (t) => {
+test("updateAssetName function updates name in sound field", t => {
     const b = new Blocks(new Runtime());
     b.createBlock({
         id: "foo",
@@ -617,7 +617,7 @@ test("updateAssetName function updates name in sound field", (t) => {
     t.end();
 });
 
-test("updateAssetName function updates name in costume field", (t) => {
+test("updateAssetName function updates name in costume field", t => {
     const b = new Blocks(new Runtime());
     b.createBlock({
         id: "foo",
@@ -634,7 +634,7 @@ test("updateAssetName function updates name in costume field", (t) => {
     t.end();
 });
 
-test("updateAssetName function updates name in backdrop field", (t) => {
+test("updateAssetName function updates name in backdrop field", t => {
     const b = new Blocks(new Runtime());
     b.createBlock({
         id: "foo",
@@ -651,7 +651,7 @@ test("updateAssetName function updates name in backdrop field", (t) => {
     t.end();
 });
 
-test("updateAssetName function updates name in all sprite fields", (t) => {
+test("updateAssetName function updates name in all sprite fields", t => {
     const b = new Blocks(new Runtime());
     b.createBlock({
         id: "id1",
@@ -734,7 +734,7 @@ test("updateAssetName function updates name in all sprite fields", (t) => {
     t.end();
 });
 
-test("updateAssetName function updates name according to asset type", (t) => {
+test("updateAssetName function updates name according to asset type", t => {
     const b = new Blocks(new Runtime());
     b.createBlock({
         id: "id1",
@@ -763,7 +763,7 @@ test("updateAssetName function updates name according to asset type", (t) => {
     t.end();
 });
 
-test("updateAssetName only updates given name", (t) => {
+test("updateAssetName only updates given name", t => {
     const b = new Blocks(new Runtime());
     b.createBlock({
         id: "id1",
@@ -791,7 +791,7 @@ test("updateAssetName only updates given name", (t) => {
     t.end();
 });
 
-test("updateAssetName doesn't update name if name isn't being used", (t) => {
+test("updateAssetName doesn't update name if name isn't being used", t => {
     const b = new Blocks(new Runtime());
     b.createBlock({
         id: "id1",
@@ -808,7 +808,7 @@ test("updateAssetName doesn't update name if name isn't being used", (t) => {
     t.end();
 });
 
-test("updateSensingOfReference renames variables in sensing_of block", (t) => {
+test("updateSensingOfReference renames variables in sensing_of block", t => {
     const b = new Blocks(new Runtime());
     b.createBlock({
         id: "id1",
@@ -842,7 +842,7 @@ test("updateSensingOfReference renames variables in sensing_of block", (t) => {
     t.end();
 });
 
-test("updateSensingOfReference doesn't rename if block is inserted", (t) => {
+test("updateSensingOfReference doesn't rename if block is inserted", t => {
     const b = new Blocks(new Runtime());
     b.createBlock({
         id: "id1",
@@ -880,7 +880,7 @@ test("updateSensingOfReference doesn't rename if block is inserted", (t) => {
     t.end();
 });
 
-test("updateSensingOfReference doesn't rename if name is not being used", (t) => {
+test("updateSensingOfReference doesn't rename if name is not being used", t => {
     const b = new Blocks(new Runtime());
     b.createBlock({
         id: "id1",
@@ -914,7 +914,7 @@ test("updateSensingOfReference doesn't rename if name is not being used", (t) =>
     t.end();
 });
 
-test("updateSensingOfReference doesn't rename other targets' variables", (t) => {
+test("updateSensingOfReference doesn't rename other targets' variables", t => {
     const b = new Blocks(new Runtime());
     b.createBlock({
         id: "id1",
@@ -948,7 +948,7 @@ test("updateSensingOfReference doesn't rename other targets' variables", (t) => 
     t.end();
 });
 
-test("updateTargetSpecificBlocks changes sprite clicked hat to stage clicked for stage", (t) => {
+test("updateTargetSpecificBlocks changes sprite clicked hat to stage clicked for stage", t => {
     const b = new Blocks(new Runtime());
     b.createBlock({
         id: "originallySpriteClicked",
@@ -963,40 +963,40 @@ test("updateTargetSpecificBlocks changes sprite clicked hat to stage clicked for
     b.updateTargetSpecificBlocks(false /* isStage */);
     t.equals(
         b.getBlock("originallySpriteClicked").opcode,
-        "event_whenthisspriteclicked",
+        "event_whenthisspriteclicked"
     );
 
     // originallySpriteClicked does update when on a stage target
     b.updateTargetSpecificBlocks(true /* isStage */);
     t.equals(
         b.getBlock("originallySpriteClicked").opcode,
-        "event_whenstageclicked",
+        "event_whenstageclicked"
     );
 
     // originallyStageClicked does not update when on a stage target
     b.updateTargetSpecificBlocks(true /* isStage */);
     t.equals(
         b.getBlock("originallyStageClicked").opcode,
-        "event_whenstageclicked",
+        "event_whenstageclicked"
     );
 
     // originallyStageClicked does update when on a non-stage target
     b.updateTargetSpecificBlocks(false /* isStage */);
     t.equals(
         b.getBlock("originallyStageClicked").opcode,
-        "event_whenthisspriteclicked",
+        "event_whenthisspriteclicked"
     );
 
     t.end();
 });
 
-test("getAllVariableAndListReferences returns an empty map references when variable blocks do not exist", (t) => {
+test("getAllVariableAndListReferences returns an empty map references when variable blocks do not exist", t => {
     const b = new Blocks(new Runtime());
     t.equal(Object.keys(b.getAllVariableAndListReferences()).length, 0);
     t.end();
 });
 
-test("getAllVariableAndListReferences returns references when variable blocks exist", (t) => {
+test("getAllVariableAndListReferences returns references when variable blocks exist", t => {
     const b = new Blocks(new Runtime());
 
     let varListRefs = b.getAllVariableAndListReferences();
@@ -1012,20 +1012,20 @@ test("getAllVariableAndListReferences returns references when variable blocks ex
     t.equal(varListRefs["mock var id"][0].type, Variable.SCALAR_TYPE);
     t.equal(
         varListRefs["mock var id"][0].referencingField.value,
-        "a mock variable",
+        "a mock variable"
     );
     t.equal(Array.isArray(varListRefs["mock list id"]), true);
     t.equal(varListRefs["mock list id"].length, 1);
     t.equal(varListRefs["mock list id"][0].type, Variable.LIST_TYPE);
     t.equal(
         varListRefs["mock list id"][0].referencingField.value,
-        "a mock list",
+        "a mock list"
     );
 
     t.end();
 });
 
-test("getAllVariableAndListReferences does not return broadcast blocks if the flag is left out", (t) => {
+test("getAllVariableAndListReferences does not return broadcast blocks if the flag is left out", t => {
     const b = new Blocks(new Runtime());
     b.createBlock(adapter(events.mockBroadcastBlock)[0]);
     b.createBlock(adapter(events.mockBroadcastBlock)[1]);
@@ -1034,7 +1034,7 @@ test("getAllVariableAndListReferences does not return broadcast blocks if the fl
     t.end();
 });
 
-test("getAllVariableAndListReferences returns broadcast when we tell it to", (t) => {
+test("getAllVariableAndListReferences returns broadcast when we tell it to", t => {
     const b = new Blocks(new Runtime());
 
     b.createBlock(adapter(events.mockVariableBlock)[0]);
@@ -1050,17 +1050,17 @@ test("getAllVariableAndListReferences returns broadcast when we tell it to", (t)
     t.equal(varListRefs["mock var id"][0].type, Variable.SCALAR_TYPE);
     t.equal(
         varListRefs["mock var id"][0].referencingField.value,
-        "a mock variable",
+        "a mock variable"
     );
     t.equal(Array.isArray(varListRefs["mock broadcast message id"]), true);
     t.equal(varListRefs["mock broadcast message id"].length, 1);
     t.equal(
         varListRefs["mock broadcast message id"][0].type,
-        Variable.BROADCAST_MESSAGE_TYPE,
+        Variable.BROADCAST_MESSAGE_TYPE
     );
     t.equal(
         varListRefs["mock broadcast message id"][0].referencingField.value,
-        "my message",
+        "my message"
     );
 
     t.end();

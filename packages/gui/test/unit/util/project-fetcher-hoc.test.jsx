@@ -32,7 +32,7 @@ describe("ProjectFetcherHOC", () => {
                 projectId="100"
                 setProjectId={mockSetProjectIdFunc}
                 store={store}
-            />,
+            />
         );
         expect(mockSetProjectIdFunc.mock.calls[0][0]).toBe("100");
     });
@@ -46,7 +46,7 @@ describe("ProjectFetcherHOC", () => {
             <WrappedComponent
                 store={store}
                 onFetchedProjectData={mockedOnFetchedProject}
-            />,
+            />
         );
         mounted.setProps({
             reduxProjectId: "100",
@@ -56,15 +56,15 @@ describe("ProjectFetcherHOC", () => {
         expect(storage.load).toHaveBeenLastCalledWith(
             storage.AssetType.Project,
             "100",
-            storage.DataFormat.JSON,
+            storage.DataFormat.JSON
         );
         storage.load = originalLoad;
         // nextTick needed since storage.load is async, and onFetchedProject is called in its then()
         process.nextTick(() =>
             expect(mockedOnFetchedProject).toHaveBeenLastCalledWith(
                 "100",
-                LoadingState.FETCHING_WITH_ID,
-            ),
+                LoadingState.FETCHING_WITH_ID
+            )
         );
     });
 });

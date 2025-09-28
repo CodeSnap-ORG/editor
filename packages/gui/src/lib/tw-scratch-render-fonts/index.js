@@ -30,35 +30,35 @@ const fetchFonts = () => {
     for (const fontName of Object.keys(fontSource)) {
         promises.push(
             fetch(fontSource[fontName])
-                .then((res) => {
+                .then(res => {
                     if (!res.ok) {
                         throw new Error(
-                            `Cannot load font: ${fontName} (invalid HTTP response)`,
+                            `Cannot load font: ${fontName} (invalid HTTP response)`
                         );
                     }
                     return res.blob();
                 })
                 .then(
-                    (blob) =>
+                    blob =>
                         new Promise((resolve, reject) => {
                             const fr = new FileReader();
                             fr.onload = () => resolve(fr.result);
                             fr.onerror = () =>
                                 reject(
                                     new Error(
-                                        `Cannot load font: ${fontName} (could not read)`,
-                                    ),
+                                        `Cannot load font: ${fontName} (could not read)`
+                                    )
                                 );
                             fr.readAsDataURL(blob);
-                        }),
+                        })
                 )
-                .then((url) => {
+                .then(url => {
                     fontData[fontName] =
                         `@font-face{font-family:"${fontName}";src:url("${url}");}`;
                 })
-                .catch((err) => {
+                .catch(err => {
                     log.error(err);
-                }),
+                })
         );
     }
     return Promise.all(promises);
@@ -97,7 +97,7 @@ const loadFonts = () =>
             addFontsToDocument();
             return waitForFontsToLoad();
         })
-        .catch((err) => {
+        .catch(err => {
             log.error(err);
         });
 

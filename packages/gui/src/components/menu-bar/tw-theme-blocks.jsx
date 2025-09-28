@@ -116,13 +116,18 @@ const BlocksThemeMenu = ({
     <MenuItem expanded={isOpen}>
         <div className={styles.option} onClick={onOpenMenu}>
             <ThemeIcon id={theme.blocks} />
-            <span className={styles.submenuLabel}>
-                <FormattedMessage
-                    defaultMessage="Block Colors"
-                    description="Label for to choose what color blocks should be, eg. original or high contrast"
-                    id="tw.menuBar.blockColors"
-                />
-            </span>
+            <div className={styles.menuItemTitleAndSubtitle}>
+                <span className={styles.submenuLabel}>
+                    <FormattedMessage
+                        defaultMessage="Block Colors"
+                        description="Label for to choose what color blocks should be, eg. original or high contrast"
+                        id="tw.menuBar.blockColors"
+                    />
+                </span>
+                <span className={styles.menuItemSubtitle}>
+                    <FormattedMessage {...options[theme.blocks]} />
+                </span>
+            </div>
             <img
                 className={styles.expandCaret}
                 src={dropdownCaret}
@@ -135,7 +140,7 @@ const BlocksThemeMenu = ({
                 BLOCKS_HIGH_CONTRAST,
                 BLOCKS_DARK,
                 ...(onOpenCustomSettings ? [BLOCKS_CUSTOM] : []),
-            ].map((i) => (
+            ].map(i => (
                 <ThemeMenuItem
                     key={i}
                     id={i}
@@ -164,14 +169,14 @@ BlocksThemeMenu.propTypes = {
     theme: PropTypes.instanceOf(Theme),
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     isOpen: blocksThemeMenuOpen(state),
     isRtl: state.locales.isRtl,
     theme: state.scratchGui.theme.theme,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    onChangeTheme: (theme) => {
+const mapDispatchToProps = dispatch => ({
+    onChangeTheme: theme => {
         dispatch(setTheme(theme));
         dispatch(closeSettingsMenu());
         persistTheme(theme);

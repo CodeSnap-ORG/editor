@@ -1,5 +1,3 @@
-const TwPlatform = require("../engine/tw-platform");
-
 class Scratch3ProcedureBlocks {
     constructor(runtime) {
         /**
@@ -77,7 +75,7 @@ class Scratch3ProcedureBlocks {
         if (addonBlock) {
             const result = addonBlock.callback(
                 util.thread.getAllparams(),
-                util,
+                util
             );
             if (util.thread.status === 1 /* STATUS_PROMISE_WAIT */) {
                 // If the addon block is using STATUS_PROMISE_WAIT to force us to sleep,
@@ -113,11 +111,6 @@ class Scratch3ProcedureBlocks {
             if (String(args.VALUE).toLowerCase() === "last key pressed") {
                 return util.ioQuery("keyboard", "getLastKeyPressed");
             }
-            // ampmod: support "project platform" block
-            if (String(args.VALUE).toLowerCase() === "project platform") {
-                console.log(TwPlatform);
-                return TwPlatform.name;
-            }
             // When the parameter is not found in the most recent procedure
             // call, the default is always 0.
             return 0;
@@ -136,13 +129,7 @@ class Scratch3ProcedureBlocks {
             ) {
                 return true;
             }
-            if (lowercaseValue === "is turbowarp?") {
-                return true;
-            }
-            if (lowercaseValue === "is ultiblocks?") {
-                return true;
-            }
-            if (lowercaseValue === "is ampmod?") {
+            if (/is (ampmod|ultiblocks|turbowarp)\?/.test(lowercaseValue)) {
                 return true;
             }
             // When the parameter is not found in the most recent procedure

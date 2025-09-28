@@ -56,7 +56,7 @@ const Packager = () => (
     </a>
 );
 
-const PromptComponent = (props) => (
+const PromptComponent = props => (
     <Modal
         className={styles.modalContent}
         contentLabel={props.title}

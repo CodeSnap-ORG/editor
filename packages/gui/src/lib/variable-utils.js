@@ -20,7 +20,7 @@ const setVariableValue = (vm, targetId, variableId, value) => {
     if (variable.isCloud) {
         vm.runtime.ioDevices.cloud.requestUpdateVariable(
             variable.name,
-            variable.value,
+            variable.value
         );
     }
 };

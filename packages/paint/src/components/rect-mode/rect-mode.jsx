@@ -4,7 +4,7 @@ import ToolSelectComponent from "../tool-select-base/tool-select-base.jsx";
 import messages from "../../lib/messages.js";
 import rectIcon from "./rectangle.svg";
 
-const RectModeComponent = (props) => (
+const RectModeComponent = props => (
     <ToolSelectComponent
         imgDescriptor={messages.rect}
         imgSrc={rectIcon}

@@ -7,7 +7,7 @@ import {
     openRestorePointModal,
 } from "../reducers/modals";
 
-const TWInvalidProjectModal = (props) => <InvalidProjectModal {...props} />;
+const TWInvalidProjectModal = props => <InvalidProjectModal {...props} />;
 
 TWInvalidProjectModal.propTypes = {
     onClickRestorePoints: PropTypes.func,
@@ -15,11 +15,11 @@ TWInvalidProjectModal.propTypes = {
     error: PropTypes.any,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     error: state.scratchGui.tw.projectError,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     onClickRestorePoints: () => {
         dispatch(closeInvalidProjectModal());
         dispatch(openRestorePointModal());
@@ -29,5 +29,5 @@ const mapDispatchToProps = (dispatch) => ({
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps,
+    mapDispatchToProps
 )(TWInvalidProjectModal);

@@ -2,7 +2,7 @@ const test = require("tap").test;
 const Mouse = require("../../src/io/mouse");
 const Runtime = require("../../src/engine/runtime");
 
-test("position clamping", (t) => {
+test("position clamping", t => {
     const rt = new Runtime();
     const m = new Mouse(rt);
 
@@ -20,7 +20,7 @@ test("position clamping", (t) => {
     t.end();
 });
 
-test("mouseButtonDown", (t) => {
+test("mouseButtonDown", t => {
     const rt = new Runtime();
     const m = new Mouse(rt);
 
@@ -51,7 +51,7 @@ test("mouseButtonDown", (t) => {
     t.end();
 });
 
-test("mouseDown with buttons", (t) => {
+test("mouseDown with buttons", t => {
     const rt = new Runtime();
     const m = new Mouse(rt);
 
@@ -74,7 +74,7 @@ test("mouseDown with buttons", (t) => {
     t.end();
 });
 
-test("missing button is treated as left", (t) => {
+test("missing button is treated as left", t => {
     const rt = new Runtime();
     const m = new Mouse(rt);
 
@@ -90,7 +90,7 @@ test("missing button is treated as left", (t) => {
     t.end();
 });
 
-test("usesRightClickDown", (t) => {
+test("usesRightClickDown", t => {
     const rt = new Runtime();
     const m = new Mouse(rt);
 
@@ -100,7 +100,7 @@ test("usesRightClickDown", (t) => {
     t.end();
 });
 
-test("no rounding when misc limits disabled", (t) => {
+test("no rounding when misc limits disabled", t => {
     const rt = new Runtime();
     const m = new Mouse(rt);
 
@@ -122,7 +122,7 @@ test("no rounding when misc limits disabled", (t) => {
     t.end();
 });
 
-test("accepts 0 as x and y position", (t) => {
+test("accepts 0 as x and y position", t => {
     const rt = new Runtime();
     const m = new Mouse(rt);
 

@@ -7,7 +7,7 @@ describe("ButtonComponent", () => {
     test("matches snapshot", () => {
         const onClick = jest.fn();
         const component = renderer.create(
-            <ButtonComponent onClick={onClick} />,
+            <ButtonComponent onClick={onClick} />
         );
         expect(component.toJSON()).toMatchSnapshot();
     });
@@ -15,7 +15,7 @@ describe("ButtonComponent", () => {
     test("triggers callback when clicked", () => {
         const onClick = jest.fn();
         const componentShallowWrapper = shallow(
-            <ButtonComponent onClick={onClick} />,
+            <ButtonComponent onClick={onClick} />
         );
         componentShallowWrapper.simulate("click");
         expect(onClick).toHaveBeenCalled();

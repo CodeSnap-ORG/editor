@@ -87,7 +87,7 @@ class VideoProvider {
         if (this._singleSetup) {
             this._singleSetup
                 .then(this._teardown.bind(this))
-                .catch((err) => this.onError(err));
+                .catch(err => this.onError(err));
         }
     }
 
@@ -157,7 +157,7 @@ class VideoProvider {
                 0,
                 0,
                 width,
-                height,
+                height
             );
 
             // context.resetTransform() doesn't work on Edge but the following should
@@ -177,7 +177,7 @@ class VideoProvider {
                     0,
                     0,
                     width,
-                    height,
+                    height
                 );
             } else if (format === VideoProvider.FORMAT_CANVAS) {
                 // this will never change
@@ -193,7 +193,7 @@ class VideoProvider {
             // rather than set to now, this data is as stale as it's canvas is
             formatCache.lastUpdate = Math.max(
                 workspace.lastUpdate,
-                formatCache.lastUpdate,
+                formatCache.lastUpdate
             );
         }
 
@@ -226,7 +226,7 @@ class VideoProvider {
             width: { min: 480, ideal: 640 },
             height: { min: 360, ideal: 480 },
         })
-            .then((stream) => {
+            .then(stream => {
                 this._video = document.createElement("video");
 
                 // Use the new srcObject API, falling back to createObjectURL
@@ -244,7 +244,7 @@ class VideoProvider {
                 this._track = stream.getTracks()[0];
                 return this;
             })
-            .catch((error) => {
+            .catch(error => {
                 this._singleSetup = null;
                 this.onError(error);
             });
@@ -281,9 +281,9 @@ class VideoProvider {
      */
     _getWorkspace({ dimensions, mirror }) {
         let workspace = this._workspace.find(
-            (space) =>
+            space =>
                 space.dimensions.join("-") === dimensions.join("-") &&
-                space.mirror === mirror,
+                space.mirror === mirror
         );
         if (!workspace) {
             workspace = {

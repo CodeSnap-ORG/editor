@@ -1,7 +1,7 @@
 const test = require("tap").test;
 const VirtualMachine = require("../../src/index");
 
-test("interface", (t) => {
+test("interface", t => {
     const vm = new VirtualMachine();
     t.type(vm, "object");
     t.type(vm.start, "function");

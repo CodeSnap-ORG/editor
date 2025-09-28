@@ -74,7 +74,7 @@ class ListMonitor extends React.Component {
             this.handleDeactivate(); // Submit in-progress edits
             const newIndex = this.wrapListIndex(
                 previouslyActiveIndex + navigateDirection,
-                this.props.value.length,
+                this.props.value.length
             );
             this.setState({
                 activeIndex: newIndex,
@@ -90,12 +90,12 @@ class ListMonitor extends React.Component {
                 .slice(0, previouslyActiveIndex + newValueOffset)
                 .concat([newListItemValue])
                 .concat(
-                    listValue.slice(previouslyActiveIndex + newValueOffset),
+                    listValue.slice(previouslyActiveIndex + newValueOffset)
                 );
             setVariableValue(vm, targetId, variableId, newListValue);
             const newIndex = this.wrapListIndex(
                 previouslyActiveIndex + newValueOffset,
-                newListValue.length,
+                newListValue.length
             );
             this.setState({
                 activeIndex: newIndex,
@@ -119,7 +119,7 @@ class ListMonitor extends React.Component {
         setVariableValue(vm, targetId, variableId, newListValue);
         const newActiveIndex = Math.min(
             newListValue.length - 1,
-            this.state.activeIndex,
+            this.state.activeIndex
         );
         this.setState({
             activeIndex: newActiveIndex,
@@ -145,7 +145,7 @@ class ListMonitor extends React.Component {
         this.initialWidth = this.state.width;
         this.initialHeight = this.state.height;
 
-        const onMouseMove = (ev) => {
+        const onMouseMove = ev => {
             const newPosition = getEventXY(ev);
             const dx = newPosition.x - this.initialPosition.x;
             const dy = newPosition.y - this.initialPosition.y;
@@ -153,21 +153,21 @@ class ListMonitor extends React.Component {
                 width: Math.max(
                     Math.min(
                         this.initialWidth + dx,
-                        this.props.customStageSize.width,
+                        this.props.customStageSize.width
                     ),
-                    100,
+                    100
                 ),
                 height: Math.max(
                     Math.min(
                         this.initialHeight + dy,
-                        this.props.customStageSize.height,
+                        this.props.customStageSize.height
                     ),
-                    60,
+                    60
                 ),
             });
         };
 
-        const onMouseUp = (ev) => {
+        const onMouseUp = ev => {
             onMouseMove(ev); // Make sure width/height are up-to-date
             window.removeEventListener("pointermove", onMouseMove);
             window.removeEventListener("pointerup", onMouseUp);
@@ -176,7 +176,7 @@ class ListMonitor extends React.Component {
                     id: this.props.id,
                     height: this.state.height,
                     width: this.state.width,
-                }),
+                })
             );
         };
 
@@ -228,7 +228,7 @@ ListMonitor.propTypes = {
     y: PropTypes.number,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     customStageSize: state.scratchGui.customStageSize,
     vm: state.scratchGui.vm,
 });

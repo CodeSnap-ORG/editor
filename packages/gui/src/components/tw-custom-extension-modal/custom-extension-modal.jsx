@@ -13,7 +13,7 @@ import styles from "./custom-extension-modal.css";
 import FancyCheckbox from "../tw-fancy-checkbox/checkbox.jsx";
 import { isTrustedExtension } from "../../containers/tw-security-manager.jsx";
 
-import { APP_NAME } from "../../lib/brand";
+import { APP_NAME } from "@ampmod/branding";
 
 const messages = defineMessages({
     title: {
@@ -23,7 +23,7 @@ const messages = defineMessages({
     },
 });
 
-const CustomExtensionModal = (props) => {
+const CustomExtensionModal = props => {
     const [shouldSave, setShouldSave] = useState(false);
     const [saveName, setSaveName] = useState("");
     const [saveDescription, setSaveDescription] = useState("");
@@ -195,7 +195,7 @@ const CustomExtensionModal = (props) => {
                     <label className={styles.unsandboxedCheckbox}>
                         <FancyCheckbox
                             checked={shouldSave}
-                            onChange={(e) => setShouldSave(e.target.checked)}
+                            onChange={e => setShouldSave(e.target.checked)}
                         />
                         Save extension to library
                     </label>
@@ -221,16 +221,14 @@ const CustomExtensionModal = (props) => {
                                     placeholder="Extension name"
                                     className={styles.urlInput}
                                     value={saveName}
-                                    onChange={(e) =>
-                                        setSaveName(e.target.value)
-                                    }
+                                    onChange={e => setSaveName(e.target.value)}
                                 />
                                 <input
                                     type="text"
                                     placeholder="Extension description"
                                     className={styles.urlInput}
                                     value={saveDescription}
-                                    onChange={(e) =>
+                                    onChange={e =>
                                         setSaveDescription(e.target.value)
                                     }
                                 />

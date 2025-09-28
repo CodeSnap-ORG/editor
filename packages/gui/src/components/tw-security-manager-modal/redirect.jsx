@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { FormattedMessage } from "react-intl";
-import { APP_NAME } from "../../lib/brand";
+import { APP_NAME } from "@ampmod/branding";
 import URL from "./url.jsx";
 
-const RedirectModal = (props) => (
+const RedirectModal = props => (
     <div>
         <FormattedMessage
             defaultMessage="The project wants to navigate this tab to the URL:"

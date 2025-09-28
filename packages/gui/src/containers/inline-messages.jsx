@@ -35,7 +35,7 @@ InlineMessages.propTypes = {
     className: PropTypes.string,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     alertsList: state.scratchGui.alerts.alertsList,
 });
 

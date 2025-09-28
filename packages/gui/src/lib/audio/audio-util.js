@@ -34,12 +34,12 @@ const encodeAndAddSoundToVM = function (
     samples,
     sampleRate,
     name,
-    callback,
+    callback
 ) {
     WavEncoder.encode({
         sampleRate: sampleRate,
         channelData: [samples],
-    }).then((wavBuffer) => {
+    }).then(wavBuffer => {
         const vmSound = {
             format: "",
             dataFormat: "wav",
@@ -54,7 +54,7 @@ const encodeAndAddSoundToVM = function (
             storage.DataFormat.WAV,
             new Uint8Array(wavBuffer),
             null,
-            true, // generate md5
+            true // generate md5
         );
         vmSound.assetId = vmSound.asset.assetId;
 
@@ -99,7 +99,7 @@ const downsampleIfNeeded = (buffer, resampler) => {
  * @param {SoundBuffer} buffer - Buffer to resample
  * @returns {SoundBuffer} Downsampled buffer with half the sample rate
  */
-const dropEveryOtherSample = (buffer) => {
+const dropEveryOtherSample = buffer => {
     const newLength = Math.floor(buffer.samples.length / 2);
     const newSamples = new Float32Array(newLength);
     for (let i = 0; i < newLength; i++) {

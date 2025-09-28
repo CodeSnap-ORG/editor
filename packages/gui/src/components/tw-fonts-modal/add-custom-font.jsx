@@ -25,7 +25,7 @@ const messages = defineMessages({
 
 export const FONT_FORMATS = ["ttf", "otf", "woff", "woff2"];
 
-const formatFontName = (filename) => {
+const formatFontName = filename => {
     // Remove file extension
     const idx = filename.indexOf(".");
     if (idx !== -1) {
@@ -34,7 +34,7 @@ const formatFontName = (filename) => {
     return filename;
 };
 
-const getDataFormat = (filename) => {
+const getDataFormat = filename => {
     const parts = filename.split(".");
     const extension = parts[parts.length - 1];
     if (FONT_FORMATS.includes(extension)) {
@@ -112,12 +112,12 @@ class AddCustomFont extends React.Component {
                 this.state.format,
                 data,
                 null,
-                true,
+                true
             );
             this.props.fontManager.addCustomFont(
                 this.state.name,
                 this.state.fallback,
-                asset,
+                asset
             );
             this.props.onClose();
         };
@@ -149,7 +149,7 @@ class AddCustomFont extends React.Component {
                     type="file"
                     onChange={this.handleChangeFile}
                     className={styles.fileInput}
-                    accept={FONT_FORMATS.map((ext) => `.${ext}`).join(",")}
+                    accept={FONT_FORMATS.map(ext => `.${ext}`).join(",")}
                     readOnly={this.state.loading}
                 />
 
@@ -171,7 +171,7 @@ class AddCustomFont extends React.Component {
                         />
 
                         <LoadTemporaryFont url={this.state.url}>
-                            {(family) => (
+                            {family => (
                                 <FontPlayground
                                     family={`${family}, ${this.state.fallback}`}
                                 />

@@ -11,7 +11,7 @@ const testNow = {
     },
 };
 
-test("spec", (t) => {
+test("spec", t => {
     const timer = new Timer(testNow);
 
     t.type(Timer, "function");
@@ -27,7 +27,7 @@ test("spec", (t) => {
     t.end();
 });
 
-test("time", (t) => {
+test("time", t => {
     const timer = new Timer(testNow);
     const time = timer.time();
 
@@ -35,7 +35,7 @@ test("time", (t) => {
     t.end();
 });
 
-test("start / timeElapsed", (t) => {
+test("start / timeElapsed", t => {
     const timer = new Timer(testNow);
     const delay = 100;
     const threshold = 1000 / 60; // 60 hz
@@ -50,7 +50,7 @@ test("start / timeElapsed", (t) => {
     t.end();
 });
 
-test("setTimeout / clearTimeout", (t) =>
+test("setTimeout / clearTimeout", t =>
     new Promise((resolve, reject) => {
         const timer = new Timer(testNow);
         const cancelId = timer.setTimeout(() => {

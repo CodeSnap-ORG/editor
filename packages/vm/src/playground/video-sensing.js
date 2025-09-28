@@ -3,7 +3,7 @@
     const INTERVAL = 33;
 
     const video = document.createElement("video");
-    navigator.mediaDevices.getUserMedia(
+    navigator.getUserMedia(
         {
             audio: false,
             video: {
@@ -11,7 +11,7 @@
                 height: { min: 360, ideal: 480 },
             },
         },
-        (stream) => {
+        stream => {
             video.autoplay = true;
             video.src = window.URL.createObjectURL(stream);
             // Get the track to hint to the browser the stream needs to be running
@@ -22,10 +22,10 @@
                 video.height = video.videoHeight;
             });
         },
-        (err) => {
+        err => {
             // eslint-disable-next-line no-console
             console.log(err);
-        },
+        }
     );
 
     const VideoMotion = window.Scratch3VideoSensingDebug.VideoMotion;
@@ -40,7 +40,7 @@
     const outputKeys = Object.keys(OUTPUT);
     const outputValues = Object.values(OUTPUT);
     const views = outputValues.map(
-        (output) => new VideoMotionView(motion, output),
+        output => new VideoMotionView(motion, output)
     );
     const view = views[0];
 
@@ -67,7 +67,7 @@
         const _view = views[index];
         _view.canvas.style.display = checkbox.checked ? "" : "none";
         _view.active = checkbox.checked;
-        checkbox.onchange = (event) => {
+        checkbox.onchange = event => {
             _view.canvas.style.display = checkbox.checked ? "" : "none";
             _view.active = checkbox.checked;
             event.preventDefault();
@@ -92,7 +92,7 @@
 
     // Add the motion debug views to the dom after the text line, so the text
     // appears first.
-    views.forEach((_view) => document.body.appendChild(_view.canvas));
+    views.forEach(_view => document.body.appendChild(_view.canvas));
 
     // Create a temporary canvas the video will be drawn to so the video's
     // bitmap data can be transformed into a TypeArray.
@@ -116,14 +116,14 @@
                 -tempCanvas.width,
                 0,
                 tempCanvas.width,
-                tempCanvas.height,
+                tempCanvas.height
             );
             ctx.resetTransform();
             const data = ctx.getImageData(
                 0,
                 0,
                 tempCanvas.width,
-                tempCanvas.height,
+                tempCanvas.height
             );
 
             // Analyze the latest frame.
@@ -142,7 +142,7 @@
                 textEl.innerText = `${analyzeDuration} :: ${motionAmount} :: ${motionDirection}`;
                 textTimer = Date.now();
             }
-            views.forEach((_view) => _view.active && _view.draw());
+            views.forEach(_view => _view.active && _view.draw());
         } catch (error) {
             // eslint-disable-next-line no-console
             console.error(error.stack || error);

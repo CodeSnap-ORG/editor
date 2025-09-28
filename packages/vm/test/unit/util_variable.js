@@ -52,7 +52,7 @@ tap.beforeEach(() => {
 
 const test = tap.test;
 
-test("get all var refs", (t) => {
+test("get all var refs", t => {
     const allVarRefs = VariableUtil.getAllVarRefsForTargets([target1, target2]);
     t.equal(Object.keys(allVarRefs).length, 2);
     t.equal(allVarRefs.id1.length, 2);
@@ -62,11 +62,11 @@ test("get all var refs", (t) => {
     t.end();
 });
 
-test("merge variable ids", (t) => {
+test("merge variable ids", t => {
     // Redo the id for the variable with 'id1'
     VariableUtil.updateVariableIdentifiers(
         target1.blocks.getAllVariableAndListReferences().id1,
-        "renamed id",
+        "renamed id"
     );
     const varField = target1.blocks.getBlock("a block").fields.VARIABLE;
     t.equals(varField.id, "renamed id");
@@ -75,12 +75,12 @@ test("merge variable ids", (t) => {
     t.end();
 });
 
-test("merge variable ids but with new name too", (t) => {
+test("merge variable ids but with new name too", t => {
     // Redo the id for the variable with 'id1'
     VariableUtil.updateVariableIdentifiers(
         target1.blocks.getAllVariableAndListReferences().id1,
         "renamed id",
-        "baz",
+        "baz"
     );
     const varField = target1.blocks.getBlock("a block").fields.VARIABLE;
     t.equals(varField.id, "renamed id");

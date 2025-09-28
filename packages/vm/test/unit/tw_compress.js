@@ -2,7 +2,7 @@ const { test } = require("tap");
 const compress = require("../../src/serialization/tw-compress-sb3");
 const uid = require("../../src/util/uid");
 
-test("handles type INPUT_DIFF_BLOCK_SHADOW (3) compressed inputs", (t) => {
+test("handles type INPUT_DIFF_BLOCK_SHADOW (3) compressed inputs", t => {
     const data = {
         targets: [
             {
@@ -76,13 +76,13 @@ test("handles type INPUT_DIFF_BLOCK_SHADOW (3) compressed inputs", (t) => {
     t.equal(blocks.length, 3);
 
     const [parentId, parentBlock] = blocks.find(
-        (i) => i[1].opcode === "looks_switchbackdropto",
+        i => i[1].opcode === "looks_switchbackdropto"
     );
     const [inputId, inputBlock] = blocks.find(
-        (i) => i[1].opcode === "operator_not",
+        i => i[1].opcode === "operator_not"
     );
     const [shadowId, shadowBlock] = blocks.find(
-        (i) => i[1].opcode === "looks_backdrops",
+        i => i[1].opcode === "looks_backdrops"
     );
 
     t.equal(parentBlock.inputs.BACKDROP.length, 3);
@@ -96,7 +96,7 @@ test("handles type INPUT_DIFF_BLOCK_SHADOW (3) compressed inputs", (t) => {
     t.end();
 });
 
-test("Compressed IDs will not collide with uncompressed IDs", (t) => {
+test("Compressed IDs will not collide with uncompressed IDs", t => {
     const soup =
         "abcdefghjijklmnopqstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ123456789";
     const items = [
@@ -111,13 +111,13 @@ test("Compressed IDs will not collide with uncompressed IDs", (t) => {
                     isStage: true,
                     name: "Stage",
                     variables: Object.fromEntries(
-                        variableSoup.split("").map((id) => [id, [id, 0]]),
+                        variableSoup.split("").map(id => [id, [id, 0]])
                     ),
                     lists: Object.fromEntries(
-                        listSoup.split("").map((id) => [id, [id, []]]),
+                        listSoup.split("").map(id => [id, [id, []]])
                     ),
                     broadcasts: Object.fromEntries(
-                        broadcastSoup.split("").map((id) => [id, id]),
+                        broadcastSoup.split("").map(id => [id, id])
                     ),
                     blocks: {
                         "CmRa^i]o}QL77;hk:54o": {
@@ -220,7 +220,7 @@ test("Compressed IDs will not collide with uncompressed IDs", (t) => {
         for (const compressedID of compressedIDs) {
             t.notOk(
                 uncompressedIDs.includes(compressedID),
-                `${compressedID} does not collide`,
+                `${compressedID} does not collide`
             );
         }
     }
@@ -228,7 +228,7 @@ test("Compressed IDs will not collide with uncompressed IDs", (t) => {
     t.end();
 });
 
-test("Script execution order is preserved", (t) => {
+test("Script execution order is preserved", t => {
     const originalBlocks = {};
 
     const blockIds = [];
@@ -306,15 +306,15 @@ test("Script execution order is preserved", (t) => {
     t.equal(newBlockValues[1].fields.BROADCAST_OPTION[0], "broadcast-name-555");
     t.equal(
         newBlockValues[339 + 2].fields.BROADCAST_OPTION[0],
-        "broadcast-name-muffin",
+        "broadcast-name-muffin"
     );
     t.equal(
         newBlockValues[newBlockValues.length - 2].fields.BROADCAST_OPTION[0],
-        "broadcast-name-apple",
+        "broadcast-name-apple"
     );
     t.equal(
         newBlockValues[newBlockValues.length - 1].fields.BROADCAST_OPTION[0],
-        "broadcast-name--1",
+        "broadcast-name--1"
     );
 
     // Check that the new IDs do not look like array indexes as their enumeration

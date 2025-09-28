@@ -27,16 +27,13 @@ class Menu {
     }
 
     descendants() {
-        return this.children.flatMap((child) => [
-            child,
-            ...child.descendants(),
-        ]);
+        return this.children.flatMap(child => [child, ...child.descendants()]);
     }
 
     siblings() {
         if (!this.parent) return [];
 
-        return this.parent.children.filter((child) => child.id !== this.id);
+        return this.parent.children.filter(child => child.id !== this.id);
     }
 
     findById(id) {
@@ -58,7 +55,7 @@ const rootMenu = new Menu("root")
         new Menu(MENU_SETTINGS)
             .addChild(new Menu(MENU_LANGUAGE))
             .addChild(new Menu(MENU_ACCENT))
-            .addChild(new Menu(MENU_BLOCKS_THEME)),
+            .addChild(new Menu(MENU_BLOCKS_THEME))
     )
     .addChild(new Menu(MENU_FILE))
     .addChild(new Menu(MENU_EDIT))
@@ -90,7 +87,7 @@ const reducer = function (state, action) {
             // Close siblings when opening a menu
             const toClose = menu
                 .siblings()
-                .flatMap((sibling) => [sibling, ...sibling.descendants()]);
+                .flatMap(sibling => [sibling, ...sibling.descendants()]);
 
             return {
                 ...state,
@@ -112,59 +109,58 @@ const reducer = function (state, action) {
             return state;
     }
 };
-const openMenu = (menu) => ({
+const openMenu = menu => ({
     type: OPEN_MENU,
     menu: menu,
 });
-const closeMenu = (menu) => ({
+const closeMenu = menu => ({
     type: CLOSE_MENU,
     menu: menu,
 });
 
 const openAboutMenu = () => openMenu(MENU_ABOUT);
 const closeAboutMenu = () => closeMenu(MENU_ABOUT);
-const aboutMenuOpen = (state) => state.scratchGui.menus[MENU_ABOUT];
+const aboutMenuOpen = state => state.scratchGui.menus[MENU_ABOUT];
 
 const openAccountMenu = () => openMenu(MENU_ACCOUNT);
 const closeAccountMenu = () => closeMenu(MENU_ACCOUNT);
-const accountMenuOpen = (state) => state.scratchGui.menus[MENU_ACCOUNT];
+const accountMenuOpen = state => state.scratchGui.menus[MENU_ACCOUNT];
 
 const openEditMenu = () => openMenu(MENU_EDIT);
 const closeEditMenu = () => closeMenu(MENU_EDIT);
-const editMenuOpen = (state) => state.scratchGui.menus[MENU_EDIT];
+const editMenuOpen = state => state.scratchGui.menus[MENU_EDIT];
 
 const openFileMenu = () => openMenu(MENU_FILE);
 const closeFileMenu = () => closeMenu(MENU_FILE);
-const fileMenuOpen = (state) => state.scratchGui.menus[MENU_FILE];
+const fileMenuOpen = state => state.scratchGui.menus[MENU_FILE];
 
 const openLanguageMenu = () => openMenu(MENU_LANGUAGE);
 const closeLanguageMenu = () => closeMenu(MENU_LANGUAGE);
-const languageMenuOpen = (state) => state.scratchGui.menus[MENU_LANGUAGE];
+const languageMenuOpen = state => state.scratchGui.menus[MENU_LANGUAGE];
 
 const openLoginMenu = () => openMenu(MENU_LOGIN);
 const closeLoginMenu = () => closeMenu(MENU_LOGIN);
-const loginMenuOpen = (state) => state.scratchGui.menus[MENU_LOGIN];
+const loginMenuOpen = state => state.scratchGui.menus[MENU_LOGIN];
 
 const openModeMenu = () => openMenu(MENU_MODE);
 const closeModeMenu = () => closeMenu(MENU_MODE);
-const modeMenuOpen = (state) => state.scratchGui.menus[MENU_MODE];
+const modeMenuOpen = state => state.scratchGui.menus[MENU_MODE];
 
 const openSettingsMenu = () => openMenu(MENU_SETTINGS);
 const closeSettingsMenu = () => closeMenu(MENU_SETTINGS);
-const settingsMenuOpen = (state) => state.scratchGui.menus[MENU_SETTINGS];
+const settingsMenuOpen = state => state.scratchGui.menus[MENU_SETTINGS];
 
 const openAccentMenu = () => openMenu(MENU_ACCENT);
 const closeAccentMenu = () => closeMenu(MENU_ACCENT);
-const accentMenuOpen = (state) => state.scratchGui.menus[MENU_ACCENT];
+const accentMenuOpen = state => state.scratchGui.menus[MENU_ACCENT];
 
 const openBlocksThemeMenu = () => openMenu(MENU_BLOCKS_THEME);
 const closeBlocksThemeMenu = () => closeMenu(MENU_BLOCKS_THEME);
-const blocksThemeMenuOpen = (state) =>
-    state.scratchGui.menus[MENU_BLOCKS_THEME];
+const blocksThemeMenuOpen = state => state.scratchGui.menus[MENU_BLOCKS_THEME];
 
 const openErrorsMenu = () => openMenu(MENU_ERRORS);
 const closeErrorsMenu = () => closeMenu(MENU_ERRORS);
-const errorsMenuOpen = (state) => state.scratchGui.menus[MENU_ERRORS];
+const errorsMenuOpen = state => state.scratchGui.menus[MENU_ERRORS];
 
 export {
     reducer as default,

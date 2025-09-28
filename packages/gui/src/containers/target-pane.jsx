@@ -101,7 +101,7 @@ class TargetPane extends React.Component {
         const saveLink = document.createElement("a");
         document.body.appendChild(saveLink);
 
-        this.props.vm.exportSprite(id).then((content) => {
+        this.props.vm.exportSprite(id).then(content => {
             downloadBlob(`${spriteName}.asz`, content);
         });
     }
@@ -114,9 +114,9 @@ class TargetPane extends React.Component {
     async handleSurpriseSpriteClick() {
         const spriteLibraryContent = await getSpriteLibrary();
         const surpriseSprites = spriteLibraryContent.filter(
-            (sprite) =>
+            sprite =>
                 sprite.tags.indexOf("letters") === -1 &&
-                sprite.tags.indexOf("numbers") === -1,
+                sprite.tags.indexOf("numbers") === -1
         );
         const item =
             surpriseSprites[Math.floor(Math.random() * surpriseSprites.length)];
@@ -130,7 +130,7 @@ class TargetPane extends React.Component {
         const emptyItem = emptySprite(
             formatMessage(sharedMessages.sprite, { index: 1 }),
             formatMessage(sharedMessages.pop),
-            formatMessage(sharedMessages.costume, { index: 1 }),
+            formatMessage(sharedMessages.costume, { index: 1 })
         );
         this.props.vm.addSprite(JSON.stringify(emptyItem)).then(() => {
             setTimeout(() => {
@@ -146,7 +146,7 @@ class TargetPane extends React.Component {
         return this.props.vm
             .addSprite(spriteJSONString)
             .then(this.handleActivateBlocksTab)
-            .catch((err) => {
+            .catch(err => {
                 log.error(err);
             });
     }
@@ -164,7 +164,7 @@ class TargetPane extends React.Component {
                     fileType,
                     fileName,
                     vm,
-                    (newSprite) => {
+                    newSprite => {
                         this.handleNewSprite(newSprite)
                             .then(() => {
                                 if (fileIndex === fileCount - 1) {
@@ -173,10 +173,10 @@ class TargetPane extends React.Component {
                             })
                             .catch(this.props.onCloseImporting);
                     },
-                    this.props.onCloseImporting,
+                    this.props.onCloseImporting
                 );
             },
-            this.props.onCloseImporting,
+            this.props.onCloseImporting
         );
     }
     setFileInput(input) {
@@ -190,7 +190,7 @@ class TargetPane extends React.Component {
             this.shareBlocks(
                 blocks,
                 this.props.hoveredTarget.sprite,
-                this.props.editingTarget,
+                this.props.editingTarget
             );
             this.props.onReceivedBlocks(true);
         }
@@ -200,12 +200,12 @@ class TargetPane extends React.Component {
         const centered = placeInViewport(
             payload,
             this.props.workspaceMetrics.targets[targetId],
-            this.props.isRtl,
+            this.props.isRtl
         );
         return this.props.vm.shareBlocksToTarget(
             centered,
             targetId,
-            optFromTargetId,
+            optFromTargetId
         );
     }
     handleDrop(dragInfo) {
@@ -214,13 +214,13 @@ class TargetPane extends React.Component {
             // Add one to both new and target index because we are not counting/moving the stage
             this.props.vm.reorderTarget(
                 dragInfo.index + 1,
-                dragInfo.newIndex + 1,
+                dragInfo.newIndex + 1
             );
         } else if (dragInfo.dragType === DragConstants.BACKPACK_SPRITE) {
             // TODO storage does not have a way of loading zips right now, and may never need it.
             // So for now just grab the zip manually.
-            fetchSprite(dragInfo.payload.bodyUrl).then((sprite3Zip) =>
-                this.props.vm.addSprite(sprite3Zip),
+            fetchSprite(dragInfo.payload.bodyUrl).then(sprite3Zip =>
+                this.props.vm.addSprite(sprite3Zip)
             );
         } else if (targetId) {
             // Something is being dragged over one of the sprite tiles or the backdrop.
@@ -242,7 +242,7 @@ class TargetPane extends React.Component {
                     {
                         name: dragInfo.payload.name,
                     },
-                    targetId,
+                    targetId
                 );
             } else if (dragInfo.dragType === DragConstants.BACKPACK_SOUND) {
                 this.props.vm.addSound(
@@ -250,11 +250,11 @@ class TargetPane extends React.Component {
                         md5: dragInfo.payload.body,
                         name: dragInfo.payload.name,
                     },
-                    targetId,
+                    targetId
                 );
             } else if (dragInfo.dragType === DragConstants.BACKPACK_CODE) {
                 fetchCode(dragInfo.payload.bodyUrl)
-                    .then((blocks) => this.shareBlocks(blocks, targetId))
+                    .then(blocks => this.shareBlocks(blocks, targetId))
                     .then(() => this.props.vm.refreshWorkspace());
             }
         }
@@ -315,7 +315,7 @@ TargetPane.propTypes = {
     ...targetPaneProps,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     editingTarget: state.scratchGui.targets.editingTarget,
     hoveredTarget: state.scratchGui.hoveredTarget,
     isRtl: state.locales.isRtl,
@@ -326,24 +326,24 @@ const mapStateToProps = (state) => ({
     workspaceMetrics: state.scratchGui.workspaceMetrics,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    onNewSpriteClick: (e) => {
+const mapDispatchToProps = dispatch => ({
+    onNewSpriteClick: e => {
         e.preventDefault();
         dispatch(openSpriteLibrary());
     },
     onRequestCloseSpriteLibrary: () => {
         dispatch(closeSpriteLibrary());
     },
-    onActivateTab: (tabIndex) => {
+    onActivateTab: tabIndex => {
         dispatch(activateTab(tabIndex));
     },
-    onReceivedBlocks: (receivedBlocks) => {
+    onReceivedBlocks: receivedBlocks => {
         dispatch(setReceivedBlocks(receivedBlocks));
     },
-    dispatchUpdateRestore: (restoreState) => {
+    dispatchUpdateRestore: restoreState => {
         dispatch(setRestore(restoreState));
     },
-    onHighlightTarget: (id) => {
+    onHighlightTarget: id => {
         dispatch(highlightTarget(id));
     },
     onCloseImporting: () => dispatch(closeAlertWithId("importingAsset")),
@@ -351,5 +351,5 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default injectIntl(
-    connect(mapStateToProps, mapDispatchToProps)(TargetPane),
+    connect(mapStateToProps, mapDispatchToProps)(TargetPane)
 );

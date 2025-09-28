@@ -8,7 +8,7 @@ class Scratch3EventBlocks {
          */
         this.runtime = runtime;
 
-        this.runtime.on("KEY_PRESSED", (key) => {
+        this.runtime.on("KEY_PRESSED", key => {
             this.runtime.startHats("event_whenkeypressed", {
                 KEY_OPTION: key,
             });
@@ -89,7 +89,7 @@ class Scratch3EventBlocks {
             .getTargetForStage()
             .lookupBroadcastMsg(
                 args.BROADCAST_OPTION.id,
-                args.BROADCAST_OPTION.name,
+                args.BROADCAST_OPTION.name
             );
         if (broadcastVar) {
             const broadcastOption = broadcastVar.name;
@@ -105,7 +105,7 @@ class Scratch3EventBlocks {
                 .getTargetForStage()
                 .lookupBroadcastMsg(
                     args.BROADCAST_OPTION.id,
-                    args.BROADCAST_OPTION.name,
+                    args.BROADCAST_OPTION.name
                 );
         }
         if (util.stackFrame.broadcastVar) {
@@ -117,7 +117,7 @@ class Scratch3EventBlocks {
                     "event_whenbroadcastreceived",
                     {
                         BROADCAST_OPTION: broadcastOption,
-                    },
+                    }
                 );
                 if (util.stackFrame.startedThreads.length === 0) {
                     // Nothing was started.
@@ -131,15 +131,15 @@ class Scratch3EventBlocks {
             // marked done but still in runtime.threads are still considered to
             // be waiting.
             const waiting = util.stackFrame.startedThreads.some(
-                (thread) => instance.runtime.threads.indexOf(thread) !== -1,
+                thread => instance.runtime.threads.indexOf(thread) !== -1
             );
             if (waiting) {
                 // If all threads are waiting for the next tick or later yield
                 // for a tick as well. Otherwise yield until the next loop of
                 // the threads.
                 if (
-                    util.stackFrame.startedThreads.every((thread) =>
-                        instance.runtime.isWaitingThread(thread),
+                    util.stackFrame.startedThreads.every(thread =>
+                        instance.runtime.isWaitingThread(thread)
                     )
                 ) {
                     util.yieldTick();

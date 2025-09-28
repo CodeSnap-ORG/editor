@@ -25,14 +25,14 @@ class TWFontsModal extends React.Component {
     componentDidMount() {
         this.props.vm.runtime.fontManager.on(
             "change",
-            this.handleCustomFontsChanged,
+            this.handleCustomFontsChanged
         );
     }
 
     componentWillUnmount() {
         this.props.vm.runtime.fontManager.off(
             "change",
-            this.handleCustomFontsChanged,
+            this.handleCustomFontsChanged
         );
     }
 
@@ -106,11 +106,11 @@ TWFontsModal.propTypes = {
     }),
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     vm: state.scratchGui.vm,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     onClose: () => dispatch(closeFontsModal()),
 });
 

@@ -23,12 +23,11 @@
  *     picker in the right-click menu.
  * @author fenichel@google.com (Rachel Fenichel)
  */
-'use strict';
+"use strict";
 
-goog.provide('Blockly.FieldVariableGetter');
+goog.provide("Blockly.FieldVariableGetter");
 
-goog.require('Blockly.Field');
-
+goog.require("Blockly.Field");
 
 /**
  * Class for a variable getter field.
@@ -39,20 +38,22 @@ goog.require('Blockly.Field');
  * @constructor
  *
  */
-Blockly.FieldVariableGetter = function(text, name, opt_varType) {
-  this.size_ = new goog.math.Size(Blockly.BlockSvg.FIELD_WIDTH,
-      Blockly.BlockSvg.FIELD_HEIGHT);
-  this.text_ = text;
+Blockly.FieldVariableGetter = function (text, name, opt_varType) {
+    this.size_ = new goog.math.Size(
+        Blockly.BlockSvg.FIELD_WIDTH,
+        Blockly.BlockSvg.FIELD_HEIGHT
+    );
+    this.text_ = text;
 
-  /**
-   * Maximum characters of text to display before adding an ellipsis.
-   * Same for strings and numbers.
-   * @type {number}
-   */
-  this.maxDisplayLength = Blockly.BlockSvg.MAX_DISPLAY_LENGTH;
+    /**
+     * Maximum characters of text to display before adding an ellipsis.
+     * Same for strings and numbers.
+     * @type {number}
+     */
+    this.maxDisplayLength = Blockly.BlockSvg.MAX_DISPLAY_LENGTH;
 
-  this.name_ = name;
-  this.variableType_ = opt_varType ? opt_varType : '';
+    this.name_ = name;
+    this.variableType_ = opt_varType ? opt_varType : "";
 };
 goog.inherits(Blockly.FieldVariableGetter, Blockly.Field);
 
@@ -65,10 +66,14 @@ goog.inherits(Blockly.FieldVariableGetter, Blockly.Field);
  * @package
  * @nocollapse
  */
-Blockly.FieldVariableGetter.fromJson = function(options) {
-  var varname = Blockly.utils.replaceMessageReferences(options['text']);
-  return new Blockly.FieldVariableGetter(varname, options['name'],
-      options['class'], options['variableType']);
+Blockly.FieldVariableGetter.fromJson = function (options) {
+    var varname = Blockly.utils.replaceMessageReferences(options["text"]);
+    return new Blockly.FieldVariableGetter(
+        varname,
+        options["name"],
+        options["class"],
+        options["variableType"]
+    );
 };
 
 /**
@@ -90,35 +95,39 @@ Blockly.FieldVariableGetter.prototype.SERIALIZABLE = true;
 /**
  * Install this field on a block.
  */
-Blockly.FieldVariableGetter.prototype.init = function() {
-  if (this.fieldGroup_) {
-    // Field has already been initialized once.
-    return;
-  }
-  Blockly.FieldVariableGetter.superClass_.init.call(this);
-  if (this.variable_) {
-    return; // Initialization already happened.
-  }
-  this.workspace_ = this.sourceBlock_.workspace;
-  var variable = Blockly.Variables.getOrCreateVariablePackage(
-      this.workspace_, null, this.text_, this.variableType_);
-  this.setValue(variable.getId());
+Blockly.FieldVariableGetter.prototype.init = function () {
+    if (this.fieldGroup_) {
+        // Field has already been initialized once.
+        return;
+    }
+    Blockly.FieldVariableGetter.superClass_.init.call(this);
+    if (this.variable_) {
+        return; // Initialization already happened.
+    }
+    this.workspace_ = this.sourceBlock_.workspace;
+    var variable = Blockly.Variables.getOrCreateVariablePackage(
+        this.workspace_,
+        null,
+        this.text_,
+        this.variableType_
+    );
+    this.setValue(variable.getId());
 };
 
 /**
  * Get the variable's ID.
  * @return {string} Current variable's ID.
  */
-Blockly.FieldVariableGetter.prototype.getValue = function() {
-  return this.variable_ ? this.variable_.getId() : '';
+Blockly.FieldVariableGetter.prototype.getValue = function () {
+    return this.variable_ ? this.variable_.getId() : "";
 };
 
 /**
  * Get the text from this field.
  * @return {string} Current text.
  */
-Blockly.FieldVariableGetter.prototype.getText = function() {
-  return this.variable_ ? this.variable_.name : '';
+Blockly.FieldVariableGetter.prototype.getText = function () {
+    return this.variable_ ? this.variable_.name : "";
 };
 
 /**
@@ -129,37 +138,45 @@ Blockly.FieldVariableGetter.prototype.getText = function() {
  *     selected.
  * @package
  */
-Blockly.FieldVariableGetter.prototype.getVariable = function() {
-  return this.variable_;
+Blockly.FieldVariableGetter.prototype.getVariable = function () {
+    return this.variable_;
 };
 
-Blockly.FieldVariableGetter.prototype.setValue = function(id) {
-  // What do I do when id is null?  That happens when undoing a change event
-  // for the first time the value was set.
-  var workspace = this.sourceBlock_.workspace;
-  var variable = Blockly.Variables.getVariable(workspace, id);
+Blockly.FieldVariableGetter.prototype.setValue = function (id) {
+    // What do I do when id is null?  That happens when undoing a change event
+    // for the first time the value was set.
+    var workspace = this.sourceBlock_.workspace;
+    var variable = Blockly.Variables.getVariable(workspace, id);
 
-  if (!variable) {
-    throw new Error('Variable id doesn\'t point to a real variable!  ID was ' +
-        id);
-  }
+    if (!variable) {
+        throw new Error(
+            "Variable id doesn't point to a real variable!  ID was " + id
+        );
+    }
 
-  if (this.sourceBlock_ && Blockly.Events.isEnabled()) {
-    var oldValue = this.variable_ ? this.variable_.getId() : null;
-    Blockly.Events.fire(new Blockly.Events.BlockChange(
-        this.sourceBlock_, 'field', this.name, oldValue, variable.getId()));
-  }
-  this.variable_ = variable;
-  this.value_ = id;
-  this.setText(variable.name);
+    if (this.sourceBlock_ && Blockly.Events.isEnabled()) {
+        var oldValue = this.variable_ ? this.variable_.getId() : null;
+        Blockly.Events.fire(
+            new Blockly.Events.BlockChange(
+                this.sourceBlock_,
+                "field",
+                this.name,
+                oldValue,
+                variable.getId()
+            )
+        );
+    }
+    this.variable_ = variable;
+    this.value_ = id;
+    this.setText(variable.name);
 };
 
 /**
  * This field is editable, but only through the right-click menu.
  * @private
  */
-Blockly.FieldVariableGetter.prototype.showEditor_ = function() {
-  // nop.
+Blockly.FieldVariableGetter.prototype.showEditor_ = function () {
+    // nop.
 };
 
 /**
@@ -167,8 +184,8 @@ Blockly.FieldVariableGetter.prototype.showEditor_ = function() {
  * This field is editable, but only through the right-click menu.
  * Suppress default editable behaviour.
  */
-Blockly.FieldVariableGetter.prototype.updateEditable = function() {
-  // nop.
+Blockly.FieldVariableGetter.prototype.updateEditable = function () {
+    // nop.
 };
 
 /**
@@ -178,8 +195,8 @@ Blockly.FieldVariableGetter.prototype.updateEditable = function() {
  * @return {boolean} True if this field has any variable references.
  * @package
  */
-Blockly.FieldVariableGetter.prototype.referencesVariables = function() {
-  return true;
+Blockly.FieldVariableGetter.prototype.referencesVariables = function () {
+    return true;
 };
 
-Blockly.Field.register('field_variable_getter', Blockly.FieldVariableGetter);
+Blockly.Field.register("field_variable_getter", Blockly.FieldVariableGetter);

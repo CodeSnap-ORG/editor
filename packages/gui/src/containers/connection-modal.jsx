@@ -31,7 +31,7 @@ class ConnectionModal extends React.Component {
         ]);
         this.state = {
             extension: extensionData.find(
-                (ext) => ext.extensionId === props.extensionId,
+                ext => ext.extensionId === props.extensionId
             ),
             phase: props.vm.getPeripheralIsConnected(props.extensionId)
                 ? PHASES.connected
@@ -45,11 +45,11 @@ class ConnectionModal extends React.Component {
     componentWillUnmount() {
         this.props.vm.removeListener(
             "PERIPHERAL_CONNECTED",
-            this.handleConnected,
+            this.handleConnected
         );
         this.props.vm.removeListener(
             "PERIPHERAL_REQUEST_ERROR",
-            this.handleError,
+            this.handleError
         );
     }
     handleScanning() {
@@ -205,11 +205,11 @@ ConnectionModal.propTypes = {
     vm: PropTypes.instanceOf(VM).isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     extensionId: state.scratchGui.connectionModal.extensionId,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     onCancel: () => {
         dispatch(closeConnectionModal());
     },

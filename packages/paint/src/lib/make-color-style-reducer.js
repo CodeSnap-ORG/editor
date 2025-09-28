@@ -6,7 +6,7 @@ import GradientTypes from "./gradient-types";
 // Matches hex colors
 const hexRegex = /^#[0-9a-f]{3,8}$/i;
 
-const isValidHexColor = (color) => {
+const isValidHexColor = color => {
     if (!hexRegex.test(color) && color !== null && color !== MIXED) {
         log.warn(`Invalid hex color code: ${color}`);
         return false;
@@ -57,7 +57,7 @@ const makeColorStyleReducer = ({
                 }
                 const colors = getColorsFromSelection(
                     action.selectedItems,
-                    action.bitmapMode,
+                    action.bitmapMode
                 );
 
                 // Only set the primary color + gradient type if they exist in what getColorsFromSelection gave us.
@@ -88,7 +88,7 @@ const makeColorStyleReducer = ({
                     return { ...state, gradientType: action.gradientType };
                 }
                 log.warn(
-                    `Gradient type does not exist: ${action.gradientType}`,
+                    `Gradient type does not exist: ${action.gradientType}`
                 );
                 return state;
             case clearGradientAction:

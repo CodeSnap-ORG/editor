@@ -14,7 +14,7 @@ import { getIsShowingProject } from "../reducers/project-state";
 import log from "../lib/log";
 
 // from sb-file-uploader-hoc.jsx
-const getProjectTitleFromFilename = (fileInputFilename) => {
+const getProjectTitleFromFilename = fileInputFilename => {
     if (!fileInputFilename) return "";
     // only parse title with valid scratch project extensions
     // (.sb, .sb2, and .sb3)
@@ -27,7 +27,7 @@ const getProjectTitleFromFilename = (fileInputFilename) => {
  * @param {Uint8Array[]} arrays List of byte arrays
  * @returns {number} Total length of the arrays
  */
-const getLengthOfByteArrays = (arrays) => {
+const getLengthOfByteArrays = arrays => {
     let length = 0;
     for (let i = 0; i < arrays.length; i++) {
         length += arrays[i].byteLength;
@@ -39,7 +39,7 @@ const getLengthOfByteArrays = (arrays) => {
  * @param {Uint8Array[]} arrays List of byte arrays
  * @returns {Uint8Array} One big array containing all of the little arrays in order.
  */
-const concatenateByteArrays = (arrays) => {
+const concatenateByteArrays = arrays => {
     const totalLength = getLengthOfByteArrays(arrays);
     const newArray = new Uint8Array(totalLength);
     let p = 0;
@@ -89,7 +89,7 @@ class SB3Downloader extends React.Component {
             return;
         }
         this.startedSaving();
-        this.props.saveProjectSb3().then((content) => {
+        this.props.saveProjectSb3().then(content => {
             this.finishedSaving();
             downloadBlob(this.props.projectFilename, content);
         });
@@ -148,7 +148,7 @@ class SB3Downloader extends React.Component {
             const jszipStream = this.props.saveProjectSb3Stream();
 
             const abortController = new AbortController();
-            jszipStream.on("error", (error) => {
+            jszipStream.on("error", error => {
                 abortController.abort(error);
             });
 
@@ -180,8 +180,8 @@ class SB3Downloader extends React.Component {
 
             const zipStream = new ReadableStream(
                 {
-                    start: (controller) => {
-                        jszipStream.on("data", (data) => {
+                    start: controller => {
+                        jszipStream.on("data", data => {
                             controller.enqueue(data);
                             if (controller.desiredSize <= 0) {
                                 pauseJSZipStream();
@@ -201,12 +201,12 @@ class SB3Downloader extends React.Component {
                 },
                 new ByteLengthQueuingStrategy({
                     highWaterMark: HIGH_WATER_MARK_BYTES,
-                }),
+                })
             );
 
             const queuedChunks = [];
             const fileStream = new WritableStream({
-                write: (chunk) => {
+                write: chunk => {
                     queuedChunks.push(chunk);
                     const currentSize = getLengthOfByteArrays(queuedChunks);
                     if (currentSize >= WRITE_BUFFER_TARGET_SIZE_BYTES) {
@@ -238,7 +238,7 @@ class SB3Downloader extends React.Component {
                     this.finishedSaving();
                     resolve();
                 })
-                .catch((error) => {
+                .catch(error => {
                     reject(error);
                 });
         });
@@ -270,7 +270,7 @@ class SB3Downloader extends React.Component {
                 : {
                       available: false,
                       smartSave: this.downloadProject,
-                  },
+                  }
         );
     }
 }
@@ -310,26 +310,26 @@ SB3Downloader.defaultProps = {
             : null,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     fileHandle: state.scratchGui.tw.fileHandle,
     saveProjectSb3: state.scratchGui.vm.saveProjectSb3.bind(
-        state.scratchGui.vm,
+        state.scratchGui.vm
     ),
     saveProjectSb3Stream: state.scratchGui.vm.saveProjectSb3Stream.bind(
-        state.scratchGui.vm,
+        state.scratchGui.vm
     ),
     canSaveProject: getIsShowingProject(
-        state.scratchGui.projectState.loadingState,
+        state.scratchGui.projectState.loadingState
     ),
     projectFilename: getProjectFilename(
         state.scratchGui.projectTitle,
-        projectTitleInitialState,
+        projectTitleInitialState
     ),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    onSetFileHandle: (fileHandle) => dispatch(setFileHandle(fileHandle)),
-    onSetProjectTitle: (title) => dispatch(setProjectTitle(title)),
+const mapDispatchToProps = dispatch => ({
+    onSetFileHandle: fileHandle => dispatch(setFileHandle(fileHandle)),
+    onSetProjectTitle: title => dispatch(setProjectTitle(title)),
     onShowSavingAlert: () => showAlertWithTimeout(dispatch, "saving"),
     onShowSaveSuccessAlert: () =>
         showAlertWithTimeout(dispatch, "twSaveToDiskSuccess"),

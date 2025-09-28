@@ -2,7 +2,7 @@ const test = require("tap").test;
 const MouseWheel = require("../../src/io/mouseWheel");
 const Runtime = require("../../src/engine/runtime");
 
-test("spec", (t) => {
+test("spec", t => {
     const rt = new Runtime();
     const mw = new MouseWheel(rt);
 
@@ -11,7 +11,7 @@ test("spec", (t) => {
     t.end();
 });
 
-test("blocks activated by scrolling", (t) => {
+test("blocks activated by scrolling", t => {
     let _startHatsArgs;
     const rt = {
         startHats: (...args) => {

@@ -21,7 +21,7 @@ import log from "../log/log";
  * @param {string|CanvasGradient} color The canvas's fillStyle.
  * @returns {boolean} True if the style will require using a mask to draw.
  */
-const doesColorRequireMask = (color) =>
+const doesColorRequireMask = color =>
     color instanceof CanvasGradient ||
     color.startsWith("rgba(") ||
     (color.startsWith("#") && color.length > 7);
@@ -34,7 +34,7 @@ const createMaskingCanvas = (originalContext, fillStyle) => {
     if (doesColorRequireMask(fillStyle)) {
         const tempCanvas = createCanvas(
             originalCanvas.width,
-            originalCanvas.height,
+            originalCanvas.height
         );
         const tempContext = tempCanvas.getContext("2d");
         return {
@@ -46,7 +46,7 @@ const createMaskingCanvas = (originalContext, fillStyle) => {
                     0,
                     0,
                     originalCanvas.width,
-                    originalCanvas.height,
+                    originalCanvas.height
                 );
                 originalContext.drawImage(tempCanvas, 0, 0);
             },
@@ -158,13 +158,13 @@ const drawShearedEllipse_ = function (options, context) {
                     centerX - pX1 - 1,
                     centerY + pY,
                     pX1 - pX2 + 1,
-                    1,
+                    1
                 );
                 context.fillRect(
                     centerX + pX2,
                     centerY - pY - 1,
                     pX1 - pX2 + 1,
-                    1,
+                    1
                 );
             } else {
                 drawFn(centerX - pX1 - 1, centerY + pY);
@@ -199,13 +199,13 @@ const drawShearedEllipse_ = function (options, context) {
                     centerX - pX - 1,
                     centerY + pY2,
                     1,
-                    pY1 - pY2 + 1,
+                    pY1 - pY2 + 1
                 );
                 context.fillRect(
                     centerX + pX,
                     centerY - pY1 - 1,
                     1,
-                    pY1 - pY2 + 1,
+                    pY1 - pY2 + 1
                 );
             } else {
                 drawFn(centerX - pX - 1, centerY + pY1);
@@ -230,12 +230,12 @@ const drawShearedEllipse_ = function (options, context) {
                 if (x === 0 && y > 0) return true;
                 if (x === 0 && y < 0) return false;
                 return y / x > slope1;
-            },
+            }
         );
         // step horizontally while slope is flat
         lastPoint = drawEllipseStepHorizontal_(
             lastPoint ? -lastPoint.x + 0.5 : 0.5,
-            (x, y) => y / x > slope2,
+            (x, y) => y / x > slope2
         ) || { x: -lastPoint.x - 0.5, y: -lastPoint.y - 0.5 };
         // step vertically until back to start
         drawEllipseStepVertical_(lastPoint.y - 0.5, (x, y) => {
@@ -253,10 +253,10 @@ const drawShearedEllipse_ = function (options, context) {
                     if (x === 0 && y > 0) return true;
                     if (x === 0 && y < 0) return false;
                     return y / x > slope1;
-                },
+                }
             ) || lastPoint;
         // step horizontally until back to start
-        drawEllipseStepHorizontal_(-lastPoint.x + 0.5, (x) => x < 0);
+        drawEllipseStepHorizontal_(-lastPoint.x + 0.5, x => x < 0);
     }
     return true;
 };
@@ -275,7 +275,7 @@ const getBrushMark = function (size, color, isEraser) {
     canvas.height = roundedUpRadius * 2;
     const { context, unmask } = createMaskingCanvas(
         canvas.getContext("2d"),
-        isEraser ? "white" : color,
+        isEraser ? "white" : color
     );
     context.imageSmoothingEnabled = false;
     // Small squares for pixel artists
@@ -300,7 +300,7 @@ const getBrushMark = function (size, color, isEraser) {
                 shearSlope: 0,
                 isFilled: true,
             },
-            context,
+            context
         );
         if (isEraser) {
             // Add outline
@@ -315,7 +315,7 @@ const getBrushMark = function (size, color, isEraser) {
                     isFilled: false,
                     drawFn: (x, y) => context.fillRect(x, y, 1, 1),
                 },
-                context,
+                context
             );
         }
     }
@@ -370,14 +370,14 @@ const drawEllipse = function (options, context) {
     if (!isFilled) {
         const brushMark = getBrushMark(
             thickness,
-            needsMask ? "black" : context.fillStyle,
+            needsMask ? "black" : context.fillStyle
         );
         const roundedUpRadius = Math.ceil(thickness / 2);
         drawFn = (x, y) => {
             context.drawImage(
                 brushMark,
                 ~~x - roundedUpRadius,
-                ~~y - roundedUpRadius,
+                ~~y - roundedUpRadius
             );
         };
     }
@@ -410,7 +410,7 @@ const drawEllipse = function (options, context) {
             isFilled: isFilled,
             drawFn: drawFn,
         },
-        context,
+        context
     );
 
     // Mask in the gradient only where the shape was drawn, and draw it. Then draw the gradientified shape onto the
@@ -481,7 +481,7 @@ const getHitBounds = function (raster, rect) {
         left + bounds.left,
         top + bounds.top,
         right - left,
-        bottom - top,
+        bottom - top
     );
 };
 
@@ -512,7 +512,7 @@ const getTrimmedRaster = function (shouldInsert) {
 const convertToBitmap = function (
     clearSelectedItems,
     onUpdateImage,
-    optFontInlineFn,
+    optFontInlineFn
 ) {
     // @todo if the active layer contains only rasters, drawing them directly to the raster layer
     // would be more efficient.
@@ -537,7 +537,7 @@ const convertToBitmap = function (
         svgString = optFontInlineFn(svgString);
     } else {
         log.error(
-            "Fonts may be converted to bitmap incorrectly if fontInlineFn prop is not set on PaintEditor.",
+            "Fonts may be converted to bitmap incorrectly if fontInlineFn prop is not set on PaintEditor."
         );
     }
 
@@ -549,8 +549,8 @@ const convertToBitmap = function (
                 img,
                 new paper.Point(
                     Math.floor(bounds.topLeft.x),
-                    Math.floor(bounds.topLeft.y),
-                ),
+                    Math.floor(bounds.topLeft.y)
+                )
             );
         }
         for (
@@ -570,7 +570,7 @@ const convertToBitmap = function (
         }
         onUpdateImage(
             false /* skipSnapshot */,
-            Formats.BITMAP /* formatOverride */,
+            Formats.BITMAP /* formatOverride */
         );
     };
     img.onerror = () => {
@@ -578,7 +578,7 @@ const convertToBitmap = function (
         // The problem with rasterize is that it will anti-alias.
         const raster = paper.project.activeLayer.rasterize(
             72,
-            false /* insert */,
+            false /* insert */
         );
         raster.onLoad = () => {
             if (raster.canvas.width && raster.canvas.height) {
@@ -587,7 +587,7 @@ const convertToBitmap = function (
             paper.project.activeLayer.removeChildren();
             onUpdateImage(
                 false /* skipSnapshot */,
-                Formats.BITMAP /* formatOverride */,
+                Formats.BITMAP /* formatOverride */
             );
         };
     };
@@ -610,7 +610,7 @@ const convertToVector = function (clearSelectedItems, onUpdateImage) {
     clearRaster();
     onUpdateImage(
         false /* skipSnapshot */,
-        Formats.VECTOR /* formatOverride */,
+        Formats.VECTOR /* formatOverride */
     );
 };
 
@@ -657,7 +657,7 @@ const floodFillInternal_ = function (
     destImageData,
     newColor,
     oldColor,
-    stack,
+    stack
 ) {
     while (y > 0 && matchesColor_(x, y - 1, sourceImageData, oldColor)) {
         y--;
@@ -725,13 +725,13 @@ const floodFill = function (x, y, color, sourceContext, destContext) {
         0,
         0,
         sourceContext.canvas.width,
-        sourceContext.canvas.height,
+        sourceContext.canvas.height
     );
     let destImageData = sourceImageData;
     if (destContext !== sourceContext) {
         destImageData = new ImageData(
             sourceContext.canvas.width,
-            sourceContext.canvas.height,
+            sourceContext.canvas.height
         );
     }
     if (
@@ -753,7 +753,7 @@ const floodFill = function (x, y, color, sourceContext, destContext) {
             destImageData,
             newColor,
             oldColor,
-            stack,
+            stack
         );
     }
     destContext.putImageData(destImageData, 0, 0);
@@ -778,13 +778,13 @@ const floodFillAll = function (x, y, color, sourceContext, destContext) {
         0,
         0,
         sourceContext.canvas.width,
-        sourceContext.canvas.height,
+        sourceContext.canvas.height
     );
     let destImageData = sourceImageData;
     if (destContext !== sourceContext) {
         destImageData = new ImageData(
             sourceContext.canvas.width,
-            sourceContext.canvas.height,
+            sourceContext.canvas.height
         );
     }
     if (
@@ -820,25 +820,25 @@ const fillRect = function (rect, context) {
             Math.round(rect.matrix.tx - width / 2),
             Math.round(rect.matrix.ty - height / 2),
             Math.round(width),
-            Math.round(height),
+            Math.round(height)
         );
         return;
     }
     const startPoint = rect.matrix.transform(
-        new paper.Point(-rect.size.width / 2, -rect.size.height / 2),
+        new paper.Point(-rect.size.width / 2, -rect.size.height / 2)
     );
     const widthPoint = rect.matrix.transform(
-        new paper.Point(rect.size.width / 2, -rect.size.height / 2),
+        new paper.Point(rect.size.width / 2, -rect.size.height / 2)
     );
     const heightPoint = rect.matrix.transform(
-        new paper.Point(-rect.size.width / 2, rect.size.height / 2),
+        new paper.Point(-rect.size.width / 2, rect.size.height / 2)
     );
     const endPoint = rect.matrix.transform(
-        new paper.Point(rect.size.width / 2, rect.size.height / 2),
+        new paper.Point(rect.size.width / 2, rect.size.height / 2)
     );
     const center = rect.matrix.transform(new paper.Point());
     const points = [startPoint, widthPoint, heightPoint, endPoint].sort(
-        (a, b) => a.x - b.x,
+        (a, b) => a.x - b.x
     );
 
     const solveY = (point1, point2, x) => {
@@ -862,7 +862,7 @@ const fillRect = function (rect, context) {
             x,
             Math.round(ys[1]),
             1,
-            Math.max(1, Math.round(ys[2]) - Math.round(ys[1])),
+            Math.max(1, Math.round(ys[2]) - Math.round(ys[1]))
         );
     }
 };
@@ -879,7 +879,7 @@ const outlineRect = function (rect, thickness, context) {
         context.drawImage(
             brushMark,
             ~~x - roundedUpRadius,
-            ~~y - roundedUpRadius,
+            ~~y - roundedUpRadius
         );
     };
 
@@ -898,16 +898,16 @@ const outlineRect = function (rect, thickness, context) {
     }
 
     const startPoint = rect.matrix.transform(
-        new paper.Point(-rect.size.width / 2, -rect.size.height / 2),
+        new paper.Point(-rect.size.width / 2, -rect.size.height / 2)
     );
     const widthPoint = rect.matrix.transform(
-        new paper.Point(rect.size.width / 2, -rect.size.height / 2),
+        new paper.Point(rect.size.width / 2, -rect.size.height / 2)
     );
     const heightPoint = rect.matrix.transform(
-        new paper.Point(-rect.size.width / 2, rect.size.height / 2),
+        new paper.Point(-rect.size.width / 2, rect.size.height / 2)
     );
     const endPoint = rect.matrix.transform(
-        new paper.Point(rect.size.width / 2, rect.size.height / 2),
+        new paper.Point(rect.size.width / 2, rect.size.height / 2)
     );
 
     forEachLinePoint(startPoint, widthPoint, drawFn);
@@ -948,7 +948,7 @@ const flipBitmapVertical = function (canvas) {
 const scaleBitmap = function (canvas, scale) {
     let tmpCanvas = createCanvas(
         Math.round(canvas.width * Math.abs(scale.x)),
-        canvas.height,
+        canvas.height
     );
     if (scale.x < 0) {
         canvas = flipBitmapHorizontal(canvas);
@@ -959,7 +959,7 @@ const scaleBitmap = function (canvas, scale) {
     canvas = tmpCanvas;
     tmpCanvas = createCanvas(
         canvas.width,
-        Math.round(canvas.height * Math.abs(scale.y)),
+        Math.round(canvas.height * Math.abs(scale.y))
     );
     if (scale.y < 0) {
         canvas = flipBitmapVertical(canvas);
@@ -991,7 +991,7 @@ const maybeApplyScaleToCanvas_ = function (item) {
         if (item.data && item.data.expanded) {
             item.data.expanded.canvas = scaleBitmap(
                 item.data.expanded.canvas,
-                decomposed.scaling,
+                decomposed.scaling
             );
         }
         // Remove the scale from the item's matrix
@@ -999,9 +999,9 @@ const maybeApplyScaleToCanvas_ = function (item) {
             new paper.Matrix().scale(
                 new paper.Point(
                     1 / decomposed.scaling.x,
-                    1 / decomposed.scaling.y,
-                ),
-            ),
+                    1 / decomposed.scaling.y
+                )
+            )
         );
     }
 };
@@ -1085,14 +1085,14 @@ const _paperColorToCanvasStyle = function (color, context) {
                 0,
                 origin.x,
                 origin.y,
-                radius,
+                radius
             );
         } else {
             canvasGradient = context.createLinearGradient(
                 origin.x,
                 origin.y,
                 destination.x,
-                destination.y,
+                destination.y
             );
         }
 
@@ -1104,7 +1104,7 @@ const _paperColorToCanvasStyle = function (color, context) {
             const offset = stop.offset;
             canvasGradient.addColorStop(
                 offset || i / (len - 1),
-                stop.color.toCSS(),
+                stop.color.toCSS()
             );
         }
         return canvasGradient;
@@ -1125,7 +1125,7 @@ const commitOvalToBitmap = function (oval, bitmap) {
 
     const canvasColor = _paperColorToCanvasStyle(
         filled ? oval.fillColor : oval.strokeColor,
-        context,
+        context
     );
     // If the color is null (e.g. fully transparent/"no fill"), don't bother drawing anything
     if (!canvasColor) return;
@@ -1141,7 +1141,7 @@ const commitOvalToBitmap = function (oval, bitmap) {
             isFilled: filled,
             thickness: oval.strokeWidth / paper.view.zoom,
         },
-        context,
+        context
     );
 
     return drew;
@@ -1158,7 +1158,7 @@ const commitRectToBitmap = function (rect, bitmap) {
 
     const canvasColor = _paperColorToCanvasStyle(
         filled ? rect.fillColor : rect.strokeColor,
-        context,
+        context
     );
     // If the color is null (e.g. fully transparent/"no fill"), don't bother drawing anything
     if (!canvasColor) return;

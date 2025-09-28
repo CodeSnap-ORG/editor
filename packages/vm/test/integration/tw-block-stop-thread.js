@@ -7,19 +7,19 @@ const Clone = require("../../src/util/clone");
 
 const fixturePath = path.join(
     __dirname,
-    "../fixtures/tw-block-stop-thread.sb3",
+    "../fixtures/tw-block-stop-thread.sb3"
 );
 const fixtureData = fs.readFileSync(fixturePath);
 
-const stopByRetireThread = (thread) => {
+const stopByRetireThread = thread => {
     thread.target.runtime.sequencer.retireThread(thread);
 };
 
-const stopBySetStatus = (thread) => {
+const stopBySetStatus = thread => {
     thread.status = Thread.STATUS_DONE;
 };
 
-test("constants", (t) => {
+test("constants", t => {
     t.equal(Thread.STATUS_DONE, 4);
     t.end();
 });
@@ -32,7 +32,7 @@ for (const [enableCompiler, stopFunction] of [
 ]) {
     const subtestName = `${enableCompiler ? "compiler" : "interpreter"} - ${stopFunction.name}`;
 
-    test(`${subtestName} - stop in command block`, (t) => {
+    test(`${subtestName} - stop in command block`, t => {
         const vm = new VM();
         vm.setCompilerOptions({ enabled: enableCompiler });
         t.equal(vm.runtime.compilerOptions.enabled, enableCompiler);
@@ -49,14 +49,14 @@ for (const [enableCompiler, stopFunction] of [
         vm.addAddonBlock({
             procedureCode: "inner block",
             return: 1,
-            callback: (args) => {
+            callback: args => {
                 callOrder.push(["input block", Clone.simple(args)]);
                 return callOrder.length;
             },
         });
         vm.addAddonBlock({
             procedureCode: "second block",
-            callback: (args) => {
+            callback: args => {
                 callOrder.push(["second block", Clone.simple(args)]);
             },
         });
@@ -72,7 +72,7 @@ for (const [enableCompiler, stopFunction] of [
         });
     });
 
-    test(`${subtestName} - stop in command block after yielding once`, (t) => {
+    test(`${subtestName} - stop in command block after yielding once`, t => {
         const vm = new VM();
         vm.setCompilerOptions({ enabled: enableCompiler });
         t.equal(vm.runtime.compilerOptions.enabled, enableCompiler);
@@ -98,7 +98,7 @@ for (const [enableCompiler, stopFunction] of [
         });
         vm.addAddonBlock({
             procedureCode: "second block",
-            callback: (args) => {
+            callback: args => {
                 callOrder.push(["second block", Clone.simple(args)]);
             },
         });
@@ -114,7 +114,7 @@ for (const [enableCompiler, stopFunction] of [
         });
     });
 
-    test(`${subtestName} - stop in reporter block`, (t) => {
+    test(`${subtestName} - stop in reporter block`, t => {
         const vm = new VM();
         vm.setCompilerOptions({ enabled: enableCompiler });
         t.equal(vm.runtime.compilerOptions.enabled, enableCompiler);
@@ -123,7 +123,7 @@ for (const [enableCompiler, stopFunction] of [
         vm.addAddonBlock({
             procedureCode: "first block %s",
             arguments: ["number or text"],
-            callback: (args) => {
+            callback: args => {
                 callOrder.push(["first block", Clone.simple(args)]);
             },
         });
@@ -138,7 +138,7 @@ for (const [enableCompiler, stopFunction] of [
         });
         vm.addAddonBlock({
             procedureCode: "second block",
-            callback: (args) => {
+            callback: args => {
                 callOrder.push(["second block", Clone.simple(args)]);
             },
         });
@@ -151,7 +151,7 @@ for (const [enableCompiler, stopFunction] of [
         });
     });
 
-    test(`${subtestName} - stop in reporter block after yielding once`, (t) => {
+    test(`${subtestName} - stop in reporter block after yielding once`, t => {
         const vm = new VM();
         vm.setCompilerOptions({ enabled: enableCompiler });
         t.equal(vm.runtime.compilerOptions.enabled, enableCompiler);
@@ -160,7 +160,7 @@ for (const [enableCompiler, stopFunction] of [
         vm.addAddonBlock({
             procedureCode: "first block %s",
             arguments: ["number or text"],
-            callback: (args) => {
+            callback: args => {
                 callOrder.push(["first block", Clone.simple(args)]);
             },
         });
@@ -181,7 +181,7 @@ for (const [enableCompiler, stopFunction] of [
         });
         vm.addAddonBlock({
             procedureCode: "second block",
-            callback: (args) => {
+            callback: args => {
                 callOrder.push(["second block", Clone.simple(args)]);
             },
         });

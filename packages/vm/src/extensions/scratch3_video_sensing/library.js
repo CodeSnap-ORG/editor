@@ -132,7 +132,7 @@ class VideoMotion {
         this._curr = new Uint8ClampedArray(
             this._arrays,
             WIDTH * HEIGHT * 0 * 1,
-            WIDTH * HEIGHT,
+            WIDTH * HEIGHT
         );
 
         /**
@@ -143,7 +143,7 @@ class VideoMotion {
         this._prev = new Uint8ClampedArray(
             this._arrays,
             WIDTH * HEIGHT * 1 * 1,
-            WIDTH * HEIGHT,
+            WIDTH * HEIGHT
         );
     }
 
@@ -314,12 +314,12 @@ class VideoMotion {
             const xmin = Math.max(Math.floor(boundingRect.left + WIDTH / 2), 1);
             const xmax = Math.min(
                 Math.floor(boundingRect.right + WIDTH / 2),
-                WIDTH - 1,
+                WIDTH - 1
             );
             const ymin = Math.max(Math.floor(HEIGHT / 2 - boundingRect.top), 1);
             const ymax = Math.min(
                 Math.floor(HEIGHT / 2 - boundingRect.bottom),
-                HEIGHT - 1,
+                HEIGHT - 1
             );
 
             let A2 = 0;
@@ -385,7 +385,7 @@ class VideoMotion {
             // Scale the magnitude of the averaged UV vector and the number of
             // overlapping drawable pixels.
             state.motionAmount = Math.round(
-                LOCAL_AMOUNT_SCALE * activePixelNum * Math.hypot(u, v),
+                LOCAL_AMOUNT_SCALE * activePixelNum * Math.hypot(u, v)
             );
             if (state.motionAmount > LOCAL_MAX_AMOUNT) {
                 // Clip all magnitudes greater than 100.

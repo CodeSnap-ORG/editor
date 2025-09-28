@@ -24,7 +24,7 @@ const PHASES = keyMirror({
     notfound: null,
 });
 
-const AutoScanningStep = (props) => {
+const AutoScanningStep = props => {
     // Offer to update both during scan and after a failed scan, as long there's an update function.
     // It's possible the scan will find "some" device but not the desired device,
     // so don't limit the update offer to just the PHASES.notfound case.
@@ -56,7 +56,7 @@ const AutoScanningStep = (props) => {
                                 <img
                                     className={classNames(
                                         styles.radarBig,
-                                        styles.radarSpin,
+                                        styles.radarSpin
                                     )}
                                     src={radarIcon}
                                     draggable={false}
@@ -90,7 +90,7 @@ const AutoScanningStep = (props) => {
                 <Box
                     className={classNames(
                         styles.bottomAreaItem,
-                        styles.instructions,
+                        styles.instructions
                     )}
                 >
                     {props.phase === PHASES.prescan && (
@@ -112,7 +112,7 @@ const AutoScanningStep = (props) => {
                     <Box
                         className={classNames(
                             styles.bottomAreaItem,
-                            styles.instructions,
+                            styles.instructions
                         )}
                     >
                         <BalancedFormattedMessage
@@ -126,7 +126,7 @@ const AutoScanningStep = (props) => {
                 <Box
                     className={classNames(
                         styles.bottomAreaItem,
-                        styles.buttonRow,
+                        styles.buttonRow
                     )}
                 >
                     {props.phase === PHASES.prescan && (
@@ -186,7 +186,7 @@ const AutoScanningStep = (props) => {
                         <button
                             className={classNames(
                                 styles.bottomAreaItem,
-                                styles.connectionButton,
+                                styles.connectionButton
                             )}
                             onClick={props.onUpdatePeripheral}
                         >

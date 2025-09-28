@@ -30,8 +30,8 @@ class FontName extends React.Component {
         // Chrome-only API
         if (typeof queryLocalFonts === "function") {
             // eslint-disable-next-line no-undef
-            queryLocalFonts().then((fonts) => {
-                const uniqueFamilies = [...new Set(fonts.map((i) => i.family))];
+            queryLocalFonts().then(fonts => {
+                const uniqueFamilies = [...new Set(fonts.map(i => i.family))];
                 this.setState({
                     localFonts: uniqueFamilies,
                 });
@@ -97,8 +97,8 @@ class FontName extends React.Component {
             return [];
         }
         const name = this.props.name.toLowerCase();
-        const candidates = this.state.localFonts.filter((family) =>
-            family.toLowerCase().includes(name),
+        const candidates = this.state.localFonts.filter(family =>
+            family.toLowerCase().includes(name)
         );
         if (candidates.length === 1 && candidates[0] === this.props.name) {
             return [];
@@ -143,7 +143,7 @@ class FontName extends React.Component {
                                 width: `${this.state.rect.width + 8}px`,
                             }}
                         >
-                            {this.getFilteredOptions().map((family) => (
+                            {this.getFilteredOptions().map(family => (
                                 <FontDropdownItem
                                     key={family}
                                     family={family}
@@ -151,7 +151,7 @@ class FontName extends React.Component {
                                 />
                             ))}
                         </div>,
-                        document.body,
+                        document.body
                     )}
             </div>
         );

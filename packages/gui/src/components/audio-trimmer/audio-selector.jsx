@@ -6,7 +6,7 @@ import styles from "./audio-trimmer.css";
 import SelectionHandle from "./selection-handle.jsx";
 import Playhead from "./playhead.jsx";
 
-const AudioSelector = (props) => (
+const AudioSelector = props => (
     <div
         className={classNames(styles.absolute, styles.selector)}
         ref={props.containerRef}
@@ -24,7 +24,7 @@ const AudioSelector = (props) => (
                 <Box
                     className={classNames(
                         styles.absolute,
-                        styles.selectionBackground,
+                        styles.selectionBackground
                     )}
                 />
                 <SelectionHandle

@@ -164,7 +164,7 @@ class Scratch3Speech2TextBlocks {
         this.runtime.on("PROJECT_STOP_ALL", this._resetListening.bind(this));
         this.runtime.on(
             "PROJECT_START",
-            this._resetEdgeTriggerUtterance.bind(this),
+            this._resetEdgeTriggerUtterance.bind(this)
         );
     }
 
@@ -179,8 +179,8 @@ class Scratch3Speech2TextBlocks {
         const words = [];
         // For each each target, walk through the top level blocks and check whether
         // they are speech hat/when I hear blocks.
-        this.runtime.targets.forEach((target) => {
-            target.blocks._scripts.forEach((id) => {
+        this.runtime.targets.forEach(target => {
+            target.blocks._scripts.forEach(id => {
                 const b = target.blocks.getBlock(id);
                 if (b.opcode === "speech_whenIHearHat") {
                     // Grab the text from the hat block's shadow.
@@ -260,7 +260,7 @@ class Scratch3Speech2TextBlocks {
         if (this._scriptNode) {
             this._scriptNode.removeEventListener(
                 "audioprocess",
-                this._processAudioCallback,
+                this._processAudioCallback
             );
             this._scriptNode.disconnect();
         }
@@ -295,7 +295,7 @@ class Scratch3Speech2TextBlocks {
         // Give it a couple seconds to response before giving up and assuming nothing else will come back.
         this._speechFinalResponseTimeout = setTimeout(
             this._resetListening,
-            finalResponseTimeoutDurationMs,
+            finalResponseTimeoutDurationMs
         );
     }
 
@@ -326,7 +326,7 @@ class Scratch3Speech2TextBlocks {
             const phrases = this._phraseList.join(" ");
             const matchPhrase = phrases.substring(
                 fuzzyMatchIndex,
-                fuzzyMatchIndex + normalizedTranscript.length,
+                fuzzyMatchIndex + normalizedTranscript.length
             );
             log.info(`fuzzy match: ${matchPhrase} in ${normalizedTranscript}`);
         }
@@ -338,7 +338,7 @@ class Scratch3Speech2TextBlocks {
         // TODO: This is just for debugging. Remove when this function is finalized.
         if (shouldKeepPhraseListMatch) {
             log.info(
-                `phrase list ${this._phraseList} includes ${normalizedTranscript}`,
+                `phrase list ${this._phraseList} includes ${normalizedTranscript}`
             );
         }
         // TODO: This is for debugging. Remove when this function is finalized.
@@ -400,7 +400,7 @@ class Scratch3Speech2TextBlocks {
     _processTranscriptionResult(result) {
         log.info(`Got result: ${JSON.stringify(result)}`);
         const transcriptionResult = this._normalizeText(
-            result.alternatives[0].transcript,
+            result.alternatives[0].transcript
         );
 
         // Waiting for an exact match is not satisfying.  It makes it hard to catch
@@ -409,7 +409,7 @@ class Scratch3Speech2TextBlocks {
         const phrases = this._phraseList.join(" ");
         const fuzzyMatchIndex = this._computeFuzzyMatch(
             phrases,
-            transcriptionResult,
+            transcriptionResult
         );
 
         // If the result isn't good enough yet, return without saving and resolving the promises.
@@ -417,7 +417,7 @@ class Scratch3Speech2TextBlocks {
             !this._shouldKeepResult(
                 fuzzyMatchIndex,
                 result,
-                transcriptionResult,
+                transcriptionResult
             )
         ) {
             return;
@@ -482,7 +482,7 @@ class Scratch3Speech2TextBlocks {
         // Force the block to timeout if we don't get any results back/the user didn't say anything.
         this._speechTimeoutId = setTimeout(
             this._stopTranscription,
-            listenAndWaitBlockTimeoutMs,
+            listenAndWaitBlockTimeoutMs
         );
     }
 
@@ -523,7 +523,7 @@ class Scratch3Speech2TextBlocks {
             audio: true,
         });
 
-        this._audioPromise.then().catch((e) => {
+        this._audioPromise.then().catch(e => {
             log.error(`Problem connecting to microphone:  ${e}`);
         });
     }
@@ -558,7 +558,7 @@ class Scratch3Speech2TextBlocks {
     _socketMessageCallback() {
         this._socket.addEventListener(
             "message",
-            this._onTranscriptionFromServer,
+            this._onTranscriptionFromServer
         );
         this._startByteStream();
     }
@@ -571,7 +571,7 @@ class Scratch3Speech2TextBlocks {
         const websocketPromise = new Promise(this._newSocketCallback);
         Promise.all([this._audioPromise, websocketPromise])
             .then(this._setupSocketCallback)
-            .catch((e) => {
+            .catch(e => {
                 log.error(`Problem with setup:  ${e}`);
             });
     }
@@ -586,7 +586,7 @@ class Scratch3Speech2TextBlocks {
         this._micStream = values[0];
         this._socket = values[1].target;
 
-        this._socket.addEventListener("error", (e) => {
+        this._socket.addEventListener("error", e => {
             log.error(`Error from web socket: ${e}`);
         });
 
@@ -602,7 +602,7 @@ class Scratch3Speech2TextBlocks {
                 sampleRate: this._context.sampleRate,
                 phrases: this._phraseList,
                 locale: langCode,
-            }),
+            })
         );
     }
 
@@ -613,12 +613,12 @@ class Scratch3Speech2TextBlocks {
     _startByteStream() {
         // Hook up the scriptNode to the mic
         this._sourceNode = this._context.createMediaStreamSource(
-            this._micStream,
+            this._micStream
         );
         this._sourceNode.connect(this._scriptNode);
         this._scriptNode.addEventListener(
             "audioprocess",
-            this._processAudioCallback,
+            this._processAudioCallback
         );
         this._scriptNode.connect(this._context.destination);
     }
@@ -635,7 +635,7 @@ class Scratch3Speech2TextBlocks {
             this._socket.readyState === WebSocket.CLOSING
         ) {
             log.error(
-                `Not sending data because not in ready state. State: ${this._socket.readyState}`,
+                `Not sending data because not in ready state. State: ${this._socket.readyState}`
             );
             // TODO: should we stop trying and reset state so it might work next time?
             return;
@@ -644,9 +644,7 @@ class Scratch3Speech2TextBlocks {
         const floatSamples = e.inputBuffer.getChannelData(0);
         // The samples are floats in range [-1, 1]. Convert to 16-bit signed
         // integer.
-        this._socket.send(
-            Int16Array.from(floatSamples.map((n) => n * MAX_INT)),
-        );
+        this._socket.send(Int16Array.from(floatSamples.map(n => n * MAX_INT)));
     }
 
     /**
@@ -727,7 +725,7 @@ class Scratch3Speech2TextBlocks {
         this._phraseList = this._scanBlocksForPhraseList();
         this._resetEdgeTriggerUtterance();
 
-        const speechPromise = new Promise((resolve) => {
+        const speechPromise = new Promise(resolve => {
             const listeningInProgress = this._speechPromises.length > 0;
             this._speechPromises.push(resolve);
             if (!listeningInProgress) {

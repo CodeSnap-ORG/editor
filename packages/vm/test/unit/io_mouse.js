@@ -2,7 +2,7 @@ const test = require("tap").test;
 const Mouse = require("../../src/io/mouse");
 const Runtime = require("../../src/engine/runtime");
 
-test("spec", (t) => {
+test("spec", t => {
     const rt = new Runtime();
     const m = new Mouse(rt);
 
@@ -16,7 +16,7 @@ test("spec", (t) => {
     t.end();
 });
 
-test("mouseUp", (t) => {
+test("mouseUp", t => {
     const rt = new Runtime();
     const m = new Mouse(rt);
 
@@ -35,7 +35,7 @@ test("mouseUp", (t) => {
     t.end();
 });
 
-test("mouseDown", (t) => {
+test("mouseDown", t => {
     const rt = new Runtime();
     const m = new Mouse(rt);
 
@@ -54,7 +54,7 @@ test("mouseDown", (t) => {
     t.end();
 });
 
-test("at zoomed scale", (t) => {
+test("at zoomed scale", t => {
     const rt = new Runtime();
     const m = new Mouse(rt);
 
@@ -71,7 +71,7 @@ test("at zoomed scale", (t) => {
     t.end();
 });
 
-test("mousedown activating click hats", (t) => {
+test("mousedown activating click hats", t => {
     const rt = new Runtime();
     const m = new Mouse(rt);
 
@@ -127,7 +127,7 @@ test("mousedown activating click hats", (t) => {
         Object.assign({}, mouseDownEvent, {
             x: 50000,
             y: 50,
-        }),
+        })
     );
     t.strictEquals(ranClickHats, false);
 

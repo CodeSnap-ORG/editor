@@ -63,7 +63,7 @@ ProjectWatcher.defaultProps = {
     onDoneUpdating: () => {},
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
     const loadingState = state.scratchGui.projectState.loadingState;
     return {
         isShowingWithId: getIsShowingWithId(loadingState),

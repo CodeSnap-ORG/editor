@@ -15,7 +15,7 @@ const util = {
     },
 };
 
-test("getItemNumOfList returns the index of an item (basic)", (t) => {
+test("getItemNumOfList returns the index of an item (basic)", t => {
     lists.list = { value: ["apple", "taco", "burrito", "extravaganza"] };
     const args = { ITEM: "burrito", LIST: { name: "list" } };
     const index = blocks.getItemNumOfList(args, util);
@@ -23,7 +23,7 @@ test("getItemNumOfList returns the index of an item (basic)", (t) => {
     t.end();
 });
 
-test("getItemNumOfList returns 0 when an item is not found", (t) => {
+test("getItemNumOfList returns 0 when an item is not found", t => {
     lists.list = { value: ["aaaaapple", "burrito"] };
     const args = { ITEM: "jump", LIST: { name: "list" } };
     const index = blocks.getItemNumOfList(args, util);
@@ -31,7 +31,7 @@ test("getItemNumOfList returns 0 when an item is not found", (t) => {
     t.end();
 });
 
-test("getItemNumOfList uses Scratch comparison", (t) => {
+test("getItemNumOfList uses Scratch comparison", t => {
     lists.list = { value: ["jump", "Jump", "123", 123, 800] };
     const args = { LIST: { name: "list" } };
 

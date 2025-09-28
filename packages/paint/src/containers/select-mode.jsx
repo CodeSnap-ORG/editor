@@ -60,7 +60,7 @@ class SelectMode extends React.Component {
             this.props.clearSelectedItems,
             this.props.setCursor,
             this.props.onUpdateImage,
-            this.props.switchToTextTool,
+            this.props.switchToTextTool
         );
         this.tool.activate();
     }
@@ -93,13 +93,13 @@ SelectMode.propTypes = {
     switchToTextTool: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     isSelectModeActive: state.scratchPaint.mode === Modes.SELECT,
     hoveredItemId: state.scratchPaint.hoveredItemId,
     selectedItems: state.scratchPaint.selectedItems,
 });
-const mapDispatchToProps = (dispatch) => ({
-    setHoveredItem: (hoveredItemId) => {
+const mapDispatchToProps = dispatch => ({
+    setHoveredItem: hoveredItemId => {
         dispatch(setHoveredItem(hoveredItemId));
     },
     clearHoveredItem: () => {
@@ -110,10 +110,10 @@ const mapDispatchToProps = (dispatch) => ({
     },
     setSelectedItems: () => {
         dispatch(
-            setSelectedItems(getSelectedLeafItems(), false /* bitmapMode */),
+            setSelectedItems(getSelectedLeafItems(), false /* bitmapMode */)
         );
     },
-    setCursor: (cursorString) => {
+    setCursor: cursorString => {
         dispatch(setCursor(cursorString));
     },
     handleMouseDown: () => {

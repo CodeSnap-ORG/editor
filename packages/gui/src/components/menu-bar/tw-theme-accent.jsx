@@ -68,7 +68,7 @@ const icons = {
     [ACCENT_RAINBOW]: rainbowIcon,
 };
 
-const ColorIcon = (props) =>
+const ColorIcon = props =>
     icons[props.id] ? (
         <img
             className={styles.accentIconOuter}
@@ -94,7 +94,7 @@ ColorIcon.propTypes = {
     id: PropTypes.string,
 };
 
-const AccentMenuItem = (props) => (
+const AccentMenuItem = props => (
     <MenuItem onClick={props.onClick}>
         <div className={styles.option}>
             <img
@@ -118,36 +118,48 @@ AccentMenuItem.propTypes = {
     onClick: PropTypes.func,
 };
 
-const AccentThemeMenu = ({ isOpen, isRtl, onChangeTheme, onOpen, theme }) => (
-    <MenuItem expanded={isOpen}>
-        <div className={styles.option} onClick={onOpen}>
-            <ColorIcon id={theme.accent} />
-            <span className={styles.submenuLabel}>
-                <FormattedMessage
-                    defaultMessage="Accent"
-                    description="Label for menu to choose accent color (eg. TurboWarp's red, Scratch's purple)"
-                    id="tw.menuBar.accent"
+const AccentThemeMenu = ({ isOpen, isRtl, onChangeTheme, onOpen, theme }) => {
+    // Check if the GUI theme is "high-contrast" and return null if it is.
+    if (theme.gui === "high-contrast") {
+        return null;
+    }
+
+    return (
+        <MenuItem expanded={isOpen}>
+            <div className={styles.option} onClick={onOpen}>
+                <ColorIcon id={theme.accent} />
+                <div className={styles.menuItemTitleAndSubtitle}>
+                    <span className={styles.submenuLabel}>
+                        <FormattedMessage
+                            defaultMessage="Accent"
+                            description="Label for menu to choose accent color (eg. TurboWarp's red, Scratch's purple)"
+                            id="tw.menuBar.accent"
+                        />
+                    </span>
+                    <span className={styles.menuItemSubtitle}>
+                        <FormattedMessage {...options[theme.accent]} />
+                    </span>
+                </div>
+                <img
+                    className={styles.expandCaret}
+                    src={dropdownCaret}
+                    draggable={false}
                 />
-            </span>
-            <img
-                className={styles.expandCaret}
-                src={dropdownCaret}
-                draggable={false}
-            />
-        </div>
-        <Submenu place={isRtl ? "left" : "right"}>
-            {Object.keys(options).map((item) => (
-                <AccentMenuItem
-                    key={item}
-                    id={item}
-                    isSelected={theme.accent === item}
-                    // eslint-disable-next-line react/jsx-no-bind
-                    onClick={() => onChangeTheme(theme.set("accent", item))}
-                />
-            ))}
-        </Submenu>
-    </MenuItem>
-);
+            </div>
+            <Submenu place={isRtl ? "left" : "right"}>
+                {Object.keys(options).map(item => (
+                    <AccentMenuItem
+                        key={item}
+                        id={item}
+                        isSelected={theme.accent === item}
+                        // eslint-disable-next-line react/jsx-no-bind
+                        onClick={() => onChangeTheme(theme.set("accent", item))}
+                    />
+                ))}
+            </Submenu>
+        </MenuItem>
+    );
+};
 
 AccentThemeMenu.propTypes = {
     isOpen: PropTypes.bool,
@@ -157,14 +169,14 @@ AccentThemeMenu.propTypes = {
     theme: PropTypes.instanceOf(Theme),
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     isOpen: accentMenuOpen(state),
     isRtl: state.locales.isRtl,
     theme: state.scratchGui.theme.theme,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    onChangeTheme: (theme) => {
+const mapDispatchToProps = dispatch => ({
+    onChangeTheme: theme => {
         dispatch(setTheme(theme));
         dispatch(closeSettingsMenu());
         persistTheme(theme);

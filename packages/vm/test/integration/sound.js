@@ -13,12 +13,12 @@ const project = readFileToBuffer(uri);
 // By default Central Dispatch works with the Worker class built into the browser. Tell it to use TinyWorker instead.
 dispatch.workerClass = Worker;
 
-test("sound", (t) => {
+test("sound", t => {
     const vm = new VirtualMachine();
     vm.attachStorage(makeTestStorage());
 
     // Evaluate playground data and exit
-    vm.on("playgroundData", (e) => {
+    vm.on("playgroundData", e => {
         const threads = JSON.parse(e.threads);
         t.ok(threads.length > 0);
         vm.quit();

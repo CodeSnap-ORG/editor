@@ -13,7 +13,7 @@ const VirtualMachine = require("../../src/index");
 
 const projectUri = path.resolve(
     __dirname,
-    "../fixtures/offline-custom-assets.sb2",
+    "../fixtures/offline-custom-assets.sb2"
 );
 const projectZip = AdmZip(projectUri);
 const project = Buffer.from(fs.readFileSync(projectUri));
@@ -26,14 +26,14 @@ const costumeData = new Uint8Array(costume);
 const sound = projectZip.readFile("0.wav");
 const soundData = new Uint8Array(sound);
 
-test("offline-custom-assets", (t) => {
+test("offline-custom-assets", t => {
     const vm = new VirtualMachine();
     // Use a test storage here that does not have any web sources added to it.
     const testStorage = new ScratchStorage();
     vm.attachStorage(testStorage);
 
     // Evaluate playground data and exit
-    vm.on("playgroundData", (e) => {
+    vm.on("playgroundData", e => {
         const threads = JSON.parse(e.threads);
         t.ok(threads.length === 0);
         vm.quit();

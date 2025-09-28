@@ -5,7 +5,7 @@ import ToolSelectComponent from "../tool-select-base/tool-select-base.jsx";
 
 import selectIcon from "./select.svg";
 
-const SelectModeComponent = (props) => (
+const SelectModeComponent = props => (
     <ToolSelectComponent
         imgDescriptor={messages.select}
         imgSrc={selectIcon}

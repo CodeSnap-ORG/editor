@@ -26,15 +26,15 @@ const initialState = {
     alertsList: [],
 };
 
-const filterPopupAlerts = (alertsList) =>
+const filterPopupAlerts = alertsList =>
     alertsList.filter(
-        (curAlert) =>
+        curAlert =>
             curAlert.alertType === AlertTypes.STANDARD ||
-            curAlert.alertType === AlertTypes.EXTENSION,
+            curAlert.alertType === AlertTypes.EXTENSION
     );
 
-const filterInlineAlerts = (alertsList) =>
-    alertsList.filter((curAlert) => curAlert.alertType === AlertTypes.INLINE);
+const filterInlineAlerts = alertsList =>
+    alertsList.filter(curAlert => curAlert.alertType === AlertTypes.INLINE);
 
 const reducer = function (state, action) {
     if (typeof state === "undefined") state = initialState;
@@ -48,14 +48,13 @@ const reducer = function (state, action) {
                     level: AlertLevels.WARN, // default level
                 };
                 const alertData = alertsData.find(
-                    (thisAlertData) => thisAlertData.alertId === alertId,
+                    thisAlertData => thisAlertData.alertId === alertId
                 );
                 if (alertData) {
                     const newList = state.alertsList.filter(
-                        (curAlert) =>
+                        curAlert =>
                             !alertData.clearList ||
-                            alertData.clearList.indexOf(curAlert.alertId) ===
-                                -1,
+                            alertData.clearList.indexOf(curAlert.alertId) === -1
                     );
                     if (action.data && action.data.message) {
                         newAlert.message = action.data.message;
@@ -83,7 +82,7 @@ const reducer = function (state, action) {
             const extensionId = action.data.extensionId;
             if (extensionId) {
                 const extension = extensionData.find(
-                    (ext) => ext.extensionId === extensionId,
+                    ext => ext.extensionId === extensionId
                 );
                 if (extension) {
                     const newList = state.alertsList.slice();
@@ -109,7 +108,7 @@ const reducer = function (state, action) {
         case CLOSE_ALERT: {
             if (action.alertId) {
                 action.index = state.alertsList.findIndex(
-                    (a) => a.alertId === action.alertId,
+                    a => a.alertId === action.alertId
                 );
                 if (action.index === -1) return state;
             }
@@ -122,7 +121,7 @@ const reducer = function (state, action) {
         case CLOSE_ALERTS_WITH_ID: {
             return Object.assign({}, state, {
                 alertsList: state.alertsList.filter(
-                    (curAlert) => curAlert.alertId !== action.alertId,
+                    curAlert => curAlert.alertId !== action.alertId
                 ),
             });
         }
@@ -207,7 +206,7 @@ const showExtensionAlert = function (data) {
  */
 const showAlertWithTimeout = function (dispatch, alertId) {
     const alertData = alertsData.find(
-        (thisAlertData) => thisAlertData.alertId === alertId,
+        thisAlertData => thisAlertData.alertId === alertId
     );
     if (alertData) {
         dispatch(showStandardAlert(alertId));

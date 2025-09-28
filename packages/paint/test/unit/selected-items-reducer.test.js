@@ -10,8 +10,8 @@ test("initialState", () => {
     expect(
         selectedItemsReducer(
             defaultState /* state */,
-            { type: "anything" } /* action */,
-        ),
+            { type: "anything" } /* action */
+        )
     ).toBeDefined();
 });
 
@@ -24,26 +24,26 @@ test("setSelectedItems", () => {
     expect(
         selectedItemsReducer(
             defaultState /* state */,
-            setSelectedItems(newSelected1) /* action */,
-        ),
+            setSelectedItems(newSelected1) /* action */
+        )
     ).toEqual(newSelected1);
     expect(
         selectedItemsReducer(
             newSelected1,
-            setSelectedItems(newSelected2) /* action */,
-        ),
+            setSelectedItems(newSelected2) /* action */
+        )
     ).toEqual(newSelected2);
     expect(
         selectedItemsReducer(
             newSelected1,
-            setSelectedItems(unselected) /* action */,
-        ),
+            setSelectedItems(unselected) /* action */
+        )
     ).toEqual(unselected);
     expect(
         selectedItemsReducer(
             defaultState,
-            setSelectedItems(unselected) /* action */,
-        ),
+            setSelectedItems(unselected) /* action */
+        )
     ).toEqual(unselected);
 });
 
@@ -55,20 +55,20 @@ test("clearSelectedItems", () => {
     expect(
         selectedItemsReducer(
             defaultState /* state */,
-            clearSelectedItems() /* action */,
-        ),
+            clearSelectedItems() /* action */
+        )
     ).toHaveLength(0);
     expect(
         selectedItemsReducer(
             selectedState /* state */,
-            clearSelectedItems() /* action */,
-        ),
+            clearSelectedItems() /* action */
+        )
     ).toHaveLength(0);
     expect(
         selectedItemsReducer(
             unselectedState /* state */,
-            clearSelectedItems() /* action */,
-        ),
+            clearSelectedItems() /* action */
+        )
     ).toHaveLength(0);
 });
 
@@ -78,13 +78,13 @@ test("invalidsetSelectedItems", () => {
     expect(
         selectedItemsReducer(
             origState /* state */,
-            setSelectedItems() /* action */,
-        ),
+            setSelectedItems() /* action */
+        )
     ).toBe(origState);
     expect(
         selectedItemsReducer(
             origState /* state */,
-            setSelectedItems("notAnArray") /* action */,
-        ),
+            setSelectedItems("notAnArray") /* action */
+        )
     ).toBe(origState);
 });

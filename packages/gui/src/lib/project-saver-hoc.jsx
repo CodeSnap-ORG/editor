@@ -54,7 +54,7 @@ const ProjectSaverHOC = function (WrappedComponent) {
             if (typeof window === "object") {
                 // Note: it might be better to use a listener instead of assigning onbeforeunload;
                 // but then it'd be hard to turn this listening off in our tests
-                window.onbeforeunload = (e) => this.leavePageConfirm(e);
+                window.onbeforeunload = e => this.leavePageConfirm(e);
             }
 
             // Allow the GUI consumer to pass in a function to receive a trigger
@@ -150,7 +150,7 @@ const ProjectSaverHOC = function (WrappedComponent) {
             ) {
                 const timeoutId = setTimeout(
                     this.tryToAutoSave,
-                    this.props.autoSaveIntervalSecs * 1000,
+                    this.props.autoSaveIntervalSecs * 1000
                 );
                 this.props.setAutoSaveTimeoutId(timeoutId);
             }
@@ -172,7 +172,7 @@ const ProjectSaverHOC = function (WrappedComponent) {
                     this.props.onUpdatedProject(this.props.loadingState);
                     this.props.onShowSaveSuccessAlert();
                 })
-                .catch((err) => {
+                .catch(err => {
                     // Always show the savingError alert because it gives the
                     // user the chance to download or retry the save manually.
                     this.props.onShowAlert("savingError");
@@ -181,13 +181,13 @@ const ProjectSaverHOC = function (WrappedComponent) {
         }
         createNewProjectToStorage() {
             return this.storeProject(null)
-                .then((response) => {
+                .then(response => {
                     this.props.onCreatedProject(
                         response.id.toString(),
-                        this.props.loadingState,
+                        this.props.loadingState
                     );
                 })
-                .catch((err) => {
+                .catch(err => {
                     this.props.onShowAlert("creatingError");
                     this.props.onProjectError(err);
                 });
@@ -199,14 +199,14 @@ const ProjectSaverHOC = function (WrappedComponent) {
                 isCopy: 1,
                 title: this.props.reduxProjectTitle,
             })
-                .then((response) => {
+                .then(response => {
                     this.props.onCreatedProject(
                         response.id.toString(),
-                        this.props.loadingState,
+                        this.props.loadingState
                     );
                     this.props.onShowCopySuccessAlert();
                 })
-                .catch((err) => {
+                .catch(err => {
                     this.props.onShowAlert("creatingError");
                     this.props.onProjectError(err);
                 });
@@ -218,14 +218,14 @@ const ProjectSaverHOC = function (WrappedComponent) {
                 isRemix: 1,
                 title: this.props.reduxProjectTitle,
             })
-                .then((response) => {
+                .then(response => {
                     this.props.onCreatedProject(
                         response.id.toString(),
-                        this.props.loadingState,
+                        this.props.loadingState
                     );
                     this.props.onShowRemixSuccessAlert();
                 })
-                .catch((err) => {
+                .catch(err => {
                     this.props.onShowAlert("creatingError");
                     this.props.onProjectError(err);
                 });
@@ -248,33 +248,33 @@ const ProjectSaverHOC = function (WrappedComponent) {
             const savedVMState = this.props.vm.toJSON();
             return Promise.all(
                 this.props.vm.assets
-                    .filter((asset) => !asset.clean)
-                    .map((asset) =>
+                    .filter(asset => !asset.clean)
+                    .map(asset =>
                         storage
                             .store(
                                 asset.assetType,
                                 asset.dataFormat,
                                 asset.data,
-                                asset.assetId,
+                                asset.assetId
                             )
-                            .then((response) => {
+                            .then(response => {
                                 // Asset servers respond with {status: ok} for successful POSTs
                                 if (response.status !== "ok") {
                                     // Errors include a `code` property, e.g. "Forbidden"
                                     return Promise.reject(response.code);
                                 }
                                 asset.clean = true;
-                            }),
-                    ),
+                            })
+                    )
             )
                 .then(() =>
                     this.props.onUpdateProjectData(
                         projectId,
                         savedVMState,
-                        requestParams,
-                    ),
+                        requestParams
+                    )
                 )
-                .then((response) => {
+                .then(response => {
                     this.props.onSetProjectUnchanged();
                     const id = response.id.toString();
                     if (id && this.props.onUpdateProjectThumbnail) {
@@ -283,7 +283,7 @@ const ProjectSaverHOC = function (WrappedComponent) {
                     this.reportTelemetryEvent("projectDidSave");
                     return response;
                 })
-                .catch((err) => {
+                .catch(err => {
                     log.error(err);
                     throw err; // pass the error up the chain
                 });
@@ -296,10 +296,10 @@ const ProjectSaverHOC = function (WrappedComponent) {
          */
         storeProjectThumbnail(projectId) {
             try {
-                this.getProjectThumbnail((dataURI) => {
+                this.getProjectThumbnail(dataURI => {
                     this.props.onUpdateProjectThumbnail(
                         projectId,
-                        dataURItoBlob(dataURI),
+                        dataURItoBlob(dataURI)
                     );
                 });
             } catch (e) {
@@ -313,7 +313,7 @@ const ProjectSaverHOC = function (WrappedComponent) {
             this.props.vm.postIOData("video", {
                 forceTransparentPreview: true,
             });
-            this.props.vm.renderer.requestSnapshot((dataURI) => {
+            this.props.vm.renderer.requestSnapshot(dataURI => {
                 this.props.vm.postIOData("video", {
                     forceTransparentPreview: false,
                 });
@@ -333,7 +333,7 @@ const ProjectSaverHOC = function (WrappedComponent) {
                     const metadata = collectMetadata(
                         this.props.vm,
                         this.props.reduxProjectTitle,
-                        this.props.locale,
+                        this.props.locale
                     );
                     this.props.onProjectTelemetryEvent(event, metadata);
                 }
@@ -470,14 +470,14 @@ const ProjectSaverHOC = function (WrappedComponent) {
             vm: state.scratchGui.vm,
         };
     };
-    const mapDispatchToProps = (dispatch) => ({
+    const mapDispatchToProps = dispatch => ({
         onAutoUpdateProject: () => dispatch(autoUpdateProject()),
         onCreatedProject: (projectId, loadingState) =>
             dispatch(doneCreatingProject(projectId, loadingState)),
         onCreateProject: () => dispatch(createProject()),
-        onProjectError: (error) => dispatch(projectError(error)),
+        onProjectError: error => dispatch(projectError(error)),
         onSetProjectUnchanged: () => dispatch(setProjectUnchanged()),
-        onShowAlert: (alertType) => dispatch(showStandardAlert(alertType)),
+        onShowAlert: alertType => dispatch(showStandardAlert(alertType)),
         onShowCopySuccessAlert: () =>
             showAlertWithTimeout(dispatch, "createCopySuccess"),
         onShowRemixSuccessAlert: () =>
@@ -489,9 +489,9 @@ const ProjectSaverHOC = function (WrappedComponent) {
         onShowSaveSuccessAlert: () =>
             showAlertWithTimeout(dispatch, "saveSuccess"),
         onShowSavingAlert: () => showAlertWithTimeout(dispatch, "saving"),
-        onUpdatedProject: (loadingState) =>
+        onUpdatedProject: loadingState =>
             dispatch(doneUpdatingProject(loadingState)),
-        setAutoSaveTimeoutId: (id) => dispatch(setAutoSaveTimeoutId(id)),
+        setAutoSaveTimeoutId: id => dispatch(setAutoSaveTimeoutId(id)),
     });
     // Allow incoming props to override redux-provided props. Used to mock in tests.
     const mergeProps = (stateProps, dispatchProps, ownProps) =>
@@ -499,7 +499,7 @@ const ProjectSaverHOC = function (WrappedComponent) {
     return connect(
         mapStateToProps,
         mapDispatchToProps,
-        mergeProps,
+        mergeProps
     )(ProjectSaverComponent);
 };
 

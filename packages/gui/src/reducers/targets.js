@@ -14,16 +14,15 @@ const reducer = function (state, action) {
         case UPDATE_TARGET_LIST:
             return Object.assign({}, state, {
                 sprites: action.targets
-                    .filter((target) => !target.isStage)
+                    .filter(target => !target.isStage)
                     .reduce(
                         (targets, target, listId) =>
                             Object.assign(targets, {
                                 [target.id]: { order: listId, ...target },
                             }),
-                        {},
+                        {}
                     ),
-                stage:
-                    action.targets.filter((target) => target.isStage)[0] || {},
+                stage: action.targets.filter(target => target.isStage)[0] || {},
                 editingTarget: action.editingTarget,
             });
         case HIGHLIGHT_TARGET:

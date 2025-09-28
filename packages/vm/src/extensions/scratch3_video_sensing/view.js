@@ -228,18 +228,18 @@ class VideoMotionView {
         for (let i = yStart; i < yStop; i += yStep) {
             for (let j = xStart; j < xStop; j += xStep) {
                 fn(
-                    (_fn) =>
+                    _fn =>
                         this._eachAddress(
                             j - xStep2 - 1,
                             i - yStep2 - 1,
                             j + xStep2,
                             i + yStep2,
-                            _fn,
+                            _fn
                         ),
                     j - xStep2 - 1,
                     i - yStep2 - 1,
                     j + xStep2,
-                    i + yStep2,
+                    i + yStep2
                 );
             }
         }
@@ -273,7 +273,7 @@ class VideoMotionView {
         let C2 = 0;
         let C1 = 0;
 
-        eachAddress((address) => {
+        eachAddress(address => {
             const { gradX, gradY, gradT } = this._grads(address);
             A2 += gradX * gradX;
             A1B2 += gradX * gradY;
@@ -303,12 +303,12 @@ class VideoMotionView {
 
         if (this.output === OUTPUT.INPUT) {
             const { curr } = this.motion;
-            this._eachAddress(1, 1, WIDTH - 1, HEIGHT - 1, (address) => {
+            this._eachAddress(1, 1, WIDTH - 1, HEIGHT - 1, address => {
                 buffer[address] = curr[address];
             });
         }
         if (this.output === OUTPUT.XYT) {
-            this._eachAddress(1, 1, WIDTH - 1, HEIGHT - 1, (address) => {
+            this._eachAddress(1, 1, WIDTH - 1, HEIGHT - 1, address => {
                 const { gradX, gradY, gradT } = this._grads(address);
                 const over1 = gradT / 0xcf;
                 buffer[address] =
@@ -329,12 +329,12 @@ class VideoMotionView {
                 hmax,
                 winStep,
                 winStep,
-                (eachAddress) => {
+                eachAddress => {
                     let C1 = 0;
                     let C2 = 0;
                     let n = 0;
 
-                    eachAddress((address) => {
+                    eachAddress(address => {
                         const { gradX, gradY, gradT } = this._grads(address);
                         C2 +=
                             Math.max(Math.min(gradX / 0x0f, 1), -1) *
@@ -350,17 +350,17 @@ class VideoMotionView {
                     C1 = Math.log(C1 + 1 * Math.sign(C1)) / Math.log(2);
                     C2 = Math.log(C2 + 1 * Math.sign(C2)) / Math.log(2);
 
-                    eachAddress((address) => {
+                    eachAddress(address => {
                         buffer[address] =
                             (0xff << 24) +
                             (((((C1 * 0x7f) | 0) + 0x80) << 8) & 0xff00) +
                             (((((C2 * 0x7f) | 0) + 0x80) << 0) & 0xff);
                     });
-                },
+                }
             );
         }
         if (this.output === OUTPUT.XY) {
-            this._eachAddress(1, 1, WIDTH - 1, HEIGHT - 1, (address) => {
+            this._eachAddress(1, 1, WIDTH - 1, HEIGHT - 1, address => {
                 const { gradX, gradY } = this._grads(address);
                 buffer[address] =
                     (0xff << 24) +
@@ -380,12 +380,12 @@ class VideoMotionView {
                 hmax,
                 winStep,
                 winStep,
-                (eachAddress) => {
+                eachAddress => {
                     let C1 = 0;
                     let C2 = 0;
                     let n = 0;
 
-                    eachAddress((address) => {
+                    eachAddress(address => {
                         const { gradX, gradY } = this._grads(address);
                         C2 += Math.max(Math.min(gradX / 0x1f, 1), -1);
                         C1 += Math.max(Math.min(gradY / 0x1f, 1), -1);
@@ -397,16 +397,16 @@ class VideoMotionView {
                     C1 = Math.log(C1 + 1 * Math.sign(C1)) / Math.log(2);
                     C2 = Math.log(C2 + 1 * Math.sign(C2)) / Math.log(2);
 
-                    eachAddress((address) => {
+                    eachAddress(address => {
                         buffer[address] =
                             (0xff << 24) +
                             (((((C1 * 0x7f) | 0) + 0x80) << 8) & 0xff00) +
                             (((((C2 * 0x7f) | 0) + 0x80) << 0) & 0xff);
                     });
-                },
+                }
             );
         } else if (this.output === OUTPUT.T) {
-            this._eachAddress(1, 1, WIDTH - 1, HEIGHT - 1, (address) => {
+            this._eachAddress(1, 1, WIDTH - 1, HEIGHT - 1, address => {
                 const { gradT } = this._grads(address);
                 buffer[address] = (0xff << 24) + (((gradT + 0xff) / 2) << 16);
             });
@@ -423,11 +423,11 @@ class VideoMotionView {
                 hmax,
                 winStep,
                 winStep,
-                (eachAddress) => {
+                eachAddress => {
                     let T = 0;
                     let n = 0;
 
-                    eachAddress((address) => {
+                    eachAddress(address => {
                         const { gradT } = this._grads(address);
                         T += gradT / 0xff;
                         n += 1;
@@ -435,15 +435,15 @@ class VideoMotionView {
 
                     T /= n;
 
-                    eachAddress((address) => {
+                    eachAddress(address => {
                         buffer[address] =
                             (0xff << 24) +
                             (((((T * 0x7f) | 0) + 0x80) << 16) & 0xff0000);
                     });
-                },
+                }
             );
         } else if (this.output === OUTPUT.C) {
-            this._eachAddress(1, 1, WIDTH - 1, HEIGHT - 1, (address) => {
+            this._eachAddress(1, 1, WIDTH - 1, HEIGHT - 1, address => {
                 const { gradX, gradY, gradT } = this._grads(address);
                 buffer[address] =
                     (0xff << 24) +
@@ -463,22 +463,22 @@ class VideoMotionView {
                 hmax,
                 winStep,
                 winStep,
-                (eachAddress) => {
+                eachAddress => {
                     let { C2, C1 } = this._components(eachAddress);
 
                     C2 = Math.sqrt(C2);
                     C1 = Math.sqrt(C1);
 
-                    eachAddress((address) => {
+                    eachAddress(address => {
                         buffer[address] =
                             (0xff << 24) +
                             ((C1 & 0xff) << 8) +
                             ((C2 & 0xff) << 0);
                     });
-                },
+                }
             );
         } else if (this.output === OUTPUT.AB) {
-            this._eachAddress(1, 1, WIDTH - 1, HEIGHT - 1, (address) => {
+            this._eachAddress(1, 1, WIDTH - 1, HEIGHT - 1, address => {
                 const { gradX, gradY } = this._grads(address);
                 buffer[address] =
                     (0xff << 24) +
@@ -499,28 +499,28 @@ class VideoMotionView {
                 hmax,
                 winStep,
                 winStep,
-                (eachAddress) => {
+                eachAddress => {
                     let { A2, A1B2, B1 } = this._components(eachAddress);
 
                     A2 = Math.sqrt(A2);
                     A1B2 = Math.sqrt(A1B2);
                     B1 = Math.sqrt(B1);
 
-                    eachAddress((address) => {
+                    eachAddress(address => {
                         buffer[address] =
                             (0xff << 24) +
                             ((A1B2 & 0xff) << 16) +
                             ((B1 & 0xff) << 8) +
                             (A2 & 0xff);
                     });
-                },
+                }
             );
         } else if (this.output === OUTPUT.UV) {
             const winStep = WINSIZE * 2 + 1;
 
-            this._eachAddress(1, 1, WIDTH - 1, HEIGHT - 1, (address) => {
-                const { A2, A1B2, B1, C2, C1 } = this._components((fn) =>
-                    fn(address),
+            this._eachAddress(1, 1, WIDTH - 1, HEIGHT - 1, address => {
+                const { A2, A1B2, B1, C2, C1 } = this._components(fn =>
+                    fn(address)
                 );
                 const { u, v } = motionVector(A2, A1B2, B1, C2, C1);
 
@@ -548,7 +548,7 @@ class VideoMotionView {
                 hmax,
                 winStep,
                 winStep,
-                (eachAddress) => {
+                eachAddress => {
                     const { A2, A1B2, B1, C2, C1 } =
                         this._components(eachAddress);
                     const { u, v } = motionVector(A2, A1B2, B1, C2, C1);
@@ -561,7 +561,7 @@ class VideoMotionView {
                     const hypot = Math.hypot(u, v);
                     const amount = AMOUNT_SCALE * hypot;
 
-                    eachAddress((address) => {
+                    eachAddress(address => {
                         buffer[address] =
                             (0xff << 24) +
                             (inRange && amount > THRESHOLD
@@ -571,14 +571,14 @@ class VideoMotionView {
                                       0xff)
                                 : 0x8080);
                     });
-                },
+                }
             );
         }
 
         const data = new ImageData(
             new Uint8ClampedArray(this.buffer.buffer),
             WIDTH,
-            HEIGHT,
+            HEIGHT
         );
         this.context.putImageData(data, 0, 0);
     }

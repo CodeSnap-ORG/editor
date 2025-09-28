@@ -102,7 +102,7 @@ class ScaleTool {
                 this.itemGroup.scale(
                     1 / this.lastSx,
                     1 / this.lastSy,
-                    this.pivot,
+                    this.pivot
                 );
                 if (this.selectionAnchor) {
                     this.selectionAnchor.scale(this.lastSx, this.lastSy);

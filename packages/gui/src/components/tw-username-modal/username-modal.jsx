@@ -21,7 +21,7 @@ const messages = defineMessages({
     },
 });
 
-const UsernameModalComponent = (props) => (
+const UsernameModalComponent = props => (
     <Modal
         className={styles.modalContent}
         onRequestClose={props.onCancel}
@@ -34,7 +34,7 @@ const UsernameModalComponent = (props) => (
                     <p
                         className={classNames(
                             styles.helpText,
-                            styles.mustChange,
+                            styles.mustChange
                         )}
                     >
                         <FormattedMessage

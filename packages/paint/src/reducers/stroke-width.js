@@ -26,7 +26,7 @@ const reducer = function (state, action) {
             }
             return getColorsFromSelection(
                 action.selectedItems,
-                action.bitmapMode,
+                action.bitmapMode
             ).strokeWidth;
         default:
             return state;

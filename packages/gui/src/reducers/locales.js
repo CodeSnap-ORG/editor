@@ -64,7 +64,7 @@ const initLocale = function (currentState, locale) {
     if (
         Object.prototype.hasOwnProperty.call(
             currentState.messagesByLocale,
-            locale,
+            locale
         )
     ) {
         return Object.assign({}, currentState, {

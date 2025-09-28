@@ -24,7 +24,7 @@ tap.beforeEach(() => {
 });
 const test = tap.test;
 
-test("saving and loading sb2 project with monitors preserves sliderMin and sliderMax", (t) => {
+test("saving and loading sb2 project with monitors preserves sliderMin and sliderMax", t => {
     vm.on("playgroundData", (e) /* eslint-disable-line no-unused-vars */ => {
         // TODO related to above TODO, comment these back in when we figure out
         // why running threads doesn't work with this test
@@ -48,7 +48,7 @@ test("saving and loading sb2 project with monitors preserves sliderMin and slide
 
         // Global variable named "global" is a slider
         let variableId = Object.keys(stage.variables).filter(
-            (k) => stage.variables[k].name === "global",
+            k => stage.variables[k].name === "global"
         )[0];
         // Used later when checking save and load of slider min/max
         let monitorRecord = vm.runtime._monitorState.get(variableId);
@@ -63,7 +63,7 @@ test("saving and loading sb2 project with monitors preserves sliderMin and slide
 
         // Global variable named "global list" is a list
         variableId = Object.keys(stage.variables).filter(
-            (k) => stage.variables[k].name === "global list",
+            k => stage.variables[k].name === "global list"
         )[0];
         monitorRecord = vm.runtime._monitorState.get(variableId);
         t.equal(monitorRecord.opcode, "data_listcontents");
@@ -72,7 +72,7 @@ test("saving and loading sb2 project with monitors preserves sliderMin and slide
 
         // Local variable named "local" is hidden
         variableId = Object.keys(target.variables).filter(
-            (k) => target.variables[k].name === "local",
+            k => target.variables[k].name === "local"
         )[0];
         monitorRecord = vm.runtime._monitorState.get(variableId);
         t.equal(monitorRecord.opcode, "data_variable");
@@ -81,7 +81,7 @@ test("saving and loading sb2 project with monitors preserves sliderMin and slide
 
         // Local list named "local list" is visible
         variableId = Object.keys(target.variables).filter(
-            (k) => target.variables[k].name === "local list",
+            k => target.variables[k].name === "local list"
         )[0];
         monitorRecord = vm.runtime._monitorState.get(variableId);
         t.equal(monitorRecord.opcode, "data_listcontents");

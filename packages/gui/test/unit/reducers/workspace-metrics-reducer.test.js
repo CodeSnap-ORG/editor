@@ -7,10 +7,10 @@ test("initialState", () => {
     let defaultState;
     /* workspaceMetricsReducer(state, action) */
     expect(
-        workspaceMetricsReducer(defaultState, { type: "anything" }),
+        workspaceMetricsReducer(defaultState, { type: "anything" })
     ).toBeDefined();
     expect(workspaceMetricsReducer(defaultState, { type: "anything" })).toEqual(
-        { targets: {} },
+        { targets: {} }
     );
 });
 

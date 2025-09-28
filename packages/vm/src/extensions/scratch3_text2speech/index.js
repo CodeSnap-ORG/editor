@@ -377,7 +377,7 @@ class Scratch3Text2SpeechBlocks {
         let state = target.getCustomState(Scratch3Text2SpeechBlocks.STATE_KEY);
         if (!state) {
             state = Clone.simple(
-                Scratch3Text2SpeechBlocks.DEFAULT_TEXT2SPEECH_STATE,
+                Scratch3Text2SpeechBlocks.DEFAULT_TEXT2SPEECH_STATE
             );
             target.setCustomState(Scratch3Text2SpeechBlocks.STATE_KEY, state);
         }
@@ -394,12 +394,12 @@ class Scratch3Text2SpeechBlocks {
     _onTargetCreated(newTarget, sourceTarget) {
         if (sourceTarget) {
             const state = sourceTarget.getCustomState(
-                Scratch3Text2SpeechBlocks.STATE_KEY,
+                Scratch3Text2SpeechBlocks.STATE_KEY
             );
             if (state) {
                 newTarget.setCustomState(
                     Scratch3Text2SpeechBlocks.STATE_KEY,
-                    Clone.simple(state),
+                    Clone.simple(state)
                 );
             }
         }
@@ -544,7 +544,7 @@ class Scratch3Text2SpeechBlocks {
         ) {
             stage.textToSpeechLanguage =
                 this._getExtensionLocaleForSupportedLocale(
-                    localeForDroppedName,
+                    localeForDroppedName
                 );
         }
 
@@ -592,7 +592,7 @@ class Scratch3Text2SpeechBlocks {
     _getSupportedLocales() {
         return Object.keys(this.LANGUAGE_INFO).reduce(
             (acc, lang) => acc.concat(this.LANGUAGE_INFO[lang].locales),
-            [],
+            []
         );
     }
 
@@ -611,7 +611,7 @@ class Scratch3Text2SpeechBlocks {
      * @return {array} the text and value for each menu item.
      */
     getVoiceMenu() {
-        return Object.keys(this.VOICE_INFO).map((voiceId) => ({
+        return Object.keys(this.VOICE_INFO).map(voiceId => ({
             text: this.VOICE_INFO[voiceId].name,
             value: voiceId,
         }));
@@ -643,12 +643,12 @@ class Scratch3Text2SpeechBlocks {
             // when there is both a written language name (e.g. 'Chinese
             // (simplified)') and a spoken language name (e.g. 'Chinese
             // (Mandarin)', we always use the spoken version.
-            nameArray.forEach((lang) => {
+            nameArray.forEach(lang => {
                 localizedNameMap[lang.code] = lang.name;
             });
         }
 
-        return Object.keys(this.LANGUAGE_INFO).map((key) => {
+        return Object.keys(this.LANGUAGE_INFO).map(key => {
             let name = this.LANGUAGE_INFO[key].name;
             const localizedName = localizedNameMap[key];
             if (localizedName) {
@@ -680,7 +680,7 @@ class Scratch3Text2SpeechBlocks {
             voiceNum = MathUtil.wrapClamp(
                 voiceNum,
                 0,
-                Object.keys(this.VOICE_INFO).length - 1,
+                Object.keys(this.VOICE_INFO).length - 1
             );
             voice = Object.keys(this.VOICE_INFO)[voiceNum];
         }
@@ -703,7 +703,7 @@ class Scratch3Text2SpeechBlocks {
      * Stop all currently playing speech sounds.
      */
     _stopAllSpeech() {
-        this._soundPlayers.forEach((player) => {
+        this._soundPlayers.forEach(player => {
             player.stop();
         });
     }
@@ -751,16 +751,16 @@ class Scratch3Text2SpeechBlocks {
 
         // Perform HTTP request to get audio file
         return fetchWithTimeout(path, {}, SERVER_TIMEOUT)
-            .then((res) => {
+            .then(res => {
                 if (res.status !== 200) {
                     throw new Error(
-                        `HTTP ${res.status} error reaching translation service`,
+                        `HTTP ${res.status} error reaching translation service`
                     );
                 }
 
                 return res.arrayBuffer();
             })
-            .then((buffer) => {
+            .then(buffer => {
                 // Play the sound
                 const sound = {
                     data: {
@@ -769,7 +769,7 @@ class Scratch3Text2SpeechBlocks {
                 };
                 return this.runtime.audioEngine.decodeSoundPlayer(sound);
             })
-            .then((soundPlayer) => {
+            .then(soundPlayer => {
                 this._soundPlayers.set(soundPlayer.id, soundPlayer);
 
                 soundPlayer.setPlaybackRate(playbackRate);
@@ -781,14 +781,14 @@ class Scratch3Text2SpeechBlocks {
                 soundPlayer.connect(chain);
 
                 soundPlayer.play();
-                return new Promise((resolve) => {
+                return new Promise(resolve => {
                     soundPlayer.on("stop", () => {
                         this._soundPlayers.delete(soundPlayer.id);
                         resolve();
                     });
                 });
             })
-            .catch((err) => {
+            .catch(err => {
                 log.warn(err);
             });
     }

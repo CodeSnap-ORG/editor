@@ -14,7 +14,7 @@ import { STAGE_DISPLAY_SIZES } from "../../lib/layout-constants.js";
 import { getStageDimensions, getMinWidth } from "../../lib/screen-utils.js";
 import styles from "./stage.css";
 
-const StageComponent = (props) => {
+const StageComponent = props => {
     const {
         canvas,
         customStageSize,
@@ -38,7 +38,7 @@ const StageComponent = (props) => {
     const stageDimensions = getStageDimensions(
         stageSize,
         customStageSize,
-        isFullScreen,
+        isFullScreen
     );
     const minWidth = getMinWidth(stageSize);
     const transformStyle =

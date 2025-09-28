@@ -80,7 +80,7 @@ const createVMAsset = function (storage, assetType, dataFormat, data) {
         dataFormat,
         data,
         null,
-        true, // generate md5
+        true // generate md5
     );
 
     return {
@@ -108,7 +108,7 @@ const costumeUpload = function (
     fileType,
     vm,
     handleCostume,
-    handleError = () => {},
+    handleError = () => {}
 ) {
     const storage = vm.runtime.storage;
     let costumeFormat = null;
@@ -137,7 +137,7 @@ const costumeUpload = function (
         case "image/bmp": {
             // Convert .bmp files to .png to compress them. .bmps are completely uncompressed,
             // and would otherwise take up a lot of storage space and take much longer to upload and download.
-            bmpConverter(fileData).then((dataUrl) => {
+            bmpConverter(fileData).then(dataUrl => {
                 costumeUpload(dataUrl, "image/png", vm, handleCostume);
             });
             return; // Return early because we're triggering another proper costumeUpload
@@ -150,7 +150,7 @@ const costumeUpload = function (
         case "image/webp": {
             // Scratch does not natively support webp, so convert to png
             // see image/bmp logic above
-            bmpConverter(fileData, "image/webp").then((dataUrl) => {
+            bmpConverter(fileData, "image/webp").then(dataUrl => {
                 costumeUpload(dataUrl, "image/png", vm, handleCostume);
             });
             return;
@@ -162,13 +162,13 @@ const costumeUpload = function (
                     dataUrl,
                     "image/png",
                     vm,
-                    (costumes_) => {
+                    costumes_ => {
                         costumes = costumes.concat(costumes_);
                         if (frameNumber === numFrames - 1) {
                             handleCostume(costumes);
                         }
                     },
-                    handleError,
+                    handleError
                 );
             });
             return; // Abandon this load, do not try to load gif itself
@@ -189,7 +189,7 @@ const costumeUpload = function (
             storage,
             assetType,
             costumeFormat,
-            dataBuffer,
+            dataBuffer
         );
         handleCostume([vmCostume]);
     };
@@ -225,7 +225,7 @@ const soundUpload = function (
     fileType,
     storage,
     handleSound,
-    handleError,
+    handleError
 ) {
     let soundFormat;
     switch (fileType) {
@@ -243,13 +243,13 @@ const soundUpload = function (
         }
         default:
             convertAudioToWav(fileData)
-                .then((fixed) => {
+                .then(fixed => {
                     soundUpload(
                         fixed,
                         "audio/wav",
                         storage,
                         handleSound,
-                        handleError,
+                        handleError
                     );
                 })
                 .catch(handleError);
@@ -260,7 +260,7 @@ const soundUpload = function (
         storage,
         storage.AssetType.Sound,
         soundFormat,
-        new Uint8Array(fileData),
+        new Uint8Array(fileData)
     );
 
     handleSound(vmSound);
@@ -272,7 +272,7 @@ const spriteUpload = function (
     spriteName,
     vm,
     handleSprite,
-    handleError = () => {},
+    handleError = () => {}
 ) {
     switch (fileType) {
         case "":
@@ -298,7 +298,7 @@ const spriteUpload = function (
                 fileData,
                 fileType,
                 vm,
-                (vmCostumes) => {
+                vmCostumes => {
                     vmCostumes.forEach((costume, i) => {
                         costume.name = `${spriteName}${i ? i + 1 : ""}`;
                     });
@@ -322,7 +322,7 @@ const spriteUpload = function (
                     // TODO probably just want sprite upload to handle this object directly
                     handleSprite(JSON.stringify(newSprite));
                 },
-                handleError,
+                handleError
             );
             return;
         }

@@ -28,7 +28,7 @@
  * @param {string} hex hex color code like #abc123
  * @returns {number[]} [r, g, b] in range [0-255]. Alpha channel is ignored.
  */
-const hex2rgb = (hex) => {
+const hex2rgb = hex => {
     const parsed = Number.parseInt(hex.substring(1), 16);
     return [(parsed >> 16) & 255, (parsed >> 8) & 255, parsed & 255];
 };
@@ -37,7 +37,7 @@ const hex2rgb = (hex) => {
  * @param {number[]} rgb [r, g, b] in range [0-255]
  * @returns {string} hex color code like #123abc
  */
-const rgb2hex = (rgb) => {
+const rgb2hex = rgb => {
     const number = (rgb[0] << 16) | (rgb[1] << 8) | rgb[2];
     return `#${number.toString(16).padStart(6, "0")}`;
 };
@@ -46,7 +46,7 @@ const rgb2hex = (rgb) => {
  * @param {number[]} rgb [r, g, b] in range [0-255]
  * @returns {number[]} [h, s, v] in range [0-360] for h, [0-100] for s, v
  */
-const rgb2hsv = (rgb) => {
+const rgb2hsv = rgb => {
     let rdif;
     let gdif;
     let bdif;
@@ -58,7 +58,7 @@ const rgb2hsv = (rgb) => {
     const b = rgb[2] / 255;
     const v = Math.max(r, g, b);
     const diff = v - Math.min(r, g, b);
-    const diffc = (c) => (v - c) / 6 / diff + 1 / 2;
+    const diffc = c => (v - c) / 6 / diff + 1 / 2;
 
     if (diff === 0) {
         h = 0;
@@ -91,7 +91,7 @@ const rgb2hsv = (rgb) => {
  * @param {number[]} hsv [h, s, v] in range [0-360] for h, [0-100] for s, v
  * @returns {number[]} [r, g, b] in range [0-255]
  */
-const hsv2rgb = (hsv) => {
+const hsv2rgb = hsv => {
     const h = hsv[0] / 60;
     const s = hsv[1] / 100;
     let v = hsv[2] / 100;
@@ -119,8 +119,8 @@ const hsv2rgb = (hsv) => {
     }
 };
 
-const hex2hsv = (hex) => rgb2hsv(hex2rgb(hex));
+const hex2hsv = hex => rgb2hsv(hex2rgb(hex));
 
-const hsv2hex = (hsv) => rgb2hex(hsv2rgb(hsv));
+const hsv2hex = hsv => rgb2hex(hsv2rgb(hsv));
 
 export { hex2hsv, hsv2hex };

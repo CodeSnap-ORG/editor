@@ -168,7 +168,7 @@ describe("Working with the blocks", () => {
         await clickXpath('//button[@title="Add Extension"]');
 
         await clickText("Pen");
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for scroll animation
+        await new Promise(resolve => setTimeout(resolve, 1000)); // Wait for scroll animation
         // Make sure toolbox has been scrolled to the pen extension
         await findByText("stamp", scope.blocksTab);
 
@@ -202,7 +202,7 @@ describe("Working with the blocks", () => {
         // wait until the updated costume appears in costume item list panel
         await findByXpath(
             "//div[contains(@class,'sprite-selector-item_is-selected_')]" +
-                "//div[contains(text(), 'newname')]",
+                "//div[contains(text(), 'newname')]"
         );
 
         // Make sure it is updated in the block menu
@@ -223,7 +223,7 @@ describe("Working with the blocks", () => {
         // wait until the updated costume appears in costume item list panel
         await findByXpath(
             "//div[contains(@class,'sprite-selector-item_is-selected_')]" +
-                "//div[contains(text(), '<NewCostume>')]",
+                "//div[contains(text(), '<NewCostume>')]"
         );
 
         // Make sure it is updated in the block menu
@@ -244,7 +244,7 @@ describe("Working with the blocks", () => {
         // Also check that adding a new costume does update the list
         await clickText("Costumes");
         const el = await findByXpath(
-            '//button[@aria-label="Choose a Costume"]',
+            '//button[@aria-label="Choose a Costume"]'
         );
         await driver.actions().mouseMove(el).perform();
         await driver.sleep(500); // Wait for thermometer menu to come up
@@ -252,7 +252,7 @@ describe("Working with the blocks", () => {
         // wait until the new costume appears in costume item list panel
         await findByXpath(
             "//div[contains(@class,'sprite-selector-item_is-selected_')]" +
-                "//div[contains(text(), 'costume3')]",
+                "//div[contains(text(), 'costume3')]"
         );
         await clickText("costume3", scope.costumesTab);
         // Check that the menu has been updated
@@ -269,7 +269,7 @@ describe("Working with the blocks", () => {
         // wait until the selected sound appears in sounds item list panel
         await findByXpath(
             "//div[contains(@class,'sprite-selector-item_is-selected_')]" +
-                "//div[contains(text(), 'A Bass')]",
+                "//div[contains(text(), 'A Bass')]"
         );
         await clickText("Code");
         await clickBlocksCategory("Sound");

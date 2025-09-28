@@ -2,7 +2,7 @@ const { test } = require("tap");
 const ExtensionManager = require("../../src/extension-support/extension-manager");
 const VM = require("../../src/virtual-machine");
 
-test("isBuiltinExtension", (t) => {
+test("isBuiltinExtension", t => {
     const fakeRuntime = {};
     const manager = new ExtensionManager(fakeRuntime);
     t.equal(manager.isBuiltinExtension("pen"), true);
@@ -10,42 +10,42 @@ test("isBuiltinExtension", (t) => {
     t.end();
 });
 
-test("_isValidExtensionURL", (t) => {
+test("_isValidExtensionURL", t => {
     const fakeRuntime = {};
     const manager = new ExtensionManager(fakeRuntime);
     t.equal(manager._isValidExtensionURL("fetch"), false);
     t.equal(manager._isValidExtensionURL(""), false);
     t.equal(
         manager._isValidExtensionURL("extensions.turbowarp.org/fetch.js"),
-        false,
+        false
     );
     t.equal(
         manager._isValidExtensionURL(
-            "https://extensions.turbowarp.org/fetch.js",
+            "https://extensions.turbowarp.org/fetch.js"
         ),
-        true,
+        true
     );
     t.equal(
         manager._isValidExtensionURL(
-            "http://extensions.turbowarp.org/fetch.js",
+            "http://extensions.turbowarp.org/fetch.js"
         ),
-        true,
+        true
     );
     t.equal(manager._isValidExtensionURL("http://localhost:8000"), true);
     t.equal(
         manager._isValidExtensionURL(
-            "data:application/javascript;base64,YWxlcnQoMSk=",
+            "data:application/javascript;base64,YWxlcnQoMSk="
         ),
-        true,
+        true
     );
     t.equal(
         manager._isValidExtensionURL("file:///home/test/extension.js"),
-        true,
+        true
     );
     t.end();
 });
 
-test("loadExtensionURL, getExtensionURLs, deduplication", async (t) => {
+test("loadExtensionURL, getExtensionURLs, deduplication", async t => {
     const vm = new VM();
 
     let loadedExtensions = 0;

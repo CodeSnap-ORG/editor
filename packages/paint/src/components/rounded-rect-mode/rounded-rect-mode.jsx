@@ -5,12 +5,13 @@ import ToolSelectComponent from "../tool-select-base/tool-select-base.jsx";
 
 import roundedRectIcon from "./rounded-rectangle.svg";
 
-const RoundedRectModeComponent = (props) => (
+const RoundedRectModeComponent = props => (
     <ToolSelectComponent
         imgDescriptor={messages.roundedRect}
         imgSrc={roundedRectIcon}
         isSelected={props.isSelected}
         onMouseDown={props.onMouseDown}
+        keybinding="O"
     />
 );
 

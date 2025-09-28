@@ -15,17 +15,24 @@ const postcssVars = require("postcss-simple-vars");
 const postcssImport = require("postcss-import");
 
 const STATIC_PATH = process.env.STATIC_PATH || "/static";
-const { APP_NAME } = require("./src/lib/brand");
+const { APP_NAME, APP_SLOGAN, APP_DESCRIPTION } = require("@ampmod/branding");
 
 const root = process.env.ROOT || "";
 if (root.length > 0 && !root.endsWith("/")) {
     throw new Error("If ROOT is defined, it must have a trailing slash.");
 }
 
+if (process.env.ENABLE_SERVICE_WORKER) {
+    console.warn(
+        "amp: ENABLE_SERVICE_WORKER is deprecated as the service worker is now enabled by default. To disable the service worker, use DISABLE_SERVICE_WORKER instead."
+    );
+}
+
 const IS_CBP_BUILD = Boolean(process.env.IS_CBP_BUILD);
 const htmlWebpackPluginCommon = {
     root: root,
     meta: JSON.parse(process.env.EXTRA_META || "{}"),
+    isCbp: process.env.IS_CBP_BUILD || false,
     APP_NAME,
 };
 
@@ -49,10 +56,15 @@ const base = {
         historyApiFallback: {
             rewrites: [
                 { from: /^\/\d+\/?$/, to: "/index.html" },
-                { from: /^\/\d+\/fullscreen\/?$/, to: "/amfullscreen.html" },
-                { from: /^\/\d+\/editor\/?$/, to: "/ameditor.html" },
-                { from: /^\/\d+\/embed\/?$/, to: "/amembed.html" },
-                { from: /^\/addons\/?$/, to: "/amaddons.html" },
+                {
+                    from: /^\/\d+\/fullscreen\/?$/,
+                    to: "/fullscreen/index.html",
+                },
+                { from: /^\/\d+\/editor\/?$/, to: "/editor/index.html" },
+                { from: /^\/\d+\/embed\/?$/, to: "/embed/index.html" },
+                { from: /^\/addons\/?$/, to: "/addons/index.html" },
+                { from: /^\/new-compiler\/?$/, to: "/new-compiler/index.html" },
+                { from: /./, to: "/404.html" },
             ],
         },
     },
@@ -73,11 +85,11 @@ const base = {
         alias: {
             "text-encoding$": path.resolve(
                 __dirname,
-                "src/lib/tw-text-encoder",
+                "src/lib/tw-text-encoder"
             ),
             "scratch-render-fonts$": path.resolve(
                 __dirname,
-                "src/lib/tw-scratch-render-fonts",
+                "src/lib/tw-scratch-render-fonts"
             ),
         },
     },
@@ -214,6 +226,8 @@ module.exports = [
             "addon-settings": "./src/playground/addon-settings.jsx",
             credits: "./src/playground/credits/credits.jsx",
             home: "./src/playground/home/home.jsx",
+            notfound: "./src/playground/not-found/not-found.jsx",
+            newcompiler: "./src/playground/new-compiler/new-compiler.jsx",
         },
         output: {
             path: path.resolve(__dirname, "build"),
@@ -230,15 +244,15 @@ module.exports = [
             new webpack.DefinePlugin({
                 "process.env.NODE_ENV": `"${process.env.NODE_ENV}"`,
                 "process.env.DEBUG": Boolean(process.env.DEBUG),
-                "process.env.ENABLE_SERVICE_WORKER": JSON.stringify(
-                    process.env.ENABLE_SERVICE_WORKER || "",
+                "process.env.DISABLE_SERVICE_WORKER": JSON.stringify(
+                    process.env.DISABLE_SERVICE_WORKER || ""
                 ),
                 "process.env.ROOT": JSON.stringify(root),
                 "process.env.ROUTING_STYLE": JSON.stringify(
-                    process.env.ROUTING_STYLE || "filehash",
+                    process.env.ROUTING_STYLE || "filehash"
                 ),
                 "process.env.ampmod_version": JSON.stringify(
-                    monorepoPackageJson.version,
+                    monorepoPackageJson.version
                 ),
                 "process.env.ampmod_is_canary":
                     process.env.BUILD_MODE === "canary",
@@ -248,7 +262,7 @@ module.exports = [
                 chunks: ["editor"],
                 template: "src/playground/index.ejs",
                 filename: IS_CBP_BUILD ? "editor/index.html" : "editor.html",
-                title: `${APP_NAME} - Block-based programming, amplified`,
+                title: `${APP_NAME} - ${APP_SLOGAN}`,
                 isEditor: true,
                 ...htmlWebpackPluginCommon,
             }),
@@ -256,7 +270,7 @@ module.exports = [
                 chunks: ["player"],
                 template: "src/playground/index.ejs",
                 filename: IS_CBP_BUILD ? "player/index.html" : "player.html",
-                title: `${APP_NAME} - Block-based programming, amplified`,
+                title: `${APP_NAME} - ${APP_SLOGAN}`,
                 isEditor: true,
                 ...htmlWebpackPluginCommon,
             }),
@@ -266,7 +280,7 @@ module.exports = [
                 filename: IS_CBP_BUILD
                     ? "fullscreen/index.html"
                     : "fullscreen.html",
-                title: `${APP_NAME} - Block-based programming, amplified`,
+                title: `${APP_NAME} - ${APP_SLOGAN}`,
                 ...htmlWebpackPluginCommon,
             }),
             new HtmlWebpackPlugin({
@@ -280,7 +294,20 @@ module.exports = [
                 chunks: ["home"],
                 template: "src/playground/simple.ejs",
                 filename: "index.html",
-                title: `${APP_NAME} - Block-based programming, amplified`,
+                title: `${APP_NAME} - ${APP_SLOGAN}`,
+                description: APP_DESCRIPTION,
+                ...htmlWebpackPluginCommon,
+            }),
+            new HtmlWebpackPlugin({
+                chunks: ["newcompiler"],
+                template: "src/playground/simple.ejs",
+                filename: IS_CBP_BUILD
+                    ? "new-compiler/index.html"
+                    : "new-compiler.html",
+                title: `New compiler - ${APP_NAME}`,
+                // prettier-ignore
+                // eslint-disable-next-line max-len
+                description: `${APP_NAME} 0.3 includes a rewritten compiler to make projects run up to 2 times faster than in ${APP_NAME} 0.2.2.`,
                 ...htmlWebpackPluginCommon,
             }),
             new HtmlWebpackPlugin({
@@ -295,6 +322,14 @@ module.exports = [
                 template: "src/playground/simple.ejs",
                 filename: IS_CBP_BUILD ? "credits/index.html" : "credits.html",
                 title: `Credits - ${APP_NAME}`,
+                description: `Meet the development team of ${APP_NAME}.`,
+                ...htmlWebpackPluginCommon,
+            }),
+            new HtmlWebpackPlugin({
+                chunks: ["notfound"],
+                template: "src/playground/simple.ejs",
+                filename: "404.html",
+                title: `Not Found - ${APP_NAME}`,
                 ...htmlWebpackPluginCommon,
             }),
             new CopyWebpackPlugin({
@@ -367,5 +402,5 @@ module.exports = [
                   }),
               ]),
           })
-        : [],
+        : []
 );

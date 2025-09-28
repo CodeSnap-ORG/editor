@@ -47,14 +47,19 @@ import AddonChannels from "../addons/channels";
 import { loadServiceWorker } from "./load-service-worker";
 import runAddons from "../addons/entry";
 import InvalidEmbed from "../components/tw-invalid-embed/invalid-embed.jsx";
-import { APP_NAME } from "../lib/brand.js";
 import Clippy from "../containers/amp-clippy.jsx";
 import Footer from "../components/amp-footer/footer.jsx";
 import styles from "./interface.css";
+import {
+    APP_BLOG,
+    APP_FORUMS_BUGS,
+    APP_NAME,
+    APP_SLOGAN,
+} from "@ampmod/branding";
 
 const isInvalidEmbed = window.parent !== window;
 
-const handleClickAddonSettings = (addonId) => {
+const handleClickAddonSettings = addonId => {
     // addonId might be a string of the addon to focus on, undefined, or an event (treat like undefined)
     const path =
         process.env.ROUTING_STYLE === "wildcard" ? "addons" : "addons.html";
@@ -72,7 +77,7 @@ const messages = defineMessages({
 
 const WrappedMenuBar = compose(
     SBFileUploaderHOC,
-    TWPackagerIntegrationHOC,
+    TWPackagerIntegrationHOC
 )(MenuBar);
 
 if (AddonChannels.reloadChannel) {
@@ -82,7 +87,7 @@ if (AddonChannels.reloadChannel) {
 }
 
 if (AddonChannels.changeChannel) {
-    AddonChannels.changeChannel.addEventListener("message", (e) => {
+    AddonChannels.changeChannel.addEventListener("message", e => {
         SettingsStore.setStoreWithVersionCheck(e.data);
     });
 }
@@ -102,7 +107,7 @@ class Interface extends React.Component {
     }
     handleUpdateProjectTitle(title, isDefault) {
         if (isDefault || !title) {
-            document.title = `${APP_NAME} - Block-based programming, amplified`;
+            document.title = `${APP_NAME} - ${APP_SLOGAN}`;
         } else {
             document.title = `${title} - ${APP_NAME}`;
         }
@@ -114,7 +119,7 @@ class Interface extends React.Component {
             throw new TypeError(
                 "Simulated a TypeError to test the error screen. " +
                     `If someone sent you a link to this, just open ${APP_NAME} in ` +
-                    "a new tab and carry on with your day. This is not a bug.",
+                    "a new tab and carry on with your day. This is not a bug."
             );
         }
         if (isInvalidEmbed) {
@@ -185,7 +190,7 @@ class Interface extends React.Component {
                                     <div
                                         className={classNames(
                                             styles.infobox,
-                                            styles.unsharedUpdate,
+                                            styles.unsharedUpdate
                                         )}
                                     >
                                         <p>
@@ -264,25 +269,44 @@ class Interface extends React.Component {
                             <div className={classNames(styles.infobox)}>
                                 <h3>
                                     <FormattedMessage
-                                        defaultMessage="Heads up!"
-                                        description="Notice header"
-                                        id="tw.development.noticeHeader"
+                                        defaultMessage="{APP_NAME} 0.3 released!"
+                                        description="AmpMod News header"
+                                        id="amp.news.zeropointthree"
+                                        values={{ APP_NAME }}
                                     />
                                 </h3>
                                 <p>
                                     <FormattedMessage
-                                        defaultMessage="{APP_NAME} is in development. It is no longer considered alpha due to a heavy load of hard work put into new features, and it is expected to be stable by release time. However, breaking changes may occur. For updates, visit the {link}."
-                                        description="Notice about active development"
-                                        id="tw.development.notice"
+                                        defaultMessage="{APP_NAME} 0.3 is now available, with new features such as a new compiler to make projects run up to two times faster than in the previous compiler! See the {blog} for more information."
+                                        description="AmpMod News Part 1"
+                                        id="amp.news.zeropointthree.part1"
                                         values={{
                                             APP_NAME,
-                                            link: (
+                                            blog: (
                                                 <a
-                                                    href="https://ampmod.flarum.cloud/blog"
+                                                    href={APP_BLOG}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                 >
                                                     {"AmpMod Blog"}
+                                                </a>
+                                            ),
+                                        }}
+                                    />
+                                </p>
+                                <p>
+                                    <FormattedMessage
+                                        defaultMessage="We are aware of possible bugs and inconsistencies. If your project is broken, please tell us on {bugtracker}."
+                                        description="AmpMod News Part 2"
+                                        id="amp.news.zeropointthree.part2"
+                                        values={{
+                                            bugtracker: (
+                                                <a
+                                                    href={APP_FORUMS_BUGS}
+                                                    target="_blank"
+                                                    rel="noopener noreferrer"
+                                                >
+                                                    {"the forums"}
                                                 </a>
                                             ),
                                         }}
@@ -316,7 +340,7 @@ Interface.propTypes = {
     projectId: PropTypes.string,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     hasCloudVariables: state.scratchGui.tw.hasCloudVariables,
     customStageSize: state.scratchGui.customStageSize,
     description: state.scratchGui.tw.description,
@@ -330,7 +354,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = () => ({});
 
 const ConnectedInterface = injectIntl(
-    connect(mapStateToProps, mapDispatchToProps)(Interface),
+    connect(mapStateToProps, mapDispatchToProps)(Interface)
 );
 
 const WrappedInterface = compose(
@@ -340,7 +364,7 @@ const WrappedInterface = compose(
     TWThemeManagerHOC,
     TWProjectMetaFetcherHOC,
     TWStateManagerHOC,
-    TWPackagerIntegrationHOC,
+    TWPackagerIntegrationHOC
 )(ConnectedInterface);
 
 export default WrappedInterface;

@@ -9,7 +9,7 @@ import backIcon from "../../lib/assets/icon--back.svg";
 
 let closeIcons = {};
 
-const CloseButton = (props) => (
+const CloseButton = props => (
     <div
         aria-label="Close"
         className={classNames(styles.closeButton, props.className, {

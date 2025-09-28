@@ -7,11 +7,11 @@ const VirtualMachine = require("../../src/index");
 
 const uri = path.resolve(
     __dirname,
-    "../fixtures/unknown-opcode-as-reporter-block.sb2",
+    "../fixtures/unknown-opcode-as-reporter-block.sb2"
 );
 const project = readFileToBuffer(uri);
 
-test("unknown opcode", (t) => {
+test("unknown opcode", t => {
     const vm = new VirtualMachine();
     vm.attachStorage(makeTestStorage());
 
@@ -55,7 +55,7 @@ test("unknown opcode", (t) => {
         t.true(blocks.getBlock(fourthBlockInputId).shadow);
         t.equal(
             blocks.getBlock(fourthBlockInputId).opcode,
-            "sound_sounds_menu",
+            "sound_sounds_menu"
         );
 
         vm.quit();

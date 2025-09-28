@@ -15,7 +15,7 @@ class BLE extends JSONRPC {
         extensionId,
         peripheralOptions,
         connectCallback,
-        resetCallback = null,
+        resetCallback = null
     ) {
         super();
 
@@ -51,13 +51,11 @@ class BLE extends JSONRPC {
         }
         this._discoverTimeoutID = window.setTimeout(
             this._handleDiscoverTimeout.bind(this),
-            15000,
+            15000
         );
-        this.sendRemoteRequest("discover", this._peripheralOptions).catch(
-            (e) => {
-                this._handleRequestError(e);
-            },
-        );
+        this.sendRemoteRequest("discover", this._peripheralOptions).catch(e => {
+            this._handleRequestError(e);
+        });
     }
 
     /**
@@ -70,11 +68,11 @@ class BLE extends JSONRPC {
             .then(() => {
                 this._connected = true;
                 this._runtime.emit(
-                    this._runtime.constructor.PERIPHERAL_CONNECTED,
+                    this._runtime.constructor.PERIPHERAL_CONNECTED
                 );
                 this._connectCallback();
             })
-            .catch((e) => {
+            .catch(e => {
                 this._handleRequestError(e);
             });
     }
@@ -116,18 +114,16 @@ class BLE extends JSONRPC {
     startNotifications(
         serviceId,
         characteristicId,
-        onCharacteristicChanged = null,
+        onCharacteristicChanged = null
     ) {
         const params = {
             serviceId,
             characteristicId,
         };
         this._characteristicDidChangeCallback = onCharacteristicChanged;
-        return this.sendRemoteRequest("startNotifications", params).catch(
-            (e) => {
-                this.handleDisconnectError(e);
-            },
-        );
+        return this.sendRemoteRequest("startNotifications", params).catch(e => {
+            this.handleDisconnectError(e);
+        });
     }
 
     /**
@@ -142,7 +138,7 @@ class BLE extends JSONRPC {
         serviceId,
         characteristicId,
         optStartNotifications = false,
-        onCharacteristicChanged = null,
+        onCharacteristicChanged = null
     ) {
         const params = {
             serviceId,
@@ -154,7 +150,7 @@ class BLE extends JSONRPC {
         if (onCharacteristicChanged) {
             this._characteristicDidChangeCallback = onCharacteristicChanged;
         }
-        return this.sendRemoteRequest("read", params).catch((e) => {
+        return this.sendRemoteRequest("read", params).catch(e => {
             this.handleDisconnectError(e);
         });
     }
@@ -173,7 +169,7 @@ class BLE extends JSONRPC {
         characteristicId,
         message,
         encoding = null,
-        withResponse = null,
+        withResponse = null
     ) {
         const params = { serviceId, characteristicId, message };
         if (encoding) {
@@ -182,7 +178,7 @@ class BLE extends JSONRPC {
         if (withResponse !== null) {
             params.withResponse = withResponse;
         }
-        return this.sendRemoteRequest("write", params).catch((e) => {
+        return this.sendRemoteRequest("write", params).catch(e => {
             this.handleDisconnectError(e);
         });
     }
@@ -199,7 +195,7 @@ class BLE extends JSONRPC {
                 this._availablePeripherals[params.peripheralId] = params;
                 this._runtime.emit(
                     this._runtime.constructor.PERIPHERAL_LIST_UPDATE,
-                    this._availablePeripherals,
+                    this._availablePeripherals
                 );
                 if (this._discoverTimeoutID) {
                     window.clearTimeout(this._discoverTimeoutID);
@@ -209,7 +205,7 @@ class BLE extends JSONRPC {
                 this._availablePeripherals[params.peripheralId] = params;
                 this._runtime.emit(
                     this._runtime.constructor.USER_PICKED_PERIPHERAL,
-                    this._availablePeripherals,
+                    this._availablePeripherals
                 );
                 if (this._discoverTimeoutID) {
                     window.clearTimeout(this._discoverTimeoutID);
@@ -217,7 +213,7 @@ class BLE extends JSONRPC {
                 break;
             case "userDidNotPickPeripheral":
                 this._runtime.emit(
-                    this._runtime.constructor.PERIPHERAL_SCAN_TIMEOUT,
+                    this._runtime.constructor.PERIPHERAL_SCAN_TIMEOUT
                 );
                 if (this._discoverTimeoutID) {
                     window.clearTimeout(this._discoverTimeoutID);
@@ -260,7 +256,7 @@ class BLE extends JSONRPC {
             {
                 message: `Scratch lost connection to`,
                 extensionId: this._extensionId,
-            },
+            }
         );
     }
 

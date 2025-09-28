@@ -53,7 +53,7 @@ class UpdatePeripheralStep extends React.Component {
             res: null,
         });
         try {
-            const res = await this.props.onSendPeripheralUpdate((progress) => {
+            const res = await this.props.onSendPeripheralUpdate(progress => {
                 // On my computer, I get a progress update every 0.005% or so.
                 // Rendering the progress ring is a little expensive, so filtering updates here reduces the CPU load.
                 // Updating every 1% doesn't look very smooth, but 0.5% (1/200) looks good to me.
@@ -130,7 +130,7 @@ class UpdatePeripheralStep extends React.Component {
                     id="gui.connection.updatePeripheral.progress"
                     values={{
                         progressPercentage: Math.floor(
-                            this.state.progressPercentage,
+                            this.state.progressPercentage
                         ),
                     }}
                 />
@@ -219,7 +219,7 @@ class UpdatePeripheralStep extends React.Component {
                         <Box
                             className={classNames(
                                 styles.bottomAreaItem,
-                                styles.buttonRow,
+                                styles.buttonRow
                             )}
                         >
                             <button
@@ -229,7 +229,7 @@ class UpdatePeripheralStep extends React.Component {
                                 <img
                                     className={classNames(
                                         styles.buttonIconLeft,
-                                        styles.buttonIconBack,
+                                        styles.buttonIconBack
                                     )}
                                     src={backIcon}
                                     draggable={false}

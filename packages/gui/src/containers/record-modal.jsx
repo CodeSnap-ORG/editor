@@ -77,7 +77,7 @@ class RecordModal extends React.Component {
             const endIndex = Math.floor(this.state.trimEnd * sampleCount);
             const clippedSamples = this.state.samples.slice(
                 startIndex,
-                endIndex,
+                endIndex
             );
 
             encodeAndAddSoundToVM(
@@ -88,7 +88,7 @@ class RecordModal extends React.Component {
                 () => {
                     this.props.onClose();
                     this.props.onNewSound();
-                },
+                }
             );
         });
     }
@@ -128,11 +128,11 @@ RecordModal.propTypes = {
     vm: PropTypes.instanceOf(VM),
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     vm: state.scratchGui.vm,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     onClose: () => {
         dispatch(closeSoundRecorder());
     },

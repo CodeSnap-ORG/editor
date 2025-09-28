@@ -161,7 +161,7 @@ class BlockUtility {
      */
     getProcedureParamNamesAndIds(procedureCode) {
         return this.thread.target.blocks.getProcedureParamNamesAndIds(
-            procedureCode,
+            procedureCode
         );
     }
 
@@ -172,7 +172,7 @@ class BlockUtility {
      */
     getProcedureParamNamesIdsAndDefaults(procedureCode) {
         return this.thread.target.blocks.getProcedureParamNamesIdsAndDefaults(
-            procedureCode,
+            procedureCode
         );
     }
 
@@ -217,7 +217,7 @@ class BlockUtility {
         const result = this.sequencer.runtime.startHats(
             requestedHat,
             optMatchFields,
-            optTarget,
+            optTarget
         );
 
         // Restore thread and sequencer to prior values before we return to the calling block.

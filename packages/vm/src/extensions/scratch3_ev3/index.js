@@ -342,12 +342,12 @@ class EV3Motor {
                 rampup,
             ])
             .concat(
-                runcmd.concat([Ev3Encoding.ONE_BYTE, rampdown, Ev3Args.BRAKE]),
+                runcmd.concat([Ev3Encoding.ONE_BYTE, rampdown, Ev3Args.BRAKE])
             );
 
         const cmd = this._parent.generateCommand(
             Ev3Command.DIRECT_COMMAND_NO_REPLY,
-            byteCommand,
+            byteCommand
         );
 
         this._parent.send(cmd);
@@ -389,7 +389,7 @@ class EV3Motor {
                 Ev3Args.LAYER,
                 this._portMask(this._index), // port output bit field
                 Ev3Args.COAST,
-            ],
+            ]
         );
 
         this._parent.send(cmd, false); // don't use rate limiter to ensure motor stops
@@ -576,7 +576,7 @@ class EV3 {
     }
 
     stopAllMotors() {
-        this._motors.forEach((motor) => {
+        this._motors.forEach(motor => {
             if (motor) {
                 motor.coast();
             }
@@ -599,7 +599,7 @@ class EV3 {
             },
             this._onConnect,
             this.reset,
-            this._onMessage,
+            this._onMessage
         );
     }
 
@@ -726,7 +726,7 @@ class EV3 {
     _onConnect() {
         this._pollingIntervalID = window.setInterval(
             this._pollValues,
-            this._pollingInterval,
+            this._pollingInterval
         );
     }
 
@@ -800,7 +800,7 @@ class EV3 {
         const cmd = this.generateCommand(
             Ev3Command.DIRECT_COMMAND_REPLY,
             cmds,
-            allocation,
+            allocation
         );
 
         this.send(cmd);
@@ -952,7 +952,7 @@ class Scratch3Ev3Blocks {
         // Create a new EV3 peripheral instance
         this._peripheral = new EV3(
             this.runtime,
-            Scratch3Ev3Blocks.EXTENSION_ID,
+            Scratch3Ev3Blocks.EXTENSION_ID
         );
 
         this._playNoteForPicker = this._playNoteForPicker.bind(this);
@@ -1171,8 +1171,8 @@ class Scratch3Ev3Blocks {
         let time = Cast.toNumber(args.TIME) * 1000;
         time = MathUtil.clamp(time, 0, 15000);
 
-        return new Promise((resolve) => {
-            this._forEachMotor(port, (motorIndex) => {
+        return new Promise(resolve => {
+            this._forEachMotor(port, motorIndex => {
                 const motor = this._peripheral.motor(motorIndex);
                 if (motor) {
                     motor.direction = 1;
@@ -1190,8 +1190,8 @@ class Scratch3Ev3Blocks {
         let time = Cast.toNumber(args.TIME) * 1000;
         time = MathUtil.clamp(time, 0, 15000);
 
-        return new Promise((resolve) => {
-            this._forEachMotor(port, (motorIndex) => {
+        return new Promise(resolve => {
+            this._forEachMotor(port, motorIndex => {
                 const motor = this._peripheral.motor(motorIndex);
                 if (motor) {
                     motor.direction = -1;
@@ -1208,7 +1208,7 @@ class Scratch3Ev3Blocks {
         const port = Cast.toNumber(args.PORT);
         const power = MathUtil.clamp(Cast.toNumber(args.POWER), 0, 100);
 
-        this._forEachMotor(port, (motorIndex) => {
+        this._forEachMotor(port, motorIndex => {
             const motor = this._peripheral.motor(motorIndex);
             if (motor) {
                 motor.power = power;
@@ -1289,7 +1289,7 @@ class Scratch3Ev3Blocks {
             return; // don't send a beep time of 0
         }
 
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
             // https://en.wikipedia.org/wiki/MIDI_tuning_standard#Frequency_values
             const freq = Math.pow(2, (note - 69 + 12) / 12) * 440;
             this._peripheral.beep(freq, time);

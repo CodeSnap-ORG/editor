@@ -61,7 +61,7 @@ class MockBlock {
             MockScratchBlocks,
             categoryInfo,
             blockInfo,
-            extendedOpcode,
+            extendedOpcode
         );
         mixin(this, prototype);
         this.init();
@@ -105,7 +105,7 @@ describe("defineDynamicBlock", () => {
         const extendedOpcode = "test.commandWithIcon";
         const block = new MockBlock(
             testBlockInfo.commandWithIcon,
-            extendedOpcode,
+            extendedOpcode
         );
         expect(block.result).toEqual({
             category: categoryInfo.name,
@@ -124,7 +124,7 @@ describe("defineDynamicBlock", () => {
         const extendedOpcode = "test.commandWithoutIcon";
         const block = new MockBlock(
             testBlockInfo.commandWithoutIcon,
-            extendedOpcode,
+            extendedOpcode
         );
         expect(block.result).toEqual({
             category: categoryInfo.name,
@@ -143,7 +143,7 @@ describe("defineDynamicBlock", () => {
         const extendedOpcode = "test.terminal";
         const block = new MockBlock(
             testBlockInfo.terminalCommand,
-            extendedOpcode,
+            extendedOpcode
         );
         expect(block.result).toEqual({
             category: categoryInfo.name,

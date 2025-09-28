@@ -29,7 +29,7 @@ class StrokeWidthIndicator extends React.Component {
     handleChangeStrokeWidth(newWidth) {
         let changed = applyStrokeWidthToSelection(
             newWidth,
-            this.props.textEditTarget,
+            this.props.textEditTarget
         );
         if (
             (!this.props.strokeWidth || this.props.strokeWidth === 0) &&
@@ -37,7 +37,7 @@ class StrokeWidthIndicator extends React.Component {
         ) {
             const currentColorState = getColorsFromSelection(
                 getSelectedLeafItems(),
-                isBitmap(this.props.format),
+                isBitmap(this.props.format)
             );
 
             // Color counts as null if either both colors are null or the primary color is null and it's solid
@@ -55,7 +55,7 @@ class StrokeWidthIndicator extends React.Component {
                         0, // colorIndex,
                         true, // isSolidGradient
                         true, // applyToStroke
-                        this.props.textEditTarget,
+                        this.props.textEditTarget
                     ) || changed;
                 // If there's no previous stroke color, default to solid black
                 this.props.onChangeStrokeGradientType(GradientTypes.SOLID);
@@ -63,13 +63,13 @@ class StrokeWidthIndicator extends React.Component {
             } else if (currentColorState.strokeColor !== MIXED) {
                 // Set color state from the selected item's stroke color
                 this.props.onChangeStrokeGradientType(
-                    currentColorState.strokeGradientType,
+                    currentColorState.strokeGradientType
                 );
                 this.props.onChangeStrokeColor(
-                    parseColor(currentColorState.strokeColor).hex,
+                    parseColor(currentColorState.strokeColor).hex
                 );
                 this.props.onChangeStrokeColor2(
-                    parseColor(currentColorState.strokeColor2).hex,
+                    parseColor(currentColorState.strokeColor2).hex
                 );
             }
         }
@@ -87,7 +87,7 @@ class StrokeWidthIndicator extends React.Component {
     }
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     disabled:
         state.scratchPaint.mode === Modes.BRUSH ||
         state.scratchPaint.mode === Modes.TEXT ||
@@ -96,17 +96,17 @@ const mapStateToProps = (state) => ({
     strokeWidth: state.scratchPaint.color.strokeWidth,
     textEditTarget: state.scratchPaint.textEditTarget,
 });
-const mapDispatchToProps = (dispatch) => ({
-    onChangeStrokeColor: (strokeColor) => {
+const mapDispatchToProps = dispatch => ({
+    onChangeStrokeColor: strokeColor => {
         dispatch(changeStrokeColor(strokeColor));
     },
-    onChangeStrokeColor2: (strokeColor) => {
+    onChangeStrokeColor2: strokeColor => {
         dispatch(changeStrokeColor2(strokeColor));
     },
-    onChangeStrokeGradientType: (strokeColor) => {
+    onChangeStrokeGradientType: strokeColor => {
         dispatch(changeStrokeGradientType(strokeColor));
     },
-    onChangeStrokeWidth: (strokeWidth) => {
+    onChangeStrokeWidth: strokeWidth => {
         dispatch(changeStrokeWidth(strokeWidth));
     },
 });
@@ -125,5 +125,5 @@ StrokeWidthIndicator.propTypes = {
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps,
+    mapDispatchToProps
 )(StrokeWidthIndicator);

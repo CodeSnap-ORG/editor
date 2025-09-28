@@ -34,7 +34,7 @@ export const findIncompatibleUserscripts = () => {
     // Check suggested by SinanShiki
     if (typeof window.chibi === "object" && Number(window.chibi.version) <= 3) {
         errors.push(
-            'You are using an old version of the "Chibi" userscript that has known project corruption bugs. Please disable it, uninstall it, or update to version 4.',
+            'You are using an old version of the "Chibi" userscript that has known project corruption bugs. Please disable it, uninstall it, or update to version 4.'
         );
     }
 

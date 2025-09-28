@@ -10,27 +10,27 @@ test("initialState", () => {
     expect(
         brushReducer(
             defaultState /* state */,
-            { type: "anything" } /* action */,
-        ),
+            { type: "anything" } /* action */
+        )
     ).toBeDefined();
     expect(
         brushReducer(
             defaultState /* state */,
-            { type: "anything" } /* action */,
-        ).brushSize,
+            { type: "anything" } /* action */
+        ).brushSize
     ).toBeGreaterThan(0);
 
     expect(
         eraserReducer(
             defaultState /* state */,
-            { type: "anything" } /* action */,
-        ),
+            { type: "anything" } /* action */
+        )
     ).toBeTruthy();
     expect(
         eraserReducer(
             defaultState /* state */,
-            { type: "anything" } /* action */,
-        ).brushSize,
+            { type: "anything" } /* action */
+        ).brushSize
     ).toBeGreaterThan(0);
 });
 
@@ -42,24 +42,24 @@ test("changeBrushSize", () => {
     expect(
         brushReducer(
             defaultState /* state */,
-            changeBrushSize(newBrushSize) /* action */,
-        ),
+            changeBrushSize(newBrushSize) /* action */
+        )
     ).toEqual({ brushSize: newBrushSize });
     expect(
-        brushReducer(1 /* state */, changeBrushSize(newBrushSize) /* action */),
+        brushReducer(1 /* state */, changeBrushSize(newBrushSize) /* action */)
     ).toEqual({ brushSize: newBrushSize });
 
     expect(
         eraserReducer(
             defaultState /* state */,
-            changeEraserSize(newBrushSize) /* action */,
-        ),
+            changeEraserSize(newBrushSize) /* action */
+        )
     ).toEqual({ brushSize: newBrushSize });
     expect(
         eraserReducer(
             1 /* state */,
-            changeEraserSize(newBrushSize) /* action */,
-        ),
+            changeEraserSize(newBrushSize) /* action */
+        )
     ).toEqual({ brushSize: newBrushSize });
 });
 
@@ -69,20 +69,20 @@ test("invalidChangeBrushSize", () => {
     expect(
         brushReducer(
             origState /* state */,
-            changeBrushSize("invalid argument") /* action */,
-        ),
+            changeBrushSize("invalid argument") /* action */
+        )
     ).toBe(origState);
     expect(
-        brushReducer(origState /* state */, changeBrushSize() /* action */),
+        brushReducer(origState /* state */, changeBrushSize() /* action */)
     ).toBe(origState);
 
     expect(
         eraserReducer(
             origState /* state */,
-            changeEraserSize("invalid argument") /* action */,
-        ),
+            changeEraserSize("invalid argument") /* action */
+        )
     ).toBe(origState);
     expect(
-        eraserReducer(origState /* state */, changeEraserSize() /* action */),
+        eraserReducer(origState /* state */, changeEraserSize() /* action */)
     ).toBe(origState);
 });

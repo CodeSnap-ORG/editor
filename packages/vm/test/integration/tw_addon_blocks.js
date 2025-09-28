@@ -5,10 +5,10 @@ const VirtualMachine = require("../../src/virtual-machine");
 const Thread = require("../../src/engine/thread");
 
 const fixtureData = fs.readFileSync(
-    path.join(__dirname, "..", "fixtures", "tw-addon-blocks.sb3"),
+    path.join(__dirname, "..", "fixtures", "tw-addon-blocks.sb3")
 );
 
-const runExecutionTests = (compilerEnabled) => (test) => {
+const runExecutionTests = compilerEnabled => test => {
     const load = async () => {
         const vm = new VirtualMachine();
         vm.setCompilerOptions({
@@ -28,8 +28,8 @@ const runExecutionTests = (compilerEnabled) => (test) => {
         return variable.value;
     };
 
-    test.test("baseline - no addon blocks", (t) => {
-        load().then((vm) => {
+    test.test("baseline - no addon blocks", t => {
+        load().then(vm => {
             t.equal(getVar(vm, "block 1"), "initial");
             t.equal(getVar(vm, "block 2"), "initial");
             t.equal(getVar(vm, "block 3"), "initial");
@@ -49,8 +49,8 @@ const runExecutionTests = (compilerEnabled) => (test) => {
         });
     });
 
-    test.test("simple statement blocks", (t) => {
-        load().then((vm) => {
+    test.test("simple statement blocks", t => {
+        load().then(vm => {
             t.plan(9);
 
             let calledBlock1 = false;
@@ -94,8 +94,8 @@ const runExecutionTests = (compilerEnabled) => (test) => {
         });
     });
 
-    test.test("yield with thread.status = STATUS_PROMISE_WAIT", (t) => {
-        load().then((vm) => {
+    test.test("yield with thread.status = STATUS_PROMISE_WAIT", t => {
+        load().then(vm => {
             t.plan(7);
 
             let threadToResume;
@@ -133,8 +133,8 @@ const runExecutionTests = (compilerEnabled) => (test) => {
         });
     });
 
-    test.test("yield with util.yield()", (t) => {
-        load().then((vm) => {
+    test.test("yield with util.yield()", t => {
+        load().then(vm => {
             t.plan(10);
 
             let shouldYield = true;
@@ -177,14 +177,14 @@ const runExecutionTests = (compilerEnabled) => (test) => {
         });
     });
 
-    test.test("yield with resolved Promise", (t) => {
-        load().then((vm) => {
+    test.test("yield with resolved Promise", t => {
+        load().then(vm => {
             let resolveCallback;
             vm.addAddonBlock({
                 procedureCode: "block 2 %s",
                 arguments: ["number or text"],
                 callback: () =>
-                    new Promise((resolve) => {
+                    new Promise(resolve => {
                         resolveCallback = resolve;
                     }),
             });
@@ -249,11 +249,11 @@ const runExecutionTests = (compilerEnabled) => (test) => {
     });
     */
 
-    test.test("returning values", (t) => {
-        load().then((vm) => {
+    test.test("returning values", t => {
+        load().then(vm => {
             vm.addAddonBlock({
                 procedureCode: "block 4 %s",
-                callback: (args) => {
+                callback: args => {
                     t.same(args, {
                         "number or text": "apple",
                     });
@@ -271,7 +271,7 @@ const runExecutionTests = (compilerEnabled) => (test) => {
             t.equal(getVar(vm, "block 4"), "false"); // block 4 itself should not have run, we overrode it
             t.equal(
                 getVar(vm, "block 4 output"),
-                "value from addon block: apple",
+                "value from addon block: apple"
             );
 
             t.end();
@@ -284,7 +284,7 @@ const runExecutionTests = (compilerEnabled) => (test) => {
 tap.test("with compiler disabled", runExecutionTests(false));
 tap.test("with compiler enabled", runExecutionTests(true));
 
-tap.test("block info", (t) => {
+tap.test("block info", t => {
     const vm = new VirtualMachine();
 
     const BLOCK_INFO_ID = "a-b";
@@ -296,7 +296,7 @@ tap.test("block info", (t) => {
         hidden: true,
     });
 
-    let blockInfo = vm.runtime._blockInfo.find((i) => i.id === BLOCK_INFO_ID);
+    let blockInfo = vm.runtime._blockInfo.find(i => i.id === BLOCK_INFO_ID);
     t.equal(blockInfo, undefined);
 
     vm.addAddonBlock({
@@ -311,7 +311,7 @@ tap.test("block info", (t) => {
         return: 1,
     });
 
-    blockInfo = vm.runtime._blockInfo.find((i) => i.id === BLOCK_INFO_ID);
+    blockInfo = vm.runtime._blockInfo.find(i => i.id === BLOCK_INFO_ID);
     t.type(blockInfo.id, "string");
     t.type(blockInfo.name, "string");
     t.type(blockInfo.color1, "string");

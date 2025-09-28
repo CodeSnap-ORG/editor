@@ -1,19 +1,19 @@
 import { BLOCKS_THREE } from ".";
 
-const getBlockIconURI = (extensionIcons) => {
+const getBlockIconURI = extensionIcons => {
     if (!extensionIcons) return null;
 
     return extensionIcons.blockIconURI || extensionIcons.menuIconURI;
 };
 
-const getCategoryIconURI = (extensionIcons) => {
+const getCategoryIconURI = extensionIcons => {
     if (!extensionIcons) return null;
 
     return extensionIcons.menuIconURI || extensionIcons.blockIconURI;
 };
 
 // scratch-blocks colours has a pen property that scratch-gui uses for all extensions
-const getExtensionColors = (theme) => theme.getBlockColors().pen;
+const getExtensionColors = theme => theme.getBlockColors().pen;
 
 const DEFAULT_EXTENSION_PRIMARY = "#0fbd8c";
 
@@ -35,7 +35,7 @@ const injectExtensionCategoryTheme = (dynamicBlockXML, theme) => {
     const parser = new DOMParser();
     const serializer = new XMLSerializer();
 
-    return dynamicBlockXML.map((extension) => {
+    return dynamicBlockXML.map(extension => {
         const dom = parser.parseFromString(extension.xml, "text/xml");
 
         const primaryColor = dom.documentElement.getAttribute("colour");
@@ -45,11 +45,11 @@ const injectExtensionCategoryTheme = (dynamicBlockXML, theme) => {
             const converters = theme.getCustomExtensionColors();
             dom.documentElement.setAttribute(
                 "colour",
-                converters.categoryIconBackground(primaryColor),
+                converters.categoryIconBackground(primaryColor)
             );
             dom.documentElement.setAttribute(
                 "secondaryColour",
-                converters.categoryIconBorder(primaryColor),
+                converters.categoryIconBorder(primaryColor)
             );
         } else {
             dom.documentElement.setAttribute("colour", extensionColors.primary);
@@ -57,12 +57,12 @@ const injectExtensionCategoryTheme = (dynamicBlockXML, theme) => {
             // both used for border color.
             dom.documentElement.setAttribute(
                 "secondaryColour",
-                extensionColors.tertiary,
+                extensionColors.tertiary
             );
         }
 
         const categoryIconURI = getCategoryIconURI(
-            extensionIcons[extension.id],
+            extensionIcons[extension.id]
         );
         if (categoryIconURI) {
             dom.documentElement.setAttribute("iconURI", categoryIconURI);
@@ -87,7 +87,7 @@ const injectBlockIcons = (blockInfoJson, theme) => {
     const extensionIcons = theme.getExtensions();
     const extensionId = blockInfoJson.type.substring(
         0,
-        blockInfoJson.type.indexOf("_"),
+        blockInfoJson.type.indexOf("_")
     );
     const blockIconURI = getBlockIconURI(extensionIcons[extensionId]);
 

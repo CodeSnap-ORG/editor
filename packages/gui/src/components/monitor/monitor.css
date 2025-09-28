@@ -86,6 +86,15 @@
     font-weight: bold;
     color: $text-primary-default;
     width: 100%;
+
+    /*
+        For truncating overflowing text gracefully
+        Min-width is for a bug: https://css-tricks.com/flexbox-truncated-text
+    */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    min-width: 0;
 }
 
 .list-body {

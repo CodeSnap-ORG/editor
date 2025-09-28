@@ -26,10 +26,10 @@ const FontLoaderHOC = function (WrappedComponent) {
         fontsLoaded: PropTypes.bool.isRequired,
         onSetFontsLoaded: PropTypes.func.isRequired,
     };
-    const mapStateToProps = (state) => ({
+    const mapStateToProps = state => ({
         fontsLoaded: state.scratchGui.fontsLoaded,
     });
-    const mapDispatchToProps = (dispatch) => ({
+    const mapDispatchToProps = dispatch => ({
         onSetFontsLoaded: () => dispatch(setFontsLoaded()),
     });
     return connect(mapStateToProps, mapDispatchToProps)(FontLoaderComponent);

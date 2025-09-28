@@ -13,7 +13,7 @@ const reducer = function (state, action) {
             return state;
     }
 };
-const setProjectTitle = (title) => ({
+const setProjectTitle = title => ({
     type: SET_PROJECT_TITLE,
     title: title,
 });

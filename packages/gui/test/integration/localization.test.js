@@ -43,11 +43,11 @@ describe("Localization", () => {
         await clickXpath(SETTINGS_MENU_XPATH);
         await clickText("Language", scope.menuBar);
         await clickText("Deutsch");
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // wait for blocks refresh
+        await new Promise(resolve => setTimeout(resolve, 1000)); // wait for blocks refresh
 
         // Make sure the blocks are translating
         await clickText("Fühlen"); // Sensing category in German
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // wait for blocks to scroll
+        await new Promise(resolve => setTimeout(resolve, 1000)); // wait for blocks to scroll
         await clickText("Antwort"); // Find the "answer" block in German
 
         // Change to the costumes tab to confirm other parts of the GUI are translating
@@ -67,7 +67,7 @@ describe("Localization", () => {
     test("Loading with locale shows correct blocks", async () => {
         await loadUri(`${uri}?locale=de`);
         await clickText("Fühlen"); // Sensing category in German
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // wait for blocks to scroll
+        await new Promise(resolve => setTimeout(resolve, 1000)); // wait for blocks to scroll
         await clickText("Antwort"); // Find the "answer" block in German
         const logs = await getLogs();
         await expect(logs).toEqual([]);
@@ -77,7 +77,7 @@ describe("Localization", () => {
     test("Loading with locale shows correct translation for string length block parameter", async () => {
         await loadUri(`${uri}?locale=ja`);
         await clickText("演算"); // Operators category in Japanese
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // wait for blocks to scroll
+        await new Promise(resolve => setTimeout(resolve, 1000)); // wait for blocks to scroll
         await clickText("の長さ", scope.blocksTab); // Click "length <apple>" block
         await findByText("3", scope.reportedValue); // Tooltip with result
         const logs = await getLogs();
@@ -90,10 +90,10 @@ describe("Localization", () => {
         await clickXpath(FILE_MENU_XPATH);
         await clickText("Load from your computer");
         const input = await findByXpath(
-            '//input[@accept=".sb,.sb2,.sb3,.apz"]',
+            '//input[@accept=".sb,.sb2,.sb3,.apz"]'
         );
         await input.sendKeys(
-            path.resolve(__dirname, "../fixtures/monitor-variable.sb3"),
+            path.resolve(__dirname, "../fixtures/monitor-variable.sb3")
         );
 
         // Monitors are present

@@ -27,6 +27,6 @@ const localeTooBig = [
     "uk",
 ];
 
-const hideLabel = (locale) => localeTooBig.includes(locale);
+const hideLabel = locale => localeTooBig.includes(locale);
 
 export { hideLabel };

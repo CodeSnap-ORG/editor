@@ -19,7 +19,7 @@ const TWThemeManagerHOC = function (WrappedComponent) {
         }
         componentDidMount() {
             this.removeListeners = onSystemPreferenceChange(
-                this.handleSystemThemeChange,
+                this.handleSystemThemeChange
             );
         }
         componentDidUpdate(prevProps) {
@@ -59,13 +59,13 @@ const TWThemeManagerHOC = function (WrappedComponent) {
         reduxTheme: ownProps.theme || state.scratchGui.theme.theme,
     });
 
-    const mapDispatchToProps = (dispatch) => ({
-        onChangeTheme: (theme) => dispatch(setTheme(theme)),
+    const mapDispatchToProps = dispatch => ({
+        onChangeTheme: theme => dispatch(setTheme(theme)),
     });
 
     return connect(
         mapStateToProps,
-        mapDispatchToProps,
+        mapDispatchToProps
     )(TWThemeManagerComponent);
 };
 

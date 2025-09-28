@@ -47,7 +47,7 @@ describe("projectSaverHOC", () => {
                 store={store}
                 vm={vm}
                 onAutoUpdateProject={mockedUpdateProject}
-            />,
+            />
         );
         mounted.setProps({
             canSave: true,
@@ -71,7 +71,7 @@ describe("projectSaverHOC", () => {
                 store={store}
                 vm={vm}
                 onAutoUpdateProject={mockedSaveProject}
-            />,
+            />
         );
         mounted.setProps({
             canSave: true,
@@ -96,7 +96,7 @@ describe("projectSaverHOC", () => {
                 store={store}
                 vm={vm}
                 onCreateProject={mockedCreateProject}
-            />,
+            />
         );
         mounted.setProps({
             isShowingWithoutId: true,
@@ -120,7 +120,7 @@ describe("projectSaverHOC", () => {
                 store={store}
                 vm={vm}
                 onCreateProject={mockedCreateProject}
-            />,
+            />
         );
         mounted.setProps({
             canCreateNew: true,
@@ -143,7 +143,7 @@ describe("projectSaverHOC", () => {
                 store={store}
                 vm={vm}
                 onCreateProject={mockedCreateProject}
-            />,
+            />
         );
         mounted.setProps({
             isShowingWithoutId: true,
@@ -172,7 +172,7 @@ describe("projectSaverHOC", () => {
                 reduxProjectId={"100"}
                 store={store}
                 vm={vm}
-            />,
+            />
         );
         mounted.setProps({
             isCreatingNew: true,
@@ -203,7 +203,7 @@ describe("projectSaverHOC", () => {
                 store={store}
                 vm={vm}
                 onShowCreatingRemixAlert={mockedShowCreatingRemixAlert}
-            />,
+            />
         );
         mounted.setProps({
             isRemixing: true,
@@ -235,7 +235,7 @@ describe("projectSaverHOC", () => {
                 store={store}
                 vm={vm}
                 onShowCreatingCopyAlert={mockedShowCreatingCopyAlert}
-            />,
+            />
         );
         mounted.setProps({
             isCreatingCopy: true,
@@ -263,7 +263,7 @@ describe("projectSaverHOC", () => {
                 reduxProjectId={"100"}
                 store={store}
                 vm={vm}
-            />,
+            />
         );
         mounted.setProps({
             isUpdating: true,
@@ -295,7 +295,7 @@ describe("projectSaverHOC", () => {
                     store={store}
                     vm={vm}
                     onShowCreatingAlert={mockedShowCreatingAlert}
-                />,
+                />
             );
             mounted.setProps({
                 isUpdating: true,
@@ -304,7 +304,7 @@ describe("projectSaverHOC", () => {
             });
             expect(mockedStoreProject).not.toHaveBeenCalled();
             expect(mockedShowCreatingAlert).not.toHaveBeenCalled();
-        },
+        }
     );
 
     test("if user saves, inline saving alert should show", () => {
@@ -324,7 +324,7 @@ describe("projectSaverHOC", () => {
                 store={store}
                 vm={vm}
                 onShowSavingAlert={mockedShowSavingAlert}
-            />,
+            />
         );
         mounted.setProps({
             isManualUpdating: true,
@@ -346,7 +346,7 @@ describe("projectSaverHOC", () => {
                 store={store}
                 vm={vm}
                 onAutoUpdateProject={mockedAutoUpdate}
-            />,
+            />
         );
         mounted.setProps({
             projectChanged: true,
@@ -369,7 +369,7 @@ describe("projectSaverHOC", () => {
                 store={store}
                 vm={vm}
                 onAutoUpdateProject={mockedAutoUpdate}
-            />,
+            />
         );
         mounted.setProps({
             projectChanged: true,
@@ -401,7 +401,7 @@ describe("projectSaverHOC", () => {
                 store={store}
                 vm={vm}
                 onAutoUpdateProject={mockedAutoUpdate}
-            />,
+            />
         );
         mounted.setProps({
             projectChanged: false,
@@ -424,7 +424,7 @@ describe("projectSaverHOC", () => {
                 store={store}
                 vm={vm}
                 onRemixing={mockedOnRemixing}
-            />,
+            />
         );
         mounted.setProps({
             isRemixing: true,
@@ -445,7 +445,7 @@ describe("projectSaverHOC", () => {
                 store={store}
                 vm={vm}
                 onRemixing={mockedOnRemixing}
-            />,
+            />
         );
         mounted.setProps({
             isRemixing: false,
@@ -462,14 +462,14 @@ describe("projectSaverHOC", () => {
                 store={store}
                 vm={vm}
                 onSetProjectThumbnailer={setThumb}
-            />,
+            />
         );
         // Set project thumbnailer should be called on mount
         expect(setThumb).toHaveBeenCalledTimes(1);
 
         // And it should not pass that function on to wrapped element
         expect(
-            mounted.find(Component).props().onSetProjectThumbnailer,
+            mounted.find(Component).props().onSetProjectThumbnailer
         ).toBeUndefined();
 
         // Unmounting should call it again with null
@@ -487,14 +487,14 @@ describe("projectSaverHOC", () => {
                 store={store}
                 vm={vm}
                 onSetProjectSaver={setSaver}
-            />,
+            />
         );
         // Set project saver should be called on mount
         expect(setSaver).toHaveBeenCalledTimes(1);
 
         // And it should not pass that function on to wrapped element
         expect(
-            mounted.find(Component).props().onSetProjectSaver,
+            mounted.find(Component).props().onSetProjectSaver
         ).toBeUndefined();
 
         // Unmounting should call it again with null

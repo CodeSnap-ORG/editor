@@ -21,12 +21,12 @@ Alerts.propTypes = {
     onCloseAlert: PropTypes.func,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     alertsList: state.scratchGui.alerts.alertsList,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    onCloseAlert: (index) => dispatch(closeAlert(index)),
+const mapDispatchToProps = dispatch => ({
+    onCloseAlert: index => dispatch(closeAlert(index)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Alerts);

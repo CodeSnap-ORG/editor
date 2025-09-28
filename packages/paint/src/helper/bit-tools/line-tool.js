@@ -42,13 +42,13 @@ class LineTool extends paper.Tool {
         const originalContext = this.drawTarget.getContext("2d");
         const { context, unmask } = createMaskingCanvas(
             originalContext,
-            this.color,
+            this.color
         );
         forEachLinePoint(startPoint, endPoint, (x, y) => {
             context.drawImage(
                 this.tmpCanvas,
                 ~~x - roundedUpRadius,
-                ~~y - roundedUpRadius,
+                ~~y - roundedUpRadius
             );
         });
         unmask();
@@ -84,7 +84,7 @@ class LineTool extends paper.Tool {
         this.updateCursorIfNeeded();
         this.cursorPreview.position = new paper.Point(
             ~~event.point.x,
-            ~~event.point.y,
+            ~~event.point.y
         );
     }
     handleMouseDown(event) {
@@ -127,7 +127,7 @@ class LineTool extends paper.Tool {
         this.updateCursorIfNeeded();
         this.cursorPreview.position = new paper.Point(
             ~~event.point.x,
-            ~~event.point.y,
+            ~~event.point.y
         );
     }
     deactivateTool() {

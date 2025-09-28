@@ -9,7 +9,7 @@ const emptyProjectFixture = path.join(
     __dirname,
     "..",
     "fixtures",
-    "tw-empty-project.sb3",
+    "tw-empty-project.sb3"
 );
 
 const makeTestStorage = () => {
@@ -24,7 +24,7 @@ const makeTestStorage = () => {
     return storage;
 };
 
-test("isValidSystemFont", (t) => {
+test("isValidSystemFont", t => {
     const { fontManager } = new Runtime();
     t.ok(fontManager.isValidSystemFont("Roboto"));
     t.ok(fontManager.isValidSystemFont("sans-serif"));
@@ -38,7 +38,7 @@ test("isValidSystemFont", (t) => {
     t.end();
 });
 
-test("isValidCustomFont", (t) => {
+test("isValidCustomFont", t => {
     const { fontManager } = new Runtime();
     t.ok(fontManager.isValidCustomFont("Roboto"));
     t.ok(fontManager.isValidCustomFont("sans-serif"));
@@ -60,7 +60,7 @@ test("isValidCustomFont", (t) => {
     t.end();
 });
 
-test("getSafeSystemFont", (t) => {
+test("getSafeSystemFont", t => {
     const { fontManager } = new Runtime();
     t.equal(fontManager.getUnusedSystemFont("Arial"), "Arial");
     fontManager.addSystemFont("Arial", "sans-serif");
@@ -73,7 +73,7 @@ test("getSafeSystemFont", (t) => {
     t.end();
 });
 
-test("getSafeCustomFont", (t) => {
+test("getSafeCustomFont", t => {
     const { fontManager } = new Runtime();
     t.equal(fontManager.getUnusedCustomFont("Arial"), "Arial");
     fontManager.addSystemFont("Arial", "sans-serif");
@@ -96,7 +96,7 @@ test("getSafeCustomFont", (t) => {
     t.end();
 });
 
-test("system font", (t) => {
+test("system font", t => {
     const mockRenderer = {
         setLayerGroupOrdering: () => {},
         setCustomFonts: () => {
@@ -118,7 +118,7 @@ test("system font", (t) => {
     t.ok(fontManager.hasFont("Noto Sans Mono"), "updated hasFont()");
     t.ok(
         fontManager.hasFont("noto sans mono"),
-        "updated hasFont() case insensitively",
+        "updated hasFont() case insensitively"
     );
     t.same(fontManager.getFonts(), [
         {
@@ -175,7 +175,7 @@ test("system font", (t) => {
     t.end();
 });
 
-test("system font validation", (t) => {
+test("system font validation", t => {
     const { fontManager } = new Runtime();
     fontManager.restrictFont("Restricted");
     t.throws(() => {
@@ -187,11 +187,11 @@ test("system font validation", (t) => {
     t.end();
 });
 
-test("clear", (t) => {
+test("clear", t => {
     const setCustomFontsCalls = [];
     const mockRenderer = {
         setLayerGroupOrdering: () => {},
-        setCustomFonts: (fonts) => {
+        setCustomFonts: fonts => {
             setCustomFontsCalls.push(fonts);
         },
     };
@@ -214,7 +214,7 @@ test("clear", (t) => {
     t.same(
         setCustomFontsCalls,
         [],
-        "clear() does not call setCustomFonts() if only system fonts",
+        "clear() does not call setCustomFonts() if only system fonts"
     );
 
     fontManager.addCustomFont(
@@ -225,8 +225,8 @@ test("clear", (t) => {
             "ttf",
             new Uint8Array([11, 12, 13]),
             null,
-            true,
-        ),
+            true
+        )
     );
     changed = false;
     setCustomFontsCalls.length = 0;
@@ -237,11 +237,11 @@ test("clear", (t) => {
     t.end();
 });
 
-test("custom fonts", (t) => {
+test("custom fonts", t => {
     const setCustomFontsCalls = [];
     const mockRenderer = {
         setLayerGroupOrdering: () => {},
-        setCustomFonts: (customFonts) => {
+        setCustomFonts: customFonts => {
             setCustomFontsCalls.push(customFonts);
         },
     };
@@ -264,8 +264,8 @@ test("custom fonts", (t) => {
             storage.DataFormat.TTF,
             new Uint8Array([1, 2, 3]),
             null,
-            true,
-        ),
+            true
+        )
     );
     t.ok(changed, "addCustomFont() emits change");
     t.ok(fontManager.hasFont("Arial"), "updated hasFont()");
@@ -305,7 +305,7 @@ test("custom fonts", (t) => {
         "woff2",
         new Uint8Array([4, 5, 6]),
         null,
-        true,
+        true
     );
     fontManager.addCustomFont("Comic Sans MS", "serif", asset);
     t.ok(changed, "addCustomFont() emits change");
@@ -359,7 +359,7 @@ test("custom fonts", (t) => {
     t.end();
 });
 
-test("custom font validation", (t) => {
+test("custom font validation", t => {
     const rt = new Runtime();
     rt.attachStorage(makeTestStorage());
     const { fontManager, storage } = rt;
@@ -373,15 +373,15 @@ test("custom font validation", (t) => {
                 storage.DataFormat.TTF,
                 new Uint8Array([1]),
                 null,
-                true,
-            ),
+                true
+            )
         );
     });
 
     t.end();
 });
 
-test("deleteFont", (t) => {
+test("deleteFont", t => {
     const rt = new Runtime();
     rt.attachStorage(makeTestStorage());
     const { fontManager, storage } = rt;
@@ -395,8 +395,8 @@ test("deleteFont", (t) => {
             storage.DataFormat.TTF,
             new Uint8Array([17, 18, 19]),
             null,
-            true,
-        ),
+            true
+        )
     );
 
     t.ok(fontManager.hasFont("Liberation Mono"), "has font initially");
@@ -410,7 +410,7 @@ test("deleteFont", (t) => {
     const setCustomFontsCalls = [];
     const mockRenderer = {
         setLayerGroupOrdering: () => {},
-        setCustomFonts: (customFonts) => {
+        setCustomFonts: customFonts => {
             setCustomFontsCalls.push(customFonts);
         },
     };
@@ -423,7 +423,7 @@ test("deleteFont", (t) => {
     t.same(
         setCustomFontsCalls,
         [{}],
-        "called setCustomFonts() after deleting non-system font",
+        "called setCustomFonts() after deleting non-system font"
     );
     t.same(
         fontManager.getFonts(),
@@ -436,7 +436,7 @@ test("deleteFont", (t) => {
                 format: null,
             },
         ],
-        "updated getFonts() after deleting",
+        "updated getFonts() after deleting"
     );
 
     changed = false;
@@ -445,14 +445,14 @@ test("deleteFont", (t) => {
     t.same(
         setCustomFontsCalls,
         [{}],
-        "did not call setCustomFonts() again after deleting system font",
+        "did not call setCustomFonts() again after deleting system font"
     );
     t.same(fontManager.getFonts(), [], "updated getFonts() after deleting");
 
     t.end();
 });
 
-test("fonts are serialized by VM", (t) => {
+test("fonts are serialized by VM", t => {
     const vm = new VirtualMachine();
     vm.attachStorage(makeTestStorage());
     const { storage, fontManager } = vm.runtime;
@@ -463,7 +463,7 @@ test("fonts are serialized by VM", (t) => {
         storage.DataFormat.TTF,
         new Uint8Array([10, 11, 12]),
         null,
-        true,
+        true
     );
     fontManager.addCustomFont("Noto Color Emoji", "emoji", fontAsset);
 
@@ -479,14 +479,14 @@ test("fonts are serialized by VM", (t) => {
                 fileContent: new Uint8Array([10, 11, 12]),
             },
         ],
-        "font is in vm.serializeAssets()",
+        "font is in vm.serializeAssets()"
     );
 
     const notZippedProject = vm.saveProjectSb3DontZip();
     t.equal(
         notZippedProject["94263e4d553bcec128704e354b659526.ttf"],
         fontAsset.data,
-        "font is in saveProjectSb3DontZip()",
+        "font is in saveProjectSb3DontZip()"
     );
 
     const projectJSON = JSON.parse(vm.toJSON());
@@ -505,20 +505,20 @@ test("fonts are serialized by VM", (t) => {
                 md5ext: "94263e4d553bcec128704e354b659526.ttf",
             },
         ],
-        "font is in vm.toJSON()",
+        "font is in vm.toJSON()"
     );
 
     t.end();
 });
 
-test("does not serialize fonts if there are none", (t) => {
+test("does not serialize fonts if there are none", t => {
     const vm = new VirtualMachine();
     const json = JSON.parse(vm.toJSON());
     t.not("customFonts" in json);
     t.end();
 });
 
-test("serialization and deserialization roundtrip - project", (t) => {
+test("serialization and deserialization roundtrip - project", t => {
     const originalVM = new VirtualMachine();
     originalVM.attachStorage(makeTestStorage());
     const { storage, fontManager } = originalVM.runtime;
@@ -531,11 +531,11 @@ test("serialization and deserialization roundtrip - project", (t) => {
             storage.DataFormat.TTF,
             new Uint8Array([20, 21, 22, 23, 24]),
             null,
-            true,
+            true
         );
         fontManager.addCustomFont("Inter", "sans-serif", fontAsset);
 
-        originalVM.saveProjectSb3("arraybuffer").then((projectSb3) => {
+        originalVM.saveProjectSb3("arraybuffer").then(projectSb3 => {
             const newVM = new VirtualMachine();
             newVM.attachStorage(makeTestStorage());
 
@@ -568,7 +568,7 @@ test("serialization and deserialization roundtrip - project", (t) => {
                             format: "ttf",
                         },
                     ],
-                    "preserved in getFonts()",
+                    "preserved in getFonts()"
                 );
                 t.same(
                     newFontManager.serializeJSON(),
@@ -585,14 +585,14 @@ test("serialization and deserialization roundtrip - project", (t) => {
                             md5ext: "316f84429ec778137b2f5c6f893c7e41.ttf",
                         },
                     ],
-                    "preserved in serializeJSON()",
+                    "preserved in serializeJSON()"
                 );
                 const assets = newFontManager.serializeAssets();
                 t.equal(assets.length, 1);
                 t.same(
                     assets[0].data,
                     new Uint8Array([20, 21, 22, 23, 24]),
-                    "preserved in serializeAssets()",
+                    "preserved in serializeAssets()"
                 );
 
                 t.end();
@@ -601,7 +601,7 @@ test("serialization and deserialization roundtrip - project", (t) => {
     });
 });
 
-test("serialization and deserialization roundtrip - target", (t) => {
+test("serialization and deserialization roundtrip - target", t => {
     const originalVM = new VirtualMachine();
     originalVM.attachStorage(makeTestStorage());
     const { fontManager, storage } = originalVM.runtime;
@@ -615,7 +615,7 @@ test("serialization and deserialization roundtrip - target", (t) => {
         const noFontsJSON = JSON.parse(originalVM.toJSON(sprite.id));
         t.notOk(
             "customFonts" in noFontsJSON,
-            "does not serialize fonts in target if no fonts",
+            "does not serialize fonts in target if no fonts"
         );
 
         fontManager.addCustomFont(
@@ -626,8 +626,8 @@ test("serialization and deserialization roundtrip - target", (t) => {
                 storage.DataFormat.TTF,
                 new Uint8Array([97, 98, 99]),
                 null,
-                true,
-            ),
+                true
+            )
         );
         fontManager.addSystemFont("FreeSans", "sans-serif");
 
@@ -647,12 +647,12 @@ test("serialization and deserialization roundtrip - target", (t) => {
                     fallback: "sans-serif",
                 },
             ],
-            "serializes custom fonts to target",
+            "serializes custom fonts to target"
         );
 
         originalVM
             .exportSprite(sprite.id, "uint8array")
-            .then((exportedSprite) => {
+            .then(exportedSprite => {
                 const newVM = new VirtualMachine();
                 newVM.attachStorage(makeTestStorage());
                 const newFontManager = newVM.runtime.fontManager;
@@ -663,7 +663,7 @@ test("serialization and deserialization roundtrip - target", (t) => {
                         // The existing fonts should not be removed or overwritten
                         newFontManager.addSystemFont(
                             "Liberation Sans",
-                            "sans-serif",
+                            "sans-serif"
                         );
                         newFontManager.addSystemFont("FreeSans", "monospace");
 
@@ -701,7 +701,7 @@ test("serialization and deserialization roundtrip - target", (t) => {
                                         format: "ttf",
                                     },
                                 ],
-                                "imported fonts from sprite",
+                                "imported fonts from sprite"
                             );
 
                             t.end();
@@ -711,7 +711,7 @@ test("serialization and deserialization roundtrip - target", (t) => {
     });
 });
 
-test("deserializes ignores invalid fonts", (t) => {
+test("deserializes ignores invalid fonts", t => {
     const { fontManager } = new Runtime();
     fontManager
         .deserialize(
@@ -728,7 +728,7 @@ test("deserializes ignores invalid fonts", (t) => {
                 },
             ],
             null,
-            false,
+            false
         )
         .then(() => {
             t.equal(fontManager.getFonts().length, 1);
@@ -737,7 +737,7 @@ test("deserializes ignores invalid fonts", (t) => {
         });
 });
 
-test("restrict throws on invalid input", (t) => {
+test("restrict throws on invalid input", t => {
     const { fontManager } = new Runtime();
     t.throws(() => {
         fontManager.restrictFont("(#@*$");
@@ -745,7 +745,7 @@ test("restrict throws on invalid input", (t) => {
     t.end();
 });
 
-test("restrict removes existing fonts", (t) => {
+test("restrict removes existing fonts", t => {
     let setCustomFontsCalls = 0;
     const mockRenderer = {
         setLayerGroupOrdering: () => {},
@@ -773,8 +773,8 @@ test("restrict removes existing fonts", (t) => {
             "ttf",
             new Uint8Array([11, 12, 13]),
             null,
-            true,
-        ),
+            true
+        )
     );
     fontManager.addCustomFont(
         "Not Important Font",
@@ -784,8 +784,8 @@ test("restrict removes existing fonts", (t) => {
             "ttf",
             new Uint8Array([11, 12, 13]),
             null,
-            true,
-        ),
+            true
+        )
     );
 
     t.equal(changeEvents, 3, "sanity check");
@@ -795,50 +795,50 @@ test("restrict removes existing fonts", (t) => {
     t.equal(
         changeEvents,
         3,
-        "does not emit change when unused font restricted",
+        "does not emit change when unused font restricted"
     );
     t.equal(
         setCustomFontsCalls,
         2,
-        "does not emit change when unused font restricted",
+        "does not emit change when unused font restricted"
     );
 
     fontManager.restrictFont("System Font");
     t.equal(
         changeEvents,
         3,
-        "does not emit change when system font restricted",
+        "does not emit change when system font restricted"
     );
     t.equal(
         setCustomFontsCalls,
         2,
-        "does not emit change when system font restricted",
+        "does not emit change when system font restricted"
     );
 
     fontManager.restrictFont("important font");
     t.equal(changeEvents, 4, "emits change when custom font restricted");
     t.equal(setCustomFontsCalls, 3, "emits change when custom font restricted");
     t.same(
-        fontManager.getFonts().map((i) => i.name),
-        ["System Font", "Not Important Font"],
+        fontManager.getFonts().map(i => i.name),
+        ["System Font", "Not Important Font"]
     );
 
     fontManager.restrictFont("Important Font");
     t.equal(
         changeEvents,
         4,
-        "does not emit change when restricted font restricted again",
+        "does not emit change when restricted font restricted again"
     );
     t.equal(
         setCustomFontsCalls,
         3,
-        "does not emit change when restricted font restricted again",
+        "does not emit change when restricted font restricted again"
     );
 
     t.end();
 });
 
-test("overriding existing fonts", (t) => {
+test("overriding existing fonts", t => {
     let setCustomFontsCalls = 0;
     const mockRenderer = {
         setLayerGroupOrdering: () => {},
@@ -862,39 +862,39 @@ test("overriding existing fonts", (t) => {
         "ttf",
         new Uint8Array([11, 12, 13]),
         null,
-        true,
+        true
     );
 
     fontManager.addCustomFont("TestFont", "sans-serif", asset);
     t.equal(changeEvents, 1);
     t.equal(setCustomFontsCalls, 1);
     t.same(
-        fontManager.getFonts().map((i) => i.name),
-        ["TestFont"],
+        fontManager.getFonts().map(i => i.name),
+        ["TestFont"]
     );
 
     fontManager.addSystemFont("TestFonT", "sans-serif");
     t.equal(changeEvents, 2);
     t.equal(setCustomFontsCalls, 2);
     t.same(
-        fontManager.getFonts().map((i) => i.name),
-        ["TestFonT"],
+        fontManager.getFonts().map(i => i.name),
+        ["TestFonT"]
     );
 
     fontManager.addSystemFont("TestFONT", "sans-serif");
     t.equal(changeEvents, 3);
     t.equal(setCustomFontsCalls, 2);
     t.same(
-        fontManager.getFonts().map((i) => i.name),
-        ["TestFONT"],
+        fontManager.getFonts().map(i => i.name),
+        ["TestFONT"]
     );
 
     fontManager.addCustomFont("TESTFONT", "sans-serif", asset);
     t.equal(changeEvents, 4);
     t.equal(setCustomFontsCalls, 3);
     t.same(
-        fontManager.getFonts().map((i) => i.name),
-        ["TESTFONT"],
+        fontManager.getFonts().map(i => i.name),
+        ["TESTFONT"]
     );
 
     t.end();

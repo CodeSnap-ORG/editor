@@ -24,7 +24,7 @@ const messages = defineMessages({
     },
 });
 
-const toLibraryItem = (extension) => {
+const toLibraryItem = extension => {
     if (typeof extension === "object") {
         return {
             rawURL: extension.iconURL || extensionIcon,
@@ -45,13 +45,13 @@ let cachedGallery = null;
 
 const fetchLibrary = async () => {
     const res = await fetch(
-        "https://ampmod.codeberg.page/extensions/generated-metadata/extensions-v0.json",
+        "https://ampmod.codeberg.page/extensions/generated-metadata/extensions-v0.json"
     );
     if (!res.ok) {
         throw new Error(`HTTP status ${res.status}`);
     }
     const data = await res.json();
-    return data.extensions.map((extension) => ({
+    return data.extensions.map(extension => ({
         name: extension.name,
         nameTranslations: extension.nameTranslations || {},
         description:
@@ -68,7 +68,7 @@ const fetchLibrary = async () => {
         ],
         deprecated: extension.deprecated,
         credits: [...(extension.original || []), ...(extension.by || [])].map(
-            (credit) => {
+            credit => {
                 if (credit.link) {
                     return (
                         <a
@@ -82,13 +82,13 @@ const fetchLibrary = async () => {
                     );
                 }
                 return credit.name;
-            },
+            }
         ),
         docsURI: extension.docs
             ? `https://ampmod.codeberg.page/extensions/${extension.slug}`
             : null,
         samples: extension.samples
-            ? extension.samples.map((sample) => ({
+            ? extension.samples.map(sample => ({
                   href: `${process.env.ROOT}editor.html?project_url=https://ampmod.codeberg.page/extensions/samples/${encodeURIComponent(sample)}`,
                   text: sample,
               }))
@@ -120,7 +120,7 @@ const parseExtLocalStorage = async () => {
     }
 
     return data.extensions
-        .map((extension) => {
+        .map(extension => {
             if (extension.uri) {
                 return {
                     extensionId: `local_${extension.id}`,
@@ -167,14 +167,14 @@ class ExtensionLibrary extends React.PureComponent {
             }, 750);
 
             fetchLibrary()
-                .then((gallery) => {
+                .then(gallery => {
                     cachedGallery = gallery;
                     this.setState({
                         gallery,
                     });
                     clearTimeout(timeout);
                 })
-                .catch((error) => {
+                .catch(error => {
                     log.error(error);
                     this.setState({
                         galleryError: error,
@@ -185,10 +185,10 @@ class ExtensionLibrary extends React.PureComponent {
 
         // Load saved custom extensions
         parseExtLocalStorage()
-            .then((savedCustomExtensions) => {
+            .then(savedCustomExtensions => {
                 this.setState({ savedCustomExtensions });
             })
-            .catch((e) => {
+            .catch(e => {
                 console.warn("Failed to parse saved custom extensions", e);
             });
     }
@@ -226,7 +226,7 @@ class ExtensionLibrary extends React.PureComponent {
                     .then(() => {
                         this.props.onCategorySelected(extensionId);
                     })
-                    .catch((err) => {
+                    .catch(err => {
                         log.error(err);
                         // eslint-disable-next-line no-alert
                         alert(err);
@@ -241,7 +241,7 @@ class ExtensionLibrary extends React.PureComponent {
         // Add saved custom extensions from state
         if (this.state.savedCustomExtensions.length > 0) {
             library.push(
-                ...this.state.savedCustomExtensions.map(toLibraryItem),
+                ...this.state.savedCustomExtensions.map(toLibraryItem)
             );
             library.push("---");
         }
@@ -252,8 +252,8 @@ class ExtensionLibrary extends React.PureComponent {
             const locale = this.props.intl.locale;
             library.push(
                 ...this.state.gallery
-                    .map((i) => translateGalleryItem(i, locale))
-                    .map(toLibraryItem),
+                    .map(i => translateGalleryItem(i, locale))
+                    .map(toLibraryItem)
             );
         } else if (this.state.galleryError) {
             library.push(toLibraryItem(galleryError));

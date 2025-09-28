@@ -5,7 +5,7 @@ import { FormattedMessage } from "react-intl";
 import styles from "./description.css";
 import reactStringReplace from "react-string-replace";
 
-const decorate = (text) => {
+const decorate = text => {
     // https://github.com/LLK/scratch-www/blob/25232a06bcceeaddec8fcb24fb63a44d870cf1cf/src/lib/decorate-text.jsx
 
     // Make @mentions clickable

@@ -23,14 +23,14 @@ class AudioRecorder {
         try {
             navigator.mediaDevices
                 .getUserMedia({ audio: true })
-                .then((userMediaStream) => {
+                .then(userMediaStream => {
                     if (!this.disposed) {
                         this.started = true;
                         onStarted();
                         this.attachUserMediaStream(userMediaStream, onUpdate);
                     }
                 })
-                .catch((e) => {
+                .catch(e => {
                     if (!this.disposed) {
                         onError(e);
                     }
@@ -54,15 +54,13 @@ class AudioRecorder {
         this.scriptProcessorNode = this.audioContext.createScriptProcessor(
             this.bufferLength,
             1,
-            1,
+            1
         );
 
-        this.scriptProcessorNode.onaudioprocess = (processEvent) => {
+        this.scriptProcessorNode.onaudioprocess = processEvent => {
             if (this.recording && !this.disposed) {
                 this.buffers.push(
-                    new Float32Array(
-                        processEvent.inputBuffer.getChannelData(0),
-                    ),
+                    new Float32Array(processEvent.inputBuffer.getChannelData(0))
                 );
             }
         };
@@ -92,7 +90,7 @@ class AudioRecorder {
 
     stop() {
         const buffer = new Float32Array(
-            this.buffers.length * this.bufferLength,
+            this.buffers.length * this.bufferLength
         );
 
         let offset = 0;

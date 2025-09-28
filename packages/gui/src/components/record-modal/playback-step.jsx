@@ -40,7 +40,7 @@ const messages = defineMessages({
     },
 });
 
-const PlaybackStep = (props) => (
+const PlaybackStep = props => (
     <Box>
         <Box className={styles.visualizationContainer}>
             <Box className={styles.meterContainer}>

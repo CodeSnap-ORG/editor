@@ -28,11 +28,11 @@ class Scratch3SoundBlocks {
             this.runtime.on("PROJECT_STOP_ALL", this.stopAllSounds);
             this.runtime.on(
                 "PROJECT_STOP_ALL",
-                this._clearEffectsForAllTargets,
+                this._clearEffectsForAllTargets
             );
             this.runtime.on(
                 "STOP_FOR_TARGET",
-                this._stopWaitingSoundsForTarget,
+                this._stopWaitingSoundsForTarget
             );
             this.runtime.on("PROJECT_START", this._clearEffectsForAllTargets);
         }
@@ -134,12 +134,12 @@ class Scratch3SoundBlocks {
     _onTargetCreated(newTarget, sourceTarget) {
         if (sourceTarget) {
             const soundState = sourceTarget.getCustomState(
-                Scratch3SoundBlocks.STATE_KEY,
+                Scratch3SoundBlocks.STATE_KEY
             );
             if (soundState && newTarget) {
                 newTarget.setCustomState(
                     Scratch3SoundBlocks.STATE_KEY,
-                    Clone.simple(soundState),
+                    Clone.simple(soundState)
                 );
                 this._syncEffectsForTarget(newTarget);
             }
@@ -171,7 +171,7 @@ class Scratch3SoundBlocks {
         return {
             sound_volume: {
                 isSpriteSpecific: true,
-                getId: (targetId) => `${targetId}_volume`,
+                getId: targetId => `${targetId}_volume`,
             },
         };
     }
@@ -307,7 +307,7 @@ class Scratch3SoundBlocks {
         soundState.effects[effect] = MathUtil.clamp(
             soundState.effects[effect],
             min,
-            max,
+            max
         );
 
         this._syncEffectsForTarget(util.target);
@@ -338,7 +338,7 @@ class Scratch3SoundBlocks {
             if (
                 !Object.prototype.hasOwnProperty.call(
                     soundState.effects,
-                    effect,
+                    effect
                 )
             )
                 continue;

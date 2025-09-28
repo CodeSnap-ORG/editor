@@ -86,10 +86,10 @@ class Sprite {
         if (!costumeObject.name) {
             costumeObject.name = "";
         }
-        const usedNames = this.costumes_.map((costume) => costume.name);
+        const usedNames = this.costumes_.map(costume => costume.name);
         costumeObject.name = StringUtil.unusedName(
             costumeObject.name,
-            usedNames,
+            usedNames
         );
         this.costumes_.splice(index, 0, costumeObject);
     }
@@ -145,26 +145,26 @@ class Sprite {
         const newSprite = new Sprite(null, this.runtime);
         const blocksContainer = this.blocks._blocks;
         const originalBlocks = Object.keys(blocksContainer).map(
-            (key) => blocksContainer[key],
+            key => blocksContainer[key]
         );
         const copiedBlocks = JSON.parse(JSON.stringify(originalBlocks));
         newBlockIds(copiedBlocks);
-        copiedBlocks.forEach((block) => {
+        copiedBlocks.forEach(block => {
             newSprite.blocks.createBlock(block);
         });
 
-        const allNames = this.runtime.targets.map((t) => t.sprite.name);
+        const allNames = this.runtime.targets.map(t => t.sprite.name);
         newSprite.name = StringUtil.unusedName(this.name, allNames);
 
         const assetPromises = [];
 
-        newSprite.costumes = this.costumes_.map((costume) => {
+        newSprite.costumes = this.costumes_.map(costume => {
             const newCostume = Object.assign({}, costume);
             assetPromises.push(loadCostumeFromAsset(newCostume, this.runtime));
             return newCostume;
         });
 
-        newSprite.sounds = this.sounds.map((sound) => {
+        newSprite.sounds = this.sounds.map(sound => {
             const newSound = Object.assign({}, sound);
             const soundAsset = sound.asset;
             assetPromises.push(
@@ -172,8 +172,8 @@ class Sprite {
                     newSound,
                     soundAsset,
                     this.runtime,
-                    newSprite.soundBank,
-                ),
+                    newSprite.soundBank
+                )
             );
             return newSound;
         });

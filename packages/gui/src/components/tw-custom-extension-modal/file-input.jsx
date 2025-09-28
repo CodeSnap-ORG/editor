@@ -43,7 +43,7 @@ class FileInput extends React.Component {
                         id="tw.fileInput.selected"
                         values={{
                             names: Array.from(this.props.files)
-                                .map((i) => i.name)
+                                .map(i => i.name)
                                 .join(", "),
                         }}
                     />

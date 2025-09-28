@@ -24,14 +24,14 @@ const HTML_COMMENT_START = `<!${"-".repeat(2)}`;
 const HTML_COMMENT_END = `${"-".repeat(2)}>`;
 
 const regex = new RegExp(
-    `${HTML_COMMENT_START}rotationCenter:(-?[\\d\\.]+):(-?[\\d\\.]+)${HTML_COMMENT_END}$`,
+    `${HTML_COMMENT_START}rotationCenter:(-?[\\d\\.]+):(-?[\\d\\.]+)${HTML_COMMENT_END}$`
 );
 
 /**
  * @param {string} svgString SVG source
  * @returns {[number, number]|null} The detected rotation center of the SVG, if any.
  */
-const parseVectorMetadata = (svgString) => {
+const parseVectorMetadata = svgString => {
     // TODO: see if this is slow on large strings
     const match = svgString.match(regex);
     if (!match) {
@@ -51,7 +51,7 @@ const parseVectorMetadata = (svgString) => {
  * @param {Costume} costume scratch-vm costume object
  * @returns {Uint8Array} Binary data to export
  */
-const exportCostume = (costume) => {
+const exportCostume = costume => {
     /** @type {Uint8Array} */
     const originalData = costume.asset.data;
 

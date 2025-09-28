@@ -9,12 +9,12 @@ const Variable = require("../../src/engine/variable");
 const projectUri = path.resolve(__dirname, "../fixtures/monitors.sb3");
 const project = readFileToBuffer(projectUri);
 
-test("importing sb3 project with monitors", (t) => {
+test("importing sb3 project with monitors", t => {
     const vm = new VirtualMachine();
     vm.attachStorage(makeTestStorage());
 
     // Evaluate playground data and exit
-    vm.on("playgroundData", (e) => {
+    vm.on("playgroundData", e => {
         const threads = JSON.parse(e.threads);
         // All monitors should create threads that finish during the step and
         // are revoved from runtime.threads.
@@ -24,7 +24,7 @@ test("importing sb3 project with monitors", (t) => {
         // we don't care whether the last step ran other threads or not
         const lastStepUpdatedMonitorThreads =
             vm.runtime._lastStepDoneThreads.filter(
-                (thread) => thread.updateMonitor,
+                thread => thread.updateMonitor
             );
         t.equal(lastStepUpdatedMonitorThreads.length, 17);
 
@@ -38,7 +38,7 @@ test("importing sb3 project with monitors", (t) => {
 
         // Global variable named "my variable" exists
         let variableId = Object.keys(stage.variables).filter(
-            (k) => stage.variables[k].name === "my variable",
+            k => stage.variables[k].name === "my variable"
         )[0];
         let monitorRecord = vm.runtime._monitorState.get(variableId);
         let monitorBlock = vm.runtime.monitorBlocks.getBlock(variableId);
@@ -64,12 +64,12 @@ test("importing sb3 project with monitors", (t) => {
         t.equal(monitorBlock.fields.VARIABLE.id, variableId);
         t.equal(
             monitorBlock.fields.VARIABLE.variableType,
-            Variable.SCALAR_TYPE,
+            Variable.SCALAR_TYPE
         );
 
         // There is a global variable named 'secret_slide' which has a hidden monitor
         variableId = Object.keys(stage.variables).filter(
-            (k) => stage.variables[k].name === "secret_slide",
+            k => stage.variables[k].name === "secret_slide"
         )[0];
         monitorRecord = vm.runtime._monitorState.get(variableId);
         monitorBlock = vm.runtime.monitorBlocks.getBlock(variableId);
@@ -86,12 +86,12 @@ test("importing sb3 project with monitors", (t) => {
         t.equal(monitorBlock.fields.VARIABLE.id, variableId);
         t.equal(
             monitorBlock.fields.VARIABLE.variableType,
-            Variable.SCALAR_TYPE,
+            Variable.SCALAR_TYPE
         );
 
         // Shirt sprite has a local list named "fashion"
         variableId = Object.keys(shirtSprite.variables).filter(
-            (k) => shirtSprite.variables[k].name === "fashion",
+            k => shirtSprite.variables[k].name === "fashion"
         )[0];
         monitorRecord = vm.runtime._monitorState.get(variableId);
         monitorBlock = vm.runtime.monitorBlocks.getBlock(variableId);
@@ -110,7 +110,7 @@ test("importing sb3 project with monitors", (t) => {
 
         // Shirt sprite has a local variable named "tee"
         variableId = Object.keys(shirtSprite.variables).filter(
-            (k) => shirtSprite.variables[k].name === "tee",
+            k => shirtSprite.variables[k].name === "tee"
         )[0];
         monitorRecord = vm.runtime._monitorState.get(variableId);
         monitorBlock = vm.runtime.monitorBlocks.getBlock(variableId);
@@ -127,12 +127,12 @@ test("importing sb3 project with monitors", (t) => {
         t.equal(monitorBlock.fields.VARIABLE.id, variableId);
         t.equal(
             monitorBlock.fields.VARIABLE.variableType,
-            Variable.SCALAR_TYPE,
+            Variable.SCALAR_TYPE
         );
 
         // Heart sprite has a local list named "hearty"
         variableId = Object.keys(heartSprite.variables).filter(
-            (k) => heartSprite.variables[k].name === "hearty",
+            k => heartSprite.variables[k].name === "hearty"
         )[0];
         monitorRecord = vm.runtime._monitorState.get(variableId);
         monitorBlock = vm.runtime.monitorBlocks.getBlock(variableId);
@@ -147,7 +147,7 @@ test("importing sb3 project with monitors", (t) => {
         t.equal(monitorBlock.fields.VARIABLE.id, variableId);
         t.equal(
             monitorBlock.fields.VARIABLE.variableType,
-            Variable.SCALAR_TYPE,
+            Variable.SCALAR_TYPE
         );
 
         // Backdrop name monitor is visible, not sprite specific

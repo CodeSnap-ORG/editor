@@ -5,7 +5,7 @@ export default () =>
         const fileInput = document.createElement("input");
         fileInput.setAttribute("type", "file");
         fileInput.setAttribute("accept", ".csv, .tsv, .txt"); // parser auto-detects delimiter
-        fileInput.onchange = (e) => {
+        fileInput.onchange = e => {
             const file = e.target.files[0];
             const fr = new FileReader();
             fr.onload = () => {
@@ -13,13 +13,13 @@ export default () =>
                 const text = fr.result;
                 Papa.parse(text, {
                     header: false,
-                    complete: (results) => {
+                    complete: results => {
                         resolve({
                             rows: results.data,
                             text,
                         });
                     },
-                    error: (err) => {
+                    error: err => {
                         reject(err);
                     },
                 });

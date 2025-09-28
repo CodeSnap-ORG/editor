@@ -6,7 +6,7 @@ import {
 } from "react-intl";
 import PropTypes from "prop-types";
 import React from "react";
-import { APP_NAME } from "../../lib/brand.js";
+import { APP_NAME } from "@ampmod/branding";
 import Modal from "../../containers/modal.jsx";
 import styles from "./unknown-platform-modal.css";
 
@@ -19,7 +19,7 @@ const messages = defineMessages({
     },
 });
 
-const platformToString = (platform) => {
+const platformToString = platform => {
     if (!platform) {
         return "(?)";
     }
@@ -33,7 +33,7 @@ const platformToString = (platform) => {
     return "(?)";
 };
 
-const UnknownPlatformModal = (props) => (
+const UnknownPlatformModal = props => (
     <Modal
         className={styles.modalContent}
         onRequestClose={props.onClose}

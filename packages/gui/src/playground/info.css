@@ -16,7 +16,6 @@ body {
     padding: 0;
     background: $page-background;
     color: $page-foreground;
-    margin-top: $menu-bar-height;
 }
 
 a {
@@ -27,15 +26,17 @@ a {
 .wrap {
     max-width: 900px;
     margin: auto;
-    margin-bottom: 30px;
 }
 
 .header-container {
     color: white;
     background-color: $motion-tertiary;
-    padding: 10px 0;
+    padding: 14px 0;
     text-align: center;
-    margin-bottom: 30px;
+}
+
+.header-container-alt-colour {
+    background-color: $looks-secondary;
 }
 
 .users {
@@ -59,4 +60,8 @@ a {
 }
 .user:link:hover {
     background: $ui-black-transparent;
+}
+
+.spacing {
+    margin-bottom: 12px;
 }

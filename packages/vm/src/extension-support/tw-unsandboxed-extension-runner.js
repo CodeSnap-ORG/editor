@@ -1,9 +1,9 @@
 const ScratchCommon = require("./tw-extension-api-common");
-const AmpModApi = require("./ampmod-api");
 const createScratchX = require("./tw-scratchx-compatibility-layer");
 const AsyncLimiter = require("../util/async-limiter");
 const createTranslate = require("./tw-l10n");
 const staticFetch = require("../util/tw-static-fetch");
+const AmpModAPI = require("./ampmod-api");
 
 /* eslint-disable require-await */
 
@@ -12,7 +12,7 @@ const staticFetch = require("../util/tw-static-fetch");
  * @param {string} url
  * @returns {URL|null}
  */
-const parseURL = (url) => {
+const parseURL = url => {
     try {
         return new URL(url, location.href);
     } catch (e) {
@@ -25,10 +25,10 @@ const parseURL = (url) => {
  * @param {VirtualMachine} vm
  * @returns {Promise<object[]>} Resolves with a list of extension objects when Scratch.extensions.register is called.
  */
-const setupUnsandboxedExtensionAPI = (vm) =>
-    new Promise((resolve) => {
+const setupUnsandboxedExtensionAPI = vm =>
+    new Promise(resolve => {
         const extensionObjects = [];
-        const register = (extensionObject) => {
+        const register = extensionObject => {
             extensionObjects.push(extensionObject);
             resolve(extensionObjects);
         };
@@ -42,7 +42,10 @@ const setupUnsandboxedExtensionAPI = (vm) =>
         Scratch.vm = vm;
         Scratch.renderer = vm.runtime.renderer;
 
-        Scratch.canFetch = async (url) => {
+        // Same for amp
+        const amp = Object.assign({}, global.amp || {}, AmpModAPI);
+
+        Scratch.canFetch = async url => {
             const parsed = parseURL(url);
             if (!parsed) {
                 return false;
@@ -54,7 +57,7 @@ const setupUnsandboxedExtensionAPI = (vm) =>
             return vm.securityManager.canFetch(parsed.href);
         };
 
-        Scratch.canOpenWindow = async (url) => {
+        Scratch.canOpenWindow = async url => {
             const parsed = parseURL(url);
             if (!parsed) {
                 return false;
@@ -67,7 +70,7 @@ const setupUnsandboxedExtensionAPI = (vm) =>
             return vm.securityManager.canOpenWindow(parsed.href);
         };
 
-        Scratch.canRedirect = async (url) => {
+        Scratch.canRedirect = async url => {
             const parsed = parseURL(url);
             if (!parsed) {
                 return false;
@@ -93,7 +96,7 @@ const setupUnsandboxedExtensionAPI = (vm) =>
 
         Scratch.canGeolocate = async () => vm.securityManager.canGeolocate();
 
-        Scratch.canEmbed = async (url) => {
+        Scratch.canEmbed = async url => {
             const parsed = parseURL(url);
             if (!parsed) {
                 return false;
@@ -138,7 +141,7 @@ const setupUnsandboxedExtensionAPI = (vm) =>
             return window.open(url, "_blank", features);
         };
 
-        Scratch.redirect = async (url) => {
+        Scratch.redirect = async url => {
             if (!(await Scratch.canRedirect(url))) {
                 throw new Error(`Permission to redirect to ${url} rejected.`);
             }
@@ -161,10 +164,10 @@ const setupUnsandboxedExtensionAPI = (vm) =>
 
         global.Scratch = Scratch;
         global.ScratchExtensions = createScratchX(Scratch);
-        global.amp = AmpModApi;
+        global.amp = amp;
 
         vm.emit("CREATE_UNSANDBOXED_EXTENSION_API", Scratch);
-        vm.emit("CREATE_UNSANDBOXED_EXTENSION_API", AmpModApi);
+        vm.emit("CREATE_UNSANDBOXED_EXTENSION_API", amp);
     });
 
 /**
@@ -192,13 +195,13 @@ const loadUnsandboxedExtension = (extensionURL, vm) =>
         script.onerror = () => {
             reject(
                 new Error(
-                    `Error in unsandboxed script ${extensionURL}. Check the console for more information.`,
-                ),
+                    `Error in unsandboxed script ${extensionURL}. Check the console for more information.`
+                )
             );
         };
         script.src = extensionURL;
         document.body.appendChild(script);
-    }).then((objects) => {
+    }).then(objects => {
         teardownUnsandboxedExtensionAPI();
         return objects;
     });

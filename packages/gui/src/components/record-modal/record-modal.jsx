@@ -15,7 +15,7 @@ const messages = defineMessages({
     },
 });
 
-const RecordModal = (props) => (
+const RecordModal = props => (
     <Modal
         className={styles.modalContent}
         contentLabel={props.intl.formatMessage(messages.title)}

@@ -23,60 +23,60 @@
  *     Blockly's editor.
  * @author fraser@google.com (Neil Fraser)
  */
-'use strict';
+"use strict";
 
-goog.provide('Blockly.Events.Abstract');
+goog.provide("Blockly.Events.Abstract");
 
-goog.require('Blockly.Events');
-goog.require('goog.array');
-goog.require('goog.math.Coordinate');
+goog.require("Blockly.Events");
+goog.require("goog.array");
+goog.require("goog.math.Coordinate");
 
 /**
  * Abstract class for an event.
  * @constructor
  */
-Blockly.Events.Abstract = function() {
-  /**
-   * The workspace identifier for this event.
-   * @type {string|undefined}
-   */
-  this.workspaceId = undefined;
+Blockly.Events.Abstract = function () {
+    /**
+     * The workspace identifier for this event.
+     * @type {string|undefined}
+     */
+    this.workspaceId = undefined;
 
-  /**
-   * The event group id for the group this event belongs to. Groups define
-   * events that should be treated as an single action from the user's
-   * perspective, and should be undone together.
-   * @type {string}
-   */
-  this.group = Blockly.Events.group_;
+    /**
+     * The event group id for the group this event belongs to. Groups define
+     * events that should be treated as an single action from the user's
+     * perspective, and should be undone together.
+     * @type {string}
+     */
+    this.group = Blockly.Events.group_;
 
-  /**
-   * Sets whether the event should be added to the undo stack.
-   * @type {boolean}
-   */
-  this.recordUndo = Blockly.Events.recordUndo;
+    /**
+     * Sets whether the event should be added to the undo stack.
+     * @type {boolean}
+     */
+    this.recordUndo = Blockly.Events.recordUndo;
 };
 
 /**
  * Encode the event as JSON.
  * @return {!Object} JSON representation.
  */
-Blockly.Events.Abstract.prototype.toJson = function() {
-  var json = {
-    'type': this.type
-  };
-  if (this.group) {
-    json['group'] = this.group;
-  }
-  return json;
+Blockly.Events.Abstract.prototype.toJson = function () {
+    var json = {
+        type: this.type,
+    };
+    if (this.group) {
+        json["group"] = this.group;
+    }
+    return json;
 };
 
 /**
  * Decode the JSON event.
  * @param {!Object} json JSON representation.
  */
-Blockly.Events.Abstract.prototype.fromJson = function(json) {
-  this.group = json['group'];
+Blockly.Events.Abstract.prototype.fromJson = function (json) {
+    this.group = json["group"];
 };
 
 /**
@@ -85,16 +85,16 @@ Blockly.Events.Abstract.prototype.fromJson = function(json) {
  * indicate that they do not change state.
  * @return {boolean} False if something changed.
  */
-Blockly.Events.Abstract.prototype.isNull = function() {
-  return false;
+Blockly.Events.Abstract.prototype.isNull = function () {
+    return false;
 };
 
 /**
  * Run an event.
  * @param {boolean} _forward True if run forward, false if run backward (undo).
  */
-Blockly.Events.Abstract.prototype.run = function(_forward) {
-  // Defined by subclasses.
+Blockly.Events.Abstract.prototype.run = function (_forward) {
+    // Defined by subclasses.
 };
 
 /**
@@ -103,11 +103,13 @@ Blockly.Events.Abstract.prototype.run = function(_forward) {
  * @throws {Error} if workspace is null.
  * @protected
  */
-Blockly.Events.Abstract.prototype.getEventWorkspace_ = function() {
-  var workspace = Blockly.Workspace.getById(this.workspaceId);
-  if (!workspace) {
-    throw Error('Workspace is null. Event must have been generated from real' +
-      ' Blockly events.');
-  }
-  return workspace;
+Blockly.Events.Abstract.prototype.getEventWorkspace_ = function () {
+    var workspace = Blockly.Workspace.getById(this.workspaceId);
+    if (!workspace) {
+        throw Error(
+            "Workspace is null. Event must have been generated from real" +
+                " Blockly events."
+        );
+    }
+    return workspace;
 };

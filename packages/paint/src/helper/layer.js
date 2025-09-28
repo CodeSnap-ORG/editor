@@ -214,8 +214,8 @@ const _makeBackgroundPaper = function (width, height, opacity) {
         new paper.Point(0, 0),
         new paper.Point(
             ART_BOARD_WIDTH / CHECKERBOARD_SIZE,
-            ART_BOARD_HEIGHT / CHECKERBOARD_SIZE,
-        ),
+            ART_BOARD_HEIGHT / CHECKERBOARD_SIZE
+        )
     );
     vRect.fillColor = BACKGROUND_LIGHT;
     vRect.guide = true;
@@ -247,7 +247,7 @@ const _makeCrosshair = function (opacity, parent) {
 
     const vLine2 = new paper.Path.Line(
         new paper.Point(0, -7),
-        new paper.Point(0, 7),
+        new paper.Point(0, 7)
     );
     vLine2.strokeWidth = 6;
     vLine2.strokeColor = CROSSHAIR_OUTER_LIGHT;
@@ -255,7 +255,7 @@ const _makeCrosshair = function (opacity, parent) {
     crosshair.addChild(vLine2);
     const hLine2 = new paper.Path.Line(
         new paper.Point(-7, 0),
-        new paper.Point(7, 0),
+        new paper.Point(7, 0)
     );
     hLine2.strokeWidth = 6;
     hLine2.strokeColor = CROSSHAIR_OUTER_LIGHT;
@@ -268,7 +268,7 @@ const _makeCrosshair = function (opacity, parent) {
 
     const vLine = new paper.Path.Line(
         new paper.Point(0, -7),
-        new paper.Point(0, 7),
+        new paper.Point(0, 7)
     );
     vLine.strokeWidth = 2;
     vLine.strokeColor = CROSSHAIR_INNER_LIGHT;
@@ -276,7 +276,7 @@ const _makeCrosshair = function (opacity, parent) {
     crosshair.addChild(vLine);
     const hLine = new paper.Path.Line(
         new paper.Point(-7, 0),
-        new paper.Point(7, 0),
+        new paper.Point(7, 0)
     );
     hLine.strokeWidth = 2;
     hLine.strokeColor = CROSSHAIR_INNER_LIGHT;
@@ -339,7 +339,7 @@ const _makeBackgroundGuideLayer = function (format) {
     const vBackground = _makeBackgroundPaper(
         MAX_WORKSPACE_BOUNDS.width / CHECKERBOARD_SIZE,
         MAX_WORKSPACE_BOUNDS.height / CHECKERBOARD_SIZE + 1,
-        0.55,
+        0.55
     );
     vBackground.position = CENTER;
     vBackground.scaling = new paper.Point(CHECKERBOARD_SIZE, CHECKERBOARD_SIZE);
@@ -353,12 +353,12 @@ const _makeBackgroundGuideLayer = function (format) {
     const bitmapBackground = _makeBackgroundPaper(
         ART_BOARD_WIDTH / CHECKERBOARD_SIZE,
         ART_BOARD_HEIGHT / CHECKERBOARD_SIZE,
-        0.55,
+        0.55
     );
     bitmapBackground.position = CENTER;
     bitmapBackground.scaling = new paper.Point(
         CHECKERBOARD_SIZE,
-        CHECKERBOARD_SIZE,
+        CHECKERBOARD_SIZE
     );
     bitmapBackground.guide = true;
     bitmapBackground.locked = true;

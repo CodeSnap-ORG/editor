@@ -57,7 +57,7 @@ describe("themes", () => {
 
             const updated = injectExtensionBlockTheme(
                 blockInfoJson,
-                DARK_THEME,
+                DARK_THEME
             );
 
             expect(updated).toEqual({
@@ -86,7 +86,7 @@ describe("themes", () => {
 
             const updated = injectExtensionBlockTheme(
                 blockInfoJson,
-                DARK_THEME,
+                DARK_THEME
             );
 
             expect(updated).toEqual({
@@ -115,7 +115,7 @@ describe("themes", () => {
 
             const updated = injectExtensionBlockTheme(
                 blockInfoJson,
-                DEFAULT_THEME,
+                DEFAULT_THEME
             );
 
             expect(updated).toEqual({
@@ -140,18 +140,18 @@ describe("themes", () => {
             // Verify the mocked XMLSerializer.serializeToString is called with updated colors.
             expect(
                 serializeToString.mock.calls[0][0].documentElement.getAttribute(
-                    "colour",
-                ),
+                    "colour"
+                )
             ).toBe("#FFFFFF");
             expect(
                 serializeToString.mock.calls[0][0].documentElement.getAttribute(
-                    "secondaryColour",
-                ),
+                    "secondaryColour"
+                )
             ).toBe("#DDDDDD");
             expect(
                 serializeToString.mock.calls[0][0].documentElement.getAttribute(
-                    "iconURI",
-                ),
+                    "iconURI"
+                )
             ).toBe("darkPenIcon");
         });
     });
@@ -179,7 +179,7 @@ describe("themes", () => {
             persistTheme(HIGH_CONTRAST_THEME);
 
             expect(window.document.cookie).toEqual(
-                `scratchtheme=${HIGH_CONTRAST_THEME}`,
+                `scratchtheme=${HIGH_CONTRAST_THEME}`
             );
         });
 

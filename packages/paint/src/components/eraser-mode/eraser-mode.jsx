@@ -4,7 +4,7 @@ import ToolSelectComponent from "../tool-select-base/tool-select-base.jsx";
 import messages from "../../lib/messages.js";
 import eraserIcon from "./eraser.svg";
 
-const EraserModeComponent = (props) => (
+const EraserModeComponent = props => (
     <ToolSelectComponent
         imgDescriptor={messages.eraser}
         imgSrc={eraserIcon}

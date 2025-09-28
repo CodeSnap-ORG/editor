@@ -55,12 +55,12 @@ DeletionRestorer.propTypes = {
     restore: PropTypes.func,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     deletedItem: state.scratchGui.restoreDeletion.deletedItem,
     restore: state.scratchGui.restoreDeletion.restoreFun,
 });
-const mapDispatchToProps = (dispatch) => ({
-    dispatchUpdateRestore: (updatedState) => {
+const mapDispatchToProps = dispatch => ({
+    dispatchUpdateRestore: updatedState => {
         dispatch(setRestore(updatedState));
     },
 });

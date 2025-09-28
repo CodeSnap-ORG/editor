@@ -55,7 +55,7 @@ const activateCustomProcedures = (mutator, callback) => ({
  * @param {?Element} mutator The new mutator, or null if the callback should not be called.
  * @returns {object} An action object with type ACTIVATE_CUSTOM_PROCEDURES.
  */
-const deactivateCustomProcedures = (mutator) => ({
+const deactivateCustomProcedures = mutator => ({
     type: DEACTIVATE_CUSTOM_PROCEDURES,
     mutator: mutator,
 });

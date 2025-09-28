@@ -26,7 +26,7 @@ sanitizeSvg.sanitizeByteStream = function (rawData) {
 const HTML_COMMENT_START = `<!${"-".repeat(2)}`;
 const HTML_COMMENT_END = `${"-".repeat(2)}>`;
 const extraMetadataRegex = new RegExp(
-    `${HTML_COMMENT_START}rotationCenter:(-?[\\d\\.]+):(-?[\\d\\.]+)${HTML_COMMENT_END}$`,
+    `${HTML_COMMENT_START}rotationCenter:(-?[\\d\\.]+):(-?[\\d\\.]+)${HTML_COMMENT_END}$`
 );
 
 /**

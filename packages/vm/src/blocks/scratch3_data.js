@@ -38,7 +38,7 @@ class Scratch3DataBlocks {
     getVariable(args, util) {
         const variable = util.target.lookupOrCreateVariable(
             args.VARIABLE.id,
-            args.VARIABLE.name,
+            args.VARIABLE.name
         );
         return variable.value;
     }
@@ -46,7 +46,7 @@ class Scratch3DataBlocks {
     setVariableTo(args, util) {
         const variable = util.target.lookupOrCreateVariable(
             args.VARIABLE.id,
-            args.VARIABLE.name,
+            args.VARIABLE.name
         );
         variable.value = args.VALUE;
 
@@ -61,7 +61,7 @@ class Scratch3DataBlocks {
     changeVariableBy(args, util) {
         const variable = util.target.lookupOrCreateVariable(
             args.VARIABLE.id,
-            args.VARIABLE.name,
+            args.VARIABLE.name
         );
         const castedValue = Cast.toNumber(variable.value);
         const dValue = Cast.toNumber(args.VALUE);
@@ -85,7 +85,7 @@ class Scratch3DataBlocks {
                 element: "checkbox", // Mimic checkbox event from flyout.
                 value: visible,
             },
-            this.runtime,
+            this.runtime
         );
     }
 
@@ -108,7 +108,7 @@ class Scratch3DataBlocks {
     getListContents(args, util) {
         const list = util.target.lookupOrCreateList(
             args.LIST.id,
-            args.LIST.name,
+            args.LIST.name
         );
 
         // If block is running for monitors, return copy of list as an array if changed.
@@ -141,7 +141,7 @@ class Scratch3DataBlocks {
     addToList(args, util) {
         const list = util.target.lookupOrCreateList(
             args.LIST.id,
-            args.LIST.name,
+            args.LIST.name
         );
         list.value.push(args.ITEM);
         list._monitorUpToDate = false;
@@ -150,7 +150,7 @@ class Scratch3DataBlocks {
     deleteOfList(args, util) {
         const list = util.target.lookupOrCreateList(
             args.LIST.id,
-            args.LIST.name,
+            args.LIST.name
         );
         const index = Cast.toListIndex(args.INDEX, list.value.length, true);
         if (index === Cast.LIST_INVALID) {
@@ -166,7 +166,7 @@ class Scratch3DataBlocks {
     deleteAllOfList(args, util) {
         const list = util.target.lookupOrCreateList(
             args.LIST.id,
-            args.LIST.name,
+            args.LIST.name
         );
         list.value = [];
         return;
@@ -176,12 +176,12 @@ class Scratch3DataBlocks {
         const item = args.ITEM;
         const list = util.target.lookupOrCreateList(
             args.LIST.id,
-            args.LIST.name,
+            args.LIST.name
         );
         const index = Cast.toListIndex(
             args.INDEX,
             list.value.length + 1,
-            false,
+            false
         );
         if (index === Cast.LIST_INVALID) {
             return;
@@ -194,7 +194,7 @@ class Scratch3DataBlocks {
         const item = args.ITEM;
         const list = util.target.lookupOrCreateList(
             args.LIST.id,
-            args.LIST.name,
+            args.LIST.name
         );
         const index = Cast.toListIndex(args.INDEX, list.value.length, false);
         if (index === Cast.LIST_INVALID) {
@@ -207,7 +207,7 @@ class Scratch3DataBlocks {
     getItemOfList(args, util) {
         const list = util.target.lookupOrCreateList(
             args.LIST.id,
-            args.LIST.name,
+            args.LIST.name
         );
         const index = Cast.toListIndex(args.INDEX, list.value.length, false);
         if (index === Cast.LIST_INVALID) {
@@ -220,7 +220,7 @@ class Scratch3DataBlocks {
         const item = args.ITEM;
         const list = util.target.lookupOrCreateList(
             args.LIST.id,
-            args.LIST.name,
+            args.LIST.name
         );
 
         // Go through the list items one-by-one using Cast.compare. This is for
@@ -249,7 +249,7 @@ class Scratch3DataBlocks {
     lengthOfList(args, util) {
         const list = util.target.lookupOrCreateList(
             args.LIST.id,
-            args.LIST.name,
+            args.LIST.name
         );
         return list.value.length;
     }
@@ -258,7 +258,7 @@ class Scratch3DataBlocks {
         const item = args.ITEM;
         const list = util.target.lookupOrCreateList(
             args.LIST.id,
-            args.LIST.name,
+            args.LIST.name
         );
         if (list.value.indexOf(item) >= 0) {
             return true;

@@ -26,7 +26,7 @@ import downloadBlob from "../lib/download-blob.js";
 const SAVE_DELAY = 250;
 const MINIMUM_SAVE_TIME = 1000;
 
-const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 const messages = defineMessages({
     confirmLoad: {
@@ -118,20 +118,20 @@ class TWRestorePointManager extends React.Component {
     }
 
     handleClickCreate() {
-        this.createRestorePoint(RestorePointAPI.TYPE_MANUAL).catch((error) => {
+        this.createRestorePoint(RestorePointAPI.TYPE_MANUAL).catch(error => {
             this.handleModalError(error);
         });
     }
 
     handleClickDelete(id) {
         const projectTitle = this.state.restorePoints.find(
-            (i) => i.id === id,
+            i => i.id === id
         ).title;
         if (
             !confirm(
                 this.props.intl.formatMessage(messages.confirmDelete, {
                     projectTitle,
-                }),
+                })
             )
         ) {
             return;
@@ -144,7 +144,7 @@ class TWRestorePointManager extends React.Component {
             .then(() => {
                 this.refreshState();
             })
-            .catch((error) => {
+            .catch(error => {
                 this.handleModalError(error);
             });
     }
@@ -163,7 +163,7 @@ class TWRestorePointManager extends React.Component {
             .then(() => {
                 this.refreshState();
             })
-            .catch((error) => {
+            .catch(error => {
                 this.handleModalError(error);
             });
     }
@@ -187,29 +187,29 @@ class TWRestorePointManager extends React.Component {
             return;
         }
 
-        this.setState((oldState) => ({
+        this.setState(oldState => ({
             exportingRestorePoints: [...oldState.exportingRestorePoints, id],
         }));
 
         const removeFromExportingList = () => {
-            this.setState((oldState) => ({
+            this.setState(oldState => ({
                 exportingRestorePoints: oldState.exportingRestorePoints.filter(
-                    (i) => i !== id,
+                    i => i !== id
                 ),
             }));
         };
 
         RestorePointAPI.exportRestorePoint(id)
-            .then((result) => {
+            .then(result => {
                 downloadBlob(`${result.title}.apz`, result.blob);
                 removeFromExportingList();
             })
-            .catch((error) => {
+            .catch(error => {
                 log.error(error);
                 alert(
                     this.props.intl.formatMessage(messages.exportError, {
                         error,
-                    }),
+                    })
                 );
                 removeFromExportingList();
             });
@@ -231,22 +231,22 @@ class TWRestorePointManager extends React.Component {
             .then(() => {
                 this.props.onFinishLoadingRestorePoint(
                     true,
-                    this.props.loadingState,
+                    this.props.loadingState
                 );
                 setTimeout(() => {
                     this.props.vm.renderer.draw();
                 });
             })
-            .catch((error) => {
+            .catch(error => {
                 log.error(error);
                 alert(
                     this.props.intl.formatMessage(messages.loadError, {
                         error,
-                    }),
+                    })
                 );
                 this.props.onFinishLoadingRestorePoint(
                     false,
-                    this.props.loadingState,
+                    this.props.loadingState
                 );
             });
     }
@@ -263,7 +263,7 @@ class TWRestorePointManager extends React.Component {
                     this.cancelQueuedRestorePoint();
                     this.queueRestorePoint();
                 }
-            },
+            }
         );
     }
 
@@ -300,8 +300,8 @@ class TWRestorePointManager extends React.Component {
                     RestorePointAPI.createRestorePoint(
                         this.props.vm,
                         this.props.projectTitle,
-                        type,
-                    ),
+                        type
+                    )
                 )
                 .then(() => RestorePointAPI.removeExtraneousRestorePoints()),
 
@@ -315,7 +315,7 @@ class TWRestorePointManager extends React.Component {
                     this.refreshState();
                 }
             })
-            .catch((error) => {
+            .catch(error => {
                 log.error(error);
                 this.props.onErrorCreatingRestorePoint();
                 if (this.props.isModalVisible) {
@@ -331,14 +331,14 @@ class TWRestorePointManager extends React.Component {
             restorePoints: [],
         });
         RestorePointAPI.getAllRestorePoints()
-            .then((data) => {
+            .then(data => {
                 this.setState({
                     loading: false,
                     totalSize: data.totalSize,
                     restorePoints: data.restorePoints,
                 });
             })
-            .catch((error) => {
+            .catch(error => {
                 this.handleModalError(error);
             });
     }
@@ -400,26 +400,26 @@ TWRestorePointManager.propTypes = {
     }).isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     projectChanged: state.scratchGui.projectChanged,
     projectTitle: state.scratchGui.projectTitle,
     loadingState: state.scratchGui.projectState.loadingState,
     isShowingProject: getIsShowingProject(
-        state.scratchGui.projectState.loadingState,
+        state.scratchGui.projectState.loadingState
     ),
     isModalVisible: state.scratchGui.modals.restorePointModal,
     hasEverEnteredEditor: state.scratchGui.mode.hasEverEnteredEditor,
     vm: state.scratchGui.vm,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     onStartCreatingRestorePoint: () =>
         dispatch(showStandardAlert("twCreatingRestorePoint")),
     onFinishCreatingRestorePoint: () =>
         showAlertWithTimeout(dispatch, "twRestorePointSuccess"),
     onErrorCreatingRestorePoint: () =>
         showAlertWithTimeout(dispatch, "twRestorePointError"),
-    onStartLoadingRestorePoint: (loadingState) => {
+    onStartLoadingRestorePoint: loadingState => {
         dispatch(openLoadingProject());
         dispatch(requestProjectUpload(loadingState));
     },
@@ -432,5 +432,5 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default injectIntl(
-    connect(mapStateToProps, mapDispatchToProps)(TWRestorePointManager),
+    connect(mapStateToProps, mapDispatchToProps)(TWRestorePointManager)
 );

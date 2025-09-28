@@ -23,7 +23,7 @@ class OvalTool extends paper.Tool {
         setSelectedItems,
         clearSelectedItems,
         setCursor,
-        onUpdateImage,
+        onUpdateImage
     ) {
         super();
         this.setSelectedItems = setSelectedItems;
@@ -34,12 +34,12 @@ class OvalTool extends paper.Tool {
             setSelectedItems,
             clearSelectedItems,
             setCursor,
-            onUpdateImage,
+            onUpdateImage
         );
         const nudgeTool = new NudgeTool(
             Modes.OVAL,
             this.boundingBoxTool,
-            onUpdateImage,
+            onUpdateImage
         );
 
         // We have to set these functions instead of just declaring them because
@@ -63,7 +63,7 @@ class OvalTool extends paper.Tool {
             curves: true,
             fill: true,
             guide: false,
-            match: (hitResult) =>
+            match: hitResult =>
                 (hitResult.item.data &&
                     (hitResult.item.data.isScaleHandle ||
                         hitResult.item.data.isRotHandle)) ||
@@ -91,7 +91,7 @@ class OvalTool extends paper.Tool {
                 false /* clone */,
                 false /* multiselect */,
                 false /* doubleClicked */,
-                this.getHitOptions(),
+                this.getHitOptions()
             )
         ) {
             this.isBoundingBoxMode = true;
@@ -117,7 +117,7 @@ class OvalTool extends paper.Tool {
         const point = new paper.Point(event.point.x, event.point.y);
         const squareDimensions = getSquareDimensions(
             event.downPoint,
-            event.point,
+            event.point
         );
         if (event.modifiers.shift) {
             this.oval.size = squareDimensions.size.abs();
@@ -131,7 +131,7 @@ class OvalTool extends paper.Tool {
             this.oval.position = squareDimensions.position;
         } else {
             this.oval.position = downPoint.subtract(
-                this.oval.size.multiply(0.5),
+                this.oval.size.multiply(0.5)
             );
         }
 

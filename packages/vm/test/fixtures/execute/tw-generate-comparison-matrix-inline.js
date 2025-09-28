@@ -119,7 +119,7 @@ for (const i of VALUES) {
                     ${NEXT}
                 </block>
             </next>
-            `.replace(/ {4}/g, " "),
+            `.replace(/ {4}/g, " ")
             );
         }
     }
@@ -137,7 +137,7 @@ result = result.replace(
         </value>
     </block>
 </next>
-`,
+`
 );
 
 result = result.replace(NEXT, "");

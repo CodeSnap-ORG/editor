@@ -4,14 +4,14 @@ const Runtime = require("../../src/engine/runtime");
 const Sprite = require("../../src/sprites/sprite.js");
 const RenderedTarget = require("../../src/sprites/rendered-target.js");
 
-test("getPrimitives", (t) => {
+test("getPrimitives", t => {
     const rt = new Runtime();
     const motion = new Motion(rt);
     t.type(motion.getPrimitives(), "object");
     t.end();
 });
 
-test("Coordinates have limited precision", (t) => {
+test("Coordinates have limited precision", t => {
     const rt = new Runtime();
     const motion = new Motion(rt);
     const sprite = new Sprite(null, rt);

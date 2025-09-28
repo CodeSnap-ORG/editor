@@ -21,7 +21,7 @@ const defineDynamicBlock = (
     categoryInfo,
     staticBlockInfo,
     extendedOpcode,
-    theme,
+    theme
 ) => ({
     init: function () {
         const colors = injectExtensionBlockTheme(staticBlockInfo.json, theme);
@@ -94,7 +94,7 @@ const defineDynamicBlock = (
             this.setColour(
                 blockInfo.color1,
                 blockInfo.color2,
-                blockInfo.color3,
+                blockInfo.color3
             );
         }
 
@@ -120,7 +120,7 @@ const defineDynamicBlock = (
                         break;
                 }
                 return `%${++argCount}`;
-            },
+            }
         );
         this.interpolate_(scratchBlocksStyleText, args);
     },

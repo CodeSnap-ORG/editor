@@ -50,17 +50,17 @@ TWUnknownPlatformModal.propTypes = {
     callback: PropTypes.func,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     vm: state.scratchGui.vm,
     callback: state.scratchGui.tw.platformMismatchDetails.callback,
     platform: state.scratchGui.tw.platformMismatchDetails.platform,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     onClose: () => dispatch(closeUnknownPlatformModal()),
 });
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps,
+    mapDispatchToProps
 )(TWUnknownPlatformModal);

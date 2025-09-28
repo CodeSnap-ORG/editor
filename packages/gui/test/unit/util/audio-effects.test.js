@@ -33,37 +33,37 @@ describe("Audio Effects manager", () => {
             audioBuffer,
             "slower",
             0.25,
-            0.75,
+            0.75
         );
         expect(slowerEffect.adjustedTrimStartSeconds).toEqual(
-            slowerEffect.trimStartSeconds,
+            slowerEffect.trimStartSeconds
         );
         expect(slowerEffect.adjustedTrimEndSeconds).toBeGreaterThan(
-            slowerEffect.trimEndSeconds,
+            slowerEffect.trimEndSeconds
         );
 
         const fasterEffect = new AudioEffects(
             audioBuffer,
             "faster",
             0.25,
-            0.75,
+            0.75
         );
         expect(fasterEffect.adjustedTrimStartSeconds).toEqual(
-            fasterEffect.trimStartSeconds,
+            fasterEffect.trimStartSeconds
         );
         expect(fasterEffect.adjustedTrimEndSeconds).toBeLessThan(
-            fasterEffect.trimEndSeconds,
+            fasterEffect.trimEndSeconds
         );
 
         // Some effects do not change the length of the selection
         const fadeEffect = new AudioEffects(audioBuffer, "fade in", 0.25, 0.75);
         expect(fadeEffect.adjustedTrimStartSeconds).toEqual(
-            fadeEffect.trimStartSeconds,
+            fadeEffect.trimStartSeconds
         );
         // Should be within one millisecond (flooring can change the duration by one sample)
         expect(fadeEffect.adjustedTrimEndSeconds).toBeCloseTo(
             fadeEffect.trimEndSeconds,
-            3,
+            3
         );
     });
 
@@ -83,7 +83,7 @@ describe("Audio Effects manager", () => {
         // Reverse the entire sound
         const reverseAll = new AudioEffects(fakeBuffer, "reverse", 0, 1);
         expect(Array.from(reverseAll.buffer.getChannelData(0))).toEqual(
-            fakeSound.reverse(),
+            fakeSound.reverse()
         );
 
         // Reverse part of the sound
@@ -91,11 +91,11 @@ describe("Audio Effects manager", () => {
             fakeBuffer,
             "reverse",
             0.25,
-            0.75,
+            0.75
         );
         const selectionReversed = [1, 2, 6, 5, 4, 3, 7, 8];
         expect(Array.from(reverseSelection.buffer.getChannelData(0))).toEqual(
-            selectionReversed,
+            selectionReversed
         );
     });
 });

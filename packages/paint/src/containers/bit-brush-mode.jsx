@@ -98,12 +98,12 @@ BitBrushMode.propTypes = {
     onUpdateImage: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     bitBrushSize: state.scratchPaint.bitBrushSize,
     color: state.scratchPaint.color.fillColor.primary,
     isBitBrushModeActive: state.scratchPaint.mode === Modes.BIT_BRUSH,
 });
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     clearSelectedItems: () => {
         dispatch(clearSelectedItems());
     },
@@ -113,7 +113,7 @@ const mapDispatchToProps = (dispatch) => ({
     handleMouseDown: () => {
         dispatch(changeMode(Modes.BIT_BRUSH));
     },
-    onChangeFillColor: (fillColor) => {
+    onChangeFillColor: fillColor => {
         dispatch(changeFillColor(fillColor));
     },
 });

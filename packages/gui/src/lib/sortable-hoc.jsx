@@ -24,7 +24,7 @@ const SortableHOC = function (WrappedComponent) {
             if (this.props.dragInfo.dragging && !prevProps.dragInfo.dragging) {
                 // Drag just started, snapshot the sorted bounding boxes for sortables.
                 this.boxes = this.sortableRefs.map(
-                    (el) => el && el.getBoundingClientRect(),
+                    el => el && el.getBoundingClientRect()
                 );
                 this.boxes.sort((a, b) => {
                     // Sort top-to-bottom, left-to-right (in LTR) / right-to-left (in RTL).
@@ -34,7 +34,7 @@ const SortableHOC = function (WrappedComponent) {
                 });
                 if (!this.ref) {
                     throw new Error(
-                        "The containerRef must be assigned to the sortable area",
+                        "The containerRef must be assigned to the sortable area"
                     );
                 }
                 this.containerBox = this.ref.getBoundingClientRect();
@@ -45,7 +45,7 @@ const SortableHOC = function (WrappedComponent) {
                 const newIndex = this.getMouseOverIndex();
                 if (newIndex !== null) {
                     this.props.onDrop(
-                        Object.assign({}, this.props.dragInfo, { newIndex }),
+                        Object.assign({}, this.props.dragInfo, { newIndex })
                     );
                 }
             }
@@ -74,7 +74,7 @@ const SortableHOC = function (WrappedComponent) {
             let ordering = Array(this.props.items.length)
                 .fill(0)
                 .map((_, i) => i);
-            const isNumber = (v) => typeof v === "number" && !isNaN(v);
+            const isNumber = v => typeof v === "number" && !isNaN(v);
             if (isNumber(draggingIndex) && isNumber(newIndex)) {
                 ordering = ordering
                     .slice(0, draggingIndex)
@@ -100,7 +100,7 @@ const SortableHOC = function (WrappedComponent) {
                         mouseOverIndex = indexForPositionOnList(
                             this.props.dragInfo.currentOffset,
                             this.boxes,
-                            this.props.isRtl,
+                            this.props.isRtl
                         );
                     }
                 }
@@ -149,14 +149,14 @@ const SortableHOC = function (WrappedComponent) {
             PropTypes.shape({
                 url: PropTypes.string,
                 name: PropTypes.string.isRequired,
-            }),
+            })
         ),
         onClose: PropTypes.func,
         onDrop: PropTypes.func,
         isRtl: PropTypes.bool,
     };
 
-    const mapStateToProps = (state) => ({
+    const mapStateToProps = state => ({
         dragInfo: state.scratchGui.assetDrag,
         isRtl: state.locales.isRtl,
     });

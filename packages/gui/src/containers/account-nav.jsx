@@ -26,7 +26,7 @@ AccountNav.propTypes = {
     username: PropTypes.string,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     classroomId:
         state.session && state.session.session && state.session.session.user
             ? state.session.session.user.classroomId
@@ -56,5 +56,5 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = () => ({});
 
 export default injectIntl(
-    connect(mapStateToProps, mapDispatchToProps)(AccountNav),
+    connect(mapStateToProps, mapDispatchToProps)(AccountNav)
 );

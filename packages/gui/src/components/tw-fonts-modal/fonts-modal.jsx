@@ -21,7 +21,7 @@ const messages = defineMessages({
     },
 });
 
-const FontModal = (props) => (
+const FontModal = props => (
     <Modal
         className={styles.modalContent}
         onRequestClose={props.onClose}
@@ -38,7 +38,7 @@ const FontModal = (props) => (
                         <img
                             className={classNames(
                                 styles.openButtonImage,
-                                styles.systemImage,
+                                styles.systemImage
                             )}
                             draggable={false}
                         />
@@ -68,7 +68,7 @@ const FontModal = (props) => (
                         <img
                             className={classNames(
                                 styles.openButtonImage,
-                                styles.customImage,
+                                styles.customImage
                             )}
                             draggable={false}
                         />
@@ -88,7 +88,7 @@ const FontModal = (props) => (
                                     id="tw.fonts.custom2"
                                     values={{
                                         formats: Object.values(FONT_FORMATS)
-                                            .map((i) => `.${i}`)
+                                            .map(i => `.${i}`)
                                             .join(", "),
                                     }}
                                 />
@@ -159,7 +159,7 @@ FontModal.propTypes = {
             family: PropTypes.string.isRequired,
             data: PropTypes.instanceOf(Uint8Array),
             format: PropTypes.string,
-        }).isRequired,
+        }).isRequired
     ).isRequired,
     fontManager: PropTypes.shape({}),
     screen: PropTypes.oneOf(["", "system", "custom"]),

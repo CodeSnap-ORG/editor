@@ -19,7 +19,7 @@ const LoadScratchBlocksHOC = function (WrappedComponent) {
                             loaded: true,
                         });
                     })
-                    .catch((e) => {
+                    .catch(e => {
                         log.error(e);
                         this.setState({
                             error: e,

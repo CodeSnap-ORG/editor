@@ -8,13 +8,13 @@ const fixupSvgString = require("../src/fixup-svg-string");
 // by customizing the error callback to throw (defaults to logging)
 const domParser = new DOMParser({
     errorHandler: {
-        error: (e) => {
+        error: e => {
             throw new Error(e);
         },
     },
 });
 
-test("fixupSvgString should make parsing fixtures not throw", (t) => {
+test("fixupSvgString should make parsing fixtures not throw", t => {
     const filePath = path.resolve(__dirname, "./fixtures/hearts.svg");
     const svgString = fs.readFileSync(filePath).toString();
     const fixed = fixupSvgString(svgString);
@@ -27,10 +27,10 @@ test("fixupSvgString should make parsing fixtures not throw", (t) => {
     t.end();
 });
 
-test("fixupSvgString should correct namespace declarations bound to reserved namespace names", (t) => {
+test("fixupSvgString should correct namespace declarations bound to reserved namespace names", t => {
     const filePath = path.resolve(
         __dirname,
-        "./fixtures/reserved-namespace.svg",
+        "./fixtures/reserved-namespace.svg"
     );
     const svgString = fs.readFileSync(filePath).toString();
     const fixed = fixupSvgString(svgString);
@@ -43,21 +43,21 @@ test("fixupSvgString should correct namespace declarations bound to reserved nam
     t.end();
 });
 
-test("fixupSvgString shouldn't correct non-attributes", (t) => {
+test("fixupSvgString shouldn't correct non-attributes", t => {
     const dontFix = fixupSvgString(
-        '<text>xmlns:test="http://www/w3.org/XML/1998/namespace" is not an xmlns attribute</text>',
+        '<text>xmlns:test="http://www/w3.org/XML/1998/namespace" is not an xmlns attribute</text>'
     );
 
     t.notEqual(dontFix.indexOf("http://www/w3.org/XML/1998/namespace"), -1);
     t.end();
 });
 
-test("fixupSvgString should strip `svg:` prefix from tag names", (t) => {
+test("fixupSvgString should strip `svg:` prefix from tag names", t => {
     const filePath = path.resolve(__dirname, "./fixtures/svg-tag-prefixes.svg");
     const svgString = fs.readFileSync(filePath).toString();
     const fixed = fixupSvgString(svgString);
 
-    const checkPrefixes = (element) => {
+    const checkPrefixes = element => {
         t.notEqual(element.prefix, "svg");
         // JSDOM doesn't have element.children, only element.childNodes
         if (element.childNodes) {
@@ -81,7 +81,7 @@ test("fixupSvgString should strip `svg:` prefix from tag names", (t) => {
     t.end();
 });
 
-test("fixupSvgString should empty script tags", (t) => {
+test("fixupSvgString should empty script tags", t => {
     const filePath = path.resolve(__dirname, "./fixtures/script.svg");
     const svgString = fs.readFileSync(filePath).toString();
     const fixed = fixupSvgString(svgString);
@@ -92,7 +92,7 @@ test("fixupSvgString should empty script tags", (t) => {
     t.end();
 });
 
-test("fixupSvgString should empty script tags in onload", (t) => {
+test("fixupSvgString should empty script tags in onload", t => {
     const filePath = path.resolve(__dirname, "./fixtures/onload-script.svg");
     const svgString = fs.readFileSync(filePath).toString();
     const fixed = fixupSvgString(svgString);
@@ -101,7 +101,7 @@ test("fixupSvgString should empty script tags in onload", (t) => {
     t.end();
 });
 
-test("fixupSvgString strips contents of metadata", (t) => {
+test("fixupSvgString strips contents of metadata", t => {
     const filePath = path.resolve(__dirname, "./fixtures/metadata-body.svg");
     const svgString = fs.readFileSync(filePath).toString();
     const fixed = fixupSvgString(svgString);
@@ -112,7 +112,7 @@ test("fixupSvgString strips contents of metadata", (t) => {
     t.end();
 });
 
-test("fixupSvgString strips contents of metadata in onload", (t) => {
+test("fixupSvgString strips contents of metadata in onload", t => {
     const filePath = path.resolve(__dirname, "./fixtures/metadata-onload.svg");
     const svgString = fs.readFileSync(filePath).toString();
     const fixed = fixupSvgString(svgString);
@@ -121,7 +121,7 @@ test("fixupSvgString strips contents of metadata in onload", (t) => {
     t.end();
 });
 
-test("fixupSvgString should correct invalid mime type", (t) => {
+test("fixupSvgString should correct invalid mime type", t => {
     const filePath = path.resolve(__dirname, "./fixtures/invalid-cloud.svg");
     const svgString = fs.readFileSync(filePath, "utf8");
     const fixed = fixupSvgString(svgString);
@@ -135,9 +135,9 @@ test("fixupSvgString should correct invalid mime type", (t) => {
     t.end();
 });
 
-test("fixupSvgString shouldn't correct non-image tags", (t) => {
+test("fixupSvgString shouldn't correct non-image tags", t => {
     const dontFix = fixupSvgString(
-        "<text>data:img/png is not a mime type</text>",
+        "<text>data:img/png is not a mime type</text>"
     );
 
     t.notEqual(dontFix.indexOf("img/png"), -1);

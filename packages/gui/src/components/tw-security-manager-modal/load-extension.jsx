@@ -5,9 +5,9 @@ import styles from "./load-extension.css";
 import URL from "./url.jsx";
 import DataURL from "./data-url.jsx";
 import FancyCheckbox from "../tw-fancy-checkbox/checkbox.jsx";
-import { APP_NAME } from "../../lib/brand";
+import { APP_NAME } from "@ampmod/branding";
 
-const LoadExtensionModal = (props) => (
+const LoadExtensionModal = props => (
     <div>
         {props.url.startsWith("data:") ? (
             <React.Fragment>

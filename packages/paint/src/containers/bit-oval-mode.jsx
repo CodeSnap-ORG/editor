@@ -75,7 +75,7 @@ class BitOvalMode extends React.Component {
             this.props.setSelectedItems,
             this.props.clearSelectedItems,
             this.props.setCursor,
-            this.props.onUpdateImage,
+            this.props.onUpdateImage
         );
         this.tool.setColor(this.props.color);
         this.tool.setFilled(this.props.filled);
@@ -112,7 +112,7 @@ BitOvalMode.propTypes = {
     zoom: PropTypes.number.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     color: state.scratchPaint.color.fillColor,
     filled: state.scratchPaint.fillBitmapShapes,
     isOvalModeActive: state.scratchPaint.mode === Modes.BIT_OVAL,
@@ -120,22 +120,22 @@ const mapStateToProps = (state) => ({
     thickness: state.scratchPaint.bitBrushSize,
     zoom: state.scratchPaint.viewBounds.scaling.x,
 });
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     clearSelectedItems: () => {
         dispatch(clearSelectedItems());
     },
-    setCursor: (cursorString) => {
+    setCursor: cursorString => {
         dispatch(setCursor(cursorString));
     },
     setSelectedItems: () => {
         dispatch(
-            setSelectedItems(getSelectedLeafItems(), true /* bitmapMode */),
+            setSelectedItems(getSelectedLeafItems(), true /* bitmapMode */)
         );
     },
     handleMouseDown: () => {
         dispatch(changeMode(Modes.BIT_OVAL));
     },
-    onChangeFillColor: (fillColor) => {
+    onChangeFillColor: fillColor => {
         dispatch(changeFillColor(fillColor));
     },
 });

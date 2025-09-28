@@ -16,7 +16,7 @@ const translate = (id, english) => {
 const motion = function (isInitialSetup, isStage, targetId, colors) {
     const stageSelected = translate(
         "MOTION_STAGE_SELECTED",
-        "Stage selected: no motion blocks",
+        "Stage selected: no motion blocks"
     );
     // Note: the category's secondaryColour matches up with the blocks' tertiary color, both used for border color.
     return `
@@ -154,7 +154,7 @@ const motion = function (isInitialSetup, isStage, targetId, colors) {
 };
 
 const xmlEscape = function (unsafe) {
-    return unsafe.replace(/[<>&'"]/g, (c) => {
+    return unsafe.replace(/[<>&'"]/g, c => {
         switch (c) {
             case "<":
                 return "&lt;";
@@ -176,7 +176,7 @@ const looks = function (
     targetId,
     costumeName,
     backdropName,
-    colors,
+    colors
 ) {
     const hello = translate("LOOKS_HELLO", "Hello!");
     const hmm = translate("LOOKS_HMM", "Hmm...");
@@ -461,9 +461,6 @@ const control = function (isInitialSetup, isStage, targetId, colors) {
         <block type="control_if"/>
         <block type="control_if_else"/>
         <block type="control_ternary">
-            <value name="CONDITION">
-                <shadow type="boolean"/>
-            </value>
             <value name="LEFT">
                 <shadow type="text"/>
             </value>
@@ -474,7 +471,7 @@ const control = function (isInitialSetup, isStage, targetId, colors) {
         <block id="wait_until" type="control_wait_until"/>
         <block id="repeat_until" type="control_repeat_until"/>
         <block id="while" type="control_while"/>
-        ${blockSeparator}
+        <!-- ${blockSeparator}
         <block id="switch" type="control_switch">
             <value name="VALUE">
                 <shadow type="text">
@@ -490,7 +487,7 @@ const control = function (isInitialSetup, isStage, targetId, colors) {
             </value>
         </block>
         ${blockSeparator}
-        <block id="async" type="control_async"/>
+        <block id="async" type="control_async"/> -->
         ${blockSeparator}
         <block type="control_stop"/>
         ${blockSeparator}
@@ -970,7 +967,7 @@ const makeToolboxXML = function (
     costumeName = "",
     backdropName = "",
     soundName = "",
-    colors = defaultBlockColors,
+    colors = defaultBlockColors
 ) {
     isStage = isInitialSetup || isStage;
     const gap = [categorySeparator];
@@ -980,9 +977,9 @@ const makeToolboxXML = function (
     soundName = xmlEscape(soundName);
 
     categoriesXML = categoriesXML.slice();
-    const moveCategory = (categoryId) => {
+    const moveCategory = categoryId => {
         const index = categoriesXML.findIndex(
-            (categoryInfo) => categoryInfo.id === categoryId,
+            categoryInfo => categoryInfo.id === categoryId
         );
         if (index >= 0) {
             // remove the category from categoriesXML and return its XML
@@ -1002,7 +999,7 @@ const makeToolboxXML = function (
             targetId,
             costumeName,
             backdropName,
-            colors.looks,
+            colors.looks
         );
     const soundXML =
         moveCategory("sound") ||
@@ -1035,7 +1032,7 @@ const makeToolboxXML = function (
     if (turbowarpXML && !turbowarpXML.includes(extraTurboWarpBlocks)) {
         turbowarpXML = turbowarpXML.replace(
             "<block",
-            `${extraTurboWarpBlocks}<block`,
+            `${extraTurboWarpBlocks}<block`
         );
     }
 

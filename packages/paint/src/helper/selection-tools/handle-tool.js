@@ -50,7 +50,7 @@ class HandleTool {
                     } else {
                         seg.handleOut = seg.handleOut.add(event.delta);
                         seg.handleIn = seg.handleOut.multiply(
-                            -seg.handleIn.length / seg.handleOut.length,
+                            -seg.handleIn.length / seg.handleOut.length
                         );
                     }
                 } else if (
@@ -67,7 +67,7 @@ class HandleTool {
                     } else {
                         seg.handleIn = seg.handleIn.add(event.delta);
                         seg.handleOut = seg.handleIn.multiply(
-                            -seg.handleOut.length / seg.handleIn.length,
+                            -seg.handleOut.length / seg.handleIn.length
                         );
                     }
                 }

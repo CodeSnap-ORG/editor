@@ -22,7 +22,7 @@ const messages = defineMessages({
 
 const FillColorIndicator = makeColorIndicator(messages.label, false);
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     colorIndex: state.scratchPaint.fillMode.colorIndex,
     disabled: state.scratchPaint.mode === Modes.LINE,
     color: state.scratchPaint.color.fillColor.primary,
@@ -37,8 +37,8 @@ const mapStateToProps = (state) => ({
     textEditTarget: state.scratchPaint.textEditTarget,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    onChangeColorIndex: (index) => {
+const mapDispatchToProps = dispatch => ({
+    onChangeColorIndex: index => {
         dispatch(changeColorIndex(index));
     },
     onChangeColor: (fillColor, index) => {
@@ -54,10 +54,10 @@ const mapDispatchToProps = (dispatch) => ({
     onCloseColor: () => {
         dispatch(closeFillColor());
     },
-    onChangeGradientType: (gradientType) => {
+    onChangeGradientType: gradientType => {
         dispatch(changeGradientType(gradientType));
     },
-    setSelectedItems: (format) => {
+    setSelectedItems: format => {
         dispatch(setSelectedItems(getSelectedLeafItems(), isBitmap(format)));
     },
 });

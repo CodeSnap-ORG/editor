@@ -12,7 +12,7 @@ const reducer = function (state, action) {
         case SET_ZOOM_LEVEL_ID:
             if (action.zoomLevelId === "currentZoomLevelId") {
                 log.warn(
-                    `currentZoomLevelId is an invalid string for zoomLevel`,
+                    `currentZoomLevelId is an invalid string for zoomLevel`
                 );
                 return state;
             }

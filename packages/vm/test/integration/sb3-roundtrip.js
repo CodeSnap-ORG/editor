@@ -17,7 +17,7 @@ const defaultCostumeInfo = {
 
 const defaultSoundInfo = {};
 
-test("sb3-roundtrip", (t) => {
+test("sb3-roundtrip", t => {
     const runtime1 = new Runtime();
     runtime1.attachStorage(makeTestStorage());
 
@@ -67,28 +67,28 @@ test("sb3-roundtrip", (t) => {
         loadCostume(
             "fe5e3566965f9de793beeffce377d054.jpg",
             Clone.simple(defaultCostumeInfo),
-            runtime1,
+            runtime1
         ),
         loadCostume(
             "f88bf1935daea28f8ca098462a31dbb0.svg",
             Clone.simple(defaultCostumeInfo),
-            runtime1,
+            runtime1
         ),
         loadCostume(
             "7e24c99c1b853e52f8e7f9004416fa34.png",
             Clone.simple(defaultCostumeInfo),
-            runtime1,
+            runtime1
         ),
         loadSound(
             Object.assign(
                 { md5: "83c36d806dc92327b9e7049a565c6bff.wav" },
-                defaultSoundInfo,
+                defaultSoundInfo
             ),
-            runtime1,
+            runtime1
         ),
     ]);
 
-    const installThings = loadThings.then((results) => {
+    const installThings = loadThings.then(results => {
         const [building, cat, squirrel, meow] = results;
 
         const stageBlocks = new Blocks(runtime1);
@@ -117,7 +117,7 @@ test("sb3-roundtrip", (t) => {
         // 2. `sb3.deserialize` and its helpers do some `hasOwnProperty` checks which fail on the object returned by
         //    `sb3.serialize` but succeed if that object is "flattened" in this way.
         const serializedState = JSON.parse(
-            JSON.stringify(sb3.serialize(runtime1)),
+            JSON.stringify(sb3.serialize(runtime1))
         );
         return sb3.deserialize(serializedState, runtime2);
     });

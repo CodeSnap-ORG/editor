@@ -1,7 +1,7 @@
 import React from "react";
 import { FormattedMessage } from "react-intl";
 import styles from "./no-face-sensing.css";
-import { APP_NAME } from "../../lib/brand.js";
+import { APP_NAME } from "@ampmod/branding";
 
 const NoFaceSensing = () => (
     <div className={styles.removedTrademarks}>

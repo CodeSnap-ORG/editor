@@ -1,10 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { FormattedMessage } from "react-intl";
-import { APP_NAME } from "../../lib/brand";
+import { APP_NAME } from "@ampmod/branding";
 import URL from "./url.jsx";
 
-const OpenWindowModal = (props) => (
+const OpenWindowModal = props => (
     <div>
         <FormattedMessage
             defaultMessage="The project wants to open a new window or tab with the URL:"

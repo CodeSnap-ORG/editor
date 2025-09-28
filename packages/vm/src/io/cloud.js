@@ -145,11 +145,11 @@ class Cloud {
 
         const variable = this.stage.lookupVariableByNameAndType(
             varName,
-            Variable.SCALAR_TYPE,
+            Variable.SCALAR_TYPE
         );
         if (!variable || !variable.isCloud) {
             log.warn(
-                `Received an update for a cloud variable that does not exist: ${varName}`,
+                `Received an update for a cloud variable that does not exist: ${varName}`
             );
             return;
         }

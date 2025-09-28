@@ -98,7 +98,7 @@ class Scratch3TranslateBlocks {
      */
     getInfo() {
         this._supportedLanguages = this._getSupportedLanguages(
-            this.getViewerLanguageCode(),
+            this.getViewerLanguageCode()
         );
         this._randomLanguageCode =
             this._supportedLanguages[
@@ -169,7 +169,7 @@ class Scratch3TranslateBlocks {
      * @private
      */
     _getSupportedLanguages(code) {
-        return languageNames.menuMap[code].map((entry) => {
+        return languageNames.menuMap[code].map(entry => {
             const obj = { text: entry.name, value: entry.code };
             return obj;
         });
@@ -182,7 +182,7 @@ class Scratch3TranslateBlocks {
         this._viewerLanguageCode = this.getViewerLanguageCode();
         const names = languageNames.menuMap[this._viewerLanguageCode];
         let langNameObj = names.find(
-            (obj) => obj.code === this._viewerLanguageCode,
+            obj => obj.code === this._viewerLanguageCode
         );
 
         // If we don't have a name entry yet, try looking it up via the Google langauge
@@ -193,7 +193,7 @@ class Scratch3TranslateBlocks {
         ) {
             const lookupCode =
                 languageNames.scratchToGoogleMap[this._viewerLanguageCode];
-            langNameObj = names.find((obj) => obj.code === lookupCode);
+            langNameObj = names.find(obj => obj.code === lookupCode);
         }
 
         let langName = this._viewerLanguageCode;
@@ -239,7 +239,7 @@ class Scratch3TranslateBlocks {
         if (
             Object.prototype.hasOwnProperty.call(
                 languageNames.menuMap,
-                languageArg,
+                languageArg
             )
         ) {
             return languageArg;
@@ -248,7 +248,7 @@ class Scratch3TranslateBlocks {
         if (
             Object.prototype.hasOwnProperty.call(
                 languageNames.nameMap,
-                languageArg,
+                languageArg
             )
         ) {
             return languageNames.nameMap[languageArg];
@@ -292,8 +292,8 @@ class Scratch3TranslateBlocks {
 
         const tempThis = this;
         const translatePromise = fetchWithTimeout(urlBase, {}, serverTimeoutMs)
-            .then((response) => response.text())
-            .then((responseText) => {
+            .then(response => response.text())
+            .then(responseText => {
                 const translated = JSON.parse(responseText).result;
                 tempThis._translateResult = translated;
                 // Cache what we just translated so we don't keep making the
@@ -302,7 +302,7 @@ class Scratch3TranslateBlocks {
                 tempThis._lastLangTranslated = args.LANGUAGE;
                 return translated;
             })
-            .catch((err) => {
+            .catch(err => {
                 log.warn(`error fetching translate result! ${err}`);
                 return args.WORDS;
             });

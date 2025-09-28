@@ -40,7 +40,7 @@ describe("Cards component", () => {
 
     test("showVideos=true shows the video step", () => {
         const component = mountWithIntl(
-            <Cards {...defaultProps()} showVideos />,
+            <Cards {...defaultProps()} showVideos />
         );
         expect(component.find(ImageStep).exists()).toEqual(false);
         expect(component.find(VideoStep).exists()).toEqual(true);
@@ -48,7 +48,7 @@ describe("Cards component", () => {
 
     test("showVideos=false shows the title image/name instead of video step", () => {
         const component = mountWithIntl(
-            <Cards {...defaultProps()} showVideos={false} />,
+            <Cards {...defaultProps()} showVideos={false} />
         );
         expect(component.find(VideoStep).exists()).toEqual(false);
 

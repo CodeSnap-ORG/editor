@@ -33,13 +33,13 @@ class DOMElementRenderer extends React.Component {
         // Look at me, I'm the React now!
         Object.assign(
             this.props.domElement,
-            omit(this.props, ["domElement", "children", "style"]),
+            omit(this.props, ["domElement", "children", "style"])
         );
 
         // Convert react style prop to dom element styling.
         if (this.props.style) {
             this.props.domElement.style.cssText = Style.string(
-                this.props.style,
+                this.props.style
             );
         }
 

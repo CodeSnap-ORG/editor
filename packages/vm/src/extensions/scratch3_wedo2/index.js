@@ -273,7 +273,7 @@ class WeDo2Motor {
         const cmd = this._parent.generateOutputCommand(
             this._index + 1,
             WeDo2Command.MOTOR_POWER,
-            [this._power * this._direction], // power in range 0-100
+            [this._power * this._direction] // power in range 0-100
         );
 
         this._parent.send(BLECharacteristic.OUTPUT_COMMAND, cmd);
@@ -303,7 +303,7 @@ class WeDo2Motor {
         const cmd = this._parent.generateOutputCommand(
             this._index + 1,
             WeDo2Command.MOTOR_POWER,
-            [127], // 127 = break
+            [127] // 127 = break
         );
 
         this._parent.send(BLECharacteristic.OUTPUT_COMMAND, cmd);
@@ -322,7 +322,7 @@ class WeDo2Motor {
         const cmd = this._parent.generateOutputCommand(
             this._index + 1,
             WeDo2Command.MOTOR_POWER,
-            [0], // 0 = stop
+            [0] // 0 = stop
         );
 
         this._parent.send(BLECharacteristic.OUTPUT_COMMAND, cmd, useLimiter);
@@ -471,7 +471,7 @@ class WeDo2 {
      * Stop all the motors that are currently running.
      */
     stopAllMotors() {
-        this._motors.forEach((motor) => {
+        this._motors.forEach(motor => {
             if (motor) {
                 // Send the motor off command without using the rate limiter.
                 // This allows the stop button to stop motors even if we are
@@ -496,7 +496,7 @@ class WeDo2 {
         const cmd = this.generateOutputCommand(
             WeDo2ConnectID.LED,
             WeDo2Command.WRITE_RGB,
-            rgb,
+            rgb
         );
 
         return this.send(BLECharacteristic.OUTPUT_COMMAND, cmd);
@@ -513,7 +513,7 @@ class WeDo2 {
             WeDo2Mode.LED,
             0,
             WeDo2Unit.LED,
-            false,
+            false
         );
 
         return this.send(BLECharacteristic.INPUT_COMMAND, cmd);
@@ -527,7 +527,7 @@ class WeDo2 {
         const cmd = this.generateOutputCommand(
             WeDo2ConnectID.LED,
             WeDo2Command.WRITE_RGB,
-            [0, 0, 0],
+            [0, 0, 0]
         );
 
         return this.send(BLECharacteristic.OUTPUT_COMMAND, cmd);
@@ -543,7 +543,7 @@ class WeDo2 {
         const cmd = this.generateOutputCommand(
             WeDo2ConnectID.PIEZO,
             WeDo2Command.PLAY_TONE,
-            [tone, tone >> 8, milliseconds, milliseconds >> 8],
+            [tone, tone >> 8, milliseconds, milliseconds >> 8]
         );
 
         return this.send(BLECharacteristic.OUTPUT_COMMAND, cmd);
@@ -556,7 +556,7 @@ class WeDo2 {
     stopTone() {
         const cmd = this.generateOutputCommand(
             WeDo2ConnectID.PIEZO,
-            WeDo2Command.STOP_TONE,
+            WeDo2Command.STOP_TONE
         );
 
         // Send this command without using the rate limiter, because it is
@@ -592,7 +592,7 @@ class WeDo2 {
                 optionalServices: [BLEService.IO_SERVICE],
             },
             this._onConnect,
-            this.reset,
+            this.reset
         );
     }
 
@@ -665,7 +665,7 @@ class WeDo2 {
             BLEService.IO_SERVICE,
             uuid,
             Base64Util.uint8ArrayToBase64(message),
-            "base64",
+            "base64"
         );
     }
 
@@ -710,7 +710,7 @@ class WeDo2 {
         mode,
         delta,
         units,
-        enableNotifications,
+        enableNotifications
     ) {
         const command = [
             1, // Command ID = 1 = "Sensor Format"
@@ -739,11 +739,11 @@ class WeDo2 {
         this._ble.startNotifications(
             BLEService.DEVICE_SERVICE,
             BLECharacteristic.ATTACHED_IO,
-            this._onMessage,
+            this._onMessage
         );
         this._batteryLevelIntervalId = window.setInterval(
             this._checkBatteryLevel,
-            BLEBatteryCheckInterval,
+            BLEBatteryCheckInterval
         );
     }
 
@@ -800,7 +800,7 @@ class WeDo2 {
         this._ble.read(
             BLEService.DEVICE_SERVICE,
             BLECharacteristic.LOW_VOLTAGE_ALERT,
-            false,
+            false
         );
     }
 
@@ -829,14 +829,14 @@ class WeDo2 {
                 WeDo2Mode[typeString],
                 1,
                 WeDo2Unit[typeString],
-                true,
+                true
             );
 
             this.send(BLECharacteristic.INPUT_COMMAND, cmd);
             this._ble.startNotifications(
                 BLEService.IO_SERVICE,
                 BLECharacteristic.INPUT_VALUES,
-                this._onMessage,
+                this._onMessage
             );
         }
     }
@@ -927,7 +927,7 @@ class Scratch3WeDo2Blocks {
         // Create a new WeDo 2.0 peripheral instance
         this._peripheral = new WeDo2(
             this.runtime,
-            Scratch3WeDo2Blocks.EXTENSION_ID,
+            Scratch3WeDo2Blocks.EXTENSION_ID
         );
     }
 
@@ -1327,8 +1327,8 @@ class Scratch3WeDo2Blocks {
         // TODO: cast args.MOTOR_ID?
         let durationMS = Cast.toNumber(args.DURATION) * 1000;
         durationMS = MathUtil.clamp(durationMS, 0, 15000);
-        return new Promise((resolve) => {
-            this._forEachMotor(args.MOTOR_ID, (motorIndex) => {
+        return new Promise(resolve => {
+            this._forEachMotor(args.MOTOR_ID, motorIndex => {
                 const motor = this._peripheral.motor(motorIndex);
                 if (motor) {
                     motor.turnOnFor(durationMS);
@@ -1348,14 +1348,14 @@ class Scratch3WeDo2Blocks {
      */
     motorOn(args) {
         // TODO: cast args.MOTOR_ID?
-        this._forEachMotor(args.MOTOR_ID, (motorIndex) => {
+        this._forEachMotor(args.MOTOR_ID, motorIndex => {
             const motor = this._peripheral.motor(motorIndex);
             if (motor) {
                 motor.turnOn();
             }
         });
 
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
             window.setTimeout(() => {
                 resolve();
             }, BLESendInterval);
@@ -1370,14 +1370,14 @@ class Scratch3WeDo2Blocks {
      */
     motorOff(args) {
         // TODO: cast args.MOTOR_ID?
-        this._forEachMotor(args.MOTOR_ID, (motorIndex) => {
+        this._forEachMotor(args.MOTOR_ID, motorIndex => {
             const motor = this._peripheral.motor(motorIndex);
             if (motor) {
                 motor.turnOff();
             }
         });
 
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
             window.setTimeout(() => {
                 resolve();
             }, BLESendInterval);
@@ -1393,7 +1393,7 @@ class Scratch3WeDo2Blocks {
      */
     startMotorPower(args) {
         // TODO: cast args.MOTOR_ID?
-        this._forEachMotor(args.MOTOR_ID, (motorIndex) => {
+        this._forEachMotor(args.MOTOR_ID, motorIndex => {
             const motor = this._peripheral.motor(motorIndex);
             if (motor) {
                 motor.power = MathUtil.clamp(Cast.toNumber(args.POWER), 0, 100);
@@ -1401,7 +1401,7 @@ class Scratch3WeDo2Blocks {
             }
         });
 
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
             window.setTimeout(() => {
                 resolve();
             }, BLESendInterval);
@@ -1418,7 +1418,7 @@ class Scratch3WeDo2Blocks {
      */
     setMotorDirection(args) {
         // TODO: cast args.MOTOR_ID?
-        this._forEachMotor(args.MOTOR_ID, (motorIndex) => {
+        this._forEachMotor(args.MOTOR_ID, motorIndex => {
             const motor = this._peripheral.motor(motorIndex);
             if (motor) {
                 switch (args.MOTOR_DIRECTION) {
@@ -1433,7 +1433,7 @@ class Scratch3WeDo2Blocks {
                         break;
                     default:
                         log.warn(
-                            `Unknown motor direction in setMotorDirection: ${args.DIRECTION}`,
+                            `Unknown motor direction in setMotorDirection: ${args.DIRECTION}`
                         );
                         break;
                 }
@@ -1443,7 +1443,7 @@ class Scratch3WeDo2Blocks {
                         motor.turnOnFor(
                             motor.pendingTimeoutStartTime +
                                 motor.pendingTimeoutDelay -
-                                Date.now(),
+                                Date.now()
                         );
                     } else {
                         motor.turnOn();
@@ -1452,7 +1452,7 @@ class Scratch3WeDo2Blocks {
             }
         });
 
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
             window.setTimeout(() => {
                 resolve();
             }, BLESendInterval);
@@ -1477,7 +1477,7 @@ class Scratch3WeDo2Blocks {
 
         this._peripheral.setLED(rgbDecimal);
 
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
             window.setTimeout(() => {
                 resolve();
             }, BLESendInterval);
@@ -1496,7 +1496,7 @@ class Scratch3WeDo2Blocks {
         durationMS = MathUtil.clamp(durationMS, 0, 3000);
         const note = MathUtil.clamp(Cast.toNumber(args.NOTE), 25, 125); // valid WeDo 2.0 sounds
         if (durationMS === 0) return; // WeDo 2.0 plays duration '0' forever
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
             const tone = this._noteToTone(note);
             this._peripheral.playTone(tone, durationMS);
 
@@ -1524,7 +1524,7 @@ class Scratch3WeDo2Blocks {
                 );
             default:
                 log.warn(
-                    `Unknown comparison operator in whenDistance: ${args.OP}`,
+                    `Unknown comparison operator in whenDistance: ${args.OP}`
                 );
                 return false;
         }
@@ -1620,7 +1620,7 @@ class Scratch3WeDo2Blocks {
                     : this._peripheral.tiltX;
             default:
                 log.warn(
-                    `Unknown tilt direction in _getTiltAngle: ${direction}`,
+                    `Unknown tilt direction in _getTiltAngle: ${direction}`
                 );
         }
     }

@@ -30,7 +30,7 @@ let fakeId = -1;
 
 const FakeAudioEngine = function () {
     return {
-        decodeSoundPlayer: (soundData) => {
+        decodeSoundPlayer: soundData => {
             const soundDataString = soundData.asset.decodeText();
             if (soundDataString.includes("here is some")) {
                 return Promise.reject(new Error("mock audio engine broke"));
@@ -66,7 +66,7 @@ tap.beforeEach(() => {
 
 const test = tap.test;
 
-test("load sb3 project with corrupted sound file", (t) => {
+test("load sb3 project with corrupted sound file", t => {
     t.equal(vm.runtime.targets.length, 2);
 
     const stage = vm.runtime.targets[0];
@@ -89,7 +89,7 @@ test("load sb3 project with corrupted sound file", (t) => {
     t.end();
 });
 
-test("load and then save project with corrupted sound file", (t) => {
+test("load and then save project with corrupted sound file", t => {
     const resavedProject = JSON.parse(vm.toJSON());
 
     t.equal(resavedProject.targets.length, 2);
@@ -112,7 +112,7 @@ test("load and then save project with corrupted sound file", (t) => {
     t.end();
 });
 
-test("serializeSounds saves orignal broken sound", (t) => {
+test("serializeSounds saves orignal broken sound", t => {
     const soundDescs = serializeSounds(vm.runtime, vm.runtime.targets[1].id);
     t.equal(soundDescs.length, 1);
     const sound = soundDescs[0];

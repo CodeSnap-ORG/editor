@@ -7,13 +7,13 @@ describe("defaultProject", () => {
     test("assets referenced by the project are included", () => {
         const translatorFn = () => "";
         const defaultProject = defaultProjectGenerator(translatorFn);
-        const includedAssetIds = defaultProject.map((obj) => obj.id);
+        const includedAssetIds = defaultProject.map(obj => obj.id);
         const projectData = JSON.parse(defaultProject[0].data);
-        projectData.targets.forEach((target) => {
-            target.costumes.forEach((costume) => {
+        projectData.targets.forEach(target => {
+            target.costumes.forEach(costume => {
                 expect(includedAssetIds.includes(costume.assetId)).toBe(true);
             });
-            target.sounds.forEach((sound) => {
+            target.sounds.forEach(sound => {
                 expect(includedAssetIds.includes(sound.assetId)).toBe(true);
             });
         });

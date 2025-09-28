@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/no-unresolved
 import soundThumbnail from "!base64-loader!./sound-thumbnail.png";
 
-const soundPayload = (sound) => {
+const soundPayload = sound => {
     const assetDataUrl = sound.asset.encodeDataURI();
     const assetDataFormat = sound.dataFormat;
     const payload = {
@@ -30,7 +30,7 @@ const soundPayload = (sound) => {
     }
 
     // Return a promise to make it consistent with other payload constructors like costume-payload
-    return new Promise((resolve) => resolve(payload));
+    return new Promise(resolve => resolve(payload));
 };
 
 export { soundPayload as default, soundThumbnail };

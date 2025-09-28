@@ -1,4 +1,4 @@
-import { APP_NAME } from "../brand";
+import { APP_NAME } from "@ampmod/branding";
 
 // Because there are all brand names, it is unnecessary for them to be translatable.
 export default [

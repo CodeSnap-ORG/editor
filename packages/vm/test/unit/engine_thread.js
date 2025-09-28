@@ -4,7 +4,7 @@ const RenderedTarget = require("../../src/sprites/rendered-target");
 const Sprite = require("../../src/sprites/sprite");
 const Runtime = require("../../src/engine/runtime");
 
-test("spec", (t) => {
+test("spec", t => {
     t.type(Thread, "function");
 
     const th = new Thread("arbitraryString");
@@ -29,14 +29,14 @@ test("spec", (t) => {
     t.end();
 });
 
-test("pushStack", (t) => {
+test("pushStack", t => {
     const th = new Thread("arbitraryString");
     th.pushStack("arbitraryString");
 
     t.end();
 });
 
-test("popStack", (t) => {
+test("popStack", t => {
     const th = new Thread("arbitraryString");
     th.pushStack("arbitraryString");
     t.strictEquals(th.popStack(), "arbitraryString");
@@ -45,7 +45,7 @@ test("popStack", (t) => {
     t.end();
 });
 
-test("atStackTop", (t) => {
+test("atStackTop", t => {
     const th = new Thread("arbitraryString");
     th.pushStack("arbitraryString");
     th.pushStack("secondString");
@@ -56,7 +56,7 @@ test("atStackTop", (t) => {
     t.end();
 });
 
-test("reuseStackForNextBlock", (t) => {
+test("reuseStackForNextBlock", t => {
     const th = new Thread("arbitraryString");
     th.pushStack("arbitraryString");
     th.reuseStackForNextBlock("secondString");
@@ -65,7 +65,7 @@ test("reuseStackForNextBlock", (t) => {
     t.end();
 });
 
-test("peekStackFrame", (t) => {
+test("peekStackFrame", t => {
     const th = new Thread("arbitraryString");
     th.pushStack("arbitraryString");
     t.strictEquals(th.peekStackFrame().warpMode, false);
@@ -75,7 +75,7 @@ test("peekStackFrame", (t) => {
     t.end();
 });
 
-test("peekParentStackFrame", (t) => {
+test("peekParentStackFrame", t => {
     const th = new Thread("arbitraryString");
     th.pushStack("arbitraryString");
     th.peekStackFrame().warpMode = true;
@@ -86,7 +86,7 @@ test("peekParentStackFrame", (t) => {
     t.end();
 });
 
-test("pushReportedValue", (t) => {
+test("pushReportedValue", t => {
     const th = new Thread("arbitraryString");
     th.pushStack("arbitraryString");
     th.pushStack("secondString");
@@ -96,7 +96,7 @@ test("pushReportedValue", (t) => {
     t.end();
 });
 
-test("peekStack", (t) => {
+test("peekStack", t => {
     const th = new Thread("arbitraryString");
     th.pushStack("arbitraryString");
     t.strictEquals(th.peekStack(), "arbitraryString");
@@ -106,7 +106,7 @@ test("peekStack", (t) => {
     t.end();
 });
 
-test("PushGetParam", (t) => {
+test("PushGetParam", t => {
     const th = new Thread("arbitraryString");
     th.pushStack("arbitraryString");
     th.initParams();
@@ -119,7 +119,7 @@ test("PushGetParam", (t) => {
     t.end();
 });
 
-test("goToNextBlock", (t) => {
+test("goToNextBlock", t => {
     const th = new Thread("arbitraryString");
     const r = new Runtime();
     const s = new Sprite(null, r);
@@ -177,7 +177,7 @@ test("goToNextBlock", (t) => {
     t.end();
 });
 
-test("stopThisScript", (t) => {
+test("stopThisScript", t => {
     const th = new Thread("arbitraryString");
     const r = new Runtime();
     const s = new Sprite(null, r);
@@ -232,7 +232,7 @@ test("stopThisScript", (t) => {
     t.end();
 });
 
-test("isRecursiveCall", (t) => {
+test("isRecursiveCall", t => {
     const th = new Thread("arbitraryString");
     const r = new Runtime();
     const s = new Sprite(null, r);
@@ -273,7 +273,7 @@ test("isRecursiveCall", (t) => {
     rt.blocks.createBlock(block2);
     th.target = rt;
 
-    const pushStack = (id) => {
+    const pushStack = id => {
         th.pushStack(id);
         th.peekStackFrame().op = { id };
     };

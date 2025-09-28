@@ -54,46 +54,46 @@ const LoadingState = keyMirror({
 
 const LoadingStates = Object.keys(LoadingState);
 
-const getIsFetchingWithoutId = (loadingState) =>
+const getIsFetchingWithoutId = loadingState =>
     // LOADING_VM_FILE_UPLOAD is an honorary fetch, since there is no fetching step for file uploads
     loadingState === LoadingState.LOADING_VM_FILE_UPLOAD ||
     loadingState === LoadingState.FETCHING_NEW_DEFAULT;
-const getIsFetchingWithId = (loadingState) =>
+const getIsFetchingWithId = loadingState =>
     loadingState === LoadingState.FETCHING_WITH_ID ||
     loadingState === LoadingState.FETCHING_NEW_DEFAULT;
-const getIsLoadingWithId = (loadingState) =>
+const getIsLoadingWithId = loadingState =>
     loadingState === LoadingState.LOADING_VM_WITH_ID ||
     loadingState === LoadingState.LOADING_VM_NEW_DEFAULT;
-const getIsLoading = (loadingState) =>
+const getIsLoading = loadingState =>
     loadingState === LoadingState.LOADING_VM_FILE_UPLOAD ||
     loadingState === LoadingState.LOADING_VM_WITH_ID ||
     loadingState === LoadingState.LOADING_VM_NEW_DEFAULT;
-const getIsLoadingUpload = (loadingState) =>
+const getIsLoadingUpload = loadingState =>
     loadingState === LoadingState.LOADING_VM_FILE_UPLOAD;
-const getIsCreatingNew = (loadingState) =>
+const getIsCreatingNew = loadingState =>
     loadingState === LoadingState.CREATING_NEW;
-const getIsAnyCreatingNewState = (loadingState) =>
+const getIsAnyCreatingNewState = loadingState =>
     loadingState === LoadingState.FETCHING_NEW_DEFAULT ||
     loadingState === LoadingState.LOADING_VM_NEW_DEFAULT ||
     loadingState === LoadingState.CREATING_NEW;
-const getIsCreatingCopy = (loadingState) =>
+const getIsCreatingCopy = loadingState =>
     loadingState === LoadingState.CREATING_COPY;
-const getIsManualUpdating = (loadingState) =>
+const getIsManualUpdating = loadingState =>
     loadingState === LoadingState.MANUAL_UPDATING;
-const getIsRemixing = (loadingState) => loadingState === LoadingState.REMIXING;
-const getIsUpdating = (loadingState) =>
+const getIsRemixing = loadingState => loadingState === LoadingState.REMIXING;
+const getIsUpdating = loadingState =>
     loadingState === LoadingState.AUTO_UPDATING ||
     loadingState === LoadingState.MANUAL_UPDATING ||
     loadingState === LoadingState.UPDATING_BEFORE_COPY ||
     loadingState === LoadingState.UPDATING_BEFORE_NEW;
-const getIsShowingProject = (loadingState) =>
+const getIsShowingProject = loadingState =>
     loadingState === LoadingState.SHOWING_WITH_ID ||
     loadingState === LoadingState.SHOWING_WITHOUT_ID;
-const getIsShowingWithId = (loadingState) =>
+const getIsShowingWithId = loadingState =>
     loadingState === LoadingState.SHOWING_WITH_ID;
-const getIsShowingWithoutId = (loadingState) =>
+const getIsShowingWithoutId = loadingState =>
     loadingState === LoadingState.SHOWING_WITHOUT_ID;
-const getIsError = (loadingState) => loadingState === LoadingState.ERROR;
+const getIsError = loadingState => loadingState === LoadingState.ERROR;
 
 const initialState = {
     error: null,
@@ -459,7 +459,7 @@ const onLoadedProject = (loadingState, canSave, success) => {
     }
 };
 
-const doneUpdatingProject = (loadingState) => {
+const doneUpdatingProject = loadingState => {
     switch (loadingState) {
         case LoadingState.AUTO_UPDATING:
         case LoadingState.MANUAL_UPDATING:
@@ -479,22 +479,22 @@ const doneUpdatingProject = (loadingState) => {
     }
 };
 
-const projectError = (error) => ({
+const projectError = error => ({
     type: START_ERROR,
     error: error,
 });
 
-const setProjectId = (id) => ({
+const setProjectId = id => ({
     type: SET_PROJECT_ID,
     projectId: id,
 });
 
-const requestNewProject = (needSave) => {
+const requestNewProject = needSave => {
     if (needSave) return { type: START_UPDATING_BEFORE_CREATING_NEW };
     return { type: START_FETCHING_NEW };
 };
 
-const requestProjectUpload = (loadingState) => {
+const requestProjectUpload = loadingState => {
     switch (loadingState) {
         case LoadingState.NOT_LOADED:
         case LoadingState.SHOWING_WITH_ID:

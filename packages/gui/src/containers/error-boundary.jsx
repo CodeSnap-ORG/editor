@@ -41,7 +41,7 @@ class ErrorBoundary extends React.Component {
             [
                 `Unhandled Error with action='${this.props.action}': ${error.stack}`,
                 `Component stack: ${errorInfo.componentStack}`,
-            ].join("\n"),
+            ].join("\n")
         );
     }
 
@@ -51,7 +51,7 @@ class ErrorBoundary extends React.Component {
 
     handleReload() {
         window.location.replace(
-            window.location.origin + window.location.pathname,
+            window.location.origin + window.location.pathname
         );
     }
 
@@ -68,7 +68,7 @@ class ErrorBoundary extends React.Component {
             const firstCoupleLines = this.state.errorInfo.componentStack
                 .trim()
                 .split("\n")
-                .map((i) => i.trim());
+                .map(i => i.trim());
             message += `\nComponent stack: ${firstCoupleLines.join(" ")}`;
         }
 

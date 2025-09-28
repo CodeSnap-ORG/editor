@@ -52,7 +52,7 @@ class LibraryItem extends React.PureComponent {
         if (this.props.deprecated) {
             if (
                 !window.confirm(
-                    `This extension is deprecated for the following reason:\n\n${this.props.deprecated}\n\nAre you sure you want to enable it?`,
+                    `This extension is deprecated for the following reason:\n\n${this.props.deprecated}\n\nAre you sure you want to enable it?`
                 )
             ) {
                 e.preventDefault();
@@ -94,7 +94,7 @@ class LibraryItem extends React.PureComponent {
                     {
                         isRotatingIcon: true,
                     },
-                    this.startRotatingIcons,
+                    this.startRotatingIcons
                 );
             }
         }
@@ -108,7 +108,7 @@ class LibraryItem extends React.PureComponent {
                     {
                         isRotatingIcon: false,
                     },
-                    this.stopRotatingIcons,
+                    this.stopRotatingIcons
                 );
             }
         }
@@ -210,7 +210,7 @@ LibraryItem.propTypes = {
         PropTypes.shape({
             baseLayerMD5: PropTypes.string, // 2.0 library format, TODO GH-5084
             md5ext: PropTypes.string, // 3.0 library format
-        }),
+        })
     ),
     id: PropTypes.number.isRequired,
     incompatibleWithScratch: PropTypes.bool,
@@ -219,14 +219,14 @@ LibraryItem.propTypes = {
     isPlaying: PropTypes.bool,
     name: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
     credits: PropTypes.arrayOf(
-        PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+        PropTypes.oneOfType([PropTypes.string, PropTypes.node])
     ),
     docsURI: PropTypes.string,
     samples: PropTypes.arrayOf(
         PropTypes.shape({
             href: PropTypes.string,
             text: PropTypes.string,
-        }),
+        })
     ),
     favorite: PropTypes.bool,
     onFavorite: PropTypes.func,

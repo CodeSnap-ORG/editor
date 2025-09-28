@@ -1,11 +1,11 @@
 import { BLOCKS_CUSTOM, Theme } from ".";
 
-const matchMedia = (query) =>
+const matchMedia = query =>
     window.matchMedia ? window.matchMedia(query) : null;
 const PREFERS_HIGH_CONTRAST_QUERY = matchMedia("(prefers-contrast: more)");
 const PREFERS_DARK_QUERY = matchMedia("(prefers-color-scheme: dark)");
 
-const STORAGE_KEY = process.env.ampmod_is_canary ? "canary:theme" : "tw:theme";
+const STORAGE_KEY = process.env.ampmod_is_canary ? "canary:theme" : "amp:theme";
 
 /**
  * @returns {Theme} detected theme
@@ -24,7 +24,7 @@ const systemPreferencesTheme = () => {
  * @param {function} onChange callback; no guarantees about arguments
  * @returns {function} call to remove event listeners to prevent memory leak
  */
-const onSystemPreferenceChange = (onChange) => {
+const onSystemPreferenceChange = onChange => {
     if (
         !PREFERS_HIGH_CONTRAST_QUERY ||
         !PREFERS_DARK_QUERY ||
@@ -66,7 +66,7 @@ const detectTheme = () => {
         return new Theme(
             parsed.accent || systemPreferences.accent,
             parsed.gui || systemPreferences.gui,
-            parsed.blocks || systemPreferences.blocks,
+            parsed.blocks || systemPreferences.blocks
         );
     } catch (e) {
         // ignore
@@ -78,7 +78,7 @@ const detectTheme = () => {
 /**
  * @param {Theme} theme the theme
  */
-const persistTheme = (theme) => {
+const persistTheme = theme => {
     const systemPreferences = systemPreferencesTheme();
     const nonDefaultSettings = {};
 
@@ -106,7 +106,7 @@ const persistTheme = (theme) => {
         try {
             localStorage.setItem(
                 STORAGE_KEY,
-                JSON.stringify(nonDefaultSettings),
+                JSON.stringify(nonDefaultSettings)
             );
         } catch (e) {
             // ignore

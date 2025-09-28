@@ -5,7 +5,7 @@ import classNames from "classnames";
 import Box from "../box/box.jsx";
 import styles from "./connection-modal.css";
 
-const Dots = (props) => (
+const Dots = props => (
     <Box className={classNames(props.className, styles.dotsRow)}>
         <div
             className={classNames(styles.dotsHolder, {
@@ -34,7 +34,7 @@ Dots.propTypes = {
     total: PropTypes.number,
 };
 
-const Dot = (props) => (
+const Dot = props => (
     <div
         className={classNames(styles.dot, {
             [styles.inactiveStepDot]: props.type === "inactive",

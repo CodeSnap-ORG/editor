@@ -63,7 +63,7 @@ describe("Working with sprites", () => {
 
     test("Deleting only sprite does not crash", async () => {
         await loadUri(uri);
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for scroll animation
+        await new Promise(resolve => setTimeout(resolve, 1000)); // Wait for scroll animation
         await rightClickText("Sprite1", scope.spriteTile);
         await clickText("delete", scope.spriteTile);
         // Confirm that the stage has been switched to
@@ -74,7 +74,7 @@ describe("Working with sprites", () => {
 
     test("Deleting by x button on sprite tile", async () => {
         await loadUri(uri);
-        await new Promise((resolve) => setTimeout(resolve, 1000)); // Wait for scroll animation
+        await new Promise(resolve => setTimeout(resolve, 1000)); // Wait for scroll animation
         await clickXpath('//*[@aria-label="Delete"]'); // Only visible close button is on the sprite
         // Confirm that the stage has been switched to
         await findByText("Stage selected: no motion blocks");
@@ -89,7 +89,7 @@ describe("Working with sprites", () => {
         await driver.sleep(500); // Wait for thermometer menu to come up
         const input = await findByXpath('//input[@type="file"]');
         await input.sendKeys(
-            path.resolve(__dirname, "../fixtures/gh-3582-png.png"),
+            path.resolve(__dirname, "../fixtures/gh-3582-png.png")
         );
         await clickText("gh-3582-png", scope.spriteTile);
         const logs = await getLogs();
@@ -105,7 +105,7 @@ describe("Working with sprites", () => {
         await driver.sleep(500); // Wait for thermometer menu to come up
         const input = await findByXpath('//input[@type="file"]');
         await input.sendKeys(
-            path.resolve(__dirname, "../fixtures/100-100.svg"),
+            path.resolve(__dirname, "../fixtures/100-100.svg")
         );
         await clickText("100-100", scope.spriteTile); // Sprite is named for costume filename
 
@@ -124,7 +124,7 @@ describe("Working with sprites", () => {
         await driver.sleep(500); // Wait for thermometer menu to come up
         const input = await findByXpath('//input[@type="file"]');
         await input.sendKeys(
-            path.resolve(__dirname, "../fixtures/paddleball.gif"),
+            path.resolve(__dirname, "../fixtures/paddleball.gif")
         );
         await clickText("paddleball", scope.spriteTile); // Sprite is named for costume filename
 
@@ -161,7 +161,7 @@ describe("Working with sprites", () => {
         await driver.navigate().back();
         // should throw error because library is no longer present
         await expect(
-            driver.wait(until.elementIsVisible(abbyElement)),
+            driver.wait(until.elementIsVisible(abbyElement))
         ).rejects.toBeInstanceOf(StaleElementReferenceError);
         const costumesElement = await findByText("Costumes"); // Should show editor for new costume
         await elementIsVisible(costumesElement);
@@ -195,7 +195,7 @@ describe("Working with sprites", () => {
         await driver.sleep(500); // Wait for thermometer menu to come up
         const input = await findByXpath('//input[@type="file"]');
         await input.sendKeys(
-            path.resolve(__dirname, "../fixtures/missing-svg.sprite3"),
+            path.resolve(__dirname, "../fixtures/missing-svg.sprite3")
         );
         const tile = await findByText("Blue Square Guy", scope.spriteTile);
         const tileVisible = await tile.isDisplayed();
@@ -209,7 +209,7 @@ describe("Working with sprites", () => {
         await driver.sleep(500); // Wait for thermometer menu to come up
         const input = await findByXpath('//input[@type="file"]');
         await input.sendKeys(
-            path.resolve(__dirname, "../fixtures/corrupt-svg.sprite3"),
+            path.resolve(__dirname, "../fixtures/corrupt-svg.sprite3")
         );
         const tile = await findByText("Blue Square Guy", scope.spriteTile);
         const tileVisible = await tile.isDisplayed();
@@ -223,11 +223,11 @@ describe("Working with sprites", () => {
         await driver.sleep(500); // Wait for thermometer menu to come up
         const input = await findByXpath('//input[@type="file"]');
         await input.sendKeys(
-            path.resolve(__dirname, "../fixtures/corrupt-from-scratch3.svg"),
+            path.resolve(__dirname, "../fixtures/corrupt-from-scratch3.svg")
         );
         const tile = await findByText(
             "corrupt-from-scratch3",
-            scope.spriteTile,
+            scope.spriteTile
         );
         const tileVisible = await tile.isDisplayed();
         await expect(tileVisible).toBe(true);
@@ -240,7 +240,7 @@ describe("Working with sprites", () => {
         await driver.sleep(500); // Wait for thermometer menu to come up
         const input = await findByXpath('//input[@type="file"]');
         await input.sendKeys(
-            path.resolve(__dirname, "../fixtures/missing-svg.sprite2"),
+            path.resolve(__dirname, "../fixtures/missing-svg.sprite2")
         );
         const tile = await findByText("Blue Guy", scope.spriteTile);
         const tileVisible = await tile.isDisplayed();
@@ -254,7 +254,7 @@ describe("Working with sprites", () => {
         await driver.sleep(500); // Wait for thermometer menu to come up
         const input = await findByXpath('//input[@type="file"]');
         await input.sendKeys(
-            path.resolve(__dirname, "../fixtures/corrupted-svg.sprite2"),
+            path.resolve(__dirname, "../fixtures/corrupted-svg.sprite2")
         );
         const tile = await findByText("Blue Guy", scope.spriteTile);
         const tileVisible = await tile.isDisplayed();
@@ -268,7 +268,7 @@ describe("Working with sprites", () => {
         await driver.sleep(500); // Wait for thermometer menu to come up
         const input = await findByXpath('//input[@type="file"]');
         await input.sendKeys(
-            path.resolve(__dirname, "../fixtures/scratch2-corrupted.svg"),
+            path.resolve(__dirname, "../fixtures/scratch2-corrupted.svg")
         );
         const tile = await findByText("scratch2-corrupted", scope.spriteTile);
         const tileVisible = await tile.isDisplayed();
@@ -282,7 +282,7 @@ describe("Working with sprites", () => {
         await driver.sleep(500); // Wait for thermometer menu to come up
         const input = await findByXpath('//input[@type="file"]');
         await input.sendKeys(
-            path.resolve(__dirname, "../fixtures/missing-bmp.sprite3"),
+            path.resolve(__dirname, "../fixtures/missing-bmp.sprite3")
         );
         const tile = await findByText("green-bmp-guy", scope.spriteTile);
         const tileVisible = await tile.isDisplayed();
@@ -296,7 +296,7 @@ describe("Working with sprites", () => {
         await driver.sleep(500); // Wait for thermometer menu to come up
         const input = await findByXpath('//input[@type="file"]');
         await input.sendKeys(
-            path.resolve(__dirname, "../fixtures/corrupt-bmp.sprite3"),
+            path.resolve(__dirname, "../fixtures/corrupt-bmp.sprite3")
         );
         const tile = await findByText("green-bmp-guy", scope.spriteTile);
         const tileVisible = await tile.isDisplayed();

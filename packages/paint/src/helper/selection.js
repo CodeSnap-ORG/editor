@@ -326,7 +326,7 @@ const _handleRectangularSelectionItems = function (
     event,
     rect,
     mode,
-    root,
+    root
 ) {
     if (isPathItem(item)) {
         let segmentMode = false;
@@ -398,7 +398,7 @@ const _rectangularSelectionGroupLoop = function (
     rect,
     root,
     event,
-    mode,
+    mode
 ) {
     for (let i = 0; i < group.children.length; i++) {
         const child = group.children[i];

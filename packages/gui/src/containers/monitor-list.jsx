@@ -62,16 +62,16 @@ MonitorList.propTypes = {
     moveMonitorRect: PropTypes.func.isRequired,
     resetMonitorLayout: PropTypes.func,
 };
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     customStageSize: state.scratchGui.customStageSize,
     monitors: state.scratchGui.monitors,
     monitorLayout: state.scratchGui.monitorLayout,
 });
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     moveMonitorRect: (id, x, y) => dispatch(moveMonitorRect(id, x, y)),
     resetMonitorLayout: () => dispatch(resetMonitorLayout()),
 });
 
 export default errorBoundaryHOC("Monitors")(
-    injectIntl(connect(mapStateToProps, mapDispatchToProps)(MonitorList)),
+    injectIntl(connect(mapStateToProps, mapDispatchToProps)(MonitorList))
 );

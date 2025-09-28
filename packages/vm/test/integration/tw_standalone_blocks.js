@@ -3,7 +3,7 @@ const VirtualMachine = require("../../src/virtual-machine");
 const RenderedTarget = require("../../src/sprites/rendered-target");
 const Sprite = require("../../src/sprites/sprite");
 
-test("Serializes standalone blocks", (t) => {
+test("Serializes standalone blocks", t => {
     t.plan(4);
 
     const vm = new VirtualMachine();
@@ -45,7 +45,7 @@ test("Serializes standalone blocks", (t) => {
     t.end();
 });
 
-test("Deserializes vanilla standalone blocks", (t) => {
+test("Deserializes vanilla standalone blocks", t => {
     t.plan(2);
 
     const vm = new VirtualMachine();
@@ -59,7 +59,7 @@ test("Deserializes vanilla standalone blocks", (t) => {
                 opcode: "control_if",
             },
         ],
-        target.id,
+        target.id
     ).then(() => {
         const createdBlock = Object.values(target.sprite.blocks._blocks)[0];
         t.equal(createdBlock.opcode, "control_if");
@@ -69,7 +69,7 @@ test("Deserializes vanilla standalone blocks", (t) => {
     });
 });
 
-test("Deserializes standalone blocks with extensions", (t) => {
+test("Deserializes standalone blocks with extensions", t => {
     t.plan(3);
 
     const vm = new VirtualMachine();
@@ -77,11 +77,11 @@ test("Deserializes standalone blocks with extensions", (t) => {
     vm.runtime.addTarget(target);
 
     const events = [];
-    vm.securityManager.canLoadExtensionFromProject = (url) => {
+    vm.securityManager.canLoadExtensionFromProject = url => {
         events.push(`canLoadExtensionFromProject ${url}`);
         return true;
     };
-    vm.extensionManager.loadExtensionURL = (url) => {
+    vm.extensionManager.loadExtensionURL = url => {
         events.push(`loadExtensionURL ${url}`);
         return Promise.resolve();
     };
@@ -104,7 +104,7 @@ test("Deserializes standalone blocks with extensions", (t) => {
                 pen: "https://example.com/should.also.be.discarded.js",
             },
         },
-        target.id,
+        target.id
     ).then(() => {
         t.same(events, [
             "canLoadExtensionFromProject https://example.com/test1.js",
@@ -112,12 +112,12 @@ test("Deserializes standalone blocks with extensions", (t) => {
         ]);
 
         const penBlock = Object.values(target.sprite.blocks._blocks).find(
-            (i) => i.opcode === "pen_clear",
+            i => i.opcode === "pen_clear"
         );
         t.not(penBlock.id, "fruit", "changed pen block id");
 
         const extensionBlock = Object.values(target.sprite.blocks._blocks).find(
-            (i) => i.opcode === "test1_something",
+            i => i.opcode === "test1_something"
         );
         t.not(extensionBlock.id, "vegetable", "changed extension block id");
 

@@ -8,12 +8,12 @@ const VirtualMachine = require("../../src/index");
 const uri = path.resolve(__dirname, "../fixtures/sensing.sb2");
 const project = readFileToBuffer(uri);
 
-test("sensing", (t) => {
+test("sensing", t => {
     const vm = new VirtualMachine();
     vm.attachStorage(makeTestStorage());
 
     // Evaluate playground data and exit
-    vm.on("playgroundData", (e) => {
+    vm.on("playgroundData", e => {
         const threads = JSON.parse(e.threads);
         t.ok(threads.length > 0);
         vm.quit();

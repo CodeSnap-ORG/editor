@@ -8,12 +8,12 @@ const VirtualMachine = require("../../src/index");
 const projectUri = path.resolve(__dirname, "../fixtures/monitors.sb2");
 const project = readFileToBuffer(projectUri);
 
-test("importing sb2 project with monitors", (t) => {
+test("importing sb2 project with monitors", t => {
     const vm = new VirtualMachine();
     vm.attachStorage(makeTestStorage());
 
     // Evaluate playground data and exit
-    vm.on("playgroundData", (e) => {
+    vm.on("playgroundData", e => {
         const threads = JSON.parse(e.threads);
         // All monitors should create threads that finish during the step and
         // are revoved from runtime.threads.
@@ -23,7 +23,7 @@ test("importing sb2 project with monitors", (t) => {
         // we don't care whether the last step ran other threads or not
         const lastStepUpdatedMonitorThreads =
             vm.runtime._lastStepDoneThreads.filter(
-                (thread) => thread.updateMonitor,
+                thread => thread.updateMonitor
             );
         t.equal(lastStepUpdatedMonitorThreads.length, 8);
 
@@ -36,7 +36,7 @@ test("importing sb2 project with monitors", (t) => {
 
         // Global variable named "global" is a slider
         let variableId = Object.keys(stage.variables).filter(
-            (k) => stage.variables[k].name === "global",
+            k => stage.variables[k].name === "global"
         )[0];
         let monitorRecord = vm.runtime._monitorState.get(variableId);
         t.equal(monitorRecord.opcode, "data_variable");
@@ -50,7 +50,7 @@ test("importing sb2 project with monitors", (t) => {
 
         // Global variable named "global list" is a list
         variableId = Object.keys(stage.variables).filter(
-            (k) => stage.variables[k].name === "global list",
+            k => stage.variables[k].name === "global list"
         )[0];
         monitorRecord = vm.runtime._monitorState.get(variableId);
         t.equal(monitorRecord.opcode, "data_listcontents");
@@ -59,7 +59,7 @@ test("importing sb2 project with monitors", (t) => {
 
         // Local variable named "local" is hidden
         variableId = Object.keys(target.variables).filter(
-            (k) => target.variables[k].name === "local",
+            k => target.variables[k].name === "local"
         )[0];
         monitorRecord = vm.runtime._monitorState.get(variableId);
         t.equal(monitorRecord.opcode, "data_variable");
@@ -68,7 +68,7 @@ test("importing sb2 project with monitors", (t) => {
 
         // Local list named "local list" is visible
         variableId = Object.keys(target.variables).filter(
-            (k) => target.variables[k].name === "local list",
+            k => target.variables[k].name === "local list"
         )[0];
         monitorRecord = vm.runtime._monitorState.get(variableId);
         t.equal(monitorRecord.opcode, "data_listcontents");

@@ -13,7 +13,7 @@ import helpIcon from "../../lib/assets/icon--help.svg";
 
 import styles from "./modal.css";
 
-const ModalComponent = (props) => {
+const ModalComponent = props => {
     const [isClosing, setIsClosing] = useState(false);
 
     const handleRequestClose = () => {
@@ -46,7 +46,7 @@ const ModalComponent = (props) => {
                         <div
                             className={classNames(
                                 styles.headerItem,
-                                styles.headerItemHelp,
+                                styles.headerItemHelp
                             )}
                         >
                             <Button
@@ -65,7 +65,7 @@ const ModalComponent = (props) => {
                     <div
                         className={classNames(
                             styles.headerItem,
-                            styles.headerItemTitle,
+                            styles.headerItemTitle
                         )}
                     >
                         {props.headerImage ? (
@@ -80,7 +80,7 @@ const ModalComponent = (props) => {
                     <div
                         className={classNames(
                             styles.headerItem,
-                            styles.headerItemClose,
+                            styles.headerItemClose
                         )}
                     >
                         {props.fullScreen ? (

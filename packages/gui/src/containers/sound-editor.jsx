@@ -63,7 +63,7 @@ class SoundEditor extends React.Component {
     componentDidMount() {
         this.audioBufferPlayer = new AudioBufferPlayer(
             this.props.samples,
-            this.props.sampleRate,
+            this.props.sampleRate
         );
 
         document.addEventListener("keydown", this.handleKeyPress);
@@ -148,13 +148,13 @@ class SoundEditor extends React.Component {
     submitNewSamples(samples, sampleRate, skipUndo) {
         return downsampleIfNeeded(
             { samples, sampleRate },
-            this.resampleBufferToRate,
+            this.resampleBufferToRate
         )
             .then(({ samples: newSamples, sampleRate: newSampleRate }) =>
                 WavEncoder.encode({
                     sampleRate: newSampleRate,
                     channelData: [newSamples],
-                }).then((wavBuffer) => {
+                }).then(wavBuffer => {
                     if (!skipUndo) {
                         this.redoStack = [];
                         if (this.undoStack.length >= UNDO_STACK_SIZE) {
@@ -166,15 +166,15 @@ class SoundEditor extends React.Component {
                     this.props.vm.updateSoundBuffer(
                         this.props.soundIndex,
                         this.audioBufferPlayer.buffer,
-                        new Uint8Array(wavBuffer),
+                        new Uint8Array(wavBuffer)
                     );
                     return true; // Edit was successful
-                }),
+                })
             )
-            .catch((e) => {
+            .catch(e => {
                 // Encoding failed, or the sound was too large to save so edit is rejected
                 log.error(
-                    `Encountered error while trying to encode sound update: ${e.message}`,
+                    `Encountered error while trying to encode sound update: ${e.message}`
                 );
                 return false; // Edit was not applied
             });
@@ -185,7 +185,7 @@ class SoundEditor extends React.Component {
             this.state.trimStart || 0,
             this.state.trimEnd || 1,
             this.handleUpdatePlayhead,
-            this.handleStoppedPlaying,
+            this.handleStoppedPlaying
         );
     }
     handleStopPlaying() {
@@ -234,7 +234,7 @@ class SoundEditor extends React.Component {
         if (clippedSamples.length === 0) {
             clippedSamples = new Float32Array(1);
         }
-        this.submitNewSamples(clippedSamples, sampleRate).then((success) => {
+        this.submitNewSamples(clippedSamples, sampleRate).then(success => {
             if (success) {
                 this.setState({
                     trimStart: null,
@@ -271,13 +271,13 @@ class SoundEditor extends React.Component {
             this.audioBufferPlayer.buffer,
             name,
             trimStart,
-            trimEnd,
+            trimEnd
         );
         effects.process(
             (renderedBuffer, adjustedTrimStart, adjustedTrimEnd) => {
                 const samples = renderedBuffer.getChannelData(0);
                 const sampleRate = renderedBuffer.sampleRate;
-                this.submitNewSamples(samples, sampleRate).then((success) => {
+                this.submitNewSamples(samples, sampleRate).then(success => {
                     if (success) {
                         if (this.state.trimStart === null) {
                             this.handlePlay();
@@ -287,12 +287,12 @@ class SoundEditor extends React.Component {
                                     trimStart: adjustedTrimStart,
                                     trimEnd: adjustedTrimEnd,
                                 },
-                                this.handlePlay,
+                                this.handlePlay
                             );
                         }
                     }
                 });
-            },
+            }
         );
     }
     tooLoud() {
@@ -327,14 +327,14 @@ class SoundEditor extends React.Component {
             this.undoStack.pop();
         if (samples) {
             return this.submitNewSamples(samples, sampleRate, true).then(
-                (success) => {
+                success => {
                     if (success) {
                         this.setState(
                             { trimStart: trimStart, trimEnd: trimEnd },
-                            this.handlePlay,
+                            this.handlePlay
                         );
                     }
-                },
+                }
             );
         }
     }
@@ -344,14 +344,14 @@ class SoundEditor extends React.Component {
         if (samples) {
             this.undoStack.push(this.getUndoItem());
             return this.submitNewSamples(samples, sampleRate, true).then(
-                (success) => {
+                success => {
                     if (success) {
                         this.setState(
                             { trimStart: trimStart, trimEnd: trimEnd },
-                            this.handlePlay,
+                            this.handlePlay
                         );
                     }
-                },
+                }
             );
         }
     }
@@ -368,14 +368,14 @@ class SoundEditor extends React.Component {
         const trimEndSamples = trimEnd * newCopyBuffer.samples.length;
         newCopyBuffer.samples = newCopyBuffer.samples.slice(
             trimStartSamples,
-            trimEndSamples,
+            trimEndSamples
         );
 
         this.setState(
             {
                 copyBuffer: newCopyBuffer,
             },
-            callback,
+            callback
         );
     }
     handleCopyToNew() {
@@ -384,7 +384,7 @@ class SoundEditor extends React.Component {
                 this.props.vm,
                 this.state.copyBuffer.samples,
                 this.state.copyBuffer.sampleRate,
-                this.props.name,
+                this.props.name
             );
         });
     }
@@ -401,13 +401,13 @@ class SoundEditor extends React.Component {
                     offlineContext = new window.OfflineAudioContext(
                         1,
                         newLength,
-                        newRate,
+                        newRate
                     );
                 } else if (window.webkitOfflineAudioContext) {
                     offlineContext = new window.webkitOfflineAudioContext(
                         1,
                         newLength,
-                        newRate,
+                        newRate
                     );
                 }
             } catch {
@@ -421,7 +421,7 @@ class SoundEditor extends React.Component {
             const audioBuffer = offlineContext.createBuffer(
                 1,
                 buffer.samples.length,
-                buffer.sampleRate,
+                buffer.sampleRate
             );
             audioBuffer.getChannelData(0).set(buffer.samples);
             source.buffer = audioBuffer;
@@ -448,8 +448,8 @@ class SoundEditor extends React.Component {
             this.submitNewSamples(
                 newSamples,
                 this.props.sampleRate,
-                false,
-            ).then((success) => {
+                false
+            ).then(success => {
                 if (success) {
                     this.handlePlay();
                 }
@@ -469,7 +469,7 @@ class SoundEditor extends React.Component {
             newSamples.set(this.state.copyBuffer.samples, firstPart.length);
             newSamples.set(
                 lastPart,
-                firstPart.length + this.state.copyBuffer.samples.length,
+                firstPart.length + this.state.copyBuffer.samples.length
             );
 
             const trimStartSeconds = trimStartSamples / this.props.sampleRate;
@@ -484,15 +484,15 @@ class SoundEditor extends React.Component {
             this.submitNewSamples(
                 newSamples,
                 this.props.sampleRate,
-                false,
-            ).then((success) => {
+                false
+            ).then(success => {
                 if (success) {
                     this.setState(
                         {
                             trimStart: adjustedTrimStart,
                             trimEnd: adjustedTrimEnd,
                         },
-                        this.handlePlay,
+                        this.handlePlay
                     );
                 }
             });
@@ -505,13 +505,13 @@ class SoundEditor extends React.Component {
         } else {
             this.resampleBufferToRate(
                 this.state.copyBuffer,
-                this.props.sampleRate,
-            ).then((buffer) => {
+                this.props.sampleRate
+            ).then(buffer => {
                 this.setState(
                     {
                         copyBuffer: buffer,
                     },
-                    this.paste,
+                    this.paste
                 );
             });
         }

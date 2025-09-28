@@ -3,7 +3,7 @@ import React from "react";
 import classNames from "classnames";
 import styles from "./audio-trimmer.css";
 
-const Playhead = (props) => (
+const Playhead = props => (
     <div className={styles.playheadContainer}>
         <div
             className={classNames(styles.playhead)}

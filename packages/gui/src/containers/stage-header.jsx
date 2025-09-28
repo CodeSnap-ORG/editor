@@ -88,7 +88,7 @@ StageHeader.propTypes = {
     vm: PropTypes.instanceOf(VM).isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     customStageSize: state.scratchGui.customStageSize,
     stageSizeMode: state.scratchGui.stageSize.stageSize,
     // tw: replace showBranding
@@ -100,7 +100,7 @@ const mapStateToProps = (state) => ({
     isPlayerOnly: state.scratchGui.mode.isPlayerOnly,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     onSetStageLarge: () => dispatch(setStageSize(STAGE_SIZE_MODES.large)),
     onSetStageSmall: () => dispatch(setStageSize(STAGE_SIZE_MODES.small)),
     onSetStageFull: () => dispatch(setStageSize(STAGE_SIZE_MODES.full)),

@@ -39,7 +39,7 @@ class RestorePoint extends React.Component {
 
     componentDidMount() {
         RestorePointAPI.getThumbnail(this.props.id)
-            .then((url) => {
+            .then(url => {
                 if (this.unmounted) {
                     URL.revokeObjectURL(url);
                 } else {
@@ -48,7 +48,7 @@ class RestorePoint extends React.Component {
                     });
                 }
             })
-            .catch((error) => {
+            .catch(error => {
                 log.error(error);
                 if (!this.unmounted) {
                     this.setState({

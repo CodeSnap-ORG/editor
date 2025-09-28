@@ -6,7 +6,9 @@ import { FormattedMessage } from "react-intl";
 import styles from "./crash-message.css";
 import reloadIcon from "./reload.svg";
 
-const CrashMessage = (props) => {
+import { APP_FORUMS_BUGS, APP_CONTACT } from "@ampmod/branding";
+
+const CrashMessage = props => {
     const [copied, setCopied] = useState(false);
 
     const handleCopy = () => {
@@ -47,7 +49,7 @@ const CrashMessage = (props) => {
                         values={{
                             forumLink: (
                                 <a
-                                    href="https://ampmod.flarum.cloud"
+                                    href={APP_FORUMS_BUGS}
                                     rel="noreferrer noopener"
                                     target="_blank"
                                 >
@@ -60,7 +62,7 @@ const CrashMessage = (props) => {
                             ),
                             issueTracker: (
                                 <a
-                                    href="https://codeberg.org/ampmod/ampmod/issues"
+                                    href={APP_CONTACT}
                                     rel="noreferrer noopener"
                                     target="_blank"
                                 >
@@ -142,7 +144,7 @@ const CrashMessage = (props) => {
                                     onClick={() => {
                                         var search = location.search.replace(
                                             /[?&]nocache=\d+/,
-                                            "",
+                                            ""
                                         );
                                         location.replace(
                                             location.pathname +
@@ -150,8 +152,8 @@ const CrashMessage = (props) => {
                                                 (search ? "&" : "?") +
                                                 "nocache=" +
                                                 Math.floor(
-                                                    Math.random() * 100000,
-                                                ),
+                                                    Math.random() * 100000
+                                                )
                                         );
                                     }}
                                 >
@@ -168,30 +170,30 @@ const CrashMessage = (props) => {
                                     onClick={() => {
                                         if (
                                             window.confirm(
-                                                "Your backpack and restore points will be deleted. Continue?",
+                                                "Your backpack and restore points will be deleted. Continue?"
                                             )
                                         ) {
                                             window.indexedDB.deleteDatabase(
-                                                "TW_RestorePoints",
+                                                "Amp_RestorePoints"
                                             );
                                             window.indexedDB.deleteDatabase(
-                                                "TW_Backpack",
+                                                "Amp_Backpack"
                                             );
                                             window.localStorage.removeItem(
-                                                "tw:theme",
+                                                "amp:theme"
                                             );
                                             window.localStorage.removeItem(
-                                                "tw:username",
+                                                "amp:username"
                                             );
                                             window.localStorage.removeItem(
-                                                "tw:language",
+                                                "amp:language"
                                             );
                                             window.location.reload();
                                         }
                                     }}
                                 >
                                     <FormattedMessage
-                                        defaultMessage="erasing AmpMod's data"
+                                        defaultMessage="erasing the data"
                                         description="Link text to delete AmpMod's site data"
                                         id="gui.crashMessage.eraseDataLinkText"
                                     />

@@ -7,11 +7,11 @@ const VirtualMachine = require("../../src/index");
 
 const uri = path.resolve(
     __dirname,
-    "../fixtures/unknown-opcode-in-c-block.sb2",
+    "../fixtures/unknown-opcode-in-c-block.sb2"
 );
 const project = readFileToBuffer(uri);
 
-test("unknown opcode", (t) => {
+test("unknown opcode", t => {
     const vm = new VirtualMachine();
     vm.attachStorage(makeTestStorage());
 

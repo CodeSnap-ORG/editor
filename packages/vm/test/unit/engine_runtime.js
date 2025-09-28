@@ -9,7 +9,7 @@ const { Map } = require("immutable");
 
 const test = tap.test;
 
-test("spec", (t) => {
+test("spec", t => {
     const r = new Runtime();
 
     t.type(Runtime, "function");
@@ -26,7 +26,7 @@ test("spec", (t) => {
     t.end();
 });
 
-test("monitorStateEquals", (t) => {
+test("monitorStateEquals", t => {
     const r = new Runtime();
     const id = "xklj4#!";
     const prevMonitorState = MonitorRecord({
@@ -46,7 +46,7 @@ test("monitorStateEquals", (t) => {
     t.end();
 });
 
-test("monitorStateDoesNotEqual", (t) => {
+test("monitorStateDoesNotEqual", t => {
     const r = new Runtime();
     const id = "xklj4#!";
     const params = { seven: 7 };
@@ -81,7 +81,7 @@ test("monitorStateDoesNotEqual", (t) => {
     t.end();
 });
 
-test("getLabelForOpcode", (t) => {
+test("getLabelForOpcode", t => {
     const r = new Runtime();
 
     const fakeExtension = {
@@ -122,7 +122,7 @@ test("getLabelForOpcode", (t) => {
     t.end();
 });
 
-test("Project loaded emits runtime event", (t) => {
+test("Project loaded emits runtime event", t => {
     const vm = new VirtualMachine();
     const projectUri = path.resolve(__dirname, "../fixtures/default.sb2");
     const project = readFileToBuffer(projectUri);
@@ -138,7 +138,7 @@ test("Project loaded emits runtime event", (t) => {
     });
 });
 
-test("Cloud variable limit allows only 10 cloud variables", (t) => {
+test("Cloud variable limit allows only 10 cloud variables", t => {
     // This is a test of just the cloud variable limit mechanism
     // The functions being tested below need to be used when
     // creating and deleting cloud variables in the runtime.
@@ -182,7 +182,7 @@ test("Cloud variable limit allows only 10 cloud variables", (t) => {
     t.end();
 });
 
-test("Starting the runtime emits an event", (t) => {
+test("Starting the runtime emits an event", t => {
     let started = false;
     const rt = new Runtime();
     rt.addListener("RUNTIME_STARTED", () => {
@@ -194,7 +194,7 @@ test("Starting the runtime emits an event", (t) => {
     t.end();
 });
 
-test("Runtime cannot be started while already running", (t) => {
+test("Runtime cannot be started while already running", t => {
     const rt = new Runtime();
     rt.start(); // Start the first time
 
@@ -211,7 +211,7 @@ test("Runtime cannot be started while already running", (t) => {
     t.end();
 });
 
-test("setCompatibilityMode restarts if it was already running", (t) => {
+test("setCompatibilityMode restarts if it was already running", t => {
     const rt = new Runtime();
     rt.start(); // Start the first time
 
@@ -229,7 +229,7 @@ test("setCompatibilityMode restarts if it was already running", (t) => {
     t.end();
 });
 
-test("setCompatibilityMode does not restart if it was not running", (t) => {
+test("setCompatibilityMode does not restart if it was not running", t => {
     const rt = new Runtime();
 
     let started = false;
@@ -242,7 +242,7 @@ test("setCompatibilityMode does not restart if it was not running", (t) => {
     t.end();
 });
 
-test("Disposing the runtime emits an event", (t) => {
+test("Disposing the runtime emits an event", t => {
     let disposed = false;
     const rt = new Runtime();
     rt.addListener("RUNTIME_DISPOSED", () => {
@@ -253,7 +253,7 @@ test("Disposing the runtime emits an event", (t) => {
     t.end();
 });
 
-test("Clock is reset on runtime dispose", (t) => {
+test("Clock is reset on runtime dispose", t => {
     const rt = new Runtime();
     const c = rt.ioDevices.clock;
     let simulatedTime = 0;

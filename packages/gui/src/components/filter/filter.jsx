@@ -7,7 +7,7 @@ import filterIcon from "!../../lib/tw-recolor/build!./icon--filter.svg";
 import xIcon from "!../../lib/tw-recolor/build!./icon--x.svg";
 import styles from "./filter.css";
 
-const FilterComponent = (props) => {
+const FilterComponent = props => {
     const {
         className,
         onChange,

@@ -20,8 +20,8 @@ for (const [colorReducer, changeColor, colorProp] of [
         expect(
             colorReducer(
                 defaultState /* state */,
-                { type: "anything" } /* action */,
-            ),
+                { type: "anything" } /* action */
+            )
         ).toBeDefined();
     });
 
@@ -33,8 +33,8 @@ for (const [colorReducer, changeColor, colorProp] of [
         expect(
             colorReducer(
                 defaultState /* state */,
-                changeColor(newColor) /* action */,
-            ).primary,
+                changeColor(newColor) /* action */
+            ).primary
         ).toEqual(newColor);
         expect(
             colorReducer(
@@ -43,8 +43,8 @@ for (const [colorReducer, changeColor, colorProp] of [
                     secondary: null,
                     gradientType: GradientTypes.SOLID,
                 } /* state */,
-                changeColor(newColor) /* action */,
-            ).primary,
+                changeColor(newColor) /* action */
+            ).primary
         ).toEqual(newColor);
 
         // 6 value hex code
@@ -52,8 +52,8 @@ for (const [colorReducer, changeColor, colorProp] of [
         expect(
             colorReducer(
                 defaultState /* state */,
-                changeColor(newColor) /* action */,
-            ).primary,
+                changeColor(newColor) /* action */
+            ).primary
         ).toEqual(newColor);
         expect(
             colorReducer(
@@ -62,8 +62,8 @@ for (const [colorReducer, changeColor, colorProp] of [
                     secondary: null,
                     gradientType: GradientTypes.SOLID,
                 } /* state */,
-                changeColor(newColor) /* action */,
-            ).primary,
+                changeColor(newColor) /* action */
+            ).primary
         ).toEqual(newColor);
     });
 
@@ -79,8 +79,8 @@ for (const [colorReducer, changeColor, colorProp] of [
         expect(
             colorReducer(
                 defaultState /* state */,
-                setSelectedItems(selectedItems) /* action */,
-            ).primary,
+                setSelectedItems(selectedItems) /* action */
+            ).primary
         ).toEqual(color1);
         selectedItems = [
             mockPaperRootItem({ [colorProp]: color2, strokeWidth: 1 }),
@@ -88,8 +88,8 @@ for (const [colorReducer, changeColor, colorProp] of [
         expect(
             colorReducer(
                 defaultState /* state */,
-                setSelectedItems(selectedItems) /* action */,
-            ).primary,
+                setSelectedItems(selectedItems) /* action */
+            ).primary
         ).toEqual(color2);
         selectedItems = [
             mockPaperRootItem({ [colorProp]: color1, strokeWidth: 1 }),
@@ -98,8 +98,8 @@ for (const [colorReducer, changeColor, colorProp] of [
         expect(
             colorReducer(
                 defaultState /* state */,
-                setSelectedItems(selectedItems) /* action */,
-            ).primary,
+                setSelectedItems(selectedItems) /* action */
+            ).primary
         ).toEqual(MIXED);
     });
 
@@ -111,19 +111,16 @@ for (const [colorReducer, changeColor, colorProp] of [
         };
 
         expect(
-            colorReducer(origState /* state */, changeColor() /* action */),
+            colorReducer(origState /* state */, changeColor() /* action */)
         ).toBe(origState);
         expect(
-            colorReducer(origState /* state */, changeColor("#") /* action */),
+            colorReducer(origState /* state */, changeColor("#") /* action */)
         ).toBe(origState);
         expect(
-            colorReducer(origState /* state */, changeColor("#1") /* action */),
+            colorReducer(origState /* state */, changeColor("#1") /* action */)
         ).toBe(origState);
         expect(
-            colorReducer(
-                origState /* state */,
-                changeColor("#12") /* action */,
-            ),
+            colorReducer(origState /* state */, changeColor("#12") /* action */)
         ).toBe(origState);
         // expect(colorReducer(origState /* state */, changeColor('#1234') /* action */))
         //     .toBe(origState);
@@ -134,8 +131,8 @@ for (const [colorReducer, changeColor, colorProp] of [
         expect(
             colorReducer(
                 origState /* state */,
-                changeColor("invalid argument") /* action */,
-            ),
+                changeColor("invalid argument") /* action */
+            )
         ).toBe(origState);
     });
 }

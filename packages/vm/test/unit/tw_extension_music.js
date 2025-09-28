@@ -2,14 +2,14 @@ const test = require("tap").test;
 const Music = require("../../src/extensions/scratch3_music/index.js");
 const Runtime = require("../../src/engine/runtime.js");
 
-test("_isConcurrencyLimited", (t) => {
+test("_isConcurrencyLimited", t => {
     const rt = new Runtime();
 
     // sanity check so that the setRuntimeOptions() call below actually does something
     t.equal(
         rt.runtimeOptions.miscLimits,
         true,
-        "misc limits enabled by default",
+        "misc limits enabled by default"
     );
 
     const blocks = new Music(rt);
@@ -28,7 +28,7 @@ test("_isConcurrencyLimited", (t) => {
     t.equal(
         blocks._isConcurrencyLimited(),
         false,
-        "not limited when miscLimits: false",
+        "not limited when miscLimits: false"
     );
 
     t.end();

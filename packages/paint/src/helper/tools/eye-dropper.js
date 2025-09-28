@@ -13,7 +13,7 @@ class EyeDropperTool extends paper.Tool {
         zoom,
         offsetX,
         offsetY,
-        isBitmap,
+        isBitmap
     ) {
         super();
 
@@ -21,24 +21,24 @@ class EyeDropperTool extends paper.Tool {
         const contentRaster3x = layer.rasterize(
             72 * ZOOM_SCALE * paper.view.zoom,
             false /* insert */,
-            paper.view.bounds,
+            paper.view.bounds
         );
         const backgroundRaster3x = getBackgroundGuideLayer().rasterize(
             72 * ZOOM_SCALE * paper.view.zoom,
             false /* insert */,
-            paper.view.bounds,
+            paper.view.bounds
         );
 
         // Canvas from which loupe is cut, shows art and grid
         this.bufferCanvas = createCanvas(
             canvas.width * ZOOM_SCALE,
-            canvas.height * ZOOM_SCALE,
+            canvas.height * ZOOM_SCALE
         );
         const bufferCanvasContext = this.bufferCanvas.getContext("2d");
         // Canvas to sample colors from; just the art
         this.colorCanvas = createCanvas(
             canvas.width * ZOOM_SCALE,
-            canvas.height * ZOOM_SCALE,
+            canvas.height * ZOOM_SCALE
         );
         const colorCanvasContext = this.colorCanvas.getContext("2d");
 
@@ -53,7 +53,7 @@ class EyeDropperTool extends paper.Tool {
                     0,
                     0,
                     this.colorCanvas.width,
-                    this.colorCanvas.height,
+                    this.colorCanvas.height
                 ).data;
                 this.bufferLoaded = true;
             };
@@ -104,7 +104,7 @@ class EyeDropperTool extends paper.Tool {
             const colorInfo = this.getColorInfo(
                 this.pickX,
                 this.pickY,
-                this.hideLoupe,
+                this.hideLoupe
             );
             if (!colorInfo) return;
             if (colorInfo.color[3] === 0) {
@@ -119,7 +119,7 @@ class EyeDropperTool extends paper.Tool {
 
             // from https://github.com/LLK/scratch-gui/blob/77e54a80a31b6cd4684d4b2a70f1aeec671f229e/src/containers/stage.jsx#L218-L222
             // formats the color info from the canvas into hex for parsing by the color picker
-            const component = (c) => {
+            const component = c => {
                 const hex = c.toString(16);
                 return hex.length === 1 ? `0${hex}` : hex;
             };

@@ -31,6 +31,7 @@
         }
     },
     "dependencies": {
+        "@ampmod/branding": "^0.3.0",
         "@fontsource/inter": "^5.2.6",
         "@microbit/microbit-universal-hex": "0.2.2",
         "@turbowarp/jszip": "^3.11.1",

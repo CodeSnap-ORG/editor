@@ -31,7 +31,7 @@ const messages = defineMessages({
 class LibraryItemComponent extends React.PureComponent {
     render() {
         const favoriteMessage = this.props.intl.formatMessage(
-            this.props.favorite ? messages.unfavorite : messages.favorite,
+            this.props.favorite ? messages.unfavorite : messages.favorite
         );
         const favorite = (
             <button
@@ -66,7 +66,7 @@ class LibraryItemComponent extends React.PureComponent {
                     typeof this.props.extensionId === "string"
                         ? styles.libraryItemExtension
                         : null,
-                    this.props.hidden ? styles.hidden : null,
+                    this.props.hidden ? styles.hidden : null
                 )}
                 onClick={this.props.onClick}
             >
@@ -94,6 +94,8 @@ class LibraryItemComponent extends React.PureComponent {
                         loading="lazy"
                         draggable={false}
                         src={this.props.iconURL}
+                        width={600}
+                        height={150}
                     />
                 </div>
                 <div
@@ -101,7 +103,7 @@ class LibraryItemComponent extends React.PureComponent {
                         typeof this.props.extensionId === "string"
                             ? classNames(
                                   styles.featuredExtensionText,
-                                  styles.featuredText,
+                                  styles.featuredText
                               )
                             : styles.featuredText
                     }
@@ -326,14 +328,14 @@ LibraryItemComponent.propTypes = {
     isPlaying: PropTypes.bool,
     name: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
     credits: PropTypes.arrayOf(
-        PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+        PropTypes.oneOfType([PropTypes.string, PropTypes.node])
     ),
     docsURI: PropTypes.string,
     samples: PropTypes.arrayOf(
         PropTypes.shape({
             href: PropTypes.string,
             text: PropTypes.string,
-        }),
+        })
     ),
     favorite: PropTypes.bool,
     onFavorite: PropTypes.func,

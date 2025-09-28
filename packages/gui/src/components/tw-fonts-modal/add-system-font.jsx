@@ -36,7 +36,7 @@ class AddSystemFont extends React.Component {
     handleFinish() {
         this.props.fontManager.addSystemFont(
             this.state.name,
-            this.state.fallback,
+            this.state.fallback
         );
         this.props.onClose();
     }

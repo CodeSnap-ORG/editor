@@ -11,8 +11,8 @@ console.log(`Built extensions (mode: ${mode})`);
 
 const outputDirectory = pathUtil.join(__dirname, "../dist-extensions/");
 fs.rmSync(outputDirectory, {
-  recursive: true,
-  force: true,
+    recursive: true,
+    force: true,
 });
 
 const brotliCompress = promisify(zlib.brotliCompress);
@@ -20,33 +20,33 @@ const mkdir = promisify(fs.mkdir);
 const writeFile = promisify(fs.writeFile);
 
 const exportFile = async (relativePath, file) => {
-  // This part is unfortunately still synchronous
-  const contents = file.read();
-  console.log(`Generated ${relativePath}`);
+    // This part is unfortunately still synchronous
+    const contents = file.read();
+    console.log(`Generated ${relativePath}`);
 
-  const compressed = await brotliCompress(contents);
+    const compressed = await brotliCompress(contents);
 
-  const directoryName = pathUtil.dirname(relativePath);
-  await mkdir(pathUtil.join(outputDirectory, directoryName), {
-    recursive: true,
-  });
+    const directoryName = pathUtil.dirname(relativePath);
+    await mkdir(pathUtil.join(outputDirectory, directoryName), {
+        recursive: true,
+    });
 
-  await writeFile(
-    pathUtil.join(outputDirectory, `${relativePath}.br`),
-    compressed,
-  );
+    await writeFile(
+        pathUtil.join(outputDirectory, `${relativePath}.br`),
+        compressed
+    );
 
-  console.log(`Compressed ${relativePath}`);
+    console.log(`Compressed ${relativePath}`);
 };
 
 const promises = Object.entries(build.files).map(([relativePath, file]) =>
-  exportFile(relativePath, file),
+    exportFile(relativePath, file)
 );
 Promise.all(promises)
-  .then(() => {
-    console.log(`Exported to ${outputDirectory}`);
-  })
-  .catch((err) => {
-    console.error(err);
-    process.exit(1);
-  });
+    .then(() => {
+        console.log(`Exported to ${outputDirectory}`);
+    })
+    .catch(err => {
+        console.error(err);
+        process.exit(1);
+    });

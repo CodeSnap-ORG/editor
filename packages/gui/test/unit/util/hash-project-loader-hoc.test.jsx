@@ -25,7 +25,7 @@ describe("HashParserHOC", () => {
             <WrappedComponent
                 setProjectId={mockSetProjectIdFunc}
                 store={store}
-            />,
+            />
         );
         expect(mockSetProjectIdFunc.mock.calls[0][0]).toBe("1234567");
     });
@@ -39,7 +39,7 @@ describe("HashParserHOC", () => {
             <WrappedComponent
                 setProjectId={mockSetProjectIdFunc}
                 store={store}
-            />,
+            />
         );
         expect(mockSetProjectIdFunc.mock.calls[0][0]).toBe("0");
     });
@@ -53,7 +53,7 @@ describe("HashParserHOC", () => {
             <WrappedComponent
                 setProjectId={mockSetProjectIdFunc}
                 store={store}
-            />,
+            />
         );
         expect(mockSetProjectIdFunc.mock.calls[0][0]).toBe("0");
     });
@@ -67,7 +67,7 @@ describe("HashParserHOC", () => {
             <WrappedComponent
                 setProjectId={mockSetProjectIdFunc}
                 store={store}
-            />,
+            />
         );
         window.location.hash = "#1234567";
         mounted.childAt(0).instance().handleHashChange();

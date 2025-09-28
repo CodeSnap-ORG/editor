@@ -2,7 +2,7 @@ const ScratchXUtilities = require("../../src/extension-support/tw-scratchx-utili
 const createScratchX = require("../../src/extension-support/tw-scratchx-compatibility-layer");
 const { test } = require("tap");
 
-test("argument index to id", (t) => {
+test("argument index to id", t => {
     t.equal(ScratchXUtilities.argumentIndexToId(0), "0");
     t.equal(ScratchXUtilities.argumentIndexToId(1), "1");
     t.equal(ScratchXUtilities.argumentIndexToId(2), "2");
@@ -12,12 +12,12 @@ test("argument index to id", (t) => {
     t.end();
 });
 
-test("generate extension id", (t) => {
+test("generate extension id", t => {
     t.equal(ScratchXUtilities.generateExtensionId("Spotify"), "sbxspotify");
     t.equal(ScratchXUtilities.generateExtensionId("Spo _t ify"), "sbxspotify");
     t.equal(
         ScratchXUtilities.generateExtensionId("Spo _t $#@! 3ify😮"),
-        "sbxspot3ify",
+        "sbxspot3ify"
     );
     t.end();
 });
@@ -31,7 +31,7 @@ const convert = (...args) => {
     let registered = null;
     const mockScratch = {
         extensions: {
-            register: (extensionObject) => {
+            register: extensionObject => {
                 if (registered) {
                     // In tests we don't want this
                     throw new Error("register() called twice");
@@ -48,15 +48,15 @@ const convert = (...args) => {
     return registered;
 };
 
-test("register", (t) => {
+test("register", t => {
     const ScratchExtensions = mockScratchExtensions();
     t.type(ScratchExtensions.register, "function");
     t.end();
 });
 
-test("complex extension", async (t) => {
+test("complex extension", async t => {
     let stepsMoved = 0;
-    const moveSteps = (n) => {
+    const moveSteps = n => {
         stepsMoved += n;
     };
 
@@ -106,7 +106,7 @@ test("complex extension", async (t) => {
             multiplyAndAppend,
             repeat,
             touching,
-        },
+        }
     );
 
     const info = converted.getInfo();
@@ -210,7 +210,7 @@ test("complex extension", async (t) => {
         converted.moveSteps({
             0: 30,
         }),
-        undefined,
+        undefined
     );
     t.equal(stepsMoved, 30);
 
@@ -222,13 +222,13 @@ test("complex extension", async (t) => {
         converted.fetch({
             0: "https://example.com/",
         }).then,
-        "function",
+        "function"
     );
     t.equal(
         await converted.fetch({
             0: "https://example.com/",
         }),
-        "Fetched: https://example.com/",
+        "Fetched: https://example.com/"
     );
 
     t.equal(
@@ -237,7 +237,7 @@ test("complex extension", async (t) => {
             1: 7,
             2: "Cat",
         }),
-        "217Cat",
+        "217Cat"
     );
 
     t.type(
@@ -245,14 +245,14 @@ test("complex extension", async (t) => {
             0: "",
             1: 0,
         }).then,
-        "function",
+        "function"
     );
     t.equal(
         await converted.repeat({
             0: "scratchx",
             1: 3,
         }),
-        "scratchxscratchxscratchx",
+        "scratchxscratchxscratchx"
     );
 
     t.equal(
@@ -260,40 +260,40 @@ test("complex extension", async (t) => {
             0: "Sprite1",
             1: true,
         }),
-        false,
+        false
     );
     t.equal(
         converted.touching({
             0: "Sprite9",
             1: true,
         }),
-        true,
+        true
     );
     t.equal(
         converted.touching({
             0: "Sprite9",
             1: false,
         }),
-        false,
+        false
     );
 
     t.end();
 });
 
-test("display name", (t) => {
+test("display name", t => {
     const converted = convert(
         "Internal Name",
         {
             blocks: [],
             displayName: "Display Name",
         },
-        {},
+        {}
     );
     t.equal(converted.getInfo().name, "Display Name");
     t.end();
 });
 
-test("_getStatus", (t) => {
+test("_getStatus", t => {
     const _getStatus = () => ({
         status: 2,
         msg: "Ready",
@@ -306,7 +306,7 @@ test("_getStatus", (t) => {
         {
             _getStatus: _getStatus,
             unusedProperty: 10,
-        },
+        }
     );
     t.equal(converted._getStatus, _getStatus);
     t.equal("unusedProperty" in converted, false);

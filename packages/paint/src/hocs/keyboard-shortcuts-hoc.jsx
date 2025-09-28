@@ -100,7 +100,7 @@ const KeyboardShortcutsHOC = function (WrappedComponent) {
                         ungroupSelection(
                             clearSelectedItems,
                             setSelectedItems,
-                            this.props.onUpdateImage,
+                            this.props.onUpdateImage
                         );
                     }
                     event.preventDefault();
@@ -109,7 +109,7 @@ const KeyboardShortcutsHOC = function (WrappedComponent) {
                         groupSelection(
                             clearSelectedItems,
                             setSelectedItems,
-                            this.props.onUpdateImage,
+                            this.props.onUpdateImage
                         );
                     }
                     event.preventDefault();
@@ -125,7 +125,7 @@ const KeyboardShortcutsHOC = function (WrappedComponent) {
                         if (
                             deleteSelection(
                                 this.props.mode,
-                                this.props.onUpdateImage,
+                                this.props.onUpdateImage
                             )
                         ) {
                             this.props.setSelectedItems(this.props.format);
@@ -142,7 +142,7 @@ const KeyboardShortcutsHOC = function (WrappedComponent) {
                     if (
                         Object.prototype.hasOwnProperty.call(
                             VECTOR_KEYBINDINGS,
-                            lowercaseKey,
+                            lowercaseKey
                         )
                     ) {
                         this.props.changeMode(VECTOR_KEYBINDINGS[lowercaseKey]);
@@ -152,7 +152,7 @@ const KeyboardShortcutsHOC = function (WrappedComponent) {
                     if (
                         Object.prototype.hasOwnProperty.call(
                             BITMAP_KEYBINDINGS,
-                            lowercaseKey,
+                            lowercaseKey
                         )
                     ) {
                         this.props.changeMode(BITMAP_KEYBINDINGS[lowercaseKey]);
@@ -218,27 +218,27 @@ const KeyboardShortcutsHOC = function (WrappedComponent) {
         textEditing: PropTypes.bool.isRequired,
     };
 
-    const mapStateToProps = (state) => ({
+    const mapStateToProps = state => ({
         mode: state.scratchPaint.mode,
         format: state.scratchPaint.format,
         textEditing: state.scratchPaint.textEditTarget !== null,
     });
-    const mapDispatchToProps = (dispatch) => ({
-        changeMode: (mode) => {
+    const mapDispatchToProps = dispatch => ({
+        changeMode: mode => {
             dispatch(changeMode(mode));
         },
         clearSelectedItems: () => {
             dispatch(clearSelectedItems());
         },
-        setSelectedItems: (format) => {
+        setSelectedItems: format => {
             dispatch(
-                setSelectedItems(getSelectedLeafItems(), isBitmap(format)),
+                setSelectedItems(getSelectedLeafItems(), isBitmap(format))
             );
         },
     });
 
     return CopyPasteHOC(
-        connect(mapStateToProps, mapDispatchToProps)(KeyboardShortcutsWrapper),
+        connect(mapStateToProps, mapDispatchToProps)(KeyboardShortcutsWrapper)
     );
 };
 

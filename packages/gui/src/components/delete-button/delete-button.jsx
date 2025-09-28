@@ -5,7 +5,7 @@ import classNames from "classnames";
 import styles from "./delete-button.css";
 import deleteIcon from "./icon--delete.svg";
 
-const DeleteButton = (props) => (
+const DeleteButton = props => (
     <div
         aria-label="Delete"
         className={classNames(styles.deleteButton, props.className)}

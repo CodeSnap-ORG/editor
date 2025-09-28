@@ -23,43 +23,43 @@ class TestBuiltinExtension {
     }
 }
 
-test("addBuiltingExtension", (t) => {
+test("addBuiltingExtension", t => {
     const vm = new VM();
 
     t.equal(
         vm.extensionManager.isBuiltinExtension("testbuiltin"),
         false,
-        "extension is not known",
+        "extension is not known"
     );
     t.equal(
         vm.extensionManager.isExtensionLoaded("testbuiltin"),
         false,
-        "extension is not loaded",
+        "extension is not loaded"
     );
 
     vm.extensionManager.addBuiltinExtension(
         "testbuiltin",
-        TestBuiltinExtension,
+        TestBuiltinExtension
     );
     t.equal(
         vm.extensionManager.isBuiltinExtension("testbuiltin"),
         true,
-        "extension is now known",
+        "extension is now known"
     );
     t.equal(
         vm.extensionManager.isExtensionLoaded("testbuiltin"),
         false,
-        "extension is still not loaded",
+        "extension is still not loaded"
     );
 
     const fixture = fs.readFileSync(
-        path.join(__dirname, "..", "fixtures", "tw-add-builtin-extension.sb3"),
+        path.join(__dirname, "..", "fixtures", "tw-add-builtin-extension.sb3")
     );
     vm.loadProject(fixture).then(() => {
         t.equal(
             vm.extensionManager.isExtensionLoaded("testbuiltin"),
             true,
-            "extension was loaded automatically",
+            "extension was loaded automatically"
         );
 
         vm.runtime.on("SAY", (target, type, text) => {
@@ -72,13 +72,13 @@ test("addBuiltingExtension", (t) => {
     });
 });
 
-test("each runtime has own set of extensions", (t) => {
+test("each runtime has own set of extensions", t => {
     const vm1 = new VM();
     const vm2 = new VM();
 
     vm1.extensionManager.addBuiltinExtension(
         "testbuiltin",
-        TestBuiltinExtension,
+        TestBuiltinExtension
     );
 
     t.ok(vm1.extensionManager.isBuiltinExtension("testbuiltin"));

@@ -7,10 +7,10 @@ const projectPath = path.join(
     __dirname,
     "..",
     "fixtures",
-    "tw-stackframe-op.sb3",
+    "tw-stackframe-op.sb3"
 );
 
-test("util.thread.peekStackFrame().op", (t) => {
+test("util.thread.peekStackFrame().op", t => {
     const vm = new VirtualMachine();
 
     vm.runtime.setCompilerOptions({

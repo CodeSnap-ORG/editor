@@ -3,7 +3,7 @@ const Thread = require("../../src/engine/thread");
 const Runtime = require("../../src/engine/runtime");
 const Target = require("../../src/engine/target");
 
-test("stopThisScript procedures_call reporter form", (t) => {
+test("stopThisScript procedures_call reporter form", t => {
     const rt = new Runtime();
     const target = new Target(rt, null);
 

@@ -16,13 +16,13 @@ Object.defineProperty(global, "navigator", {
 // Translate tries to access AbortController from window, but does not require it to exist.
 global.window = {};
 
-test("translate returns original string on network error", (t) => {
+test("translate returns original string on network error", t => {
     t.plan(1);
 
     const extension = new Scratch3TranslateBlocks();
     extension
         .getTranslate({ WORDS: "My message 123123", LANGUAGE: "es" })
-        .then((message) => {
+        .then(message => {
             t.equal(message, "My message 123123");
             t.end();
         });

@@ -52,7 +52,7 @@ class BoundingBoxTool {
         clearSelectedItems,
         setCursor,
         onUpdateImage,
-        switchToTextTool,
+        switchToTextTool
     ) {
         this.dispatchSetCursor = setCursor;
         this.onUpdateImage = onUpdateImage;
@@ -63,7 +63,7 @@ class BoundingBoxTool {
         this._modeMap = {};
         this._modeMap[BoundingBoxModes.SCALE] = new ScaleTool(
             mode,
-            onUpdateImage,
+            onUpdateImage
         );
         this._modeMap[BoundingBoxModes.ROTATE] = new RotateTool(onUpdateImage);
         this._modeMap[BoundingBoxModes.MOVE] = new MoveTool(
@@ -71,7 +71,7 @@ class BoundingBoxTool {
             setSelectedItems,
             clearSelectedItems,
             onUpdateImage,
-            switchToTextTool,
+            switchToTextTool
         );
         this._currentCursor = null;
     }
@@ -102,7 +102,7 @@ class BoundingBoxTool {
         const { hitResult, mode } = this._determineMode(
             event,
             multiselect,
-            hitOptions,
+            hitOptions
         );
         if (!hitResult) {
             if (!multiselect) {
@@ -125,7 +125,7 @@ class BoundingBoxTool {
             this._modeMap[this.mode].onMouseDown(
                 hitResult,
                 this.boundsPath,
-                getSelectedRootItems(),
+                getSelectedRootItems()
             );
             this.removeBoundsHandles();
         } else if (this.mode === BoundingBoxModes.ROTATE) {
@@ -133,7 +133,7 @@ class BoundingBoxTool {
             this._modeMap[this.mode].onMouseDown(
                 hitResult,
                 this.boundsPath,
-                getSelectedRootItems(),
+                getSelectedRootItems()
             );
             // While transforming, don't show bounds
             this.removeBoundsPath();
@@ -148,7 +148,7 @@ class BoundingBoxTool {
         const { mode, hitResult } = this._determineMode(
             event,
             false,
-            hitOptions,
+            hitOptions
         );
         if (hitResult) {
             if (mode === BoundingBoxModes.MOVE) {
@@ -160,23 +160,23 @@ class BoundingBoxTool {
                 if (
                     this._impreciseEqual(
                         hitResult.item.position.x,
-                        this.boundsPath.position.x,
+                        this.boundsPath.position.x
                     )
                 ) {
                     this.setCursor(Cursors.RESIZE_NS);
                 } else if (
                     this._impreciseEqual(
                         hitResult.item.position.y,
-                        this.boundsPath.position.y,
+                        this.boundsPath.position.y
                     )
                 ) {
                     this.setCursor(Cursors.RESIZE_EW);
                 } else if (
                     hitResult.item.position.equals(
-                        this.boundsPath.bounds.bottomLeft,
+                        this.boundsPath.bounds.bottomLeft
                     ) ||
                     hitResult.item.position.equals(
-                        this.boundsPath.bounds.topRight,
+                        this.boundsPath.bounds.topRight
                     )
                 ) {
                     this.setCursor(Cursors.RESIZE_NESW);
@@ -297,7 +297,7 @@ class BoundingBoxTool {
         this.boundsPath.selectionAnchor.scale(
             SELECTION_ANCHOR_SIZE /
                 paper.view.zoom /
-                this.boundsPath.selectionAnchor.bounds.width,
+                this.boundsPath.selectionAnchor.bounds.width
         );
         this.boundsPath.selectionAnchor.position = rect.center;
 
@@ -341,7 +341,7 @@ class BoundingBoxTool {
 
                 const line = new paper.Path.Rectangle(
                     segment.point.add(offset).subtract(1, 0),
-                    segment.point,
+                    segment.point
                 );
 
                 const rotHandle = arrows.unite(line);

@@ -22,14 +22,13 @@
  * @fileoverview Object representing an input (value, statement, or dummy).
  * @author fraser@google.com (Neil Fraser)
  */
-'use strict';
+"use strict";
 
-goog.provide('Blockly.Input');
+goog.provide("Blockly.Input");
 
-goog.require('Blockly.Connection');
-goog.require('Blockly.FieldLabel');
-goog.require('goog.asserts');
-
+goog.require("Blockly.Connection");
+goog.require("Blockly.FieldLabel");
+goog.require("goog.asserts");
 
 /**
  * Class for an input with an optional field.
@@ -40,30 +39,30 @@ goog.require('goog.asserts');
  * @param {Blockly.Connection} connection Optional connection for this input.
  * @constructor
  */
-Blockly.Input = function(type, name, block, connection) {
-  if (type != Blockly.DUMMY_INPUT && !name) {
-    throw 'Value inputs and statement inputs must have non-empty name.';
-  }
-  /** @type {number} */
-  this.type = type;
-  /** @type {string} */
-  this.name = name;
-  /**
-   * @type {!Blockly.Block}
-   * @private
-   */
-  this.sourceBlock_ = block;
-  /** @type {Blockly.Connection} */
-  this.connection = connection;
-  /** @type {!Array.<!Blockly.Field>} */
-  this.fieldRow = [];
+Blockly.Input = function (type, name, block, connection) {
+    if (type != Blockly.DUMMY_INPUT && !name) {
+        throw "Value inputs and statement inputs must have non-empty name.";
+    }
+    /** @type {number} */
+    this.type = type;
+    /** @type {string} */
+    this.name = name;
+    /**
+     * @type {!Blockly.Block}
+     * @private
+     */
+    this.sourceBlock_ = block;
+    /** @type {Blockly.Connection} */
+    this.connection = connection;
+    /** @type {!Array.<!Blockly.Field>} */
+    this.fieldRow = [];
 
-  /**
-   * The shape that is displayed when this input is rendered but not filled.
-   * @type {SVGElement}
-   * @package
-   */
-  this.outlinePath = null;
+    /**
+     * The shape that is displayed when this input is rendered but not filled.
+     * @type {SVGElement}
+     * @package
+     */
+    this.outlinePath = null;
 };
 
 /**
@@ -87,9 +86,9 @@ Blockly.Input.prototype.visible_ = true;
  *     this field again.  Should be unique to the host block.
  * @return {!Blockly.Input} The input being append to (to allow chaining).
  */
-Blockly.Input.prototype.appendField = function(field, opt_name) {
-  this.insertFieldAt(this.fieldRow.length, field, opt_name);
-  return this;
+Blockly.Input.prototype.appendField = function (field, opt_name) {
+    this.insertFieldAt(this.fieldRow.length, field, opt_name);
+    return this;
 };
 
 /**
@@ -101,43 +100,43 @@ Blockly.Input.prototype.appendField = function(field, opt_name) {
  *     this field again.  Should be unique to the host block.
  * @return {number} The index following the last inserted field.
  */
-Blockly.Input.prototype.insertFieldAt = function(index, field, opt_name) {
-  if (index < 0 || index > this.fieldRow.length) {
-    throw new Error('index ' + index + ' out of bounds.');
-  }
+Blockly.Input.prototype.insertFieldAt = function (index, field, opt_name) {
+    if (index < 0 || index > this.fieldRow.length) {
+        throw new Error("index " + index + " out of bounds.");
+    }
 
-  // Empty string, Null or undefined generates no field, unless field is named.
-  if (!field && !opt_name) {
-    return this;
-  }
-  // Generate a FieldLabel when given a plain text field.
-  if (goog.isString(field)) {
-    field = new Blockly.FieldLabel(/** @type {string} */ (field));
-  }
-  field.setSourceBlock(this.sourceBlock_);
-  if (this.sourceBlock_.rendered) {
-    field.init();
-  }
-  field.name = opt_name;
+    // Empty string, Null or undefined generates no field, unless field is named.
+    if (!field && !opt_name) {
+        return this;
+    }
+    // Generate a FieldLabel when given a plain text field.
+    if (goog.isString(field)) {
+        field = new Blockly.FieldLabel(/** @type {string} */ (field));
+    }
+    field.setSourceBlock(this.sourceBlock_);
+    if (this.sourceBlock_.rendered) {
+        field.init();
+    }
+    field.name = opt_name;
 
-  if (field.prefixField) {
-    // Add any prefix.
-    index = this.insertFieldAt(index, field.prefixField);
-  }
-  // Add the field to the field row.
-  this.fieldRow.splice(index, 0, field);
-  ++index;
-  if (field.suffixField) {
-    // Add any suffix.
-    index = this.insertFieldAt(index, field.suffixField);
-  }
+    if (field.prefixField) {
+        // Add any prefix.
+        index = this.insertFieldAt(index, field.prefixField);
+    }
+    // Add the field to the field row.
+    this.fieldRow.splice(index, 0, field);
+    ++index;
+    if (field.suffixField) {
+        // Add any suffix.
+        index = this.insertFieldAt(index, field.suffixField);
+    }
 
-  if (this.sourceBlock_.rendered) {
-    this.sourceBlock_.render();
-    // Adding a field will cause the block to change shape.
-    this.sourceBlock_.bumpNeighbours_();
-  }
-  return index;
+    if (this.sourceBlock_.rendered) {
+        this.sourceBlock_.render();
+        // Adding a field will cause the block to change shape.
+        this.sourceBlock_.bumpNeighbours_();
+    }
+    return index;
 };
 
 /**
@@ -145,28 +144,28 @@ Blockly.Input.prototype.insertFieldAt = function(index, field, opt_name) {
  * @param {string} name The name of the field.
  * @throws {goog.asserts.AssertionError} if the field is not present.
  */
-Blockly.Input.prototype.removeField = function(name) {
-  for (var i = 0, field; field = this.fieldRow[i]; i++) {
-    if (field.name === name) {
-      field.dispose();
-      this.fieldRow.splice(i, 1);
-      if (this.sourceBlock_.rendered) {
-        this.sourceBlock_.render();
-        // Removing a field will cause the block to change shape.
-        this.sourceBlock_.bumpNeighbours_();
-      }
-      return;
+Blockly.Input.prototype.removeField = function (name) {
+    for (var i = 0, field; (field = this.fieldRow[i]); i++) {
+        if (field.name === name) {
+            field.dispose();
+            this.fieldRow.splice(i, 1);
+            if (this.sourceBlock_.rendered) {
+                this.sourceBlock_.render();
+                // Removing a field will cause the block to change shape.
+                this.sourceBlock_.bumpNeighbours_();
+            }
+            return;
+        }
     }
-  }
-  goog.asserts.fail('Field "%s" not found.', name);
+    goog.asserts.fail('Field "%s" not found.', name);
 };
 
 /**
  * Gets whether this input is visible or not.
  * @return {boolean} True if visible.
  */
-Blockly.Input.prototype.isVisible = function() {
-  return this.visible_;
+Blockly.Input.prototype.isVisible = function () {
+    return this.visible_;
 };
 
 /**
@@ -175,33 +174,33 @@ Blockly.Input.prototype.isVisible = function() {
  * @param {boolean} visible True if visible.
  * @return {!Array.<!Blockly.Block>} List of blocks to render.
  */
-Blockly.Input.prototype.setVisible = function(visible) {
-  var renderList = [];
-  if (this.visible_ == visible) {
-    return renderList;
-  }
-  this.visible_ = visible;
+Blockly.Input.prototype.setVisible = function (visible) {
+    var renderList = [];
+    if (this.visible_ == visible) {
+        return renderList;
+    }
+    this.visible_ = visible;
 
-  var display = visible ? 'block' : 'none';
-  for (var y = 0, field; field = this.fieldRow[y]; y++) {
-    field.setVisible(visible);
-  }
-  if (this.connection) {
-    // Has a connection.
-    if (visible) {
-      renderList = this.connection.unhideAll();
-    } else {
-      this.connection.hideAll();
+    var display = visible ? "block" : "none";
+    for (var y = 0, field; (field = this.fieldRow[y]); y++) {
+        field.setVisible(visible);
     }
-    var child = this.connection.targetBlock();
-    if (child) {
-      child.getSvgRoot().style.display = display;
-      if (!visible) {
-        child.rendered = false;
-      }
+    if (this.connection) {
+        // Has a connection.
+        if (visible) {
+            renderList = this.connection.unhideAll();
+        } else {
+            this.connection.hideAll();
+        }
+        var child = this.connection.targetBlock();
+        if (child) {
+            child.getSvgRoot().style.display = display;
+            if (!visible) {
+                child.rendered = false;
+            }
+        }
     }
-  }
-  return renderList;
+    return renderList;
 };
 
 /**
@@ -210,12 +209,12 @@ Blockly.Input.prototype.setVisible = function(visible) {
  *     list of value types.  Null if all types are compatible.
  * @return {!Blockly.Input} The input being modified (to allow chaining).
  */
-Blockly.Input.prototype.setCheck = function(check) {
-  if (!this.connection) {
-    throw 'This input does not have a connection.';
-  }
-  this.connection.setCheck(check);
-  return this;
+Blockly.Input.prototype.setCheck = function (check) {
+    if (!this.connection) {
+        throw "This input does not have a connection.";
+    }
+    this.connection.setCheck(check);
+    return this;
 };
 
 /**
@@ -224,40 +223,40 @@ Blockly.Input.prototype.setCheck = function(check) {
  *   In RTL mode directions are reversed, and ALIGN_RIGHT aligns to the left.
  * @return {!Blockly.Input} The input being modified (to allow chaining).
  */
-Blockly.Input.prototype.setAlign = function(align) {
-  this.align = align;
-  if (this.sourceBlock_.rendered) {
-    this.sourceBlock_.render();
-  }
-  return this;
+Blockly.Input.prototype.setAlign = function (align) {
+    this.align = align;
+    if (this.sourceBlock_.rendered) {
+        this.sourceBlock_.render();
+    }
+    return this;
 };
 
 /**
  * Initialize the fields on this input.
  */
-Blockly.Input.prototype.init = function() {
-  if (!this.sourceBlock_.workspace.rendered) {
-    return;  // Headless blocks don't need fields initialized.
-  }
-  for (var i = 0; i < this.fieldRow.length; i++) {
-    this.fieldRow[i].init(this.sourceBlock_);
-  }
+Blockly.Input.prototype.init = function () {
+    if (!this.sourceBlock_.workspace.rendered) {
+        return; // Headless blocks don't need fields initialized.
+    }
+    for (var i = 0; i < this.fieldRow.length; i++) {
+        this.fieldRow[i].init(this.sourceBlock_);
+    }
 };
 
 /**
  * Sever all links to this input.
  */
-Blockly.Input.prototype.dispose = function() {
-  if (this.outlinePath) {
-    goog.dom.removeNode(this.outlinePath);
-  }
-  for (var i = 0, field; field = this.fieldRow[i]; i++) {
-    field.dispose();
-  }
-  if (this.connection) {
-    this.connection.dispose();
-  }
-  this.sourceBlock_ = null;
+Blockly.Input.prototype.dispose = function () {
+    if (this.outlinePath) {
+        goog.dom.removeNode(this.outlinePath);
+    }
+    for (var i = 0, field; (field = this.fieldRow[i]); i++) {
+        field.dispose();
+    }
+    if (this.connection) {
+        this.connection.dispose();
+    }
+    this.sourceBlock_ = null;
 };
 
 /**
@@ -265,21 +264,22 @@ Blockly.Input.prototype.dispose = function() {
  * @param {!SVGElement} svgRoot The parent on which ot append the new element.
  * @package
  */
-Blockly.Input.prototype.initOutlinePath = function(svgRoot) {
-  if (!this.sourceBlock_.workspace.rendered) {
-    return;  // Headless blocks don't need field outlines.
-  }
-  if (this.outlinePath) {
-    return;
-  }
-  if (this.type == Blockly.INPUT_VALUE) {
-    this.outlinePath = Blockly.utils.createSvgElement(
-        'path',
-        {
-          'class': 'blocklyPath',
-          'style': 'visibility: hidden', // Hide by default - shown when not connected.
-          'd': ''  // IE doesn't like paths without the data definition, set an empty default
-        },
-        svgRoot);
-  }
+Blockly.Input.prototype.initOutlinePath = function (svgRoot) {
+    if (!this.sourceBlock_.workspace.rendered) {
+        return; // Headless blocks don't need field outlines.
+    }
+    if (this.outlinePath) {
+        return;
+    }
+    if (this.type == Blockly.INPUT_VALUE) {
+        this.outlinePath = Blockly.utils.createSvgElement(
+            "path",
+            {
+                class: "blocklyPath",
+                style: "visibility: hidden", // Hide by default - shown when not connected.
+                d: "", // IE doesn't like paths without the data definition, set an empty default
+            },
+            svgRoot
+        );
+    }
 };

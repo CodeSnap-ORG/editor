@@ -2,7 +2,7 @@
 // User still has to manually confirm loading the extension and has
 // every opportunity to uncheck the box.
 
-const PERSISTED_UNSANDBOXED_KEY = "tw:persisted_unsandboxed";
+const PERSISTED_UNSANDBOXED_KEY = "amp:persisted_unsandboxed";
 
 /**
  * @returns {boolean} True if persistence enabled
@@ -18,7 +18,7 @@ const getPersistedUnsandboxed = () => {
 /**
  * @param {boolean} persisted True if persistence enabled
  */
-const setPersistedUnsandboxed = (persisted) => {
+const setPersistedUnsandboxed = persisted => {
     try {
         localStorage.setItem(PERSISTED_UNSANDBOXED_KEY, persisted === true);
     } catch (e) {

@@ -9,7 +9,7 @@ module.exports = {
         const zip = new AdmZip(path);
         const projectEntry = zip
             .getEntries()
-            .find((item) => item.entryName.match(/project\.json/));
+            .find(item => item.entryName.match(/project\.json/));
         if (projectEntry) {
             return JSON.parse(zip.readAsText(projectEntry.entryName, "utf8"));
         }
@@ -19,7 +19,7 @@ module.exports = {
         const zip = new AdmZip(path);
         const assetEntry = zip
             .getEntries()
-            .find((item) => item.entryName.match(assetFileName));
+            .find(item => item.entryName.match(assetFileName));
         return assetEntry.getData();
     },
 };

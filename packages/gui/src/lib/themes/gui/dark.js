@@ -65,7 +65,7 @@ const blockColors = {
     buttonBorder: "#c6c6c6",
     buttonActiveBackground: "#222222",
     buttonForeground: "#cccccc",
-    zoomIconFilter: "invert(100%)",
+    zoomIconFilter: "invert(100%) grayscale(100%) brightness(140%)",
     gridColor: "#484848",
 };
 

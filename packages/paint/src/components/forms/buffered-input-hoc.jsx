@@ -33,7 +33,7 @@ export default function (Input) {
                 : true;
             if (this.state.value !== null && validatesNumeric) {
                 this.props.onSubmit(
-                    isNumeric ? Number(this.state.value) : this.state.value,
+                    isNumeric ? Number(this.state.value) : this.state.value
                 );
             }
             this.setState({ value: null });

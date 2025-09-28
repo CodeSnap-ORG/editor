@@ -116,7 +116,7 @@ class TelemetryModal extends React.PureComponent {
         }
         const newTimer = setTimeout(
             () => this.handleSettingWasUpdatedTimeout(newTimer),
-            SETTING_WAS_UPDATED_DURATION_MS,
+            SETTING_WAS_UPDATED_DURATION_MS
         );
         this.setState({
             settingWasUpdatedTimer: newTimer,
@@ -184,7 +184,7 @@ class TelemetryModal extends React.PureComponent {
                                     type="radio"
                                     value="true"
                                     title={this.props.intl.formatMessage(
-                                        messages.optInTooltip,
+                                        messages.optInTooltip
                                     )}
                                     checked={
                                         this.props.isTelemetryEnabled === true
@@ -201,7 +201,7 @@ class TelemetryModal extends React.PureComponent {
                                     type="radio"
                                     value="false"
                                     title={this.props.intl.formatMessage(
-                                        messages.optOutTooltip,
+                                        messages.optOutTooltip
                                     )}
                                     checked={
                                         this.props.isTelemetryEnabled === false

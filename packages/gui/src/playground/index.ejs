@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="google" value="notranslate">
-    <script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
-    <meta name="description" content="<%= htmlWebpackPlugin.options.APP_NAME %> is the ultimate Scratch mod with new extensions, blocks, dark mode, a compiler, and many more!" />
+    <% if (htmlWebpackPlugin.options.isCbp) { %>
+      <script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+    <% } %>
+    <meta name="description" content="<%= htmlWebpackPlugin.options.APP_NAME %> is a powerful block-based programming language built on Scratch 3.0 and TurboWarp." />
     <title><%= htmlWebpackPlugin.options.title %></title>
     <link rel="apple-touch-icon" href="<%= htmlWebpackPlugin.options.root %>images/apple-touch-icon.png">
     <% if (htmlWebpackPlugin.options.root === "/" || htmlWebpackPlugin.options.root === "") { %>
@@ -212,6 +214,7 @@
             <br />Consider checking <a href="https://status.codeberg.eu" target="_blank" rel="noreferrer">Codeberg's status page</a> to see if there are any ongoing issues.
           <% } %>
         </div>
+        <div class="splash-custom-info"></div>
       </div>
       <div class="splash-error-screen" hidden>
         <h1 class="splash-error-title"><img src="<%= htmlWebpackPlugin.options.root %>images/reload.svg" draggable="false" loading="lazy" /> Oops! Something went wrong.</h1>
@@ -242,7 +245,7 @@
           if (canary) {
             var themeSetting = localStorage.getItem('canary:theme');
           } else {
-            var themeSetting = localStorage.getItem('tw:theme');
+            var themeSetting = localStorage.getItem('amp:theme');
           }
         } catch (e) {
           // ignore
@@ -279,6 +282,7 @@
         splash.hidden = false;
 
         var splashErrorTitle = document.querySelector('.splash-error-title');
+        var splashCustomInfo = document.querySelector('.splash-custom-info');
         var splashMain = document.querySelector('.splash-main');
         var splashErrorScreen = document.querySelector('.splash-error-screen');
         var splashError = document.querySelector('.splash-errors');
@@ -358,6 +362,10 @@
           splash.parentNode.removeChild(splash);
           window.onerror = null;
         };
+
+        window.SetCustomSplashInfo = (text) => {
+          splashCustomInfo.innerHTML = text;
+        }
       })();
     </script>
 

@@ -12,7 +12,7 @@ TWRenderRecoloredImage.propTypes = {
     src: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     theme: state.scratchGui ? state.scratchGui.theme.theme : "",
 });
 
@@ -20,5 +20,5 @@ const mapDispatchToProps = () => ({});
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps,
+    mapDispatchToProps
 )(TWRenderRecoloredImage);

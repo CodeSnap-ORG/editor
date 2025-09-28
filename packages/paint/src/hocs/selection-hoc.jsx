@@ -25,7 +25,7 @@ const SelectionHOC = function (WrappedComponent) {
         removeItemById(itemId) {
             if (itemId) {
                 const match = paper.project.getItem({
-                    match: (item) => item.id === itemId,
+                    match: item => item.id === itemId,
                 });
                 if (match) {
                     match.remove();
@@ -44,7 +44,7 @@ const SelectionHOC = function (WrappedComponent) {
         hoveredItemId: PropTypes.number,
     };
 
-    const mapStateToProps = (state) => ({
+    const mapStateToProps = state => ({
         hoveredItemId: state.scratchPaint.hoveredItemId,
     });
     return connect(mapStateToProps)(SelectionComponent);

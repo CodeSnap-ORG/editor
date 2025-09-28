@@ -30,7 +30,7 @@ class SelectTool extends paper.Tool {
         setSelectedItems,
         clearSelectedItems,
         setCursor,
-        onUpdateImage,
+        onUpdateImage
     ) {
         super();
         this.onUpdateImage = onUpdateImage;
@@ -39,17 +39,17 @@ class SelectTool extends paper.Tool {
             setSelectedItems,
             clearSelectedItems,
             setCursor,
-            onUpdateImage,
+            onUpdateImage
         );
         const nudgeTool = new NudgeTool(
             Modes.BIT_SELECT,
             this.boundingBoxTool,
-            onUpdateImage,
+            onUpdateImage
         );
         this.selectionBoxTool = new SelectionBoxTool(
             Modes.BIT_SELECT,
             setSelectedItems,
-            clearSelectedItems,
+            clearSelectedItems
         );
         this.selectionBoxMode = false;
         this.selection = null;
@@ -104,7 +104,7 @@ class SelectTool extends paper.Tool {
             fill: true,
             guide: false,
             tolerance: SelectTool.TOLERANCE / paper.view.zoom,
-            match: (hitResult) => {
+            match: hitResult => {
                 // Don't match helper items, unless they are handles.
                 if (!hitResult.item.data || !hitResult.item.data.isHelperItem)
                     return true;
@@ -127,7 +127,7 @@ class SelectTool extends paper.Tool {
                 event.modifiers.alt,
                 event.modifiers.shift,
                 false /* doubleClicked */,
-                this.getHitOptions(),
+                this.getHitOptions()
             )
         ) {
             this.commitSelection();

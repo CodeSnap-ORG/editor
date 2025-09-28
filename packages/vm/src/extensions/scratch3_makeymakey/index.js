@@ -283,8 +283,8 @@ class Scratch3MakeyMakeyBlocks {
      * @returns {array} an array of objects with text and value properties.
      */
     buildSequenceMenu(sequencesArray) {
-        return sequencesArray.map((str) =>
-            this.getMenuItemForSequenceString(str),
+        return sequencesArray.map(str =>
+            this.getMenuItemForSequenceString(str)
         );
     }
 
@@ -295,7 +295,7 @@ class Scratch3MakeyMakeyBlocks {
      */
     getMenuItemForSequenceString(sequenceString) {
         let sequenceArray = sequenceString.split(" ");
-        sequenceArray = sequenceArray.map((str) => this.KEY_TEXT_SHORT[str]);
+        sequenceArray = sequenceArray.map(str => this.KEY_TEXT_SHORT[str]);
         return {
             text: sequenceArray.join(" "),
             value: sequenceString,

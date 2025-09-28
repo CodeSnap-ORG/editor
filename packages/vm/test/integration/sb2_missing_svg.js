@@ -56,7 +56,7 @@ tap.beforeEach(() => {
 
 const test = tap.test;
 
-test("loading sb2 project with missing vector costume file", (t) => {
+test("loading sb2 project with missing vector costume file", t => {
     t.equal(vm.runtime.targets.length, 2);
 
     const stage = vm.runtime.targets[0];
@@ -79,7 +79,7 @@ test("loading sb2 project with missing vector costume file", (t) => {
     t.end();
 });
 
-test("load and then save sb2 project with missing costume file", (t) => {
+test("load and then save sb2 project with missing costume file", t => {
     const resavedProject = JSON.parse(vm.toJSON());
 
     t.equal(resavedProject.targets.length, 2);
@@ -102,7 +102,7 @@ test("load and then save sb2 project with missing costume file", (t) => {
     t.end();
 });
 
-test("serializeCostume does not save data for missing costume", (t) => {
+test("serializeCostume does not save data for missing costume", t => {
     const costumeDescs = serializeCostumes(vm.runtime);
 
     t.equal(costumeDescs.length, 1); // Should only have one costume, the backdrop

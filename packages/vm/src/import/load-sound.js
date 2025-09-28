@@ -16,13 +16,13 @@ const loadSoundFromAsset = function (sound, soundAsset, runtime, soundBank) {
     if (!runtime.audioEngine) {
         log.warn(
             "No audio engine present; cannot load sound asset: ",
-            sound.md5,
+            sound.md5
         );
         return Promise.resolve(sound);
     }
     return runtime.audioEngine
         .decodeSoundPlayer(Object.assign({}, sound, { data: soundAsset.data }))
-        .then((soundPlayer) => {
+        .then(soundPlayer => {
             sound.soundId = soundPlayer.id;
             // Set the sound sample rate and sample count based on the
             // the audio buffer from the audio engine since the sound
@@ -61,7 +61,7 @@ const handleSoundLoadError = function (sound, runtime, soundBank) {
     sound.md5 = `${sound.assetId}.${sound.asset.dataFormat}`;
 
     return loadSoundFromAsset(sound, sound.asset, runtime, soundBank).then(
-        (loadedSound) => {
+        loadedSound => {
             loadedSound.broken = {};
             loadedSound.broken.assetId = oldAssetId;
             loadedSound.broken.md5 = `${oldAssetId}.${oldDataFormat}`;
@@ -75,7 +75,7 @@ const handleSoundLoadError = function (sound, runtime, soundBank) {
             loadedSound.broken.dataFormat = oldDataFormat;
 
             return loadedSound;
-        },
+        }
     );
 };
 
@@ -92,7 +92,7 @@ const loadSound = function (sound, runtime, soundBank) {
     if (!runtime.storage) {
         log.warn(
             "No storage module present; cannot load sound asset: ",
-            sound.md5,
+            sound.md5
         );
         return Promise.resolve(sound);
     }
@@ -104,7 +104,7 @@ const loadSound = function (sound, runtime, soundBank) {
         (sound.asset && Promise.resolve(sound.asset)) ||
         runtime.storage.load(runtime.storage.AssetType.Sound, md5, ext)
     )
-        .then((soundAsset) => {
+        .then(soundAsset => {
             sound.asset = soundAsset;
 
             if (!soundAsset) {
@@ -114,7 +114,7 @@ const loadSound = function (sound, runtime, soundBank) {
 
             return loadSoundFromAsset(sound, soundAsset, runtime, soundBank);
         })
-        .catch((e) => {
+        .catch(e => {
             log.warn(`Failed to load sound: ${sound.md5} with error: ${e}`);
             return handleSoundLoadError(sound, runtime, soundBank);
         });

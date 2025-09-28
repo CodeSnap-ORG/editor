@@ -67,7 +67,7 @@ class BalancedText extends React.Component {
         return (
             <div {...otherProps} style={style}>
                 <span
-                    ref={(container) => {
+                    ref={container => {
                         this.container = container;
                     }}
                 >

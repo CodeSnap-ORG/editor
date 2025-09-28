@@ -6,7 +6,7 @@ class AudioBufferPlayer {
         this.buffer = this.audioContext.createBuffer(
             1,
             samples.length,
-            sampleRate,
+            sampleRate
         );
         this.buffer.getChannelData(0).set(samples);
         this.source = null;

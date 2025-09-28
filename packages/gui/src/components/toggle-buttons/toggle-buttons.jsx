@@ -40,7 +40,7 @@ ToggleButtons.propTypes = {
             icon: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
             iconClassName: PropTypes.string,
             isSelected: PropTypes.bool,
-        }),
+        })
     ),
     className: PropTypes.string,
     disabled: PropTypes.bool,

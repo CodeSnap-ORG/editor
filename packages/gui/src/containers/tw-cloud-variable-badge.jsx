@@ -33,16 +33,16 @@ TWCloudVariableBadge.propTypes = {
     onOpenChangeUsername: PropTypes.func,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     cloudHost: state.scratchGui.tw.cloudHost,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    onSetCloudHost: (cloudHost) => dispatch(setCloudHost(cloudHost)),
+const mapDispatchToProps = dispatch => ({
+    onSetCloudHost: cloudHost => dispatch(setCloudHost(cloudHost)),
     onOpenChangeUsername: () => dispatch(openUsernameModal()),
 });
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps,
+    mapDispatchToProps
 )(TWCloudVariableBadge);

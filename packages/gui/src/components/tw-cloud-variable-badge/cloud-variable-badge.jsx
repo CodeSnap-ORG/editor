@@ -4,7 +4,7 @@ import { FormattedMessage } from "react-intl";
 import cloudIcon from "./clouddata.svg";
 import CloudServerButton from "./cloud-server-button.jsx";
 import styles from "./cloud-variable-badge.css";
-import { APP_NAME } from "../../lib/brand";
+import { APP_NAME } from "@ampmod/branding";
 
 const hosts = [
     {
@@ -21,8 +21,8 @@ const hosts = [
     },
 ];
 
-const CloudVariableBadge = (props) => {
-    const selectedHost = hosts.find((i) => i.cloudHost === props.cloudHost);
+const CloudVariableBadge = props => {
+    const selectedHost = hosts.find(i => i.cloudHost === props.cloudHost);
     return (
         <div className={styles.badge}>
             <div className={styles.title}>
@@ -70,7 +70,7 @@ const CloudVariableBadge = (props) => {
                         description="Appears before a list of cloud variable servers in different countries"
                         id="tw.cloudServers"
                     />
-                    {hosts.map((i) => (
+                    {hosts.map(i => (
                         <CloudServerButton
                             key={i.ws}
                             name={i.name}

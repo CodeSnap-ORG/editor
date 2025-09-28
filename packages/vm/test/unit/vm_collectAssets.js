@@ -4,7 +4,7 @@ const RenderedTarget = require("../../src/sprites/rendered-target");
 const Sprite = require("../../src/sprites/sprite");
 const VirtualMachine = require("../../src/virtual-machine");
 
-test("collectAssets", (t) => {
+test("collectAssets", t => {
     const vm = new VirtualMachine();
     const sprite = new Sprite(null, vm.runtime);
     const target = new RenderedTarget(sprite, vm.runtime);

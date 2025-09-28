@@ -14,6 +14,7 @@ import { getIsLoadingWithId } from "../../reducers/project-state";
 import topBlock from "./top-block.svg";
 import middleBlock from "./middle-block.svg";
 import bottomBlock from "./bottom-block.svg";
+import { funFacts } from "../../lib/amp-fun-facts";
 
 const mainMessages = {
     "gui.loader.headline": (
@@ -52,51 +53,6 @@ const messages = defineMessages({
     },
 });
 
-const funFacts = [
-    "Fun fact: AmpMod is currently loading.",
-    "Did you know? In AmpMod, you can put variables inside of boolean inputs.",
-    "Fun fact: AmpMod was previously known as UltiBlocks.",
-    "I LOVE LIBREKITTEN!",
-    "I LOVE SNAIL IDE!",
-    "I LOVE UNSANDBOXED!",
-    "I LOVE TURBOWARP!",
-    "I LOVE SCRATCH!",
-    "I LOVE SCRATCH 2.0!",
-    "YOU can contribute to AmpMod!",
-    "Fun fact: Funding for AmpMod is provided by apple cats like you. Thank you!",
-    "Fun fact: There was an error loading AmpMod. Please give 100 more energy units to AmpElectrecuted",
-    "Fun fa-Sadly, this fact was eaten by an evil kumquat.",
-    "Fun fact: qwertyuiopasdfghjklzxcvbnm",
-    "Did you know? There is an AmpMod wiki where you can find information about AmpMod.",
-    "Did you know? The AmpMod Manual has information for new AmpMod users.",
-    "Did you know? The Witch sprite was originally going to be the AmpMod mascot",
-    "'How to make computer in AmpMod' Oh wait, this isn't Google, is it?",
-    "Fun fact: The person who typed this fact had too much caffeine!",
-    "Tip: You said to press ANYTHING while doing a keyboard smash! What do you mean 7 is wrong?!",
-    "Fun fact: We are cool",
-    "How to AmpMod 101: Step 1: AmpMod.",
-    "Fun fact: AmpMod should be finished on exactly Februtembober 60th, 29908.",
-    "april fool. not. :D",
-    "Fun? fact: AmpMod is not loading. Oops :(",
-    "Fun fact: There were 2 AmpMod topics on the Scratch forums, but one was dustbinned.",
-    "Fun fact: AmpMod used to be hosted on GitHub, but is now hosted on Codeberg with source code on both.",
-    "Fun fact: AmpMod is free software under the GNU General Public Licence version 3.0.",
-    "Preparing emojis...",
-    "Herding cats...",
-    "Growing apples...",
-    "Removing dangos...",
-    "Modifying features...",
-    "Converting legacy lists...",
-    "Breaking everything... Okay, fine, I`m kidding!",
-    "Preparing the AmpMods",
-    "There is a canary version of AmpMod if you want to have the latest features in exchange for bugs.",
-    "bleh",
-    "Oh noes an error. Just kidding! :D",
-    "this.loaderMessage = null. Wait, am I not in the codespace?",
-    "Super AmpMod Bros Real 2019",
-    "abc.xyz. Wait, wheres the Alphabet website?",
-];
-
 class LoaderComponent extends React.Component {
     constructor(props) {
         super(props);
@@ -118,7 +74,7 @@ class LoaderComponent extends React.Component {
     componentDidMount() {
         this.handleAssetProgress(
             this.props.vm.runtime.finishedAssetRequests,
-            this.props.vm.runtime.totalAssetRequests,
+            this.props.vm.runtime.totalAssetRequests
         );
         this.props.vm.on("ASSET_PROGRESS", this.handleAssetProgress);
         this.props.vm.runtime.on("PROJECT_LOADED", this.handleProjectLoaded);
@@ -154,7 +110,7 @@ class LoaderComponent extends React.Component {
             // Started loading a new project.
             this.barInnerEl.style.width = "0";
             this.messageEl.textContent = this.props.intl.formatMessage(
-                messages.projectData,
+                messages.projectData
             );
         } else {
             this.barInnerEl.style.width = `${(finished / total) * 100}%`;
@@ -166,7 +122,7 @@ class LoaderComponent extends React.Component {
                 {
                     complete: finished,
                     total,
-                },
+                }
             );
         }
     }
@@ -255,7 +211,7 @@ LoaderComponent.defaultProps = {
     messageId: "gui.loader.headline",
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     isRemote: getIsLoadingWithId(state.scratchGui.projectState.loadingState),
     vm: state.scratchGui.vm,
 });
@@ -264,5 +220,5 @@ const mapDispatchToProps = () => ({});
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps,
+    mapDispatchToProps
 )(injectIntl(LoaderComponent));

@@ -5,7 +5,7 @@ import render from "../app-target";
 import styles from "../info.css";
 import myStyles from "./credits.css";
 
-import { APP_NAME } from "../../lib/brand";
+import { APP_NAME } from "@ampmod/branding";
 import { applyGuiColors } from "../../lib/themes/guiHelpers";
 import { detectTheme } from "../../lib/themes/themePersistance";
 import UserData from "./users";
@@ -62,6 +62,7 @@ const Credits = () => (
                 the most popular block-based programming language in the world.
                 So truly, thank you.
             </p>
+            <div className={styles.spacing}></div>
         </header>
         <main className={styles.main}>
             <section>
@@ -73,7 +74,7 @@ const Credits = () => (
                 </p>
             </section>
             {/* Please don't remove this. Be nice! */}
-            {APP_NAME !== "AmpMod" && APP_NAME !== "AmpMod (canary build)" && (
+            {APP_NAME !== "AmpMod" && (
                 <section>
                     <h2>AmpMod</h2>
                     <p>
@@ -94,11 +95,6 @@ const Credits = () => (
                     </a>{" "}
                     but is not endorsed by TurboWarp in any way.
                 </p>
-                <p>
-                    <a href="https://github.com/GarboMuffin/sponsors">
-                        Donate to support TurboWarp.
-                    </a>
-                </p>
             </section>
             <section>
                 <h2>Scratch</h2>
@@ -111,7 +107,7 @@ const Credits = () => (
                 </p>
                 <p>
                     <a href="https://scratch.mit.edu/donate">
-                        Donate to support Scratch.
+                        Donate to support TurboWarp and Scratch.
                     </a>
                 </p>
             </section>

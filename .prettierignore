@@ -15,10 +15,6 @@ node_modules
 # Settings is not an addon
 !/packages/gui/src/addons/settings
 
-# Blocks requires weird and specific syntax so ignore it.
-# Sorry, consistency!
-/packages/blocks
-
 # Whatever the skibidi this is.
 .nyc_output
 

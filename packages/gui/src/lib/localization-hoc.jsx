@@ -40,7 +40,7 @@ const LocalizationHOC = function (WrappedComponent) {
         onSetLanguage: () => {},
     };
 
-    const mapStateToProps = (state) => ({
+    const mapStateToProps = state => ({
         locale: state.locales.locale,
     });
 

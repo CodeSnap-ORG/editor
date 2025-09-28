@@ -1,7 +1,7 @@
 const Runtime = require("../../src/engine/runtime");
 const { test } = require("tap");
 
-test("step events", (t) => {
+test("step events", t => {
     const events = [];
     const rt = new Runtime();
     rt.sequencer.stepThreads = () => {

@@ -69,8 +69,8 @@ class SliderComponent extends React.Component {
             0,
             Math.min(
                 100,
-                (100 * scaledX) / (backgroundBBox.width - HANDLE_WIDTH),
-            ),
+                (100 * scaledX) / (backgroundBBox.width - HANDLE_WIDTH)
+            )
         );
     }
 

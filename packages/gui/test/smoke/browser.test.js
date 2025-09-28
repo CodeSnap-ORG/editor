@@ -30,7 +30,7 @@ describe("Smoke tests on older browsers", () => {
         driver = await getSauceDriver(
             process.env.SAUCE_USERNAME,
             process.env.SAUCE_ACCESS_KEY,
-            driverConfig,
+            driverConfig
         );
         await driver.get(process.env.SMOKE_URL);
         const el = await findByText(UNSUPPORTED_MESSAGE);
@@ -47,7 +47,7 @@ describe("Smoke tests on older browsers", () => {
         driver = await getSauceDriver(
             process.env.SAUCE_USERNAME,
             process.env.SAUCE_ACCESS_KEY,
-            driverConfig,
+            driverConfig
         );
         await driver.get(process.env.SMOKE_URL);
         const el = await findByText(SUPPORTED_MESSAGE);
@@ -64,7 +64,7 @@ describe("Smoke tests on older browsers", () => {
         driver = await getSauceDriver(
             process.env.SAUCE_USERNAME,
             process.env.SAUCE_ACCESS_KEY,
-            driverConfig,
+            driverConfig
         );
         await driver.get(process.env.SMOKE_URL);
         const el = await findByText(SUPPORTED_MESSAGE);

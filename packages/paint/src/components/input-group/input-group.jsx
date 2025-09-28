@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 import styles from "./input-group.css";
 
-const InputGroup = (props) => (
+const InputGroup = props => (
     <div
         className={classNames(props.className, styles.inputGroup, {
             [styles.disabled]: props.disabled,

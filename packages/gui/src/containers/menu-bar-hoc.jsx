@@ -61,9 +61,9 @@ const MenuBarHOC = function (WrappedComponent) {
     };
     MenuBarContainer.defaultProps = {
         // default to using standard js confirm
-        confirmWithMessage: (message) => confirm(message), // eslint-disable-line no-alert
+        confirmWithMessage: message => confirm(message), // eslint-disable-line no-alert
     };
-    const mapStateToProps = (state) => ({
+    const mapStateToProps = state => ({
         projectChanged: state.scratchGui.projectChanged,
     });
     const mapDispatchToProps = () => ({});
@@ -73,7 +73,7 @@ const MenuBarHOC = function (WrappedComponent) {
     return connect(
         mapStateToProps,
         mapDispatchToProps,
-        mergeProps,
+        mergeProps
     )(MenuBarContainer);
 };
 

@@ -6,7 +6,7 @@ import styles from "./audio-trimmer.css";
 import SelectionHandle from "./selection-handle.jsx";
 import Playhead from "./playhead.jsx";
 
-const AudioTrimmer = (props) => (
+const AudioTrimmer = props => (
     <div
         className={classNames(styles.absolute, styles.trimmer)}
         ref={props.containerRef}
@@ -16,7 +16,7 @@ const AudioTrimmer = (props) => (
                 className={classNames(
                     styles.absolute,
                     styles.trimBackground,
-                    styles.startTrimBackground,
+                    styles.startTrimBackground
                 )}
                 style={{
                     width: `${100 * props.trimStart}%`,
@@ -27,7 +27,7 @@ const AudioTrimmer = (props) => (
                 <Box
                     className={classNames(
                         styles.absolute,
-                        styles.trimBackgroundMask,
+                        styles.trimBackgroundMask
                     )}
                 />
                 <SelectionHandle handleStyle={styles.leftHandle} />
@@ -39,7 +39,7 @@ const AudioTrimmer = (props) => (
                 className={classNames(
                     styles.absolute,
                     styles.trimBackground,
-                    styles.endTrimBackground,
+                    styles.endTrimBackground
                 )}
                 style={{
                     left: `${100 * props.trimEnd}%`,
@@ -51,7 +51,7 @@ const AudioTrimmer = (props) => (
                 <Box
                     className={classNames(
                         styles.absolute,
-                        styles.trimBackgroundMask,
+                        styles.trimBackgroundMask
                     )}
                 />
                 <SelectionHandle handleStyle={styles.rightHandle} />

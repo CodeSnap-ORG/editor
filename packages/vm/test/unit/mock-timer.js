@@ -1,7 +1,7 @@
 const test = require("tap").test;
 const MockTimer = require("../fixtures/mock-timer");
 
-test("spec", (t) => {
+test("spec", t => {
     const timer = new MockTimer();
 
     t.type(MockTimer, "function");
@@ -23,7 +23,7 @@ test("spec", (t) => {
     t.end();
 });
 
-test("time", (t) => {
+test("time", t => {
     const timer = new MockTimer();
     const delta = 1;
 
@@ -37,8 +37,8 @@ test("time", (t) => {
     t.end();
 });
 
-test("start / timeElapsed", (t) =>
-    new Promise((resolve) => {
+test("start / timeElapsed", t =>
+    new Promise(resolve => {
         const timer = new MockTimer();
         const halfDelay = 1;
         const fullDelay = halfDelay + halfDelay;
@@ -72,7 +72,7 @@ test("start / timeElapsed", (t) =>
         }, 0);
     }));
 
-test("clearTimeout / hasTimeouts", (t) =>
+test("clearTimeout / hasTimeouts", t =>
     new Promise((resolve, reject) => {
         const timer = new MockTimer();
 

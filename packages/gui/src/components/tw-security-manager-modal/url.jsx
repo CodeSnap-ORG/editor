@@ -8,7 +8,7 @@ const MAX_URL_LENGTH = 100;
  * @param {string} url URL
  * @returns {string} trimmed URL
  */
-const trimURL = (url) =>
+const trimURL = url =>
     url.length > MAX_URL_LENGTH
         ? `${url.substring(0, MAX_URL_LENGTH)}...`
         : url;

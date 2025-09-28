@@ -8,6 +8,7 @@ import { changeBrushSize as changeEraserSize } from "../../reducers/eraser-mode"
 import { changeBitBrushSize } from "../../reducers/bit-brush-size";
 import { changeBitEraserSize } from "../../reducers/bit-eraser-size";
 import { setShapesFilled } from "../../reducers/fill-bitmap-shapes";
+import { changeRoundedRectRadius } from "../../reducers/rounded-rect-mode"; // New import
 
 import FontDropdown from "../../containers/font-dropdown.jsx";
 import LiveInputHOC from "../forms/live-input-hoc.jsx";
@@ -42,7 +43,7 @@ import bitRectOutlinedIcon from "../bit-rect-mode/rectangle-outlined.svg";
 import { MAX_STROKE_WIDTH } from "../../reducers/stroke-width";
 
 const LiveInput = LiveInputHOC(Input);
-const ModeToolsComponent = (props) => {
+const ModeToolsComponent = props => {
     const messages = defineMessages({
         brushSize: {
             defaultMessage: "Size",
@@ -108,6 +109,11 @@ const ModeToolsComponent = (props) => {
             description:
                 "Label for the button that sets the bitmap rectangle/oval mode to draw filled-in shapes",
             id: "paint.modeTools.outlined",
+        },
+        roundness: {
+            defaultMessage: "Roundness",
+            description: "Label for the roundness input for rounded rectangles",
+            id: "paint.modeTools.roundness",
         },
     });
 
@@ -194,7 +200,7 @@ const ModeToolsComponent = (props) => {
                     <InputGroup
                         className={classNames(
                             styles.modDashedBorder,
-                            styles.modLabeledIconHeight,
+                            styles.modLabeledIconHeight
                         )}
                     >
                         <LabeledIconButton
@@ -232,7 +238,7 @@ const ModeToolsComponent = (props) => {
                     <InputGroup
                         className={classNames(
                             styles.modDashedBorder,
-                            styles.modLabeledIconHeight,
+                            styles.modLabeledIconHeight
                         )}
                     >
                         <LabeledIconButton
@@ -252,7 +258,7 @@ const ModeToolsComponent = (props) => {
                     <InputGroup
                         className={classNames(
                             styles.modDashedBorder,
-                            styles.modLabeledIconHeight,
+                            styles.modLabeledIconHeight
                         )}
                     >
                         <LabeledIconButton
@@ -269,7 +275,7 @@ const ModeToolsComponent = (props) => {
                             hideLabel={props.intl.locale !== "en"}
                             imgSrc={flipHorizontalIcon}
                             title={props.intl.formatMessage(
-                                messages.flipHorizontal,
+                                messages.flipHorizontal
                             )}
                             onClick={props.onFlipHorizontal}
                         />
@@ -277,7 +283,7 @@ const ModeToolsComponent = (props) => {
                             hideLabel={props.intl.locale !== "en"}
                             imgSrc={flipVerticalIcon}
                             title={props.intl.formatMessage(
-                                messages.flipVertical,
+                                messages.flipVertical
                             )}
                             onClick={props.onFlipVertical}
                         />
@@ -330,7 +336,7 @@ const ModeToolsComponent = (props) => {
                         <InputGroup>
                             <Label
                                 text={props.intl.formatMessage(
-                                    messages.thickness,
+                                    messages.thickness
                                 )}
                             >
                                 <LiveInput
@@ -371,6 +377,7 @@ ModeToolsComponent.propTypes = {
     hasSelectedUnpointedPoints: PropTypes.bool,
     intl: intlShape.isRequired,
     mode: PropTypes.string.isRequired,
+    roundedRectRadius: PropTypes.number, // New propType
     onBitBrushSliderChange: PropTypes.func.isRequired,
     onBitEraserSliderChange: PropTypes.func.isRequired,
     onBrushSliderChange: PropTypes.func.isRequired,
@@ -385,10 +392,11 @@ ModeToolsComponent.propTypes = {
     onOutlineShapes: PropTypes.func.isRequired,
     onPasteFromClipboard: PropTypes.func.isRequired,
     onPointPoints: PropTypes.func.isRequired,
+    onRoundedRectRadiusChange: PropTypes.func, // New propType
     onUpdateImage: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     mode: state.scratchPaint.mode,
     format: state.scratchPaint.format,
     fillBitmapShapes: state.scratchPaint.fillBitmapShapes,
@@ -397,18 +405,19 @@ const mapStateToProps = (state) => ({
     brushValue: state.scratchPaint.brushMode.brushSize,
     clipboardItems: state.scratchPaint.clipboard.items,
     eraserValue: state.scratchPaint.eraserMode.brushSize,
+    roundedRectRadius: state.scratchPaint.roundedRectMode.roundedRectRadius, // New state mapping
 });
-const mapDispatchToProps = (dispatch) => ({
-    onBrushSliderChange: (brushSize) => {
+const mapDispatchToProps = dispatch => ({
+    onBrushSliderChange: brushSize => {
         dispatch(changeBrushSize(brushSize));
     },
-    onBitBrushSliderChange: (bitBrushSize) => {
+    onBitBrushSliderChange: bitBrushSize => {
         dispatch(changeBitBrushSize(bitBrushSize));
     },
-    onBitEraserSliderChange: (eraserSize) => {
+    onBitEraserSliderChange: eraserSize => {
         dispatch(changeBitEraserSize(eraserSize));
     },
-    onEraserSliderChange: (eraserSize) => {
+    onEraserSliderChange: eraserSize => {
         dispatch(changeEraserSize(eraserSize));
     },
     onFillShapes: () => {
@@ -417,9 +426,13 @@ const mapDispatchToProps = (dispatch) => ({
     onOutlineShapes: () => {
         dispatch(setShapesFilled(false));
     },
+    onRoundedRectRadiusChange: roundedRectRadius => {
+        // New dispatch
+        dispatch(changeRoundedRectRadius(roundedRectRadius));
+    },
 });
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps,
+    mapDispatchToProps
 )(injectIntl(ModeToolsComponent));

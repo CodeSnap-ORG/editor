@@ -8,7 +8,7 @@ const VirtualMachine = require("../../src/index");
 const uri = path.resolve(__dirname, "../fixtures/looks.sb2");
 const project = readFileToBuffer(uri);
 
-test("Running project should not emit project changed event", (t) => {
+test("Running project should not emit project changed event", t => {
     const vm = new VirtualMachine();
     vm.attachStorage(makeTestStorage());
 

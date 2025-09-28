@@ -6,7 +6,7 @@
 import queryString from "query-string";
 
 // tw: read language from localStorage
-export const LANGUAGE_KEY = "tw:language";
+export const LANGUAGE_KEY = "amp:language";
 
 /**
  * look for language setting in the browser. Check against supported locales.
@@ -14,7 +14,7 @@ export const LANGUAGE_KEY = "tw:language";
  * @param {Array.string} supportedLocales An array of supported locale codes.
  * @return {string} the preferred locale
  */
-const detectLocale = (supportedLocales) => {
+const detectLocale = supportedLocales => {
     // tw: read language from localStorage
     try {
         const storedLanguage = localStorage.getItem(LANGUAGE_KEY);
@@ -43,7 +43,7 @@ const detectLocale = (supportedLocales) => {
     // Flatten potential arrays and remove falsy values
     const potentialLocales = []
         .concat(queryParams.locale, queryParams.lang)
-        .filter((l) => l);
+        .filter(l => l);
     if (!potentialLocales.length) {
         return locale;
     }

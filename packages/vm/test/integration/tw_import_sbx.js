@@ -2,7 +2,7 @@ const Runtime = require("../../src/engine/runtime");
 const sb2 = require("../../src/serialization/sb2");
 const { test } = require("tap");
 
-test("importing ScratchX/.sbx project", async (t) => {
+test("importing ScratchX/.sbx project", async t => {
     const rt = new Runtime();
 
     const deserialized = await sb2.deserialize(
@@ -48,7 +48,7 @@ test("importing ScratchX/.sbx project", async (t) => {
                 ],
             },
         },
-        rt,
+        rt
     );
 
     const extensionIDs = deserialized.extensions.extensionIDs;
@@ -62,38 +62,36 @@ test("importing ScratchX/.sbx project", async (t) => {
     t.equal(extensionURLs.size, 2);
     t.equal(
         extensionURLs.get("sbxspotify"),
-        "https://ericrosenbaum.github.io/spotify-extension/extension.js",
+        "https://ericrosenbaum.github.io/spotify-extension/extension.js"
     );
     t.equal(
         extensionURLs.get("sbxweatherextension"),
-        "http://khanning.github.io/scratch-weather-extension/weather_extension.js",
+        "http://khanning.github.io/scratch-weather-extension/weather_extension.js"
     );
 
     const stage = deserialized.targets[0];
     const blocks = Object.values(stage.blocks._blocks);
 
     const textToSpeech = blocks.find(
-        (i) => i.opcode === "sbxtexttospeech_speak_text",
+        i => i.opcode === "sbxtexttospeech_speak_text"
     );
     t.type(textToSpeech, "object");
     t.type(textToSpeech.inputs["0"], "object");
     t.type(textToSpeech.inputs["1"], "undefined");
 
-    const spotify = blocks.find((i) => i.opcode === "sbxspotify_everyBar");
+    const spotify = blocks.find(i => i.opcode === "sbxspotify_everyBar");
     t.type(spotify, "object");
     t.type(spotify.inputs["0"], "undefined");
 
     const weather = blocks.find(
-        (i) => i.opcode === "sbxweatherextension_getWeather",
+        i => i.opcode === "sbxweatherextension_getWeather"
     );
     t.type(weather, "object");
     t.type(weather.inputs["0"], "object");
     t.type(weather.inputs["1"], "object");
     t.type(weather.inputs["2"], "undefined");
 
-    const synth = blocks.find(
-        (i) => i.opcode === "sbxsynthextension_setEffect",
-    );
+    const synth = blocks.find(i => i.opcode === "sbxsynthextension_setEffect");
     t.type(synth, "object");
     t.type(synth.inputs["0"], "object");
     t.type(synth.inputs["1"], "object");

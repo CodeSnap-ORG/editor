@@ -28,10 +28,10 @@ class SpriteLibrary extends React.PureComponent {
     }
     componentDidMount() {
         if (this.state.data.then) {
-            this.state.data.then((data) =>
+            this.state.data.then(data =>
                 this.setState({
                     data,
-                }),
+                })
             );
         }
     }

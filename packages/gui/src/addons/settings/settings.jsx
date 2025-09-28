@@ -36,7 +36,7 @@ import TWFancyCheckbox from "../../components/tw-fancy-checkbox/checkbox.jsx";
 import styles from "./settings.css";
 import { detectTheme } from "../../lib/themes/themePersistance.js";
 import { applyGuiColors } from "../../lib/themes/guiHelpers.js";
-import { APP_NAME } from "../../lib/brand.js";
+import { APP_FORUMS, APP_NAME } from "@ampmod/branding";
 import "modern-normalize";
 
 /* eslint-disable no-alert */
@@ -66,7 +66,7 @@ const theme = detectTheme();
 applyGuiColors(theme);
 
 let _throttleTimeout;
-const postThrottledSettingsChange = (store) => {
+const postThrottledSettingsChange = store => {
     if (_throttleTimeout) {
         clearTimeout(_throttleTimeout);
     }
@@ -149,7 +149,7 @@ const clearHash = () => {
         history.replaceState(
             null,
             null,
-            `${location.pathname}${location.search}`,
+            `${location.pathname}${location.search}`
         );
     }
 };
@@ -175,7 +175,7 @@ CreditList.propTypes = {
         PropTypes.shape({
             name: PropTypes.string,
             link: PropTypes.string,
-        }),
+        })
     ),
 };
 
@@ -197,7 +197,7 @@ Switch.propTypes = {
 
 const Select = ({ onChange, value, values }) => (
     <div className={styles.select}>
-        {values.map((potentialValue) => {
+        {values.map(potentialValue => {
             const id = potentialValue.id;
             const selected = id === value;
             return (
@@ -221,7 +221,7 @@ Select.propTypes = {
         PropTypes.shape({
             id: PropTypes.string,
             name: PropTypes.string,
-        }),
+        })
     ),
 };
 
@@ -336,7 +336,7 @@ TextInput.propTypes = {
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
-const ColorInput = (props) => (
+const ColorInput = props => (
     <input
         type="color"
         id={props.id}
@@ -392,11 +392,11 @@ const Setting = ({ addonId, setting, value }) => {
                     <TWFancyCheckbox
                         id={uniqueId}
                         checked={value}
-                        onChange={(e) =>
+                        onChange={e =>
                             SettingsStore.setAddonSetting(
                                 addonId,
                                 settingId,
-                                e.target.checked,
+                                e.target.checked
                             )
                         }
                     />
@@ -417,11 +417,11 @@ const Setting = ({ addonId, setting, value }) => {
                         max={setting.max}
                         step="1"
                         value={value}
-                        onChange={(newValue) =>
+                        onChange={newValue =>
                             SettingsStore.setAddonSetting(
                                 addonId,
                                 settingId,
-                                newValue,
+                                newValue
                             )
                         }
                     />
@@ -439,11 +439,11 @@ const Setting = ({ addonId, setting, value }) => {
                         id={uniqueId}
                         type="text"
                         value={value}
-                        onChange={(newValue) =>
+                        onChange={newValue =>
                             SettingsStore.setAddonSetting(
                                 addonId,
                                 settingId,
-                                newValue,
+                                newValue
                             )
                         }
                     />
@@ -460,11 +460,11 @@ const Setting = ({ addonId, setting, value }) => {
                     <ColorInput
                         id={uniqueId}
                         value={value}
-                        onChange={(e) =>
+                        onChange={e =>
                             SettingsStore.setAddonSetting(
                                 addonId,
                                 settingId,
-                                e.target.value,
+                                e.target.value
                             )
                         }
                     />
@@ -483,7 +483,7 @@ const Setting = ({ addonId, setting, value }) => {
                                     `${addonId}/@settings-select-${settingId}-${id}`
                                 ] || name,
                         }))}
-                        onChange={(v) =>
+                        onChange={v =>
                             SettingsStore.setAddonSetting(addonId, settingId, v)
                         }
                         setting={setting}
@@ -510,7 +510,7 @@ Setting.propTypes = {
             PropTypes.shape({
                 id: PropTypes.string,
                 name: PropTypes.string,
-            }),
+            })
         ),
         if: PropTypes.shape({
             addonEnabled: PropTypes.oneOfType([
@@ -549,7 +549,7 @@ const Presets = ({ addonId, presets }) => (
         <div className={styles.settingLabel}>
             {settingsTranslations.presets}
         </div>
-        {presets.map((preset) => {
+        {presets.map(preset => {
             const presetId = preset.id;
             const name =
                 addonTranslations[`${addonId}/@preset-name-${presetId}`] ||
@@ -581,7 +581,7 @@ Presets.propTypes = {
             id: PropTypes.string,
             description: PropTypes.string,
             values: PropTypes.shape({}),
-        }),
+        })
     ),
 };
 
@@ -596,7 +596,7 @@ const Addon = ({ id, settings, manifest, extended }) => (
                 <div className={styles.addonSwitch}>
                     <Switch
                         value={settings.enabled}
-                        onChange={(value) => {
+                        onChange={value => {
                             if (
                                 !value ||
                                 !manifest.tags.includes("danger") ||
@@ -666,7 +666,7 @@ const Addon = ({ id, settings, manifest, extended }) => (
                     </div>
                 )}
                 {manifest.info &&
-                    manifest.info.map((info) => (
+                    manifest.info.map(info => (
                         <Notice
                             key={info.id}
                             type={info.type}
@@ -684,7 +684,7 @@ const Addon = ({ id, settings, manifest, extended }) => (
                 )}
                 {manifest.settings && (
                     <div className={styles.settingContainer}>
-                        {manifest.settings.map((setting) => (
+                        {manifest.settings.map(setting => (
                             <Setting
                                 key={setting.id}
                                 addonId={id}
@@ -714,12 +714,12 @@ Addon.propTypes = {
         info: PropTypes.arrayOf(
             PropTypes.shape({
                 id: PropTypes.string,
-            }),
+            })
         ),
         settings: PropTypes.arrayOf(
             PropTypes.shape({
                 id: PropTypes.string,
-            }),
+            })
         ),
         presets: PropTypes.arrayOf(PropTypes.shape({})),
         tags: PropTypes.arrayOf(PropTypes.string),
@@ -728,7 +728,7 @@ Addon.propTypes = {
     extended: PropTypes.bool,
 };
 
-const Dirty = (props) => (
+const Dirty = props => (
     <div className={styles.dirtyOuter}>
         <div className={styles.dirtyInner}>
             {settingsTranslations.dirty}
@@ -767,7 +767,7 @@ UnsupportedAddons.propTypes = {
             manifest: PropTypes.shape({
                 name: PropTypes.string,
             }),
-        }),
+        })
     ),
 };
 
@@ -813,7 +813,7 @@ class AddonGroup extends React.Component {
                     </div>
                     {this.props.label.replace(
                         "{number}",
-                        this.props.addons.length,
+                        this.props.addons.length
                     )}
                 </button>
                 {this.state.open && (
@@ -834,7 +834,7 @@ AddonGroup.propTypes = {
             id: PropTypes.string.isRequired,
             state: PropTypes.shape({}).isRequired,
             manifest: PropTypes.shape({}).isRequired,
-        }),
+        })
     ).isRequired,
     extended: PropTypes.bool.isRequired,
 };
@@ -859,7 +859,7 @@ const addonToSearchItem = ({ id, manifest }) => {
             addText(0.25, setting.name);
             addText(
                 0.25,
-                addonTranslations[`${id}/@settings-name-${setting.id}`],
+                addonTranslations[`${id}/@settings-name-${setting.id}`]
             );
         }
     }
@@ -870,7 +870,7 @@ const addonToSearchItem = ({ id, manifest }) => {
             addText(0.1, preset.description);
             addText(
                 0.1,
-                addonTranslations[`${id}/@preset-description-${preset.id}`],
+                addonTranslations[`${id}/@preset-description-${preset.id}`]
             );
         }
     }
@@ -926,11 +926,11 @@ class AddonList extends React.Component {
                             label={label}
                             open={open}
                             addons={addons.map(
-                                (index) => this.props.addons[index],
+                                index => this.props.addons[index]
                             )}
                             extended={this.props.extended}
                         />
-                    ),
+                    )
                 )}
             </div>
         );
@@ -942,7 +942,7 @@ AddonList.propTypes = {
             id: PropTypes.string.isRequired,
             state: PropTypes.shape({}).isRequired,
             manifest: PropTypes.shape({}).isRequired,
-        }),
+        })
     ).isRequired,
     search: PropTypes.string.isRequired,
     extended: PropTypes.bool.isRequired,
@@ -980,7 +980,7 @@ class AddonSettingsComponent extends React.Component {
     componentDidMount() {
         SettingsStore.addEventListener(
             "setting-changed",
-            this.handleSettingStoreChanged,
+            this.handleSettingStoreChanged
         );
         document.body.addEventListener("keydown", this.handleKeyDown);
     }
@@ -992,7 +992,7 @@ class AddonSettingsComponent extends React.Component {
     componentWillUnmount() {
         SettingsStore.removeEventListener(
             "setting-changed",
-            this.handleSettingStoreChanged,
+            this.handleSettingStoreChanged
         );
         document.body.removeEventListener("keydown", this.handleKeyDown);
     }
@@ -1008,7 +1008,7 @@ class AddonSettingsComponent extends React.Component {
                 for (const setting of manifest.settings) {
                     addonState[setting.id] = SettingsStore.getAddonSetting(
                         id,
-                        setting.id,
+                        setting.id
                     );
                 }
             }
@@ -1021,7 +1021,7 @@ class AddonSettingsComponent extends React.Component {
         // If channels are unavailable, every change requires reload.
         const reloadRequired =
             e.detail.reloadRequired || !Channels.changeChannel;
-        this.setState((state) => {
+        this.setState(state => {
             const newState = {
                 [addonId]: {
                     ...state[addonId],
@@ -1046,7 +1046,7 @@ class AddonSettingsComponent extends React.Component {
         });
         for (const addonId of Object.keys(supportedAddons)) {
             if (this.state[addonId].dirty) {
-                this.setState((state) => ({
+                this.setState(state => ({
                     [addonId]: {
                         ...state[addonId],
                         dirty: false,
@@ -1146,13 +1146,13 @@ class AddonSettingsComponent extends React.Component {
                 id,
                 manifest,
                 state: this.state[id],
-            }),
+            })
         );
         const unsupported = Object.entries(unsupportedAddons).map(
             ([id, manifest]) => ({
                 id,
                 manifest,
-            }),
+            })
         );
         return (
             <div className={styles.container}>
@@ -1173,16 +1173,18 @@ class AddonSettingsComponent extends React.Component {
                                 onClick={this.handleClickSearchButton}
                             />
                         </div>
-                        <a
-                            href="https://ampmod.flarum.cloud"
-                            target="_blank"
-                            rel="noreferrer"
-                            className={styles.feedbackButtonOuter}
-                        >
-                            <span className={styles.feedbackButtonInner}>
-                                AmpMod Forum Topic
-                            </span>
-                        </a>
+                        {APP_FORUMS && (
+                            <a
+                                href={APP_FORUMS}
+                                target="_blank"
+                                rel="noreferrer"
+                                className={styles.feedbackButtonOuter}
+                            >
+                                <span className={styles.feedbackButtonInner}>
+                                    {APP_NAME} Forums
+                                </span>
+                            </a>
+                        )}
                     </div>
                     {this.state.dirty && (
                         <Dirty
@@ -1206,7 +1208,7 @@ class AddonSettingsComponent extends React.Component {
                                 <button
                                     className={classNames(
                                         styles.button,
-                                        styles.resetAllButton,
+                                        styles.resetAllButton
                                     )}
                                     onClick={this.handleResetAll}
                                 >
@@ -1215,7 +1217,7 @@ class AddonSettingsComponent extends React.Component {
                                 <button
                                     className={classNames(
                                         styles.button,
-                                        styles.exportButton,
+                                        styles.exportButton
                                     )}
                                     onClick={this.handleExport}
                                 >
@@ -1224,7 +1226,7 @@ class AddonSettingsComponent extends React.Component {
                                 <button
                                     className={classNames(
                                         styles.button,
-                                        styles.importButton,
+                                        styles.importButton
                                     )}
                                     onClick={this.handleImport}
                                 >

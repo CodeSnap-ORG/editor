@@ -93,7 +93,7 @@ const addFunctionListener = (object, property, callback) => {
 };
 
 const DroppableBlocks = DropAreaHOC([DragConstants.BACKPACK_CODE])(
-    BlocksComponent,
+    BlocksComponent
 );
 
 class Blocks extends React.Component {
@@ -103,7 +103,7 @@ class Blocks extends React.Component {
 
         window.ScratchBlocks = this.ScratchBlocks;
         AddonHooks.blockly = this.ScratchBlocks;
-        AddonHooks.blocklyCallbacks.forEach((i) => i());
+        AddonHooks.blocklyCallbacks.forEach(i => i());
         AddonHooks.blocklyCallbacks.length = [];
 
         bindAll(this, [
@@ -149,7 +149,7 @@ class Blocks extends React.Component {
     componentDidMount() {
         this.ScratchBlocks = VMScratchBlocks(
             this.props.vm,
-            this.props.useCatBlocks,
+            this.props.useCatBlocks
         );
         this.ScratchBlocks.prompt = this.handlePromptStart;
         this.ScratchBlocks.statusButtonCallback =
@@ -167,16 +167,16 @@ class Blocks extends React.Component {
             messages.PROCEDURES_RETURN,
             {
                 v: "%1",
-            },
+            }
         );
         Msg.PROCEDURES_TO_REPORTER = this.props.intl.formatMessage(
-            messages.PROCEDURES_TO_REPORTER,
+            messages.PROCEDURES_TO_REPORTER
         );
         Msg.PROCEDURES_TO_STATEMENT = this.props.intl.formatMessage(
-            messages.PROCEDURES_TO_STATEMENT,
+            messages.PROCEDURES_TO_STATEMENT
         );
         Msg.PROCEDURES_DOCS = this.props.intl.formatMessage(
-            messages.PROCEDURES_DOCS,
+            messages.PROCEDURES_DOCS
         );
 
         const workspaceConfig = defaultsDeep(
@@ -190,11 +190,11 @@ class Blocks extends React.Component {
                     colour: this.props.theme.getBlockColors().gridColor,
                 },
             },
-            Blocks.defaultOptions,
+            Blocks.defaultOptions
         );
         this.workspace = this.ScratchBlocks.inject(
             this.blocks,
-            workspaceConfig,
+            workspaceConfig
         );
         AddonHooks.blocklyWorkspace = this.workspace;
 
@@ -203,45 +203,42 @@ class Blocks extends React.Component {
 
         const toolboxWorkspace = this.workspace.getFlyout().getWorkspace();
 
-        const varListButtonCallback = (type) => () =>
+        const varListButtonCallback = type => () =>
             this.ScratchBlocks.Variables.createVariable(
                 this.workspace,
                 null,
-                type,
+                type
             );
         const procButtonCallback = () => {
             this.ScratchBlocks.Procedures.createProcedureDefCallback_(
-                this.workspace,
+                this.workspace
             );
         };
 
         toolboxWorkspace.registerButtonCallback(
             "MAKE_A_VARIABLE",
-            varListButtonCallback(""),
+            varListButtonCallback("")
         );
         toolboxWorkspace.registerButtonCallback(
             "MAKE_A_LIST",
-            varListButtonCallback("list"),
+            varListButtonCallback("list")
         );
         toolboxWorkspace.registerButtonCallback(
             "MAKE_A_PROCEDURE",
-            procButtonCallback,
+            procButtonCallback
         );
-        toolboxWorkspace.registerButtonCallback(
-            "EXTENSION_CALLBACK",
-            (block) => {
-                this.props.vm.handleExtensionButtonPress(block.callbackData_);
-            },
-        );
+        toolboxWorkspace.registerButtonCallback("EXTENSION_CALLBACK", block => {
+            this.props.vm.handleExtensionButtonPress(block.callbackData_);
+        });
         toolboxWorkspace.registerButtonCallback(
             "OPEN_EXTENSION_DOCS",
-            (block) => {
+            block => {
                 const docsURI = block.callbackData_;
                 const url = new URL(docsURI);
                 if (url.protocol === "http:" || url.protocol === "https:") {
                     window.open(docsURI, "_blank");
                 }
-            },
+            }
         );
         toolboxWorkspace.registerButtonCallback("OPEN_RETURN_DOCS", () => {
             window.open("https://docs.turbowarp.org/return", "_blank");
@@ -265,12 +262,12 @@ class Blocks extends React.Component {
         addFunctionListener(
             this.workspace,
             "translate",
-            this.onWorkspaceMetricsChange,
+            this.onWorkspaceMetricsChange
         );
         addFunctionListener(
             this.workspace,
             "zoom",
-            this.onWorkspaceMetricsChange,
+            this.onWorkspaceMetricsChange
         );
 
         this.props.vm.setCompilerOptions({
@@ -405,7 +402,7 @@ class Blocks extends React.Component {
             this.workspace.toolbox_.getCategoryLengthById(categoryId);
         if (offset < currentCategoryLen) {
             this.workspace.toolbox_.setFlyoutScrollPos(
-                currentCategoryPos + offset,
+                currentCategoryPos + offset
             );
         } else {
             this.workspace.toolbox_.setFlyoutScrollPos(currentCategoryPos);
@@ -413,7 +410,7 @@ class Blocks extends React.Component {
 
         const queue = this.toolboxUpdateQueue;
         this.toolboxUpdateQueue = [];
-        queue.forEach((fn) => fn());
+        queue.forEach(fn => fn());
     }
 
     withToolboxUpdates(fn) {
@@ -429,10 +426,10 @@ class Blocks extends React.Component {
         this.workspace.addChangeListener(this.props.vm.blockListener);
         this.flyoutWorkspace = this.workspace.getFlyout().getWorkspace();
         this.flyoutWorkspace.addChangeListener(
-            this.props.vm.flyoutBlockListener,
+            this.props.vm.flyoutBlockListener
         );
         this.flyoutWorkspace.addChangeListener(
-            this.props.vm.monitorBlockListener,
+            this.props.vm.monitorBlockListener
         );
         this.props.vm.addListener("SCRIPT_GLOW_ON", this.onScriptGlowOn);
         this.props.vm.addListener("SCRIPT_GLOW_OFF", this.onScriptGlowOff);
@@ -445,15 +442,15 @@ class Blocks extends React.Component {
         this.props.vm.addListener("EXTENSION_ADDED", this.handleExtensionAdded);
         this.props.vm.addListener(
             "BLOCKSINFO_UPDATE",
-            this.handleBlocksInfoUpdate,
+            this.handleBlocksInfoUpdate
         );
         this.props.vm.addListener(
             "PERIPHERAL_CONNECTED",
-            this.handleStatusButtonUpdate,
+            this.handleStatusButtonUpdate
         );
         this.props.vm.addListener(
             "PERIPHERAL_DISCONNECTED",
-            this.handleStatusButtonUpdate,
+            this.handleStatusButtonUpdate
         );
     }
     detachVM() {
@@ -466,23 +463,23 @@ class Blocks extends React.Component {
         this.props.vm.removeListener("targetsUpdate", this.onTargetsUpdate);
         this.props.vm.removeListener(
             "MONITORS_UPDATE",
-            this.handleMonitorsUpdate,
+            this.handleMonitorsUpdate
         );
         this.props.vm.removeListener(
             "EXTENSION_ADDED",
-            this.handleExtensionAdded,
+            this.handleExtensionAdded
         );
         this.props.vm.removeListener(
             "BLOCKSINFO_UPDATE",
-            this.handleBlocksInfoUpdate,
+            this.handleBlocksInfoUpdate
         );
         this.props.vm.removeListener(
             "PERIPHERAL_CONNECTED",
-            this.handleStatusButtonUpdate,
+            this.handleStatusButtonUpdate
         );
         this.props.vm.removeListener(
             "PERIPHERAL_DISCONNECTED",
-            this.handleStatusButtonUpdate,
+            this.handleStatusButtonUpdate
         );
     }
 
@@ -500,14 +497,14 @@ class Blocks extends React.Component {
 
     onTargetsUpdate() {
         if (this.props.vm.editingTarget && this.workspace.getFlyout()) {
-            ["glide", "move", "set"].forEach((prefix) => {
+            ["glide", "move", "set"].forEach(prefix => {
                 this.updateToolboxBlockValue(
                     `${prefix}x`,
-                    Math.round(this.props.vm.editingTarget.x).toString(),
+                    Math.round(this.props.vm.editingTarget.x).toString()
                 );
                 this.updateToolboxBlockValue(
                     `${prefix}y`,
-                    Math.round(this.props.vm.editingTarget.y).toString(),
+                    Math.round(this.props.vm.editingTarget.y).toString()
                 );
             });
         }
@@ -557,7 +554,7 @@ class Blocks extends React.Component {
             const targetSounds = target.getSounds();
             const dynamicBlocksXML = injectExtensionCategoryTheme(
                 this.props.vm.runtime.getBlocksXML(target),
-                this.props.theme,
+                this.props.theme
             );
             return makeToolboxXML(
                 false,
@@ -569,7 +566,7 @@ class Blocks extends React.Component {
                 targetSounds.length > 0
                     ? targetSounds[targetSounds.length - 1].name
                     : "",
-                this.props.theme.getBlockColors(),
+                this.props.theme.getBlockColors()
             );
         } catch {
             return null;
@@ -595,7 +592,7 @@ class Blocks extends React.Component {
         try {
             this.ScratchBlocks.Xml.clearWorkspaceAndLoadFromXml(
                 dom,
-                this.workspace,
+                this.workspace
             );
         } catch (error) {
             // The workspace is likely incomplete. What did update should be
@@ -652,26 +649,26 @@ class Blocks extends React.Component {
         }
     }
     handleExtensionAdded(categoryInfo) {
-        const defineBlocks = (blockInfoArray) => {
+        const defineBlocks = blockInfoArray => {
             if (blockInfoArray && blockInfoArray.length > 0) {
                 const staticBlocksJson = [];
                 const dynamicBlocksInfo = [];
-                blockInfoArray.forEach((blockInfo) => {
+                blockInfoArray.forEach(blockInfo => {
                     if (blockInfo.info && blockInfo.info.isDynamic) {
                         dynamicBlocksInfo.push(blockInfo);
                     } else if (blockInfo.json) {
                         staticBlocksJson.push(
                             injectExtensionBlockTheme(
                                 blockInfo.json,
-                                this.props.theme,
-                            ),
+                                this.props.theme
+                            )
                         );
                     }
                     // otherwise it's a non-block entry such as '---'
                 });
 
                 this.ScratchBlocks.defineBlocksWithJsonArray(staticBlocksJson);
-                dynamicBlocksInfo.forEach((blockInfo) => {
+                dynamicBlocksInfo.forEach(blockInfo => {
                     // This is creating the block factory / constructor -- NOT a specific instance of the block.
                     // The factory should only know static info about the block: the category info and the opcode.
                     // Anything else will be picked up from the XML attached to the block instance.
@@ -681,7 +678,7 @@ class Blocks extends React.Component {
                         categoryInfo,
                         blockInfo,
                         extendedOpcode,
-                        this.props.theme,
+                        this.props.theme
                     );
                     this.ScratchBlocks.Blocks[extendedOpcode] = blockDefinition;
                 });
@@ -692,10 +689,10 @@ class Blocks extends React.Component {
         // these actually define blocks and MUST run regardless of the UI state
         defineBlocks(
             Object.getOwnPropertyNames(categoryInfo.customFieldTypes).map(
-                (fieldTypeName) =>
+                fieldTypeName =>
                     categoryInfo.customFieldTypes[fieldTypeName]
-                        .scratchBlocksDefinition,
-            ),
+                        .scratchBlocksDefinition
+            )
         );
         defineBlocks(categoryInfo.menus);
         defineBlocks(categoryInfo.blocks);
@@ -712,7 +709,7 @@ class Blocks extends React.Component {
     }
     handleCategorySelected(categoryId) {
         const extension = extensionData.find(
-            (ext) => ext.extensionId === categoryId,
+            ext => ext.extensionId === categoryId
         );
         if (extension && extension.launchPeripheralConnectionFlow) {
             this.handleConnectionModalStart(categoryId);
@@ -763,9 +760,9 @@ class Blocks extends React.Component {
         this.state.prompt.callback(
             input,
             this.props.vm.runtime.getAllVarNamesOfType(
-                this.state.prompt.varType,
+                this.state.prompt.varType
             ),
-            variableOptions,
+            variableOptions
         );
         this.handlePromptClose();
     }
@@ -780,8 +777,8 @@ class Blocks extends React.Component {
     }
     handleDrop(dragInfo) {
         fetch(dragInfo.payload.bodyUrl)
-            .then((response) => response.json())
-            .then((payload) => {
+            .then(response => response.json())
+            .then(payload => {
                 // based on https://github.com/ScratchAddons/ScratchAddons/pull/7028
                 const topBlock = findTopBlock(payload);
                 if (topBlock) {
@@ -805,7 +802,7 @@ class Blocks extends React.Component {
                 }
                 return this.props.vm.shareBlocksToTarget(
                     payload,
-                    this.props.vm.editingTarget.id,
+                    this.props.vm.editingTarget.id
                 );
             })
             .then(() => {
@@ -970,10 +967,10 @@ Blocks.defaultProps = {
     theme: Theme.light,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     anyModalVisible:
         Object.keys(state.scratchGui.modals).some(
-            (key) => state.scratchGui.modals[key],
+            key => state.scratchGui.modals[key]
         ) || state.scratchGui.mode.isFullScreen,
     customStageSize: state.scratchGui.customStageSize,
     extensionLibraryVisible: state.scratchGui.modals.extensionLibrary,
@@ -986,12 +983,11 @@ const mapStateToProps = (state) => ({
     useCatBlocks: isTimeTravel2020(state),
 });
 
-const mapDispatchToProps = (dispatch) => ({
-    onActivateColorPicker: (callback) =>
-        dispatch(activateColorPicker(callback)),
+const mapDispatchToProps = dispatch => ({
+    onActivateColorPicker: callback => dispatch(activateColorPicker(callback)),
     onActivateCustomProcedures: (data, callback) =>
         dispatch(activateCustomProcedures(data, callback)),
-    onOpenConnectionModal: (id) => {
+    onOpenConnectionModal: id => {
         dispatch(setConnectionModalExtensionId(id));
         dispatch(openConnectionModal());
     },
@@ -1003,13 +999,13 @@ const mapDispatchToProps = (dispatch) => ({
     onRequestCloseExtensionLibrary: () => {
         dispatch(closeExtensionLibrary());
     },
-    onRequestCloseCustomProcedures: (data) => {
+    onRequestCloseCustomProcedures: data => {
         dispatch(deactivateCustomProcedures(data));
     },
-    updateToolboxState: (toolboxXML) => {
+    updateToolboxState: toolboxXML => {
         dispatch(updateToolbox(toolboxXML));
     },
-    updateMetrics: (metrics) => {
+    updateMetrics: metrics => {
         dispatch(updateMetrics(metrics));
     },
 });
@@ -1018,7 +1014,7 @@ export default injectIntl(
     errorBoundaryHOC("Blocks")(
         connect(
             mapStateToProps,
-            mapDispatchToProps,
-        )(LoadScratchBlocksHOC(Blocks)),
-    ),
+            mapDispatchToProps
+        )(LoadScratchBlocksHOC(Blocks))
+    )
 );

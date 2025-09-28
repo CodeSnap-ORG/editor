@@ -45,7 +45,7 @@ class StudioViewComponent extends React.Component {
                 title: "$title",
             });
         this.studioView.messages.LOAD_ERROR = this.props.intl.formatMessage(
-            messages.error,
+            messages.error
         );
         if (this.props.placeholder) {
             this.studioView.addPlaceholders();

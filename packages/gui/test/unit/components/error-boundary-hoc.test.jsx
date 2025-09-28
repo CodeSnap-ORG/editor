@@ -27,7 +27,7 @@ describe("ErrorBoundary", () => {
         const wrapper = mountWithIntl(
             <Provider store={store}>
                 <ErrorBoundary action="test">{child}</ErrorBoundary>
-            </Provider>,
+            </Provider>
         );
         const errorSite = wrapper.childAt(0).childAt(0);
 
@@ -36,14 +36,14 @@ describe("ErrorBoundary", () => {
 
         expect(wrapper.containsMatchingElement(child)).toBeTruthy();
         expect(
-            wrapper.containsMatchingElement(crashMessagePattern),
+            wrapper.containsMatchingElement(crashMessagePattern)
         ).toBeFalsy();
 
         errorSite.simulateError(new Error("fake error for testing purposes"));
 
         expect(wrapper.containsMatchingElement(child)).toBeFalsy();
         expect(
-            wrapper.containsMatchingElement(crashMessagePattern),
+            wrapper.containsMatchingElement(crashMessagePattern)
         ).toBeTruthy();
     });
 });

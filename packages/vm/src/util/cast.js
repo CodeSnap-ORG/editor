@@ -16,7 +16,7 @@ const Color = require("../util/color");
  * @param {*} val A value that evaluates to 0 in JS string-to-number conversation such as empty string, 0, or tab.
  * @returns {boolean} True if the value should not be treated as the number zero.
  */
-const isNotActuallyZero = (val) => {
+const isNotActuallyZero = val => {
     if (typeof val !== "string") return false;
     for (let i = 0; i < val.length; i++) {
         const code = val.charCodeAt(i);
@@ -123,6 +123,19 @@ class Cast {
             color = Color.decimalToRgb(Cast.toNumber(value));
         }
         return color;
+    }
+
+    /**
+     * Cast a non-array value to an array with the single item being the value.
+     * If the value is already an array, it is returned as is.
+     * @param {*} value Value to convert to an array.
+     * @return {Array} The value converted to an array.
+     */
+    static toList(value) {
+        if (Array.isArray(value)) {
+            return value;
+        }
+        return [value];
     }
 
     /**

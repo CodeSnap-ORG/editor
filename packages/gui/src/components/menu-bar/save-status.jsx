@@ -37,12 +37,12 @@ SaveStatus.propTypes = {
     projectChanged: PropTypes.bool,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     alertsList: state.scratchGui.alerts.alertsList,
     projectChanged: state.scratchGui.projectChanged,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     onClickSave: () => dispatch(manualUpdateProject()),
 });
 

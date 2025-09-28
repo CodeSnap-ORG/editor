@@ -10,7 +10,7 @@ const reducer = function (state, action) {
         case CHANGE_TEXT_EDIT_TARGET:
             if (typeof action.textEditTargetId === "undefined") {
                 log.warn(
-                    `Text edit target should not be set to undefined. Use null.`,
+                    `Text edit target should not be set to undefined. Use null.`
                 );
                 return state;
             } else if (
@@ -18,7 +18,7 @@ const reducer = function (state, action) {
                 isNaN(action.textEditTargetId)
             ) {
                 log.warn(
-                    `Text edit target should be an item ID number. Got: ${action.textEditTargetId}`,
+                    `Text edit target should be an item ID number. Got: ${action.textEditTargetId}`
                 );
                 return state;
             }

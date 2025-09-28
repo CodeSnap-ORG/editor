@@ -11,13 +11,13 @@ class VolumeEffect {
         this.rampLength = 0.01;
         this.gain.gain.setValueAtTime(
             1.0,
-            Math.max(0, startSeconds - this.rampLength),
+            Math.max(0, startSeconds - this.rampLength)
         );
         this.gain.gain.exponentialRampToValueAtTime(volume, startSeconds);
         this.gain.gain.setValueAtTime(volume, endSeconds);
         this.gain.gain.exponentialRampToValueAtTime(
             1.0,
-            endSeconds + this.rampLength,
+            endSeconds + this.rampLength
         );
 
         this.input.connect(this.gain);

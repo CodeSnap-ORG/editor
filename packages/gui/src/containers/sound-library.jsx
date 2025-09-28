@@ -26,7 +26,7 @@ const messages = defineMessages({
 
 // @todo need to use this hack to avoid library using md5 for image
 const getSoundLibraryThumbnailData = (soundLibraryContent, isRtl) =>
-    soundLibraryContent.map((sound) => {
+    soundLibraryContent.map(sound => {
         const { md5ext, ...otherData } = sound;
         return {
             _md5: md5ext,
@@ -70,16 +70,16 @@ class SoundLibrary extends React.PureComponent {
     componentDidMount() {
         const soundLibrary = getSoundLibrary();
         if (soundLibrary.then) {
-            soundLibrary.then((data) =>
+            soundLibrary.then(data =>
                 this.setState({
                     data: getSoundLibraryThumbnailData(data, this.props.isRtl),
-                }),
+                })
             );
         } else {
             this.setState({
                 data: getSoundLibraryThumbnailData(
                     soundLibrary,
-                    this.props.isRtl,
+                    this.props.isRtl
                 ),
             });
         }
@@ -93,9 +93,9 @@ class SoundLibrary extends React.PureComponent {
     onStop() {
         if (this.playingSoundPromise !== null) {
             this.playingSoundPromise.then(
-                (soundPlayer) =>
+                soundPlayer =>
                     soundPlayer &&
-                    soundPlayer.removeListener("stop", this.onStop),
+                    soundPlayer.removeListener("stop", this.onStop)
             );
             if (this.handleStop) this.handleStop();
         }
@@ -109,14 +109,14 @@ class SoundLibrary extends React.PureComponent {
         if (this.playingSoundPromise !== null) {
             // Forcing sound to stop, so stop listening for sound ending:
             this.playingSoundPromise.then(
-                (soundPlayer) =>
+                soundPlayer =>
                     soundPlayer &&
-                    soundPlayer.removeListener("stop", this.onStop),
+                    soundPlayer.removeListener("stop", this.onStop)
             );
             // Queued playback began playing before this method.
             if (this.playingSoundPromise.isPlaying) {
                 // Fetch the player from the promise and stop playback soon.
-                this.playingSoundPromise.then((soundPlayer) => {
+                this.playingSoundPromise.then(soundPlayer => {
                     soundPlayer.stop();
                 });
             } else {
@@ -124,7 +124,7 @@ class SoundLibrary extends React.PureComponent {
                 // the sound is not playing yet, this callback will be called
                 // immediately after the sound starts playback. Stopping it
                 // immediately will have the effect of no sound being played.
-                this.playingSoundPromise.then((soundPlayer) => {
+                this.playingSoundPromise.then(soundPlayer => {
                     if (soundPlayer) soundPlayer.stopImmediately();
                 });
             }
@@ -147,7 +147,7 @@ class SoundLibrary extends React.PureComponent {
         // instruction after the play instruction.
         this.playingSoundPromise = vm.runtime.storage
             .load(vm.runtime.storage.AssetType.Sound, md5)
-            .then((soundAsset) => {
+            .then(soundAsset => {
                 if (soundAsset) {
                     const sound = {
                         md5: md5ext,
@@ -157,7 +157,7 @@ class SoundLibrary extends React.PureComponent {
                     };
                     return this.audioEngine
                         .decodeSoundPlayer(sound)
-                        .then((soundPlayer) => {
+                        .then(soundPlayer => {
                             soundPlayer.connect(this.audioEngine);
                             // Play the sound. Playing the sound will always come before a
                             // paired stop if the sound must stop early.
@@ -214,12 +214,12 @@ SoundLibrary.propTypes = {
     vm: PropTypes.instanceOf(VM).isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     isRtl: state.locales.isRtl,
 });
 
 const mapDispatchToProps = () => ({});
 
 export default injectIntl(
-    connect(mapStateToProps, mapDispatchToProps)(SoundLibrary),
+    connect(mapStateToProps, mapDispatchToProps)(SoundLibrary)
 );

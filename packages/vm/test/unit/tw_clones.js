@@ -3,7 +3,7 @@ const Sprite = require("../../src/sprites/sprite");
 
 const { test } = require("tap");
 
-test("clone counter", (t) => {
+test("clone counter", t => {
     const rt = new Runtime();
     const sprite = new Sprite(null, rt);
     const original = sprite.createClone();

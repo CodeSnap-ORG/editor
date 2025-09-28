@@ -166,7 +166,7 @@ const adapter = function (e) {
     if (typeof e.xml !== "object") return;
 
     return domToBlocks(
-        html.parseDOM(e.xml.outerHTML, { decodeEntities: true }),
+        html.parseDOM(e.xml.outerHTML, { decodeEntities: true })
     );
 };
 

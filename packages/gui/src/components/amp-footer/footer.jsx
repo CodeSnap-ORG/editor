@@ -15,7 +15,13 @@
  */
 
 import React from "react";
-import { APP_NAME } from "../../lib/brand.js";
+import {
+    APP_BLOG,
+    APP_FORUMS,
+    APP_NAME,
+    APP_SOURCE,
+    APP_WIKI,
+} from "@ampmod/branding";
 import { FormattedMessage } from "react-intl";
 
 import styles from "./footer.css";
@@ -27,41 +33,33 @@ const hardRefresh = () => {
             search +
             (search ? "&" : "?") +
             "nocache=" +
-            Math.floor(Math.random() * 100000),
+            Math.floor(Math.random() * 100000)
     );
 };
 
 const eraseData = async () => {
     if (
         confirm(
-            "Please be aware that this will reset all your local data, including the Restore Points and backpack. Are you sure you want to continue?",
+            "Please be aware that this will reset all your local data, including the Restore Points and backpack. Only do this if you're experiencing many bugs or errors. Again, this is a last resort, and all data will be ERASED FROM YOUR BROWSER, and CANNOT be undone. Are you sure you want to continue?"
         )
     ) {
-        const prefix = process.env.ampmod_is_canary ? "canary:" : "tw:";
-        const keysToRemove = Object.keys(localStorage).filter((key) =>
-            key.startsWith(prefix),
+        const prefix = process.env.ampmod_is_canary ? "canary:" : "amp:";
+        const keysToRemove = Object.keys(localStorage).filter(key =>
+            key.startsWith(prefix)
         );
-        keysToRemove.forEach((key) => {
+        keysToRemove.forEach(key => {
             localStorage.removeItem(key);
         });
-        if (!process.env.ampmod_is_canary) {
-            const ampKeys = Object.keys(localStorage).filter((key) =>
-                key.startsWith("amp:"),
-            );
-            ampKeys.forEach((key) => {
-                localStorage.removeItem(key);
-            });
-        }
         // We have to manually delete the databases due to Firefox not supporting indexedDB.databases(). WHYYYY???
         indexedDB.deleteDatabase(
             process.env.ampmod_is_canary
                 ? " Canary_RestorePoints"
-                : "TW_RestorePoints",
+                : "Amp_RestorePoints"
         );
         indexedDB.deleteDatabase(
             process.env.ampmod_is_canary
                 ? " Canary_RestorePoints"
-                : "TW_RestorePoints",
+                : "Amp_RestorePoints"
         );
         location.reload();
     }
@@ -82,7 +80,6 @@ const Footer = () => {
                         description="The current version of the application"
                         id="tw.footer.version"
                         values={{
-                            APP_NAME,
                             APP_VERSION: process.env.ampmod_version,
                         }}
                     />
@@ -171,13 +168,15 @@ const Footer = () => {
                                 id="tw.footer.faq"
                             />
                         </a>
-                        <a href="https://ampmod.flarum.cloud/blog">
-                            <FormattedMessage
-                                defaultMessage="AmpMod Blog"
-                                description="Blog link in footer"
-                                id="tw.footer.blog"
-                            />
-                        </a>
+                        {APP_BLOG && (
+                            <a href={APP_BLOG}>
+                                <FormattedMessage
+                                    defaultMessage="AmpMod Blog"
+                                    description="Blog link in footer"
+                                    id="tw.footer.blog"
+                                />
+                            </a>
+                        )}
                         <a href="https://scratchfoundation.org/donate/">
                             <FormattedMessage
                                 defaultMessage="Donate to Scratch"
@@ -216,13 +215,15 @@ const Footer = () => {
                                 id="tw.footer.extensions"
                             />
                         </a>
-                        <a href="https://ampmod.miraheze.org/">
-                            <FormattedMessage
-                                defaultMessage="AmpMod Wiki"
-                                description="Link in footer to wiki"
-                                id="tw.footer.wiki"
-                            />
-                        </a>
+                        {APP_WIKI && (
+                            <a href={APP_WIKI}>
+                                <FormattedMessage
+                                    defaultMessage="AmpMod Wiki"
+                                    description="Link in footer to wiki"
+                                    id="tw.footer.wiki"
+                                />
+                            </a>
+                        )}
                         <a href="https://ampmod.codeberg.page/manual/">
                             <FormattedMessage
                                 defaultMessage="Manual"
@@ -232,16 +233,18 @@ const Footer = () => {
                         </a>
                     </div>
                     <div className={styles.footerSection}>
-                        <a href="https://ampmod.flarum.cloud">
-                            <FormattedMessage
-                                defaultMessage="AmpMod Forums"
-                                description="Button to give feedback in the menu bar"
-                                id="tw.topicButton"
-                                values={{
-                                    APP_NAME,
-                                }}
-                            />
-                        </a>
+                        {APP_FORUMS && (
+                            <a href={APP_FORUMS}>
+                                <FormattedMessage
+                                    defaultMessage="{APP_NAME} Forums"
+                                    description="Button to give feedback in the menu bar"
+                                    id="tw.topicButton"
+                                    values={{
+                                        APP_NAME,
+                                    }}
+                                />
+                            </a>
+                        )}
                         {(!process.env.ampmod_is_canary && (
                             <a href="https://ampmod.codeberg.page/canary/">
                                 <FormattedMessage
@@ -259,7 +262,7 @@ const Footer = () => {
                                 />
                             </a>
                         )}
-                        <a href="https://codeberg.org/AmpMod/">
+                        <a href={APP_SOURCE}>
                             <FormattedMessage
                                 defaultMessage="Source Code"
                                 description="Link to source code"

@@ -1,5 +1,5 @@
 export default (bmpImage, type = "image/bmp") =>
-    new Promise((resolve) => {
+    new Promise(resolve => {
         // If the input is an ArrayBuffer, we need to convert it to a `Blob` and give it a URL so we can use it as an <img>
         // `src`. If it's a data URI, we can use it as-is.
         const imageUrl =

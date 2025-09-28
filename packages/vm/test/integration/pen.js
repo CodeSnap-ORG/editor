@@ -16,7 +16,7 @@ const project = readFileToBuffer(uri);
 // By default Central Dispatch works with the Worker class built into the browser. Tell it to use TinyWorker instead.
 dispatch.workerClass = Worker;
 
-test("pen", (t) => {
+test("pen", t => {
     const vm = new VirtualMachine();
     vm.attachStorage(makeTestStorage());
 
@@ -30,12 +30,12 @@ test("pen", (t) => {
 
         /** @type {PenState} */
         const originalPenState = originalCat.getCustomState(
-            Scratch3PenBlocks.STATE_KEY,
+            Scratch3PenBlocks.STATE_KEY
         );
 
         /** @type {PenState} */
         const clonePenState = cloneCat.getCustomState(
-            Scratch3PenBlocks.STATE_KEY,
+            Scratch3PenBlocks.STATE_KEY
         );
 
         t.notStrictEqual(originalPenState, clonePenState);

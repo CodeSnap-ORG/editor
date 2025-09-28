@@ -11,7 +11,7 @@ export default (arrayBuffer, onFrame) => {
     let imageData = ctx.createImageData(canvas.width, canvas.height);
     let previousData = ctx.createImageData(canvas.width, canvas.height);
 
-    const loadFrame = (i) => {
+    const loadFrame = i => {
         const framePixels = [];
         gifReader.decodeAndBlitFrameRGBA(i, framePixels);
         const { x, y, width, height, disposal } = gifReader.frameInfo(i);
@@ -47,7 +47,7 @@ export default (arrayBuffer, onFrame) => {
                     0,
                     0,
                     canvas.width,
-                    canvas.height,
+                    canvas.height
                 );
                 break;
         }

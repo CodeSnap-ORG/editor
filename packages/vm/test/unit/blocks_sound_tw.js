@@ -5,7 +5,7 @@ const Target = require("../../src/engine/target");
 const Sprite = require("../../src/sprites/sprite");
 const Scratch3SoundBlocks = require("../../src/blocks/scratch3_sound");
 
-test("effect clamping runtime option", (t) => {
+test("effect clamping runtime option", t => {
     const rt = new Runtime();
     const target = new Target(rt);
     const sprite = new Sprite();
@@ -19,7 +19,7 @@ test("effect clamping runtime option", (t) => {
         },
         {
             target,
-        },
+        }
     );
     t.equal(sound._getSoundState(target).effects.pitch, 360);
 
@@ -33,7 +33,7 @@ test("effect clamping runtime option", (t) => {
         },
         {
             target,
-        },
+        }
     );
     t.equal(sound._getSoundState(target).effects.pitch, 720);
 

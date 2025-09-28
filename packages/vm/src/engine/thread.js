@@ -288,8 +288,8 @@ class Thread {
             const parent = this.stackFrames[this.stackFrames.length - 1];
             this.stackFrames.push(
                 _StackFrame.create(
-                    typeof parent !== "undefined" && parent.warpMode,
-                ),
+                    typeof parent !== "undefined" && parent.warpMode
+                )
             );
         }
     }
@@ -462,7 +462,7 @@ class Thread {
             const block =
                 this.target.blocks.getBlock(this.stackFrames[i].op.id) ||
                 this.target.runtime.flyoutBlocks.getBlock(
-                    this.stackFrames[i].op.id,
+                    this.stackFrames[i].op.id
                 );
             if (
                 block.opcode === "procedures_call" &&
@@ -518,7 +518,7 @@ class Thread {
                 log.error(
                     "cannot compile script",
                     this.target.getName(),
-                    error,
+                    error
                 );
                 if (canCache) {
                     blocks.cacheCompileError(topBlock, error);

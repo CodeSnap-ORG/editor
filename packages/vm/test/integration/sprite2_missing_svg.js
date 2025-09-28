@@ -60,7 +60,7 @@ tap.beforeEach(() => {
 
 const test = tap.test;
 
-test("loading sprite2 with missing vector costume file", (t) => {
+test("loading sprite2 with missing vector costume file", t => {
     t.equal(vm.runtime.targets.length, 3);
 
     const stage = vm.runtime.targets[0];
@@ -83,7 +83,7 @@ test("loading sprite2 with missing vector costume file", (t) => {
     t.end();
 });
 
-test("load and then save sprite2 with missing vector costume file", (t) => {
+test("load and then save sprite2 with missing vector costume file", t => {
     const resavedSprite = JSON.parse(vm.toJSON(vm.runtime.targets[2].id));
 
     t.equal(resavedSprite.name, "Blue Guy");
@@ -100,10 +100,10 @@ test("load and then save sprite2 with missing vector costume file", (t) => {
     t.end();
 });
 
-test("serializeCostume does not save data for missing costume", (t) => {
+test("serializeCostume does not save data for missing costume", t => {
     const costumeDescs = serializeCostumes(
         vm.runtime,
-        vm.runtime.targets[2].id,
+        vm.runtime.targets[2].id
     );
 
     t.equal(costumeDescs.length, 0);

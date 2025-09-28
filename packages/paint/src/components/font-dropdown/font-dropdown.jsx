@@ -24,7 +24,7 @@ DisplayFont.propTypes = {
     getFontName: PropTypes.func.isRequired,
 };
 
-const ModeToolsComponent = (props) => (
+const ModeToolsComponent = props => (
     <Dropdown
         className={classNames(styles.modUnselect, styles.fontDropdown)}
         enterExitTransitionDurationMs={60}
@@ -150,7 +150,7 @@ const ModeToolsComponent = (props) => (
                         getFontName={props.getFontName}
                     />
                 </Button>
-                {props.customFonts.map((font) => (
+                {props.customFonts.map(font => (
                     <CustomFontButton
                         key={font.name}
                         font={font.family}
@@ -199,7 +199,7 @@ ModeToolsComponent.propTypes = {
         PropTypes.shape({
             name: PropTypes.string.isRequired,
             family: PropTypes.string.isRequired,
-        }),
+        })
     ).isRequired,
     onHoverCustom: PropTypes.func.isRequired,
     onManageFonts: PropTypes.func,

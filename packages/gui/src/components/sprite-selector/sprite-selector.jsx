@@ -101,7 +101,7 @@ const SpriteSelectorComponent = function (props) {
             <SpriteList
                 editingTarget={editingTarget}
                 hoveredTarget={hoveredTarget}
-                items={Object.keys(sprites).map((id) => sprites[id])}
+                items={Object.keys(sprites).map(id => sprites[id])}
                 raised={raised}
                 selectedId={selectedId}
                 onDeleteSprite={onDeleteSprite}
@@ -126,7 +126,7 @@ const SpriteSelectorComponent = function (props) {
                     },
                     {
                         title: intl.formatMessage(
-                            messages.addSpriteFromSurprise,
+                            messages.addSpriteFromSurprise
                         ),
                         img: surpriseIcon,
                         onClick: onSurpriseSpriteClick, // TODO need real function for this
@@ -138,7 +138,7 @@ const SpriteSelectorComponent = function (props) {
                     },
                     {
                         title: intl.formatMessage(
-                            messages.addSpriteFromLibrary,
+                            messages.addSpriteFromLibrary
                         ),
                         img: searchIcon,
                         onClick: onNewSpriteClick,

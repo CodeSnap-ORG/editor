@@ -5,7 +5,7 @@ import ToolSelectComponent from "../tool-select-base/tool-select-base.jsx";
 
 import eraserIcon from "./eraser.svg";
 
-const BitEraserComponent = (props) => (
+const BitEraserComponent = props => (
     <ToolSelectComponent
         imgDescriptor={messages.eraser}
         imgSrc={eraserIcon}

@@ -46,19 +46,19 @@ const _parseTransform = function (domElement) {
             case "rotate":
                 matrix = Matrix.compose(
                     matrix,
-                    Matrix.rotateDEG(v[0], v[1] || 0, v[2] || 0),
+                    Matrix.rotateDEG(v[0], v[1] || 0, v[2] || 0)
                 );
                 break;
             case "translate":
                 matrix = Matrix.compose(
                     matrix,
-                    Matrix.translate(v[0], v[1] || 0),
+                    Matrix.translate(v[0], v[1] || 0)
                 );
                 break;
             case "scale":
                 matrix = Matrix.compose(
                     matrix,
-                    Matrix.scale(v[0], v[1] || v[0]),
+                    Matrix.scale(v[0], v[1] || v[0])
                 );
                 break;
             case "skewX":
@@ -101,7 +101,7 @@ const _calculateTransformedEllipse = function (
     radiusX,
     radiusY,
     theta,
-    transform,
+    transform
 ) {
     theta = (-theta * Math.PI) / 180;
     const a = transform.a;
@@ -137,7 +137,7 @@ const _calculateTransformedEllipse = function (
         Math.sqrt(2) *
         Math.sqrt(
             (A + C - Math.sqrt(A * A + B * B - 2 * A * C + C * C)) /
-                (-B * B + 4 * A * C),
+                (-B * B + 4 * A * C)
         );
     const newRadiusYOverDet =
         1 / Math.sqrt(A + C - 1 / newRadiusXOverDet / newRadiusXOverDet);
@@ -221,7 +221,8 @@ const _transformPath = function (pathString, transform) {
         }
         switch (lower) {
             case "m": // Move to
-            case "l": { // Line to
+            case "l": {
+                // Line to
                 let move = lower === "m";
                 for (let j = 0; j < length; j += 2) {
                     result += move ? "M " : "L ";
@@ -236,7 +237,8 @@ const _transformPath = function (pathString, transform) {
                 break;
             }
             case "h": // Horizontal line
-            case "v": { // Vertical line
+            case "v": {
+                // Vertical line
                 const coord = lower === "h" ? "x" : "y";
                 current = { x: current.x, y: current.y }; // Clone as we're going to modify it.
                 for (let j = 0; j < length; j++) {
@@ -307,7 +309,7 @@ const _transformPath = function (pathString, transform) {
                         rx,
                         ry,
                         rotation,
-                        transform,
+                        transform
                     );
                     const matrixScale = _getScaleFactor(transform);
                     if (newEllipse) {
@@ -400,7 +402,7 @@ const _createGradient = function (gradientId, svgTag, bbox, matrix) {
         isString,
         allowNull,
         allowPercent,
-        defaultValue,
+        defaultValue
     ) {
         // Interpret value as number. Never return NaN, but 0 instead.
         // If the value is a sequence of numbers, parseFloat will
@@ -444,7 +446,7 @@ const _createGradient = function (gradientId, svgTag, bbox, matrix) {
         allowNull,
         allowPercent,
         defaultX,
-        defaultY,
+        defaultY
     ) {
         x = getValue(node, x || "x", false, allowNull, allowPercent, defaultX);
         y = getValue(node, y || "y", false, allowNull, allowPercent, defaultY);
@@ -496,7 +498,7 @@ const _createGradient = function (gradientId, svgTag, bbox, matrix) {
             false,
             scaleToBounds,
             "50%",
-            "50%",
+            "50%"
         );
         radius = getValue(newGradient, "r", false, false, scaleToBounds, "50%");
         focal = getPoint(newGradient, "fx", "fy", true, scaleToBounds);
@@ -508,7 +510,7 @@ const _createGradient = function (gradientId, svgTag, bbox, matrix) {
             "y2",
             false,
             scaleToBounds,
-            "1",
+            "1"
         );
         if (origin.x === destination.x && origin.y === destination.y) {
             // If it's degenerate, use the color of the last stop, as described by
@@ -530,7 +532,7 @@ const _createGradient = function (gradientId, svgTag, bbox, matrix) {
     if (scaleToBounds) {
         const boundsMatrix = Matrix.compose(
             Matrix.translate(bbox.x, bbox.y),
-            Matrix.scale(bbox.width, bbox.height),
+            Matrix.scale(bbox.width, bbox.height)
         );
         origin = Matrix.applyToPoint(boundsMatrix, origin);
         if (destination)
@@ -574,7 +576,7 @@ const _createGradient = function (gradientId, svgTag, bbox, matrix) {
         // Transform points
         gradientPerpendicular = Matrix.applyToPoint(
             matrix,
-            gradientPerpendicular,
+            gradientPerpendicular
         );
         origin = Matrix.applyToPoint(matrix, origin);
         destination = Matrix.applyToPoint(matrix, destination);
@@ -738,7 +740,7 @@ const transformStrokeWidths = function (svgTag, windowRef, bboxForTesting) {
                     Matrix.compose(matrix, _parseTransform(element)),
                     strokeWidth,
                     fill,
-                    stroke,
+                    stroke
                 );
             }
             element.removeAttribute("transform");
@@ -776,7 +778,7 @@ const transformStrokeWidths = function (svgTag, windowRef, bboxForTesting) {
                         fillGradientId,
                         svgTag,
                         bbox,
-                        matrix,
+                        matrix
                     );
                     if (newFillRef) fill = newFillRef;
                 }
@@ -786,7 +788,7 @@ const transformStrokeWidths = function (svgTag, windowRef, bboxForTesting) {
                         strokeGradientId,
                         svgTag,
                         bbox,
-                        matrix,
+                        matrix
                     );
                     if (newStrokeRef) stroke = newStrokeRef;
                 }
@@ -795,7 +797,7 @@ const transformStrokeWidths = function (svgTag, windowRef, bboxForTesting) {
             // Transform path data
             element.setAttribute(
                 "d",
-                _transformPath(element.attributes.d.value, matrix),
+                _transformPath(element.attributes.d.value, matrix)
             );
             element.removeAttribute("transform");
 
@@ -803,7 +805,7 @@ const transformStrokeWidths = function (svgTag, windowRef, bboxForTesting) {
             const matrixScale = _getScaleFactor(matrix);
             element.setAttribute(
                 "stroke-width",
-                _quadraticMean(matrixScale.x, matrixScale.y) * strokeWidth,
+                _quadraticMean(matrixScale.x, matrixScale.y) * strokeWidth
             );
             if (fill) element.setAttribute("fill", fill);
             if (stroke) element.setAttribute("stroke", stroke);

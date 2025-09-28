@@ -3,7 +3,7 @@ const Snapshots = require("../snapshot/lib");
 
 for (const testCase of Snapshots.tests) {
     // eslint-disable-next-line no-loop-func
-    test(testCase.id, async (t) => {
+    test(testCase.id, async t => {
         const expected = Snapshots.getExpectedSnapshot(testCase);
         const actual = await Snapshots.generateActualSnapshot(testCase);
         const result = Snapshots.compareSnapshots(expected, actual);
@@ -19,7 +19,7 @@ for (const testCase of Snapshots.tests) {
             t.equal(
                 expected,
                 actual,
-                "did not match; you may have to run: node test/snapshot --update",
+                "did not match; you may have to run: node test/snapshot --update"
             );
         }
         t.end();

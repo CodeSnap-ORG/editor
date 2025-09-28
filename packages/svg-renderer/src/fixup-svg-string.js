@@ -9,7 +9,7 @@ module.exports = function (svgString) {
     if (svgAttrs && svgAttrs[0].indexOf("xmlns=") === -1) {
         svgString = svgString.replace(
             "<svg ",
-            '<svg xmlns="http://www.w3.org/2000/svg" ',
+            '<svg xmlns="http://www.w3.org/2000/svg" '
         );
     }
 
@@ -25,8 +25,8 @@ module.exports = function (svgString) {
             svgAttrs[0],
             svgAttrs[0].replace(
                 /&ns_[^;]+;/g,
-                "http://ns.adobe.com/Extensibility/1.0/",
-            ),
+                "http://ns.adobe.com/Extensibility/1.0/"
+            )
         );
     }
 
@@ -37,7 +37,7 @@ module.exports = function (svgString) {
             // capture entire image tag with xlink:href=and the quote - dont capture data: bit
             /(<image[^>]+?xlink:href=["'])data:img\/png/g,
             // use the captured <image ..... xlink:href=" then append the right data uri mime type
-            ($0, $1) => `${$1}data:image/png`,
+            ($0, $1) => `${$1}data:image/png`
         );
     }
 
@@ -52,7 +52,7 @@ module.exports = function (svgString) {
             // capture the entire attribute
             xmlnsRegex,
             // use the captured attribute name; replace only the URL
-            ($0, $1) => `${$1}"http://dummy.namespace"`,
+            ($0, $1) => `${$1}"http://dummy.namespace"`
         );
     }
 
@@ -67,13 +67,13 @@ module.exports = function (svgString) {
     // Note: [\s\S] matches everything including newlines, which .* does not
     svgString = svgString.replace(
         /<metadata>[\s\S]*<\/metadata>/,
-        "<metadata></metadata>",
+        "<metadata></metadata>"
     );
 
     // Empty script tags and javascript executing
     svgString = svgString.replace(
         /<script[\s\S]*>[\s\S]*<\/script>/,
-        "<script></script>",
+        "<script></script>"
     );
 
     return svgString;

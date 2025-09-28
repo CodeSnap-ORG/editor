@@ -1,7 +1,7 @@
 const test = require("tap").test;
 const StringUtil = require("../../src/util/string-util");
 
-test("splitFirst", (t) => {
+test("splitFirst", t => {
     t.deepEqual(StringUtil.splitFirst("asdf.1234", "."), ["asdf", "1234"]);
     t.deepEqual(StringUtil.splitFirst("asdf.", "."), ["asdf", ""]);
     t.deepEqual(StringUtil.splitFirst(".1234", "."), ["", "1234"]);
@@ -9,7 +9,7 @@ test("splitFirst", (t) => {
     t.end();
 });
 
-test("withoutTrailingDigits", (t) => {
+test("withoutTrailingDigits", t => {
     t.strictEqual(StringUtil.withoutTrailingDigits("boeing747"), "boeing");
     t.strictEqual(StringUtil.withoutTrailingDigits("boeing747 "), "boeing747 ");
     t.strictEqual(StringUtil.withoutTrailingDigits("boeing𝟨"), "boeing𝟨");
@@ -18,7 +18,7 @@ test("withoutTrailingDigits", (t) => {
     t.end();
 });
 
-test("unusedName", (t) => {
+test("unusedName", t => {
     t.strictEqual(StringUtil.unusedName("name", ["not the same name"]), "name");
     t.strictEqual(StringUtil.unusedName("name", ["name"]), "name2");
     t.strictEqual(StringUtil.unusedName("name", ["name30"]), "name");
@@ -26,12 +26,12 @@ test("unusedName", (t) => {
     t.strictEqual(StringUtil.unusedName("name", ["name", "name3"]), "name2");
     t.strictEqual(
         StringUtil.unusedName("boeing747", ["boeing747"]),
-        "boeing2", // Yup, this matches scratch-flash...
+        "boeing2" // Yup, this matches scratch-flash...
     );
     t.end();
 });
 
-test("stringify", (t) => {
+test("stringify", t => {
     const obj = {
         a: Infinity,
         b: NaN,
@@ -52,7 +52,7 @@ test("stringify", (t) => {
     t.end();
 });
 
-test("replaceUnsafeChars", (t) => {
+test("replaceUnsafeChars", t => {
     const empty = "";
     t.equal(StringUtil.replaceUnsafeChars(empty), empty);
 
@@ -77,14 +77,14 @@ test("replaceUnsafeChars", (t) => {
     t.end();
 });
 
-test("replaceUnsafeChars should handle non strings", (t) => {
+test("replaceUnsafeChars should handle non strings", t => {
     const array = ["hello", "world"];
     t.equal(StringUtil.replaceUnsafeChars(array), String(array));
 
     const arrayWithSpecialChar = ["hello", "<world>"];
     t.equal(
         StringUtil.replaceUnsafeChars(arrayWithSpecialChar),
-        "hello,ltworldgt",
+        "hello,ltworldgt"
     );
 
     const arrayWithNumbers = [1, 2, 3];

@@ -44,7 +44,7 @@ describe("Loading scratch gui", () => {
             const projectId = "96708228";
             await loadUri(`${uri}#${projectId}`);
             await clickXpath('//img[@title="Go"]');
-            await new Promise((resolve) => setTimeout(resolve, 2000));
+            await new Promise(resolve => setTimeout(resolve, 2000));
             await clickXpath('//img[@title="Stop"]');
             const logs = await getLogs();
             await expect(logs).toEqual([]);
@@ -57,16 +57,16 @@ describe("Loading scratch gui", () => {
             driver = getDriver();
 
             const prevSize = driver.manage().window().getSize();
-            await new Promise((resolve) => setTimeout(resolve, 2000));
+            await new Promise(resolve => setTimeout(resolve, 2000));
             driver.manage().window().setSize(1920, 1080);
             const projectId = "96708228";
             await loadUri(`${uri}#${projectId}`);
             await clickXpath('//img[@title="Full Screen Control"]');
-            await new Promise((resolve) => setTimeout(resolve, 500));
+            await new Promise(resolve => setTimeout(resolve, 500));
             await clickXpath('//img[@title="Go"]');
-            await new Promise((resolve) => setTimeout(resolve, 1000));
+            await new Promise(resolve => setTimeout(resolve, 1000));
             await clickXpath('//img[@title="Stop"]');
-            prevSize.then((value) => {
+            prevSize.then(value => {
                 driver.manage().window().setSize(value.width, value.height);
             });
             const logs = await getLogs();

@@ -5,7 +5,7 @@ import { MenuItem } from "../menu/menu.jsx";
 import icon from "./tw-advanced.svg";
 import styles from "./settings-menu.css";
 
-const TWDesktopSettings = (props) => (
+const TWDesktopSettings = props => (
     <MenuItem onClick={props.onClick}>
         <div className={styles.option}>
             <img src={icon} draggable={false} width={24} height={24} alt="" />

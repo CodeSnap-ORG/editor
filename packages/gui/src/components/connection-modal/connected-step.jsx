@@ -8,7 +8,7 @@ import bluetoothIcon from "./icons/bluetooth-white.svg";
 import styles from "./connection-modal.css";
 import classNames from "classnames";
 
-const ConnectedStep = (props) => (
+const ConnectedStep = props => (
     <Box className={styles.body}>
         <Box className={styles.activityArea}>
             <Box className={styles.centeredRow}>
@@ -30,7 +30,7 @@ const ConnectedStep = (props) => (
             <Box
                 className={classNames(
                     styles.bottomAreaItem,
-                    styles.instructions,
+                    styles.instructions
                 )}
             >
                 <FormattedMessage
@@ -43,13 +43,13 @@ const ConnectedStep = (props) => (
             <div
                 className={classNames(
                     styles.bottomAreaItem,
-                    styles.cornerButtons,
+                    styles.cornerButtons
                 )}
             >
                 <button
                     className={classNames(
                         styles.redButton,
-                        styles.connectionButton,
+                        styles.connectionButton
                     )}
                     onClick={props.onDisconnect}
                 >

@@ -44,11 +44,11 @@ TWPaintEditorWrapper.propTypes = {
 };
 
 const mapStateToProps = () => ({});
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     onResetZoomLevels: () => dispatch(resetZoomLevels()),
 });
 
 export default connect(
     mapStateToProps,
-    mapDispatchToProps,
+    mapDispatchToProps
 )(TWPaintEditorWrapper);

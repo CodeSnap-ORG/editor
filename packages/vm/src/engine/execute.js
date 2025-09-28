@@ -55,7 +55,7 @@ const handleReport = function (
     sequencer,
     thread,
     blockCached,
-    lastOperation,
+    lastOperation
 ) {
     const currentBlockId = blockCached.id;
     const opcode = blockCached.opcode;
@@ -76,7 +76,7 @@ const handleReport = function (
                 thread.target.hasEdgeActivatedValue(currentBlockId);
             const oldEdgeValue = thread.target.updateEdgeActivatedValue(
                 currentBlockId,
-                resolvedValue,
+                resolvedValue
             );
 
             const edgeWasActivated = hasOldEdgeValue
@@ -108,12 +108,16 @@ const handleReport = function (
             thread.atStackTop()
         ) {
             if (thread.stackClick) {
-                sequencer.runtime.visualReport(currentBlockId, resolvedValue);
+                sequencer.runtime.visualReport(
+                    thread.target,
+                    currentBlockId,
+                    resolvedValue
+                );
             }
             if (thread.updateMonitor) {
                 const targetId =
                     sequencer.runtime.monitorBlocks.getBlock(
-                        currentBlockId,
+                        currentBlockId
                     ).targetId;
                 if (targetId && !sequencer.runtime.getTargetById(targetId)) {
                     // Target no longer exists
@@ -128,7 +132,7 @@ const handleReport = function (
                                   .getName()
                             : null,
                         value: resolvedValue,
-                    }),
+                    })
                 );
             }
         }
@@ -142,7 +146,7 @@ const handlePromiseResolution = (
     sequencer,
     thread,
     blockCached,
-    lastOperation,
+    lastOperation
 ) => {
     handleReport(resolvedValue, sequencer, thread, blockCached, lastOperation);
     // If it's a command block or a top level reporter in a stackClick.
@@ -177,7 +181,7 @@ const handlePromise = (
     sequencer,
     thread,
     blockCached,
-    lastOperation,
+    lastOperation
 ) => {
     if (thread.status === Thread.STATUS_RUNNING) {
         // Primitive returned a promise; automatically yield thread.
@@ -185,16 +189,16 @@ const handlePromise = (
     }
     // Promise handlers
     primitiveReportedValue.then(
-        (resolvedValue) => {
+        resolvedValue => {
             handlePromiseResolution(
                 resolvedValue,
                 sequencer,
                 thread,
                 blockCached,
-                lastOperation,
+                lastOperation
             );
         },
-        (rejectionReason) => {
+        rejectionReason => {
             // Promise rejected: the primitive had some error.
             log.warn("Primitive rejected promise: ", rejectionReason);
             handlePromiseResolution(
@@ -202,9 +206,9 @@ const handlePromise = (
                 sequencer,
                 thread,
                 blockCached,
-                lastOperation,
+                lastOperation
             );
-        },
+        }
     );
 };
 
@@ -416,7 +420,7 @@ class BlockCached {
                 const inputCached = BlocksExecuteCache.getCached(
                     blockContainer,
                     input.block,
-                    BlockCached,
+                    BlockCached
                 );
 
                 if (inputCached._isHat) {
@@ -460,7 +464,7 @@ const _prepareBlockProfiling = function (profiler, blockCached) {
     for (let i = 0; i < ops.length; i++) {
         ops[i]._profilerFrame = profiler.frame(
             blockFunctionProfilerId,
-            ops[i].opcode,
+            ops[i].opcode
         );
     }
 };
@@ -486,14 +490,14 @@ const execute = function (sequencer, thread) {
     let blockCached = BlocksExecuteCache.getCached(
         blockContainer,
         currentBlockId,
-        BlockCached,
+        BlockCached
     );
     if (blockCached === null) {
         blockContainer = runtime.flyoutBlocks;
         blockCached = BlocksExecuteCache.getCached(
             blockContainer,
             currentBlockId,
-            BlockCached,
+            BlockCached
         );
         // Stop if block or target no longer exists.
         if (blockCached === null) {
@@ -513,7 +517,7 @@ const execute = function (sequencer, thread) {
         for (; i < reported.length; i++) {
             const { opCached: oldOpCached, inputValue } = reported[i];
 
-            const opCached = ops.find((op) => op.id === oldOpCached);
+            const opCached = ops.find(op => op.id === oldOpCached);
 
             if (opCached) {
                 const inputName = opCached._parentKey;
@@ -537,11 +541,11 @@ const execute = function (sequencer, thread) {
         if (reported.length > 0) {
             const lastExisting = reported
                 .reverse()
-                .find((report) => ops.find((op) => op.id === report.opCached));
+                .find(report => ops.find(op => op.id === report.opCached));
             if (lastExisting) {
                 i =
                     ops.findIndex(
-                        (opCached) => opCached.id === lastExisting.opCached,
+                        opCached => opCached.id === lastExisting.opCached
                     ) + 1;
             } else {
                 i = 0;
@@ -613,7 +617,7 @@ const execute = function (sequencer, thread) {
                     sequencer,
                     thread,
                     opCached,
-                    lastOperation,
+                    lastOperation
                 );
             }
 
@@ -623,24 +627,22 @@ const execute = function (sequencer, thread) {
             // that time.
             thread.justReported = null;
             currentStackFrame.reporting = ops[i].id;
-            currentStackFrame.reported = ops
-                .slice(0, i)
-                .map((reportedCached) => {
-                    const inputName = reportedCached._parentKey;
-                    const reportedValues = reportedCached._parentValues;
+            currentStackFrame.reported = ops.slice(0, i).map(reportedCached => {
+                const inputName = reportedCached._parentKey;
+                const reportedValues = reportedCached._parentValues;
 
-                    if (inputName === "BROADCAST_INPUT") {
-                        return {
-                            opCached: reportedCached.id,
-                            inputValue:
-                                reportedValues[inputName].BROADCAST_OPTION.name,
-                        };
-                    }
+                if (inputName === "BROADCAST_INPUT") {
                     return {
                         opCached: reportedCached.id,
-                        inputValue: reportedValues[inputName],
+                        inputValue:
+                            reportedValues[inputName].BROADCAST_OPTION.name,
                     };
-                });
+                }
+                return {
+                    opCached: reportedCached.id,
+                    inputValue: reportedValues[inputName],
+                };
+            });
 
             // We are waiting to be resumed later. Stop running this set of operations
             // and continue them later after thawing the reported values.
@@ -652,7 +654,7 @@ const execute = function (sequencer, thread) {
                     sequencer,
                     thread,
                     opCached,
-                    lastOperation,
+                    lastOperation
                 );
             } else {
                 // By definition a block that is not last in the list has a
@@ -665,7 +667,7 @@ const execute = function (sequencer, thread) {
                     // Cast it to a string. We don't need an id here.
                     parentValues.BROADCAST_OPTION.id = null;
                     parentValues.BROADCAST_OPTION.name = cast.toString(
-                        primitiveReportedValue,
+                        primitiveReportedValue
                     );
                 } else {
                     parentValues[inputName] = primitiveReportedValue;

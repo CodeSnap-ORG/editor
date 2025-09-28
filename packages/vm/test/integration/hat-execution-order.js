@@ -7,17 +7,17 @@ const VirtualMachine = require("../../src/index");
 
 const projectUri = path.resolve(
     __dirname,
-    "../fixtures/hat-execution-order.sb2",
+    "../fixtures/hat-execution-order.sb2"
 );
 const project = readFileToBuffer(projectUri);
 
 const compilerAndInterpreter = (name, callback) => {
-    test(`${name} - interpreted`, (t) => {
+    test(`${name} - interpreted`, t => {
         callback(t, {
             enabled: false,
         });
     });
-    test(`${name} - compiled`, (t) => {
+    test(`${name} - compiled`, t => {
         callback(t, {
             enabled: true,
         });
@@ -30,7 +30,7 @@ compilerAndInterpreter("complex", (t, co) => {
     vm.attachStorage(makeTestStorage());
 
     // Evaluate playground data and exit
-    vm.on("playgroundData", (e) => {
+    vm.on("playgroundData", e => {
         const threads = JSON.parse(e.threads);
         t.ok(threads.length === 0);
 

@@ -16,7 +16,7 @@ const GREEN = "\u001b[32m";
 
 const isUpdatingSnapshots = process.argv.includes("--update");
 
-const runSnapshotTest = async (testCase) => {
+const runSnapshotTest = async testCase => {
     const prefix = `### ${testCase.id}: `;
 
     try {
@@ -24,7 +24,7 @@ const runSnapshotTest = async (testCase) => {
         const expectedSnapshot = Snapshot.getExpectedSnapshot(testCase);
         const result = Snapshot.compareSnapshots(
             expectedSnapshot,
-            actualSnapshot,
+            actualSnapshot
         );
 
         if (isUpdatingSnapshots) {
@@ -72,10 +72,10 @@ const run = async () => {
         fileToResult[testCase.id] = await runSnapshotTest(testCase);
     }
 
-    const getTestsByResult = (r) =>
+    const getTestsByResult = r =>
         Object.entries(fileToResult)
-            .filter((i) => i[1] === r)
-            .map((i) => i[0]);
+            .filter(i => i[1] === r)
+            .map(i => i[0]);
 
     const passed = getTestsByResult("VALID");
     const failed = getTestsByResult("INVALID");
@@ -91,22 +91,22 @@ const run = async () => {
     }
     if (failed.length) {
         console.log(
-            `${BOLD}${RED}FAILED ${failed.length} ${RESET}${failed.join(", ")}`,
+            `${BOLD}${RED}FAILED ${failed.length} ${RESET}${failed.join(", ")}`
         );
     }
     if (missing.length) {
         console.log(
-            `${BOLD}${YELLOW}MISSING ${missing.length} ${RESET}${missing.join(", ")}`,
+            `${BOLD}${YELLOW}MISSING ${missing.length} ${RESET}${missing.join(", ")}`
         );
     }
     if (modified.length) {
         console.log(
-            `${BOLD}${YELLOW}MODIFIED ${modified.length} ${RESET}${modified.join(", ")}`,
+            `${BOLD}${YELLOW}MODIFIED ${modified.length} ${RESET}${modified.join(", ")}`
         );
     }
     if (updated.length) {
         console.log(
-            `${BOLD}${BLUE}UPDATED ${updated.length} ${RESET}${updated.join(", ")}`,
+            `${BOLD}${BLUE}UPDATED ${updated.length} ${RESET}${updated.join(", ")}`
         );
     }
 
@@ -114,31 +114,31 @@ const run = async () => {
         console.log("");
         if (modified.length) {
             console.log(
-                `${missing.length} of the test projects have been modified, so this error is expected.`,
+                `${missing.length} of the test projects have been modified, so this error is expected.`
             );
         }
         if (missing.length) {
             console.log(
-                `${missing.length} of the test projects are missing snapshot, so this error is expected.`,
+                `${missing.length} of the test projects are missing snapshot, so this error is expected.`
             );
         }
         if (failed.length) {
             console.log(
-                `If the compiler's behavior has changed, this failure is expected.`,
+                `If the compiler's behavior has changed, this failure is expected.`
             );
         }
         console.log(
-            `Update snapshots with: ${BOLD}node test/snapshot --update${RESET}`,
+            `Update snapshots with: ${BOLD}node test/snapshot --update${RESET}`
         );
         console.log(
-            `Review the diff in version control, then commit the updated snapshot files.`,
+            `Review the diff in version control, then commit the updated snapshot files.`
         );
     }
 
     if (updated.length) {
         console.log("");
         console.log(
-            "Some snapshots have been updated. Please review the diff before committing.",
+            "Some snapshots have been updated. Please review the diff before committing."
         );
     }
 
@@ -146,10 +146,10 @@ const run = async () => {
 };
 
 run()
-    .then((success) => {
+    .then(success => {
         process.exit(success ? 0 : 1);
     })
-    .catch((err) => {
+    .catch(err => {
         console.error(err);
         process.exit(1);
     });

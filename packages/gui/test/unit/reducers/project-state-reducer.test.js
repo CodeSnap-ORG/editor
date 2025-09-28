@@ -19,19 +19,19 @@ test("initialState", () => {
     let defaultState;
     /* projectStateReducer(state, action) */
     expect(
-        projectStateReducer(defaultState, { type: "anything" }),
+        projectStateReducer(defaultState, { type: "anything" })
     ).toBeDefined();
     expect(projectStateReducer(defaultState, { type: "anything" }).error).toBe(
-        null,
+        null
     );
     expect(
-        projectStateReducer(defaultState, { type: "anything" }).projectData,
+        projectStateReducer(defaultState, { type: "anything" }).projectData
     ).toBe(null);
     expect(
-        projectStateReducer(defaultState, { type: "anything" }).projectId,
+        projectStateReducer(defaultState, { type: "anything" }).projectId
     ).toBe(null);
     expect(
-        projectStateReducer(defaultState, { type: "anything" }).loadingState,
+        projectStateReducer(defaultState, { type: "anything" }).loadingState
     ).toBe(LoadingState.NOT_LOADED);
 });
 
@@ -140,7 +140,7 @@ test(
         const resultState = projectStateReducer(initialState, action);
         expect(resultState.loadingState).toBe(LoadingState.SHOWING_WITH_ID);
         expect(resultState.projectId).toBe("100");
-    },
+    }
 );
 
 // case where we started out viewing a project with default projectId, then
@@ -159,7 +159,7 @@ test(
         const resultState = projectStateReducer(initialState, action);
         expect(resultState.loadingState).toBe(LoadingState.SHOWING_WITHOUT_ID);
         expect(resultState.projectId).toBe("0");
-    },
+    }
 );
 
 // onLoadedProject: LOADING_VM_FILE_UPLOAD
@@ -198,7 +198,7 @@ test(
         const resultState = projectStateReducer(initialState, action);
         expect(resultState.loadingState).toBe(LoadingState.SHOWING_WITH_ID);
         expect(resultState.projectId).toBe("100");
-    },
+    }
 );
 
 test(
@@ -213,7 +213,7 @@ test(
         const resultState = projectStateReducer(initialState, action);
         expect(resultState.loadingState).toBe(LoadingState.SHOWING_WITHOUT_ID);
         expect(resultState.projectId).toBe("0");
-    },
+    }
 );
 
 // onLoadedProject: LOADING_VM_NEW_DEFAULT
@@ -298,7 +298,7 @@ test(
         const resultState = projectStateReducer(initialState, action);
         expect(resultState.loadingState).toBe(LoadingState.SHOWING_WITH_ID);
         expect(resultState.projectId).toBe("100");
-    },
+    }
 );
 
 test(
@@ -313,7 +313,7 @@ test(
         const resultState = projectStateReducer(initialState, action);
         expect(resultState.loadingState).toBe(LoadingState.FETCHING_WITH_ID);
         expect(resultState.projectId).toBe("100");
-    },
+    }
 );
 
 test(
@@ -328,7 +328,7 @@ test(
         const resultState = projectStateReducer(initialState, action);
         expect(resultState.loadingState).toBe(LoadingState.FETCHING_WITH_ID);
         expect(resultState.projectId).toBe(100);
-    },
+    }
 );
 
 test("requestNewProject, when can't create/save, results in FETCHING_NEW_DEFAULT", () => {
@@ -354,7 +354,7 @@ test(
         const resultState = projectStateReducer(initialState, action);
         expect(resultState.loadingState).toBe(LoadingState.UPDATING_BEFORE_NEW);
         expect(resultState.projectId).toBe("100");
-    },
+    }
 );
 
 test("requestProjectUpload when project not loaded results in state LOADING_VM_FILE_UPLOAD", () => {
@@ -514,7 +514,7 @@ test(
         const resultState = projectStateReducer(initialState, action);
         expect(resultState.loadingState).toBe(LoadingState.SHOWING_WITH_ID);
         expect(resultState.projectId).toBe("12345");
-    },
+    }
 );
 
 test(
@@ -530,7 +530,7 @@ test(
         const resultState = projectStateReducer(initialState, action);
         expect(resultState.loadingState).toBe(LoadingState.SHOWING_WITHOUT_ID);
         expect(resultState.projectId).toBe("0");
-    },
+    }
 );
 
 test(
@@ -547,5 +547,5 @@ test(
         expect(resultState.loadingState).toBe(LoadingState.ERROR);
         expect(resultState.projectId).toBe(null);
         expect(resultState.error).toEqual("Error string");
-    },
+    }
 );

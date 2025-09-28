@@ -40,7 +40,7 @@ import TWThemeManagerHOC from "./tw-theme-manager-hoc.jsx";
 
 const { RequestMetadata, setMetadata, unsetMetadata } = storage.scratchFetch;
 
-const setProjectIdMetadata = (projectId) => {
+const setProjectIdMetadata = projectId => {
     // If project ID is '0' or zero, it's not a real project ID. In that case, remove the project ID metadata.
     // Same if it's null undefined.
     if (projectId && projectId !== "0") {
@@ -135,14 +135,14 @@ GUI.propTypes = {
 GUI.defaultProps = {
     isScratchDesktop: false,
     isTotallyNormal: false,
-    onStorageInit: (storageInstance) =>
+    onStorageInit: storageInstance =>
         storageInstance.addOfficialScratchWebStores(),
     onProjectLoaded: () => {},
     onUpdateProjectId: () => {},
     onVmInit: (/* vm */) => {},
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
     const loadingState = state.scratchGui.projectState.loadingState;
     return {
         activeTabIndex: state.scratchGui.editorTab.activeTabIndex,
@@ -186,9 +186,9 @@ const mapStateToProps = (state) => {
     };
 };
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     onExtensionButtonClick: () => dispatch(openExtensionLibrary()),
-    onActivateTab: (tab) => dispatch(activateTab(tab)),
+    onActivateTab: tab => dispatch(activateTab(tab)),
     onActivateCostumesTab: () => dispatch(activateTab(COSTUMES_TAB_INDEX)),
     onActivateSoundsTab: () => dispatch(activateTab(SOUNDS_TAB_INDEX)),
     onRequestCloseBackdropLibrary: () => dispatch(closeBackdropLibrary()),
@@ -197,7 +197,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const ConnectedGUI = injectIntl(
-    connect(mapStateToProps, mapDispatchToProps)(GUI),
+    connect(mapStateToProps, mapDispatchToProps)(GUI)
 );
 
 // note that redux's 'compose' function is just being used as a general utility to make
@@ -216,7 +216,7 @@ const WrappedGui = compose(
     vmListenerHOC,
     vmManagerHOC,
     SBFileUploaderHOC,
-    cloudManagerHOC,
+    cloudManagerHOC
 )(ConnectedGUI);
 
 WrappedGui.setAppElement = ReactModal.setAppElement;

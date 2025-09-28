@@ -9,17 +9,10 @@ const base = {
         host: "0.0.0.0",
         port: process.env.PORT || 8073,
     },
-    devtool:
-        process.env.NODE_ENV === "production"
-            ? false
-            : "eval-cheap-module-source-map",
-    cache: {
-        type: "filesystem",
-    },
+    devtool: "cheap-module-source-map",
     output: {
         library: "VirtualMachine",
         filename: "[name].js",
-        pathinfo: false,
     },
     module: {
         rules: [
@@ -29,7 +22,6 @@ const base = {
                 include: path.resolve(__dirname, "src"),
                 query: {
                     presets: [["@babel/preset-env"]],
-                    cacheDirectory: true,
                 },
             },
             {
@@ -40,17 +32,6 @@ const base = {
                 },
             },
         ],
-    },
-    resolve: {
-        alias: {
-            "hull.js": "@turbowarp/ancient-hull.js",
-        },
-        modules: ["node_modules"],
-        cacheWithContext: false,
-    },
-    watchOptions: {
-        ignored: /node_modules/,
-        poll: 1000,
     },
     plugins: [],
 };
@@ -116,7 +97,7 @@ module.exports = [
                 },
                 {
                     test: require.resolve(
-                        "./src/extensions/scratch3_video_sensing/debug.js",
+                        "./src/extensions/scratch3_video_sensing/debug.js"
                     ),
                     loader: "expose-loader?Scratch3VideoSensingDebug",
                 },
@@ -148,17 +129,17 @@ module.exports = [
         plugins: base.plugins.concat([
             new CopyWebpackPlugin([
                 {
-                    from: "../blocks/media",
+                    from: "node_modules/scratch-blocks/media",
                     to: "media",
                 },
                 {
-                    from: "../../node_modules/scratch-storage/dist/web",
+                    from: "node_modules/scratch-storage/dist/web",
                 },
                 {
                     from: "node_modules/scratch-render/dist/web",
                 },
                 {
-                    from: "../../node_modules/@turbowarp/scratch-svg-renderer/dist/web",
+                    from: "node_modules/@turbowarp/scratch-svg-renderer/dist/web",
                 },
                 {
                     from: "src/playground",

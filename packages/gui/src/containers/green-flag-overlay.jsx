@@ -42,11 +42,11 @@ GreenFlagOverlay.propTypes = {
     onStarted: PropTypes.func,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     vm: state.scratchGui.vm,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     onStarted: () => dispatch(setStartedState(true)),
 });
 

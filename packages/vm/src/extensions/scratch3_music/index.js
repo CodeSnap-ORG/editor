@@ -102,7 +102,7 @@ class Scratch3MusicBlocks {
             const promise = this._storeSound(
                 filePath,
                 index,
-                this._drumPlayers,
+                this._drumPlayers
             );
             loadingPromises.push(promise);
         });
@@ -114,7 +114,7 @@ class Scratch3MusicBlocks {
                 const promise = this._storeSound(
                     filePath,
                     noteIndex,
-                    this._instrumentPlayerArrays[instrumentIndex],
+                    this._instrumentPlayerArrays[instrumentIndex]
                 );
                 loadingPromises.push(promise);
             });
@@ -139,9 +139,9 @@ class Scratch3MusicBlocks {
         const soundFile = assetData[fullPath];
 
         return fetch(soundFile)
-            .then((r) => r.arrayBuffer())
-            .then((soundBuffer) => this._decodeSound(soundBuffer))
-            .then((player) => {
+            .then(r => r.arrayBuffer())
+            .then(soundBuffer => this._decodeSound(soundBuffer))
+            .then(player => {
                 playerArray[index] = player;
             });
     }
@@ -768,12 +768,12 @@ class Scratch3MusicBlocks {
     _onTargetCreated(newTarget, sourceTarget) {
         if (sourceTarget) {
             const musicState = sourceTarget.getCustomState(
-                Scratch3MusicBlocks.STATE_KEY,
+                Scratch3MusicBlocks.STATE_KEY
             );
             if (musicState) {
                 newTarget.setCustomState(
                     Scratch3MusicBlocks.STATE_KEY,
-                    Clone.simple(musicState),
+                    Clone.simple(musicState)
                 );
             }
         }
@@ -1049,7 +1049,7 @@ class Scratch3MusicBlocks {
         const volumeGain = context.createGain();
         volumeGain.gain.setValueAtTime(
             util.target.volume / 100,
-            engine.currentTime,
+            engine.currentTime
         );
         volumeGain.connect(engine.getInputNode());
 
@@ -1097,7 +1097,7 @@ class Scratch3MusicBlocks {
             note = MathUtil.clamp(
                 note,
                 Scratch3MusicBlocks.MIDI_NOTE_RANGE.min,
-                Scratch3MusicBlocks.MIDI_NOTE_RANGE.max,
+                Scratch3MusicBlocks.MIDI_NOTE_RANGE.max
             );
             let beats = Cast.toNumber(args.BEATS);
             beats = this._clampBeats(beats);
@@ -1177,7 +1177,7 @@ class Scratch3MusicBlocks {
         // Set its pitch.
         const sampleNote = sampleArray[sampleIndex];
         const notePitchInterval = this._ratioForPitchInterval(
-            note - sampleNote,
+            note - sampleNote
         );
 
         // Create gain nodes for this note's volume and release, and chain them
@@ -1186,7 +1186,7 @@ class Scratch3MusicBlocks {
         const volumeGain = context.createGain();
         volumeGain.gain.setValueAtTime(
             util.target.volume / 100,
-            engine.currentTime,
+            engine.currentTime
         );
         const releaseGain = context.createGain();
         volumeGain.connect(releaseGain);
@@ -1262,7 +1262,7 @@ class Scratch3MusicBlocks {
         return MathUtil.clamp(
             beats,
             Scratch3MusicBlocks.BEAT_RANGE.min,
-            Scratch3MusicBlocks.BEAT_RANGE.max,
+            Scratch3MusicBlocks.BEAT_RANGE.max
         );
     }
 
@@ -1350,7 +1350,7 @@ class Scratch3MusicBlocks {
         instNum = MathUtil.wrapClamp(
             instNum,
             0,
-            this.INSTRUMENT_INFO.length - 1,
+            this.INSTRUMENT_INFO.length - 1
         );
         musicState.currentInstrument = instNum;
     }
@@ -1385,7 +1385,7 @@ class Scratch3MusicBlocks {
         tempo = MathUtil.clamp(
             tempo,
             Scratch3MusicBlocks.TEMPO_RANGE.min,
-            Scratch3MusicBlocks.TEMPO_RANGE.max,
+            Scratch3MusicBlocks.TEMPO_RANGE.max
         );
         const stage = this.runtime.getTargetForStage();
         if (stage) {

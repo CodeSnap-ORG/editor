@@ -536,7 +536,7 @@ class BoostMotor {
                 this.power * this.direction,
                 MathUtil.clamp(this.power + BoostMotorMaxPowerAdd, 0, 100),
                 BoostMotorProfile.DO_NOT_USE,
-            ],
+            ]
         );
 
         this._parent.send(BoostBLE.characteristic, cmd);
@@ -580,7 +580,7 @@ class BoostMotor {
                 MathUtil.clamp(this.power + BoostMotorMaxPowerAdd, 0, 100),
                 BoostMotorEndState.BRAKE,
                 BoostMotorProfile.DO_NOT_USE,
-            ],
+            ]
         );
 
         this.status = BoostMotorState.ON_FOR_ROTATION;
@@ -598,7 +598,7 @@ class BoostMotor {
             this._index,
             BoostOutputExecution.EXECUTE_IMMEDIATELY,
             BoostOutputSubCommand.START_POWER,
-            [BoostMotorEndState.FLOAT],
+            [BoostMotorEndState.FLOAT]
         );
 
         this.status = BoostMotorState.OFF;
@@ -768,7 +768,7 @@ class Boost {
      */
     boostColorForIndex(index) {
         const colorForIndex = Object.keys(BoostColorIndex).find(
-            (key) => BoostColorIndex[key] === index,
+            key => BoostColorIndex[key] === index
         );
         return colorForIndex || BoostColor.NONE;
     }
@@ -786,7 +786,7 @@ class Boost {
      * Stop all the motors that are currently running.
      */
     stopAllMotors() {
-        this._motors.forEach((motor) => {
+        this._motors.forEach(motor => {
             if (motor) {
                 // Send the motor off command without using the rate limiter.
                 // This allows the stop button to stop motors even if we are
@@ -813,7 +813,7 @@ class Boost {
             BoostOutputExecution.EXECUTE_IMMEDIATELY ^
                 BoostOutputExecution.COMMAND_FEEDBACK,
             BoostOutputSubCommand.WRITE_DIRECT_MODE_DATA,
-            [BoostMode.LED, ...rgb],
+            [BoostMode.LED, ...rgb]
         );
 
         return this.send(BoostBLE.characteristic, cmd);
@@ -828,7 +828,7 @@ class Boost {
             this._ports.indexOf(BoostIO.LED),
             BoostMode.LED,
             0,
-            false,
+            false
         );
 
         return this.send(BoostBLE.characteristic, cmd);
@@ -867,7 +867,7 @@ class Boost {
                 optionalServices: [],
             },
             this._onConnect,
-            this.reset,
+            this.reset
         );
     }
 
@@ -941,7 +941,7 @@ class Boost {
             BoostBLE.service,
             uuid,
             Base64Util.uint8ArrayToBase64(message),
-            "base64",
+            "base64"
         );
     }
 
@@ -1008,11 +1008,11 @@ class Boost {
         this._ble.startNotifications(
             BoostBLE.service,
             BoostBLE.characteristic,
-            this._onMessage,
+            this._onMessage
         );
         this._pingDeviceId = window.setInterval(
             this._pingDevice,
-            BoostPingInterval,
+            BoostPingInterval
         );
 
         // Send a request for firmware version.
@@ -1058,12 +1058,12 @@ class Boost {
                             0x24, 0x02, 0x00, 0x10,
                         ]);
                         const fwHub = int32ArrayToNumber(
-                            data.slice(5, data.length),
+                            data.slice(5, data.length)
                         );
                         if (fwHub < fwVersion10000224) {
                             BoostPort = BoostPort10000223OrOlder;
                             log.info(
-                                "Move Hub firmware older than version 1.0.00.0224 detected. Using old port mapping.",
+                                "Move Hub firmware older than version 1.0.00.0224 detected. Using old port mapping."
                             );
                         } else {
                             BoostPort = BoostPort10000224OrNewer;
@@ -1104,13 +1104,13 @@ class Boost {
                             this._colorSamples.pop();
                             if (
                                 this._colorSamples.every(
-                                    (v, i, arr) => v === arr[0],
+                                    (v, i, arr) => v === arr[0]
                                 )
                             ) {
                                 this._sensors.previousColor =
                                     this._sensors.color;
                                 this._sensors.color = this.boostColorForIndex(
-                                    this._colorSamples[0],
+                                    this._colorSamples[0]
                                 );
                             } else {
                                 this._sensors.color = BoostColor.NONE;
@@ -1122,7 +1122,7 @@ class Boost {
                     case BoostIO.MOTOREXT:
                     case BoostIO.MOTORINT:
                         this.motor(portID).position = int32ArrayToNumber(
-                            data.slice(4, 8),
+                            data.slice(4, 8)
                         );
                         break;
                     case BoostIO.CURRENT:
@@ -1218,7 +1218,7 @@ class Boost {
             portID,
             mode,
             delta,
-            true, // Receive feedback
+            true // Receive feedback
         );
 
         this.send(BoostBLE.characteristic, cmd);
@@ -1312,7 +1312,7 @@ class Scratch3BoostBlocks {
         // Create a new Boost peripheral instance
         this._peripheral = new Boost(
             this.runtime,
-            Scratch3BoostBlocks.EXTENSION_ID,
+            Scratch3BoostBlocks.EXTENSION_ID
         );
     }
 
@@ -1783,8 +1783,8 @@ class Scratch3BoostBlocks {
         // TODO: cast args.MOTOR_ID?
         let durationMS = Cast.toNumber(args.DURATION) * 1000;
         durationMS = MathUtil.clamp(durationMS, 0, 15000);
-        return new Promise((resolve) => {
-            this._forEachMotor(args.MOTOR_ID, (motorIndex) => {
+        return new Promise(resolve => {
+            this._forEachMotor(args.MOTOR_ID, motorIndex => {
                 const motor = this._peripheral.motor(motorIndex);
                 if (motor) motor.turnOnFor(durationMS);
             });
@@ -1809,7 +1809,7 @@ class Scratch3BoostBlocks {
         degrees = Math.abs(MathUtil.clamp(degrees, -360000, 360000));
 
         const motors = [];
-        this._forEachMotor(args.MOTOR_ID, (motorIndex) => {
+        this._forEachMotor(args.MOTOR_ID, motorIndex => {
             motors.push(motorIndex);
         });
 
@@ -1817,12 +1817,12 @@ class Scratch3BoostBlocks {
          * Checks that the motors given in args.MOTOR_ID exist,
          * and maps a promise for each of the motor-commands to an array.
          */
-        const promises = motors.map((portID) => {
+        const promises = motors.map(portID => {
             const motor = this._peripheral.motor(portID);
             if (motor) {
                 // to avoid a hanging block if power is 0, return an immediately resolving promise.
                 if (motor.power === 0) return Promise.resolve();
-                return new Promise((resolve) => {
+                return new Promise(resolve => {
                     motor.turnOnForDegrees(degrees, sign);
                     motor.pendingRotationPromise = resolve;
                 });
@@ -1844,12 +1844,12 @@ class Scratch3BoostBlocks {
      */
     motorOn(args) {
         // TODO: cast args.MOTOR_ID?
-        this._forEachMotor(args.MOTOR_ID, (motorIndex) => {
+        this._forEachMotor(args.MOTOR_ID, motorIndex => {
             const motor = this._peripheral.motor(motorIndex);
             if (motor) motor.turnOnForever();
         });
 
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
             window.setTimeout(() => {
                 resolve();
             }, BoostBLE.sendInterval);
@@ -1864,12 +1864,12 @@ class Scratch3BoostBlocks {
      */
     motorOff(args) {
         // TODO: cast args.MOTOR_ID?
-        this._forEachMotor(args.MOTOR_ID, (motorIndex) => {
+        this._forEachMotor(args.MOTOR_ID, motorIndex => {
             const motor = this._peripheral.motor(motorIndex);
             if (motor) motor.turnOff();
         });
 
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
             window.setTimeout(() => {
                 resolve();
             }, BoostBLE.sendInterval);
@@ -1885,7 +1885,7 @@ class Scratch3BoostBlocks {
      */
     setMotorPower(args) {
         // TODO: cast args.MOTOR_ID?
-        this._forEachMotor(args.MOTOR_ID, (motorIndex) => {
+        this._forEachMotor(args.MOTOR_ID, motorIndex => {
             const motor = this._peripheral.motor(motorIndex);
             if (motor) {
                 motor.power = MathUtil.clamp(Cast.toNumber(args.POWER), 0, 100);
@@ -1897,13 +1897,13 @@ class Scratch3BoostBlocks {
                         motor.turnOnFor(
                             motor.pendingDurationTimeoutStartTime +
                                 motor.pendingDurationTimeoutDelay -
-                                Date.now(),
+                                Date.now()
                         );
                         break;
                 }
             }
         });
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
             window.setTimeout(() => {
                 resolve();
             }, BoostBLE.sendInterval);
@@ -1920,7 +1920,7 @@ class Scratch3BoostBlocks {
      */
     setMotorDirection(args) {
         // TODO: cast args.MOTOR_ID?
-        this._forEachMotor(args.MOTOR_ID, (motorIndex) => {
+        this._forEachMotor(args.MOTOR_ID, motorIndex => {
             const motor = this._peripheral.motor(motorIndex);
             if (motor) {
                 switch (args.MOTOR_DIRECTION) {
@@ -1935,7 +1935,7 @@ class Scratch3BoostBlocks {
                         break;
                     default:
                         log.warn(
-                            `Unknown motor direction in setMotorDirection: ${args.DIRECTION}`,
+                            `Unknown motor direction in setMotorDirection: ${args.DIRECTION}`
                         );
                         break;
                 }
@@ -1949,14 +1949,14 @@ class Scratch3BoostBlocks {
                             motor.turnOnFor(
                                 motor.pendingDurationTimeoutStartTime +
                                     motor.pendingDurationTimeoutDelay -
-                                    Date.now(),
+                                    Date.now()
                             );
                             break;
                     }
                 }
             }
         });
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
             window.setTimeout(() => {
                 resolve();
             }, BoostBLE.sendInterval);
@@ -2114,7 +2114,7 @@ class Scratch3BoostBlocks {
                     : -this._peripheral.tiltX;
             default:
                 log.warn(
-                    `Unknown tilt direction in _getTiltAngle: ${direction}`,
+                    `Unknown tilt direction in _getTiltAngle: ${direction}`
                 );
         }
     }
@@ -2173,7 +2173,7 @@ class Scratch3BoostBlocks {
         this._peripheral._led = inputHue;
         this._peripheral.setLED(rgbDecimal);
 
-        return new Promise((resolve) => {
+        return new Promise(resolve => {
             window.setTimeout(() => {
                 resolve();
             }, BoostBLE.sendInterval);

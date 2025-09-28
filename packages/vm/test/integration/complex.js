@@ -12,12 +12,12 @@ const project = readFileToBuffer(projectUri);
 const spriteUri = path.resolve(__dirname, "../fixtures/sprite.json");
 const sprite = fs.readFileSync(spriteUri, "utf8");
 
-test("complex", (t) => {
+test("complex", t => {
     const vm = new VirtualMachine();
     vm.attachStorage(makeTestStorage());
 
     // Evaluate playground data and exit
-    vm.on("playgroundData", (e) => {
+    vm.on("playgroundData", e => {
         const threads = JSON.parse(e.threads);
         t.ok(threads.length === 0);
         vm.quit();
@@ -25,7 +25,7 @@ test("complex", (t) => {
     });
 
     // Manipulate each target
-    vm.on("targetsUpdate", (data) => {
+    vm.on("targetsUpdate", data => {
         const targets = data.targetList;
         for (const i in targets) {
             if (targets[i].isStage === true) continue;

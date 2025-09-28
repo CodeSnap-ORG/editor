@@ -9,7 +9,7 @@ const IconButton = ({ img, disabled, className, title, onClick }) => (
         className={classNames(
             styles.container,
             className,
-            disabled ? styles.disabled : null,
+            disabled ? styles.disabled : null
         )}
         role="button"
         onClick={disabled ? null : onClick}

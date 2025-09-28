@@ -10,7 +10,7 @@ import DragConstants from "../../lib/drag-constants";
 
 import styles from "./selector.css";
 
-const Selector = (props) => {
+const Selector = props => {
     const {
         buttons,
         containerRef,
@@ -94,7 +94,7 @@ Selector.propTypes = {
             title: PropTypes.string.isRequired,
             img: PropTypes.string.isRequired,
             onClick: PropTypes.func,
-        }),
+        })
     ),
     containerRef: PropTypes.func,
     dragType: PropTypes.oneOf(Object.keys(DragConstants)),
@@ -105,7 +105,7 @@ Selector.propTypes = {
         PropTypes.shape({
             url: PropTypes.string,
             name: PropTypes.any, // modified by folders addon
-        }),
+        })
     ),
     onAddSortable: PropTypes.func,
     onDeleteClick: PropTypes.func,

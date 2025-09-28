@@ -76,14 +76,14 @@ UsernameModal.propTypes = {
     usernameInvalid: PropTypes.bool,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     username: state.scratchGui.tw.username,
     usernameInvalid: state.scratchGui.tw.usernameInvalid,
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     onCloseUsernameModal: () => dispatch(closeUsernameModal()),
-    onSetUsername: (username) => {
+    onSetUsername: username => {
         dispatch(setUsername(username));
         dispatch(setUsernameInvalid(false));
     },

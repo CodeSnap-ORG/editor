@@ -15,7 +15,7 @@ const reducer = function (state, action) {
             return state;
     }
 };
-const setAutoSaveTimeoutId = (id) => ({
+const setAutoSaveTimeoutId = id => ({
     type: SET_AUTOSAVE_TIMEOUT_ID,
     id,
 });

@@ -34,11 +34,11 @@ class TestExtension {
 }
 
 const fixture = fs.readFileSync(
-    path.join(__dirname, "../fixtures/tw-block-returning-promise-like.sb3"),
+    path.join(__dirname, "../fixtures/tw-block-returning-promise-like.sb3")
 );
 
 for (const compilerEnabled of [false, true]) {
-    test(`handles blocks that return a promise-like object - ${compilerEnabled ? "compiled" : "interpreted"}`, (t) => {
+    test(`handles blocks that return a promise-like object - ${compilerEnabled ? "compiled" : "interpreted"}`, t => {
         const vm = new VirtualMachine();
         vm.extensionManager.addBuiltinExtension("testextension", TestExtension);
 
@@ -48,7 +48,7 @@ for (const compilerEnabled of [false, true]) {
         t.equal(
             vm.runtime.compilerOptions.enabled,
             compilerEnabled,
-            "sanity check",
+            "sanity check"
         );
 
         vm.runtime.on("COMPILE_ERROR", () => {

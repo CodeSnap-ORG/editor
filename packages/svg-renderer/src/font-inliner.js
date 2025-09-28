@@ -3,8 +3,8 @@
  */
 const getFonts = require("scratch-render-fonts");
 
-const xmlEscape = (str) =>
-    str.replace(/[<>&'"]/g, (c) => {
+const xmlEscape = str =>
+    str.replace(/[<>&'"]/g, c => {
         switch (c) {
             case "<":
                 return "&lt;";

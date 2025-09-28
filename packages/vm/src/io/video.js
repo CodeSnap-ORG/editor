@@ -137,7 +137,7 @@ class Video {
             this.runtime.renderer.updateDrawableEffect(
                 this._drawable,
                 "ghost",
-                this._forceTransparentPreview ? 100 : ghost,
+                this._forceTransparentPreview ? 100 : ghost
             );
         }
     }
@@ -147,7 +147,7 @@ class Video {
             this.runtime.renderer.updateBitmapSkin(
                 this._skinId,
                 new ImageData(...Video.DIMENSIONS),
-                1,
+                1
             );
             this.runtime.renderer.updateDrawableVisible(this._drawable, false);
         }
@@ -161,7 +161,7 @@ class Video {
         if (this._skinId === -1 && this._drawable === -1) {
             this._skinId = renderer.createBitmapSkin(
                 new ImageData(...Video.DIMENSIONS),
-                1,
+                1
             );
             this._drawable = renderer.createDrawable(StageLayering.VIDEO_LAYER);
             renderer.updateDrawableSkinId(this._drawable, this._skinId);
@@ -170,6 +170,9 @@ class Video {
             if (renderer.markSkinAsPrivate) {
                 renderer.markSkinAsPrivate(this._skinId);
             }
+            if (renderer.markDrawableAsNoninteractive) {
+                renderer.markDrawableAsNoninteractive(this._drawable);
+            }
         }
 
         // if we haven't already created and started a preview frame render loop, do so
@@ -177,7 +180,7 @@ class Video {
             renderer.updateDrawableEffect(
                 this._drawable,
                 "ghost",
-                this._forceTransparentPreview ? 100 : this._ghost,
+                this._forceTransparentPreview ? 100 : this._ghost
             );
             renderer.updateDrawableVisible(this._drawable, true);
 
@@ -189,7 +192,7 @@ class Video {
 
                 this._renderPreviewTimeout = setTimeout(
                     this._renderPreviewFrame,
-                    this.runtime.currentStepTime,
+                    this.runtime.currentStepTime
                 );
 
                 const imageData = this.getFrame({
@@ -201,7 +204,7 @@ class Video {
                     renderer.updateBitmapSkin(
                         this._skinId,
                         new ImageData(...Video.DIMENSIONS),
-                        1,
+                        1
                     );
                     return;
                 }

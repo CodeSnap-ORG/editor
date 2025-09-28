@@ -24,7 +24,7 @@ class BrushMode extends React.Component {
         bindAll(this, ["activateTool", "deactivateTool"]);
         this.blob = new Blobbiness(
             this.props.onUpdateImage,
-            this.props.clearSelectedItems,
+            this.props.clearSelectedItems
         );
     }
     componentDidMount() {
@@ -109,12 +109,12 @@ BrushMode.propTypes = {
     onUpdateImage: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
     brushModeState: state.scratchPaint.brushMode,
     colorState: state.scratchPaint.color,
     isBrushModeActive: state.scratchPaint.mode === Modes.BRUSH,
 });
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = dispatch => ({
     clearSelectedItems: () => {
         dispatch(clearSelectedItems());
     },
@@ -124,7 +124,7 @@ const mapDispatchToProps = (dispatch) => ({
     handleMouseDown: () => {
         dispatch(changeMode(Modes.BRUSH));
     },
-    onChangeFillColor: (fillColor) => {
+    onChangeFillColor: fillColor => {
         dispatch(changeFillColor(fillColor));
     },
 });

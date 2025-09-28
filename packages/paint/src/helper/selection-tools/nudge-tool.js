@@ -54,22 +54,22 @@ class NudgeTool {
         if (event.key === "up") {
             translation = new paper.Point(
                 0,
-                Math.min(bottom, Math.max(-nudgeAmount, top)),
+                Math.min(bottom, Math.max(-nudgeAmount, top))
             );
         } else if (event.key === "down") {
             translation = new paper.Point(
                 0,
-                Math.max(top, Math.min(nudgeAmount, bottom)),
+                Math.max(top, Math.min(nudgeAmount, bottom))
             );
         } else if (event.key === "left") {
             translation = new paper.Point(
                 Math.min(right, Math.max(-nudgeAmount, left)),
-                0,
+                0
             );
         } else if (event.key === "right") {
             translation = new paper.Point(
                 Math.max(left, Math.min(nudgeAmount, right)),
-                0,
+                0
             );
         }
 

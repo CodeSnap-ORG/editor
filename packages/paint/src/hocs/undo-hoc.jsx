@@ -33,7 +33,7 @@ const UndoHOC = function (WrappedComponent) {
                 this.props.undoState,
                 this.props.onUndo,
                 this.handleSetSelectedItems,
-                this.props.onUpdateImage,
+                this.props.onUpdateImage
             );
         }
         handleRedo() {
@@ -41,7 +41,7 @@ const UndoHOC = function (WrappedComponent) {
                 this.props.undoState,
                 this.props.onRedo,
                 this.handleSetSelectedItems,
-                this.props.onUpdateImage,
+                this.props.onUpdateImage
             );
         }
         handleSetSelectedItems() {
@@ -85,20 +85,20 @@ const UndoHOC = function (WrappedComponent) {
         }),
     };
 
-    const mapStateToProps = (state) => ({
+    const mapStateToProps = state => ({
         format: state.scratchPaint.format,
         undoState: state.scratchPaint.undo,
     });
-    const mapDispatchToProps = (dispatch) => ({
-        setSelectedItems: (format) => {
+    const mapDispatchToProps = dispatch => ({
+        setSelectedItems: format => {
             dispatch(
-                setSelectedItems(getSelectedLeafItems(), isBitmap(format)),
+                setSelectedItems(getSelectedLeafItems(), isBitmap(format))
             );
         },
-        onUndo: (format) => {
+        onUndo: format => {
             dispatch(undo(format));
         },
-        onRedo: (format) => {
+        onRedo: format => {
             dispatch(redo(format));
         },
     });

@@ -4,7 +4,7 @@ import ToolSelectComponent from "../tool-select-base/tool-select-base.jsx";
 import messages from "../../lib/messages.js";
 import lineIcon from "./line.svg";
 
-const BitLineComponent = (props) => (
+const BitLineComponent = props => (
     <ToolSelectComponent
         imgDescriptor={messages.line}
         imgSrc={lineIcon}

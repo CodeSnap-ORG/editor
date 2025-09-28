@@ -15,6 +15,7 @@ import formatReducer from "./format";
 import hoverReducer from "./hover";
 import layoutReducer from "./layout";
 import modalsReducer from "./modals";
+import roundedRectModeReducer from "./rounded-rect-mode";
 import selectedItemReducer from "./selected-items";
 import textEditTargetReducer from "./text-edit-target";
 import themeReducer from "./theme";
@@ -32,6 +33,7 @@ export default combineReducers({
     cursor: cursorReducer,
     customFonts: customFontsReducer,
     eraserMode: eraserModeReducer,
+    roundedRectMode: roundedRectModeReducer,
     fillBitmapShapes: fillBitmapShapesReducer,
     fillMode: fillModeReducer,
     font: fontReducer,

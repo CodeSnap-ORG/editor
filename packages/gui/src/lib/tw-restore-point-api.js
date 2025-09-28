@@ -22,7 +22,7 @@ const TYPE_MANUAL = 1;
 
 const DATABASE_NAME = process.env.ampmod_is_canary
     ? "Canary_RestorePoints"
-    : "TW_RestorePoints";
+    : "Amp_RestorePoints";
 const DATABASE_VERSION = 2;
 const METADATA_STORE = "meta";
 const PROJECT_STORE = "projects";
@@ -79,7 +79,7 @@ const openDB = () => {
  * @param {Partial<Metadata>} obj Unknown object
  * @returns {Metadata} Metadata object with ID
  */
-const parseMetadata = (obj) => {
+const parseMetadata = obj => {
     // Must not throw -- always return the most salvageable object possible.
     if (!obj || typeof obj !== "object") {
         obj = {};
@@ -116,14 +116,14 @@ const parseMetadata = (obj) => {
  * @returns {Promise<void>} Resolves when unused items have been deleted
  */
 const deleteUnknownKeys = (objectStore, keysToKeep) =>
-    new Promise((resolve) => {
+    new Promise(resolve => {
         const keysRequest = objectStore.getAllKeys();
         keysRequest.onsuccess = async () => {
             const allKeys = keysRequest.result;
 
             for (const key of allKeys) {
                 if (!keysToKeep.has(key)) {
-                    await new Promise((innerResolve) => {
+                    await new Promise(innerResolve => {
                         const deleteRequest = objectStore.delete(key);
                         deleteRequest.onsuccess = () => {
                             innerResolve();
@@ -140,8 +140,8 @@ const deleteUnknownKeys = (objectStore, keysToKeep) =>
  * @param {IDBTransaction} transaction readwrite transaction with access to all stores
  * @returns {Promise<void>} Resolves when data has finished being removed.
  */
-const removeExtraneousData = (transaction) =>
-    new Promise((resolve) => {
+const removeExtraneousData = transaction =>
+    new Promise(resolve => {
         const metadataStore = transaction.objectStore(METADATA_STORE);
         const projectStore = transaction.objectStore(PROJECT_STORE);
         const assetStore = transaction.objectStore(ASSET_STORE);
@@ -165,7 +165,7 @@ const removeExtraneousData = (transaction) =>
                 deleteUnknownKeys(projectStore, requiredProjects)
                     .then(() => deleteUnknownKeys(assetStore, requiredAssetIDs))
                     .then(() =>
-                        deleteUnknownKeys(thumbnailStore, requiredProjects),
+                        deleteUnknownKeys(thumbnailStore, requiredProjects)
                     )
                     .then(() => resolve());
             }
@@ -177,12 +177,12 @@ const removeExtraneousData = (transaction) =>
  */
 const removeExtraneousRestorePoints = () =>
     openDB().then(
-        (db) =>
+        db =>
             new Promise((resolveTransaction, rejectTransaction) => {
                 const transaction = db.transaction(ALL_STORES, "readwrite");
-                transaction.onerror = (event) => {
+                transaction.onerror = event => {
                     rejectTransaction(
-                        new Error(`Removing extraneous: ${event.target.error}`),
+                        new Error(`Removing extraneous: ${event.target.error}`)
                     );
                 };
 
@@ -212,7 +212,7 @@ const removeExtraneousRestorePoints = () =>
                 let total = 0;
 
                 const SUBGROUP_PERIOD_SECONDS = 60 * 60;
-                const timeToSubgroup = (unixSeconds) =>
+                const timeToSubgroup = unixSeconds =>
                     Math.floor(unixSeconds / SUBGROUP_PERIOD_SECONDS);
 
                 // Each successive subgroup's limit is 1 less than the previous, but always at least 1
@@ -229,7 +229,7 @@ const removeExtraneousRestorePoints = () =>
                  * @param {Metadata} metadata Restore point metadata
                  * @returns {boolean} True if the restore point should be deleted
                  */
-                const shouldDelete = (metadata) => {
+                const shouldDelete = metadata => {
                     // Manual restore points are never automatically deleted and do not count against any limits
                     if (metadata.type !== TYPE_AUTOMATIC) {
                         return false;
@@ -263,7 +263,7 @@ const removeExtraneousRestorePoints = () =>
 
                     const subgroupMax = Math.max(
                         1,
-                        MAX_FOR_FIRST_SUBGROUP - subgroupMetadata.index,
+                        MAX_FOR_FIRST_SUBGROUP - subgroupMetadata.index
                     );
                     if (subgroupMetadata.total >= subgroupMax) {
                         return true;
@@ -289,11 +289,11 @@ const removeExtraneousRestorePoints = () =>
                     } else {
                         // errors will bubble to transaction onerror
                         removeExtraneousData(transaction).then(() =>
-                            resolveTransaction(),
+                            resolveTransaction()
                         );
                     }
                 };
-            }),
+            })
     );
 
 // eslint-disable-next-line valid-jsdoc
@@ -301,14 +301,14 @@ const removeExtraneousRestorePoints = () =>
  * @param {VirtualMachine} vm scratch-vm instance
  * @returns {Promise<{type: string; data: ArrayBuffer;}>} Thumbnail data
  */
-const generateThumbnail = (vm) =>
-    new Promise((resolve) => {
+const generateThumbnail = vm =>
+    new Promise(resolve => {
         // Piggyback off of the next draw if we can, otherwise just force it to render
         const drawTimeout = setTimeout(() => {
             vm.renderer.draw();
         }, 100);
 
-        vm.renderer.requestSnapshot((dataURL) => {
+        vm.renderer.requestSnapshot(dataURL => {
             clearTimeout(drawTimeout);
 
             const index = dataURL.indexOf(",");
@@ -330,25 +330,25 @@ const generateThumbnail = (vm) =>
  */
 const createRestorePoint = (vm, title, type) =>
     openDB().then(
-        (db) =>
+        db =>
             new Promise((resolveTransaction, rejectTransaction) => {
                 /** @type {Record<string, Uint8Array>} */
                 const projectFiles = vm.saveProjectSb3DontZip();
                 const jsonData = projectFiles["project.json"];
                 const projectAssetIDs = Object.keys(projectFiles).filter(
-                    (i) => i !== "project.json",
+                    i => i !== "project.json"
                 );
                 if (projectAssetIDs.length === 0) {
                     throw new Error("There are no assets in this project");
                 }
 
-                generateThumbnail(vm).then((thumbnailData) => {
+                generateThumbnail(vm).then(thumbnailData => {
                     const transaction = db.transaction(ALL_STORES, "readwrite");
-                    transaction.onerror = (event) => {
+                    transaction.onerror = event => {
                         rejectTransaction(
                             new Error(
-                                `Creating restore point: ${event.target.error}`,
-                            ),
+                                `Creating restore point: ${event.target.error}`
+                            )
                         );
                     };
 
@@ -361,22 +361,22 @@ const createRestorePoint = (vm, title, type) =>
                             transaction.objectStore(THUMBNAIL_STORE);
                         const request = thumbnailStore.add(
                             thumbnailData,
-                            generatedId,
+                            generatedId
                         );
                         request.onsuccess = () => {
                             resolveTransaction();
                         };
                     };
 
-                    const writeMissingAssets = async (missingAssets) => {
+                    const writeMissingAssets = async missingAssets => {
                         const assetStore = transaction.objectStore(ASSET_STORE);
                         for (const assetId of missingAssets) {
-                            await new Promise((resolveAsset) => {
+                            await new Promise(resolveAsset => {
                                 // TODO: should we insert arraybuffer or uint8array?
                                 const assetData = projectFiles[assetId];
                                 const request = assetStore.add(
                                     assetData,
-                                    assetId,
+                                    assetId
                                 );
                                 request.onsuccess = () => {
                                     resolveAsset();
@@ -393,7 +393,7 @@ const createRestorePoint = (vm, title, type) =>
                         keyRequest.onsuccess = () => {
                             const savedAssets = keyRequest.result;
                             const missingAssets = projectAssetIDs.filter(
-                                (assetId) => !savedAssets.includes(assetId),
+                                assetId => !savedAssets.includes(assetId)
                             );
                             writeMissingAssets(missingAssets);
                         };
@@ -438,23 +438,23 @@ const createRestorePoint = (vm, title, type) =>
 
                     writeMetadata();
                 });
-            }),
+            })
     );
 
 /**
  * @param {number} id the restore point's ID
  * @returns {Promise<void>} Resovles when the restore point has been deleted.
  */
-const deleteRestorePoint = (id) =>
+const deleteRestorePoint = id =>
     openDB().then(
-        (db) =>
+        db =>
             new Promise((resolve, reject) => {
                 const transaction = db.transaction(ALL_STORES, "readwrite");
-                transaction.onerror = (event) => {
+                transaction.onerror = event => {
                     reject(
                         new Error(
-                            `Deleting restore point: ${event.target.error}`,
-                        ),
+                            `Deleting restore point: ${event.target.error}`
+                        )
                     );
                 };
 
@@ -463,7 +463,7 @@ const deleteRestorePoint = (id) =>
                 request.onsuccess = () => {
                     removeExtraneousData(transaction).then(() => resolve());
                 };
-            }),
+            })
     );
 
 /**
@@ -471,20 +471,20 @@ const deleteRestorePoint = (id) =>
  */
 const deleteAllRestorePoints = () =>
     openDB().then(
-        (db) =>
+        db =>
             new Promise((resolveTransaction, rejectTransaction) => {
                 const transaction = db.transaction(ALL_STORES, "readwrite");
-                transaction.onerror = (event) => {
+                transaction.onerror = event => {
                     rejectTransaction(
                         new Error(
-                            `Deleting all restore points: ${event.target.error}`,
-                        ),
+                            `Deleting all restore points: ${event.target.error}`
+                        )
                     );
                 };
 
                 const deleteEverything = async () => {
                     for (const storeName of ALL_STORES) {
-                        await new Promise((resolve) => {
+                        await new Promise(resolve => {
                             const store = transaction.objectStore(storeName);
                             const request = store.clear();
                             request.onsuccess = () => {
@@ -497,14 +497,14 @@ const deleteAllRestorePoints = () =>
                 };
 
                 deleteEverything();
-            }),
+            })
     );
 
 /**
  * @param {number} id the restore point's ID
  * @returns {Promise<{title: string, blob: Blob}>} Resolves with compressed project data and title.
  */
-const exportRestorePoint = async (id) => {
+const exportRestorePoint = async id => {
     const db = await openDB();
 
     /**
@@ -513,11 +513,11 @@ const exportRestorePoint = async (id) => {
     const getMetadata = () =>
         new Promise((resolve, reject) => {
             const transaction = db.transaction([METADATA_STORE], "readonly");
-            transaction.onerror = (event) => {
+            transaction.onerror = event => {
                 reject(
                     new Error(
-                        `Getting restore point metadata: ${event.target.error}`,
-                    ),
+                        `Getting restore point metadata: ${event.target.error}`
+                    )
                 );
             };
 
@@ -528,9 +528,7 @@ const exportRestorePoint = async (id) => {
                     resolve(request.result);
                 } else {
                     reject(
-                        new Error(
-                            `Restore point metadata ${id} does not exist`,
-                        ),
+                        new Error(`Restore point metadata ${id} does not exist`)
                     );
                 }
             };
@@ -542,11 +540,11 @@ const exportRestorePoint = async (id) => {
     const getProjectJSON = () =>
         new Promise((resolve, reject) => {
             const transaction = db.transaction([PROJECT_STORE], "readonly");
-            transaction.onerror = (event) => {
+            transaction.onerror = event => {
                 reject(
                     new Error(
-                        `Getting restore point project: ${event.target.error}`,
-                    ),
+                        `Getting restore point project: ${event.target.error}`
+                    )
                 );
             };
 
@@ -557,7 +555,7 @@ const exportRestorePoint = async (id) => {
                     resolve(request.result);
                 } else {
                     reject(
-                        new Error(`Restore point project ${id} does not exist`),
+                        new Error(`Restore point project ${id} does not exist`)
                     );
                 }
             };
@@ -567,10 +565,10 @@ const exportRestorePoint = async (id) => {
      * @param {string[]} md5exts Assets to fetch
      * @returns {Promise<Array<{md5ext: string, data: Uint8Array}>>} Resolves with asset IDs and binary data
      */
-    const getAssets = (md5exts) =>
+    const getAssets = md5exts =>
         new Promise((resolveAssets, rejectAssets) => {
             const transaction = db.transaction([ASSET_STORE], "readonly");
-            transaction.onerror = (event) => {
+            transaction.onerror = event => {
                 rejectAssets(new Error(`Getting asset: ${event.target.error}`));
             };
 
@@ -578,7 +576,7 @@ const exportRestorePoint = async (id) => {
             const promises = [];
             for (const md5ext of md5exts) {
                 promises.push(
-                    new Promise((resolveRequest) => {
+                    new Promise(resolveRequest => {
                         const request = projectStore.get(md5ext);
                         request.onsuccess = () => {
                             if (request.result) {
@@ -592,16 +590,16 @@ const exportRestorePoint = async (id) => {
                                 resolveRequest(null);
                             }
                         };
-                    }),
+                    })
                 );
             }
 
             // Don't resolve/reject the getAssets() promise until we're done so the transaction error handler still works.
             Promise.all(promises)
-                .then((assets) => {
-                    resolveAssets(assets.filter((i) => i !== null));
+                .then(assets => {
+                    resolveAssets(assets.filter(i => i !== null));
                 })
-                .catch((err) => {
+                .catch(err => {
                     rejectAssets(err);
                 });
         });
@@ -634,7 +632,7 @@ const exportRestorePoint = async (id) => {
  */
 const loadRestorePoint = (vm, id) =>
     openDB().then(
-        (db) =>
+        db =>
             new Promise((resolveProject, rejectProject) => {
                 const storage = vm.runtime.storage;
 
@@ -645,13 +643,13 @@ const loadRestorePoint = (vm, id) =>
                         new Promise((resolveFetch, rejectFetch) => {
                             const transaction = db.transaction(
                                 [ASSET_STORE],
-                                "readonly",
+                                "readonly"
                             );
-                            transaction.onerror = (event) => {
+                            transaction.onerror = event => {
                                 rejectFetch(
                                     new Error(
-                                        `Loading restore point asset: ${event.target.error}`,
-                                    ),
+                                        `Loading restore point asset: ${event.target.error}`
+                                    )
                                 );
                             };
 
@@ -666,14 +664,14 @@ const loadRestorePoint = (vm, id) =>
                                         dataFormat,
                                         request.result,
                                         assetId,
-                                        false,
+                                        false
                                     );
                                     resolveFetch(asset);
                                 } else {
                                     rejectFetch(
                                         new Error(
-                                            `Restore point asset ${md5ext} does not exist`,
-                                        ),
+                                            `Restore point asset ${md5ext} does not exist`
+                                        )
                                     );
                                 }
                             };
@@ -684,20 +682,20 @@ const loadRestorePoint = (vm, id) =>
                 const cleanup = () => {
                     // No clean API for removing storage helpers yet
                     storage._helpers = storage._helpers.filter(
-                        (i) => i.helper !== storageHelper,
+                        i => i.helper !== storageHelper
                     );
                 };
 
                 const loadProjectJSON = () => {
                     const transaction = db.transaction(
                         [PROJECT_STORE],
-                        "readonly",
+                        "readonly"
                     );
-                    transaction.onerror = (event) => {
+                    transaction.onerror = event => {
                         rejectProject(
                             new Error(
-                                `Loading restore point JSON: ${event.target.error}`,
-                            ),
+                                `Loading restore point JSON: ${event.target.error}`
+                            )
                         );
                     };
 
@@ -710,7 +708,7 @@ const loadRestorePoint = (vm, id) =>
                                     cleanup();
                                     resolveProject();
                                 })
-                                .catch((error) => {
+                                .catch(error => {
                                     cleanup();
                                     rejectProject(error);
                                 });
@@ -718,8 +716,8 @@ const loadRestorePoint = (vm, id) =>
                             cleanup();
                             rejectProject(
                                 new Error(
-                                    `Restore point project ${id} does not exist`,
-                                ),
+                                    `Restore point project ${id} does not exist`
+                                )
                             );
                         }
                     };
@@ -727,7 +725,7 @@ const loadRestorePoint = (vm, id) =>
 
                 vm.quit();
                 loadProjectJSON();
-            }),
+            })
     );
 
 // eslint-disable-next-line valid-jsdoc
@@ -736,17 +734,17 @@ const loadRestorePoint = (vm, id) =>
  */
 const getAllRestorePoints = () =>
     openDB().then(
-        (db) =>
+        db =>
             new Promise((resolve, reject) => {
                 const transaction = db.transaction(
                     [METADATA_STORE],
-                    "readonly",
+                    "readonly"
                 );
-                transaction.onerror = (event) => {
+                transaction.onerror = event => {
                     reject(
                         new Error(
-                            `Getting all restore points: ${event.target.error}`,
-                        ),
+                            `Getting all restore points: ${event.target.error}`
+                        )
                     );
                 };
 
@@ -768,7 +766,7 @@ const getAllRestorePoints = () =>
                         totalSize += parsed.projectSize;
                         totalSize += parsed.thumbnailSize;
                         for (const [assetId, assetSize] of Object.entries(
-                            parsed.assets,
+                            parsed.assets
                         )) {
                             if (!countedAssets.has(assetId)) {
                                 countedAssets.add(assetId);
@@ -784,24 +782,24 @@ const getAllRestorePoints = () =>
                         });
                     }
                 };
-            }),
+            })
     );
 
 /**
  * @param {number} id restore point's ID
  * @returns {Promise<string>} The URL to load
  */
-const getThumbnail = (id) =>
+const getThumbnail = id =>
     openDB().then(
-        (db) =>
+        db =>
             new Promise((resolve, reject) => {
                 const transaction = db.transaction(
                     [THUMBNAIL_STORE],
-                    "readonly",
+                    "readonly"
                 );
-                transaction.onerror = (event) => {
+                transaction.onerror = event => {
                     reject(
-                        new Error(`Getting thumbnail: ${event.target.error}`),
+                        new Error(`Getting thumbnail: ${event.target.error}`)
                     );
                 };
 
@@ -820,7 +818,7 @@ const getThumbnail = (id) =>
                     const url = URL.createObjectURL(blob);
                     resolve(url);
                 };
-            }),
+            })
     );
 
 const deleteLegacyRestorePoint = () => {
@@ -849,7 +847,7 @@ const readInterval = () => {
         }
 
         // TODO: this is temporary, remove it after enough has passed for people that care to have migrated
-        const addonSettings = localStorage.getItem("tw:addons");
+        const addonSettings = localStorage.getItem("amp:addons");
         if (addonSettings) {
             const parsedAddonSettings = JSON.parse(addonSettings);
             const addonObject =
@@ -864,7 +862,7 @@ const readInterval = () => {
     return DEFAULT_INTERVAL;
 };
 
-const setInterval = (interval) => {
+const setInterval = interval => {
     try {
         localStorage.setItem(INTERVAL_STORAGE_KEY, interval);
     } catch (err) {

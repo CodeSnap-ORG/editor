@@ -29,13 +29,13 @@ var StudioView = function (studioId) {
             this.handleIntersection.bind(this),
             {
                 root: this.projectList,
-            },
+            }
         );
         this.loadNextPageObserver = new IntersectionObserver(
             this.handleLoadNextPageIntersection.bind(this),
             {
                 root: this.projectList,
-            },
+            }
         );
     } else {
         this.intersectionObserver = null;
@@ -87,7 +87,7 @@ StudioView.prototype.createPlaceholder = function () {
     var el = document.createElement("a");
     el.className = classNames(
         styles.studioviewProject,
-        styles.studioviewPlaceholder,
+        styles.studioviewPlaceholder
     );
 
     var thumbnail = document.createElement("div");
@@ -116,14 +116,14 @@ StudioView.prototype.createPlaceholder = function () {
 StudioView.prototype.placeholderToProject = function (el, id, title, author) {
     el.className = classNames(
         styles.studioviewProject,
-        styles.studioviewLoaded,
+        styles.studioviewLoaded
     );
     el.dataset.id = id;
     el.dataset.title = title;
     el.dataset.author = author;
     el.title = this.messages.PROJECT_HOVER_TEXT.replace(
         "$author",
-        author,
+        author
     ).replace("$title", title);
     el.href = StudioView.PROJECT_PAGE.replace("$id", id);
 
@@ -134,7 +134,7 @@ StudioView.prototype.placeholderToProject = function (el, id, title, author) {
     el.titleEl.innerText = title;
     el.authorEl.innerText = this.messages.AUTHOR_ATTRIBUTION.replace(
         "$author",
-        author,
+        author
     );
 
     el.addEventListener("click", this.handleClick.bind(this), true);
@@ -303,7 +303,7 @@ StudioView.prototype.loadNextPage = function () {
 
     var url = StudioView.STUDIO_API.replace("$id", this.studioId).replace(
         "$offset",
-        "" + this.offset,
+        "" + this.offset
     );
     xhr.open("GET", url);
     xhr.send();

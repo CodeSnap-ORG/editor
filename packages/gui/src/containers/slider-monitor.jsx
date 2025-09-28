@@ -49,6 +49,6 @@ SliderMonitor.propTypes = {
     vm: PropTypes.instanceOf(VM),
 };
 
-const mapStateToProps = (state) => ({ vm: state.scratchGui.vm });
+const mapStateToProps = state => ({ vm: state.scratchGui.vm });
 
 export default connect(mapStateToProps)(SliderMonitor);

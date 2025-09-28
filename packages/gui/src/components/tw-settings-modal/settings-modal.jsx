@@ -16,7 +16,7 @@ import BufferedInputHOC from "../forms/buffered-input-hoc.jsx";
 import DocumentationLink from "../tw-documentation-link/documentation-link.jsx";
 import styles from "./settings-modal.css";
 import helpIcon from "./help-icon.svg";
-import { APP_NAME } from "../../lib/brand.js";
+import { APP_NAME } from "@ampmod/branding";
 
 /* eslint-disable react/no-multi-comp */
 
@@ -35,7 +35,7 @@ const messages = defineMessages({
     },
 });
 
-const LearnMore = (props) => (
+const LearnMore = props => (
     <React.Fragment>
         {" "}
         <DocumentationLink {...props}>
@@ -64,7 +64,7 @@ class UnwrappedSetting extends React.Component {
         }
     }
     handleClickHelp() {
-        this.setState((prevState) => ({
+        this.setState(prevState => ({
             helpVisible: !prevState.helpVisible,
         }));
     }
@@ -130,7 +130,7 @@ BooleanSetting.propTypes = {
     label: PropTypes.node.isRequired,
 };
 
-const HighQualityPen = (props) => (
+const HighQualityPen = props => (
     <BooleanSetting
         {...props}
         label={
@@ -152,7 +152,7 @@ const HighQualityPen = (props) => (
     />
 );
 
-const CustomFPS = (props) => (
+const CustomFPS = props => (
     <BooleanSetting
         value={props.framerate !== 30}
         onChange={props.onChange}
@@ -191,7 +191,7 @@ CustomFPS.propTypes = {
     onCustomizeFramerate: PropTypes.func,
 };
 
-const Interpolation = (props) => (
+const Interpolation = props => (
     <BooleanSetting
         {...props}
         label={
@@ -213,7 +213,7 @@ const Interpolation = (props) => (
     />
 );
 
-const InfiniteClones = (props) => (
+const InfiniteClones = props => (
     <BooleanSetting
         {...props}
         label={
@@ -234,7 +234,7 @@ const InfiniteClones = (props) => (
     />
 );
 
-const RemoveFencing = (props) => (
+const RemoveFencing = props => (
     <BooleanSetting
         {...props}
         label={
@@ -256,7 +256,7 @@ const RemoveFencing = (props) => (
     />
 );
 
-const RemoveMiscLimits = (props) => (
+const RemoveMiscLimits = props => (
     <BooleanSetting
         {...props}
         label={
@@ -277,7 +277,7 @@ const RemoveMiscLimits = (props) => (
     />
 );
 
-const WarpTimer = (props) => (
+const WarpTimer = props => (
     <BooleanSetting
         {...props}
         label={
@@ -299,7 +299,7 @@ const WarpTimer = (props) => (
     />
 );
 
-const DisableCompiler = (props) => (
+const DisableCompiler = props => (
     <BooleanSetting
         {...props}
         label={
@@ -410,7 +410,7 @@ StoreProjectOptions.propTypes = {
     onStoreProjectOptions: PropTypes.func,
 };
 
-const Header = (props) => (
+const Header = props => (
     <div className={styles.header}>
         {props.children}
         <div className={styles.divider} />
@@ -420,7 +420,7 @@ Header.propTypes = {
     children: PropTypes.node,
 };
 
-const SettingsModalComponent = (props) => (
+const SettingsModalComponent = props => (
     <Modal
         className={styles.modalContent}
         onRequestClose={props.onClose}

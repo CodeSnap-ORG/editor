@@ -2,7 +2,7 @@ const test = require("tap").test;
 const Keyboard = require("../../src/io/keyboard");
 const Runtime = require("../../src/engine/runtime");
 
-test("extended spec", (t) => {
+test("extended spec", t => {
     const rt = new Runtime();
     const k = new Keyboard(rt);
 
@@ -10,7 +10,7 @@ test("extended spec", (t) => {
     t.end();
 });
 
-test("extended key support", (t) => {
+test("extended key support", t => {
     const rt = new Runtime();
     const k = new Keyboard(rt);
 
@@ -23,7 +23,7 @@ test("extended key support", (t) => {
     t.end();
 });
 
-test("last key pressed", (t) => {
+test("last key pressed", t => {
     const rt = new Runtime();
     const k = new Keyboard(rt);
 
@@ -41,7 +41,7 @@ test("last key pressed", (t) => {
     t.end();
 });
 
-test("holding shift and key, releasing shift, then releasing key", (t) => {
+test("holding shift and key, releasing shift, then releasing key", t => {
     const rt = new Runtime();
     const k = new Keyboard(rt);
 
@@ -72,7 +72,7 @@ test("holding shift and key, releasing shift, then releasing key", (t) => {
     t.end();
 });
 
-test("holding shift and key, releasing shift, waiting, then releasing key", (t) => {
+test("holding shift and key, releasing shift, waiting, then releasing key", t => {
     const rt = new Runtime();
     const k = new Keyboard(rt);
 

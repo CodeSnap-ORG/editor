@@ -71,47 +71,47 @@ const vmListenerHOC = function (WrappedComponent) {
             this.props.vm.on("PROJECT_START", this.props.onGreenFlag);
             this.props.vm.on(
                 "PERIPHERAL_CONNECTION_LOST_ERROR",
-                this.props.onShowExtensionAlert,
+                this.props.onShowExtensionAlert
             );
             this.props.vm.on("MIC_LISTENING", this.props.onMicListeningUpdate);
             this.props.vm.on("MIC_LISTENING", this.props.onMicListeningUpdate);
             // tw: add handlers for our events
             this.props.vm.on(
                 "HAS_CLOUD_DATA_UPDATE",
-                this.handleCloudDataUpdate,
+                this.handleCloudDataUpdate
             );
             this.props.vm.on(
                 "COMPILER_OPTIONS_CHANGED",
-                this.props.onCompilerOptionsChanged,
+                this.props.onCompilerOptionsChanged
             );
             this.props.vm.on(
                 "RUNTIME_OPTIONS_CHANGED",
-                this.props.onRuntimeOptionsChanged,
+                this.props.onRuntimeOptionsChanged
             );
             this.props.vm.on(
                 "FRAMERATE_CHANGED",
-                this.props.onFramerateChanged,
+                this.props.onFramerateChanged
             );
             this.props.vm.on(
                 "INTERPOLATION_CHANGED",
-                this.props.onInterpolationChanged,
+                this.props.onInterpolationChanged
             );
             this.props.vm.on("COMPILE_ERROR", this.handleCompileError);
             this.props.vm.on(
                 "RUNTIME_STARTED",
-                this.props.onClearCompileErrors,
+                this.props.onClearCompileErrors
             );
             this.props.vm.on(
                 "STAGE_SIZE_CHANGED",
-                this.props.onStageSizeChanged,
+                this.props.onStageSizeChanged
             );
             this.props.vm.on(
                 "CREATE_UNSANDBOXED_EXTENSION_API",
-                implementGuiAPI,
+                implementGuiAPI
             );
             this.props.vm.runtime.on(
                 "PLATFORM_MISMATCH",
-                this.props.onPlatformMismatch,
+                this.props.onPlatformMismatch
             );
         }
         componentDidMount() {
@@ -137,7 +137,7 @@ const vmListenerHOC = function (WrappedComponent) {
                 !prevProps.shouldUpdateTargets
             ) {
                 this.props.vm.emitTargetsUpdate(
-                    false /* Emit the event, but do not trigger project change */,
+                    false /* Emit the event, but do not trigger project change */
                 );
             }
         }
@@ -151,13 +151,13 @@ const vmListenerHOC = function (WrappedComponent) {
             this.props.vm.off("MONITORS_UPDATE", this.props.onMonitorsUpdate);
             this.props.vm.off(
                 "BLOCK_DRAG_UPDATE",
-                this.props.onBlockDragUpdate,
+                this.props.onBlockDragUpdate
             );
             this.props.vm.off("TURBO_MODE_ON", this.props.onTurboModeOn);
             this.props.vm.off("TURBO_MODE_OFF", this.props.onTurboModeOff);
             this.props.vm.off(
                 "PROJECT_RUN_START",
-                this.props.onProjectRunStart,
+                this.props.onProjectRunStart
             );
             this.props.vm.off("PROJECT_RUN_STOP", this.props.onProjectRunStop);
             this.props.vm.off("PROJECT_CHANGED", this.handleProjectChanged);
@@ -166,46 +166,46 @@ const vmListenerHOC = function (WrappedComponent) {
             this.props.vm.off("PROJECT_START", this.props.onGreenFlag);
             this.props.vm.off(
                 "PERIPHERAL_CONNECTION_LOST_ERROR",
-                this.props.onShowExtensionAlert,
+                this.props.onShowExtensionAlert
             );
             this.props.vm.off("MIC_LISTENING", this.props.onMicListeningUpdate);
             this.props.vm.off("MIC_LISTENING", this.props.onMicListeningUpdate);
             this.props.vm.off(
                 "HAS_CLOUD_DATA_UPDATE",
-                this.handleCloudDataUpdate,
+                this.handleCloudDataUpdate
             );
             this.props.vm.off(
                 "COMPILER_OPTIONS_CHANGED",
-                this.props.onCompilerOptionsChanged,
+                this.props.onCompilerOptionsChanged
             );
             this.props.vm.off(
                 "RUNTIME_OPTIONS_CHANGED",
-                this.props.onRuntimeOptionsChanged,
+                this.props.onRuntimeOptionsChanged
             );
             this.props.vm.off(
                 "FRAMERATE_CHANGED",
-                this.props.onFramerateChanged,
+                this.props.onFramerateChanged
             );
             this.props.vm.off(
                 "INTERPOLATION_CHANGED",
-                this.props.onInterpolationChanged,
+                this.props.onInterpolationChanged
             );
             this.props.vm.off("COMPILE_ERROR", this.handleCompileError);
             this.props.vm.off(
                 "RUNTIME_STARTED",
-                this.props.onClearCompileErrors,
+                this.props.onClearCompileErrors
             );
             this.props.vm.off(
                 "STAGE_SIZE_CHANGED",
-                this.props.onStageSizeChanged,
+                this.props.onStageSizeChanged
             );
             this.props.vm.off(
                 "CREATE_UNSANDBOXED_EXTENSION_API",
-                implementGuiAPI,
+                implementGuiAPI
             );
             this.props.vm.runtime.off(
                 "PLATFORM_MISMATCH",
-                this.props.onPlatformMismatch,
+                this.props.onPlatformMismatch
             );
         }
         handleCloudDataUpdate(hasCloudVariables) {
@@ -363,7 +363,7 @@ const vmListenerHOC = function (WrappedComponent) {
         attachKeyboardEvents: true,
         onGreenFlag: () => ({}),
     };
-    const mapStateToProps = (state) => ({
+    const mapStateToProps = state => ({
         hasCloudVariables: state.scratchGui.tw.hasCloudVariables,
         projectChanged: state.scratchGui.projectChanged,
         // Do not emit target or project updates in fullscreen or player only mode
@@ -384,14 +384,14 @@ const vmListenerHOC = function (WrappedComponent) {
                   ? state.scratchGui.tw.username
                   : "",
     });
-    const mapDispatchToProps = (dispatch) => ({
-        onTargetsUpdate: (data) => {
+    const mapDispatchToProps = dispatch => ({
+        onTargetsUpdate: data => {
             dispatch(updateTargets(data.targetList, data.editingTarget));
         },
-        onMonitorsUpdate: (monitorList) => {
+        onMonitorsUpdate: monitorList => {
             dispatch(updateMonitors(monitorList));
         },
-        onBlockDragUpdate: (areBlocksOverGui) => {
+        onBlockDragUpdate: areBlocksOverGui => {
             dispatch(updateBlockDrag(areBlocksOverGui));
         },
         onProjectRunStart: () => dispatch(setRunningState(true)),
@@ -402,28 +402,27 @@ const vmListenerHOC = function (WrappedComponent) {
         onRuntimeStopped: () => dispatch(setStartedState(false)),
         onTurboModeOn: () => dispatch(setTurboState(true)),
         onTurboModeOff: () => dispatch(setTurboState(false)),
-        onHasCloudVariablesChanged: (hasCloudVariables) =>
+        onHasCloudVariablesChanged: hasCloudVariables =>
             dispatch(setHasCloudVariables(hasCloudVariables)),
-        onFramerateChanged: (framerate) =>
-            dispatch(setFramerateState(framerate)),
-        onInterpolationChanged: (interpolation) =>
+        onFramerateChanged: framerate => dispatch(setFramerateState(framerate)),
+        onInterpolationChanged: interpolation =>
             dispatch(setInterpolationState(interpolation)),
-        onCompilerOptionsChanged: (options) =>
+        onCompilerOptionsChanged: options =>
             dispatch(setCompilerOptionsState(options)),
         onPlatformMismatch: (platform, callback) => {
             dispatch(setPlatformMismatchDetails(platform, callback));
             dispatch(openUnknownPlatformModal());
         },
-        onRuntimeOptionsChanged: (options) =>
+        onRuntimeOptionsChanged: options =>
             dispatch(setRuntimeOptionsState(options)),
         onStageSizeChanged: (width, height) =>
             dispatch(setCustomStageSize(width, height)),
-        onCompileError: (errors) => dispatch(addCompileError(errors)),
+        onCompileError: errors => dispatch(addCompileError(errors)),
         onClearCompileErrors: () => dispatch(clearCompileErrors()),
-        onShowExtensionAlert: (data) => {
+        onShowExtensionAlert: data => {
             dispatch(showExtensionAlert(data));
         },
-        onMicListeningUpdate: (listening) => {
+        onMicListeningUpdate: listening => {
             dispatch(updateMicIndicator(listening));
         },
     });

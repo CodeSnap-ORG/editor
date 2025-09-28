@@ -23,7 +23,7 @@ const getBackpackContents = ({ host, username, token, limit, offset }) =>
                 localBackpackAPI.getBackpackContents({
                     limit,
                     offset,
-                }),
+                })
             );
         }
         xhr(
@@ -38,9 +38,9 @@ const getBackpackContents = ({ host, username, token, limit, offset }) =>
                     return reject(new Error(response.status));
                 }
                 return resolve(
-                    response.body.map((item) => includeFullUrls(item, host)),
+                    response.body.map(item => includeFullUrls(item, host))
                 );
-            },
+            }
         );
     });
 
@@ -63,7 +63,7 @@ const saveBackpackObject = ({
                     name,
                     body,
                     thumbnail,
-                }),
+                })
             );
         }
         xhr(
@@ -78,7 +78,7 @@ const saveBackpackObject = ({
                     return reject(new Error(response.status));
                 }
                 return resolve(includeFullUrls(response.body, host));
-            },
+            }
         );
     });
 
@@ -88,7 +88,7 @@ const deleteBackpackObject = ({ host, username, token, id }) =>
             return resolve(
                 localBackpackAPI.deleteBackpackObject({
                     id,
-                }),
+                })
             );
         }
         xhr(
@@ -102,7 +102,7 @@ const deleteBackpackObject = ({ host, username, token, id }) =>
                     return reject(new Error(response.status));
                 }
                 return resolve(response.body);
-            },
+            }
         );
     });
 
@@ -113,7 +113,7 @@ const updateBackpackObject = ({ host, id, name }) =>
                 localBackpackAPI.updateBackpackObject({
                     id,
                     name,
-                }),
+                })
             );
         }
         reject(new Error("updateBackpackObject not supported"));

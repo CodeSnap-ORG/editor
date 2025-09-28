@@ -116,7 +116,7 @@ class TextMode extends React.Component {
             this.props.onUpdateImage,
             this.props.setTextEditTarget,
             this.props.changeFont,
-            nextProps.isBitmap,
+            nextProps.isBitmap
         );
         this.tool.setRtl(this.props.rtl);
         this.tool.setColorState(nextProps.colorState);
@@ -186,7 +186,7 @@ const mapStateToProps = (state, ownProps) => ({
     viewBounds: state.scratchPaint.viewBounds,
 });
 const mapDispatchToProps = (dispatch, ownProps) => ({
-    changeFont: (font) => {
+    changeFont: font => {
         dispatch(changeFont(font));
     },
     clearSelectedItems: () => {
@@ -201,19 +201,19 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
     handleChangeModeText: () => {
         dispatch(changeMode(Modes.TEXT));
     },
-    setCursor: (cursorString) => {
+    setCursor: cursorString => {
         dispatch(setCursor(cursorString));
     },
     setSelectedItems: () => {
         dispatch(setSelectedItems(getSelectedLeafItems(), ownProps.isBitmap));
     },
-    setTextEditTarget: (targetId) => {
+    setTextEditTarget: targetId => {
         dispatch(setTextEditTarget(targetId));
     },
-    onChangeFillColor: (fillColor) => {
+    onChangeFillColor: fillColor => {
         dispatch(changeFillColor(fillColor));
     },
-    onChangeStrokeColor: (strokeColor) => {
+    onChangeStrokeColor: strokeColor => {
         dispatch(changeStrokeColor(strokeColor));
     },
 });

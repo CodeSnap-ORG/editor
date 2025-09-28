@@ -20,7 +20,7 @@ describe("Slider Prompt Container", () => {
                 minValue={0}
                 onCancel={onCancel}
                 onOk={onOk}
-            />,
+            />
         );
         const componentProps = wrapper.find(SliderPromptComponent).props();
         expect(componentProps.minValue).toBe("0.00");
@@ -35,7 +35,7 @@ describe("Slider Prompt Container", () => {
                 minValue={0}
                 onCancel={onCancel}
                 onOk={onOk}
-            />,
+            />
         );
         const componentProps = wrapper.find(SliderPromptComponent).props();
         expect(componentProps.minValue).toBe("0");
@@ -50,7 +50,7 @@ describe("Slider Prompt Container", () => {
                 minValue={0}
                 onCancel={onCancel}
                 onOk={onOk}
-            />,
+            />
         );
         const componentProps = wrapper.find(SliderPromptComponent).props();
         componentProps.onChangeMin({ target: { value: "1.0" } });
@@ -66,7 +66,7 @@ describe("Slider Prompt Container", () => {
                 minValue={12.32}
                 onCancel={onCancel}
                 onOk={onOk}
-            />,
+            />
         );
         const componentProps = wrapper.find(SliderPromptComponent).props();
         componentProps.onChangeMin({ target: { value: "1" } });
@@ -83,7 +83,7 @@ describe("Slider Prompt Container", () => {
                 minValue={12.32}
                 onCancel={onCancel}
                 onOk={onOk}
-            />,
+            />
         );
         const componentProps = wrapper.find(SliderPromptComponent).props();
         componentProps.onChangeMin({ target: { value: "1" } });
@@ -100,7 +100,7 @@ describe("Slider Prompt Container", () => {
                 minValue={12.32}
                 onCancel={onCancel}
                 onOk={onOk}
-            />,
+            />
         );
         const componentProps = wrapper.find(SliderPromptComponent).props();
         componentProps.onChangeMin({ target: { value: "hello" } });
