@@ -50,7 +50,12 @@ import InvalidEmbed from "../components/tw-invalid-embed/invalid-embed.jsx";
 import Clippy from "../containers/amp-clippy.jsx";
 import Footer from "../components/amp-footer/footer.jsx";
 import styles from "./interface.css";
-import { APP_NAME, APP_SLOGAN } from "@ampmod/branding";
+import {
+    APP_BLOG,
+    APP_FORUMS_BUGS,
+    APP_NAME,
+    APP_SLOGAN,
+} from "@ampmod/branding";
 
 const isInvalidEmbed = window.parent !== window;
 
@@ -279,7 +284,7 @@ class Interface extends React.Component {
                                             APP_NAME,
                                             blog: (
                                                 <a
-                                                    href="https://ampmod.flarum.cloud/blog"
+                                                    href={APP_BLOG}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                 >
@@ -297,7 +302,7 @@ class Interface extends React.Component {
                                         values={{
                                             bugtracker: (
                                                 <a
-                                                    href="https://ampmod.flarum.cloud/t/bugs-and-glitches"
+                                                    href={APP_FORUMS_BUGS}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                 >

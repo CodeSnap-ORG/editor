@@ -15,7 +15,13 @@
  */
 
 import React from "react";
-import { APP_NAME } from "@ampmod/branding";
+import {
+    APP_BLOG,
+    APP_FORUMS,
+    APP_NAME,
+    APP_SOURCE,
+    APP_WIKI,
+} from "@ampmod/branding";
 import { FormattedMessage } from "react-intl";
 
 import styles from "./footer.css";
@@ -162,13 +168,15 @@ const Footer = () => {
                                 id="tw.footer.faq"
                             />
                         </a>
-                        <a href="https://ampmod.flarum.cloud/blog">
-                            <FormattedMessage
-                                defaultMessage="AmpMod Blog"
-                                description="Blog link in footer"
-                                id="tw.footer.blog"
-                            />
-                        </a>
+                        {APP_BLOG && (
+                            <a href={APP_BLOG}>
+                                <FormattedMessage
+                                    defaultMessage="AmpMod Blog"
+                                    description="Blog link in footer"
+                                    id="tw.footer.blog"
+                                />
+                            </a>
+                        )}
                         <a href="https://scratchfoundation.org/donate/">
                             <FormattedMessage
                                 defaultMessage="Donate to Scratch"
@@ -207,13 +215,15 @@ const Footer = () => {
                                 id="tw.footer.extensions"
                             />
                         </a>
-                        <a href="https://ampmod.miraheze.org/">
-                            <FormattedMessage
-                                defaultMessage="AmpMod Wiki"
-                                description="Link in footer to wiki"
-                                id="tw.footer.wiki"
-                            />
-                        </a>
+                        {APP_WIKI && (
+                            <a href={APP_WIKI}>
+                                <FormattedMessage
+                                    defaultMessage="AmpMod Wiki"
+                                    description="Link in footer to wiki"
+                                    id="tw.footer.wiki"
+                                />
+                            </a>
+                        )}
                         <a href="https://ampmod.codeberg.page/manual/">
                             <FormattedMessage
                                 defaultMessage="Manual"
@@ -223,16 +233,18 @@ const Footer = () => {
                         </a>
                     </div>
                     <div className={styles.footerSection}>
-                        <a href="https://ampmod.flarum.cloud">
-                            <FormattedMessage
-                                defaultMessage="AmpMod Forums"
-                                description="Button to give feedback in the menu bar"
-                                id="tw.topicButton"
-                                values={{
-                                    APP_NAME,
-                                }}
-                            />
-                        </a>
+                        {APP_FORUMS && (
+                            <a href={APP_FORUMS}>
+                                <FormattedMessage
+                                    defaultMessage="{APP_NAME} Forums"
+                                    description="Button to give feedback in the menu bar"
+                                    id="tw.topicButton"
+                                    values={{
+                                        APP_NAME,
+                                    }}
+                                />
+                            </a>
+                        )}
                         {(!process.env.ampmod_is_canary && (
                             <a href="https://ampmod.codeberg.page/canary/">
                                 <FormattedMessage
@@ -250,7 +262,7 @@ const Footer = () => {
                                 />
                             </a>
                         )}
-                        <a href="https://codeberg.org/AmpMod/">
+                        <a href={APP_SOURCE}>
                             <FormattedMessage
                                 defaultMessage="Source Code"
                                 description="Link to source code"

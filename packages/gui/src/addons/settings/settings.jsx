@@ -36,7 +36,7 @@ import TWFancyCheckbox from "../../components/tw-fancy-checkbox/checkbox.jsx";
 import styles from "./settings.css";
 import { detectTheme } from "../../lib/themes/themePersistance.js";
 import { applyGuiColors } from "../../lib/themes/guiHelpers.js";
-import { APP_NAME } from "@ampmod/branding";
+import { APP_FORUMS, APP_NAME } from "@ampmod/branding";
 import "modern-normalize";
 
 /* eslint-disable no-alert */
@@ -1173,16 +1173,18 @@ class AddonSettingsComponent extends React.Component {
                                 onClick={this.handleClickSearchButton}
                             />
                         </div>
-                        <a
-                            href="https://ampmod.flarum.cloud"
-                            target="_blank"
-                            rel="noreferrer"
-                            className={styles.feedbackButtonOuter}
-                        >
-                            <span className={styles.feedbackButtonInner}>
-                                AmpMod Forum Topic
-                            </span>
-                        </a>
+                        {APP_FORUMS && (
+                            <a
+                                href={APP_FORUMS}
+                                target="_blank"
+                                rel="noreferrer"
+                                className={styles.feedbackButtonOuter}
+                            >
+                                <span className={styles.feedbackButtonInner}>
+                                    {APP_NAME} Forums
+                                </span>
+                            </a>
+                        )}
                     </div>
                     {this.state.dirty && (
                         <Dirty

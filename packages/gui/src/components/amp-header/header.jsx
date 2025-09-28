@@ -18,7 +18,7 @@ import Button from "../button/button.jsx";
 
 import styles from "./header.css";
 
-import { APP_NAME } from "@ampmod/branding";
+import { APP_FORUMS, APP_WIKI, APP_NAME, APP_SOURCE } from "@ampmod/branding";
 import TWNews from "../menu-bar/tw-news.jsx";
 
 function isAprilFools() {
@@ -77,26 +77,30 @@ const Header = () => {
                     >
                         Manual
                     </a>
+                    {APP_FORUMS && (
+                        <a
+                            href={APP_FORUMS}
+                            className={classNames(
+                                styles.headerItem,
+                                styles.hoverable
+                            )}
+                        >
+                            Forums
+                        </a>
+                    )}
+                    {APP_WIKI && (
+                        <a
+                            href={APP_WIKI}
+                            className={classNames(
+                                styles.headerItem,
+                                styles.hoverable
+                            )}
+                        >
+                            Wiki
+                        </a>
+                    )}
                     <a
-                        href="https://ampmod.flarum.cloud"
-                        className={classNames(
-                            styles.headerItem,
-                            styles.hoverable
-                        )}
-                    >
-                        Forums
-                    </a>
-                    <a
-                        href="https://ampmod.miraheze.org"
-                        className={classNames(
-                            styles.headerItem,
-                            styles.hoverable
-                        )}
-                    >
-                        Wiki
-                    </a>
-                    <a
-                        href="https://codeberg.org/AmpMod"
+                        href={APP_SOURCE}
                         className={classNames(
                             styles.headerItem,
                             styles.hoverable

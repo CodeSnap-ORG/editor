@@ -115,7 +115,7 @@ import SeeInsideButton from "./tw-see-inside.jsx";
 import isScratchDesktop, {
     notScratchDesktop,
 } from "../../lib/isScratchDesktop.js";
-import { APP_NAME } from "@ampmod/branding";
+import { APP_FORUMS, APP_NAME } from "@ampmod/branding";
 
 import ampmodIcon from "./tw-advanced.svg";
 import ampmodCanaryIcon from "./ampmod-canary.svg";
@@ -1125,11 +1125,11 @@ class MenuBar extends React.Component {
                         showSaveFilePicker={this.props.showSaveFilePicker}
                     />
                     {/* tw: add a feedback button */}
-                    {notScratchDesktop() && (
+                    {APP_FORUMS && notScratchDesktop() && (
                         <div className={styles.menuBarItem}>
                             <a
                                 className={styles.feedbackLink}
-                                href="https://ampmod.flarum.cloud"
+                                href={APP_FORUMS}
                                 rel="noopener noreferrer"
                                 target="_blank"
                             >

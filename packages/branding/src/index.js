@@ -19,7 +19,7 @@
 
 module.exports.APP_NAME = "AmpMod"; // "canary build" will be appended; you shouldn't manually check for it.
 module.exports.APP_SLOGAN = "Block-based programming, amplified";
-module.exports.APP_WEBSITE = "https://ampmod.codeberg.page";
+module.exports.APP_WEBSITE = "https://codeberg.org/ampmod/ampmod";
 module.exports.APP_SOURCE = "https://codeberg.org/ampmod/ampmod";
 module.exports.APP_DESCRIPTION = `${module.exports.APP_NAME} is a powerful block-based programming language built on Scratch 3.0 and TurboWarp.`;
 
