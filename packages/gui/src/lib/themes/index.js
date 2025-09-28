@@ -134,7 +134,9 @@ class Theme {
     getGuiColors() {
         return defaultsDeep(
             {},
-            ACCENT_MAP[this.accent].guiColors,
+            this.gui === "high-contrast"
+                ? null
+                : ACCENT_MAP[this.accent].guiColors,
             GUI_MAP[this.gui].guiColors,
             guiLight.guiColors
         );
@@ -156,7 +158,8 @@ class Theme {
     isDark() {
         return (
             this.getGuiColors()["color-scheme"] === "dark" ||
-            this.getGuiColors()["color-scheme"] === "amoled"
+            this.getGuiColors()["color-scheme"] === "amoled" ||
+            this.getGuiColors()["color-scheme"] === "high-contrast"
         );
     }
 

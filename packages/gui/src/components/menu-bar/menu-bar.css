@@ -33,6 +33,7 @@
     background-color: $menu-bar-background;
     background-image: $menu-bar-background-image;
     color: $menu-bar-foreground;
+    border-bottom: $menu-bar-border-bottom;
 }
 
 .main-menu {

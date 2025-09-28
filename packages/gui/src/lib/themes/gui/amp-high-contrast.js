@@ -8,6 +8,7 @@ const guiColors = {
     "ui-modal-overlay": "#000000cc",
     "ui-modal-background": "#000000",
     "ui-modal-foreground": "#FFFF00",
+    "ui-modal-header-background": "#000000",
     "ui-modal-header-foreground": "#FFFFFF",
 
     "ui-white": "#000000",
@@ -38,32 +39,50 @@ const guiColors = {
     "filter-icon-white": "none",
 
     "paint-filter-icon-gray": "none",
+
+    "menu-bar-background": "#000000",
+    "menu-bar-border-bottom": "1px white solid",
 };
 
 const blockColors = {
+    // Block Insertion Marker: Often needs a solid background to remove 'transparency'
+    // in the area where a block is about to be placed.
     insertionMarker: "#FFFF00",
+    insertionMarkerBackground: "#000000", // Added to make insertion area solid
+
+    // Workspace & UI Backgrounds (all set to solid black)
     workspace: "#000000",
     toolboxSelected: "#000000",
     toolboxText: "#FFFF00",
     toolbox: "#000000",
     flyout: "#000000",
+
+    // Scrollbar & Zoom Icons (Solid foreground/backgrounds)
     scrollbar: "#FFFFFF",
+    zoomIconFilter: "none",
+    gridColor: "#FFFFFF",
+
+    // Value Reports (Solid backgrounds)
     valueReportBackground: "#000000",
     valueReportBorder: "#FFFF00",
     valueReportForeground: "#FFFF00",
+
+    // Context Menu (Solid backgrounds)
     contextMenuBackground: "#000000",
-    contextMenuBorder: "#FFFF0026",
+    contextMenuBorder: "#FFFFFF",
     contextMenuForeground: "#FFFF00",
     contextMenuActiveBackground: "#000000",
     contextMenuDisabledForeground: "#CCCCCC",
+
+    // Flyout Text/Labels
     flyoutLabelColor: "#FFFF00",
+
+    // Checkbox and Button colors
     checkboxInactiveBackground: "#000000",
     checkboxInactiveBorder: "#FFFF00",
-    buttonBorder: "#FFFF00",
+    buttonBorder: "#FFFFFF",
     buttonActiveBackground: "#000000",
     buttonForeground: "#FFFF00",
-    zoomIconFilter: "none",
-    gridColor: "#FFFFFF",
 };
 
 export { guiColors, blockColors };
