@@ -112,6 +112,8 @@
     height: 4px;
     width: 100%;
     background: $menu-bar-background;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
 }
 
 .gui-theme-icon-fake-blocks {

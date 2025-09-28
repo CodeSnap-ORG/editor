@@ -109,7 +109,7 @@ const guiColors = {
     "turbowarp-color": "#ff4c4c",
     "turbowarp-transparent": "#ff4c4c26",
 
-    "menu-bar-border-bottom": "0px transparent solid",
+    "high-contrast-border": "transparent",
 };
 
 const blockColors = {};
