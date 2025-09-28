@@ -417,55 +417,73 @@ const GUIComponent = props => {
                                         <TabPanel
                                             className={tabClassNames.tabPanel}
                                         >
-                                            <Box
-                                                className={styles.blocksWrapper}
-                                            >
-                                                <Blocks
-                                                    key={`${blocksId}/${theme.id}`}
-                                                    canUseCloud={canUseCloud}
-                                                    grow={1}
-                                                    isVisible={blocksTabVisible}
-                                                    options={{
-                                                        media: `${basePath}static/${theme.getBlocksMediaFolder()}/`,
-                                                    }}
-                                                    stageSize={stageSize}
-                                                    onOpenCustomExtensionModal={
-                                                        onOpenCustomExtensionModal
-                                                    }
-                                                    theme={theme}
-                                                    vm={vm}
-                                                />
-                                            </Box>
-                                            <Box
-                                                className={
-                                                    styles.extensionButtonContainer
-                                                }
-                                            >
-                                                <button
-                                                    className={
-                                                        styles.extensionButton
-                                                    }
-                                                    title={intl.formatMessage(
-                                                        messages.addExtension
-                                                    )}
-                                                    onClick={
-                                                        onExtensionButtonClick
-                                                    }
-                                                >
-                                                    <img
-                                                        className={
-                                                            styles.extensionButtonIcon
-                                                        }
-                                                        draggable={false}
-                                                        src={addExtensionIcon}
-                                                    />
-                                                </button>
-                                            </Box>
-                                            <Box className={styles.watermark}>
-                                                <Watermark />
-                                            </Box>
                                             {blocksTabVisible ? (
-                                                <Clippy messageSet="codeMenu" />
+                                                <>
+                                                    <Box
+                                                        className={
+                                                            styles.blocksWrapper
+                                                        }
+                                                    >
+                                                        <Blocks
+                                                            key={`${blocksId}/${theme.id}`}
+                                                            canUseCloud={
+                                                                canUseCloud
+                                                            }
+                                                            grow={1}
+                                                            isVisible={
+                                                                blocksTabVisible
+                                                            }
+                                                            options={{
+                                                                media: `${basePath}static/${theme.getBlocksMediaFolder()}/`,
+                                                            }}
+                                                            stageSize={
+                                                                stageSize
+                                                            }
+                                                            onOpenCustomExtensionModal={
+                                                                onOpenCustomExtensionModal
+                                                            }
+                                                            theme={theme}
+                                                            vm={vm}
+                                                        />
+                                                    </Box>
+                                                    <Box
+                                                        className={
+                                                            styles.extensionButtonContainer
+                                                        }
+                                                    >
+                                                        <button
+                                                            className={
+                                                                styles.extensionButton
+                                                            }
+                                                            title={intl.formatMessage(
+                                                                messages.addExtension
+                                                            )}
+                                                            onClick={
+                                                                onExtensionButtonClick
+                                                            }
+                                                        >
+                                                            <img
+                                                                className={
+                                                                    styles.extensionButtonIcon
+                                                                }
+                                                                draggable={
+                                                                    false
+                                                                }
+                                                                src={
+                                                                    addExtensionIcon
+                                                                }
+                                                            />
+                                                        </button>
+                                                    </Box>
+                                                    <Box
+                                                        className={
+                                                            styles.watermark
+                                                        }
+                                                    >
+                                                        <Watermark />
+                                                    </Box>
+                                                    <Clippy messageSet="codeMenu" />
+                                                </>
                                             ) : null}
                                         </TabPanel>
                                         <TabPanel
