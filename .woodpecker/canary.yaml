@@ -45,7 +45,7 @@ steps:
           - git config --global user.email "no@thankyou.com"
           - git config --global user.name "CI Builder"
           # clone and move the target repo
-          - git clone -b pages https://$CBTOKEN@codeberg.org/kRxZy_kRxZy/pages.git amp-build
+          - git clone -b pages https://$CBTOKEN@codeberg.org/ampmod/canary.git amp-build
           - chmod -R a+w amp-build
     - name: install
       when:
@@ -66,7 +66,7 @@ steps:
       image: node:20-trixie-slim
       commands:
           # Don't specify CBP build mode since redirects aren't properly implemented in canary
-          - npm run ci-build
+          - NODE_ENV=production BUILD_MODE=canary npm run ci-build
           # Only needed for custom domains
           # - cp domains build/.domains
     - name: push
