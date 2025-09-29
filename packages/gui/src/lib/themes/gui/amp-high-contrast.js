@@ -41,7 +41,7 @@ const guiColors = {
     "paint-filter-icon-gray": "none",
 
     "menu-bar-background": "#000000",
-    "high-contrast-border": "1px white solid",
+    "high-contrast-border": "white",
 
     "menu-bar-hover": "blue",
 };
