@@ -12,7 +12,7 @@ const guiColors = {
 
     "ui-white": "#000000",
 
-    "ui-black-transparent": "#ffffff26",
+    "ui-black-transparent": "#ffffff36",
 
     "text-primary": "#eeeeee",
 
