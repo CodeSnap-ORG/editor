@@ -1,12 +1,17 @@
-import { Pool } from "pg";
+const { Pool } = require("pg");
+
+const connectionString = process.env.DATABASE_URL || "postgres://root:mysecretpassword@localhost:5432/local";
 
 const pool = new Pool({
-  connectionString: "postgres://root:mysecretpassword@localhost:5432/local",
+  connectionString,
 });
 
   // Helper for running queries
-export const query = (text: string, params?: any[]) => {
+const query = (text, params) => {
   return pool.query(text, params);
 };
 
-export default pool;
+module.exports = {
+  pool,
+  query,
+};
