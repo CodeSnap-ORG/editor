@@ -114,6 +114,10 @@ const base = {
                 __dirname,
                 "src/lib/tw-scratch-render-fonts"
             ),
+            "database$": path.resolve(
+                __dirname, 
+                "src/database/"
+            ),
         },
     },
     module: {
