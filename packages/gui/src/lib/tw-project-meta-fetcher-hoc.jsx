@@ -15,9 +15,9 @@ export const fetchProjectMeta = async projectId => {
     let firstError;
     for (const url of urls) {
         try {
-            const res = await query(`SELECT projectMETA from projects WHERE id=${projectId}`)
-            const data = await res.rows
-            if (res.rows) {
+            const res = await query(`SELECT projectMETA FROM projects WHERE id=$1`, [projectId]);
+            const data = await res.rows[0];
+            if (res.rows[0]) {
                 return data;
             }
             if (res.error) {
