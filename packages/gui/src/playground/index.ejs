@@ -230,11 +230,10 @@
         'use strict';
 
         var theme = '';
-        var accent = '#59C059';
-
         var canary = <%= process.env.ampmod_is_canary %>;
+        var accent = canary ? '#FF4C4C' : '#59C059';
 
-        setTimeout(function () {
+        const showTooLongMessage = setTimeout(function () {
           var splashErrorScreen = document.querySelector('.splash-error-screen');
           if (!splashErrorScreen.hidden) return; // already errored
           var takingTooLong = document.querySelector('.splash-taking-too-long');
@@ -359,6 +358,7 @@
         };
 
         window.SplashEnd = () => {
+          clearTimeout(showTooLongMessage);
           splash.parentNode.removeChild(splash);
           window.onerror = null;
         };
