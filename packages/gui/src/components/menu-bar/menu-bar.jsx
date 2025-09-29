@@ -583,6 +583,7 @@ class MenuBar extends React.Component {
                                     }
                                     draggable={false}
                                     height={28}
+                                    className="no-sa-compact-hide"
                                     alt="AmpMod"
                                 />
                             </a>
