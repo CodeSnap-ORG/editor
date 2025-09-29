@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import log from "./log";
+import { query } from "database/schema";
 
 import { setProjectTitle } from "../reducers/project-title";
 import { setAuthor, setDescription } from "../reducers/tw";
@@ -14,12 +15,12 @@ export const fetchProjectMeta = async projectId => {
     let firstError;
     for (const url of urls) {
         try {
-            const res = await fetch(url);
-            const data = await res.json();
-            if (res.ok) {
+            const res = await query(`SELECT projectMETA from projects WHERE id=${projectId}`)
+            const data = await res.rows
+            if (res.rows) {
                 return data;
             }
-            if (res.status === 404) {
+            if (res.error) {
                 throw new Error("Project is probably unshared");
             }
             throw new Error(`Unexpected status code: ${res.status}`);
