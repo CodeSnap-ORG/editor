@@ -9,6 +9,26 @@ import { applyGuiColors } from "../../lib/themes/guiHelpers";
 import { detectTheme } from "../../lib/themes/themePersistance";
 
 /* eslint-disable react/jsx-no-literals */
+const projectMatch = window.location.pathname.match(/^\/projects\/(\d+)$/);
+if (projectMatch) {
+  const projectId = projectMatch[1];
+  const IframeEditor = () => (
+      <iframe
+          src={`/editor.html#${projectId}`}
+          style={{
+              width: "100vw",
+              height: "100vh",
+              border: "none",
+              margin: 0,
+              padding: 0,
+          }}
+          title={`Project ${projectId} Editor`}
+       /> 
+  );
+  render(<IframeEditor />);
+} else {
+    const not_found = true;
+}
 
 applyGuiColors(detectTheme());
 document.documentElement.lang = "en";
@@ -39,4 +59,6 @@ const Home = () => (
     </>
 );
 
-render(<Home />);
+if (not_found) {
+  render(<Home />);
+}
