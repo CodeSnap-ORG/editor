@@ -56,6 +56,7 @@ steps:
       image: node:20-trixie-slim
       commands:
           - apt-get update && apt-get install python3 default-jre-headless --no-install-recommends -y
+          - npm install pg
           - npm ci
     - name: build-monorepo
       when:
