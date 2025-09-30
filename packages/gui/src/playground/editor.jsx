@@ -14,6 +14,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
+const hashId = window.location.hash.slice(1);
+const pathId = window.location.pathname.match(/^\/editor\/(\d+)$/);
+if ((hashId && window.location.pathname.endsWith("/editor")) || pathId) window.location.replace(`/projects/${hashId || pathId[1]}`);
+
+
 import "./import-first";
 
 import React from "react";
