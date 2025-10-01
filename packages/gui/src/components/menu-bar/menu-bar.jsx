@@ -569,7 +569,7 @@ class MenuBar extends React.Component {
                             <a
                                 className={classNames(
                                     styles.menuBarItem,
-                                    styles.hoverable
+                                    styles.logo
                                 )}
                                 href="/"
                             >
@@ -582,10 +582,11 @@ class MenuBar extends React.Component {
                                               : ampmodIcon
                                     }
                                     draggable={false}
-                                    height={28}
+                                    height={25}
                                     className="no-sa-compact-hide"
                                     alt="AmpMod"
                                 />
+                                <div className={styles.logoGround} />
                             </a>
                         )}
                         {(this.props.canChangeTheme ||
