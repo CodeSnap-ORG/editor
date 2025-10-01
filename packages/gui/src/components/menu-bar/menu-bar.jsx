@@ -20,7 +20,6 @@ import CommunityButton from "./community-button.jsx";
 import ShareButton from "./share-button.jsx";
 import { ComingSoonTooltip } from "../coming-soon/coming-soon.jsx";
 import Divider from "../divider/divider.jsx";
-import SaveStatus from "./save-status.jsx";
 import ProjectWatcher from "../../containers/project-watcher.jsx";
 import MenuBarMenu from "./menu-bar-menu.jsx";
 import MenuLabel from "./tw-menu-label.jsx";

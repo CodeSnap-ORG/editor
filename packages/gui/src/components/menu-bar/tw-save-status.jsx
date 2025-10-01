@@ -5,8 +5,9 @@ import React from "react";
 import InlineMessages from "../../containers/inline-messages.jsx";
 import SB3Downloader from "../../containers/sb3-downloader.jsx";
 import { filterInlineAlerts } from "../../reducers/alerts";
+import classNames from "classnames";
 
-import styles from "./save-status.css";
+import styles from "./menu-bar.css";
 
 const TWSaveStatus = ({
     alertsList,
@@ -20,7 +21,13 @@ const TWSaveStatus = ({
         projectChanged && (
             <SB3Downloader showSaveFilePicker={showSaveFilePicker}>
                 {(_className, _downloadProjectCallback, { smartSave }) => (
-                    <div onClick={smartSave} className={styles.saveNow}>
+                    <div
+                        onClick={smartSave}
+                        className={classNames([
+                            styles.menuBarItem,
+                            styles.hoverable,
+                        ])}
+                    >
                         {fileHandle ? (
                             <FormattedMessage
                                 defaultMessage="Save as {file}"
