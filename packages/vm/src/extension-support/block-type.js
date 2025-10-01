@@ -62,6 +62,11 @@ const BlockType = {
     ARRAY: "array",
 
     /**
+     * Inline block
+     */
+    INLINE: "inline",
+
+    /**
      * Arbitrary scratch-blocks XML.
      */
     XML: "xml",

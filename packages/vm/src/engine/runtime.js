@@ -1089,6 +1089,8 @@ class Runtime extends EventEmitter {
             showStatusButton: extensionInfo.showStatusButton,
             blockIconURI: extensionInfo.blockIconURI,
             menuIconURI: extensionInfo.menuIconURI,
+            docsURI: extensionInfo.docsURI,
+            globalExtensions: [],
         };
 
         if (extensionInfo.color1) {
@@ -1099,6 +1101,14 @@ class Runtime extends EventEmitter {
             categoryInfo.color1 = defaultExtensionColors[0];
             categoryInfo.color2 = defaultExtensionColors[1];
             categoryInfo.color3 = defaultExtensionColors[2];
+        }
+
+        if (extensionInfo.globalExtensions) {
+            for (const extension of extensionInfo.globalExtensions) {
+                if (!categoryInfo.globalExtensions.includes(extension)) {
+                    categoryInfo.globalExtensions.push(extension);
+                }
+            }
         }
 
         this._blockInfo.push(categoryInfo);
@@ -1421,7 +1431,7 @@ class Runtime extends EventEmitter {
 
         const blockJSON = {
             type: extendedOpcode,
-            inputsInline: true,
+            inputsInline: blockInfo.inlineInputs ?? true,
             category: categoryInfo.name,
             extensions: [],
             colour: blockInfo.color1 ?? categoryInfo.color1,
@@ -1498,11 +1508,6 @@ class Runtime extends EventEmitter {
                 blockJSON.outputShape =
                     ScratchBlocksConstants.OUTPUT_SHAPE_HEXAGONAL;
                 break;
-            case BlockType.BOOLEAN:
-                blockJSON.output = "Boolean";
-                blockJSON.outputShape =
-                    ScratchBlocksConstants.OUTPUT_SHAPE_HEXAGONAL;
-                break;
             case BlockType.MULTIREPORTER:
                 blockJSON.output = null;
                 blockJSON.outputShape =
@@ -1537,6 +1542,12 @@ class Runtime extends EventEmitter {
                 if (!blockInfo.isTerminal) {
                     blockJSON.nextStatement = null; // null = available connection; undefined = terminal
                 }
+                break;
+            case BlockType.INLINE:
+                blockInfo.branchCount = blockInfo.branchCount || 1;
+                blockJSON.output = null;
+                blockJSON.outputShape =
+                    ScratchBlocksConstants.OUTPUT_SHAPE_SQUARE;
                 break;
         }
 
@@ -1631,6 +1642,14 @@ class Runtime extends EventEmitter {
             : "";
         const inputs = context.inputList.join("");
         const blockXML = `<block type="${xmlEscape(extendedOpcode)}">${mutation}${inputs}</block>`;
+
+        if (categoryInfo.globalExtensions) {
+            for (const extension of categoryInfo.globalExtensions) {
+                if (!blockJSON.extensions.includes(extension)) {
+                    blockJSON.extensions.push(extension);
+                }
+            }
+        }
 
         if (blockInfo.extensions) {
             for (const extension of blockInfo.extensions) {

@@ -1145,6 +1145,7 @@ class ScriptTreeGenerator {
                     if (blockInfo) {
                         const type = blockInfo.info.blockType;
                         if (
+                            type === BlockType.INLINE ||
                             type === BlockType.ARRAY ||
                             type === BlockType.MULTIREPORTER ||
                             type === BlockType.REPORTER ||
