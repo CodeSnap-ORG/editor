@@ -20,6 +20,11 @@ import { setTheme } from "../../reducers/theme.js";
 import { persistTheme } from "../../lib/themes/themePersistance.js";
 import lightModeIcon from "./tw-sun.svg";
 import darkModeIcon from "./tw-moon.svg";
+import {
+    openGuiThemeMenu,
+    guiThemeMenuOpen,
+    closeGuiThemeMenu,
+} from "../../reducers/menus.js";
 import styles from "./settings-menu.css";
 
 const options = defineMessages({
@@ -112,7 +117,7 @@ GuiThemeItem.propTypes = {
 
 const GuiThemeMenu = ({ isOpen, isRtl, onChangeTheme, onOpen, theme }) => (
     <MenuItem expanded={isOpen}>
-        <div className={styles.option}>
+        <div className={styles.option} onClick={onOpen}>
             <GuiIcon id={theme.gui} />
             <div className={styles.menuItemTitleAndSubtitle}>
                 <span className={styles.submenuLabel}>
@@ -148,10 +153,12 @@ const GuiThemeMenu = ({ isOpen, isRtl, onChangeTheme, onOpen, theme }) => (
 GuiThemeMenu.propTypes = {
     theme: PropTypes.instanceOf(Theme),
     isRtl: PropTypes.bool,
+    onOpen: PropTypes.func,
     onChangeTheme: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
+    isOpen: guiThemeMenuOpen(state),
     theme: state.scratchGui.theme.theme,
     isRtl: state.locales.isRtl,
 });
@@ -162,6 +169,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(closeSettingsMenu());
         persistTheme(theme);
     },
+    onOpen: () => dispatch(openGuiThemeMenu()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(GuiThemeMenu);
