@@ -135,8 +135,8 @@ GUI.propTypes = {
 GUI.defaultProps = {
     isScratchDesktop: false,
     isTotallyNormal: false,
-    onStorageInit: storageInstance =>
-        storageInstance.addOfficialScratchWebStores(),
+    onStorageInit:
+        (/* Unused function from Tutorials library (only available in vanilla Scratch). */) => {},
     onProjectLoaded: () => {},
     onUpdateProjectId: () => {},
     onVmInit: (/* vm */) => {},

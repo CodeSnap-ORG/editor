@@ -93,7 +93,6 @@ import collectMetadata from "../../lib/collect-metadata";
 
 import styles from "./menu-bar.css";
 
-import helpIcon from "../../lib/assets/icon--tutorials.svg";
 import mystuffIcon from "./icon--mystuff.png";
 import profileIcon from "./icon--profile.png";
 import remixIcon from "./icon--remix.svg";
@@ -119,14 +118,6 @@ import { APP_FORUMS, APP_NAME } from "@ampmod/branding";
 import ampmodIcon from "./tw-advanced.svg";
 import ampmodCanaryIcon from "./ampmod-canary.svg";
 import lampmodIcon from "./lampmod.svg";
-
-const ariaMessages = defineMessages({
-    tutorials: {
-        id: "gui.menuBar.tutorialsLibrary",
-        defaultMessage: "Tutorials",
-        description: "accessibility text for the tutorials button",
-    },
-});
 
 const twMessages = defineMessages({
     compileError: {
