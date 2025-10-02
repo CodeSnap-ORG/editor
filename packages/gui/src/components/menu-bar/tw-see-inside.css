@@ -8,4 +8,9 @@
 
 .see-inside-button-icon {
     height: 1.25rem;
+    transition: transform 0.4s ease;
+}
+
+.see-inside-button:hover .see-inside-button-icon {
+    transform: rotateZ(-360deg);
 }

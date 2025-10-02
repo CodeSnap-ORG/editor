@@ -6,4 +6,9 @@
 
 .community-button-icon {
     height: 1.25rem;
+    transition: transform 0.4s ease;
+}
+
+.community-button:hover .community-button-icon {
+    transform: rotateZ(-360deg);
 }

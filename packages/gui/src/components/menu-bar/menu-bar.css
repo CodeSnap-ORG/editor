@@ -87,31 +87,25 @@
 
 .menu-bar-item.logo {
     position: relative;
-    padding: 0 1.2em;
-    transition: padding 0.4s ease;
-}
-
-.menu-bar-item.logo:hover {
-    padding: 0 1.7em;
+    padding: 0 1.5em;
 }
 
 .menu-bar-item.logo img {
-    transition: transform 0.4s ease-out;
+    transition: transform 0.35s ease;
 }
 
 .menu-bar-item.logo:hover img {
-    transform: translateX(10px) rotateZ(360deg);
+    transform: translateX(14px) rotateZ(360deg);
 }
 
 .menu-bar-item.logo .logo-ground {
     position: absolute;
-    transform: translateX(-12px);
+    transform: translateX(-15px);
     height: 28px;
     opacity: 0;
     border-bottom: 2px white solid;
-    border-radius: 6px;
     width: 52px;
-    transition: opacity 0.4s ease;
+    transition: opacity 0.35s linear;
 }
 
 .menu-bar-item.logo:hover .logo-ground {
@@ -258,20 +252,20 @@
 .settings-button .button-icon,
 .file-button .button-icon,
 .edit-button .button-icon {
-    transition: transform 0.15s ease;
+    transition: transform 0.25s ease;
 }
 
 .settings-button:hover .button-icon,
 .settings-button .menu-bar-item.active .button-icon {
-    transform: rotateZ(90deg);
+    transform: rotateZ(180deg) scale(1.1);
 }
 
 .file-button:hover .button-icon,
 .file-button .menu-bar-item.active .button-icon {
-    transform: rotateX(15deg) rotateY(17deg);
+    transform: rotateY(-25deg) rotateX(-30deg) scale(1.1);
 }
 
 .edit-button:hover .button-icon,
 .edit-button .menu-bar-item.active .button-icon {
-    transform: translateX(4px) rotateZ(-25deg);
+    transform: rotateZ(-25deg) scale(1.1);
 }
