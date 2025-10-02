@@ -606,22 +606,234 @@ class MenuBar extends React.Component {
                             />
                         )}
                         {this.props.canManageFiles && (
+                            <div className={styles.fileButton}>
+                                <MenuLabel
+                                    open={this.props.fileMenuOpen}
+                                    onOpen={this.props.onClickFile}
+                                    onClose={this.props.onRequestCloseFile}
+                                >
+                                    <img
+                                        src={fileIcon}
+                                        draggable={false}
+                                        width={20}
+                                        height={20}
+                                        className={styles.buttonIcon}
+                                    />
+                                    <span className={styles.collapsibleLabel}>
+                                        <FormattedMessage
+                                            defaultMessage="File"
+                                            description="Text for file dropdown menu"
+                                            id="gui.menuBar.file"
+                                        />
+                                    </span>
+                                    <img
+                                        src={dropdownCaret}
+                                        draggable={false}
+                                        width={8}
+                                        height={5}
+                                    />
+                                    <MenuBarMenu
+                                        className={classNames(
+                                            styles.menuBarMenu
+                                        )}
+                                        open={this.props.fileMenuOpen}
+                                        place={
+                                            this.props.isRtl ? "left" : "right"
+                                        }
+                                    >
+                                        <MenuItem
+                                            isRtl={this.props.isRtl}
+                                            onClick={this.handleClickNew}
+                                        >
+                                            {newProjectMessage}
+                                        </MenuItem>
+                                        {this.props.onClickNewWindow && (
+                                            <MenuItem
+                                                isRtl={this.props.isRtl}
+                                                onClick={
+                                                    this.handleClickNewWindow
+                                                }
+                                            >
+                                                <FormattedMessage
+                                                    defaultMessage="New window"
+                                                    // eslint-disable-next-line max-len
+                                                    description="Part of desktop app. Menu bar item that creates a new window."
+                                                    id="tw.menuBar.newWindow"
+                                                />
+                                            </MenuItem>
+                                        )}
+                                        {(this.props.canSave ||
+                                            this.props.canCreateCopy ||
+                                            this.props.canRemix) && (
+                                            <MenuSection>
+                                                {this.props.canSave && (
+                                                    <MenuItem
+                                                        onClick={
+                                                            this.handleClickSave
+                                                        }
+                                                    >
+                                                        {saveNowMessage}
+                                                    </MenuItem>
+                                                )}
+                                                {this.props.canCreateCopy && (
+                                                    <MenuItem
+                                                        onClick={
+                                                            this
+                                                                .handleClickSaveAsCopy
+                                                        }
+                                                    >
+                                                        {createCopyMessage}
+                                                    </MenuItem>
+                                                )}
+                                                {this.props.canRemix && (
+                                                    <MenuItem
+                                                        onClick={
+                                                            this
+                                                                .handleClickRemix
+                                                        }
+                                                    >
+                                                        {remixMessage}
+                                                    </MenuItem>
+                                                )}
+                                            </MenuSection>
+                                        )}
+                                        <MenuSection>
+                                            <MenuItem
+                                                onClick={
+                                                    this.props
+                                                        .onStartSelectingFileUpload
+                                                }
+                                            >
+                                                {this.props.intl.formatMessage(
+                                                    sharedMessages.loadFromComputerTitle
+                                                )}
+                                            </MenuItem>
+                                            <SB3Downloader
+                                                showSaveFilePicker={
+                                                    this.props
+                                                        .showSaveFilePicker
+                                                }
+                                            >
+                                                {(
+                                                    _className,
+                                                    downloadProject,
+                                                    extended
+                                                ) => (
+                                                    <React.Fragment>
+                                                        {extended.available && (
+                                                            <React.Fragment>
+                                                                {extended.name !==
+                                                                    null && (
+                                                                    // eslint-disable-next-line max-len
+                                                                    <MenuItem
+                                                                        onClick={this.getSaveToComputerHandler(
+                                                                            extended.saveToLastFile
+                                                                        )}
+                                                                    >
+                                                                        <FormattedMessage
+                                                                            defaultMessage="Save to {file}"
+                                                                            // eslint-disable-next-line max-len
+                                                                            description="Menu bar item to save project to an existing file on the user's computer"
+                                                                            id="tw.saveTo"
+                                                                            values={{
+                                                                                file: extended.name,
+                                                                            }}
+                                                                        />
+                                                                    </MenuItem>
+                                                                )}
+                                                                {/* eslint-disable-next-line max-len */}
+                                                                <MenuItem
+                                                                    onClick={this.getSaveToComputerHandler(
+                                                                        extended.saveAsNew
+                                                                    )}
+                                                                >
+                                                                    <FormattedMessage
+                                                                        defaultMessage="Save as..."
+                                                                        // eslint-disable-next-line max-len
+                                                                        description="Menu bar item to select a new file to save the project as"
+                                                                        id="tw.saveAs"
+                                                                    />
+                                                                </MenuItem>
+                                                            </React.Fragment>
+                                                        )}
+                                                        {notScratchDesktop() && (
+                                                            <MenuItem
+                                                                onClick={this.getSaveToComputerHandler(
+                                                                    downloadProject
+                                                                )}
+                                                            >
+                                                                {extended.available ? (
+                                                                    <FormattedMessage
+                                                                        defaultMessage="Save to separate file..."
+                                                                        // eslint-disable-next-line max-len
+                                                                        description="Download the project once, without being able to easily save to the same spot"
+                                                                        id="tw.oldDownload"
+                                                                    />
+                                                                ) : (
+                                                                    <FormattedMessage
+                                                                        defaultMessage="Save to your computer"
+                                                                        description="Menu bar item for downloading a project to your computer" // eslint-disable-line max-len
+                                                                        id="gui.menuBar.downloadToComputer"
+                                                                    />
+                                                                )}
+                                                            </MenuItem>
+                                                        )}
+                                                    </React.Fragment>
+                                                )}
+                                            </SB3Downloader>
+                                        </MenuSection>
+                                        {this.props.onClickPackager && (
+                                            <MenuSection>
+                                                <MenuItem
+                                                    onClick={
+                                                        this.handleClickPackager
+                                                    }
+                                                >
+                                                    <FormattedMessage
+                                                        defaultMessage="Package project"
+                                                        // eslint-disable-next-line max-len
+                                                        description="Menu bar item to open the current project in the packager"
+                                                        id="tw.menuBar.package"
+                                                    />
+                                                </MenuItem>
+                                            </MenuSection>
+                                        )}
+                                        <MenuSection>
+                                            <MenuItem
+                                                onClick={
+                                                    this
+                                                        .handleClickRestorePoints
+                                                }
+                                            >
+                                                <FormattedMessage
+                                                    defaultMessage="Restore points"
+                                                    description="Menu bar item to manage restore points"
+                                                    id="tw.menuBar.restorePoints"
+                                                />
+                                            </MenuItem>
+                                        </MenuSection>
+                                    </MenuBarMenu>
+                                </MenuLabel>
+                            </div>
+                        )}
+                        <div className={styles.editButton}>
                             <MenuLabel
-                                open={this.props.fileMenuOpen}
-                                onOpen={this.props.onClickFile}
-                                onClose={this.props.onRequestCloseFile}
+                                open={this.props.editMenuOpen}
+                                onOpen={this.props.onClickEdit}
+                                onClose={this.props.onRequestCloseEdit}
                             >
                                 <img
-                                    src={fileIcon}
+                                    src={editIcon}
                                     draggable={false}
                                     width={20}
                                     height={20}
+                                    className={styles.buttonIcon}
                                 />
                                 <span className={styles.collapsibleLabel}>
                                     <FormattedMessage
-                                        defaultMessage="File"
-                                        description="Text for file dropdown menu"
-                                        id="gui.menuBar.file"
+                                        defaultMessage="Edit"
+                                        description="Text for edit dropdown menu"
+                                        id="gui.menuBar.edit"
                                     />
                                 </span>
                                 <img
@@ -632,332 +844,152 @@ class MenuBar extends React.Component {
                                 />
                                 <MenuBarMenu
                                     className={classNames(styles.menuBarMenu)}
-                                    open={this.props.fileMenuOpen}
+                                    open={this.props.editMenuOpen}
                                     place={this.props.isRtl ? "left" : "right"}
                                 >
-                                    <MenuItem
-                                        isRtl={this.props.isRtl}
-                                        onClick={this.handleClickNew}
-                                    >
-                                        {newProjectMessage}
-                                    </MenuItem>
-                                    {this.props.onClickNewWindow && (
-                                        <MenuItem
-                                            isRtl={this.props.isRtl}
-                                            onClick={this.handleClickNewWindow}
-                                        >
-                                            <FormattedMessage
-                                                defaultMessage="New window"
-                                                // eslint-disable-next-line max-len
-                                                description="Part of desktop app. Menu bar item that creates a new window."
-                                                id="tw.menuBar.newWindow"
-                                            />
-                                        </MenuItem>
-                                    )}
-                                    {(this.props.canSave ||
-                                        this.props.canCreateCopy ||
-                                        this.props.canRemix) && (
-                                        <MenuSection>
-                                            {this.props.canSave && (
-                                                <MenuItem
-                                                    onClick={
-                                                        this.handleClickSave
-                                                    }
-                                                >
-                                                    {saveNowMessage}
-                                                </MenuItem>
-                                            )}
-                                            {this.props.canCreateCopy && (
-                                                <MenuItem
-                                                    onClick={
-                                                        this
-                                                            .handleClickSaveAsCopy
-                                                    }
-                                                >
-                                                    {createCopyMessage}
-                                                </MenuItem>
-                                            )}
-                                            {this.props.canRemix && (
-                                                <MenuItem
-                                                    onClick={
-                                                        this.handleClickRemix
-                                                    }
-                                                >
-                                                    {remixMessage}
-                                                </MenuItem>
-                                            )}
-                                        </MenuSection>
-                                    )}
-                                    <MenuSection>
-                                        <MenuItem
-                                            onClick={
-                                                this.props
-                                                    .onStartSelectingFileUpload
-                                            }
-                                        >
-                                            {this.props.intl.formatMessage(
-                                                sharedMessages.loadFromComputerTitle
-                                            )}
-                                        </MenuItem>
-                                        <SB3Downloader
-                                            showSaveFilePicker={
-                                                this.props.showSaveFilePicker
-                                            }
-                                        >
+                                    {this.props.isPlayerOnly ? null : (
+                                        <DeletionRestorer>
                                             {(
-                                                _className,
-                                                downloadProject,
-                                                extended
+                                                handleRestore,
+                                                { restorable, deletedItem }
                                             ) => (
-                                                <React.Fragment>
-                                                    {extended.available && (
-                                                        <React.Fragment>
-                                                            {extended.name !==
-                                                                null && (
-                                                                // eslint-disable-next-line max-len
-                                                                <MenuItem
-                                                                    onClick={this.getSaveToComputerHandler(
-                                                                        extended.saveToLastFile
-                                                                    )}
-                                                                >
-                                                                    <FormattedMessage
-                                                                        defaultMessage="Save to {file}"
-                                                                        // eslint-disable-next-line max-len
-                                                                        description="Menu bar item to save project to an existing file on the user's computer"
-                                                                        id="tw.saveTo"
-                                                                        values={{
-                                                                            file: extended.name,
-                                                                        }}
-                                                                    />
-                                                                </MenuItem>
-                                                            )}
-                                                            {/* eslint-disable-next-line max-len */}
-                                                            <MenuItem
-                                                                onClick={this.getSaveToComputerHandler(
-                                                                    extended.saveAsNew
-                                                                )}
-                                                            >
-                                                                <FormattedMessage
-                                                                    defaultMessage="Save as..."
-                                                                    // eslint-disable-next-line max-len
-                                                                    description="Menu bar item to select a new file to save the project as"
-                                                                    id="tw.saveAs"
-                                                                />
-                                                            </MenuItem>
-                                                        </React.Fragment>
+                                                <MenuItem
+                                                    className={classNames({
+                                                        [styles.disabled]:
+                                                            !restorable,
+                                                    })}
+                                                    onClick={this.handleRestoreOption(
+                                                        handleRestore
                                                     )}
-                                                    {notScratchDesktop() && (
-                                                        <MenuItem
-                                                            onClick={this.getSaveToComputerHandler(
-                                                                downloadProject
-                                                            )}
-                                                        >
-                                                            {extended.available ? (
-                                                                <FormattedMessage
-                                                                    defaultMessage="Save to separate file..."
-                                                                    // eslint-disable-next-line max-len
-                                                                    description="Download the project once, without being able to easily save to the same spot"
-                                                                    id="tw.oldDownload"
-                                                                />
-                                                            ) : (
-                                                                <FormattedMessage
-                                                                    defaultMessage="Save to your computer"
-                                                                    description="Menu bar item for downloading a project to your computer" // eslint-disable-line max-len
-                                                                    id="gui.menuBar.downloadToComputer"
-                                                                />
-                                                            )}
-                                                        </MenuItem>
+                                                >
+                                                    {this.restoreOptionMessage(
+                                                        deletedItem
                                                     )}
-                                                </React.Fragment>
+                                                </MenuItem>
                                             )}
-                                        </SB3Downloader>
-                                    </MenuSection>
-                                    {this.props.onClickPackager && (
-                                        <MenuSection>
-                                            <MenuItem
-                                                onClick={
-                                                    this.handleClickPackager
-                                                }
-                                            >
-                                                <FormattedMessage
-                                                    defaultMessage="Package project"
-                                                    // eslint-disable-next-line max-len
-                                                    description="Menu bar item to open the current project in the packager"
-                                                    id="tw.menuBar.package"
-                                                />
-                                            </MenuItem>
-                                        </MenuSection>
+                                        </DeletionRestorer>
                                     )}
+                                    <MenuSection>
+                                        <TurboMode>
+                                            {(
+                                                toggleTurboMode,
+                                                { turboMode }
+                                            ) => (
+                                                <MenuItem
+                                                    onClick={toggleTurboMode}
+                                                >
+                                                    {turboMode ? (
+                                                        <FormattedMessage
+                                                            defaultMessage="Turn off Turbo Mode"
+                                                            description="Menu bar item for turning off turbo mode"
+                                                            id="gui.menuBar.turboModeOff"
+                                                        />
+                                                    ) : (
+                                                        <FormattedMessage
+                                                            defaultMessage="Turn on Turbo Mode"
+                                                            description="Menu bar item for turning on turbo mode"
+                                                            id="gui.menuBar.turboModeOn"
+                                                        />
+                                                    )}
+                                                </MenuItem>
+                                            )}
+                                        </TurboMode>
+                                        <FramerateChanger>
+                                            {(
+                                                changeFramerate,
+                                                { framerate }
+                                            ) => (
+                                                <MenuItem
+                                                    onClick={changeFramerate}
+                                                >
+                                                    {framerate === 60 ? (
+                                                        <FormattedMessage
+                                                            defaultMessage="Turn off 60 FPS Mode"
+                                                            description="Menu bar item for turning off 60 FPS mode"
+                                                            id="tw.menuBar.60off"
+                                                        />
+                                                    ) : (
+                                                        <FormattedMessage
+                                                            defaultMessage="Turn on 60 FPS Mode"
+                                                            description="Menu bar item for turning on 60 FPS mode"
+                                                            id="tw.menuBar.60on"
+                                                        />
+                                                    )}
+                                                </MenuItem>
+                                            )}
+                                        </FramerateChanger>
+                                        <ChangeUsername>
+                                            {changeUsername => (
+                                                <MenuItem
+                                                    onClick={changeUsername}
+                                                >
+                                                    <FormattedMessage
+                                                        defaultMessage="Change Username"
+                                                        description="Menu bar item for changing the username"
+                                                        id="tw.menuBar.changeUsername"
+                                                    />
+                                                </MenuItem>
+                                            )}
+                                        </ChangeUsername>
+                                        <CloudVariablesToggler>
+                                            {(
+                                                toggleCloudVariables,
+                                                {
+                                                    enabled,
+                                                    canUseCloudVariables,
+                                                }
+                                            ) => (
+                                                <MenuItem
+                                                    className={classNames({
+                                                        [styles.disabled]:
+                                                            !canUseCloudVariables,
+                                                    })}
+                                                    onClick={
+                                                        toggleCloudVariables
+                                                    }
+                                                >
+                                                    {canUseCloudVariables ? (
+                                                        enabled ? (
+                                                            <FormattedMessage
+                                                                defaultMessage="Disable Cloud Variables"
+                                                                description="Menu bar item for disabling cloud variables"
+                                                                id="tw.menuBar.cloudOff"
+                                                            />
+                                                        ) : (
+                                                            <FormattedMessage
+                                                                defaultMessage="Enable Cloud Variables"
+                                                                description="Menu bar item for enabling cloud variables"
+                                                                id="tw.menuBar.cloudOn"
+                                                            />
+                                                        )
+                                                    ) : (
+                                                        <FormattedMessage
+                                                            defaultMessage="Cloud Variables are not Available"
+                                                            // eslint-disable-next-line max-len
+                                                            description="Menu bar item for when cloud variables are not available"
+                                                            id="tw.menuBar.cloudUnavailable"
+                                                        />
+                                                    )}
+                                                </MenuItem>
+                                            )}
+                                        </CloudVariablesToggler>
+                                    </MenuSection>
                                     <MenuSection>
                                         <MenuItem
                                             onClick={
-                                                this.handleClickRestorePoints
+                                                this.props.onClickSettingsModal
                                             }
                                         >
                                             <FormattedMessage
-                                                defaultMessage="Restore points"
-                                                description="Menu bar item to manage restore points"
-                                                id="tw.menuBar.restorePoints"
+                                                defaultMessage="Advanced Settings"
+                                                description="Menu bar item for advanced settings"
+                                                id="tw.menuBar.moreSettings"
                                             />
                                         </MenuItem>
                                     </MenuSection>
                                 </MenuBarMenu>
                             </MenuLabel>
-                        )}
-                        <MenuLabel
-                            open={this.props.editMenuOpen}
-                            onOpen={this.props.onClickEdit}
-                            onClose={this.props.onRequestCloseEdit}
-                        >
-                            <img
-                                src={editIcon}
-                                draggable={false}
-                                width={20}
-                                height={20}
-                            />
-                            <span className={styles.collapsibleLabel}>
-                                <FormattedMessage
-                                    defaultMessage="Edit"
-                                    description="Text for edit dropdown menu"
-                                    id="gui.menuBar.edit"
-                                />
-                            </span>
-                            <img
-                                src={dropdownCaret}
-                                draggable={false}
-                                width={8}
-                                height={5}
-                            />
-                            <MenuBarMenu
-                                className={classNames(styles.menuBarMenu)}
-                                open={this.props.editMenuOpen}
-                                place={this.props.isRtl ? "left" : "right"}
-                            >
-                                {this.props.isPlayerOnly ? null : (
-                                    <DeletionRestorer>
-                                        {(
-                                            handleRestore,
-                                            { restorable, deletedItem }
-                                        ) => (
-                                            <MenuItem
-                                                className={classNames({
-                                                    [styles.disabled]:
-                                                        !restorable,
-                                                })}
-                                                onClick={this.handleRestoreOption(
-                                                    handleRestore
-                                                )}
-                                            >
-                                                {this.restoreOptionMessage(
-                                                    deletedItem
-                                                )}
-                                            </MenuItem>
-                                        )}
-                                    </DeletionRestorer>
-                                )}
-                                <MenuSection>
-                                    <TurboMode>
-                                        {(toggleTurboMode, { turboMode }) => (
-                                            <MenuItem onClick={toggleTurboMode}>
-                                                {turboMode ? (
-                                                    <FormattedMessage
-                                                        defaultMessage="Turn off Turbo Mode"
-                                                        description="Menu bar item for turning off turbo mode"
-                                                        id="gui.menuBar.turboModeOff"
-                                                    />
-                                                ) : (
-                                                    <FormattedMessage
-                                                        defaultMessage="Turn on Turbo Mode"
-                                                        description="Menu bar item for turning on turbo mode"
-                                                        id="gui.menuBar.turboModeOn"
-                                                    />
-                                                )}
-                                            </MenuItem>
-                                        )}
-                                    </TurboMode>
-                                    <FramerateChanger>
-                                        {(changeFramerate, { framerate }) => (
-                                            <MenuItem onClick={changeFramerate}>
-                                                {framerate === 60 ? (
-                                                    <FormattedMessage
-                                                        defaultMessage="Turn off 60 FPS Mode"
-                                                        description="Menu bar item for turning off 60 FPS mode"
-                                                        id="tw.menuBar.60off"
-                                                    />
-                                                ) : (
-                                                    <FormattedMessage
-                                                        defaultMessage="Turn on 60 FPS Mode"
-                                                        description="Menu bar item for turning on 60 FPS mode"
-                                                        id="tw.menuBar.60on"
-                                                    />
-                                                )}
-                                            </MenuItem>
-                                        )}
-                                    </FramerateChanger>
-                                    <ChangeUsername>
-                                        {changeUsername => (
-                                            <MenuItem onClick={changeUsername}>
-                                                <FormattedMessage
-                                                    defaultMessage="Change Username"
-                                                    description="Menu bar item for changing the username"
-                                                    id="tw.menuBar.changeUsername"
-                                                />
-                                            </MenuItem>
-                                        )}
-                                    </ChangeUsername>
-                                    <CloudVariablesToggler>
-                                        {(
-                                            toggleCloudVariables,
-                                            { enabled, canUseCloudVariables }
-                                        ) => (
-                                            <MenuItem
-                                                className={classNames({
-                                                    [styles.disabled]:
-                                                        !canUseCloudVariables,
-                                                })}
-                                                onClick={toggleCloudVariables}
-                                            >
-                                                {canUseCloudVariables ? (
-                                                    enabled ? (
-                                                        <FormattedMessage
-                                                            defaultMessage="Disable Cloud Variables"
-                                                            description="Menu bar item for disabling cloud variables"
-                                                            id="tw.menuBar.cloudOff"
-                                                        />
-                                                    ) : (
-                                                        <FormattedMessage
-                                                            defaultMessage="Enable Cloud Variables"
-                                                            description="Menu bar item for enabling cloud variables"
-                                                            id="tw.menuBar.cloudOn"
-                                                        />
-                                                    )
-                                                ) : (
-                                                    <FormattedMessage
-                                                        defaultMessage="Cloud Variables are not Available"
-                                                        // eslint-disable-next-line max-len
-                                                        description="Menu bar item for when cloud variables are not available"
-                                                        id="tw.menuBar.cloudUnavailable"
-                                                    />
-                                                )}
-                                            </MenuItem>
-                                        )}
-                                    </CloudVariablesToggler>
-                                </MenuSection>
-                                <MenuSection>
-                                    <MenuItem
-                                        onClick={
-                                            this.props.onClickSettingsModal
-                                        }
-                                    >
-                                        <FormattedMessage
-                                            defaultMessage="Advanced Settings"
-                                            description="Menu bar item for advanced settings"
-                                            id="tw.menuBar.moreSettings"
-                                        />
-                                    </MenuItem>
-                                </MenuSection>
-                            </MenuBarMenu>
-                        </MenuLabel>
+                        </div>
                         {this.props.isTotallyNormal && (
                             <MenuLabel
                                 open={this.props.modeMenuOpen}

@@ -29,46 +29,54 @@ const SettingsMenu = ({
     onRequestOpen,
     settingsMenuOpen,
 }) => (
-    <MenuLabel
-        open={settingsMenuOpen}
-        onOpen={onRequestOpen}
-        onClose={onRequestClose}
-    >
-        <img src={settingsIcon} draggable={false} width={20} height={20} />
-        <span className={styles.dropdownLabel}>
-            <FormattedMessage
-                defaultMessage="Settings"
-                description="Settings menu"
-                id="gui.menuBar.settings"
-            />
-        </span>
-        <img src={dropdownCaret} draggable={false} width={8} height={5} />
-        <MenuBarMenu
-            className={menuBarStyles.menuBarMenu}
+    <div className={menuBarStyles.settingsButton}>
+        <MenuLabel
             open={settingsMenuOpen}
-            place={isRtl ? "left" : "right"}
+            onOpen={onRequestOpen}
+            onClose={onRequestClose}
         >
-            <MenuSection>
-                {canChangeLanguage && (
-                    <LanguageMenu onRequestCloseSettings={onRequestClose} />
-                )}
-                {canChangeTheme && (
-                    <React.Fragment>
-                        <TWGuiThemeMenu />
-                        <TWBlocksThemeMenu
-                            onOpenCustomSettings={onOpenCustomSettings}
-                        />
-                        <TWAccentThemeMenu />
-                        <AmpAddonSettings />
-                    </React.Fragment>
-                )}
-                {onClickDesktopSettings && (
-                    <TWDesktopSettings onClick={onClickDesktopSettings} />
-                )}
-                <AmpInstallPWA />
-            </MenuSection>
-        </MenuBarMenu>
-    </MenuLabel>
+            <img
+                src={settingsIcon}
+                draggable={false}
+                width={20}
+                height={20}
+                className={menuBarStyles.buttonIcon}
+            />
+            <span className={styles.dropdownLabel}>
+                <FormattedMessage
+                    defaultMessage="Settings"
+                    description="Settings menu"
+                    id="gui.menuBar.settings"
+                />
+            </span>
+            <img src={dropdownCaret} draggable={false} width={8} height={5} />
+            <MenuBarMenu
+                className={menuBarStyles.menuBarMenu}
+                open={settingsMenuOpen}
+                place={isRtl ? "left" : "right"}
+            >
+                <MenuSection>
+                    {canChangeLanguage && (
+                        <LanguageMenu onRequestCloseSettings={onRequestClose} />
+                    )}
+                    {canChangeTheme && (
+                        <React.Fragment>
+                            <TWGuiThemeMenu />
+                            <TWBlocksThemeMenu
+                                onOpenCustomSettings={onOpenCustomSettings}
+                            />
+                            <TWAccentThemeMenu />
+                            <AmpAddonSettings />
+                        </React.Fragment>
+                    )}
+                    {onClickDesktopSettings && (
+                        <TWDesktopSettings onClick={onClickDesktopSettings} />
+                    )}
+                    <AmpInstallPWA />
+                </MenuSection>
+            </MenuBarMenu>
+        </MenuLabel>
+    </div>
 );
 
 SettingsMenu.propTypes = {

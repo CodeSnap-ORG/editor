@@ -59,7 +59,8 @@
     cursor: pointer;
 }
 
-.menu-bar-item {
+.menu-bar-item,
+:global(.sa-record) {
     display: flex;
     text-decoration: none;
     user-select: none;
@@ -72,13 +73,15 @@
     transition: background-color 0.15s;
 }
 
-.menu-bar-item.hoverable {
+.menu-bar-item.hoverable,
+:global(.sa-record) {
     cursor: pointer;
     padding: 0 0.9em;
 }
 
 .menu-bar-item.active,
-.menu-bar-item.hoverable:hover {
+.menu-bar-item.hoverable:hover,
+:global(.sa-record:hover) {
     background-color: $menu-bar-hover;
 }
 
@@ -250,4 +253,25 @@
 .menu-item-link {
     color: inherit;
     text-decoration: none;
+}
+
+.settings-button .button-icon,
+.file-button .button-icon,
+.edit-button .button-icon {
+    transition: transform 0.15s ease;
+}
+
+.settings-button:hover .button-icon,
+.settings-button .menu-bar-item.active .button-icon {
+    transform: rotateZ(90deg);
+}
+
+.file-button:hover .button-icon,
+.file-button .menu-bar-item.active .button-icon {
+    transform: rotateX(15deg) rotateY(17deg);
+}
+
+.edit-button:hover .button-icon,
+.edit-button .menu-bar-item.active .button-icon {
+    transform: translateX(4px) rotateZ(-25deg);
 }
