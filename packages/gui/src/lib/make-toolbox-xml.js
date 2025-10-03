@@ -879,7 +879,7 @@ const arrays = function (isInitialSetup, isStage, targetId, colors) {
         <block type="arrays_item_of">
             <value name="INDEX">
                 <shadow type="data_listindexrandom">
-                    <field name="NUM">1</field>
+                    <field name="INDEX">1</field>
                 </shadow>
             </value>
         </block>
@@ -921,7 +921,7 @@ const arrays = function (isInitialSetup, isStage, targetId, colors) {
             </value>
             <value name="INDEX">
                 <shadow type="data_listindexrandom">
-                    <field name="NUM">1</field>
+                    <field name="INDEX">1</field>
                 </shadow>
             </value>
         </block>
