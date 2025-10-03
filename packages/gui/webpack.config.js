@@ -8,6 +8,8 @@ const monorepoPackageJson = require("../../package.json");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 // PostCss
 const autoprefixer = require("autoprefixer");
@@ -194,7 +196,7 @@ const base = {
                 },
             ],
         }),
-        new CompressionPlugin({
+        /* new CompressionPlugin({
             filename:
                 process.env.NODE_ENV === "production"
                     ? `js/${CACHE_EPOCH}/[name].js.br`
@@ -222,7 +224,7 @@ const base = {
             threshold: 1,
             minRatio: 0,
             deleteOriginalAssets: true,
-        }),
+        }), */
     ],
 };
 
@@ -255,6 +257,55 @@ module.exports = [
                 minSize: 50000,
                 maxInitialRequests: 5,
             },
+            minimizer: [
+                new TerserPlugin({
+                    terserOptions: {
+                        compress: {
+                            drop_console: true,
+                            drop_debugger: true,
+                            toplevel: true,
+                            unsafe: true,
+                            unused: true,
+                            sequences: true,
+                            collapse_vars: true,
+                            booleans: true,
+                            comparisons: true,
+                            dead_code: true,
+                            evaluate: true,
+                            inline: true,
+                            if_return: true,
+                            join_vars: true,
+                            loops: true,
+                            properties: true,
+                            reduce_funcs: true,
+                            reduce_vars: true,
+                            side_effects: true,
+                            switches: true,
+                            typeofs: true,
+                            unsafe_arrows: true,
+                            unsafe_comps: true,
+                            unsafe_Function: true,
+                            unsafe_math: true,
+                            unsafe_methods: true,
+                            unsafe_proto: true,
+                            unsafe_regexp: true,
+                            unsafe_undefined: true,
+                        },
+                        mangle: {
+                            toplevel: true,
+                            properties: {
+                                regex: /^_/,
+                            },
+                        },
+                        output: {
+                            comments: false,
+                            beautify: false,
+                        },
+                    },
+                    parallel: true,
+                }),
+                new OptimizeCSSAssetsPlugin({}),
+            ],
         },
         plugins: base.plugins.concat([
             new webpack.DefinePlugin({
