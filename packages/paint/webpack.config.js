@@ -1,4 +1,5 @@
 const defaultsDeep = require("lodash.defaultsdeep");
+const webpack = require("webpack");
 const path = require("path");
 
 // Plugins

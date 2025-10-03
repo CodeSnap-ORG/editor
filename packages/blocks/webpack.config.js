@@ -1,6 +1,7 @@
 // patch 'fs' to fix EMFILE errors, for example on WSL
 var realFs = require("fs");
 var gracefulFs = require("graceful-fs");
+const webpack = require("webpack");
 gracefulFs.gracefulify(realFs);
 
 var CopyWebpackPlugin = require("copy-webpack-plugin");
