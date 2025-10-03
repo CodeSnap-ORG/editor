@@ -427,16 +427,18 @@ const drawEllipse = function (options, context) {
 
 const rowBlank_ = function (imageData, width, y) {
     for (let x = 0; x < width; ++x) {
-        if (imageData.data[((y * width) << 2) + (x << 2) + 3] !== 0)
+        if (imageData.data[((y * width) << 2) + (x << 2) + 3] !== 0) {
             return false;
+        }
     }
     return true;
 };
 
 const columnBlank_ = function (imageData, width, x, top, bottom) {
     for (let y = top; y < bottom; ++y) {
-        if (imageData.data[((y * width) << 2) + (x << 2) + 3] !== 0)
+        if (imageData.data[((y * width) << 2) + (x << 2) + 3] !== 0) {
             return false;
+        }
     }
     return true;
 };
@@ -459,15 +461,18 @@ const getHitBounds = function (raster, rect) {
     let right = imageData.width;
 
     while (top < bottom && rowBlank_(imageData, width, top)) ++top;
-    while (bottom - 1 > top && rowBlank_(imageData, width, bottom - 1))
+    while (bottom - 1 > top && rowBlank_(imageData, width, bottom - 1)) {
         --bottom;
-    while (left < right && columnBlank_(imageData, width, left, top, bottom))
+    }
+    while (left < right && columnBlank_(imageData, width, left, top, bottom)) {
         ++left;
+    }
     while (
         right - 1 > left &&
         columnBlank_(imageData, width, right - 1, top, bottom)
-    )
+    ) {
         --right;
+    }
 
     // Center an empty bitmap
     if (top === bottom) {
@@ -842,10 +847,11 @@ const fillRect = function (rect, context) {
     );
 
     const solveY = (point1, point2, x) => {
-        if (point2.x === point1.x)
+        if (point2.x === point1.x) {
             return center.x > point1.x
                 ? Number.NEGATIVE_INFINITY
                 : Number.POSITIVE_INFINITY;
+        }
         return (
             ((point2.y - point1.y) / (point2.x - point1.x)) * (x - point1.x) +
             point1.y

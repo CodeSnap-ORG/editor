@@ -345,8 +345,9 @@ const applyGradientTypeToSelection = function (
         // If this is a stroke, we don't display it as having a gradient in the color picker
         // if there's no stroke width. Then treat it as if it doesn't have a gradient.
         let hasDisplayGradient = hasGradient;
-        if (applyToStroke)
+        if (applyToStroke) {
             hasDisplayGradient = hasGradient && item.strokeWidth > 0;
+        }
         if (!hasDisplayGradient) {
             const noColorOriginally =
                 !itemColor ||
@@ -460,8 +461,9 @@ const _colorStateFromGradient = gradient => {
                 ? null
                 : gradient.stops[1].color.toCSS();
     } else {
-        if (gradient.stops.length < 2)
+        if (gradient.stops.length < 2) {
             log.warn(`Gradient has ${gradient.stops.length} stop(s)`);
+        }
 
         colorState.primary = MIXED;
         colorState.secondary = MIXED;
@@ -620,8 +622,9 @@ const getColorsFromSelection = function (selectedItems, bitmapMode) {
     // whereas we want them to show as horizontal (or vertical if the first item is vertical)
     if (selectedItems && selectedItems.length) {
         let firstItem = selectedItems[0];
-        if (firstItem.parent instanceof paper.CompoundPath)
+        if (firstItem.parent instanceof paper.CompoundPath) {
             firstItem = firstItem.parent;
+        }
 
         if (selectionFillGradientType !== GradientTypes.SOLID) {
             // Stroke color is fill color in bitmap if fill color is missing
@@ -721,8 +724,9 @@ const styleShape = function (path, options) {
             );
         }
     }
-    if (Object.prototype.hasOwnProperty.call(options, "strokeWidth"))
+    if (Object.prototype.hasOwnProperty.call(options, "strokeWidth")) {
         path.strokeWidth = options.strokeWidth;
+    }
 };
 
 export {

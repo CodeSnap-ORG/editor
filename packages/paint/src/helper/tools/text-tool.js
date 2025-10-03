@@ -375,7 +375,9 @@ class TextTool extends paper.Tool {
         // The transform origin needs to be updated in RTL because this.textBox.internalBounds.x
         // changes as you type
         if (this.rtl) {
-            this.element.style.transformOrigin = `${-this.textBox.internalBounds.x}px ${-this.textBox.internalBounds.y}px`;
+            // prettier-ignore
+            this.element.style.transformOrigin =
+                `${-this.textBox.internalBounds.x}px ${-this.textBox.internalBounds.y}px`;
         }
     }
     beginSelect() {

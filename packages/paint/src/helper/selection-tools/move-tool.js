@@ -94,8 +94,9 @@ class MoveTool {
             }
             this._select(item, true, hitProperties.subselect);
         }
-        if (hitProperties.clone)
+        if (hitProperties.clone) {
             cloneSelection(hitProperties.subselect, this.onUpdateImage);
+        }
 
         this.selectedItems =
             this.mode === Modes.RESHAPE
