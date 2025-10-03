@@ -301,7 +301,7 @@ module.exports = [
                           }),
                           new OptimizeCSSAssetsPlugin({}),
                       ]
-                    : false,
+                    : [],
         },
         plugins: base.plugins.concat([
             new webpack.DefinePlugin({
