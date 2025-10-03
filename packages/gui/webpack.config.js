@@ -291,12 +291,6 @@ module.exports = [
                             unsafe_regexp: true,
                             unsafe_undefined: true,
                         },
-                        mangle: {
-                            toplevel: true,
-                            properties: {
-                                regex: /^_/,
-                            },
-                        },
                         output: {
                             comments: false,
                             beautify: false,
