@@ -258,7 +258,7 @@ module.exports = [
                 maxInitialRequests: 5,
             },
             minimizer:
-                NODE_ENV == "production"
+                process.env.NODE_ENV == "production"
                     ? [
                           new TerserPlugin({
                               terserOptions: {
