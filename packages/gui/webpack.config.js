@@ -34,6 +34,21 @@ const htmlWebpackPluginCommon = {
     meta: JSON.parse(process.env.EXTRA_META || "{}"),
     isCbp: process.env.IS_CBP_BUILD || false,
     APP_NAME,
+    minify:
+        process.env.NODE_ENV === "production"
+            ? {
+                  removeComments: true,
+                  collapseWhitespace: true,
+                  removeRedundantAttributes: true,
+                  useShortDoctype: true,
+                  removeEmptyAttributes: true,
+                  removeStyleLinkTypeAttributes: true,
+                  keepClosingSlash: true,
+                  minifyJS: true,
+                  minifyCSS: true,
+                  minifyURLs: true,
+              }
+            : false,
 };
 
 // When this changes, the path for all JS files will change, bypassing any HTTP caches
