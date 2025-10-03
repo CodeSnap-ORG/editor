@@ -170,6 +170,7 @@ class OpcodeLabels {
             motion_direction: { category: "motion" },
             motion_xposition: { category: "motion" },
             motion_yposition: { category: "motion" },
+            motion_position: { category: "motion" },
 
             // Looks
             looks_size: { category: "looks" },
@@ -223,6 +224,8 @@ class OpcodeLabels {
             this._translator(messages.motion_xposition);
         this._opcodeMap.motion_yposition.labelFn = () =>
             this._translator(messages.motion_yposition);
+        this._opcodeMap.motion_position.labelFn = () =>
+            this._translator(messages.motion_position);
 
         // Looks
         this._opcodeMap.looks_size.labelFn = () =>
