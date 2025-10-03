@@ -3,7 +3,7 @@
         "curly": ["error", "multi-line"],
         "eol-last": ["error"],
         "indent": [
-            "info", 2,  # Blockly/Google use 2-space indents
+            "off", 2,  # Blockly/Google use 2-space indents
             # Blockly/Google uses +4 space indents for line continuations.
             {
                 "SwitchCase": 1,
