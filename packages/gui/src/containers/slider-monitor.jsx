@@ -16,7 +16,7 @@ class SliderMonitor extends React.Component {
             value: props.value,
         };
     }
-    useEffect(nextProps) {
+    componentWillReceiveProps(nextProps) {
         if (this.state.value !== nextProps.value) {
             this.setState({ value: nextProps.value });
         }

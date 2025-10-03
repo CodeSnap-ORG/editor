@@ -40,7 +40,7 @@ const cloudManagerHOC = function (WrappedComponent) {
                 this.connectToCloud();
             }
         }
-        useEffect(nextProps) {
+        componentWillReceiveProps(nextProps) {
             if (this.props.reduxCloudHost !== nextProps.cloudHost) {
                 this.props.onSetReduxCloudHost(nextProps.cloudHost);
             }
