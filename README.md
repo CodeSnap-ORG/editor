@@ -54,8 +54,4 @@ you to follow these.
 
 ## Licence
 
-The licence for each package is in their respective folders.
-
-Any files outside of `packages` and `.woodpecker` are under the 0BSD licence.
-
-The `.woodpecker` folder is under the GPL v3.
+See [LICENSE.md](LICENSE.md) for more information.

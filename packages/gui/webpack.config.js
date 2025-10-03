@@ -17,7 +17,12 @@ const postcssVars = require("postcss-simple-vars");
 const postcssImport = require("postcss-import");
 
 const STATIC_PATH = process.env.STATIC_PATH || "/static";
-const { APP_NAME, APP_SLOGAN, APP_DESCRIPTION } = require("@ampmod/branding");
+const {
+    APP_NAME,
+    APP_SLOGAN,
+    APP_DESCRIPTION,
+    APP_SOURCE,
+} = require("@ampmod/branding");
 
 const root = process.env.ROOT || "";
 if (root.length > 0 && !root.endsWith("/")) {
@@ -179,6 +184,25 @@ const base = {
         ],
     },
     plugins: [
+        new webpack.BannerPlugin({
+            // eslint-disable-next-line max-len
+            banner: `${APP_NAME} uses multiple licenses.\nFor detailed information, see:\nhttps://codeberg.org/ampmod/ampmod/src/branch/develop/LICENSE.md\n\nSource code (open source!): ${APP_SOURCE}`,
+        }),
+        new webpack.BannerPlugin({
+            banner: `
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License version 3 as
+published by the Free Software Foundation.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+            `.trim(),
+        }),
         new CopyWebpackPlugin({
             patterns: [
                 {

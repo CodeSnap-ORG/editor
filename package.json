@@ -12,7 +12,7 @@
         "test-cbp": "npm run test-cbp --workspace packages/gui"
     },
     "author": "AmpElectrecuted",
-    "license": "GPL-3.0-only OR MPL-2.0 OR 0BSD",
+    "license": "GPL-3.0-only AND MPL-2.0 AND Apache-2.0 AND 0BSD",
     "workspaces": [
         "packages/*"
     ],
