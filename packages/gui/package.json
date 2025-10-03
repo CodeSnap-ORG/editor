@@ -23,7 +23,8 @@
         "test:lint": "eslint . --ext .js,.jsx",
         "test:unit": "jest test[\\\\/]unit[\\\\/]addons",
         "test:smoke": "jest --runInBand test[\\\\/]smoke",
-        "watch": "webpack --colors --watch"
+        "watch": "webpack --colors --watch",
+        "test-cbp": "NODE_ENV=production IS_CBP_BUILD=true npm run build && http-server build/"
     },
     "config": {
         "commitizen": {
@@ -116,6 +117,7 @@
         "eslint-plugin-react": "7.33.2",
         "file-loader": "6.2.0",
         "html-webpack-plugin": "^4.2.0",
+        "http-server": "^14.1.1",
         "jest": "^29.7.0",
         "jest-junit": "7.0.0",
         "mkdirp": "1.0.3",
