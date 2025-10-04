@@ -20,18 +20,17 @@ import styles from "./settings-menu.css";
 import dropdownCaret from "./dropdown-caret.svg";
 import settingsIcon from "./icon--settings.svg";
 
-// Konami Code sequence
-const KONAMI_CODE = [
-    "ArrowUp",
-    "ArrowUp",
-    "ArrowDown",
-    "ArrowDown",
-    "ArrowLeft",
-    "ArrowRight",
-    "ArrowLeft",
-    "ArrowRight",
-    "KeyB",
+// Sequence to type "ark" 3 times
+const ERASE_LOCK_KEYCOMB = [
     "KeyA",
+    "KeyR",
+    "KeyK",
+    "KeyA",
+    "KeyR",
+    "KeyK",
+    "KeyA",
+    "KeyR",
+    "KeyK",
 ];
 
 class SettingsMenu extends React.Component {
@@ -73,13 +72,13 @@ class SettingsMenu extends React.Component {
 
     handleKeyDown(event) {
         const { konamiIndex } = this.state;
-        const expectedKey = KONAMI_CODE[konamiIndex];
+        const expectedKey = ERASE_LOCK_KEYCOMB[konamiIndex];
         const pressedKey = event.code;
 
         if (pressedKey === expectedKey) {
             const nextIndex = konamiIndex + 1;
 
-            if (nextIndex === KONAMI_CODE.length) {
+            if (nextIndex === ERASE_LOCK_KEYCOMB.length) {
                 // Konami code completed
                 this.setState({ showAmpErase: true, konamiIndex: 0 });
             } else {
@@ -89,7 +88,7 @@ class SettingsMenu extends React.Component {
         } else {
             // Sequence broken, check if the key was the first one to restart the attempt
             this.setState({
-                konamiIndex: pressedKey === KONAMI_CODE[0] ? 1 : 0,
+                konamiIndex: pressedKey === ERASE_LOCK_KEYCOMB[0] ? 1 : 0,
             });
         }
     }
