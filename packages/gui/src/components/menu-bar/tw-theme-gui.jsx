@@ -9,6 +9,7 @@ import dropdownCaret from "./dropdown-caret.svg";
 import { MenuItem, Submenu } from "../menu/menu.jsx";
 import {
     GUI_MAP,
+    GUI_AMP_LIGHT,
     GUI_LIGHT,
     GUI_DARK,
     GUI_AMOLED,
@@ -28,10 +29,15 @@ import {
 import styles from "./settings-menu.css";
 
 const options = defineMessages({
-    [GUI_LIGHT]: {
+    [GUI_AMP_LIGHT]: {
         defaultMessage: "Light",
         description: "Light theme option",
         id: "amp.gui.light",
+    },
+    [GUI_LIGHT]: {
+        defaultMessage: "Light (Classic)",
+        description: "Light theme option",
+        id: "amp.gui.lightClassic",
     },
     [GUI_DARK]: {
         defaultMessage: "Dark",
@@ -62,7 +68,9 @@ const GuiIcon = ({ id }) => (
         <div
             className={styles.guiThemeIconOuter}
             style={{
-                backgroundColor: GUI_MAP[id].guiColors["ui-primary"],
+                backgroundColor:
+                    GUI_MAP[id].guiColors["ui-primary"] ||
+                    GUI_MAP["light"].guiColors["ui-primary"],
             }}
         >
             <div
@@ -72,7 +80,8 @@ const GuiIcon = ({ id }) => (
                         GUI_MAP[id].guiColors["high-contrast-border"] ||
                         "transparent",
                     backgroundColor:
-                        GUI_MAP[id].guiColors["menu-bar-background"],
+                        GUI_MAP[id].guiColors["menu-bar-background"] ||
+                        GUI_MAP["light"].guiColors["menu-bar-background"],
                 }}
             />
             <div
@@ -138,7 +147,13 @@ const GuiThemeMenu = ({ isOpen, isRtl, onChangeTheme, onOpen, theme }) => (
             />
         </div>
         <Submenu place={isRtl ? "left" : "right"}>
-            {[GUI_LIGHT, GUI_DARK, GUI_AMOLED, GUI_HIGH_CONTRAST].map(id => (
+            {[
+                GUI_AMP_LIGHT,
+                GUI_LIGHT,
+                GUI_DARK,
+                GUI_AMOLED,
+                GUI_HIGH_CONTRAST,
+            ].map(id => (
                 <GuiThemeItem
                     key={id}
                     id={id}

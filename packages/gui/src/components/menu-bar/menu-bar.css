@@ -88,6 +88,7 @@
 .menu-bar-item.logo {
     position: relative;
     padding: 0 1.5em;
+    filter: var(--menu-bar-icon-filter);
 }
 
 .menu-bar-item.logo img {
@@ -140,7 +141,7 @@
 }
 
 .feedback-button {
-    background-color: white;
+    background-color: $menu-bar-foreground;
     color: inherit;
     height: 34px;
 }
@@ -211,6 +212,7 @@
 .dropdown-caret-icon {
     width: 0.5rem;
     height: 0.5rem;
+    filter: var(--menu-bar-icon-filter);
 }
 
 [dir="ltr"] .dropdown-caret-icon {
@@ -219,6 +221,10 @@
 
 [dir="rtl"] .dropdown-caret-icon {
     margin-right: 0.5rem;
+}
+
+.item-dropdown-caret-icon {
+    filter: var(--menu-bar-icon-filter);
 }
 
 .disabled {
@@ -253,6 +259,7 @@
 .file-button .button-icon,
 .edit-button .button-icon {
     transition: transform 0.25s ease;
+    filter: var(--menu-bar-icon-filter);
 }
 
 .settings-button:hover .button-icon,

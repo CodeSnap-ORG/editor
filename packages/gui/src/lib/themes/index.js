@@ -8,6 +8,7 @@ import * as accentRainbow from "./accent/rainbow";
 import * as accentGrey from "./accent/grey";
 
 import * as guiLight from "./gui/light";
+import * as guiAmpLight from "./gui/amp-light";
 import * as guiDark from "./gui/dark";
 import * as guiAmoled from "./gui/amp-amoled";
 import * as guiHighContrast from "./gui/amp-high-contrast";
@@ -33,11 +34,13 @@ const ACCENT_MAP = {
 };
 const ACCENT_DEFAULT = process.env.ampmod_is_canary ? ACCENT_RED : ACCENT_GREEN;
 
-const GUI_LIGHT = "light";
+const GUI_AMP_LIGHT = "light";
+const GUI_LIGHT = "light-classic";
 const GUI_DARK = "dark";
 const GUI_AMOLED = "amoled";
 const GUI_HIGH_CONTRAST = "high-contrast";
 const GUI_MAP = {
+    [GUI_AMP_LIGHT]: guiAmpLight,
     [GUI_LIGHT]: guiLight,
     [GUI_DARK]: guiDark,
     [GUI_AMOLED]: guiAmoled,
@@ -185,6 +188,7 @@ export {
     ACCENT_GREEN,
     ACCENT_GREY,
     ACCENT_MAP,
+    GUI_AMP_LIGHT,
     GUI_LIGHT,
     GUI_DARK,
     GUI_AMOLED,

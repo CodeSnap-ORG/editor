@@ -43,6 +43,7 @@
 .expand-caret {
     transform: rotate(-90deg);
     margin-left: auto;
+    filter: var(--menu-bar-icon-filter);
 }
 
 [dir="rtl"] .expand-caret {

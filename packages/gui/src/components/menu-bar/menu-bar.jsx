@@ -515,6 +515,7 @@ class MenuBar extends React.Component {
                                         height={20}
                                     />
                                     <img
+                                        className={styles.itemDropdownCaretIcon}
                                         src={dropdownCaret}
                                         draggable={false}
                                         width={8}
@@ -627,6 +628,7 @@ class MenuBar extends React.Component {
                                         />
                                     </span>
                                     <img
+                                        className={styles.itemDropdownCaretIcon}
                                         src={dropdownCaret}
                                         draggable={false}
                                         width={8}
@@ -841,6 +843,7 @@ class MenuBar extends React.Component {
                                     draggable={false}
                                     width={8}
                                     height={5}
+                                    className={styles.itemDropdownCaretIcon}
                                 />
                                 <MenuBarMenu
                                     className={classNames(styles.menuBarMenu)}

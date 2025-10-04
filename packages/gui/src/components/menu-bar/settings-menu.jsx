@@ -49,7 +49,13 @@ const SettingsMenu = ({
                     id="gui.menuBar.settings"
                 />
             </span>
-            <img src={dropdownCaret} draggable={false} width={8} height={5} />
+            <img
+                src={dropdownCaret}
+                draggable={false}
+                width={8}
+                height={5}
+                className={menuBarStyles.itemDropdownCaretIcon}
+            />
             <MenuBarMenu
                 className={menuBarStyles.menuBarMenu}
                 open={settingsMenuOpen}
