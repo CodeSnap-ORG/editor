@@ -40,11 +40,11 @@ const guiColors = {
 
     "paint-filter-icon-gray": "none",
 
-    "menu-bar-background": "#000000",
-    "high-contrast-border": "white",
-
-    "menu-bar-hover": "blue",
+    "menu-bar-background": "#000",
+    "menu-bar-background-image": "none",
+    "menu-bar-foreground": "#ffffff",
     "menu-bar-icon-filter": "none",
+    "high-contrast-border": "white",
 
     "motion-primary": "blue",
     "motion-primary-transparent": "white",
