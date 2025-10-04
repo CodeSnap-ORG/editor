@@ -752,10 +752,8 @@ Blockly.BlockSvg.prototype.showContextMenu_ = function (e) {
     } else if (this.parentBlock_ && this.isShadow_) {
         this.parentBlock_.showContextMenu_(e);
         return;
-    } else if (block.isInFlyout) {
-        // If in flyout, show the help option.
-        menuOptions.push(Blockly.ContextMenu.blockHelpOption(block));
     }
+    menuOptions.push(Blockly.ContextMenu.blockHelpOption(block));
 
     // Allow the block to add or modify menuOptions.
     if (this.customContextMenu) {
