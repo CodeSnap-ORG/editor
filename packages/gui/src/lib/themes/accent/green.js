@@ -9,7 +9,6 @@ const guiColors = {
     "extensions-primary": "#389438",
     "extensions-tertiary": "#2e742e",
     "extensions-transparent": "hsla(120, 100%, 30%, 0.35)",
-    "extensions-light": "#4a9a4a",
     "drop-highlight": "#66bb6a",
 };
 
