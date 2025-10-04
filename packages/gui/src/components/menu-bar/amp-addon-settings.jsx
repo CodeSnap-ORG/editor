@@ -26,7 +26,13 @@ const GuiThemeMenu = ({ onChangeTheme, theme }) => (
             // eslint-disable-next-line react/jsx-no-bind
             onClick={handleClickAddonSettings}
         >
-            <img src={addonsIcon} draggable={false} width={24} height={24} />
+            <img
+                src={addonsIcon}
+                draggable={false}
+                width={24}
+                height={24}
+                className={styles.icon}
+            />
             <span className={styles.submenuLabel}>
                 <FormattedMessage
                     defaultMessage="Addons"

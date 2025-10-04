@@ -26,6 +26,7 @@
 
 .selected {
     visibility: visible;
+    filter: var(--menu-bar-icon-filter);
 }
 
 .submenu-label {
@@ -139,4 +140,8 @@
 
 .open-link {
     margin-left: 0.5rem;
+}
+
+.icon {
+    filter: var(--menu-bar-icon-filter);
 }
