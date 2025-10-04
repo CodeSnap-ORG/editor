@@ -1,8 +1,9 @@
 const guiColors = {
     "color-scheme": "light",
 
-    "ui-secondary": "#FCFCFC",
-    "ui-tertiary": "#ECECEC",
+    "ui-primary": "#FAFAFA",
+    "ui-secondary": "#F2F2F2",
+    "ui-tertiary": "#EDEDED",
 
     "ui-modal-overlay": "var(--motion-primary-transparent)",
     "ui-modal-background": "hsla(0, 100%, 100%, 1)" /* #FFFFFF */,
@@ -108,10 +109,10 @@ const guiColors = {
 
     "menu-bar-background": "white",
     "menu-bar-foreground": "black",
-    "ui-primary": "white",
     "menu-bar-icon-filter": "invert(100%)",
     "menu-bar-hover": "var(--looks-transparent)",
     "progress-bar-outer": "var(--looks-transparent)",
+    "menu-bar-bottom-border": "#00000022",
 };
 
 const blockColors = {};

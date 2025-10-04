@@ -155,6 +155,7 @@ $sides: 20rem;
     width: 100%;
     background-color: $ui-modal-header-background;
     color: $ui-modal-header-foreground;
+    border-bottom: 1px $menu-bar-bottom-border solid;
 
     font-family:
         "Inter Variable", "Helvetica Neue", Helvetica, Arial, sans-serif;

@@ -46,6 +46,7 @@ const guiColors = {
     "filter-icon-white": "brightness(0) invert(100%)",
 
     "paint-filter-icon-gray": "brightness(1.7)",
+    "menu-bar-bottom-border": "transparent",
 };
 const blockColors = {
     insertionMarker: "#cccccc",

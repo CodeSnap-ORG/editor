@@ -33,9 +33,7 @@
     background-color: $menu-bar-background;
     background-image: $menu-bar-background-image;
     color: $menu-bar-foreground;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-bottom-color: $high-contrast-border;
+    border-bottom: 1px $menu-bar-bottom-border solid;
 }
 
 .main-menu {

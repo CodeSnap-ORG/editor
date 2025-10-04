@@ -58,6 +58,7 @@ $high-contrast-border: var(--high-contrast-border, 0);
 $menu-bar-background-image: var(--menu-bar-background-image);
 $menu-bar-foreground: var(--menu-bar-foreground);
 $menu-bar-hover: var(--menu-bar-hover);
+$menu-bar-bottom-border: var(--menu-bar-bottom-border, --high-contrast-border);
 
 $assets-background: var(--assets-background);
 
