@@ -88,8 +88,8 @@ class FileHashRouter extends HashRouter {
         super(callbacks);
         this.rootPath = `${location.pathname.substring(0, location.pathname.lastIndexOf("/") + 1)}`;
         this.playerPath = process.env.ampmod_is_cbp
-            ? `${this.rootPath}player`
-            : `${this.rootPath}player.html`;
+            ? `${this.rootPath}editor`
+            : `${this.rootPath}editor.html`;
         this.editorPath = process.env.ampmod_is_cbp
             ? `${this.rootPath}editor`
             : `${this.rootPath}editor.html`;
@@ -127,7 +127,7 @@ class FileHashRouter extends HashRouter {
         if (isFullScreen) {
             newPathname = this.fullscreenPath;
         } else if (isPlayerOnly) {
-            newPathname = this.playerPath;
+            newPathname = this.editorPath;
         } else {
             newPathname = this.editorPath;
         }

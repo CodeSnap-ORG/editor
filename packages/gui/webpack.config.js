@@ -263,7 +263,6 @@ module.exports = [
     defaultsDeep({}, base, {
         entry: {
             editor: "./src/playground/editor.jsx",
-            player: "./src/playground/player.jsx",
             fullscreen: "./src/playground/fullscreen.jsx",
             embed: "./src/playground/embed.jsx",
             "addon-settings": "./src/playground/addon-settings.jsx",
@@ -361,8 +360,9 @@ module.exports = [
                 isEditor: true,
                 ...htmlWebpackPluginCommon,
             }),
+            // player: dupe of the above for compatibility
             new HtmlWebpackPlugin({
-                chunks: ["player"],
+                chunks: ["editor"],
                 template: "src/playground/index.ejs",
                 filename: IS_CBP_BUILD ? "player/index.html" : "player.html",
                 title: `${APP_NAME} - ${APP_SLOGAN}`,
