@@ -10,6 +10,8 @@ const guiColors = {
     "ui-modal-foreground": "#eeeeee",
     "ui-modal-header-foreground": "#ffffff",
 
+    "menu-bar-icon-filter": "none",
+
     "ui-white": "#111111",
 
     "ui-black-transparent": "#ffffff26",

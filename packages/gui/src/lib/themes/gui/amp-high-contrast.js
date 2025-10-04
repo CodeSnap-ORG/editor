@@ -44,6 +44,7 @@ const guiColors = {
     "high-contrast-border": "white",
 
     "menu-bar-hover": "blue",
+    "menu-bar-icon-filter": "none",
 
     "motion-primary": "blue",
     "motion-primary-transparent": "white",

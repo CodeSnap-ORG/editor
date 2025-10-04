@@ -34,6 +34,8 @@ const guiColors = {
     "project-title-inactive": "var(--ui-secondary)",
     "project-title-hover": "#ffffff3f",
 
+    "menu-bar-icon-filter": "none",
+
     "link-color": "#44aaff",
 
     "filter-icon-black": "invert(100%)",
