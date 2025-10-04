@@ -134,12 +134,12 @@
 }
 
 .feedback-link {
-    color: $menu-bar-background;
+    color: $feedback-foreground;
     text-decoration: none;
 }
 
 .feedback-button {
-    background: $looks-secondary;
+    background: $feedback-background;
     height: 34px;
 }
 

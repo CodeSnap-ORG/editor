@@ -114,6 +114,8 @@ const guiColors = {
 
     "menu-bar-bottom-border": "transparent",
     "high-contrast-border": "#00000000",
+    "feedback-background": "var(--menu-bar-foreground)",
+    "feedback-foreground": "var(--menu-bar-background)",
 };
 
 const blockColors = {};

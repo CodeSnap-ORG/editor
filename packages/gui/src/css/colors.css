@@ -86,3 +86,5 @@ $turbowarp-color: var(--turbowarp-color);
 $turbowarp-transparent: var(--turbowarp-transparent);
 
 $progress-bar-outer: var(--progress-bar-outer);
+$feedback-background: var(--feedback-background);
+$feedback-foreground: var(--feedback-foreground);

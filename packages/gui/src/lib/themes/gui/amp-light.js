@@ -113,6 +113,9 @@ const guiColors = {
     "menu-bar-hover": "var(--looks-transparent)",
     "progress-bar-outer": "var(--looks-transparent)",
     "menu-bar-bottom-border": "#00000022",
+
+    "feedback-background": "var(--looks-secondary)",
+    "feedback-foreground": "white",
 };
 
 const blockColors = {};
