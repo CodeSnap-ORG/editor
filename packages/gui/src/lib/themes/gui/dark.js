@@ -16,6 +16,7 @@ const guiColors = {
     "menu-bar-icon-filter": "none",
 
     "ui-white": "#111111",
+    "progress-bar-outer": "hsla(0, 100%, 100%, 0.25)",
 
     "ui-black-transparent": "#ffffff26",
 

@@ -111,6 +111,7 @@ const guiColors = {
     "ui-primary": "white",
     "menu-bar-icon-filter": "invert(100%)",
     "menu-bar-hover": "var(--looks-transparent)",
+    "progress-bar-outer": "var(--looks-transparent)",
 };
 
 const blockColors = {};

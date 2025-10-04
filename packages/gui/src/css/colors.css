@@ -83,3 +83,5 @@ $link-color: var(--link-color);
 
 $turbowarp-color: var(--turbowarp-color);
 $turbowarp-transparent: var(--turbowarp-transparent);
+
+$progress-bar-outer: var(--progress-bar-outer);

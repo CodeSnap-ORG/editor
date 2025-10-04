@@ -16,6 +16,8 @@ const guiColors = {
         "hsla(0, 100%, 100%, 0.75)" /* 25% transparent version of ui-white */,
     "ui-white-transparent":
         "hsla(0, 100%, 100%, 0.25)" /* 25% transparent version of ui-white */,
+    "progress-bar-outer":
+        "hsla(0, 100%, 100%, 0.25)" /* Same as ui-white-transparent */,
     "ui-transparent":
         "hsla(0, 100%, 100%, 0)" /* 25% transparent version of ui-white */,
 
