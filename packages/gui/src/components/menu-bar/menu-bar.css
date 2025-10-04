@@ -139,8 +139,7 @@
 }
 
 .feedback-button {
-    background-color: $menu-bar-foreground;
-    color: inherit;
+    background: $looks-secondary;
     height: 34px;
 }
 
