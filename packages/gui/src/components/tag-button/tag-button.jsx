@@ -22,7 +22,7 @@ const TagButtonComponent = ({
         iconClassName={classNames(styles.tagButtonIcon, iconClassName)}
         {...props}
     >
-        <div class={styles.checkbox}></div>
+        <div className={styles.checkbox}></div>
         {typeof intlLabel === "string" ? (
             intlLabel
         ) : (
