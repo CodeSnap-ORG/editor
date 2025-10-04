@@ -14,7 +14,8 @@ import styles from "./settings-menu.css";
 const eraseData = async () => {
     if (
         confirm(
-            "This will irreversably reset all your local data, including the Restore Points and backpack. Are you sure you want to continue?"
+            // eslint-disable-next-line max-len
+            "This will irreversably reset all your local data, including the Restore Points and backpack. Are you sure you want to continue?\n\nIf a project is currently open, save it before continuing. Erasing data will reload the page."
         )
     ) {
         const prefix = process.env.ampmod_is_canary ? "canary:" : "amp:";
@@ -35,6 +36,7 @@ const eraseData = async () => {
                 ? " Canary_RestorePoints"
                 : "Amp_RestorePoints"
         );
+        window.onbeforeunload = null;
         location.reload();
     }
 };
