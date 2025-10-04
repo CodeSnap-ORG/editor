@@ -46,7 +46,7 @@ const GUI_MAP = {
     [GUI_AMOLED]: guiAmoled,
     [GUI_HIGH_CONTRAST]: guiHighContrast,
 };
-const GUI_DEFAULT = GUI_LIGHT;
+const GUI_DEFAULT = GUI_AMP_LIGHT;
 
 const BLOCKS_THREE = "three";
 const BLOCKS_DARK = "dark";
@@ -111,7 +111,7 @@ class Theme {
             : BLOCKS_DEFAULT;
     }
 
-    static light = new Theme(ACCENT_DEFAULT, GUI_LIGHT, BLOCKS_DEFAULT);
+    static light = new Theme(ACCENT_DEFAULT, GUI_AMP_LIGHT, BLOCKS_DEFAULT);
     static dark = new Theme(ACCENT_DEFAULT, GUI_DARK, BLOCKS_DEFAULT);
     static highContrast = new Theme(
         ACCENT_DEFAULT,
