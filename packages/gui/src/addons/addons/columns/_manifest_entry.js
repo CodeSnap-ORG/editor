@@ -13,7 +13,7 @@ const manifest = {
   "tags": [
     "theme"
   ],
-  "enabledByDefault": true,
+  "enabledByDefault": false,
   "dynamicDisable": true,
   "userscripts": [
     {
