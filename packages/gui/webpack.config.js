@@ -89,6 +89,7 @@ const base = {
                 { from: /./, to: "/404.html" },
             ],
         },
+        hot: true,
     },
     output: {
         library: "GUI",
@@ -254,6 +255,7 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
 
 if (!process.env.CI) {
     base.plugins.push(new webpack.ProgressPlugin());
+    base.plugins.push(new webpack.HotModuleReplacementPlugin());
 }
 
 module.exports = [
