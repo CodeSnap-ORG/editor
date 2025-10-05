@@ -182,7 +182,7 @@ class LoaderComponent extends React.Component {
                         />
                     </div>
 
-                    {console.log(!this.props.isEmbedded) && (
+                    {!this.props.isEmbedded && (
                         <div className={styles.funFact} ref={this.funFactRef} />
                     )}
                 </div>
