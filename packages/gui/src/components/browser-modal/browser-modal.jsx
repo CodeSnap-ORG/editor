@@ -82,20 +82,21 @@ const BrowserModal = ({ intl, ...props }) => {
                     )}
 
                     {bowser.parse(navigator.userAgent).platform.type ===
-                        "mobile" && (
-                        <React.Fragment>
-                            <p>
-                                <FormattedMessage
-                                    defaultMessage="{APP_NAME}'s editor is not supported on mobile devices. However, you can still view projects on the AmpMod website."
-                                    description="Error message when on mobile."
-                                    id="amp.browserModal.mobile"
-                                    values={{
-                                        APP_NAME,
-                                    }}
-                                />
-                            </p>
-                        </React.Fragment>
-                    )}
+                        "mobile" &&
+                        !props.isEmbedded && (
+                            <React.Fragment>
+                                <p>
+                                    <FormattedMessage
+                                        defaultMessage="{APP_NAME}'s editor is not supported on mobile devices. However, you can still view projects on the AmpMod website."
+                                        description="Error message when on mobile."
+                                        id="amp.browserModal.mobile"
+                                        values={{
+                                            APP_NAME,
+                                        }}
+                                    />
+                                </p>
+                            </React.Fragment>
+                        )}
 
                     {!isRendererSupported() && (
                         <React.Fragment>
