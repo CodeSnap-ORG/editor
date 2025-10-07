@@ -195,6 +195,22 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <https://www.gnu.org/licenses/>.
             `.trim(),
         }),
+        new webpack.DefinePlugin({
+            "process.env.NODE_ENV": `"${process.env.NODE_ENV}"`,
+            "process.env.DEBUG": Boolean(process.env.DEBUG),
+            "process.env.DISABLE_SERVICE_WORKER": JSON.stringify(
+                process.env.DISABLE_SERVICE_WORKER || ""
+            ),
+            "process.env.ROOT": JSON.stringify(root),
+            "process.env.ROUTING_STYLE": JSON.stringify(
+                process.env.ROUTING_STYLE || "filehash"
+            ),
+            "process.env.ampmod_version": JSON.stringify(
+                monorepoPackageJson.version
+            ),
+            "process.env.ampmod_is_canary": process.env.BUILD_MODE === "canary",
+            "process.env.ampmod_is_cbp": IS_CBP_BUILD,
+        }),
         new CopyWebpackPlugin({
             patterns: [
                 {
@@ -275,30 +291,6 @@ module.exports = [
             },
         },
         plugins: base.plugins.concat([
-            new EsbuildPlugin({
-                define: {
-                    "process.env.NODE_ENV": JSON.stringify(
-                        process.env.NODE_ENV || "development"
-                    ),
-                    "process.env.DEBUG": JSON.stringify(
-                        Boolean(process.env.DEBUG || false)
-                    ),
-                    "process.env.DISABLE_SERVICE_WORKER": JSON.stringify(
-                        process.env.DISABLE_SERVICE_WORKER || ""
-                    ),
-                    "process.env.ROOT": JSON.stringify(root),
-                    "process.env.ROUTING_STYLE": JSON.stringify(
-                        process.env.ROUTING_STYLE || "filehash"
-                    ),
-                    "process.env.ampmod_version": JSON.stringify(
-                        monorepoPackageJson.version
-                    ),
-                    "process.env.ampmod_is_canary": JSON.stringify(
-                        process.env.BUILD_MODE === "canary"
-                    ),
-                    "process.env.ampmod_is_cbp": JSON.stringify(IS_CBP_BUILD),
-                },
-            }),
             new HtmlWebpackPlugin({
                 chunks: ["headeronly"],
                 template: "src/playground/privacy.ejs",
