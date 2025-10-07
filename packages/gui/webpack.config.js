@@ -144,6 +144,12 @@ const base = {
                         },
                     },
                     {
+                        loader: "esbuild-loader",
+                        options: {
+                            target: "es2019",
+                        },
+                    },
+                    {
                         loader: "postcss-loader",
                         options: {
                             ident: "postcss",
@@ -154,12 +160,6 @@ const base = {
                                     autoprefixer,
                                 ];
                             },
-                        },
-                    },
-                    {
-                        loader: "esbuild-loader",
-                        options: {
-                            target: "es2019",
                         },
                     },
                 ],
