@@ -73,7 +73,7 @@ steps:
       image: node:20-trixie-slim
       commands:
           # Run 11ty build stage
-          - NODE_ENV=production IS_CBP_BUILD=true npm run ci-build
+          - NODE_ENV=production IS_CBP_BUILD=true ESBUILD_WORKERS=8 npm run ci-build
           # Only needed for custom domains
           # - cp domains build/.domains
     - name: push
