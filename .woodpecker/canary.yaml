@@ -57,7 +57,7 @@ steps:
       commands:
           - apk add --no-cache openjdk21-jre python3
           - corepack enable
-          - pnpm i --frozen-lockfille
+          - pnpm i --frozen-lockfile
     - name: build-monorepo
       when:
           - event: push
