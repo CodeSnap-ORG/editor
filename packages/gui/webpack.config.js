@@ -214,11 +214,11 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
         new CopyWebpackPlugin({
             patterns: [
                 {
-                    from: "../../node_modules/scratch-blocks/media",
+                    from: "../blocks/media",
                     to: "static/blocks-media/default",
                 },
                 {
-                    from: "../../node_modules/scratch-blocks/media",
+                    from: "../blocks/media",
                     to: "static/blocks-media/high-contrast",
                 },
                 {
