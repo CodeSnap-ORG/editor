@@ -289,6 +289,7 @@ module.exports = [
                 minSize: 50000,
                 maxInitialRequests: 5,
             },
+            minimizer: [new EsbuildPlugin({ target: "es2019" })],
         },
         plugins: base.plugins.concat([
             new HtmlWebpackPlugin({
