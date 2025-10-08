@@ -53,9 +53,10 @@ steps:
             branch: develop
           - event: manual
             branch: develop
-      image: node:20-trixie-slim
+      image: node:alpine
       commands:
-          - apt-get update && apt-get install python3 default-jre-headless --no-install-recommends -y
+          - apk add --no-cache openjdk21-jre python3
+          - corepack enable
           - pnpm ci
     - name: build-monorepo
       when:
@@ -63,8 +64,9 @@ steps:
             branch: develop
           - event: manual
             branch: develop
-      image: node:20-trixie-slim
+      image: node:alpine
       commands:
+          - corepack enable
           # Don't specify CBP build mode since redirects aren't properly implemented in canary
           - NODE_ENV=production BUILD_MODE=canary ESBUILD_WORKERS=8 pnpm run ci-build
           # Only needed for custom domains
