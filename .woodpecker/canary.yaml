@@ -56,7 +56,7 @@ steps:
       image: node:20-trixie-slim
       commands:
           - apt-get update && apt-get install python3 default-jre-headless --no-install-recommends -y
-          - npm ci
+          - pnpm ci
     - name: build-monorepo
       when:
           - event: push
@@ -66,7 +66,7 @@ steps:
       image: node:20-trixie-slim
       commands:
           # Don't specify CBP build mode since redirects aren't properly implemented in canary
-          - NODE_ENV=production BUILD_MODE=canary ESBUILD_WORKERS=8 npm run ci-build
+          - NODE_ENV=production BUILD_MODE=canary ESBUILD_WORKERS=8 pnpm run ci-build
           # Only needed for custom domains
           # - cp domains build/.domains
     - name: push
