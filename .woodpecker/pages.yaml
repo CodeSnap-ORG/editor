@@ -63,7 +63,7 @@ steps:
             branch: production
       image: node:20-trixie-slim
       commands:
-          - pnpm ci
+          - pnpm i --frozen-lockfille
     - name: build
       when:
           - event: push
