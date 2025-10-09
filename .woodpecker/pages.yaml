@@ -28,73 +28,70 @@
 steps:
     - name: clone-pages
       when:
-          - event: push
-            branch: production
+          - event: tag
+            ref: refs/tags/**
           - event: manual
-            branch: production
+            ref: refs/tags/**
       image: alpine/git
       commands:
-          # Avoid permission denied errors
           - chmod -R a+w .
-          # clone and move the target repo
           - git clone -b pages https://codeberg.org/ampmod/pages.git amp-build
           - chmod -R a+w amp-build
+
     - name: clean-up
       when:
-          - event: push
-            branch: production
+          - event: tag
+            ref: refs/tags/**
           - event: manual
-            branch: production
+            ref: refs/tags/**
       image: alpine/git
       commands:
           - cd amp-build
-          # Set up git in a working way
           - git config --global --add safe.directory /woodpecker/src/codeberg.org/ampmod/ampmod/amp-build
           - git config --global user.email "no@thankyou.com"
           - git config --global user.name "CI Builder"
-          # Prepare for push
           - git remote set-url origin https://$CBTOKEN@codeberg.org/ampmod/pages.git
           - git rm -rf ./*
+
     - name: install
       when:
-          - event: push
-            branch: production
+          - event: tag
+            ref: refs/tags/**
           - event: manual
-            branch: production
-      image: node:20-trixie-slim
+            ref: refs/tags/**
+      image: node:alpine
       commands:
+          - corepack enable
           - pnpm i --frozen-lockfile
+
     - name: build
       when:
-          - event: push
-            branch: production
+          - event: tag
+            ref: refs/tags/**
           - event: manual
-            branch: production
-      image: node:20-trixie-slim
+            ref: refs/tags/**
+      image: node:alpine
       commands:
-          # Run 11ty build stage
+          - corepack enable
           - NODE_ENV=production IS_CBP_BUILD=true ESBUILD_WORKERS=8 pnpm run ci-build
-          # Only needed for custom domains
           # - cp domains build/.domains
+
     - name: push
       when:
-          - event: push
-            branch: production
+          - event: tag
+            ref: refs/tags/**
           - event: manual
-            branch: production
+            ref: refs/tags/**
       image: alpine/git
       environment:
-          # secrets must be set in Woodpecker configuration
           CBTOKEN:
               from_secret: cbtoken
       commands:
-          # Set up git in a working way
           - git config --global --add safe.directory /woodpecker/src/codeberg.org/ampmod/ampmod/amp-build
           - git config --global user.email "no@thankyou.com"
           - git config --global user.name "CI Builder"
-          # Push to target
           - cp -a ./packages/gui/build/. ./amp-build
           - cd ./amp-build
           - git add --all
-          - git commit -m "Woodpecker CI Build at $( env TZ=America/Chicago date +'%Y-%m-%d %X %Z' )"
+          - git commit -m "Woodpecker CI Build for tag $(git describe --tags)"
           - git push -u origin pages
