@@ -76,6 +76,8 @@
     "mouse-pos/@name": "Mauspositions-Anzeige",
     "color-picker/@description": "Fügt Hexadezimalcode-Eingaben zum Farbwähler hinzu.",
     "color-picker/@name": "Hexadezimal-Farbwähler",
+    "delete-others/@description": "Fügt eine Option zum Rechtsklick-Kontextmenü hinzu, mit der alle Kostüme oder Klänge außer dem ausgewählten gelöscht werden können.",
+    "delete-others/@name": "Andere Elemente löschen",
     "remove-sprite-confirm/@description": "Fragt, ob du sicher bist, wenn du eine Figur in einem Projekt löschst.",
     "remove-sprite-confirm/@info-restoretip": "Tipp: Wenn du aus Versehen eine Figur, eine Kostüm oder einen Klang löschst, kannst du das Löschen rückgängig machen, indem du in der Menüleiste auf \"Bearbeiten\" klickst und anschließend den Menüpunkt \"Wiederherstellen\" auswählst.",
     "remove-sprite-confirm/@name": "Löschen von Figuren bestätigen",

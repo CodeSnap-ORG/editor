@@ -20,6 +20,7 @@ export default {
   "clones": () => import(/* webpackChunkName: "addon-entry-clones" */ "../addons/clones/_runtime_entry.js"),
   "mouse-pos": () => import(/* webpackChunkName: "addon-entry-mouse-pos" */ "../addons/mouse-pos/_runtime_entry.js"),
   "color-picker": () => import(/* webpackChunkName: "addon-default-entry" */ "../addons/color-picker/_runtime_entry.js"),
+  "delete-others": () => import(/* webpackChunkName: "addon-entry-delete-others" */ "../addons/delete-others/_runtime_entry.js"),
   "remove-sprite-confirm": () => import(/* webpackChunkName: "addon-entry-remove-sprite-confirm" */ "../addons/remove-sprite-confirm/_runtime_entry.js"),
   "block-count": () => import(/* webpackChunkName: "addon-entry-block-count" */ "../addons/block-count/_runtime_entry.js"),
   "onion-skinning": () => import(/* webpackChunkName: "addon-default-entry" */ "../addons/onion-skinning/_runtime_entry.js"),

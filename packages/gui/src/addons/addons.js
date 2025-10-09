@@ -21,6 +21,7 @@ const addons = [
     'clones',
     'mouse-pos',
     'color-picker',
+    'delete-others',
     'remove-sprite-confirm',
     'block-count',
     'onion-skinning',
@@ -85,6 +86,7 @@ const addons = [
 ];
 
 const newAddons = [
+    'delete-others',
     'asset-conflict-dialog',
     'hide-backpack',
 ];

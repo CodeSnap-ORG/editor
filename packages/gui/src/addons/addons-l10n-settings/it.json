@@ -76,6 +76,8 @@
     "mouse-pos/@name": "Visualizzazione posizione del mouse",
     "color-picker/@description": "Aggiunge la selezione del colore esadecimale alla selezione dei colori.",
     "color-picker/@name": "Selettore colore esadecimale",
+    "delete-others/@description": "Aggiunge un'opzione al menu del tasto destro per rimuovere facilmente tutti gli altri costumi, sfondi o suoni.",
+    "delete-others/@name": "Rimuovi altre risorse",
     "remove-sprite-confirm/@description": "Chiede conferma quando cancelli uno sprite di un progetto.",
     "remove-sprite-confirm/@info-restoretip": "Suggerimento: se cancelli accidentalmente uno sprite, un costume o un suono, puoi annullare la cancellazione cliccando il menu Modifica nella barra dei menu e scegliendo Ripristina.",
     "remove-sprite-confirm/@name": "Conferma cancellazione sprite",
