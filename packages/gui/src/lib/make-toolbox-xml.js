@@ -275,6 +275,13 @@ const looks = function (
                     </shadow>
                 </value>
             </block>
+            <block type="looks_switchbackdroptoandwait">
+                <value name="BACKDROP">
+                    <shadow type="looks_backdrops">
+                        <field name="BACKDROP">${backdropName}</field>
+                    </shadow>
+                </value>
+            </block>
             <block type="looks_nextbackdrop"/>
             ${blockSeparator}
             <block type="looks_changesizeby">
