@@ -595,6 +595,7 @@ const sensing = function (isInitialSetup, isStage, targetId, colors) {
                 <shadow type="sensing_keyoptions"/>
             </value>
         </block>
+        <block type="sensing_lastkeypressed"/>
         <block type="sensing_mousedown"/>
         <block type="sensing_mousex"/>
         <block type="sensing_mousey"/>

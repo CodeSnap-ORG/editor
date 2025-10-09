@@ -1106,6 +1106,12 @@ class ScriptTreeGenerator {
                     InputType.STRING
                 );
 
+            case "sensing_lastkeypressed":
+                return new IntermediateInput(
+                    InputOpcode.TW_KEY_LAST_PRESSED,
+                    InputType.STRING
+                );
+
             case "sound_sounds_menu":
                 // This menu is special compared to other menus -- it actually has an opcode function.
                 return this.createConstantInput(
