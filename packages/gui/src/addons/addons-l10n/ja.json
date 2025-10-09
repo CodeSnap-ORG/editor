@@ -241,7 +241,6 @@
     "blocks2image/export_all_to_SVG": "すべてをSVGとして出力",
     "blocks2image/export_selected_to_PNG": "ブロックをPNGとして出力",
     "blocks2image/export_selected_to_SVG": "ブロックをSVGとして出力",
-    "editor-extra-keys/enter-key": "Enter",
     "move-to-top-bottom/bottom": "一番下に移動",
     "move-to-top-bottom/top": "一番上に移動",
     "move-to-top-layer/move-to-front-layer": "最前面に移動",

@@ -447,7 +447,6 @@ const GUIComponent = props => {
                                                             }
                                                             options={{
                                                                 media: `${basePath}static/${theme.getBlocksMediaFolder()}/`,
-                                                                trashcan: true,
                                                             }}
                                                             stageSize={
                                                                 stageSize

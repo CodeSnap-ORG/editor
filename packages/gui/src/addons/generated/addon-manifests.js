@@ -10,6 +10,7 @@ import _data_category_tweaks_v2 from "../addons/data-category-tweaks-v2/_manifes
 import _block_palette_icons from "../addons/block-palette-icons/_manifest_entry.js";
 import _hide_flyout from "../addons/hide-flyout/_manifest_entry.js";
 import _mediarecorder from "../addons/mediarecorder/_manifest_entry.js";
+import _asset_conflict_dialog from "../addons/asset-conflict-dialog/_manifest_entry.js";
 import _drag_drop from "../addons/drag-drop/_manifest_entry.js";
 import _debugger from "../addons/debugger/_manifest_entry.js";
 import _pause from "../addons/pause/_manifest_entry.js";
@@ -73,6 +74,7 @@ import _script_snap from "../addons/script-snap/_manifest_entry.js";
 import _fullscreen from "../addons/fullscreen/_manifest_entry.js";
 import _hide_stage from "../addons/hide-stage/_manifest_entry.js";
 import _tw_straighten_comments from "../addons/tw-straighten-comments/_manifest_entry.js";
+import _hide_backpack from "../addons/hide-backpack/_manifest_entry.js";
 import _tw_remove_backpack from "../addons/tw-remove-backpack/_manifest_entry.js";
 import _tw_remove_feedback from "../addons/tw-remove-feedback/_manifest_entry.js";
 import _tw_disable_cloud_variables from "../addons/tw-disable-cloud-variables/_manifest_entry.js";
@@ -90,6 +92,7 @@ export default {
   "block-palette-icons": _block_palette_icons,
   "hide-flyout": _hide_flyout,
   "mediarecorder": _mediarecorder,
+  "asset-conflict-dialog": _asset_conflict_dialog,
   "drag-drop": _drag_drop,
   "debugger": _debugger,
   "pause": _pause,
@@ -153,6 +156,7 @@ export default {
   "fullscreen": _fullscreen,
   "hide-stage": _hide_stage,
   "tw-straighten-comments": _tw_straighten_comments,
+  "hide-backpack": _hide_backpack,
   "tw-remove-backpack": _tw_remove_backpack,
   "tw-remove-feedback": _tw_remove_feedback,
   "tw-disable-cloud-variables": _tw_disable_cloud_variables,

@@ -12,6 +12,7 @@ const addons = [
     'block-palette-icons',
     'hide-flyout',
     'mediarecorder',
+    'asset-conflict-dialog',
     'drag-drop',
     'debugger',
     'pause',
@@ -75,15 +76,17 @@ const addons = [
     'fullscreen',
     'hide-stage',
     'tw-straighten-comments',
+    'hide-backpack',
     'tw-remove-backpack',
     'tw-remove-feedback',
     'tw-disable-cloud-variables',
     'tw-disable-compiler',
-    'editor-stepping'
+    'editor-stepping',
 ];
 
 const newAddons = [
-    'expanded-backpack'
+    'asset-conflict-dialog',
+    'hide-backpack',
 ];
 
 // eslint-disable-next-line import/no-commonjs

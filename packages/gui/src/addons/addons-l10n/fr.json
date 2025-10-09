@@ -229,7 +229,6 @@
     "blocks2image/export_all_to_SVG": "Tout exporter au format SVG",
     "blocks2image/export_selected_to_PNG": "Exporter le bloc au format PNG",
     "blocks2image/export_selected_to_SVG": "Exporter le bloc au format SVG",
-    "editor-extra-keys/enter-key": "entrée",
     "move-to-top-bottom/bottom": "Déplacé en bas",
     "move-to-top-bottom/top": "Déplacé en haut",
     "move-to-top-layer/move-to-front-layer": "passer à la couche avant",

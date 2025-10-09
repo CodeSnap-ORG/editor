@@ -235,7 +235,6 @@
     "blocks2image/export_all_to_SVG": "모두 SVG로 내보내기",
     "blocks2image/export_selected_to_PNG": "PNG로 블록 내보내기",
     "blocks2image/export_selected_to_SVG": "SVG로 내보내기",
-    "editor-extra-keys/enter-key": "엔터",
     "move-to-top-bottom/bottom": "맨 아래로 옮기기",
     "move-to-top-bottom/top": "맨 위로 옮기기",
     "rename-broadcasts/RENAME_BROADCAST": "메시지 이름 변경하기",

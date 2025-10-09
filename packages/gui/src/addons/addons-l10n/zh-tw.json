@@ -204,7 +204,6 @@
     "blocks2image/export_all_to_SVG": "匯出全部積木成 SVG 圖像",
     "blocks2image/export_selected_to_PNG": "匯出積木成 PNG 圖像",
     "blocks2image/export_selected_to_SVG": "匯出積木成 SVG 圖像",
-    "editor-extra-keys/enter-key": "Enter",
     "move-to-top-bottom/bottom": "移至最下面",
     "move-to-top-bottom/top": "移至最上面",
     "rename-broadcasts/RENAME_BROADCAST": "重新命名訊息",
