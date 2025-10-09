@@ -34,16 +34,6 @@ class ElectroTestBlocks {
             globalExtensions: ["colours_more"],
             blocks: [
                 {
-                    blockType: BlockType.LABEL,
-                    text: "All the world's a stage.",
-                    filter: [TargetType.STAGE],
-                },
-                {
-                    blockType: BlockType.LABEL,
-                    text: "does apple cat drink sprite",
-                    filter: [TargetType.SPRITE],
-                },
-                {
                     blockType: BlockType.ARRAY,
                     opcode: "listOfGreetings",
                     text: "list of greetings",
