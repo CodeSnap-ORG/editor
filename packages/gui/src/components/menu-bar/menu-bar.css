@@ -33,9 +33,7 @@
     background-color: $menu-bar-background;
     background-image: $menu-bar-background-image;
     color: $menu-bar-foreground;
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-    border-bottom-color: $high-contrast-border;
+    border-bottom: 1px $menu-bar-bottom-border solid;
 }
 
 .main-menu {
@@ -59,7 +57,8 @@
     cursor: pointer;
 }
 
-.menu-bar-item {
+.menu-bar-item,
+:global(.sa-record) {
     display: flex;
     text-decoration: none;
     user-select: none;
@@ -67,18 +66,49 @@
     position: relative;
     align-items: center;
     white-space: nowrap;
-    height: calc($menu-bar-height - $space / 1.1);
+    height: calc($menu-bar-height - $space * 1.7);
     border-radius: $space;
-    transition: background-color 0.2s;
+    transition: background-color 0.15s;
 }
 
-.menu-bar-item.hoverable {
+.menu-bar-item.hoverable,
+:global(.sa-record) {
     cursor: pointer;
+    padding: 0 0.9em;
 }
 
 .menu-bar-item.active,
-.menu-bar-item.hoverable:hover {
+.menu-bar-item.hoverable:hover,
+:global(.sa-record:hover) {
     background-color: $menu-bar-hover;
+}
+
+.menu-bar-item.logo {
+    position: relative;
+    padding: 0 1.5em;
+    filter: var(--menu-bar-icon-filter);
+}
+
+.menu-bar-item.logo img {
+    transition: transform 0.35s ease;
+}
+
+.menu-bar-item.logo:hover img {
+    transform: translateX(14px) rotateZ(360deg);
+}
+
+.menu-bar-item.logo .logo-ground {
+    position: absolute;
+    transform: translateX(-15px);
+    height: 28px;
+    opacity: 0;
+    border-bottom: 2px white solid;
+    width: 52px;
+    transition: opacity 0.35s linear;
+}
+
+.menu-bar-item.logo:hover .logo-ground {
+    opacity: 1;
 }
 
 .menu-bar-item.growable {
@@ -98,23 +128,18 @@
     gap: 0.5rem;
 }
 
-.file-group .menu-bar-item {
-    padding: 0 0.6rem;
-}
-
 .menu-bar-menu {
     margin-top: $menu-bar-height;
     z-index: $z-index-menu-bar;
 }
 
 .feedback-link {
-    color: $menu-bar-background;
+    color: $feedback-foreground;
     text-decoration: none;
 }
 
 .feedback-button {
-    background-color: white;
-    color: inherit;
+    background: $feedback-background;
     height: 34px;
 }
 
@@ -184,6 +209,7 @@
 .dropdown-caret-icon {
     width: 0.5rem;
     height: 0.5rem;
+    filter: var(--menu-bar-icon-filter);
 }
 
 [dir="ltr"] .dropdown-caret-icon {
@@ -192,6 +218,10 @@
 
 [dir="rtl"] .dropdown-caret-icon {
     margin-right: 0.5rem;
+}
+
+.item-dropdown-caret-icon {
+    filter: var(--menu-bar-icon-filter);
 }
 
 .disabled {
@@ -220,4 +250,26 @@
 .menu-item-link {
     color: inherit;
     text-decoration: none;
+}
+
+.settings-button .button-icon,
+.file-button .button-icon,
+.edit-button .button-icon {
+    transition: transform 0.25s ease;
+    filter: var(--menu-bar-icon-filter);
+}
+
+.settings-button:hover .button-icon,
+.settings-button .menu-bar-item.active .button-icon {
+    transform: rotateZ(180deg) scale(1.1);
+}
+
+.file-button:hover .button-icon,
+.file-button .menu-bar-item.active .button-icon {
+    transform: rotateY(-25deg) rotateX(-30deg) scale(1.1);
+}
+
+.edit-button:hover .button-icon,
+.edit-button .menu-bar-item.active .button-icon {
+    transform: rotateZ(-25deg) scale(1.1);
 }

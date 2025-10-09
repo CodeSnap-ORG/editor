@@ -149,6 +149,12 @@ const messages = defineMessages({
             "Label for the days since 2000 monitor when show on the stage",
         id: "tw.opcode.2000",
     },
+    sensing_lastkeypressed: {
+        defaultMessage: "last key pressed",
+        description:
+            "Label for the last key pressed monitor when shown on the stage",
+        id: "amp.opcodeLabels.lastkeypressed",
+    },
 });
 
 class OpcodeLabels {
@@ -170,6 +176,7 @@ class OpcodeLabels {
             motion_direction: { category: "motion" },
             motion_xposition: { category: "motion" },
             motion_yposition: { category: "motion" },
+            motion_position: { category: "motion" },
 
             // Looks
             looks_size: { category: "looks" },
@@ -195,6 +202,7 @@ class OpcodeLabels {
             sensing_current: { category: "sensing" },
             sensing_timer: { category: "sensing" },
             sensing_dayssince2000: { category: "sensing" },
+            sensing_lastkeypressed: { category: "sensing" },
         };
 
         // Initialize opcodeMap with default strings
@@ -223,6 +231,8 @@ class OpcodeLabels {
             this._translator(messages.motion_xposition);
         this._opcodeMap.motion_yposition.labelFn = () =>
             this._translator(messages.motion_yposition);
+        this._opcodeMap.motion_position.labelFn = () =>
+            this._translator(messages.motion_position);
 
         // Looks
         this._opcodeMap.looks_size.labelFn = () =>
@@ -287,6 +297,8 @@ class OpcodeLabels {
             this._translator(messages.sensing_timer);
         this._opcodeMap.sensing_dayssince2000.labelFn = () =>
             this._translator(messages.sensing_dayssince2000);
+        this._opcodeMap.sensing_lastkeypressed.labelFn = () =>
+            this._translator(messages.sensing_lastkeypressed);
     }
 
     /**

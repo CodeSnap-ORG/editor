@@ -191,9 +191,9 @@ CustomProcedures.propTypes = {
 
 CustomProcedures.defaultOptions = {
     zoom: {
-        controls: true,
-        wheel: true,
-        startScale: 0.9,
+        controls: false,
+        wheel: false,
+        startScale: 1.0,
     },
     comments: false,
     collapse: false,

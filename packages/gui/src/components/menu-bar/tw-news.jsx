@@ -33,10 +33,14 @@ class TWNews extends React.Component {
     }
     handleClose() {
         markAsClosedInLocalStorage();
-        this.setState({
-            closed: true,
-        });
-        window.dispatchEvent(new Event("resize"));
+        this.setState(
+            {
+                closed: true,
+            },
+            () => {
+                window.dispatchEvent(new Event("resize"));
+            }
+        );
     }
     render() {
         const today = new Date();

@@ -34,16 +34,33 @@ const guiColors = {
 
     "link-color": "#00FFFF",
 
-    "filter-icon-black": "none",
-    "filter-icon-gray": "none",
-    "filter-icon-white": "none",
+    "filter-icon-black": "invert(100%) contrast(100%)",
+    "filter-icon-gray": "invert(100&) contrast(100%)",
+    "filter-icon-white": "brightness(100%) invert(100%) contrast(100%)",
 
     "paint-filter-icon-gray": "none",
 
-    "menu-bar-background": "#000000",
+    "menu-bar-background": "#000",
+    "menu-bar-background-image": "none",
+    "menu-bar-foreground": "#ffffff",
+    "menu-bar-icon-filter": "none",
     "high-contrast-border": "white",
 
-    "menu-bar-hover": "blue",
+    "motion-primary": "blue",
+    "motion-primary-transparent": "white",
+    "motion-tertiary": "darkblue",
+    "looks-secondary": "black",
+    "looks-transparent": "white",
+    "looks-light-transparent": "white",
+    "looks-secondary-dark": "#333333",
+    "extensions-primary": "#3e3e3e",
+    "extensions-tertiary": "#333333",
+    "extensions-transparent": "white",
+    "extensions-light": "#7e7e7e",
+    "drop-highlight": "#66bb6a",
+    "data-primary": "black",
+    "turbowarp-color": "black",
+    "turbowarp-transparent": "white",
 };
 
 const blockColors = {

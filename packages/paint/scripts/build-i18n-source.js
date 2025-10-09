@@ -5,7 +5,7 @@ const glob = require("glob");
 const path = require("path");
 const mkdirp = require("mkdirp");
 
-var args = process.argv.slice(2);
+const args = process.argv.slice(2);
 
 if (!args.length) {
     process.stdout.write(
@@ -14,7 +14,7 @@ if (!args.length) {
     process.exit(1);
 }
 
-const MESSAGES_PATTERN = args.shift() + "/**/*.json";
+const MESSAGES_PATTERN = `${args.shift()}/**/*.json`;
 
 if (!args.length) {
     process.stdout.write("A destination directory must be specified.\n");
@@ -28,7 +28,7 @@ const LANG_DIR = args.shift();
 // there are messages in different components that use the same `id`. The result
 // is a chromei18n format collection of `id: {message: defaultMessage,
 // description: description}` pairs for the app's default locale.
-let defaultMessages = glob
+const defaultMessages = glob
     .sync(MESSAGES_PATTERN)
     .map(filename => fs.readFileSync(filename, "utf8"))
     .map(file => JSON.parse(file))

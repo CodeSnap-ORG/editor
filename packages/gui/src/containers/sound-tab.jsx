@@ -56,7 +56,7 @@ class SoundTab extends React.Component {
         this.state = { selectedSoundIndex: 0 };
     }
 
-    useEffect(nextProps) {
+    componentWillReceiveProps(nextProps) {
         const { editingTarget, sprites, stage } = nextProps;
 
         const target =

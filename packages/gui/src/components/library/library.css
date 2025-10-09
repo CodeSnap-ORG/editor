@@ -26,10 +26,12 @@
     flex: 1;
     flex-direction: column;
     justify-content: flex-start;
-    background-color: $looks-transparent;
-    padding: 0 1rem;
+    background-color: $ui-tertiary;
+    border: $ui-black-transparent 1px solid;
+    border-radius: $space;
+    margin: $space;
     font-size: 0.875rem;
-    height: 100%;
+    height: calc(100% - calc($space - 2));
     width: 600px;
     padding: calc($space * 3);
     overflow-y: scroll;

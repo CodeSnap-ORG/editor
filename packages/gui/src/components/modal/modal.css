@@ -15,7 +15,8 @@
 
 @keyframes slideInFromBottom {
     0% {
-        transform: translateY(100%);
+        /* Start much further down for more dramatic movement */
+        transform: translateY(250px);
         opacity: 0;
     }
     100% {
@@ -24,7 +25,6 @@
     }
 }
 
-/* New fade-in animation */
 @keyframes fadeIn {
     0% {
         opacity: 0;
@@ -34,7 +34,6 @@
     }
 }
 
-/* New fade-out animation */
 @keyframes fadeOut {
     0% {
         opacity: 1;
@@ -44,14 +43,17 @@
     }
 }
 
-/* New slide-out to bottom animation */
 @keyframes slideOutToBottom {
     0% {
         transform: translateY(0);
         opacity: 1;
     }
+    10% {
+        opacity: 1; /* Keep full opacity for the initial stage */
+    }
     100% {
-        transform: translateY(100%);
+        /* Use a fast-to-slow easing curve */
+        transform: translateY(150px);
         opacity: 0;
     }
 }
@@ -75,19 +77,16 @@
     right: 0;
     bottom: 0;
     z-index: $z-index-modal;
-    background-color: hsla(0, 0%, 0%, 0.5);
+    background-color: hsla(0, 0%, 0%, 0.3);
     color: $ui-modal-foreground;
     transition: background-color 0.3s ease-out;
-    animation: fadeIn 0.3s ease-out; /* Apply fade-in animation */
-    backdrop-filter: blur(2px);
-}
-
-.modal-overlay.full-screen {
-    background-color: transparent;
+    animation: fadeIn 0.2s ease-in; /* Apply fade-in animation */
+    backdrop-filter: blur(1px) contrast(0.8);
 }
 
 .modal-overlay.closing {
     animation: fadeOut 0.35s ease-out; /* Apply fade-out animation when closing */
+    pointer-events: none;
 }
 
 .modal-content * {
@@ -125,7 +124,7 @@
     margin: 0;
     border: none;
     border-radius: 0;
-    animation: slideInFromBottom 0.3s ease-out;
+    animation: slideInFromBottom 0.2s ease-out;
 }
 
 .modal-content.closing {
@@ -156,6 +155,7 @@ $sides: 20rem;
     width: 100%;
     background-color: $ui-modal-header-background;
     color: $ui-modal-header-foreground;
+    border-bottom: 1px $menu-bar-bottom-border solid;
 
     font-family:
         "Inter Variable", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -221,6 +221,10 @@ $sides: 20rem;
     flex-basis: $sides;
     justify-content: flex-end;
     z-index: 1;
+}
+
+.header-item-close img {
+    filter: var(--menu-bar-icon-filter);
 }
 
 .full-screen .header-item-close {

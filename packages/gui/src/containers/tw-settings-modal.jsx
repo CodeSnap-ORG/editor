@@ -30,12 +30,16 @@ class UsernameModal extends React.Component {
             "handleStageWidthChange",
             "handleStageHeightChange",
             "handleDisableCompilerChange",
+            "handleDisableSecmanChange",
             "handleStoreProjectOptions",
         ]);
     }
+
     handleFramerateChange(e) {
         this.props.vm.setFramerate(e.target.checked ? 60 : 30);
+        if (!this.props.isEmbedded) this.handleStoreProjectOptions();
     }
+
     async handleCustomizeFramerate() {
         // prompt() returns Promise in desktop app
         // eslint-disable-next-line no-alert
@@ -46,48 +50,84 @@ class UsernameModal extends React.Component {
         const parsed = parseFloat(newFramerate);
         if (isFinite(parsed)) {
             this.props.vm.setFramerate(parsed);
+            if (!this.props.isEmbedded) this.handleStoreProjectOptions();
         }
     }
+
     handleHighQualityPenChange(e) {
         this.props.vm.renderer.setUseHighQualityRender(e.target.checked);
+        if (!this.props.isEmbedded) this.handleStoreProjectOptions();
     }
+
     handleInterpolationChange(e) {
         this.props.vm.setInterpolation(e.target.checked);
+        if (!this.props.isEmbedded) this.handleStoreProjectOptions();
     }
+
     handleInfiniteClonesChange(e) {
         this.props.vm.setRuntimeOptions({
             maxClones: e.target.checked ? Infinity : 300,
         });
+        if (!this.props.isEmbedded) this.handleStoreProjectOptions();
     }
+
     handleRemoveFencingChange(e) {
         this.props.vm.setRuntimeOptions({
             fencing: !e.target.checked,
         });
+        if (!this.props.isEmbedded) this.handleStoreProjectOptions();
     }
+
     handleRemoveLimitsChange(e) {
         this.props.vm.setRuntimeOptions({
             miscLimits: !e.target.checked,
         });
+        if (!this.props.isEmbedded) this.handleStoreProjectOptions();
     }
+
     handleWarpTimerChange(e) {
         this.props.vm.setCompilerOptions({
             warpTimer: e.target.checked,
         });
+        // Do not store automatically
     }
+
     handleDisableCompilerChange(e) {
         this.props.vm.setCompilerOptions({
             enabled: !e.target.checked,
         });
+        // Do not store automatically
     }
+
+    handleDisableSecmanChange(e) {
+        // eslint-disable-next-line max-len
+        if (
+            !e.target.checked ||
+            confirm(
+                "You are enabling a VERY DANGEROUS option that may allow dangerous third-party extensions to corrupt your project, phish for passwords, install malware, and more. Do not blindly enable this. The prompts may look annoying, but they will prevent malicious projects from going undercover. Really continue?"
+            )
+        ) {
+            this.props.vm.setRuntimeOptions({
+                secman: !e.target.checked,
+            });
+        }
+        // Do not store automatically
+    }
+
     handleStageWidthChange(value) {
         this.props.vm.setStageSize(value, this.props.customStageSize.height);
+        if (!this.props.isEmbedded) this.handleStoreProjectOptions();
     }
+
     handleStageHeightChange(value) {
         this.props.vm.setStageSize(this.props.customStageSize.width, value);
+        if (!this.props.isEmbedded) this.handleStoreProjectOptions();
     }
+
     handleStoreProjectOptions() {
         this.props.vm.storeProjectOptions();
     }
+
     render() {
         const {
             /* eslint-disable no-unused-vars */
@@ -110,6 +150,7 @@ class UsernameModal extends React.Component {
                 onStageWidthChange={this.handleStageWidthChange}
                 onStageHeightChange={this.handleStageHeightChange}
                 onDisableCompilerChange={this.handleDisableCompilerChange}
+                onDisableSecmanChange={this.handleDisableSecmanChange}
                 stageWidth={this.props.customStageSize.width}
                 stageHeight={this.props.customStageSize.height}
                 customStageSizeEnabled={
@@ -152,6 +193,7 @@ UsernameModal.propTypes = {
         height: PropTypes.number,
     }),
     disableCompiler: PropTypes.bool,
+    disableSecman: PropTypes.bool,
 };
 
 const mapStateToProps = state => ({
@@ -166,6 +208,7 @@ const mapStateToProps = state => ({
     warpTimer: state.scratchGui.tw.compilerOptions.warpTimer,
     customStageSize: state.scratchGui.customStageSize,
     disableCompiler: !state.scratchGui.tw.compilerOptions.enabled,
+    disableSecman: !state.scratchGui.tw.runtimeOptions.secman,
 });
 
 const mapDispatchToProps = dispatch => ({

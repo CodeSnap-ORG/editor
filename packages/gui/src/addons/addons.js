@@ -57,7 +57,6 @@ const addons = [
     'paint-by-default',
     'block-cherry-picking',
     'hide-new-variables',
-    'editor-extra-keys',
     'hide-delete-button',
     'no-script-bumping',
     'disable-stage-drag-select',

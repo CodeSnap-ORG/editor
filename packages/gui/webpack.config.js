@@ -8,6 +8,7 @@ const monorepoPackageJson = require("../../package.json");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
+const { EsbuildPlugin } = require("esbuild-loader");
 
 // PostCss
 const autoprefixer = require("autoprefixer");
@@ -15,7 +16,12 @@ const postcssVars = require("postcss-simple-vars");
 const postcssImport = require("postcss-import");
 
 const STATIC_PATH = process.env.STATIC_PATH || "/static";
-const { APP_NAME, APP_SLOGAN, APP_DESCRIPTION } = require("@ampmod/branding");
+const {
+    APP_NAME,
+    APP_SLOGAN,
+    APP_DESCRIPTION,
+    APP_SOURCE,
+} = require("@ampmod/branding");
 
 const root = process.env.ROOT || "";
 if (root.length > 0 && !root.endsWith("/")) {
@@ -34,6 +40,21 @@ const htmlWebpackPluginCommon = {
     meta: JSON.parse(process.env.EXTRA_META || "{}"),
     isCbp: process.env.IS_CBP_BUILD || false,
     APP_NAME,
+    minify:
+        process.env.NODE_ENV === "production"
+            ? {
+                  removeComments: true,
+                  collapseWhitespace: true,
+                  removeRedundantAttributes: true,
+                  useShortDoctype: true,
+                  removeEmptyAttributes: true,
+                  removeStyleLinkTypeAttributes: true,
+                  keepClosingSlash: true,
+                  minifyJS: true,
+                  minifyCSS: true,
+                  minifyURLs: true,
+              }
+            : false,
 };
 
 // When this changes, the path for all JS files will change, bypassing any HTTP caches
@@ -67,6 +88,7 @@ const base = {
                 { from: /./, to: "/404.html" },
             ],
         },
+        hot: true,
     },
     output: {
         library: "GUI",
@@ -97,27 +119,13 @@ const base = {
         rules: [
             {
                 test: /\.jsx?$/,
-                loader: "babel-loader",
+                loader: "esbuild-loader",
                 include: [
                     path.resolve(__dirname, "src"),
                     /node_modules[\\/]scratch-[^\\/]+[\\/]src/,
-                    /node_modules[\\/]pify/,
-                    /node_modules[\\/]@vernier[\\/]godirect/,
                 ],
                 options: {
-                    cacheDirectory: true,
-                    // Explicitly disable babelrc so we don't catch various config
-                    // in much lower dependencies.
-                    babelrc: false,
-                    plugins: [
-                        [
-                            "react-intl",
-                            {
-                                messagesDir: "./translations/messages/",
-                            },
-                        ],
-                    ],
-                    presets: ["@babel/preset-env", "@babel/preset-react"],
+                    target: "es2019",
                 },
             },
             {
@@ -133,6 +141,12 @@ const base = {
                             importLoaders: 1,
                             localIdentName: "[name]_[local]_[hash:base64:5]",
                             camelCase: true,
+                        },
+                    },
+                    {
+                        loader: "esbuild-loader",
+                        options: {
+                            target: "es2019",
                         },
                     },
                     {
@@ -162,14 +176,49 @@ const base = {
         ],
     },
     plugins: [
+        new webpack.BannerPlugin({
+            // eslint-disable-next-line max-len
+            banner: `${APP_NAME} uses multiple licenses.\nFor detailed information, see:\nhttps://codeberg.org/ampmod/ampmod/src/branch/develop/LICENSE.md\n\nSource code (open source!): ${APP_SOURCE}`,
+        }),
+        new webpack.BannerPlugin({
+            banner: `
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License version 3 as
+published by the Free Software Foundation.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <https://www.gnu.org/licenses/>.
+            `.trim(),
+        }),
+        new webpack.DefinePlugin({
+            "process.env.NODE_ENV": `"${process.env.NODE_ENV}"`,
+            "process.env.DEBUG": Boolean(process.env.DEBUG),
+            "process.env.DISABLE_SERVICE_WORKER": JSON.stringify(
+                process.env.DISABLE_SERVICE_WORKER || ""
+            ),
+            "process.env.ROOT": JSON.stringify(root),
+            "process.env.ROUTING_STYLE": JSON.stringify(
+                process.env.ROUTING_STYLE || "filehash"
+            ),
+            "process.env.ampmod_version": JSON.stringify(
+                monorepoPackageJson.version
+            ),
+            "process.env.ampmod_is_canary": process.env.BUILD_MODE === "canary",
+            "process.env.ampmod_is_cbp": IS_CBP_BUILD,
+        }),
         new CopyWebpackPlugin({
             patterns: [
                 {
-                    from: "../../node_modules/scratch-blocks/media",
+                    from: "../blocks/media",
                     to: "static/blocks-media/default",
                 },
                 {
-                    from: "../../node_modules/scratch-blocks/media",
+                    from: "../blocks/media",
                     to: "static/blocks-media/high-contrast",
                 },
                 {
@@ -179,7 +228,7 @@ const base = {
                 },
             ],
         }),
-        new CompressionPlugin({
+        /* new CompressionPlugin({
             filename:
                 process.env.NODE_ENV === "production"
                     ? `js/${CACHE_EPOCH}/[name].js.br`
@@ -207,12 +256,13 @@ const base = {
             threshold: 1,
             minRatio: 0,
             deleteOriginalAssets: true,
-        }),
+        }), */
     ],
 };
 
 if (!process.env.CI) {
     base.plugins.push(new webpack.ProgressPlugin());
+    base.plugins.push(new webpack.HotModuleReplacementPlugin());
 }
 
 module.exports = [
@@ -220,7 +270,6 @@ module.exports = [
     defaultsDeep({}, base, {
         entry: {
             editor: "./src/playground/editor.jsx",
-            player: "./src/playground/player.jsx",
             fullscreen: "./src/playground/fullscreen.jsx",
             embed: "./src/playground/embed.jsx",
             "addon-settings": "./src/playground/addon-settings.jsx",
@@ -240,25 +289,9 @@ module.exports = [
                 minSize: 50000,
                 maxInitialRequests: 5,
             },
+            minimizer: [new EsbuildPlugin({ target: "es2019" })],
         },
         plugins: base.plugins.concat([
-            new webpack.DefinePlugin({
-                "process.env.NODE_ENV": `"${process.env.NODE_ENV}"`,
-                "process.env.DEBUG": Boolean(process.env.DEBUG),
-                "process.env.DISABLE_SERVICE_WORKER": JSON.stringify(
-                    process.env.DISABLE_SERVICE_WORKER || ""
-                ),
-                "process.env.ROOT": JSON.stringify(root),
-                "process.env.ROUTING_STYLE": JSON.stringify(
-                    process.env.ROUTING_STYLE || "filehash"
-                ),
-                "process.env.ampmod_version": JSON.stringify(
-                    monorepoPackageJson.version
-                ),
-                "process.env.ampmod_is_canary":
-                    process.env.BUILD_MODE === "canary",
-                "process.env.ampmod_is_cbp": IS_CBP_BUILD,
-            }),
             new HtmlWebpackPlugin({
                 chunks: ["headeronly"],
                 template: "src/playground/privacy.ejs",
@@ -273,8 +306,9 @@ module.exports = [
                 isEditor: true,
                 ...htmlWebpackPluginCommon,
             }),
+            // player: dupe of the above for compatibility
             new HtmlWebpackPlugin({
-                chunks: ["player"],
+                chunks: ["editor"],
                 template: "src/playground/index.ejs",
                 filename: IS_CBP_BUILD ? "player/index.html" : "player.html",
                 title: `${APP_NAME} - ${APP_SLOGAN}`,

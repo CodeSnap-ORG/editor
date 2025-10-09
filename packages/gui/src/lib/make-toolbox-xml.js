@@ -67,6 +67,18 @@ const motion = function (isInitialSetup, isStage, targetId, colors) {
                 </shadow>
             </value>
         </block>
+        <block type="motion_changeallby">
+            <value name="DX">
+                <shadow type="math_number">
+                    <field name="NUM">10</field>
+                </shadow>
+            </value>
+            <value name="DY">
+                <shadow type="math_number">
+                    <field name="NUM">10</field>
+                </shadow>
+            </value>
+        </block>
         <block type="motion_glideto" id="motion_glideto">
             <value name="SECS">
                 <shadow type="math_number">
@@ -263,6 +275,13 @@ const looks = function (
                     </shadow>
                 </value>
             </block>
+            <block type="looks_switchbackdroptoandwait">
+                <value name="BACKDROP">
+                    <shadow type="looks_backdrops">
+                        <field name="BACKDROP">${backdropName}</field>
+                    </shadow>
+                </value>
+            </block>
             <block type="looks_nextbackdrop"/>
             ${blockSeparator}
             <block type="looks_changesizeby">
@@ -448,15 +467,7 @@ const control = function (isInitialSetup, isStage, targetId, colors) {
                 </shadow>
             </value>
         </block>
-        ${blockSeparator}
-        <block type="control_repeat">
-            <value name="TIMES">
-                <shadow type="math_whole_number">
-                    <field name="NUM">10</field>
-                </shadow>
-            </value>
-        </block>
-        <block id="forever" type="control_forever"/>
+        <block id="wait_until" type="control_wait_until"/>
         ${blockSeparator}
         <block type="control_if"/>
         <block type="control_if_else"/>
@@ -468,9 +479,25 @@ const control = function (isInitialSetup, isStage, targetId, colors) {
                 <shadow type="text"/>
             </value>
         </block>
-        <block id="wait_until" type="control_wait_until"/>
+        ${blockSeparator}
+        <block type="control_repeat">
+            <value name="TIMES">
+                <shadow type="math_whole_number">
+                    <field name="NUM">10</field>
+                </shadow>
+            </value>
+        </block>
+        <block id="forever" type="control_forever"/>
         <block id="repeat_until" type="control_repeat_until"/>
         <block id="while" type="control_while"/>
+        <block id="for_each" type="control_for_each">
+            <field name="VARIABLE">my variable</field>
+            <value name="VALUE">
+                <shadow type="math_whole_number">
+                    <field name="NUM">10</field>
+                </shadow>
+            </value>
+        </block>
         <!-- ${blockSeparator}
         <block id="switch" type="control_switch">
             <value name="VALUE">
@@ -575,6 +602,7 @@ const sensing = function (isInitialSetup, isStage, targetId, colors) {
                 <shadow type="sensing_keyoptions"/>
             </value>
         </block>
+        <block type="sensing_lastkeypressed"/>
         <block type="sensing_mousedown"/>
         <block type="sensing_mousex"/>
         <block type="sensing_mousey"/>
@@ -871,7 +899,7 @@ const arrays = function (isInitialSetup, isStage, targetId, colors) {
         <block type="arrays_item_of">
             <value name="INDEX">
                 <shadow type="data_listindexrandom">
-                    <field name="NUM">1</field>
+                    <field name="INDEX">1</field>
                 </shadow>
             </value>
         </block>
@@ -913,7 +941,7 @@ const arrays = function (isInitialSetup, isStage, targetId, colors) {
             </value>
             <value name="INDEX">
                 <shadow type="data_listindexrandom">
-                    <field name="NUM">1</field>
+                    <field name="INDEX">1</field>
                 </shadow>
             </value>
         </block>

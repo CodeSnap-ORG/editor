@@ -68,7 +68,7 @@ class SoundEditor extends React.Component {
 
         document.addEventListener("keydown", this.handleKeyPress);
     }
-    useEffect(newProps) {
+    componentWillReceiveProps(newProps) {
         if (newProps.soundId !== this.props.soundId) {
             // A different sound has been selected
             this.redoStack = [];

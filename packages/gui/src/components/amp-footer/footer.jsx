@@ -1,4 +1,4 @@
-/**
+/*!
  * Copyright (C) 2021 Thomas Weber
  *
  * This program is free software: you can redistribute it and/or modify
@@ -37,34 +37,6 @@ const hardRefresh = () => {
     );
 };
 
-const eraseData = async () => {
-    if (
-        confirm(
-            "Please be aware that this will reset all your local data, including the Restore Points and backpack. Only do this if you're experiencing many bugs or errors. Again, this is a last resort, and all data will be ERASED FROM YOUR BROWSER, and CANNOT be undone. Are you sure you want to continue?"
-        )
-    ) {
-        const prefix = process.env.ampmod_is_canary ? "canary:" : "amp:";
-        const keysToRemove = Object.keys(localStorage).filter(key =>
-            key.startsWith(prefix)
-        );
-        keysToRemove.forEach(key => {
-            localStorage.removeItem(key);
-        });
-        // We have to manually delete the databases due to Firefox not supporting indexedDB.databases(). WHYYYY???
-        indexedDB.deleteDatabase(
-            process.env.ampmod_is_canary
-                ? " Canary_RestorePoints"
-                : "Amp_RestorePoints"
-        );
-        indexedDB.deleteDatabase(
-            process.env.ampmod_is_canary
-                ? " Canary_RestorePoints"
-                : "Amp_RestorePoints"
-        );
-        location.reload();
-    }
-};
-
 const Footer = () => {
     const isAprilFools = () => {
         const now = new Date();
@@ -93,14 +65,6 @@ const Footer = () => {
                             />
                         </>
                     )}
-                    <span className={styles.separator}></span>
-                    <a className={styles.footerResetData} onClick={eraseData}>
-                        <FormattedMessage
-                            defaultMessage="Reset data"
-                            description="Button to reset local data in the footer"
-                            id="tw.footer.resetData"
-                        />
-                    </a>
                 </div>
                 <div className={styles.footerText}>
                     <FormattedMessage

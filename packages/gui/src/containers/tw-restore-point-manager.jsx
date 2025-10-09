@@ -96,7 +96,7 @@ class TWRestorePointManager extends React.Component {
         this.props.vm.on("PROJECT_CHANGED", this.handleProjectChanged);
     }
 
-    useEffect(nextProps) {
+    componentWillReceiveProps(nextProps) {
         if (nextProps.isModalVisible && !this.props.isModalVisible) {
             this.refreshState();
         } else if (!nextProps.isModalVisible && this.props.isModalVisible) {

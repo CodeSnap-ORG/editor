@@ -29,8 +29,6 @@ import Clippy from "../../containers/amp-clippy.jsx";
 
 import Backpack from "../../containers/backpack.jsx";
 import BrowserModal from "../browser-modal/browser-modal.jsx";
-import TipsLibrary from "../../containers/tips-library.jsx";
-import Cards from "../../containers/cards.jsx";
 import Alerts from "../../containers/alerts.jsx";
 import DragLayer from "../../containers/drag-layer.jsx";
 import ConnectionModal from "../../containers/connection-modal.jsx";
@@ -173,6 +171,7 @@ const GUIComponent = props => {
         vm,
         ...componentProps
     } = omit(props, "dispatch");
+
     if (children) {
         return <Box {...componentProps}>{children}</Box>;
     }
@@ -196,6 +195,16 @@ const GUIComponent = props => {
         UNCONSTRAINED_NON_STAGE_WIDTH +
         FIXED_WIDTH +
         Math.max(0, customStageSize.width - FIXED_WIDTH);
+
+    if (!isBrowserSupported(isEmbedded)) {
+        return (
+            <BrowserModal
+                isRtl={isRtl}
+                onClickDesktopSettings={onClickDesktopSettings}
+                isEmbedded={isEmbedded}
+            />
+        );
+    }
     return (
         <MediaQuery minWidth={unconstrainedWidth}>
             {isUnconstrained => {
@@ -282,12 +291,6 @@ const GUIComponent = props => {
                                 messageId="gui.loader.creating"
                             />
                         ) : null}
-                        {isBrowserSupported() ? null : (
-                            <BrowserModal
-                                isRtl={isRtl}
-                                onClickDesktopSettings={onClickDesktopSettings}
-                            />
-                        )}
                         {tipsLibraryVisible ? <TipsLibrary /> : null}
                         {cardsVisible ? <Cards /> : null}
                         {alertsVisible ? (
@@ -435,6 +438,7 @@ const GUIComponent = props => {
                                                             }
                                                             options={{
                                                                 media: `${basePath}static/${theme.getBlocksMediaFolder()}/`,
+                                                                trashcan: true,
                                                             }}
                                                             stageSize={
                                                                 stageSize

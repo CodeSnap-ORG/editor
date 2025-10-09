@@ -1,4 +1,4 @@
-/**
+/*!
  * Copyright (C) 2021 Thomas Weber
  *
  * This program is free software: you can redistribute it and/or modify

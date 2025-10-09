@@ -5,14 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="google" value="notranslate">
     <% if (htmlWebpackPlugin.options.isCbp) { %>
-      <script async src="https://scripts.simpleanalyticscdn.com/latest.js"></script>
+      <% /* If you are forkimg, you will need to remove or replace google-site-verification,
+        and if you don't use Simple Analytics you will want to remove or replace that script too. */ %>
+      <meta name="google-site-verification" content="xMC75_ZeQyXE1iaRV31N-hOLPJVubcfmiKfoiOqcNH8" /> 
+      <script>
+      (function() {
+        const optedOut = localStorage.getItem('amp:analytics-opted-out') === 'true';
+
+        if (!optedOut) {
+          const script = document.createElement('script');
+          script.async = true;
+          script.src = 'https://scripts.simpleanalyticscdn.com/latest.js';
+          document.head.appendChild(script);
+        }
+      })();
+    </script>
+    <% } else { %>  
+      <meta name="robots" content="noindex, nofollow">
     <% } %>
     <meta name="description" content="<%= htmlWebpackPlugin.options.APP_NAME %> is a powerful block-based programming language built on Scratch 3.0 and TurboWarp." />
     <title><%= htmlWebpackPlugin.options.title %></title>
     <link rel="apple-touch-icon" href="<%= htmlWebpackPlugin.options.root %>images/apple-touch-icon.png">
-    <% if (htmlWebpackPlugin.options.root === "/" || htmlWebpackPlugin.options.root === "") { %>
-      <link rel="manifest" href="<%= htmlWebpackPlugin.options.root %>manifest.webmanifest">
-    <% } %>
+    <script>
+      (function() {
+        const optedOut = localStorage.getItem('amp:analytics-opted-out') === 'true';
+
+        if (!optedOut && <%= htmlWebpackPlugin.options.isCbp %>) {
+          const script = document.createElement('script');
+          script.async = true;
+          script.src = 'https://scripts.simpleanalyticscdn.com/latest.js';
+          document.head.appendChild(script);
+        }
+      })();
+    </script>
     <style>
       .splash-screen {
         position: absolute;

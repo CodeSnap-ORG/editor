@@ -20,8 +20,8 @@ const SortableHOC = function (WrappedComponent) {
             this.containerBox = null;
         }
 
-        componentDidUpdate(prevProps) {
-            if (this.props.dragInfo.dragging && !prevProps.dragInfo.dragging) {
+        componentWillReceiveProps(newProps) {
+            if (newProps.dragInfo.dragging && !this.props.dragInfo.dragging) {
                 // Drag just started, snapshot the sorted bounding boxes for sortables.
                 this.boxes = this.sortableRefs.map(
                     el => el && el.getBoundingClientRect()
@@ -39,8 +39,8 @@ const SortableHOC = function (WrappedComponent) {
                 }
                 this.containerBox = this.ref.getBoundingClientRect();
             } else if (
-                !this.props.dragInfo.dragging &&
-                prevProps.dragInfo.dragging
+                !newProps.dragInfo.dragging &&
+                this.props.dragInfo.dragging
             ) {
                 const newIndex = this.getMouseOverIndex();
                 if (newIndex !== null) {
@@ -88,7 +88,6 @@ const SortableHOC = function (WrappedComponent) {
             // MouseOverIndex is the index that the current drag wants to place the
             // the dragging object. Obviously only exists if there is a drag (i.e. currentOffset).
             // Return null if outside the container, zero if there are no boxes.
-
             let mouseOverIndex = null;
             if (this.props.dragInfo.currentOffset) {
                 const { x, y } = this.props.dragInfo.currentOffset;
@@ -109,9 +108,6 @@ const SortableHOC = function (WrappedComponent) {
         }
         setRef(el) {
             this.ref = el;
-            if (el) {
-                this.containerBox = el.getBoundingClientRect();
-            }
         }
         render() {
             const {

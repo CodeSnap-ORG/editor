@@ -278,6 +278,7 @@ Blockly.Msg.SENSING_CURRENT_SECOND = "second";
 Blockly.Msg.SENSING_DAYSSINCE2000 = "days since 2000";
 Blockly.Msg.SENSING_USERNAME = "username";
 Blockly.Msg.SENSING_USERID = "user id";
+Blockly.Msg.SENSING_LASTKEYPRESSED = "last key pressed";
 
 // Sound blocks
 Blockly.Msg.SOUND_PLAY = "start sound %1";

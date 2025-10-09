@@ -290,7 +290,7 @@ const WarpTimer = props => (
         help={
             <FormattedMessage
                 // eslint-disable-next-line max-len
-                defaultMessage="Makes scripts check if they are stuck in a long or infinite loop and run at a low framerate instead of getting stuck until the loop finishes. This fixes most crashes but has a significant performance impact, so it's only enabled by default in the editor."
+                defaultMessage="Makes scripts check if they are stuck in a long or infinite loop and run at a low framerate instead of getting stuck until the loop finishes. This fixes most crashes but has a significant performance impact."
                 description="Warp Timer help"
                 id="tw.settingsModal.warpTimerHelp"
             />
@@ -321,6 +321,30 @@ const DisableCompiler = props => (
             />
         }
         slug="disable-compiler"
+    />
+);
+
+const DisableSecurityManager = props => (
+    <BooleanSetting
+        {...props}
+        label={
+            <FormattedMessage
+                defaultMessage="Disable Security Prompts"
+                description="Disable Security Prompts setting"
+                id="amp.settingsModal.disableSecman"
+            />
+        }
+        help={
+            <FormattedMessage
+                // eslint-disable-next-line max-len
+                defaultMessage="Disables security prompts from extensions. You may want to enable this while editing projects or running those from a trusted developer. Otherwise, DO NOT enable this. Review the project's code first."
+                description="Disable Security Prompts help"
+                id="amp.settingsModal.disableSecmanHelp"
+                values={{
+                    APP_NAME,
+                }}
+            />
+        }
     />
 );
 
@@ -403,9 +427,18 @@ const StoreProjectOptions = ({ onStoreProjectOptions }) => (
                     id="tw.settingsModal.storeProjectOptions"
                 />
             </button>
+            <p>
+                <FormattedMessage
+                    // eslint-disable-next-line max-len
+                    defaultMessage="Warp timer, disable compiler, and disable security prompts will not be stored."
+                    description="Help text for the store settings in project button"
+                    id="amp.settingsModal.storeProjectOptionsHelp"
+                />
+            </p>
         </div>
     </div>
 );
+
 StoreProjectOptions.propTypes = {
     onStoreProjectOptions: PropTypes.func,
 };
@@ -483,7 +516,12 @@ const SettingsModalComponent = props => (
                 value={props.disableCompiler}
                 onChange={props.onDisableCompilerChange}
             />
-            {!props.isEmbedded && <StoreProjectOptions {...props} />}
+            {!props.isEmbedded && (
+                <DisableSecurityManager
+                    value={props.disableSecman}
+                    onChange={props.onDisableSecmanChange}
+                />
+            )}
         </Box>
     </Modal>
 );
@@ -509,6 +547,8 @@ SettingsModalComponent.propTypes = {
     onWarpTimerChange: PropTypes.func,
     disableCompiler: PropTypes.bool,
     onDisableCompilerChange: PropTypes.func,
+    disableSecman: PropTypes.bool,
+    onDisableSecmanChange: PropTypes.func,
 };
 
 export default injectIntl(SettingsModalComponent);

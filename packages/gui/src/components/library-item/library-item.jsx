@@ -54,6 +54,10 @@ class LibraryItemComponent extends React.PureComponent {
             </button>
         );
 
+        if (this.props.hidden) {
+            return null;
+        }
+
         return this.props.featured ? (
             <div
                 className={classNames(
@@ -65,8 +69,7 @@ class LibraryItemComponent extends React.PureComponent {
                     },
                     typeof this.props.extensionId === "string"
                         ? styles.libraryItemExtension
-                        : null,
-                    this.props.hidden ? styles.hidden : null
+                        : null
                 )}
                 onClick={this.props.onClick}
             >

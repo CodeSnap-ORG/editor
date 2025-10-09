@@ -9,6 +9,7 @@ import dropdownCaret from "./dropdown-caret.svg";
 import { MenuItem, Submenu } from "../menu/menu.jsx";
 import {
     GUI_MAP,
+    GUI_AMP_LIGHT,
     GUI_LIGHT,
     GUI_DARK,
     GUI_AMOLED,
@@ -20,13 +21,23 @@ import { setTheme } from "../../reducers/theme.js";
 import { persistTheme } from "../../lib/themes/themePersistance.js";
 import lightModeIcon from "./tw-sun.svg";
 import darkModeIcon from "./tw-moon.svg";
+import {
+    openGuiThemeMenu,
+    guiThemeMenuOpen,
+    closeGuiThemeMenu,
+} from "../../reducers/menus.js";
 import styles from "./settings-menu.css";
 
 const options = defineMessages({
-    [GUI_LIGHT]: {
+    [GUI_AMP_LIGHT]: {
         defaultMessage: "Light",
         description: "Light theme option",
         id: "amp.gui.light",
+    },
+    [GUI_LIGHT]: {
+        defaultMessage: "Light (Classic)",
+        description: "Light theme option",
+        id: "amp.gui.lightClassic",
     },
     [GUI_DARK]: {
         defaultMessage: "Dark",
@@ -57,7 +68,9 @@ const GuiIcon = ({ id }) => (
         <div
             className={styles.guiThemeIconOuter}
             style={{
-                backgroundColor: GUI_MAP[id].guiColors["ui-primary"],
+                backgroundColor:
+                    GUI_MAP[id].guiColors["ui-primary"] ||
+                    GUI_MAP["light"].guiColors["ui-primary"],
             }}
         >
             <div
@@ -67,7 +80,8 @@ const GuiIcon = ({ id }) => (
                         GUI_MAP[id].guiColors["high-contrast-border"] ||
                         "transparent",
                     backgroundColor:
-                        GUI_MAP[id].guiColors["menu-bar-background"],
+                        GUI_MAP[id].guiColors["menu-bar-background"] ||
+                        GUI_MAP["light"].guiColors["menu-bar-background"],
                 }}
             />
             <div
@@ -112,7 +126,7 @@ GuiThemeItem.propTypes = {
 
 const GuiThemeMenu = ({ isOpen, isRtl, onChangeTheme, onOpen, theme }) => (
     <MenuItem expanded={isOpen}>
-        <div className={styles.option}>
+        <div className={styles.option} onClick={onOpen}>
             <GuiIcon id={theme.gui} />
             <div className={styles.menuItemTitleAndSubtitle}>
                 <span className={styles.submenuLabel}>
@@ -133,7 +147,13 @@ const GuiThemeMenu = ({ isOpen, isRtl, onChangeTheme, onOpen, theme }) => (
             />
         </div>
         <Submenu place={isRtl ? "left" : "right"}>
-            {[GUI_LIGHT, GUI_DARK, GUI_AMOLED, GUI_HIGH_CONTRAST].map(id => (
+            {[
+                GUI_AMP_LIGHT,
+                GUI_LIGHT,
+                GUI_DARK,
+                GUI_AMOLED,
+                GUI_HIGH_CONTRAST,
+            ].map(id => (
                 <GuiThemeItem
                     key={id}
                     id={id}
@@ -148,10 +168,12 @@ const GuiThemeMenu = ({ isOpen, isRtl, onChangeTheme, onOpen, theme }) => (
 GuiThemeMenu.propTypes = {
     theme: PropTypes.instanceOf(Theme),
     isRtl: PropTypes.bool,
+    onOpen: PropTypes.func,
     onChangeTheme: PropTypes.func,
 };
 
 const mapStateToProps = state => ({
+    isOpen: guiThemeMenuOpen(state),
     theme: state.scratchGui.theme.theme,
     isRtl: state.locales.isRtl,
 });
@@ -162,6 +184,7 @@ const mapDispatchToProps = dispatch => ({
         dispatch(closeSettingsMenu());
         persistTheme(theme);
     },
+    onOpen: () => dispatch(openGuiThemeMenu()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(GuiThemeMenu);

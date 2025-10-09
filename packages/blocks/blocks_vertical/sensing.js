@@ -211,6 +211,21 @@ Blockly.Blocks["sensing_keypressed"] = {
     },
 };
 
+Blockly.Blocks["sensing_lastkeypressed"] = {
+    /**
+     * Block to Report the last key pressed.
+     * @this Blockly.Block
+     */
+    init: function () {
+        this.jsonInit({
+            message0: Blockly.Msg.SENSING_LASTKEYPRESSED,
+            category: Blockly.Categories.sensing,
+            checkboxInFlyout: true,
+            extensions: ["colours_sensing", "output_string"],
+        });
+    },
+};
+
 Blockly.Blocks["sensing_keyoptions"] = {
     /**
      * Options for Keys
@@ -266,6 +281,50 @@ Blockly.Blocks["sensing_keyoptions"] = {
                         ["7", "7"],
                         ["8", "8"],
                         ["9", "9"],
+                        ["-", "-"],
+                        [",", ","],
+                        [".", "."],
+                        ["!", "!"],
+                        ["@", "@"],
+                        ["#", "#"],
+                        ["$", "$"],
+                        ["%", "%"],
+                        ["^", "^"],
+                        ["&", "&"],
+                        ["*", "*"],
+                        ["(", "("],
+                        [")", ")"],
+                        ["_", "_"],
+                        ["+", "+"],
+                        ["{", "{"],
+                        ["}", "}"],
+                        ["|", "|"],
+                        [":", ":"],
+                        ['"', '"'],
+                        ["?", "?"],
+                        ["<", "<"],
+                        [">", ">"],
+                        ["~", "~"],
+                        ["`", "`"],
+                        ["=", "="],
+                        ["[", "["],
+                        ["]", "]"],
+                        ["\\", "\\"],
+                        [";", ";"],
+                        ["'", "'"],
+                        ["/", "/"],
+                        ["backspace", "backspace"],
+                        ["delete", "delete"],
+                        ["shift", "shift"],
+                        ["caps lock", "caps lock"],
+                        ["scroll lock", "scroll lock"],
+                        ["control", "control"],
+                        ["escape", "escape"],
+                        ["insert", "insert"],
+                        ["home", "home"],
+                        ["end", "end"],
+                        ["page up", "page up"],
+                        ["page down", "page down"],
                     ],
                 },
             ],

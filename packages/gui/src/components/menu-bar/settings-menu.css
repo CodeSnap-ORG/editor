@@ -26,6 +26,7 @@
 
 .selected {
     visibility: visible;
+    filter: var(--menu-bar-icon-filter);
 }
 
 .submenu-label {
@@ -43,6 +44,7 @@
 .expand-caret {
     transform: rotate(-90deg);
     margin-left: auto;
+    filter: var(--menu-bar-icon-filter);
 }
 
 [dir="rtl"] .expand-caret {
@@ -138,4 +140,8 @@
 
 .open-link {
     margin-left: 0.5rem;
+}
+
+.icon {
+    filter: var(--menu-bar-icon-filter);
 }
