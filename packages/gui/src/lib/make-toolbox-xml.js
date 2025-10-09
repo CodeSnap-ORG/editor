@@ -638,10 +638,67 @@ const sensing = function (isInitialSetup, isStage, targetId, colors) {
     `;
 };
 
-const operators = function (isInitialSetup, isStage, targetId, colors) {
+const strings = function (isInitialSetup, isStage, targetId, colors) {
     const apple = translate("OPERATORS_JOIN_APPLE", "apple");
     const banana = translate("OPERATORS_JOIN_BANANA", "banana");
     const letter = translate("OPERATORS_LETTEROF_APPLE", "a");
+    return `
+    <category
+        name="%{BKY_CATEGORY_STRINGS}"
+        id="strings"
+        colour="${colors.primary}"
+        secondaryColour="${colors.tertiary}">
+        <block type="operator_join">
+            <value name="STRING1">
+                <shadow type="text">
+                    <field name="TEXT">${apple} </field>
+                </shadow>
+            </value>
+            <value name="STRING2">
+                <shadow type="text">
+                    <field name="TEXT">${banana}</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="operator_letter_of">
+            <value name="LETTER">
+                <shadow type="math_whole_number">
+                    <field name="NUM">1</field>
+                </shadow>
+            </value>
+            <value name="STRING">
+                <shadow type="text">
+                    <field name="TEXT">${apple}</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="operator_length">
+            <value name="STRING">
+                <shadow type="text">
+                    <field name="TEXT">${apple}</field>
+                </shadow>
+            </value>
+        </block>
+        <block type="operator_contains" id="operator_contains">
+            <value name="STRING1">
+            <shadow type="text">
+                <field name="TEXT">${apple}</field>
+            </shadow>
+            </value>
+            <value name="STRING2">
+            <shadow type="text">
+                <field name="TEXT">${letter}</field>
+            </shadow>
+            </value>
+        </block>
+        ${blockSeparator}
+        <block type="operator_newline" />
+        ${categorySeparator}
+    </category>
+    `;
+};
+
+const operators = function (isInitialSetup, isStage, targetId, colors) {
     // Note: the category's secondaryColour matches up with the blocks' tertiary color, both used for border color.
     return `
     <category
@@ -764,56 +821,6 @@ const operators = function (isInitialSetup, isStage, targetId, colors) {
         <block type="operator_or"/>
         <block type="operator_not"/>
         ${blockSeparator}
-        ${
-            isInitialSetup
-                ? ""
-                : `
-            <block type="operator_join">
-                <value name="STRING1">
-                    <shadow type="text">
-                        <field name="TEXT">${apple} </field>
-                    </shadow>
-                </value>
-                <value name="STRING2">
-                    <shadow type="text">
-                        <field name="TEXT">${banana}</field>
-                    </shadow>
-                </value>
-            </block>
-            <block type="operator_letter_of">
-                <value name="LETTER">
-                    <shadow type="math_whole_number">
-                        <field name="NUM">1</field>
-                    </shadow>
-                </value>
-                <value name="STRING">
-                    <shadow type="text">
-                        <field name="TEXT">${apple}</field>
-                    </shadow>
-                </value>
-            </block>
-            <block type="operator_length">
-                <value name="STRING">
-                    <shadow type="text">
-                        <field name="TEXT">${apple}</field>
-                    </shadow>
-                </value>
-            </block>
-            <block type="operator_contains" id="operator_contains">
-              <value name="STRING1">
-                <shadow type="text">
-                  <field name="TEXT">${apple}</field>
-                </shadow>
-              </value>
-              <value name="STRING2">
-                <shadow type="text">
-                  <field name="TEXT">${letter}</field>
-                </shadow>
-              </value>
-            </block>
-        `
-        }
-        ${blockSeparator}
         <block type="operator_mod">
             <value name="NUM1">
                 <shadow type="math_number">
@@ -841,8 +848,6 @@ const operators = function (isInitialSetup, isStage, targetId, colors) {
                 </shadow>
             </value>
         </block>
-        ${blockSeparator}
-        <block type="operator_newline" />
         ${categorySeparator}
     </category>
     `;
@@ -1044,6 +1049,9 @@ const makeToolboxXML = function (
     const operatorsXML =
         moveCategory("operators") ||
         operators(isInitialSetup, isStage, targetId, colors.operators);
+    const stringsXML =
+        moveCategory("strings") ||
+        strings(isInitialSetup, isStage, targetId, colors.strings);
     const variablesXML =
         moveCategory("data") ||
         variables(isInitialSetup, isStage, targetId, colors.data);
@@ -1082,6 +1090,8 @@ const makeToolboxXML = function (
         sensingXML,
         gap,
         operatorsXML,
+        gap,
+        stringsXML,
         gap,
         variablesXML,
         gap,

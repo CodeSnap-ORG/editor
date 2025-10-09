@@ -302,6 +302,7 @@ Blockly.Msg.CATEGORY_EVENTS = "Events";
 Blockly.Msg.CATEGORY_CONTROL = "Control";
 Blockly.Msg.CATEGORY_SENSING = "Sensing";
 Blockly.Msg.CATEGORY_OPERATORS = "Operators";
+Blockly.Msg.CATEGORY_STRINGS = "Strings";
 Blockly.Msg.CATEGORY_VARIABLES = "Variables";
 Blockly.Msg.CATEGORY_MYBLOCKS = "My Blocks";
 
