@@ -46,7 +46,6 @@ import gdxforInsetIconURL from "./gdxfor/gdxfor-small.svg";
 import gdxforConnectionIconURL from "./gdxfor/gdxfor-illustration.svg";
 import gdxforConnectionSmallIconURL from "./gdxfor/gdxfor-small.svg";
 
-import twIcon from "./tw/tw.svg";
 import futureIcon from "./future/future.svg";
 import customExtensionIcon from "./custom/custom.svg";
 import legacyListsIcon from "./legacyLists/legacylists.svg";
