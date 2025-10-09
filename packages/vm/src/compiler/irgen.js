@@ -1589,6 +1589,15 @@ class ScriptTreeGenerator {
                         InputType.NUMBER
                     ),
                 });
+            case "motion_changeallby": // amp: not in tw
+                return new IntermediateStackBlock(StackOpcode.MOTION_CHANGE, {
+                    dx: this.descendInputOfBlock(block, "DX").toType(
+                        InputType.NUMBER
+                    ),
+                    dy: this.descendInputOfBlock(block, "DY").toType(
+                        InputType.NUMBER
+                    ),
+                });
             case "motion_gotoxy":
                 return new IntermediateStackBlock(StackOpcode.MOTION_XY_SET, {
                     x: this.descendInputOfBlock(block, "X").toType(
