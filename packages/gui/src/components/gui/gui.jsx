@@ -33,6 +33,7 @@ import Alerts from "../../containers/alerts.jsx";
 import DragLayer from "../../containers/drag-layer.jsx";
 import ConnectionModal from "../../containers/connection-modal.jsx";
 import TelemetryModal from "../telemetry-modal/telemetry-modal.jsx";
+import Welcome from "../amp-welcome/welcome.jsx";
 import TWUsernameModal from "../../containers/tw-username-modal.jsx";
 import TWSettingsModal from "../../containers/tw-settings-modal.jsx";
 import TWSecurityManager from "../../containers/tw-security-manager.jsx";
@@ -145,6 +146,7 @@ const GUIComponent = props => {
         onRequestCloseBackdropLibrary,
         onRequestCloseCostumeLibrary,
         onRequestCloseTelemetryModal,
+        onRequestCloseWelcomeModal,
         onSeeCommunity,
         onShare,
         onShowPrivacyPolicy,
@@ -160,6 +162,7 @@ const GUIComponent = props => {
         stageSizeMode,
         targetIsStage,
         telemetryModalVisible,
+        welcomeModalVisible,
         theme,
         tipsLibraryVisible,
         usernameModalVisible,
@@ -273,6 +276,12 @@ const GUIComponent = props => {
                         {...componentProps}
                     >
                         {alwaysEnabledModals}
+                        {welcomeModalVisible ? (
+                            <Welcome
+                                isRtl={isRtl}
+                                onContinue={onRequestCloseWelcomeModal}
+                            />
+                        ) : null}
                         {telemetryModalVisible ? (
                             <TelemetryModal
                                 isRtl={isRtl}

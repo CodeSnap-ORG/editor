@@ -19,6 +19,7 @@ import {
     closeCostumeLibrary,
     closeBackdropLibrary,
     closeTelemetryModal,
+    closeWelcomeModal,
     openExtensionLibrary,
 } from "../reducers/modals";
 
@@ -56,6 +57,15 @@ class GUI extends React.Component {
         this.props.onStorageInit(storage);
         this.props.onVmInit(this.props.vm);
         setProjectIdMetadata(this.props.projectId);
+        // Show welcome modal on first launch if not closed
+        if (!localStorage.getItem("amp:welcome-closed")) {
+            if (
+                !this.props.welcomeModalVisible &&
+                this.props.onOpenWelcomeModal
+            ) {
+                this.props.onOpenWelcomeModal();
+            }
+        }
     }
     componentDidUpdate(prevProps) {
         if (this.props.projectId !== prevProps.projectId) {
@@ -129,6 +139,7 @@ GUI.propTypes = {
     projectHost: PropTypes.string,
     projectId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     telemetryModalVisible: PropTypes.bool,
+    welcomeModalVisible: PropTypes.bool,
     vm: PropTypes.instanceOf(VM).isRequired,
 };
 
@@ -172,6 +183,7 @@ const mapStateToProps = state => {
             state.scratchGui.targets.stage.id ===
                 state.scratchGui.targets.editingTarget,
         telemetryModalVisible: state.scratchGui.modals.telemetryModal,
+        welcomeModalVisible: state.scratchGui.modals.welcomeModal,
         tipsLibraryVisible: state.scratchGui.modals.tipsLibrary,
         usernameModalVisible: state.scratchGui.modals.usernameModal,
         settingsModalVisible: state.scratchGui.modals.settingsModal,
@@ -193,6 +205,12 @@ const mapDispatchToProps = dispatch => ({
     onRequestCloseBackdropLibrary: () => dispatch(closeBackdropLibrary()),
     onRequestCloseCostumeLibrary: () => dispatch(closeCostumeLibrary()),
     onRequestCloseTelemetryModal: () => dispatch(closeTelemetryModal()),
+    onRequestCloseWelcomeModal: () => {
+        localStorage.setItem("amp:welcome-closed", "true");
+        dispatch(closeWelcomeModal());
+    },
+    onOpenWelcomeModal: () =>
+        dispatch(require("../reducers/modals").openWelcomeModal()),
 });
 
 const ConnectedGUI = injectIntl(
