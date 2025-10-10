@@ -12,6 +12,7 @@ import { setPlayer, setFullScreen } from "../reducers/mode";
 import { generateRandomUsername } from "./tw-username";
 import { setSearchParams } from "./tw-navigation-utils";
 import { defaultStageSize } from "../reducers/custom-stage-size";
+import { lsNamespace } from "./amp-localstorage-namespace";
 
 /* eslint-disable no-alert */
 
@@ -28,7 +29,7 @@ const messages = defineMessages({
     },
 });
 
-const USERNAME_KEY = "amp:addons";
+const USERNAME_KEY = `${lsNamespace}username`;
 
 /**
  * The State Manager is responsible for managing persistent state and the URL.
