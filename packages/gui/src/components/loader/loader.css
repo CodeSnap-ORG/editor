@@ -14,8 +14,7 @@
     align-items: center;
     font-family:
         "Inter Variable", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    background-color: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(1px);
+    background-color: $menu-bar-background;
     text-align: center;
     color: $menu-bar-foreground;
     border-radius: 10px; /* Make the loader round */
