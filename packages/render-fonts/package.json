@@ -10,10 +10,10 @@
         "url": "https://git@github.com/scratchfoundation/scratch-render-fonts.git"
     },
     "scripts": {
-        "build": "npm run clean && webpack --progress --bail",
+        "build": "pnpm run clean && webpack --progress --bail",
         "clean": "rimraf ./dist",
         "lint": "eslint .",
-        "test": "npm run build",
+        "test": "pnpm run build",
         "watch": "webpack --progress --watch",
         "prepare": "# no prepare script"
     },

@@ -11,20 +11,20 @@
     },
     "main": "./dist/scratch-gui.js",
     "scripts": {
-        "build": "npm run clean && webpack --colors --bail",
+        "build": "pnpm run clean && webpack --colors --bail",
         "ci-build": "webpack --colors --bail",
         "clean": "rimraf ./build && mkdirp build && rimraf ./dist && mkdirp dist",
         "prepare": "node scripts/prepublish.mjs",
         "i18n:push": "wlc push --project ampmod --component ampmod-editor-interface --file translations/en.json",
         "i18n:src": "rimraf ./translations/messages/src && babel src > tmp.js && rimraf tmp.js && build-i18n-src ./translations/messages/src ./translations/",
         "start": "webpack-dev-server",
-        "test": "npm run test:lint && npm run test:unit && npm run build && npm run test:integration",
+        "test": "pnpm run test:lint && pnpm run test:unit && pnpm run build && pnpm run test:integration",
         "test:integration": "jest --maxWorkers=4 test[\\\\/]integration",
         "test:lint": "eslint . --ext .js,.jsx",
         "test:unit": "jest test[\\\\/]unit[\\\\/]addons",
         "test:smoke": "jest --runInBand test[\\\\/]smoke",
         "watch": "webpack --colors --watch",
-        "test-cbp": "NODE_ENV=production IS_CBP_BUILD=true npm run build && http-server build/"
+        "test-cbp": "NODE_ENV=production IS_CBP_BUILD=true pnpm run build && http-server build/"
     },
     "config": {
         "commitizen": {

@@ -5,11 +5,11 @@
     "main": "./src/index.js",
     "scripts": {
         "prepare": "# None",
-        "prepublishOnly": "npm run build",
-        "build": "npm run clean && webpack --progress --colors --bail",
+        "prepublishOnly": "pnpm run build",
+        "build": "pnpm run clean && webpack --progress --colors --bail",
         "clean": "rimraf ./dist",
         "start": "webpack-dev-server",
-        "test": "npm run test:lint && npm run test:unit",
+        "test": "pnpm run test:lint && pnpm run test:unit",
         "test:lint": "eslint . --ext .js",
         "test:unit": "tap ./test/*.js",
         "watch": "webpack --progress --colors --watch"

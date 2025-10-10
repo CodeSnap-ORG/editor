@@ -22,7 +22,7 @@
  * @fileoverview English strings.
  * @author ascii@media.mit.edu (Andrew Sliwinski)
  *
- * After modifying this file, run `npm run translate` from the root directory
+ * After modifying this file, run `pnpm run translate` from the root directory
  * to regenerate `./msg/json/en.json`.
  * IMPORTANT:
  * All message strings must use single quotes for the scripts to work properly
