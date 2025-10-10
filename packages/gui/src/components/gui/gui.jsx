@@ -298,7 +298,9 @@ const GUIComponent = props => {
                                         }
                                     />
                                 ) : null}
-                                {loading ? <Loader isFullScreen /> : null}
+                                {loading && !isCreating ? (
+                                    <Loader isFullScreen />
+                                ) : null}
                                 {isCreating ? (
                                     <Loader
                                         isFullScreen
