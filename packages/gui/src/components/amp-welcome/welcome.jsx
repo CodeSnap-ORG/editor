@@ -68,6 +68,27 @@ const Welcome = ({ intl, isRtl, onContinue }) => {
                                         />
                                     </p>
                                 )}
+                                {process.env.ampmod_mode === "lab" && (
+                                    <p>
+                                        <FormattedMessage
+                                            id="amp.welcome.lab"
+                                            defaultMessage="{APP_NAME} is experimenting with new features in {APP_NAME} Lab. Projects created here may not currently be compatible with the official {APP_NAME} release. Feedback is welcome on the {forumsLink}."
+                                            description="Welcome modal lab build message"
+                                            values={{
+                                                APP_NAME,
+                                                forumsLink: (
+                                                    <a
+                                                        href="https://ampmod.flarum.cloud"
+                                                        target="_blank"
+                                                        rel="noreferrer noopener"
+                                                    >
+                                                        AmpMod Forums
+                                                    </a>
+                                                ),
+                                            }}
+                                        />
+                                    </p>
+                                )}
                                 <p>
                                     <FormattedMessage
                                         id="amp.welcome.alreadyUsed"
