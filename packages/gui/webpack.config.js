@@ -340,15 +340,18 @@ module.exports = [
                 title: `Embedded Project - ${APP_NAME}`,
                 ...htmlWebpackPluginCommon,
             }),
-            !process.env.BUILD_MODE === "lab" &&
-                new HtmlWebpackPlugin({
-                    chunks: ["home"],
-                    template: "src/playground/simple.ejs",
-                    filename: "index.html",
-                    title: `${APP_NAME} - ${APP_SLOGAN}`,
-                    description: APP_DESCRIPTION,
-                    ...htmlWebpackPluginCommon,
-                }),
+            ...(process.env.BUILD_MODE !== "lab"
+                ? [
+                      new HtmlWebpackPlugin({
+                          chunks: ["home"],
+                          template: "src/playground/simple.ejs",
+                          filename: "index.html",
+                          title: `${APP_NAME} - ${APP_SLOGAN}`,
+                          description: APP_DESCRIPTION,
+                          ...htmlWebpackPluginCommon,
+                      }),
+                  ]
+                : []),
             new HtmlWebpackPlugin({
                 chunks: ["newcompiler"],
                 template: "src/playground/simple.ejs",
