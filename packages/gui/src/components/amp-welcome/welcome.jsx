@@ -58,7 +58,7 @@ const Welcome = ({ intl, isRtl, onContinue }) => {
                                         values={{ APP_NAME }}
                                     />
                                 </p>
-                                {process.env.ampmod_is_canary && (
+                                {process.env.ampmod_mode === "canary" && (
                                     <p>
                                         <FormattedMessage
                                             id="amp.welcome.canary"

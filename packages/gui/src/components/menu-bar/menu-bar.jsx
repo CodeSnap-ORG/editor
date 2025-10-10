@@ -575,7 +575,7 @@ class MenuBar extends React.Component {
                             >
                                 <img
                                     src={
-                                        process.env.ampmod_is_canary
+                                        process.env.ampmod_mode === "canary"
                                             ? ampmodCanaryIcon
                                             : isAprilFools
                                               ? lampmodIcon

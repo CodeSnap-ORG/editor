@@ -4,7 +4,7 @@ import { isScratchDesktop } from "../../lib/isScratchDesktop";
 import CloseButton from "../close-button/close-button.jsx";
 import styles from "./tw-news.css";
 
-const LOCAL_STORAGE_KEY = `${process.env.ampmod_is_canary ? "canary" : "amp"}:closedNews`;
+const LOCAL_STORAGE_KEY = `${process.env.ampmod_mode === "canary" ? "canary" : "amp"}:closedNews`;
 const NEWS_ID = "privacy-1";
 
 const getIsClosedInLocalStorage = () => {

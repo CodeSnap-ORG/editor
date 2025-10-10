@@ -60,7 +60,7 @@ class GUI extends React.Component {
         // Show welcome modal on first launch if not closed
         if (
             !localStorage.getItem(
-                process.env.ampmod_is_canary
+                process.env.ampmod_mode === "canary"
                     ? "canary:welcome-closed"
                     : "amp:welcome-closed"
             )
@@ -213,7 +213,7 @@ const mapDispatchToProps = dispatch => ({
     onRequestCloseTelemetryModal: () => dispatch(closeTelemetryModal()),
     onRequestCloseWelcomeModal: () => {
         localStorage.setItem(
-            process.env.ampmod_is_canary
+            process.env.ampmod_mode === "canary"
                 ? "canary:welcome-closed"
                 : "amp:welcome-closed",
             "true"
