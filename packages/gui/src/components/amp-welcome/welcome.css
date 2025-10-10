@@ -11,7 +11,7 @@
     right: 0;
     bottom: 0;
     z-index: $z-index-modal;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: $looks-secondary;
     backdrop-filter: blur(1px);
     display: flex;
 }
@@ -20,34 +20,27 @@
     outline: none;
     padding: 0;
     box-shadow: 0 0 0 4px $ui-white-transparent-default;
-    border-radius: $space;
+    border-radius: calc($space * 2);
     user-select: none;
-    width: 640px;
     color: $text-primary;
     overflow: hidden;
     font-family: "Inter Variable", "Helvetica Neue", Helvetica, sans-serif;
     background: $ui-white;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     margin: auto;
+    width: calc(100% - 280px);
+    height: calc(100% - 280px);
 }
 
 .illustration {
-    width: 100%;
-    height: 200px;
-    background: linear-gradient(
-        135deg,
-        $looks-secondary 0%,
-        $motion-tertiary 100%
-    );
+    width: 400px;
+    height: 100%;
     background-image:
-        url("./welcome-banner.svg"),
-        linear-gradient(135deg, $looks-secondary 0%, $motion-tertiary 100%);
+        url("./welcome-banner.svg"), linear-gradient(0, $pen-primary 100%);
     background-repeat: no-repeat;
     background-position: center;
     background-size: contain;
-    border-top-left-radius: $space;
-    border-top-right-radius: $space;
 }
 
 .body {
@@ -55,6 +48,8 @@
     padding: 1.5rem 2.25rem;
     display: flex;
     flex-direction: column;
+    margin: auto;
+    width: 100%;
 }
 
 .body h2 {
@@ -68,7 +63,7 @@
     margin-bottom: 0.75rem;
 }
 
-.privacyPolicyLink {
+.body a {
     color: $looks-secondary;
     text-decoration: none;
 }
@@ -76,8 +71,6 @@
 .buttonRow {
     display: flex;
     flex-flow: row nowrap;
-    justify-content: center;
-    align-items: center;
     margin: 1.5rem 0 0 0;
     font-weight: bolder;
 }
@@ -101,15 +94,123 @@
     box-shadow: 0 0 0 6px $looks-transparent;
 }
 
-@media screen and (max-height: 660px) {
-    .welcomeContent {
-        margin: 5vh auto;
-        width: 90%;
-    }
-}
-
-@media screen and (max-height: 540px) {
+@media screen and (max-height: 820px) {
     .illustration {
         display: none;
     }
+    .welcomeContent {
+        height: auto;
+    }
+}
+
+.close-button {
+    margin: 10px;
+    margin-right: auto;
+}
+
+.themeSelectorRow {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    margin: 1.5rem 0 0 0;
+    justify-content: center;
+    align-items: center;
+}
+
+.themeSelectorButton {
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background 0.2s;
+    position: relative;
+    border: 1px solid $ui-black-transparent;
+}
+
+.themeSelectorButton[aria-pressed="true"] {
+    box-shadow: 0 0 0 4px $looks-transparent;
+    background: $ui-white-transparent-default;
+}
+
+.themeSelectorIconOuter {
+    width: 128px;
+    height: 64px;
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    margin-bottom: 0.5rem;
+    border: 1px solid $ui-black-transparent;
+    overflow: hidden;
+}
+
+.themeSelectorIconMenubar {
+    height: 16px;
+    display: flex;
+    vertical-align: center;
+    align-items: center;
+}
+
+.themeSelectorIconFakeBlocks {
+    flex: 1;
+    border-radius: 0.5rem;
+    margin: 2px;
+}
+
+.themeSelectorCheck {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    width: 18px;
+    height: 14px;
+    pointer-events: none;
+}
+
+.themeSelectorLabel {
+    font-size: 1rem;
+    font-weight: 500;
+    color: $text-primary;
+    text-transform: capitalize;
+    margin-top: 0.25rem;
+    text-align: center;
+}
+
+.gui-theme-icon-outer {
+    width: 48px;
+    height: 48px;
+    border: 2px solid $ui-black-transparent;
+    border-radius: 12px;
+    margin: 1.1px;
+    box-sizing: border-box;
+    transform-origin: center;
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+}
+
+.gui-theme-icon-menubar {
+    height: 12px;
+    width: 100%;
+    background-color: $menu-bar-background;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+}
+
+.gui-theme-icon-menubar-no-custom-menu-bar {
+    background-image: $menu-bar-background-image;
+}
+
+.gui-theme-icon-fake-blocks {
+    flex-grow: 1;
+    border-width: 2px;
+    border-style: solid;
+    margin: 1.4px;
+    border-radius: 8px;
 }
