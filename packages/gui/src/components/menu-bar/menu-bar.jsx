@@ -1116,6 +1116,11 @@ class MenuBar extends React.Component {
                 </div>
 
                 <div className={styles.accountInfoGroup}>
+                    {process.env.ampmod_mode === "lab" && (
+                        <span>
+                            Lab: {process.env.ampmod_lab_experiment_name_full}
+                        </span>
+                    )}
                     <TWSaveStatus
                         showSaveFilePicker={this.props.showSaveFilePicker}
                     />

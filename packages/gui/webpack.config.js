@@ -212,6 +212,9 @@ along with this program. If not, see <https://www.gnu.org/licenses/>.
             "process.env.ampmod_lab_experiment_name": JSON.stringify(
                 process.env.LAB_EXPERIMENT_NAME || "default"
             ),
+            "process.env.ampmod_lab_experiment_name_full": JSON.stringify(
+                process.env.LAB_EXPERIMENT_NAME_FULL || "AmpMod Lab"
+            ),
             "process.env.ampmod_is_cbp": IS_CBP_BUILD,
         }),
         new CopyWebpackPlugin({
