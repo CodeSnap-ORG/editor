@@ -45,7 +45,12 @@ class TWNews extends React.Component {
     render() {
         const today = new Date();
         const is911 = today.getMonth() === 8 && today.getDate() === 11; // September is month 8 (0-indexed)
-        if (this.state.closed || isScratchDesktop() || is911) {
+        if (
+            this.state.closed ||
+            isScratchDesktop() ||
+            is911 ||
+            process.env.ampmod_mode === "lab"
+        ) {
             return null;
         }
         return (
