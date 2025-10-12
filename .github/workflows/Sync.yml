@@ -46,10 +46,10 @@ jobs:
             git commit -m "Sync from Codeberg: update $file" || echo "No changes in $file"
           done
 
-      - name: Push changes
+      - name: Push changes to develop branch
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git remote remove origin
-          git remote add origin https://github.com/CodeSnap-ORG/editor
-          git push origin HEAD:develop
+          # Ensure we push to the current repo’s develop branch
+          REPO_URL="https://github.com/${{ github.repository }}.git"
+          git push "$REPO_URL" HEAD:develop
