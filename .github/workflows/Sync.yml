@@ -21,7 +21,7 @@ jobs:
 
       - name: Clone public Codeberg repo (read-only)
         run: |
-          git clone develop https://codeberg.org/ampmod/ampmod.git temp-src
+          git clone https://codeberg.org/ampmod/ampmod.git temp-src
 
       - name: Copy new or updated files (non-destructive)
         run: |
