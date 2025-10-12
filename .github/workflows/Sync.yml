@@ -20,16 +20,16 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Clone Codeberg repo
+        run: |
+          git clone --depth=1 https://codeberg.org/ampmod/ampmod temp-src
+          cp -r temp-src/* .
+          rm -rf temp-src
+
       - name: Keep Any changes
         run: |
           rsync -av --ignore-existing temp-src/ .
           rsync -av --update temp-src/ .
-          rm -rf temp-src
-
-      - name: Clone Codeberg repo
-        run: |
-          git clone --depth=1 https://codeberg.org/ampmod/aw3 temp-src
-          cp -r temp-src/* .
           rm -rf temp-src
 
       - name: Commit changes
