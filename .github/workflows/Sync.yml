@@ -1,0 +1,54 @@
+name: Sync from Codeberg
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "0 0 * * *" # runs daily at midnight (UTC)
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout current repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Clone public Codeberg repo (read-only)
+        run: |
+          git clone --depth=1 develop https://codeberg.org/ampmod/ampmod.git temp-src || \
+          git clone --depth=1 git://codeberg.org/ampmod/ampmod.git temp-src
+
+      - name: Copy new or updated files (non-destructive)
+        run: |
+          rsync -av --ignore-existing temp-src/ .
+          rsync -av --update temp-src/ .
+          rm -rf temp-src
+
+      - name: Commit each changed file individually
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          changed_files=$(git status --porcelain | awk '{print $2}')
+
+          if [ -z "$changed_files" ]; then
+            echo "No changes to commit"
+            exit 0
+          fi
+
+          for file in $changed_files; do
+            git add "$file"
+            git commit -m "Sync from Codeberg: update $file" || echo "No changes in $file"
+          done
+
+      - name: Push changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git push origin HEAD:main
