@@ -2,11 +2,12 @@ name: Sync from Codeberg
 
 on:
   workflow_dispatch:
+  push:
   schedule:
-    - cron: "0 0 * * *" # runs daily at midnight (UTC)
+    - cron: "* * * * *"
 
 permissions:
-  contents: write
+  contents: write  # allow pushing
 
 jobs:
   sync:
@@ -19,37 +20,27 @@ jobs:
           fetch-depth: 0
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Clone public Codeberg repo (read-only)
-        run: |
-          git clone https://codeberg.org/ampmod/ampmod.git temp-src
-
-      - name: Copy new or updated files (non-destructive)
+      - name: Keep Any changes
         run: |
           rsync -av --ignore-existing temp-src/ .
           rsync -av --update temp-src/ .
           rm -rf temp-src
 
-      - name: Commit each changed file individually
+      - name: Clone Codeberg repo
+        run: |
+          git clone --depth=1 https://codeberg.org/ampmod/aw3 temp-src
+          cp -r temp-src/* .
+          rm -rf temp-src
+
+      - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Sync from Codeberg repo" || echo "No changes to commit"
 
-          changed_files=$(git status --porcelain | awk '{print $2}')
-
-          if [ -z "$changed_files" ]; then
-            echo "No changes to commit"
-            exit 0
-          fi
-
-          for file in $changed_files; do
-            git add "$file"
-            git commit -m "Sync from Codeberg: update $file" || echo "No changes in $file"
-          done
-
-      - name: Push changes to develop branch
+      - name: Push changes
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Ensure we push to the current repo’s develop branch
-          REPO_URL="https://github.com/${{ github.repository }}.git"
-          git push "$REPO_URL" HEAD:develop
+          git push origin HEAD:develop
